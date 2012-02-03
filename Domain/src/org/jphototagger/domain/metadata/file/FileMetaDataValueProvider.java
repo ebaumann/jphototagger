@@ -3,10 +3,9 @@ package org.jphototagger.domain.metadata.file;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.openide.util.lookup.ServiceProvider;
 
@@ -18,9 +17,9 @@ import org.jphototagger.domain.metadata.MetaDataValueProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = MetaDataValueProvider.class)
-public final class FileMetaDataValueProvider implements MetaDataValueProvider{
+public final class FileMetaDataValueProvider implements MetaDataValueProvider {
 
-    private static final Set<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<MetaDataValue>();
 
     static {
         PROVIDED_META_DATA_VALUES.add(FilesFilenameMetaDataValue.INSTANCE);
@@ -29,7 +28,7 @@ public final class FileMetaDataValueProvider implements MetaDataValueProvider{
 
     @Override
     public Collection<MetaDataValue> getProvidedValues() {
-        return Collections.unmodifiableCollection(PROVIDED_META_DATA_VALUES);
+        return new ArrayList<MetaDataValue>(PROVIDED_META_DATA_VALUES);
     }
 
     @Override
@@ -37,7 +36,7 @@ public final class FileMetaDataValueProvider implements MetaDataValueProvider{
         List<MetaDataValueData> metaData = new ArrayList<MetaDataValueData>();
 
         metaData.add(new MetaDataValueData(FilesFilenameMetaDataValue.INSTANCE, file.getAbsolutePath()));
-        metaData.add(new MetaDataValueData(FilesLastModifiedMetaDataValue.INSTANCE, file.lastModified()));
+        metaData.add(new MetaDataValueData(FilesLastModifiedMetaDataValue.INSTANCE, new Date(file.lastModified())));
 
         return metaData;
     }
@@ -46,5 +45,4 @@ public final class FileMetaDataValueProvider implements MetaDataValueProvider{
     public int getPosition() {
         return 5;
     }
-
 }

@@ -115,9 +115,9 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         labelDirectoryPrompt = new javax.swing.JLabel();
         labelDirectory = new javax.swing.JLabel();
         buttonChooseDirectory = new javax.swing.JButton();
+        checkBoxShowSettings = new javax.swing.JCheckBox();
         checkBoxInputFilename = new javax.swing.JCheckBox();
         checkBoxOpenReport = new javax.swing.JCheckBox();
-        checkBoxShowSettings = new javax.swing.JCheckBox();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -185,6 +185,20 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
         add(panelDirectory, gridBagConstraints);
 
+        checkBoxShowSettings.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxShowSettings.text")); // NOI18N
+        checkBoxShowSettings.setName("checkBoxShowSettings"); // NOI18N
+        checkBoxShowSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxShowSettingsActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        add(checkBoxShowSettings, gridBagConstraints);
+
         checkBoxInputFilename.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxInputFilename.text")); // NOI18N
         checkBoxInputFilename.setName("checkBoxInputFilename"); // NOI18N
         checkBoxInputFilename.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +210,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         add(checkBoxInputFilename, gridBagConstraints);
 
         checkBoxOpenReport.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxOpenReport.text")); // NOI18N
@@ -210,22 +224,8 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        add(checkBoxOpenReport, gridBagConstraints);
-
-        checkBoxShowSettings.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxShowSettings.text")); // NOI18N
-        checkBoxShowSettings.setName("checkBoxShowSettings"); // NOI18N
-        checkBoxShowSettings.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxShowSettingsActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        add(checkBoxShowSettings, gridBagConstraints);
+        add(checkBoxOpenReport, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonChooseDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirectoryActionPerformed

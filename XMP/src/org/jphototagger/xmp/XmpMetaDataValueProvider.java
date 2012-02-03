@@ -4,9 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +23,7 @@ import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 @ServiceProvider(service = MetaDataValueProvider.class)
 public final class XmpMetaDataValueProvider implements MetaDataValueProvider {
 
-    private static final Set<MetaDataValue> XMP_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>(XmpMetaDataValues.get());
+    private static final List<MetaDataValue> XMP_META_DATA_VALUES = new LinkedList<MetaDataValue>(XmpMetaDataValues.get());
 
     @Override
     public Collection<MetaDataValue> getProvidedValues() {
