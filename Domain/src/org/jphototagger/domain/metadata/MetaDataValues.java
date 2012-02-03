@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.jphototagger.domain.metadata.exif.ExifMetaDataValues;
 import org.jphototagger.domain.metadata.file.FilesMetaDataValues;
+import org.jphototagger.domain.metadata.thumbnails.ThumbnailsThumbnailMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 
 /**
@@ -26,6 +27,7 @@ public final class MetaDataValues {
         for (MetaDataValue metaDataValue : ExifMetaDataValues.get()) {
             VALUES.add(metaDataValue);
         }
+        VALUES.add(ThumbnailsThumbnailMetaDataValue.INSTANCE);
     }
 
     public static Collection<? extends MetaDataValue> get() {
