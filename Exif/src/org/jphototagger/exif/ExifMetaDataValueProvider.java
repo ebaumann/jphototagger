@@ -4,9 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,7 +27,7 @@ import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue
 @ServiceProvider(service = MetaDataValueProvider.class)
 public final class ExifMetaDataValueProvider implements MetaDataValueProvider {
 
-    private static final Set<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<MetaDataValue>();
 
     static {
         PROVIDED_META_DATA_VALUES.add(ExifDateTimeOriginalMetaDataValue.INSTANCE);

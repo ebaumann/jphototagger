@@ -4,10 +4,8 @@ import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
@@ -23,7 +21,7 @@ import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 @ServiceProvider(service = MetaDataValueProvider.class)
 public final class ThumbnailMetaDataValueProvider implements MetaDataValueProvider {
 
-    private static final Set<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<MetaDataValue>();
 
     static {
         PROVIDED_META_DATA_VALUES.add(ThumbnailsThumbnailMetaDataValue.INSTANCE);
@@ -31,7 +29,7 @@ public final class ThumbnailMetaDataValueProvider implements MetaDataValueProvid
 
     @Override
     public Collection<MetaDataValue> getProvidedValues() {
-        return Collections.unmodifiableCollection(PROVIDED_META_DATA_VALUES);
+        return new ArrayList<MetaDataValue>(PROVIDED_META_DATA_VALUES);
     }
 
     @Override
