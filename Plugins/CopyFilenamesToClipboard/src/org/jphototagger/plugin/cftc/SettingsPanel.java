@@ -114,19 +114,30 @@ public class SettingsPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelDelimiter = new javax.swing.JPanel();
         label = new javax.swing.JLabel();
         comboBoxDelimiter = new javax.swing.JComboBox();
+        panelFill = new javax.swing.JPanel();
+        panelVersion = new javax.swing.JPanel();
         labelVersion = new javax.swing.JLabel();
         buttonHelp = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
+
+        panelDelimiter.setName("panelDelimiter"); // NOI18N
+        panelDelimiter.setLayout(new java.awt.GridBagLayout());
 
         label.setDisplayedMnemonic('t');
         label.setLabelFor(comboBoxDelimiter);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/cftc/Bundle"); // NOI18N
         label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
         label.setName("label"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelDelimiter.add(label, gridBagConstraints);
 
         comboBoxDelimiter.setModel(model);
         comboBoxDelimiter.setName("comboBoxDelimiter"); // NOI18N
@@ -136,9 +147,47 @@ public class SettingsPanel extends javax.swing.JPanel {
                 comboBoxDelimiterActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelDelimiter.add(comboBoxDelimiter, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        add(panelDelimiter, gridBagConstraints);
+
+        panelFill.setName("panelFill"); // NOI18N
+
+        javax.swing.GroupLayout panelFillLayout = new javax.swing.GroupLayout(panelFill);
+        panelFill.setLayout(panelFillLayout);
+        panelFillLayout.setHorizontalGroup(
+            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 645, Short.MAX_VALUE)
+        );
+        panelFillLayout.setVerticalGroup(
+            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 156, Short.MAX_VALUE)
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(panelFill, gridBagConstraints);
+
+        panelVersion.setName("panelVersion"); // NOI18N
+        panelVersion.setLayout(new java.awt.GridBagLayout());
 
         labelVersion.setText(bundle.getString("SettingsPanel.labelVersion.text")); // NOI18N
         labelVersion.setName("labelVersion"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelVersion.add(labelVersion, gridBagConstraints);
 
         buttonHelp.setText(bundle.getString("SettingsPanel.buttonHelp.text")); // NOI18N
         buttonHelp.setName("buttonHelp"); // NOI18N
@@ -147,40 +196,18 @@ public class SettingsPanel extends javax.swing.JPanel {
                 buttonHelpActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelVersion.add(buttonHelp, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(label)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboBoxDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(labelVersion))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(buttonHelp)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label)
-                    .addComponent(comboBoxDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                .addComponent(buttonHelp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelVersion)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        add(panelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void comboBoxDelimiterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxDelimiterActionPerformed
@@ -195,5 +222,8 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox comboBoxDelimiter;
     private javax.swing.JLabel label;
     private javax.swing.JLabel labelVersion;
+    private javax.swing.JPanel panelDelimiter;
+    private javax.swing.JPanel panelFill;
+    private javax.swing.JPanel panelVersion;
     // End of variables declaration//GEN-END:variables
 }

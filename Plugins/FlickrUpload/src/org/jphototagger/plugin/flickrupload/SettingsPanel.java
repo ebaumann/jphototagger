@@ -39,21 +39,32 @@ public class SettingsPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelPrivileges = new javax.swing.JPanel();
         label = new javax.swing.JLabel();
         buttonDeleteToken = new javax.swing.JButton();
         panelXmp = new javax.swing.JPanel();
         checkBoxDcSubjects = new javax.swing.JCheckBox();
         checkBoxPhotoshopHeadline = new javax.swing.JCheckBox();
         checkBoxDcDescription = new javax.swing.JCheckBox();
+        panelFill = new javax.swing.JPanel();
+        panelVersion = new javax.swing.JPanel();
         labelVersionInfo = new javax.swing.JLabel();
         buttonHelp = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
+
+        panelPrivileges.setName("panelPrivileges"); // NOI18N
+        panelPrivileges.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/flickrupload/Bundle"); // NOI18N
         label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
         label.setName("label"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelPrivileges.add(label, gridBagConstraints);
 
         buttonDeleteToken.setText(bundle.getString("SettingsPanel.buttonDeleteToken.text")); // NOI18N
         buttonDeleteToken.setName("buttonDeleteToken"); // NOI18N
@@ -62,6 +73,18 @@ public class SettingsPanel extends javax.swing.JPanel {
                 buttonDeleteTokenActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelPrivileges.add(buttonDeleteToken, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        add(panelPrivileges, gridBagConstraints);
 
         panelXmp.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsPanel.panelXmp.border.title"))); // NOI18N
         panelXmp.setName("panelXmp"); // NOI18N
@@ -97,10 +120,10 @@ public class SettingsPanel extends javax.swing.JPanel {
             .addGroup(panelXmpLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelXmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxDcDescription)
                     .addComponent(checkBoxDcSubjects)
-                    .addComponent(checkBoxPhotoshopHeadline)
-                    .addComponent(checkBoxDcDescription))
-                .addContainerGap(352, Short.MAX_VALUE))
+                    .addComponent(checkBoxPhotoshopHeadline))
+                .addContainerGap(410, Short.MAX_VALUE))
         );
         panelXmpLayout.setVerticalGroup(
             panelXmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +136,43 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        add(panelXmp, gridBagConstraints);
+
+        panelFill.setName("panelFill"); // NOI18N
+
+        javax.swing.GroupLayout panelFillLayout = new javax.swing.GroupLayout(panelFill);
+        panelFill.setLayout(panelFillLayout);
+        panelFillLayout.setHorizontalGroup(
+            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 586, Short.MAX_VALUE)
+        );
+        panelFillLayout.setVerticalGroup(
+            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 42, Short.MAX_VALUE)
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(panelFill, gridBagConstraints);
+
+        panelVersion.setName("panelVersion"); // NOI18N
+        panelVersion.setLayout(new java.awt.GridBagLayout());
+
         labelVersionInfo.setText(bundle.getString("SettingsPanel.labelVersionInfo.text")); // NOI18N
         labelVersionInfo.setName("labelVersionInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelVersion.add(labelVersionInfo, gridBagConstraints);
 
         buttonHelp.setText(bundle.getString("SettingsPanel.buttonHelp.text")); // NOI18N
         buttonHelp.setName("buttonHelp"); // NOI18N
@@ -123,38 +181,17 @@ public class SettingsPanel extends javax.swing.JPanel {
                 buttonHelpActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelVersion.add(buttonHelp, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelXmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonDeleteToken))
-                    .addComponent(labelVersionInfo)
-                    .addComponent(buttonHelp, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(label)
-                    .addComponent(buttonDeleteToken))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelXmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                .addComponent(buttonHelp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelVersionInfo)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        add(panelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonDeleteTokenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteTokenActionPerformed
@@ -191,6 +228,9 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkBoxPhotoshopHeadline;
     private javax.swing.JLabel label;
     private javax.swing.JLabel labelVersionInfo;
+    private javax.swing.JPanel panelFill;
+    private javax.swing.JPanel panelPrivileges;
+    private javax.swing.JPanel panelVersion;
     private javax.swing.JPanel panelXmp;
     // End of variables declaration//GEN-END:variables
 }
