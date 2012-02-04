@@ -31,6 +31,7 @@ import org.jphototagger.domain.metadata.file.FilesFilenameMetaDataValue;
 import org.jphototagger.domain.metadata.thumbnails.ThumbnailsThumbnailMetaDataValue;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.awt.DesktopUtil;
+import org.jphototagger.lib.help.HelpContentProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.swing.IconUtil;
@@ -45,7 +46,7 @@ import org.jphototagger.lib.util.SystemProperties;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileProcessorPlugin.class)
-public final class HtmlReports implements FileProcessorPlugin {
+public final class HtmlReports implements FileProcessorPlugin, HelpContentProvider {
 
     private static final String THUMBNAILS_DIR_NAME = "thumbnails";
     private static final String CSS_FILE_NAME = "report.css";
@@ -354,5 +355,15 @@ public final class HtmlReports implements FileProcessorPlugin {
     @Override
     public Component getSettingsComponent() {
         return new HtmlReportsSettingsPanel();
+    }
+
+    @Override
+    public String getHelpContentUrl() {
+        return "/org/jphototagger/plugin/htmlreports/help/contents.xml";
+    }
+
+    @Override
+    public int getPosition() {
+        return 300;
     }
 }

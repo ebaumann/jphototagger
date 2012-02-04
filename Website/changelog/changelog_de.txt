@@ -3,6 +3,16 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.16.0 2012-04-02
+-----------------
+
+* Neues Plugin: HTML-Bericht: Erzeugt für im Vorschaubildfenster ausgewählte
+  Bilder HTML-Dateien von frei definierbaren Metadaten über die Bilder wie
+  Vorschaubild, Stichwörter, Bildbeschreibung. Einstellungen unter
+  "Bearbeiten > Einstellungen > Plugins > HTML-Bericht". Dort gibt es eine
+  Hilfe-Schaltfläche mit (vorerst wenigen) weiteren Informationen.
+  Ausführen über das Vorschaubildfenster-Kontextmenü: "Plugins > HTML-Bericht".
+
 0.15.3 2012-01-28
 -----------------
 
