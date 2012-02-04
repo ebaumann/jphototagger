@@ -244,15 +244,11 @@ public final class MnemonicUtil {
             throw new NullPointerException("component == null");
         }
 
-        MnemonicIndexString mnemonicIndexString = null;
-
         if (component instanceof JLabel) {
             JLabel label = (JLabel) component;
             String text = label.getText();
-
-            if (text != null) {
-                mnemonicIndexString = getMnemonic(text);
-
+            if (text != null && !isHtmlText(text)) {
+                MnemonicIndexString mnemonicIndexString = getMnemonic(text);
                 if (hasMnemonic(mnemonicIndexString)) {
                     label.setText(mnemonicIndexString.string);
                     label.setDisplayedMnemonic(mnemonicIndexString.index);
@@ -261,10 +257,8 @@ public final class MnemonicUtil {
         } else if (component instanceof AbstractButton) {
             AbstractButton button = (AbstractButton) component;
             String text = button.getText();
-
-            if (text != null) {
-                mnemonicIndexString = getMnemonic(text);
-
+            if (text != null && !isHtmlText(text)) {
+                MnemonicIndexString mnemonicIndexString = getMnemonic(text);
                 if (hasMnemonic(mnemonicIndexString)) {
                     button.setText(mnemonicIndexString.string);
                     button.setMnemonic(mnemonicIndexString.index);
@@ -273,6 +267,11 @@ public final class MnemonicUtil {
         } else if (component instanceof JTabbedPane) {
             TabbedPaneUtil.setMnemonics((JTabbedPane) component);
         }
+    }
+
+    private static boolean isHtmlText(String string) {
+        String lcString = string == null ? "" : string.toLowerCase().trim();
+        return lcString.startsWith("<html");
     }
 
     private static boolean hasMnemonic(MnemonicIndexString p) {
