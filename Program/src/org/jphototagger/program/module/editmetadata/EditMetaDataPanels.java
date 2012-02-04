@@ -167,11 +167,10 @@ final class EditMetaDataPanels implements FocusListener {
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        boolean canEdit = false;
         List<File> selFiles = evt.getSelectedFiles();
 
         if (evt.isAFileSelected()) {
-            canEdit = canEdit(selFiles);
+            boolean canEdit = canEdit(selFiles);
             setEditable(canEdit);
             setFiles(selFiles);
         } else {
@@ -1055,13 +1054,12 @@ final class EditMetaDataPanels implements FocusListener {
     }
 
     private void insertValuesOfExternalUpdatedXmp(final File file, final Xmp xmp) {
-        FileXmp currentFileXmpInEdit = null;
         synchronized (monitor) {
             if (!isAsSingleFileInEdit(file) || isDirty()) {
                 return;
             }
 
-            currentFileXmpInEdit = filesXmp.get(0);
+            FileXmp currentFileXmpInEdit = filesXmp.get(0);
             filesXmp.set(0, new FileXmp(file, xmp));
 
             Xmp currentXmpInEdit = currentFileXmpInEdit.getXmp();
