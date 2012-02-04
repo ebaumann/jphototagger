@@ -117,7 +117,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         label = new javax.swing.JLabel();
         comboBoxDelimiter = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
+        labelVersion = new javax.swing.JLabel();
         buttonHelp = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
@@ -137,8 +137,8 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText(bundle.getString("SettingsPanel.jLabel1.text")); // NOI18N
-        jLabel1.setName("jLabel1"); // NOI18N
+        labelVersion.setText(bundle.getString("SettingsPanel.labelVersion.text")); // NOI18N
+        labelVersion.setName("labelVersion"); // NOI18N
 
         buttonHelp.setText(bundle.getString("SettingsPanel.buttonHelp.text")); // NOI18N
         buttonHelp.setName("buttonHelp"); // NOI18N
@@ -156,14 +156,16 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(483, Short.MAX_VALUE)
-                .addComponent(buttonHelp)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxDelimiter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelVersion))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(buttonHelp)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -176,7 +178,7 @@ public class SettingsPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addComponent(buttonHelp)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(labelVersion)
                 .addContainerGap())
         );
     }//GEN-END:initComponents
@@ -191,7 +193,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHelp;
     private javax.swing.JComboBox comboBoxDelimiter;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel label;
+    private javax.swing.JLabel labelVersion;
     // End of variables declaration//GEN-END:variables
 }
