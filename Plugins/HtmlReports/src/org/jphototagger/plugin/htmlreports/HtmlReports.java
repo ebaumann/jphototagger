@@ -96,7 +96,7 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
             EventBus.publish(new FileProcessedEvent(this, file, false));
         }
         template = template.replace(HTML_TEMPLATE_REPLACE_PATTERN_TABLE, table.toString());
-        FileUtil.writeStringAsFile(template, htmlFile);
+        FileUtil.writeStringAsFile(template, "UTF-8", htmlFile);
     }
 
     private String createTableHeading() {
