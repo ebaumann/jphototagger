@@ -69,6 +69,25 @@ public final class FileUtil {
         }
     }
 
+    public static void writeStringAsFile(String string, String charsetName, File file) throws IOException {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+        if (charsetName == null) {
+            throw new NullPointerException("charsetName == null");
+        }
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(string.getBytes(charsetName));
+        } finally {
+            IoUtil.close(fos);
+        }
+    }
+
     /**
      * Returns the content of a file als byte array.
      *
