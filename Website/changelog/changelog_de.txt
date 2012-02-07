@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.16.1 2012-04-07
+-----------------
+
+* Bugfix HTML-Bericht: Die Zeichen in der HTML-Datei sind nun explizit
+  UTF-8-kodiert, unter Windows wurde (implizt) Codepage 1252 benutzt,
+  was zu fehlerhaften Darstellung von Nicht-ASCII-Zeichen führte, z.B.
+  bei Umlauten.
+
 0.16.0 2012-04-02
 -----------------
 
