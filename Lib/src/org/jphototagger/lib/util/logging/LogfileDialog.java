@@ -386,7 +386,10 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     @Override
     public void setVisible(boolean visible) {
-        if (visible && checkFileSize()) {
+        if (visible && !checkFileSize()) {
+            return;
+        }
+        if (visible) {
             boolean simpleFormatter = formatterClass.equals(SimpleFormatter.class);
             boolean xmlFormatter = formatterClass.equals(XMLFormatter.class);
 
