@@ -12,7 +12,6 @@ import javax.swing.filechooser.FileSystemView;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
@@ -47,30 +46,28 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
             checkBoxInputFilename.setSelected(prefs.getBoolean(HtmlReportsPreferencesKeys.KEY_INPUT_FILENAME_BEFORE_CREATING));
             checkBoxOpenReport.setSelected(prefs.getBoolean(HtmlReportsPreferencesKeys.KEY_OPEN_REPORT_AFTER_CREATING));
             checkBoxShowSettings.setSelected(prefs.getBoolean(HtmlReportsPreferencesKeys.KEY_SHOW_SETTINGS_BEFORE_CREATING));
-            setDirectory();
+            setReportsDirectory();
         }
     }
 
-    private void setDirectory() {
+    private void setReportsDirectory() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String dirPathname = prefs.getString(HtmlReportsPreferencesKeys.KEY_DIRECTORY);
         File dir;
         if (StringUtil.hasContent(dirPathname)) {
             dir = new File(dirPathname);
         } else {
-            PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
-            String parentDirname = provider.getPluginPreferencesDirectory().getAbsolutePath();
-            dir = new File(parentDirname + File.separator + "Html-Reports");
+            dir = new File(HtmlReports.getDefaultReportsDirectoryName());
             try {
                 FileUtil.ensureDirectoryExists(dir);
             } catch (IOException ex) {
                 Logger.getLogger(HtmlReportsSettingsPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        setDirectory(dir);
+        setReportsDirectory(dir);
     }
 
-    private void setDirectory(File dir) {
+    private void setReportsDirectory(File dir) {
         labelDirectory.setText(dir.getAbsolutePath());
         if (dir.isDirectory()) {
             labelDirectory.setIcon(FileSystemView.getFileSystemView().getSystemIcon(dir));
@@ -90,7 +87,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
             List<File> selectedDirectories = dirChooser.getSelectedDirectories();
             if (!selectedDirectories.isEmpty()) {
                 File selectedDir = CollectionUtil.getFirstElement(selectedDirectories);
-                setDirectory(selectedDir);
+                setReportsDirectory(selectedDir);
                 Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
                 prefs.setString(HtmlReportsPreferencesKeys.KEY_DIRECTORY, selectedDir.getAbsolutePath());
             }
@@ -286,7 +283,6 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
     private void buttonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpActionPerformed
         showHelp();
     }//GEN-LAST:event_buttonHelpActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseDirectory;
     private javax.swing.JButton buttonHelp;

@@ -23,6 +23,7 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValue.ValueType;
 import org.jphototagger.domain.metadata.MetaDataValueData;
@@ -273,11 +274,12 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
         }
     }
 
-    private void ensureDirectoriesExisting() {
+    private void ensureDirectoriesExisting() throws IOException {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String dirPath = prefs.getString(HtmlReportsPreferencesKeys.KEY_DIRECTORY);
         if (!StringUtil.hasContent(dirPath)) {
-            throw new IllegalStateException("Directory for HTML Reports is not defined!");
+            dirPath = getDefaultReportsDirectoryName();
+            FileUtil.ensureDirectoryExists(new File(dirPath));
         }
         File dir = new File(dirPath);
         if (dir.exists() && !dir.isDirectory()) {
@@ -296,6 +298,12 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
         if (!thumbnailsDirectory.mkdir()) {
             throw new IllegalStateException("Error while creating thumbnails directory'" + dir + "'for HTML Reports!");
         }
+    }
+
+    static String getDefaultReportsDirectoryName() {
+        PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+        String parentDirname = provider.getPluginPreferencesDirectory().getAbsolutePath();
+        return parentDirname + File.separator + "Html-Reports";
     }
 
     private void ensureFilesExisting() throws IOException {
