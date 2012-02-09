@@ -29,6 +29,7 @@
         <h2>Discussion</h2>
         <ul>
             <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="https://groups.google.com/group/jphototagger-users-english">Users English Language</a></li>
             <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
         </ul>
         <h2>Tracking</h2>
@@ -45,7 +46,7 @@
         <h1>Creating Thumbnails: dcraw and ImageMagick in a Batch File (2)</h1>
 
         <p>Usage for <strong>RAW files</strong>.</p>
-        
+
         <ul>
             <li>If not installed, download and install
                 <a href="http://www.cybercom.net/~dcoffin/dcraw/">DCRaw</a> and
@@ -57,7 +58,7 @@
             <li>Write into the text field under <strong>External image creation application:</strong><br />
                     <code>"Path_to_Batch_file" "%s" %i</code>
                     <br />
-                    where <code>"Path_to_Batch_file"</code> is something like <code>"C:\Batch\dcraw.bat"</code> 
+                    where <code>"Path_to_Batch_file"</code> is something like <code>"C:\Batch\dcraw.bat"</code>
                     (the folder path where the batch file is stored included the batch file name)
             </li>
         </ul>
@@ -66,7 +67,7 @@
 
         <p>Written by <strong>Matthias Vonken</strong>. You have to fit the paths to <code>dcraw.exe</code> and
             <code>convert.exe</code>.</p>
-        
+
 <pre>@echo off
 set IMAGE=%1
 set MAX_DIM=%2
@@ -87,7 +88,7 @@ goto END
 
 :END
 </pre>
-        
+
         <p><strong>Author:</strong> Elmar Baumann
             <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20ImageMagick%20one%20liner">Write e-Mail</a>
             <br /><strong>Status of this document:</strong> 2011-05-05
