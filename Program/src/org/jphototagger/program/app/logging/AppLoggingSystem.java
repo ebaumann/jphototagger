@@ -25,7 +25,7 @@ public final class AppLoggingSystem {
     private static final String ERROR_MESSAGES_LOGFILE_PATH;
     private static final String LOGFILE_DIR_PATHNAME;
     private static final String LOGFILE_PATH_PREFIX;
-    // Holding a Reference ensures not loosing the Handlers (LogManager stores Loggers as Weak References)
+    // Keeping a Reference ensures not loosing the Handlers (LogManager stores Loggers as Weak References)
     private static final Logger APP_LOGGER = Logger.getLogger("org.jphototagger");
     private static boolean init;
 
@@ -150,12 +150,14 @@ public final class AppLoggingSystem {
         });
     }
 
-    static String getErrorMessagesLogfilePath() {
+    /**
+     * @return full path name
+     */
+    public static String getErrorMessagesLogfilePath() {
         return ERROR_MESSAGES_LOGFILE_PATH;
     }
 
     /**
-     *
      * @return full path name
      */
     public static String getAllMessagesLogfilePath() {
