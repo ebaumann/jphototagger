@@ -30,7 +30,10 @@ final class SendBugReportMailAction extends AbstractAction {
         String mailto = AppInfo.MAIL_TO_ADDRESS_BUGS;
         String subject = AppInfo.MAIL_SUBJECT_BUGS;
         String allMessagesLogfilePath = AppLoggingSystem.getAllMessagesLogfilePath();
-        String message = Bundle.getString(ShowHelpAction.class, "SendBugReportMailAction.Info.AttachLogfile", allMessagesLogfilePath);
+        String errorMessagesLogfilePath = AppLoggingSystem.getErrorMessagesLogfilePath();
+        String message = Bundle.getString(ShowHelpAction.class,
+                "SendBugReportMailAction.Info.AttachLogfile",
+                allMessagesLogfilePath, errorMessagesLogfilePath);
 
         SendMail.sendMail(mailto, subject, message);
     }
