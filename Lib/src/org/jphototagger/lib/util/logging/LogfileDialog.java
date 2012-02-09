@@ -31,8 +31,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.html.HTMLDocument;
 
+import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -46,6 +48,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private static final long serialVersionUID  = 1L;
     public static final long  DEFAULT_MAX_BYTES = 10 * 1024 * 1024;
+    private static final float MEGABYTE_IN_BYTES = 1024 * 1024;
     private long maxBytes = DEFAULT_MAX_BYTES;
     private final Map<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
     private final Map<JCheckBox, JLabel> iconLabelOfCheckBox = new HashMap<JCheckBox, JLabel>();
@@ -163,13 +166,14 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     }
 
     private boolean checkFileSize() {
-        long logfileBytes = new File(logfilename).length();
+        File logfile = new File(logfilename);
+        long logfileBytes = logfile.length();
 
         if (logfileBytes <= 0) {
             errorMessageEmpty();
             return false;
         } else if (logfileBytes >= maxBytes) {
-            errorMessageMaxBytes(logfileBytes);
+            errorMessageMaxBytes();
             return false;
         }
 
@@ -183,12 +187,17 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
-    private void errorMessageMaxBytes(long logfileBytes) {
-        int maxSizeInMeagbytes = Math.round((float) logfileBytes / (float) maxBytes);
-        String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.MaximumSizeExceeded", maxSizeInMeagbytes);
-        String title = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.MaximumSizeExceeded.Title");
-
-        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    private void errorMessageMaxBytes() {
+        File logfile = new File(logfilename);
+        long logfileBytes = logfile.length();
+        int logfileSizeInMegabytes = Math.round((float) logfileBytes / MEGABYTE_IN_BYTES);
+        int maxSizeInMeagbytes = Math.round((float) maxBytes / MEGABYTE_IN_BYTES);
+        String message = Bundle.getString(LogfileDialog.class,
+                "LogfileDialog.Error.MaximumSizeExceeded",
+                logfileSizeInMegabytes, maxSizeInMeagbytes);
+        if (MessageDisplayer.confirmYesNo(this, message)) {
+            DesktopUtil.open(logfile, "LogfileDialog.OpenLogfile");
+        }
     }
 
     public long getMaxBytes() {
