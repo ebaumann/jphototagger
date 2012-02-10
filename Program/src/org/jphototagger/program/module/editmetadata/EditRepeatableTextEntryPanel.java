@@ -533,7 +533,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     private void renameListItem(int modelIndex) {
-        boolean ready = false;
+        boolean ready;
         String fromName = model.getElementAt(modelIndex).toString();
         String toName = null;
 
@@ -544,7 +544,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
             toName = MessageDisplayer.input(info, input);
             ready = toName == null;
 
-            if ((toName != null) && toName.trim().equalsIgnoreCase(fromName)) {
+            if ((toName != null) && toName.trim().equals(fromName)) {
                 String message = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.Confirm.SameNames");
                 ready = !MessageDisplayer.confirmYesNo(list, message);
                 toName = null;
