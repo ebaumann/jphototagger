@@ -89,7 +89,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void createAction() {
         ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(true);
 
+        setActionsAlwaysDialogOnTop(false);
+        dlg.toFront();
         dlg.setVisible(true);
+        setActionsAlwaysDialogOnTop(true);
 
         if (dlg.isAccepted()) {
             Program program = dlg.getProgram();
@@ -116,7 +119,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
             ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(true);
 
             dlg.setProgram(program);
+            setActionsAlwaysDialogOnTop(false);
+            dlg.toFront();
             dlg.setVisible(true);
+            setActionsAlwaysDialogOnTop(true);
 
             if (dlg.isAccepted()) {
                 programsRepo.updateProgram(program);
@@ -125,6 +131,16 @@ public final class ActionsPanel extends javax.swing.JPanel {
 
         setEnabled();
         list.requestFocusInWindow();
+    }
+
+    private void setActionsAlwaysDialogOnTop(boolean onTop) {
+        if (ActionsDialog.INSTANCE.isAncestorOf(this)) {
+            ActionsDialog.INSTANCE.setAlwaysOnTop(onTop);
+            if (onTop) {
+                ActionsDialog.INSTANCE.toFront();
+                ActionsDialog.INSTANCE.requestFocusInWindow();
+            }
+        }
     }
 
     private void handleListKeyPressed(KeyEvent evt) {
