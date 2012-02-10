@@ -247,6 +247,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
         dlg.setStorageKey("FileEditorPanel.DirChooser");
         dlg.setVisible(true);
+        ComponentUtil.parentWindowToFront(this);
 
         if (dlg.isAccepted()) {
             selectedDirectories = dlg.getSelectedDirectories();
