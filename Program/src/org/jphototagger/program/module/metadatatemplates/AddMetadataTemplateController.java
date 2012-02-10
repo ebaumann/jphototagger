@@ -42,8 +42,9 @@ public final class AddMetadataTemplateController extends MetadataTemplateControl
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
-
-        return evt.getSource() == MetadataTemplatesPopupMenu.INSTANCE.getItemAdd();
+        Object source = evt.getSource();
+        return source == MetadataTemplatesPopupMenu.INSTANCE.getItemAdd()
+                || source == getAddButtonInputHelper();
     }
 
     @Override
