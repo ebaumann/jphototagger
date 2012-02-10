@@ -695,6 +695,7 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void buttonChooseFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFilesActionPerformed
         chooseSourceFiles();
+        toFront();
     }//GEN-LAST:event_buttonChooseFilesActionPerformed
 
     private void checkBoxDeleteAfterCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteAfterCopyActionPerformed
@@ -703,6 +704,7 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void buttonChooseScriptFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseScriptFileActionPerformed
         chooseAndSetScriptFile();
+        toFront();
     }//GEN-LAST:event_buttonChooseScriptFileActionPerformed
 
     private void buttonRemoveScriptFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveScriptFileActionPerformed

@@ -487,6 +487,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
 
     private void buttonShowActionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowActionsActionPerformed
         showActions();
+        ComponentUtil.parentWindowToFront(this);
     }//GEN-LAST:event_buttonShowActionsActionPerformed
 
     private void buttonMoveUpActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMoveUpActionActionPerformed
@@ -503,6 +504,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
 
     private void buttonAddActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionActionPerformed
         addAction();
+        ComponentUtil.parentWindowToFront(this);
     }//GEN-LAST:event_buttonAddActionActionPerformed
 
     private void radioButtonExecuteAlwaysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonExecuteAlwaysActionPerformed
