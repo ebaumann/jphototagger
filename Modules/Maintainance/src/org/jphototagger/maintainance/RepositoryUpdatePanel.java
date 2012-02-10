@@ -14,6 +14,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.HelperThread;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -113,6 +114,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
 
         setEnabledAllButtons(false);
         dlg.setVisible(true);
+        ComponentUtil.parentWindowToFront(this);
         setEnabledAllButtons(true);
     }
 
