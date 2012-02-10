@@ -53,7 +53,7 @@ public final class RenameKeywordsController extends KeywordsListController {
             String fromName = keywords.get(0);
             String toName = getNewName(fromName);
 
-            if ((toName != null) && !toName.equalsIgnoreCase(fromName)) {
+            if ((toName != null) && !toName.equals(fromName)) {
                 KeywordsUtil.renameDcSubject(fromName, toName);
             }
         } else if (size > 1) {
@@ -77,7 +77,7 @@ public final class RenameKeywordsController extends KeywordsListController {
 
             if (dlg.isAccepted()) {
                 String newName = dlg.getInput();
-                boolean equals = (newName != null) && !newName.trim().isEmpty() && newName.equalsIgnoreCase(fromName);
+                boolean equals = (newName != null) && !newName.trim().isEmpty() && newName.equals(fromName);
 
                 if (equals) {
                     String message = Bundle.getString(RenameKeywordsController.class, "RenameKeywordsController.Confirm.NewName");

@@ -10,7 +10,7 @@ public final class AppInfo {
 
     public static final String APP_NAME = "JPhotoTagger";
     // Never change that scheme: "[0-9]+\.[0-9]+\.[0-9]+"!
-    public static final String APP_VERSION = "0.16.1";
+    public static final String APP_VERSION = "0.16.2";
     /**
      * ("Historical") Name of this project.
      * <p>

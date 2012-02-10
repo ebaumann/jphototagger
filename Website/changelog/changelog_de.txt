@@ -3,7 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.16.1 2012-04-07
+0.16.2 2012-02-11
+-----------------
+
+* Listenansicht Stichwörter im Kartenreiter rechts: Gleiche Stichwörter,
+  die sich nur in Groß-/Klein-Schreibung unterscheiden, z.B. "Glas" und
+  "glas" können umbenannt werden, z.B. "glas" nach "Glas".
+
+0.16.1 2012-02-07
 -----------------
 
 * Bugfix HTML-Bericht: Die Zeichen in der HTML-Datei sind nun explizit
@@ -11,7 +18,7 @@ Changelog JPhotoTagger http://jphototagger.org/
   was zu fehlerhaften Darstellung von Nicht-ASCII-Zeichen führte, z.B.
   bei Umlauten.
 
-0.16.0 2012-04-02
+0.16.0 2012-02-04
 -----------------
 
 * Neues Plugin: HTML-Bericht: Erzeugt für im Vorschaubildfenster ausgewählte
