@@ -92,6 +92,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
         dlg.setStorageKey("IptcToXmpDialog.DirChooser");
         dlg.setVisible(true);
+        toFront();
 
         if (dlg.isAccepted()) {
             directory = dlg.getSelectedDirectories().get(0);
