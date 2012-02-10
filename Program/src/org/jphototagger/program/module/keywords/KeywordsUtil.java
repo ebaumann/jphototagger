@@ -435,9 +435,7 @@ public final class KeywordsUtil {
             throw new NullPointerException("toName == null");
         }
 
-        assert !fromName.equalsIgnoreCase(toName);
-
-        if (!fromName.equalsIgnoreCase(toName)) {
+        if (!fromName.equals(toName)) {
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
             RenameDcSubject renameDcSubject = new RenameDcSubject(fromName, toName);
 
