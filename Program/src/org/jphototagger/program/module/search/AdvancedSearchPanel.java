@@ -83,7 +83,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     private boolean isAutocomplete() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage == null
                 ? true
                 : storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
@@ -98,7 +97,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     private void addPanelPadding() {
         GridBagConstraints gbc = new GridBagConstraints();
-
         gbc.gridx = 0;
         gbc.gridy = GridBagConstraints.RELATIVE;
         gbc.weightx = 1;
@@ -107,7 +105,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gbc.gridheight = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.BOTH;
-
         panelColumns.add(panelPadding, gbc);
     }
 
@@ -187,7 +184,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private boolean checkIsSearchValid() {
-        if (!checkConsistent()) {
+        if (!checkSearchTypeIsUnique()) {
             return false;
         }
         if (existsCustomSqlText()) {
@@ -210,9 +207,16 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         return valid;
     }
 
-    private boolean checkConsistent() {
-        if (existsCustomSqlText() && (existsKeywords() || existsSimpleSqlValue())) {
-            MessageDisplayer.error(this, "AdvancedSearchPanel.Error.Inconsistent");
+    boolean checkSearchTypeIsUnique() {
+        boolean customSqlTextExists = existsCustomSqlText();
+        boolean keywordsExisting = existsKeywords();
+        boolean simpleSqlValueExists = existsSimpleSqlValue();
+        boolean unique = customSqlTextExists && ! keywordsExisting && !simpleSqlValueExists
+                || keywordsExisting && !customSqlTextExists && !simpleSqlValueExists
+                || simpleSqlValueExists && !customSqlTextExists && !keywordsExisting;
+        if (!unique) {
+            String message = Bundle.getString(AdvancedSearchPanel.class, "AdvancedSearchPanel.Error.Inconsistent");
+            MessageDisplayer.error(this, message);
             return false;
         }
         return true;
@@ -426,7 +430,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private void checkChanged() {
         if (columnRemoved || columnChanged() || customSqlChanged || panelKeywordsInput.isDirty()) {
             String message = Bundle.getString(AdvancedSearchPanel.class, "AdvancedSearchPanel.Confirm.SaveChanges");
-
             if (MessageDisplayer.confirmYesNo(this, message)) {
                 save(createSavedSearch(), true);
             }
@@ -493,7 +496,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         for (int index = 0; index < size; index++) {
             SearchMetaDataValuePanel panel = searchColumnPanels.get(index);
             SavedSearchPanel savedSearchPanel = panel.getSavedSearchPanel();
-
             if (savedSearchPanel.hasValue()) {
                 savedSearchPanel.setPanelIndex(pIndex);
                 pIndex++;
