@@ -156,6 +156,9 @@ public final class ComponentUtil {
     }
 
     public static Frame findParentFrame(Component component) {
+        if (component == null) {
+            throw new NullPointerException("component == null");
+        }
         Container parent = component.getParent();
         while (parent != null) {
             if ((parent instanceof Frame)) {
@@ -166,6 +169,20 @@ public final class ComponentUtil {
         return null;
     }
 
+    public static void parentWindowToFront(Component component) {
+        if (component == null) {
+            throw new NullPointerException("component == null");
+        }
+        Container parent = component.getParent();
+        while (parent != null) {
+            if ((parent instanceof Window)) {
+                Window parentWindow = (Window)parent;
+                parentWindow.toFront();
+                return;
+            }
+            parent = parent.getParent();
+        }
+    }
 
     private ComponentUtil() {
     }
