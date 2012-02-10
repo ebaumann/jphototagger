@@ -28,8 +28,8 @@ public final class AdvancedSearchDialog extends Dialog implements NameListener {
         if (visible) {
             panel.restore();
             setSearchName(panel.getSearchName());
+            panel.checkSearchTypeIsUnique();
         }
-
         super.setVisible(visible);
     }
 
@@ -62,7 +62,6 @@ public final class AdvancedSearchDialog extends Dialog implements NameListener {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         setSearchName(name);
     }
 
