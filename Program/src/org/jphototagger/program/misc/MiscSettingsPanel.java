@@ -29,6 +29,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
@@ -61,6 +62,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         dlg.setStorageKey("MiscSettingsPanel.DirChooser");
         dlg.setVisible(true);
+        ComponentUtil.parentWindowToFront(this);
 
         if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);

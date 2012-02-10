@@ -147,6 +147,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
         dlg.setStorageKey("CopyToDirectoryDialog.DirChooser");
         dlg.setVisible(true);
+        toFront();
 
         if (dlg.isAccepted()) {
             List<File> files = dlg.getSelectedDirectories();

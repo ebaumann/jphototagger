@@ -83,6 +83,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         Frame parent = ComponentUtil.findFrameWithIcon();
         DirectoryChooser dirChooser = new DirectoryChooser(parent, startDir, Option.NO_OPTION);
         dirChooser.setVisible(true);
+        ComponentUtil.parentWindowToFront(this);
         if (dirChooser.isAccepted()) {
             List<File> selectedDirectories = dirChooser.getSelectedDirectories();
             if (!selectedDirectories.isEmpty()) {

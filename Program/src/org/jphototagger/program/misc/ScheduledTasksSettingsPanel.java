@@ -19,6 +19,7 @@ import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
@@ -91,6 +92,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
 
         dlg.setStorageKey("ScheduledTasksSettingsPanel.DirChooser");
         dlg.setVisible(true);
+        ComponentUtil.parentWindowToFront(this);
 
         if (dlg.isAccepted()) {
             List<File> directories = dlg.getSelectedDirectories();
