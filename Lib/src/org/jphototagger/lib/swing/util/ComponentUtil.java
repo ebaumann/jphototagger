@@ -155,6 +155,18 @@ public final class ComponentUtil {
         return new Font(fontName, Font.BOLD, fontSize);
     }
 
+    public static Frame findParentFrame(Component component) {
+        Container parent = component.getParent();
+        while (parent != null) {
+            if ((parent instanceof Frame)) {
+                return (Frame) parent;
+            }
+            parent = parent.getParent();
+        }
+        return null;
+    }
+
+
     private ComponentUtil() {
     }
 }
