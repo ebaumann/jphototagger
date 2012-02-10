@@ -52,6 +52,7 @@ public final class FavoritePropertiesDialog extends Dialog {
 
         dlg.setStorageKey("FavoritePropertiesDialog.DirChooser");
         dlg.setVisible(true);
+        toFront();
 
         if (dlg.isAccepted()) {
             setDirectory(dlg.getSelectedDirectories().get(0));

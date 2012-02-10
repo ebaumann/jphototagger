@@ -322,6 +322,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         dlg.setStorageKey("ImportImageFilesDialog.DirChooser");
         dlg.setVisible(true);
+        toFront();
 
         return dlg.isAccepted()
                ? dlg.getSelectedDirectories().get(0)

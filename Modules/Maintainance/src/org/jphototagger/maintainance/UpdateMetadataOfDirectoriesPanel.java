@@ -294,6 +294,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         buttonChooseDirectories.setEnabled(false);
         dlg.setStorageKey("UpdateMetadataOfDirectoriesPanel.DirChooser");
         dlg.setVisible(true);
+        ComponentUtil.parentWindowToFront(this);
 
         if (dlg.isAccepted()) {
             List<File> selectedDirs = dlg.getSelectedDirectories();

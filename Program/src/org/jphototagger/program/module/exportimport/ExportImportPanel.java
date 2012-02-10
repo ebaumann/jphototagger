@@ -174,6 +174,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
         dlg.setStorageKey("ExportImportPanel.DirChooser");
         dlg.setVisible(true);
+        ComponentUtil.parentWindowToFront(this);
 
         if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);

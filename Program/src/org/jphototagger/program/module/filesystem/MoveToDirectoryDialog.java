@@ -150,6 +150,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
         dlg.setStorageKey("MoveToDirectoriesDialog.DirChooser");
         dlg.setVisible(true);
+        toFront();
 
         if (dlg.isAccepted()) {
             List<File> files = dlg.getSelectedDirectories();
