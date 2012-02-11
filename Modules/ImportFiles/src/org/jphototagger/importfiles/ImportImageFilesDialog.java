@@ -34,6 +34,7 @@ public class ImportImageFilesDialog extends Dialog {
     private static final long serialVersionUID = 1L;
     private static final String KEY_LAST_SRC_DIR = "ImportImageFiles.LastSrcDir";
     private static final String KEY_LAST_TARGET_DIR = "ImportImageFiles.LastTargetDir";
+    private static final String KEY_AUTOCREATE_SUBDIRS = "ImportImageFiles.AutoCreateSubdirs";
     private static final String KEY_DEL_SRC_AFTER_COPY = "ImportImageFiles.DelSrcAfterCopy";
     private static final String KEY_LAST_SCRIPT_DIR = "ImportImageFiles.LastScriptDir";
     private static final String KEY_SCRIPT_FILE = "ImportImageFiles.LastScriptFile";
@@ -79,6 +80,7 @@ public class ImportImageFilesDialog extends Dialog {
         initDeleteSrcFilesAfterCopying();
         lookupPersistedScriptFile();
         lookupPersistedLastChoosenScriptDir();
+        lookupAutoCreateSubdirs();
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -132,8 +134,17 @@ public class ImportImageFilesDialog extends Dialog {
         return targetDir;
     }
 
+    public boolean isAutocreateSubdirs() {
+        return checkBoxAutoCreateSubdirs.isSelected();
+    }
+
     public boolean isAccepted() {
         return accepted;
+    }
+
+    private void persistAutoCreateSubdirs() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        preferences.setBoolean(KEY_AUTOCREATE_SUBDIRS, checkBoxAutoCreateSubdirs.isSelected());
     }
 
     private void setAccepted(boolean accepted) {
@@ -296,6 +307,14 @@ public class ImportImageFilesDialog extends Dialog {
         }
     }
 
+    private void lookupAutoCreateSubdirs() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+
+        if (preferences.containsKey(KEY_AUTOCREATE_SUBDIRS)) {
+            checkBoxAutoCreateSubdirs.setSelected(preferences.getBoolean(KEY_AUTOCREATE_SUBDIRS));
+        }
+    }
+
     private void removeScriptFile() {
         scriptFile = null;
         scriptFileLabel.setText("");
@@ -426,6 +445,7 @@ public class ImportImageFilesDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         sourceDirPanel = new org.jdesktop.swingx.JXPanel();
         labelSourceDir = new javax.swing.JLabel();
         buttonChooseSourceDir = new javax.swing.JButton();
@@ -436,6 +456,7 @@ public class ImportImageFilesDialog extends Dialog {
         targetDirPanel = new org.jdesktop.swingx.JXPanel();
         labelTargetDir = new javax.swing.JLabel();
         buttonChooseTargetDir = new javax.swing.JButton();
+        checkBoxAutoCreateSubdirs = new javax.swing.JCheckBox();
         scriptFilePanel = new org.jdesktop.swingx.JXPanel();
         scriptFileLabel = new javax.swing.JLabel();
         buttonRemoveScriptFile = new javax.swing.JButton();
@@ -451,6 +472,9 @@ public class ImportImageFilesDialog extends Dialog {
         setTitle(bundle.getString("ImportImageFilesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName(bundle.getString("ImportImageFilesDialog.panelContent.name")); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         sourceDirPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.sourceDirPanel.border.title"))); // NOI18N
         sourceDirPanel.setName("sourceDirPanel"); // NOI18N
@@ -497,8 +521,8 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        getContentPane().add(sourceDirPanel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(sourceDirPanel, gridBagConstraints);
 
         choosenFilesPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.choosenFilesPanel.border.title"))); // NOI18N
         choosenFilesPanel.setName("choosenFilesPanel"); // NOI18N
@@ -532,8 +556,8 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        getContentPane().add(choosenFilesPanel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(choosenFilesPanel, gridBagConstraints);
 
         targetDirPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.targetDirPanel.border.title"))); // NOI18N
         targetDirPanel.setName("targetDirPanel"); // NOI18N
@@ -546,7 +570,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         targetDirPanel.add(labelTargetDir, gridBagConstraints);
 
         buttonChooseTargetDir.setText(bundle.getString("ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
@@ -557,17 +581,32 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         targetDirPanel.add(buttonChooseTargetDir, gridBagConstraints);
+
+        checkBoxAutoCreateSubdirs.setText(bundle.getString("ImportImageFilesDialog.checkBoxAutoCreateSubdirs.text")); // NOI18N
+        checkBoxAutoCreateSubdirs.setName("checkBoxAutoCreateSubdirs"); // NOI18N
+        checkBoxAutoCreateSubdirs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAutoCreateSubdirsActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        targetDirPanel.add(checkBoxAutoCreateSubdirs, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        getContentPane().add(targetDirPanel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(targetDirPanel, gridBagConstraints);
 
         scriptFilePanel.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.scriptFilePanel.border.title"))); // NOI18N
         scriptFilePanel.setName("scriptFilePanel"); // NOI18N
@@ -624,8 +663,8 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
-        getContentPane().add(scriptFilePanel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(scriptFilePanel, gridBagConstraints);
 
         vPaddingPanel.setName("vPaddingPanel"); // NOI18N
 
@@ -643,7 +682,8 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
-        getContentPane().add(vPaddingPanel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(vPaddingPanel, gridBagConstraints);
 
         dialogControlButtonsPanel.setName("dialogControlButtonsPanel"); // NOI18N
         dialogControlButtonsPanel.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
@@ -671,8 +711,16 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 5);
-        getContentPane().add(dialogControlButtonsPanel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(dialogControlButtonsPanel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -711,6 +759,10 @@ public class ImportImageFilesDialog extends Dialog {
         removeScriptFile();
     }//GEN-LAST:event_buttonRemoveScriptFileActionPerformed
 
+    private void checkBoxAutoCreateSubdirsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAutoCreateSubdirsActionPerformed
+        persistAutoCreateSubdirs();
+    }//GEN-LAST:event_checkBoxAutoCreateSubdirsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -740,6 +792,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JButton buttonChooseTargetDir;
     private javax.swing.JButton buttonOk;
     private javax.swing.JButton buttonRemoveScriptFile;
+    private javax.swing.JCheckBox checkBoxAutoCreateSubdirs;
     private javax.swing.JCheckBox checkBoxDeleteAfterCopy;
     private org.jdesktop.swingx.JXPanel choosenFilesPanel;
     private org.jdesktop.swingx.JXPanel dialogControlButtonsPanel;
@@ -747,6 +800,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JLabel labelScriptFileInfo;
     private javax.swing.JLabel labelSourceDir;
     private javax.swing.JLabel labelTargetDir;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JLabel scriptFileLabel;
     private org.jdesktop.swingx.JXPanel scriptFilePanel;
     private org.jdesktop.swingx.JXPanel sourceDirPanel;

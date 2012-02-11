@@ -1,7 +1,10 @@
 package org.jphototagger.importfiles;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +24,7 @@ import org.jphototagger.domain.FileImportService;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.imagecollections.ImageCollectionService;
+import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
@@ -40,6 +44,7 @@ import org.jphototagger.lib.util.ProgressBarUpdater;
 public final class ImportImageFiles extends Thread implements FileImportService, ProgressListener {
 
     private static final String progressBarString = Bundle.getString(ImportImageFiles.class, "ImportImageFiles.Info.ProgressBar");
+    private static final DecimalFormat SUBDIR_DAY_MONTH_FORMAT = new DecimalFormat();
     private final List<File> copiedTargetFiles = new ArrayList<File>();
     private final List<File> copiedSourceFiles = new ArrayList<File>();
     private final List<SourceTargetFile> sourceTargetFiles;
@@ -50,16 +55,16 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     private final String scriptForRuntime;
     private static final Logger LOGGER = Logger.getLogger(ImportImageFiles.class.getName());
 
-    public ImportImageFiles() {
-        super("JPhotoTagger: Importing image files");
-        sourceTargetFiles = Collections.emptyList();
-        deleteScrFilesAfterCopying = false;
-        scriptFile = null;
-        targetDirectory = null;
-        scriptForRuntime = null;
+    static {
+        SUBDIR_DAY_MONTH_FORMAT.setMinimumIntegerDigits(2);
     }
 
-    private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, File targetDirectory, boolean deleteScrFilesAfterCopying, File scriptFile) {
+    public ImportImageFiles() {
+        this(Collections.<SourceTargetFile>emptyList(), null, false, null);
+    }
+
+    private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, File targetDirectory,
+            boolean deleteScrFilesAfterCopying, File scriptFile) {
         super("JPhotoTagger: Importing image files");
         this.sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceTargetFiles);
         this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
@@ -78,8 +83,12 @@ public final class ImportImageFiles extends Thread implements FileImportService,
         dlg.setVisible(true);
 
         if (dlg.isAccepted()) {
+            File targetDir = dlg.getTargetDir();
+            boolean createSubdirs = dlg.isAutocreateSubdirs();
+            boolean deleteSourceFilesAfterCopying = dlg.isDeleteSourceFilesAfterCopying();
+            File script = dlg.getScriptFile();
             if (dlg.filesChoosed()) {
-                copy(dlg.getSourceFiles(), dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying(), dlg.getScriptFile());
+                copy(dlg.getSourceFiles(), targetDir, createSubdirs, deleteSourceFilesAfterCopying, script);
             } else {
                 List<File> sourceDirectories = new ArrayList<File>();
                 File srcDir = dlg.getSourceDir();
@@ -89,31 +98,62 @@ public final class ImportImageFiles extends Thread implements FileImportService,
 
                 List<File> sourceImageFiles = FileFilterUtil.getImageFilesOfDirectories(sourceDirectories);
 
-                copy(sourceImageFiles, dlg.getTargetDir(), dlg.isDeleteSourceFilesAfterCopying(), dlg.getScriptFile());
+                copy(sourceImageFiles, targetDir, createSubdirs, deleteSourceFilesAfterCopying, script);
             }
         }
     }
 
-    private static void copy(List<File> sourceImageFiles, File targetDir, boolean deleteScrFilesAfterCopying, File scriptFile) {
+    private static void copy(List<File> sourceImageFiles, File targetDir, boolean autoCreateSubdirs,
+            boolean deleteScrFilesAfterCopying, File scriptFile) {
         if (sourceImageFiles.size() > 0) {
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
-            List<SourceTargetFile> scrTgtFiles = createSourceTargetFiles(sourceImageFiles, targetDir);
+            List<SourceTargetFile> scrTgtFiles = createSourceTargetFiles(sourceImageFiles, targetDir, autoCreateSubdirs);
             ImportImageFiles importImageFiles = new ImportImageFiles(scrTgtFiles, targetDir, deleteScrFilesAfterCopying, scriptFile);
             executor.addTask(importImageFiles);
         }
     }
 
-    private static List<SourceTargetFile> createSourceTargetFiles(Collection<? extends File> sourceFiles, File targetDirectory) {
+    private static List<SourceTargetFile> createSourceTargetFiles(
+            Collection<? extends File> sourceFiles, File targetDirectory, boolean autoCreateSubdirs) {
         List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceFiles.size());
         String targetDir = targetDirectory.getAbsolutePath();
-
         for (File sourceFile : sourceFiles) {
-            File targetFile = new File(targetDir + File.separator + sourceFile.getName());
-
+            File targetFile = createTargetFile(sourceFile, targetDir, autoCreateSubdirs);
+            ensureTargetDirExists(targetFile);
             sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
         }
-
         return sourceTargetFiles;
+    }
+
+    private static void ensureTargetDirExists(File targetFile) {
+        File parentFile = targetFile.getParentFile();
+        if (parentFile != null && !parentFile.exists()) {
+            try {
+                FileUtil.ensureDirectoryExists(parentFile);
+            } catch (Throwable t) {
+                Logger.getLogger(ImportImageFiles.class.getName()).log(Level.SEVERE, null, t);
+            }
+        }
+    }
+
+    private static File createTargetFile(File sourceFile, String targetDir, boolean autoCreateSubdirs) {
+        String subdir = autoCreateSubdirs
+                ? getDateDirString(sourceFile) + File.separator
+                : "";
+        return new File(targetDir + File.separator + subdir + sourceFile.getName());
+    }
+
+    private static String getDateDirString(File file) {
+        ExifInfo exifInfo = Lookup.getDefault().lookup(ExifInfo.class);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(exifInfo.getTimeTakenInMillis(file));
+        int day = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        String delimiter = "-";
+        return String.valueOf(year)
+                + delimiter + SUBDIR_DAY_MONTH_FORMAT.format(month)
+                + delimiter + SUBDIR_DAY_MONTH_FORMAT.format(day);
     }
 
     @Override
