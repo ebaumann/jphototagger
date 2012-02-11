@@ -6,6 +6,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.16.2 2012-02-11
 -----------------
 
+* Beim Import von Bildern ("Datei > Bilder importieren") können automatisch
+  Unterordner erzeugt werden anhand des Aufnahmedatums in der Form
+  YYYY-MM-TT, z.B. 2012-02-11
 * Listenansicht Stichwörter im Kartenreiter rechts: Gleiche Stichwörter,
   die sich nur in Groß-/Klein-Schreibung unterscheiden, z.B. "Glas" und
   "glas" können umbenannt werden, z.B. "glas" nach "Glas".
