@@ -211,7 +211,8 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         boolean customSqlTextExists = existsCustomSqlText();
         boolean keywordsExisting = existsKeywords();
         boolean simpleSqlValueExists = existsSimpleSqlValue();
-        boolean unique = customSqlTextExists && ! keywordsExisting && !simpleSqlValueExists
+        boolean unique = !customSqlTextExists && ! keywordsExisting && !simpleSqlValueExists
+                || customSqlTextExists && ! keywordsExisting && !simpleSqlValueExists
                 || keywordsExisting && !customSqlTextExists && !simpleSqlValueExists
                 || simpleSqlValueExists && !customSqlTextExists && !keywordsExisting;
         if (!unique) {
