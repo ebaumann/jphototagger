@@ -4,9 +4,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
-import org.openide.util.Lookup;
-
-import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.exportimport.ExportImportContext;
@@ -21,7 +18,6 @@ public final class JptExportAction extends AbstractAction {
 
     public JptExportAction() {
         super(Bundle.getString(JptExportAction.class, "JptExportAction.Name"));
-        Branding branding = Lookup.getDefault().lookup(Branding.class);
         putValue(SMALL_ICON, IconUtil.getImageIcon(JptExportAction.class, "jpt.png"));
     }
 

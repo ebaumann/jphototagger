@@ -30,7 +30,9 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
                 JMenu menuExport = new JMenu(Bundle.getString(MenuLayer.class, "MenuLayer.Name"));
                 menuExport.setIcon(IconUtil.getImageIcon(MenuLayer.class, "export.png"));
                 MnemonicUtil.setMnemonics(menuExport);
-                menuExport.add(new JMenuItem(new JptExportAction()));
+                JMenuItem itemExport = new JMenuItem(new JptExportAction());
+                MnemonicUtil.setMnemonics(itemExport);
+                menuExport.add(itemExport);
                 return menuExport;
             }
 

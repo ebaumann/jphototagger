@@ -26,6 +26,7 @@ import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
+import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.resource.GUI;
@@ -183,6 +184,7 @@ public final class AppFrame extends javax.swing.JFrame {
             menuGoto.add(new Separator(), index);
         }
         JMenuItem item = new JMenuItem(action);
+        MnemonicUtil.setMnemonics(item);
         menuGoto.insert(item, separatorBefore ? index + 1 : index);
     }
 
