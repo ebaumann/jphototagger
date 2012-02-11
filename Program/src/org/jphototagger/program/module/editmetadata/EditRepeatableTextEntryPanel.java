@@ -474,10 +474,31 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
     private void suggestText() {
         String trimmedInput = textAreaInput.getText().trim();
-
-        if ((suggest != null) &&!trimmedInput.isEmpty()) {
-            addToList(suggest.suggest(trimmedInput));
+        if (checkCanSuggest(trimmedInput)) {
+            Collection<String> suggestedText = suggest.suggest(trimmedInput);
+            if (suggest.isAccepted() && suggestedText.isEmpty()) {
+                String message = Bundle.getString(EditTextEntryPanel.class,
+                        "EditTextEntryPanel.Warning.SuggestTextNoSuggestionsFound",
+                        trimmedInput, suggest.getRequiresDescription());
+                MessageDisplayer.warning(this, message);
+            } else {
+                addToList(suggestedText);
+            }
         }
+    }
+
+    private boolean checkCanSuggest(String input) {
+        if (suggest == null) {
+            String message = Bundle.getString(EditTextEntryPanel.class, "EditTextEntryPanel.Warning.NoSuggestExists");
+            MessageDisplayer.warning(this, message);
+            return false;
+        }
+        if (input.isEmpty()) {
+            String message = Bundle.getString(EditTextEntryPanel.class, "EditTextEntryPanel.Warning.SuggestTextEmpty");
+            MessageDisplayer.warning(this, message);
+            return false;
+        }
+        return true;
     }
 
     private int addToList(Collection<String> texts) {

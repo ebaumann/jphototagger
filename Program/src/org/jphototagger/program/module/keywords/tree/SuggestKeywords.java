@@ -19,13 +19,13 @@ import org.jphototagger.lib.util.Bundle;
 public class SuggestKeywords implements Suggest {
 
     private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
+    private boolean accepted;
 
     @Override
     public Collection<String> suggest(String keywordName) {
         if (keywordName == null) {
             throw new NullPointerException("keywordName == null");
         }
-
         List<String> parentKeywordNames = new ArrayList<String>();
         Collection<Collection<Keyword>> parentKeywords = repo.findParentKeywords(keywordName, KeywordType.REAL_KEYWORD);
 
@@ -50,22 +50,23 @@ public class SuggestKeywords implements Suggest {
         return strings;
     }
 
-    private Collection<String> chooseParentKeywords(String keywordName, Collection<Collection<String>> parentKeywords) {
-        List<String> keywords = new ArrayList<String>();
-
-        if (parentKeywords.size() > 0) {
-            PathSelectionDialog dlg = new PathSelectionDialog(parentKeywords,
+    private Collection<String> chooseParentKeywords(String keywordName, Collection<Collection<String>> allParentKeywords) {
+        List<String> choosenParentKeywords = new ArrayList<String>();
+        accepted = true;
+        if (allParentKeywords.size() > 0) {
+            PathSelectionDialog dlg = new PathSelectionDialog(allParentKeywords,
                     PathSelectionDialog.Mode.DISTINCT_ELEMENTS);
 
             dlg.setInfoMessage(Bundle.getString(SuggestKeywords.class, "SuggestKeywords.Info", keywordName));
             dlg.setVisible(true);
 
             if (dlg.isAccepted()) {
-                addToKeywords(keywords, dlg.getSelPaths());
+                addToKeywords(choosenParentKeywords, dlg.getSelPaths());
             }
+            accepted = dlg.isAccepted();
         }
 
-        return keywords;
+        return choosenParentKeywords;
     }
 
     private void addToKeywords(Collection<String> keywords, Collection<Collection<String>> parentKeywords) {
@@ -77,5 +78,15 @@ public class SuggestKeywords implements Suggest {
     @Override
     public String getDescription() {
         return Bundle.getString(SuggestKeywords.class, "SuggestKeywords.Description");
+    }
+
+    @Override
+    public String getRequiresDescription() {
+        return Bundle.getString(SuggestKeywords.class, "SuggestKeywords.RequiresDescription");
+    }
+
+    @Override
+    public boolean isAccepted() {
+        return accepted;
     }
 }
