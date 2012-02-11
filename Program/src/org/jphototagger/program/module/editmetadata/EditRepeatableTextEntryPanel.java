@@ -491,8 +491,9 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
         for (String text : texts) {
             String trimmedText = text.trim();
-
-            if (!trimmedText.isEmpty() &&!model.contains(trimmedText)) {
+            if (!trimmedText.isEmpty()
+                    && checkAddElementExists(trimmedText)
+                    && checkAddElementWithEqualCaseExists(trimmedText)) {
                 model.addElement(trimmedText);
                 countAdded++;
                 notifyTextAdded(metaDataValue, trimmedText);
@@ -516,6 +517,29 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         ignoreIntervalAdded = false;
 
         return countAdded;
+    }
+
+    private boolean checkAddElementExists(String element) {
+        if (model.contains(element)) {
+            String message = Bundle.getString(EditTextEntryPanel.class,
+                    "EditTextEntryPanel.Warning.AddElementExists", element);
+            MessageDisplayer.warning(this, message);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkAddElementWithEqualCaseExists(String element) {
+        int size = model.getSize();
+        for (int index = 0; index < size; index++) {
+            String modelElement = (String) model.get(index);
+            if (element.equalsIgnoreCase(modelElement)) {
+                String message = Bundle.getString(EditRepeatableTextEntryPanel.class,
+                        "EditRepeatableTextEntryPanel.Confirm.AddElementWithEqualCaseExists", element);
+                return MessageDisplayer.confirmYesNo(this, message);
+            }
+        }
+        return true;
     }
 
     private void renameSelectedListItems() {
