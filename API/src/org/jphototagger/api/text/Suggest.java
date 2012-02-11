@@ -10,4 +10,8 @@ public interface Suggest {
     Collection<String> suggest(String input);
 
     String getDescription();
+
+    String getRequiresDescription();
+
+    boolean isAccepted();
 }
