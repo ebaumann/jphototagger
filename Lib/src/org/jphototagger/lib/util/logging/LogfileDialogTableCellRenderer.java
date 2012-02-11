@@ -19,8 +19,7 @@ import org.jphototagger.lib.util.Bundle;
 
 /**
  * Renders the {@code java.util.logging.Level} icons displayed in the GUI of
- * {@code org.jphototagger.lib.dialog.LogfileDialog}. Also formats dates and
- * selected table rows.
+ * {@code org.jphototagger.lib.dialog.LogfileDialog}. Also formats dates and selected table rows.
  *
  * @author Elmar Baumann
  */
@@ -29,6 +28,7 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
     private static final Color SEL_BACKGROUND_COLOR = new Color(251, 225, 146);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(Bundle.getString(LogfileDialogTableCellRenderer.class, "LogfileDialogTableCellRenderer.DateFormat"));
     private static final Map<Level, ImageIcon> ICON_OF_LEVEL = new HashMap<Level, ImageIcon>();
+    private final JLabel cellLabel = new JLabel();
 
     static {
         ICON_OF_LEVEL.put(Level.CONFIG, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_config.png"));
@@ -42,8 +42,6 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        JLabel cellLabel = new JLabel();
-
         if (value instanceof Level) {
             cellLabel.setIcon(getIcon((Level) value));
         } else if (value instanceof Date) {
