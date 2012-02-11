@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.16.3 2012-0-
+-----------------
+
+* Bugfix: Klick auf ggf. vorhandener GPS-Schaltfläche im EXIF-Fenster öffnet
+  Web-Browser mit Google-Maps
+
 0.16.2 2012-02-11
 -----------------
 
