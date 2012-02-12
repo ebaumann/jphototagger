@@ -832,4 +832,20 @@ public class Database {
 
         LOGGER.log(Level.FINEST, stmt.toString());
     }
+
+    /**
+     * @param parameterCount 1 or greater
+     * @return e.g. "?, ?, ?" if parameterCount is 3
+     */
+    static String createParametersString(int parameterCount) {
+        if (parameterCount < 1) {
+            throw new IllegalArgumentException("Parameter count less than 1: " + parameterCount);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int parameterIndex = 0; parameterIndex < parameterCount; parameterIndex++) {
+            sb.append(parameterIndex == 0 ? "" : ", ");
+            sb.append("?");
+        }
+        return sb.toString();
+    }
 }
