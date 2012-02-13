@@ -11,6 +11,10 @@ public interface WordsetsRepository {
 
     List<Wordset> findAll();
 
+    Wordset find(String wordsetName);
+
+    List<String> findAllWordsetNames();
+
     boolean insert(Wordset wordset);
 
     boolean remove(String wordsetName);
@@ -21,5 +25,7 @@ public interface WordsetsRepository {
 
     boolean removeFromWords(String wordsetName, String word);
 
-    boolean updateWord(String wordsetName, String oldWord, String newWord);
+    boolean renameWord(String wordsetName, String oldWord, String newWord);
+
+    boolean renameWordset(String oldWordsetName, String newWordsetName);
 }

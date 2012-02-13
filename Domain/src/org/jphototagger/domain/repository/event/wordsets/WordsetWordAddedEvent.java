@@ -1,5 +1,7 @@
 package org.jphototagger.domain.repository.event.wordsets;
 
+import org.jphototagger.lib.util.StringUtil;
+
 /**
  * @author Elmar Baumann
  */
@@ -13,11 +15,11 @@ public final class WordsetWordAddedEvent {
         if (source == null) {
             throw new NullPointerException("source == null");
         }
-        if (wordsetName == null) {
-            throw new NullPointerException("wordsetName == null");
+        if (!StringUtil.hasContent(wordsetName)) {
+            throw new IllegalArgumentException("Wordset name must have content: " + wordsetName);
         }
-        if (word == null) {
-            throw new NullPointerException("word == null");
+        if (!StringUtil.hasContent(word)) {
+            throw new IllegalArgumentException("Word must have content: " + word);
         }
         this.source = source;
         this.wordsetName = wordsetName;

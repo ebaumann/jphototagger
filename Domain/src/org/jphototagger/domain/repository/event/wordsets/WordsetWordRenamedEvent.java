@@ -1,27 +1,29 @@
 package org.jphototagger.domain.repository.event.wordsets;
 
+import org.jphototagger.lib.util.StringUtil;
+
 /**
  * @author Elmar Baumann
  */
-public final class WordsetWordUpdatedEvent {
+public final class WordsetWordRenamedEvent {
 
     private final Object source;
     private final String wordsetName;
     private final String oldWord;
     private final String newWord;
 
-    public WordsetWordUpdatedEvent(Object source, String wordsetName, String oldWord, String newWord) {
+    public WordsetWordRenamedEvent(Object source, String wordsetName, String oldWord, String newWord) {
         if (source == null) {
             throw new NullPointerException("source == null");
         }
-        if (wordsetName == null) {
-            throw new NullPointerException("wordsetName == null");
+        if (!StringUtil.hasContent(wordsetName)) {
+            throw new IllegalArgumentException("Wordset name must have content: " + wordsetName);
         }
-        if (oldWord == null) {
-            throw new NullPointerException("oldWord == null");
+        if (!StringUtil.hasContent(oldWord)) {
+            throw new IllegalArgumentException("Old word must have content: " + oldWord);
         }
-        if (newWord == null) {
-            throw new NullPointerException("newWord == null");
+        if (!StringUtil.hasContent(newWord)) {
+            throw new IllegalArgumentException("New word name must have content: " + newWord);
         }
         this.source = source;
         this.wordsetName = wordsetName;

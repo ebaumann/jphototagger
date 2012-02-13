@@ -762,6 +762,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonSuggestion = new javax.swing.JButton();
         scrollPaneTextArea = new javax.swing.JScrollPane();
         textAreaInput = new javax.swing.JTextArea();
+        panelWordsets = new org.jphototagger.program.module.wordsets.WordsetsPanel();
 
         popupMenuList.setName("popupMenuList"); // NOI18N
 
@@ -839,6 +840,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonRemoveSelection.setText("-"); // NOI18N
         buttonRemoveSelection.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
+        buttonRemoveSelection.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonRemoveSelection.setName("buttonRemoveSelection"); // NOI18N
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -851,6 +853,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonAddInput.setText("+"); // NOI18N
         buttonAddInput.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
+        buttonAddInput.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonAddInput.setName("buttonAddInput"); // NOI18N
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -863,6 +866,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonSuggestion.setText("K"); // NOI18N
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
+        buttonSuggestion.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonSuggestion.setName("buttonSuggestion"); // NOI18N
         buttonSuggestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -874,6 +878,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 1, 2);
@@ -905,6 +910,16 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
         add(scrollPaneTextArea, gridBagConstraints);
+
+        panelWordsets.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("EditRepeatableTextEntryPanel.panelWordsets.border.title"))); // NOI18N
+        panelWordsets.setName(bundle.getString("EditRepeatableTextEntryPanel.panelWordsets.name")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(panelWordsets, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddInputActionPerformed
@@ -951,6 +966,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private javax.swing.JMenuItem menuItemRemove;
     private javax.swing.JMenuItem menuItemRename;
     private javax.swing.JPanel panelButtons;
+    private org.jphototagger.program.module.wordsets.WordsetsPanel panelWordsets;
     private javax.swing.JPopupMenu popupMenuList;
     private javax.swing.JScrollPane scrollPaneList;
     private javax.swing.JScrollPane scrollPaneTextArea;

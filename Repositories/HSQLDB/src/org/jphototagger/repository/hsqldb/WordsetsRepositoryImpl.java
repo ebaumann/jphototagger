@@ -19,6 +19,16 @@ public final class WordsetsRepositoryImpl implements WordsetsRepository {
     }
 
     @Override
+    public Wordset find(String wordsetName) {
+        return WordsetsDatabase.INSTANCE.find(wordsetName);
+    }
+
+    @Override
+    public List<String> findAllWordsetNames() {
+        return WordsetsDatabase.INSTANCE.findAllWordsetNames();
+    }
+
+    @Override
     public boolean insert(Wordset wordset) {
         return WordsetsDatabase.INSTANCE.insert(wordset);
     }
@@ -44,7 +54,12 @@ public final class WordsetsRepositoryImpl implements WordsetsRepository {
     }
 
     @Override
-    public boolean updateWord(String wordsetName, String oldWord, String newWord) {
-        return WordsetsDatabase.INSTANCE.updateWord(wordsetName, oldWord, newWord);
+    public boolean renameWord(String wordsetName, String oldWord, String newWord) {
+        return WordsetsDatabase.INSTANCE.renameWord(wordsetName, oldWord, newWord);
+    }
+
+    @Override
+    public boolean renameWordset(String oldWordsetName, String newWordsetName) {
+        return WordsetsDatabase.INSTANCE.renameWordset(oldWordsetName, newWordsetName);
     }
 }

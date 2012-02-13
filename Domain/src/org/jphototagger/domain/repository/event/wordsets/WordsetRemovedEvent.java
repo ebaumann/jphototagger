@@ -1,5 +1,7 @@
 package org.jphototagger.domain.repository.event.wordsets;
 
+import org.jphototagger.lib.util.StringUtil;
+
 /**
  * @author Elmar Baumann
  */
@@ -12,8 +14,8 @@ public final class WordsetRemovedEvent {
         if (source == null) {
             throw new NullPointerException("source == null");
         }
-        if (wordsetName == null) {
-            throw new NullPointerException("wordsetName == null");
+        if (!StringUtil.hasContent(wordsetName)) {
+            throw new IllegalArgumentException("Wordset name must have content: " + wordsetName);
         }
         this.source = source;
         this.wordsetName = wordsetName;
@@ -23,7 +25,7 @@ public final class WordsetRemovedEvent {
         return source;
     }
 
-    public String getWordset() {
+    public String getWordsetName() {
         return wordsetName;
     }
 }
