@@ -2,6 +2,8 @@ package org.jphototagger.program.module.editmetadata;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
+import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -51,6 +53,8 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.AutocompleteUtil;
+import org.jphototagger.program.module.wordsets.WordsetsPanel;
+import org.jphototagger.program.module.wordsets.WordsetsPanelListener;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words,
@@ -70,9 +74,11 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private boolean editable = true;
     private boolean dirty = false;
     private Suggest suggest;
+    private boolean settingTexts;
     private boolean ignoreIntervalAdded;
     private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private Autocomplete autocomplete;
+    private WordsetsPanel panelWordsets;
     private Color editBackground;
 
     public EditRepeatableTextEntryPanel() {
@@ -98,6 +104,51 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         AnnotationProcessor.process(this);
         setPropmt();
         textAreaInput.setName("JPhotoTagger Text Area for " + metaDataValue.getDescription());
+    }
+
+    public void addWordsetsPanel() {
+        if (panelWordsets != null) {
+            return;
+        }
+        panelWordsets = new WordsetsPanel();
+        String wordsetsPanelBorderTitle = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.WordsetsPanelBorder.Title");
+        panelWordsets.setBorder(javax.swing.BorderFactory.createTitledBorder(wordsetsPanelBorderTitle));
+        panelWordsets.setName("panelWordsets." + metaDataValue.getCategory());
+        GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gbc.weightx = 1.0;
+        gbc.insets = new java.awt.Insets(5, 0, 5, 0);
+        add(panelWordsets, gbc);
+        panelWordsets.setPersistenceKeyPrefix(metaDataValue.getCategory());
+        panelWordsets.addWordsetsPanelListener(wordsetsPanelListener);
+        repaintGrandParent();
+    }
+
+    public void removeWordsetsPanel() {
+        if (panelWordsets != null) {
+            remove(panelWordsets);
+            panelWordsets = null;
+            repaintGrandParent();
+        }
+    }
+
+    private void repaintParent() {
+        Container parent = getParent();
+        if (parent != null) {
+            ComponentUtil.forceRepaint(parent);
+        }
+    }
+
+    private void repaintGrandParent() {
+        Container parent = getParent();
+        if (parent != null) {
+            parent = parent.getParent();
+            if (parent != null) {
+                ComponentUtil.forceRepaint(parent);
+            }
+        }
     }
 
     private void setPropmt() {
@@ -198,12 +249,13 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         if (texts == null) {
             throw new NullPointerException("texts == null");
         }
-
+        settingTexts = true;
         textAreaInput.setText("");
         model.removeAllElements();
         addToList(texts);
         setEnabledButtons();
         dirty = false;
+        settingTexts = false;
     }
 
     public JPopupMenu getPopupMenu() {
@@ -366,6 +418,9 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
         list.setBackground(background);
         textAreaInput.setBackground(background);
+        if (panelWordsets != null) {
+            panelWordsets.setEditable(editable);
+        }
     }
 
     @Override
@@ -516,6 +571,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
                     && checkAddElementExists(trimmedText)
                     && checkAddElementWithEqualCaseExists(trimmedText)) {
                 model.addElement(trimmedText);
+                addToAutomaticWordsetsPanel(trimmedText);
                 countAdded++;
                 notifyTextAdded(metaDataValue, trimmedText);
             }
@@ -538,6 +594,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         ignoreIntervalAdded = false;
 
         return countAdded;
+    }
+
+    private void addToAutomaticWordsetsPanel(String word) {
+        if (!settingTexts && panelWordsets != null) {
+            panelWordsets.addToAutomaticWordset(word);
+        }
     }
 
     private boolean checkAddElementExists(String element) {
@@ -739,6 +801,23 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         }
     }
 
+    @Override
+    public Collection<? extends Component> getExcludeFromAutoMnemonicComponents() {
+        return panelWordsets == null
+                ? Collections.<Component>emptyList()
+                : Arrays.asList(panelWordsets);
+    }
+
+    private final WordsetsPanelListener wordsetsPanelListener = new WordsetsPanelListener() {
+
+        @Override
+        public void wordClicked(String word) {
+            if (editable) {
+                addText(word);
+            }
+        }
+    };
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -762,7 +841,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonSuggestion = new javax.swing.JButton();
         scrollPaneTextArea = new javax.swing.JScrollPane();
         textAreaInput = new javax.swing.JTextArea();
-        panelWordsets = new org.jphototagger.program.module.wordsets.WordsetsPanel();
 
         popupMenuList.setName("popupMenuList"); // NOI18N
 
@@ -910,16 +988,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
         add(scrollPaneTextArea, gridBagConstraints);
-
-        panelWordsets.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("EditRepeatableTextEntryPanel.panelWordsets.border.title"))); // NOI18N
-        panelWordsets.setName(bundle.getString("EditRepeatableTextEntryPanel.panelWordsets.name")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
-        add(panelWordsets, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddInputActionPerformed
@@ -966,7 +1034,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private javax.swing.JMenuItem menuItemRemove;
     private javax.swing.JMenuItem menuItemRename;
     private javax.swing.JPanel panelButtons;
-    private org.jphototagger.program.module.wordsets.WordsetsPanel panelWordsets;
     private javax.swing.JPopupMenu popupMenuList;
     private javax.swing.JScrollPane scrollPaneList;
     private javax.swing.JScrollPane scrollPaneTextArea;

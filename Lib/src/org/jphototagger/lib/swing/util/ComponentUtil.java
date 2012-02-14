@@ -8,6 +8,7 @@ import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.Window;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public final class ComponentUtil {
     /**
      * Invalidates, validates and repaint a component.
      *
-     * @param component  component
+     * @param component component
      */
     public static void forceRepaint(Component component) {
         if (component == null) {
@@ -67,11 +68,9 @@ public final class ComponentUtil {
     }
 
     /**
-     * Returns the first found frame of {@code #findFramesWithIcons()}.
-     * <p>
-     * Especially for usage in a <code>JOptionPane#show...Dialog()</code>
-     * instead of null. Then in the dialog frame an icon will be displayed
-     * that is different to the Java "coffee cup" icon.
+     * Returns the first found frame of {@code #findFramesWithIcons()}. <p> Especially for usage in a
+     * <code>JOptionPane#show...Dialog()</code> instead of null. Then in the dialog frame an icon will be displayed that
+     * is different to the Java "coffee cup" icon.
      *
      * @return frame or null
      */
@@ -86,13 +85,12 @@ public final class ComponentUtil {
     /**
      * Returns all elements of a specific class from a container.
      *
-     * <em>Only elements of that class are detected, not sub- and
-     * supertyes!</em>
+     * <em>Only elements of that class are detected, not sub- and supertyes!</em>
      *
-     * @param <T>       class type
+     * @param <T> class type
      * @param container container
-     * @param clazz     class
-     * @return          found elements or empty list
+     * @param clazz class
+     * @return found elements or empty list
      */
     public static <T> List<T> getAllOf(Container container, Class<T> clazz) {
         if (container == null) {
@@ -123,6 +121,43 @@ public final class ComponentUtil {
 
             if (component instanceof Container) {
                 addAllOf((Container) component, clazz, all);    // Recursive
+            } else if (component.getClass().equals(clazz)) {
+                all.add((T) component);
+            }
+        }
+    }
+
+    public static <T> List<T> getAllOfExclude(Container container, Class<T> clazz, Collection<? extends Component> exclude) {
+        if (container == null) {
+            throw new NullPointerException("container == null");
+        }
+        if (clazz == null) {
+            throw new NullPointerException("clazz == null");
+        }
+        if (exclude == null) {
+            throw new NullPointerException("exclude == null");
+        }
+        List<T> components = new ArrayList<T>();
+        addAllOfExclude(container, clazz, components, exclude);
+        return components;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> void addAllOfExclude(Container container, Class<T> clazz, List<T> all, Collection<? extends Component> exclude) {
+        if (exclude.contains(container)) {
+            return;
+        }
+        if (container.getClass().equals(clazz)) {
+            all.add((T) container);
+        }
+        int count = container.getComponentCount();
+        for (int i = 0; i < count; i++) {
+            Component component = container.getComponent(i);
+            if (exclude.contains(component)) {
+                continue;
+            }
+            if (component instanceof Container) {
+                addAllOfExclude((Container) component, clazz, all, exclude);    // Recursive
             } else if (component.getClass().equals(clazz)) {
                 all.add((T) component);
             }
@@ -176,7 +211,7 @@ public final class ComponentUtil {
         Container parent = component.getParent();
         while (parent != null) {
             if ((parent instanceof Window)) {
-                Window parentWindow = (Window)parent;
+                Window parentWindow = (Window) parent;
                 parentWindow.toFront();
                 return;
             }

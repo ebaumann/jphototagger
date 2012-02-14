@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -271,6 +272,11 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         for (Component component : inputComponents) {
             component.removeMouseListener(l);
         }
+    }
+
+    @Override
+    public Collection<? extends Component> getExcludeFromAutoMnemonicComponents() {
+        return Collections.<Component>emptyList();
     }
 
     /**

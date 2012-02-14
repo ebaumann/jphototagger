@@ -3,6 +3,8 @@ package org.jphototagger.domain.text;
 import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.jphototagger.domain.event.listener.TextEntryListener;
@@ -135,5 +137,10 @@ public final class TextEntryContent implements TextEntry {
     @Override
     public void removeTextEntryListener(TextEntryListener listener) {
         // ignore
+    }
+
+    @Override
+    public Collection<? extends Component> getExcludeFromAutoMnemonicComponents() {
+        return Collections.emptyList();
     }
 }

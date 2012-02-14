@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -327,6 +329,11 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     public void focusLost(FocusEvent evt) {
         assert evt.getSource() instanceof JButton : evt.getSource();
         ((JButton) evt.getSource()).setBorder(null);
+    }
+
+    @Override
+    public Collection<? extends Component> getExcludeFromAutoMnemonicComponents() {
+        return Collections.<Component>emptyList();
     }
 
     /**
