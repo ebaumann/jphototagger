@@ -2,6 +2,7 @@ package org.jphototagger.domain.text;
 
 import java.awt.Component;
 import java.awt.event.MouseListener;
+import java.util.Collection;
 import java.util.List;
 
 import org.jphototagger.domain.event.listener.TextEntryListener;
@@ -46,6 +47,8 @@ public interface TextEntry {
      *         components
      */
     List<Component> getInputComponents();
+
+    Collection<? extends Component> getExcludeFromAutoMnemonicComponents();
 
     void addMouseListenerToInputComponents(MouseListener l);
 

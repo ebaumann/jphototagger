@@ -32,6 +32,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.module.wordsets.WordsetPreferences;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 
@@ -59,15 +60,12 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         File dir = null;
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), startDirectory, showHiddenDirs);
-
         dlg.setStorageKey("MiscSettingsPanel.DirChooser");
         dlg.setVisible(true);
         ComponentUtil.parentWindowToFront(this);
-
         if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);
         }
-
         return dir;
     }
 
@@ -79,7 +77,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private boolean isAcceptHiddenDirectories() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
@@ -91,16 +88,13 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void setAcceptHiddenDirectories(boolean accept) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         storage.setBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
     }
 
     private void chooseRepositoryDirectory() {
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
         File repositoryDirectory = provider.getFileRepositoryDirectory();
-
         File file = chooseDirectory(repositoryDirectory);
-
         if (file != null) {
             setRepositoryDirectoryName(file.getAbsolutePath());
             displayRepositoryDirectoryInfo();
@@ -109,7 +103,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void setRepositoryDirectoryName(String directoryName) {
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
         setIconRepositoryDirectory();
         labelRepositoryDirectory.setText(directoryName);
         preferences.setString(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY, directoryName);
@@ -117,17 +110,14 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void setIconRepositoryDirectory() {
         File dir = new File(labelRepositoryDirectory.getText());
-
         if (dir.isDirectory()) {
             Icon icon = FileSystemView.getFileSystemView().getSystemIcon(dir);
-
             labelRepositoryDirectory.setIcon(icon);
         }
     }
 
     private void setDefaultRepositoryDirectory() {
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
-
         setRepositoryDirectoryName(provider.getDefaultFileRepositoryDirectory().getAbsolutePath());
     }
 
@@ -145,8 +135,13 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void setDisplaySearchButton(boolean display) {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         storage.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON, display);
+    }
+
+    private void setDisplayWordsetsEditPanel() {
+        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        boolean display = checkBoxDisplayWordsetsEditPanel.isSelected();
+        storage.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_WORD_SETS_EDIT_PANEL, display);
     }
 
     private void setCopyMoveFiles() {
@@ -187,10 +182,10 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     @Override
     public void restore() {
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
-
         checkBoxCheckForUpdates.setSelected(isCheckForUpdates());
         checkBoxDisplaySearchButton.setSelected(isDisplaySearchButton());
         checkBoxIsAcceptHiddenDirectories.setSelected(isAcceptHiddenDirectories());
+        checkBoxDisplayWordsetsEditPanel.setSelected(WordsetPreferences.isDisplayWordsetsEditPanel());
         labelRepositoryDirectory.setText(provider.getFileRepositoryDirectory().getAbsolutePath());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyMoveFilesOptions.CONFIRM_OVERWRITE));
         radioButtonCopyMoveFileRenameIfExists.setSelected(getCopyMoveFilesOptions().equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS));
@@ -285,6 +280,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelCheckForUpdates = new javax.swing.JPanel();
         checkBoxCheckForUpdates = new javax.swing.JCheckBox();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
+        checkBoxDisplayWordsetsEditPanel = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
@@ -293,12 +289,14 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         buttonSetDefaultRepositoryDirectoryName = new javax.swing.JButton();
         buttonChooseRepositoryDirectory = new javax.swing.JButton();
         labelRepositoryDirectory = new javax.swing.JLabel();
+        panelFill = new javax.swing.JPanel();
 
         setName("Form"); // NOI18N
 
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelDefault.setName("panelDefault"); // NOI18N
+        panelDefault.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
         checkBoxIsAcceptHiddenDirectories.setText(bundle.getString("MiscSettingsPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
@@ -308,6 +306,12 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        panelDefault.add(checkBoxIsAcceptHiddenDirectories, gridBagConstraints);
 
         panelCheckForUpdates.setName("panelCheckForUpdates"); // NOI18N
         panelCheckForUpdates.setLayout(new java.awt.GridBagLayout());
@@ -324,6 +328,13 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelCheckForUpdates.add(checkBoxCheckForUpdates, gridBagConstraints);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelDefault.add(panelCheckForUpdates, gridBagConstraints);
+
         checkBoxDisplaySearchButton.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
         checkBoxDisplaySearchButton.setName("checkBoxDisplaySearchButton"); // NOI18N
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -331,6 +342,26 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 checkBoxDisplaySearchButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelDefault.add(checkBoxDisplaySearchButton, gridBagConstraints);
+
+        checkBoxDisplayWordsetsEditPanel.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.text")); // NOI18N
+        checkBoxDisplayWordsetsEditPanel.setName(bundle.getString("MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.name")); // NOI18N
+        checkBoxDisplayWordsetsEditPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDisplayWordsetsEditPanelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelDefault.add(checkBoxDisplayWordsetsEditPanel, gridBagConstraints);
 
         panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelCopyMoveFiles.border.title"))); // NOI18N
         panelCopyMoveFiles.setName("panelCopyMoveFiles"); // NOI18N
@@ -360,8 +391,8 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCopyMoveFilesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
-                    .addComponent(radioButtonCopyMoveFileConfirmOverwrite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                    .addComponent(radioButtonCopyMoveFileConfirmOverwrite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelCopyMoveFilesLayout.setVerticalGroup(
@@ -370,8 +401,16 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 .addComponent(radioButtonCopyMoveFileConfirmOverwrite)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radioButtonCopyMoveFileRenameIfExists)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        panelDefault.add(panelCopyMoveFiles, gridBagConstraints);
 
         panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelRepositoryDirectory.border.title"))); // NOI18N
         panelRepositoryDirectory.setName("panelRepositoryDirectory"); // NOI18N
@@ -407,7 +446,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelRepositoryDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelRepositoryDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)
+                    .addComponent(labelRepositoryDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
                     .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
                         .addComponent(labelInfoRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -428,35 +467,32 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout panelDefaultLayout = new javax.swing.GroupLayout(panelDefault);
-        panelDefault.setLayout(panelDefaultLayout);
-        panelDefaultLayout.setHorizontalGroup(
-            panelDefaultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDefaultLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDefaultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxIsAcceptHiddenDirectories)
-                    .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelCheckForUpdates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        panelDefault.add(panelRepositoryDirectory, gridBagConstraints);
+
+        panelFill.setName(bundle.getString("MiscSettingsPanel.panelFill.name")); // NOI18N
+
+        javax.swing.GroupLayout panelFillLayout = new javax.swing.GroupLayout(panelFill);
+        panelFill.setLayout(panelFillLayout);
+        panelFillLayout.setHorizontalGroup(
+            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        panelDefaultLayout.setVerticalGroup(
-            panelDefaultLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDefaultLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(checkBoxIsAcceptHiddenDirectories)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCheckForUpdates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(checkBoxDisplaySearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCopyMoveFiles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        panelFillLayout.setVerticalGroup(
+            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 1.0;
+        panelDefault.add(panelFill, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("MiscSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
 
@@ -473,7 +509,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }//GEN-END:initComponents
@@ -506,18 +542,25 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private void checkBoxDisplaySearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplaySearchButtonActionPerformed
         setDisplaySearchButton();
     }//GEN-LAST:event_checkBoxDisplaySearchButtonActionPerformed
+
+    private void checkBoxDisplayWordsetsEditPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDisplayWordsetsEditPanelActionPerformed
+        setDisplayWordsetsEditPanel();
+    }//GEN-LAST:event_checkBoxDisplayWordsetsEditPanelActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseRepositoryDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
     private javax.swing.JButton buttonSetDefaultRepositoryDirectoryName;
     private javax.swing.JCheckBox checkBoxCheckForUpdates;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
+    private javax.swing.JCheckBox checkBoxDisplayWordsetsEditPanel;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
     private javax.swing.JLabel labelRepositoryDirectory;
     private javax.swing.JPanel panelCheckForUpdates;
     private javax.swing.JPanel panelCopyMoveFiles;
     private javax.swing.JPanel panelDefault;
+    private javax.swing.JPanel panelFill;
     private javax.swing.JPanel panelRepositoryDirectory;
     private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;
     private javax.swing.JRadioButton radioButtonCopyMoveFileRenameIfExists;

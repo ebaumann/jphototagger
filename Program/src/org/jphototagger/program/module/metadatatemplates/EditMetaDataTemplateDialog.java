@@ -1,6 +1,8 @@
 package org.jphototagger.program.module.metadatatemplates;
 
+import java.awt.Component;
 import java.awt.Container;
+import java.util.Collections;
 
 import org.openide.util.Lookup;
 
@@ -36,6 +38,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private void setMnemonics() {
         MnemonicUtil.setMnemonics((Container) this);
         ViewUtil.setDisplayedMnemonicsToLabels(panelXmpEdit,
+                Collections.<Component>emptyList(),
                 (char) buttonCancel.getMnemonic(),
                 (char) buttonSave.getMnemonic(),
                 (char) labelName.getDisplayedMnemonic());

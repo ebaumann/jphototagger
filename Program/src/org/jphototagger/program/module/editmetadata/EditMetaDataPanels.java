@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,6 +41,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.event.EditMetadataPanelsEditDisabledEvent;
@@ -61,6 +63,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.SaveXmp;
 import org.jphototagger.program.module.keywords.tree.SuggestKeywords;
+import org.jphototagger.program.module.wordsets.WordsetPreferences;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.xmp.EditHints;
@@ -84,6 +87,7 @@ final class EditMetaDataPanels implements FocusListener {
     private final JComponent parentContainer;
     private final Object monitor = new Object();
     private final EditMetaDataActionsPanel editMetadataActionsPanel = new EditMetaDataActionsPanel(this);
+    private EditRepeatableTextEntryPanel keywordsPanel;
     private Component lastFocussedEditControl;
 
     EditMetaDataPanels(JComponent parentContainer) {
@@ -808,35 +812,34 @@ final class EditMetaDataPanels implements FocusListener {
             public void run() {
                 parentContainer.removeAll();
                 parentContainer.setLayout(new GridBagLayout());
-
+                List<Component> excludeFromAutoMnemonicComponents = new LinkedList<Component>();
                 int size = textEntries.size();
-
                 for (int i = 0; i < size; i++) {
                     GridBagConstraints constraints = newConstraints();
-
                     if (i == size - 1) {
                         constraints.insets.bottom += 10;
                     }
-
-                    ExpandCollapseComponentPanel panel = new ExpandCollapseComponentPanel((Component) textEntries.get(i));
-
+                    TextEntry textEntry = textEntries.get(i);
+                    excludeFromAutoMnemonicComponents.addAll(textEntry.getExcludeFromAutoMnemonicComponents());
+                    ExpandCollapseComponentPanel panel = new ExpandCollapseComponentPanel((Component) textEntry);
                     parentContainer.add(panel, constraints);
                     panel.readExpandedState();
                 }
-
-                setMnemonics();
+                setMnemonics(excludeFromAutoMnemonicComponents);
                 addActionPanel();    // After setMnemonics()!
             }
         });
     }
 
-    private void setMnemonics() {
+    private void setMnemonics(final Collection<? extends Component> excludeFromAutoMnemonicComponents) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
                 List<Character> mnemonicChars = editMetadataActionsPanel.getButtonsMnemonicChars();
-                ViewUtil.setDisplayedMnemonicsToLabels(parentContainer, mnemonicChars.toArray(new Character[]{}));
+                ViewUtil.setDisplayedMnemonicsToLabels(parentContainer,
+                        excludeFromAutoMnemonicComponents,
+                        mnemonicChars.toArray(new Character[]{}));
             }
         });
     }
@@ -905,8 +908,12 @@ final class EditMetaDataPanels implements FocusListener {
                 EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(metaDataValue);
                 panel.textAreaInput.addFocusListener(this);
                 if (metaDataValue.equals(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
+                    keywordsPanel = panel;
                     panel.setSuggest(new SuggestKeywords());
                     panel.setBundleKeyPosRenameDialog("EditMetadataPanels.Keywords.RenameDialog.Pos");
+                    if (WordsetPreferences.isDisplayWordsetsEditPanel()) {
+                        panel.addWordsetsPanel();
+                    }
                 }
                 textEntries.add(panel);
                 repeatableMetaDataValuesOfTextEntries.add(metaDataValue);
@@ -1015,6 +1022,19 @@ final class EditMetaDataPanels implements FocusListener {
         }
 
         return null;
+    }
+
+    @EventSubscriber(eventClass=PreferencesChangedEvent.class)
+    public void preferencesChanged(PreferencesChangedEvent evt) {
+        String key = evt.getKey();
+        if (AppPreferencesKeys.KEY_UI_DISPLAY_WORD_SETS_EDIT_PANEL.equals(key) && keywordsPanel != null) {
+            boolean  display = (Boolean) evt.getNewValue();
+            if (display) {
+                keywordsPanel.addWordsetsPanel();
+            } else {
+                keywordsPanel.removeWordsetsPanel();
+            }
+        }
     }
 
     @EventSubscriber(eventClass = AppWillExitEvent.class)

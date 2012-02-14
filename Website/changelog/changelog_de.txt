@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.14.0 2012-02-14
+-----------------
+
+* Neu: Wortzusammenstellungen. Diese können ausgeblendet werden. Mehr
+  darüber steht in der Hilfe unter "Kartenreiter Bearbeiten".
+
 0.16.3 2012-02-12
 -----------------
 

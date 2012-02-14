@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -66,19 +67,19 @@ public class ViewUtil {
         return null;
     }
 
-    public static void setDisplayedMnemonicsToLabels(Container container, Character... exclude) {
+    public static void setDisplayedMnemonicsToLabels(Container container, Collection<? extends Component> excludeComponents, Character... exclude) {
         if (container == null) {
             throw new NullPointerException("container == null");
         }
-
+        if (excludeComponents == null) {
+            throw new NullPointerException("excludeComponents == null");
+        }
         if (exclude == null) {
             throw new NullPointerException("exclude == null");
         }
-
-        List<JLabel> labels = ComponentUtil.getAllOf(container, JLabel.class);
+        List<JLabel> labels = ComponentUtil.getAllOfExclude(container, JLabel.class, excludeComponents);
         List<Character> mnemonics = new ArrayList<Character>(labels.size());
         final char invalidMn = '\0';
-
         Collections.addAll(mnemonics, exclude);
 
         for (JLabel label : labels) {

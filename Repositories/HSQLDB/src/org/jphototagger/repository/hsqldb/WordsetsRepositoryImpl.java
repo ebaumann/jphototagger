@@ -29,8 +29,23 @@ public final class WordsetsRepositoryImpl implements WordsetsRepository {
     }
 
     @Override
+    public String findWordsetNameById(long id) {
+        return WordsetsDatabase.INSTANCE.findWordsetNameById(id);
+    }
+
+    @Override
+    public long findWordsetId(String wordsetName) {
+        return WordsetsDatabase.INSTANCE.findWordsetId(wordsetName);
+    }
+
+    @Override
     public boolean insert(Wordset wordset) {
         return WordsetsDatabase.INSTANCE.insert(wordset);
+    }
+
+    @Override
+    public boolean update(Wordset wordset) {
+        return WordsetsDatabase.INSTANCE.update(wordset);
     }
 
     @Override

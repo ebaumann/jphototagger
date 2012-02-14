@@ -13,6 +13,8 @@ import org.jphototagger.domain.repository.WordsetsRepository;
 import org.jphototagger.domain.repository.event.wordsets.WordsetInsertedEvent;
 import org.jphototagger.domain.repository.event.wordsets.WordsetRemovedEvent;
 import org.jphototagger.domain.repository.event.wordsets.WordsetRenamedEvent;
+import org.jphototagger.domain.repository.event.wordsets.WordsetUpdatedEvent;
+import org.jphototagger.lib.util.ObjectUtil;
 
 /**
  * @author Elmar Baumann
@@ -27,6 +29,7 @@ public final class WordsetNamesComboBoxModel extends DefaultComboBoxModel {
     }
 
     private void addElements() {
+        addElement(WordsetPreferences.AUTOMATIC_WORDSET_NAME);
         WordsetsRepository repository = Lookup.getDefault().lookup(WordsetsRepository.class);
         if (repository != null) {
             List<String> wordsetNames = repository.findAllWordsetNames();
@@ -49,6 +52,15 @@ public final class WordsetNamesComboBoxModel extends DefaultComboBoxModel {
     @EventSubscriber(eventClass = WordsetRemovedEvent.class)
     public void wordsetRemoved(WordsetRemovedEvent evt) {
         removeElement(evt.getWordsetName());
+    }
+
+    @EventSubscriber(eventClass = WordsetUpdatedEvent.class)
+    public void wordsetUpdated(WordsetUpdatedEvent evt) {
+        String oldName = evt.getOldWordset().getName();
+        String newName = evt.getNewWordset().getName();
+        if (!ObjectUtil.equals(oldName, newName)) {
+            wordsetRenamed(new WordsetRenamedEvent(this, oldName, newName));
+        }
     }
 
     @EventSubscriber(eventClass = WordsetRenamedEvent.class)

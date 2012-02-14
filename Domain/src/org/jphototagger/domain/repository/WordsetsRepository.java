@@ -15,7 +15,13 @@ public interface WordsetsRepository {
 
     List<String> findAllWordsetNames();
 
+    String findWordsetNameById(long id);
+
+    long findWordsetId(String wordsetName);
+
     boolean insert(Wordset wordset);
+
+    boolean update(Wordset wordset);
 
     boolean remove(String wordsetName);
 
