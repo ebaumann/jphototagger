@@ -3,6 +3,7 @@ package org.jphototagger.program.module.keywords.list;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
 
@@ -57,10 +58,22 @@ public final class KeywordsListModel extends DefaultListModel {
 
     private void addNewKeywords(Collection<? extends String> keywords) {
         for (String keyword : keywords) {
-            if (!contains(keyword)) {
+            if (!containsKeyword(keyword)) {
                 addElement(keyword);
             }
         }
+    }
+
+    private boolean containsKeyword(String keyword) {
+        for (Enumeration<?> e = elements(); e.hasMoreElements();) {
+            Object element = e.nextElement();
+            if (element instanceof String) {
+                if (((String) element).equalsIgnoreCase(keyword)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void removeKeywordsNotInDb(Collection<? extends String> keywords) {
