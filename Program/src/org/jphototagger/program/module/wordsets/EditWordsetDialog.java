@@ -13,9 +13,11 @@ public class EditWordsetDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
     private final Wordset wordset;
+    private boolean selectNameTextfield;
 
     public EditWordsetDialog() {
         this(new Wordset(Bundle.getString(EditWordsetDialog.class, "EditWordset.DefaultWordsetName")));
+        selectNameTextfield = true;
     }
 
     public EditWordsetDialog(Wordset wordset) {
@@ -29,6 +31,19 @@ public class EditWordsetDialog extends Dialog {
                 Bundle.getString(EditWordsetDialog.class, "EditWordsetDialog.Confirm.Save"))) {
             panelEditWordset.saveWordset();
         }
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        if (visible) {
+            panelEditWordset.enableAutocomplete();
+            if (selectNameTextfield) {
+                panelEditWordset.selectNameTextField();
+            } else {
+                panelEditWordset.selectWordTextField();
+            }
+        }
+        super.setVisible(visible);
     }
 
     /**
