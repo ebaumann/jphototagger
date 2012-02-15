@@ -143,24 +143,18 @@ public abstract class KeywordsController implements ActionListener, KeyListener 
         if (nodes == null) {
             throw new NullPointerException("nodes == null");
         }
-
         int size = nodes.size();
-
         if (size <= 1) {
             return true;
         }
-
         for (int i = 0; i < size; i++) {
             DefaultMutableTreeNode parent = nodes.get(i);
-
             for (int j = 0; j < size; j++) {
                 if (j != i) {
                     DefaultMutableTreeNode node = nodes.get(j);
-
                     if (TreeUtil.isAbove(parent, node)) {
-                        String message = Bundle.getString(KeywordsController.class, "ControllerDeleteKeywords.Tree.Error.IsChild");
+                        String message = Bundle.getString(KeywordsController.class, "KeywordsController.Tree.Error.IsChild");
                         MessageDisplayer.error(null, message);
-
                         return false;
                     }
                 }
@@ -170,14 +164,12 @@ public abstract class KeywordsController implements ActionListener, KeyListener 
         return true;
     }
 
-    private boolean checkNodeCount(Collection<DefaultMutableTreeNode> coll) {
-        if (!canHandleMultipleNodes() && (coll.size() > 1)) {
+    private boolean checkNodeCount(Collection<DefaultMutableTreeNode> nodes) {
+        if (!canHandleMultipleNodes() && (nodes.size() > 1)) {
             String message = Bundle.getString(KeywordsController.class, "KeywordsController.Error.MultiSelection");
             MessageDisplayer.error(null, message);
-
             return false;
         }
-
         return true;
     }
 }
