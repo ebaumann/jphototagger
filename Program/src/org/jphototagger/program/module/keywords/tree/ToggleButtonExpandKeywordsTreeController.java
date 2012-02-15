@@ -33,7 +33,7 @@ public final class ToggleButtonExpandKeywordsTreeController implements ActionLis
 
         TreeUtil.expandAll(GUI.getAppPanel().getTreeSelKeywords(), selected);
         toggleButtonExpandAllNodesSelKeywords.setText(selected
-                ? Bundle.getString(ToggleButtonExpandKeywordsTreeController.class, "KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
-                : Bundle.getString(ToggleButtonExpandKeywordsTreeController.class, "KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
+                ? Bundle.getString(ToggleButtonExpandKeywordsTreeController.class, "ToggleButtonExpandKeywordsTreeController.ButtonToggleExpandAllNodes.Selected")
+                : Bundle.getString(ToggleButtonExpandKeywordsTreeController.class, "ToggleButtonExpandKeywordsTreeController.ButtonToggleExpandAllNodes.DeSelected"));
     }
 }

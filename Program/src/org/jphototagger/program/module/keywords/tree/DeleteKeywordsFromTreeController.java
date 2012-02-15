@@ -16,11 +16,10 @@ import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 
 /**
- * Listens to the menu item {@code KeywordsTreePopupMenu#getItemRemove()}
- * and on action removes from the tree the selected keyword.
+ * Listens to the menu item {@code KeywordsTreePopupMenu#getItemRemove()} and on action removes from the tree the
+ * selected keyword.
  *
- * Also listens to key events into the tree and removes the selected keyword if
- * the delete key was pressed.
+ * Also listens to key events into the tree and removes the selected keyword if the delete key was pressed.
  *
  * @author Elmar Baumann
  */
@@ -62,11 +61,10 @@ public class DeleteKeywordsFromTreeController extends KeywordsController impleme
     private void deleteKeywords(List<DefaultMutableTreeNode> nodes) {
         for (DefaultMutableTreeNode node : nodes) {
             Object userObject = node.getUserObject();
-
             if (userObject instanceof Keyword) {
                 delete(node, (Keyword) userObject, nodes.size() == 1);
             } else {
-                String message = Bundle.getString(DeleteKeywordsFromTreeController.class, "ControllerDeleteKeywords.Tree.Error.Node", node);
+                String message = Bundle.getString(DeleteKeywordsFromTreeController.class, "DeleteKeywordsFromTreeController.Tree.Error.Node", node);
                 MessageDisplayer.error(null, message);
             }
         }
@@ -74,7 +72,7 @@ public class DeleteKeywordsFromTreeController extends KeywordsController impleme
 
     private void delete(DefaultMutableTreeNode node, Keyword keyword, boolean confirm) {
         InputHelperDialog parentComponent = InputHelperDialog.INSTANCE;
-        String message = Bundle.getString(DeleteKeywordsFromTreeController.class, "ControllerDeleteKeywords.Tree.Confirm.Delete", keyword);
+        String message = Bundle.getString(DeleteKeywordsFromTreeController.class, "DeleteKeywordsFromTreeController.Tree.Confirm.Delete", keyword);
         if (!confirm || (confirm && MessageDisplayer.confirmYesNo(parentComponent, message))) {
             ModelFactory.INSTANCE.getModel(KeywordsTreeModel.class).delete(node);
         }
@@ -82,14 +80,11 @@ public class DeleteKeywordsFromTreeController extends KeywordsController impleme
 
     private boolean confirmDeleteMultiple(List<DefaultMutableTreeNode> nodes) {
         int size = nodes.size();
-
         if (size <= 1) {
             return true;
         }
-
         InputHelperDialog parentComponent = InputHelperDialog.INSTANCE;
-        String message = Bundle.getString(DeleteKeywordsFromTreeController.class, "ControllerDeleteKeywords.Tree.Confirm.MultipleKeywords", size);
-
+        String message = Bundle.getString(DeleteKeywordsFromTreeController.class, "DeleteKeywordsFromTreeController.Tree.Confirm.MultipleKeywords", size);
         return MessageDisplayer.confirmYesNo(parentComponent, message);
     }
 }
