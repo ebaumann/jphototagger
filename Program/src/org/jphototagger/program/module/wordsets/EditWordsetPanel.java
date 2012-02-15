@@ -43,7 +43,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
     private final EnableSaveButtonListener enableSaveButtonListener = new EnableSaveButtonListener();
     private final Wordset wordset;
     private final WordsetsRepository wordsetsRepository = Lookup.getDefault().lookup(WordsetsRepository.class);
-    private final Autocomplete autocomplete = new Autocomplete(true);
+    private Autocomplete autocomplete;
     private boolean dirty;
 
     public EditWordsetPanel() {
@@ -63,16 +63,17 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         MnemonicUtil.setMnemonics(this);
         textFieldName.getDocument().addDocumentListener(enableSaveButtonListener);
         listWords.getModel().addListDataListener(enableSaveButtonListener);
-        setAutocomplete();
-        selectTextComponent(textAreaWord);
     }
 
-    private void setAutocomplete() {
-        XmpDcSubjectsSubjectMetaDataValue keywordsMeta = XmpDcSubjectsSubjectMetaDataValue.INSTANCE;
-        AutoCompleteData keywordsAutocompleteData = AutoCompleteDataOfMetaDataValue.INSTANCE.get(keywordsMeta);
-        List<String> keywords = keywordsAutocompleteData.get();
-        boolean sorted = true;
-        autocomplete.decorate(textAreaWord, keywords, sorted);
+    public void enableAutocomplete() {
+        if (autocomplete == null) {
+            autocomplete = new Autocomplete(true);
+            XmpDcSubjectsSubjectMetaDataValue keywordsMeta = XmpDcSubjectsSubjectMetaDataValue.INSTANCE;
+            AutoCompleteData keywordsAutocompleteData = AutoCompleteDataOfMetaDataValue.INSTANCE.get(keywordsMeta);
+            List<String> keywords = keywordsAutocompleteData.get();
+            boolean sorted = true;
+            autocomplete.decorate(textAreaWord, keywords, sorted);
+        }
     }
 
     public Wordset getWordset() {
@@ -231,9 +232,17 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         }
     }
 
-    private void selectTextComponent(JTextComponent textField) {
-        textField.requestFocusInWindow();
-        textField.selectAll();
+    public void selectNameTextField() {
+        selectTextComponent(textFieldName);
+    }
+
+    public void selectWordTextField() {
+        selectTextComponent(textAreaWord);
+    }
+
+    private void selectTextComponent(JTextComponent tc) {
+        tc.requestFocusInWindow();
+        tc.selectAll();
     }
 
     private static class WordsetNamesComboBoxRenderer extends DefaultListCellRenderer {
