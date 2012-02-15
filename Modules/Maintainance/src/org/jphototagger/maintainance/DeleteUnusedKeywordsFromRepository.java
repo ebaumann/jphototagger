@@ -1,5 +1,6 @@
 package org.jphototagger.maintainance;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,12 +25,12 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
     private volatile int countDeleted = 0;
     private static final Logger LOGGER = Logger.getLogger(DeleteUnusedKeywordsFromRepository.class.getName());
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+    private static final String DELETE_MESSAGE_PATTERN = Bundle.getString(DeleteUnusedKeywordsFromRepository.class, "DeleteUnusedKeywordsFromRepository.DeleteMessagePattern");
 
     public synchronized void addProgressListener(ProgressListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         ls.add(listener);
     }
 
@@ -41,17 +42,13 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
     public void run() {
         List<String> keywords = new ArrayList<String>(repo.findNotReferencedDcSubjects());
         int size = keywords.size();
-
         notifyProgressStarted(size);
-
         for (int i = 0; !cancel && (i < size); i++) {
             String keyword = keywords.get(i);
-
             repo.deleteDcSubject(keyword);
             countDeleted++;
             notifyProgressPerformed(i + 1, countDeleted, keyword);
         }
-
         notifyProgressEnded(size, countDeleted);
     }
 
@@ -68,15 +65,11 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
                 .value(0)
                 .info(getStartMessage())
                 .build();
-
         LOGGER.log(Level.INFO, "Deleting unused keywords");
-
         // Catching cancellation request
         for (ProgressListener listener : ls.get()) {
             listener.progressStarted(evt);
-
             if (evt.isCancel()) {
-
                 // cancel = evt.isCancel() can be wrong when more than 1
                 // listener
                 cancel = true;
@@ -85,20 +78,18 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
     }
 
     private void notifyProgressPerformed(int count, int countDeleted, String keyword) {
+        LOGGER.log(Level.INFO, "Deleted unused keyword ''{0}''", keyword);
         ProgressEvent evt = new ProgressEvent.Builder()
                 .source(this)
                 .minimum(0)
                 .maximum(count)
                 .value(countDeleted)
-                .info(keyword)
+                .info(MessageFormat.format(DELETE_MESSAGE_PATTERN, keyword))
                 .build();
-
         // Catching cancellation request
         for (ProgressListener listener : ls.get()) {
             listener.progressPerformed(evt);
-
             if (evt.isCancel()) {
-
                 // cancel = evt.isCancel() can be wrong when more than
                 // 1 listener
                 cancel = true;
@@ -114,7 +105,6 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
                 .value(countDeleted)
                 .info(getEndMessage(count, countDeleted))
                 .build();
-
         ls.notifyEnded(evt);
     }
 
