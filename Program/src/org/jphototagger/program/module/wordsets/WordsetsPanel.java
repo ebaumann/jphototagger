@@ -365,6 +365,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         panelWordsets.setLayout(new java.awt.GridBagLayout());
 
         comboBoxWordsetNames.setModel(new WordsetNamesComboBoxModel());
+        comboBoxWordsetNames.setFocusable(false);
         comboBoxWordsetNames.setRenderer(wordsetNamesComboBoxRenderer);
         comboBoxWordsetNames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +378,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
 
         buttonRemoveWordset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/wordsets/delete.png"))); // NOI18N
         buttonRemoveWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonRemoveWordset.toolTipText")); // NOI18N
+        buttonRemoveWordset.setFocusable(false);
         buttonRemoveWordset.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonRemoveWordset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -390,6 +392,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
 
         buttonAddWordset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/wordsets/add.png"))); // NOI18N
         buttonAddWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonAddWordset.toolTipText")); // NOI18N
+        buttonAddWordset.setFocusable(false);
         buttonAddWordset.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonAddWordset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -403,6 +406,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
 
         buttonEditWordset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/wordsets/edit.png"))); // NOI18N
         buttonEditWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonEditWordset.toolTipText")); // NOI18N
+        buttonEditWordset.setFocusable(false);
         buttonEditWordset.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonEditWordset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
