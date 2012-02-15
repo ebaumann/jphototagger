@@ -21,8 +21,8 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
- * Listens to a {@code ThumbnailsPanel} and highlights in the tree
- * of a  {@code KeywordsPanel} the keywords of the selected image.
+ * Listens to a {@code ThumbnailsPanel} and highlights in the tree of a  {@code KeywordsPanel} the keywords of the
+ * selected image.
  *
  * @author Elmar Baumann
  */
@@ -45,13 +45,11 @@ public final class HighlightKeywordsTreeController {
 
     private void applyCurrentSelection(ThumbnailsSelectionChangedEvent evt) {
         removeKeywords();
-
         if (evt.getSelectionCount() == 1) {
             List<File> selFiles = evt.getSelectedFiles();
-
             if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
                 Collection<String> keywords = repo.findDcSubjectsOfImageFile(selFiles.get(0));
-
+                setKeywords(GUI.getSelKeywordsTree(), keywords);
                 setKeywords(GUI.getEditKeywordsTree(), keywords);
                 setKeywords(GUI.getInputHelperKeywordsTree(), keywords);
             }
@@ -60,12 +58,9 @@ public final class HighlightKeywordsTreeController {
 
     private void setKeywords(JTree tree, Collection<String> keywords) {
         TreeCellRenderer treeCellRenderer = tree.getCellRenderer();
-
         if (treeCellRenderer instanceof JXTree.DelegatingRenderer) {
             treeCellRenderer = ((JXTree.DelegatingRenderer) treeCellRenderer).getDelegateRenderer();
-
         }
-
         if (treeCellRenderer instanceof KeywordsTreeCellRenderer) {
             ((KeywordsTreeCellRenderer) treeCellRenderer).setHighlightKeywords(keywords);
             tree.repaint();
@@ -78,8 +73,6 @@ public final class HighlightKeywordsTreeController {
     }
 
     private boolean hasSidecarFile(List<File> selFile) {
-        assert selFile.size() == 1 : "Size < 1: " + selFile.size() + " - " + selFile;
-
         return XmpMetadata.hasImageASidecarFile(selFile.get(0));
     }
 }

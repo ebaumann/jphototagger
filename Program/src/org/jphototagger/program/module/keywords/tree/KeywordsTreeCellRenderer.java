@@ -45,23 +45,19 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
         boolean selImgHasKeyword = false;
         boolean real = false;
         boolean helper = false;    // to know whether to render root item
-
         if (userObject instanceof Keyword) {
             Keyword keyword = (Keyword) userObject;
-
             real = keyword.isReal();
             helper = !real;
-            selImgHasKeyword = real && isKeyword(keyword.getName());
+            selImgHasKeyword = real && isHighlightKeyword(keyword.getName());
             setText(keyword.getName());
         }
-
         boolean tempSelRowIsSelected = tempSelectionRow < 0 ? false : tree.isRowSelected(tempSelectionRow);
         boolean tempSelExists = tempSelectionRow >= 0;
         boolean isTempSelRow = row == tempSelectionRow;
         boolean isSelection = isTempSelRow
                 || (!tempSelExists && itemAtIndexIsSelected)
                 || (tempSelExists && !isTempSelRow && itemAtIndexIsSelected && tempSelRowIsSelected);
-
         setIcon(real
                 ? ICON_REAL
                 : helper
@@ -79,9 +75,15 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
                 : TREE_BACKGROUND);
     }
 
-    private boolean isKeyword(Object value) {
+    private boolean isHighlightKeyword(Object value) {
+        String stringValue = value.toString();
         synchronized (highLightKeywords) {
-            return highLightKeywords.contains(value.toString());
+            for (String keyword : highLightKeywords) {
+                if (keyword != null && keyword.equalsIgnoreCase(stringValue)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -89,7 +91,6 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
         if (keywordsToHighlight == null) {
             throw new NullPointerException("keywords == null");
         }
-
         synchronized (this.highLightKeywords) {
             this.highLightKeywords.clear();
             this.highLightKeywords.addAll(keywordsToHighlight);
@@ -100,7 +101,6 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
-
         synchronized (this.highLightKeywords) {
             this.highLightKeywords.addAll(keywords);
         }
@@ -110,7 +110,6 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
-
         synchronized (this.highLightKeywords) {
             this.highLightKeywords.removeAll(keywords);
         }
@@ -120,7 +119,6 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
-
         synchronized (highLightKeywords) {
             highLightKeywords.add(keyword);
         }
@@ -130,7 +128,6 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
-
         synchronized (highLightKeywords) {
             highLightKeywords.remove(keyword);
         }
