@@ -914,11 +914,11 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(3, 1));
 
+        buttonRemoveSelection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/delete.png"))); // NOI18N
         buttonRemoveSelection.setMnemonic('-');
-        buttonRemoveSelection.setText("-"); // NOI18N
         buttonRemoveSelection.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
-        buttonRemoveSelection.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonRemoveSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonRemoveSelection.setName("buttonRemoveSelection"); // NOI18N
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -927,11 +927,11 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         });
         panelButtons.add(buttonRemoveSelection);
 
+        buttonAddInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/add.png"))); // NOI18N
         buttonAddInput.setMnemonic('+');
-        buttonAddInput.setText("+"); // NOI18N
         buttonAddInput.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
-        buttonAddInput.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonAddInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonAddInput.setName("buttonAddInput"); // NOI18N
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -940,11 +940,11 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         });
         panelButtons.add(buttonAddInput);
 
+        buttonSuggestion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/word.png"))); // NOI18N
         buttonSuggestion.setMnemonic('k');
-        buttonSuggestion.setText("K"); // NOI18N
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
-        buttonSuggestion.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonSuggestion.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonSuggestion.setName("buttonSuggestion"); // NOI18N
         buttonSuggestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
