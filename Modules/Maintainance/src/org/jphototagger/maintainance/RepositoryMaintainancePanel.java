@@ -232,11 +232,17 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         }
     }
 
+    private void appendMessage(ProgressEvent evt) {
+        Object info = evt.getInfo();
+        if (info != null) {
+            appendMessage(info.toString());
+        }
+    }
+
     private void appendMessage(String message) {
         String newline = textAreaMessages.getText().trim().isEmpty()
                          ? ""
                          : "\n";
-
         textAreaMessages.append(newline + message);
         buttonDeleteMessages.setEnabled(true);
     }
@@ -247,7 +253,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
             @Override
             public void run() {
-                appendMessage(evt.getInfo().toString());
+                appendMessage(evt);
                 buttonDeleteMessages.setEnabled(false);
                 setProgressbarStart(evt);
                 buttonCancelAction.setEnabled(!(evt.getSource() instanceof CompressRepository));
@@ -263,6 +269,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
             @Override
             public void run() {
                 progressBar.setValue(evt.getValue());
+                appendMessage(evt);
                 checkCancel(evt);
             }
         });
@@ -275,21 +282,16 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
             @Override
             public void run() {
                 setProgressbarEnd(evt);
-                appendMessage(evt.getInfo().toString());
-
+                appendMessage(evt);
                 Object source = evt.getSource();
-
                 Class<?> sourceClass = source.getClass();
                 JLabel labelFinished = finishedLabelOfRunnable.get(sourceClass);
-
                 progressBar.setValue(0);
-
                 if (labelFinished != null) {
                     labelFinished.setIcon(ICON_FINISHED);
                 } else if (sourceClass.getName().contains("ImageFilesDatabase")) {
                     labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setIcon(ICON_FINISHED);
                 }
-
                 if (runnables.size() > 0) {
                     startNextThread();
                 } else {
