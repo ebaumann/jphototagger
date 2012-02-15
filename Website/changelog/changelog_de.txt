@@ -3,7 +3,20 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.14.0 2012-02-14
+0.17.1 2012-02-15
+-----------------
+
+* Bugfix: Beim Auswählen anderer Bilder wurden in den Stichwort-Listenansichten
+  die Stichwörter des neu ausgewählten Bilds nicht zuverlässig hervorgehoben
+* Beim Einlesen von Stichwörtern aus XMP-Filialdateien wird ein bereits
+  existierendes Stichwort mit unterschiedlicher Groß-/Klein-Schreibung
+  nicht erneut in eine der Stichwort-Listenansichten eingefügt
+* Datei > Datenbank > Wartung: Beim Löschen nicht benutzter Stichwörter wird
+  im Nachrichtenfenster jedes einzelne Stichwort angezeigt, das gelöscht wurde
+* Druck auf Tabulatortaste im Stichwort-Eingabefeld überspringt die
+  Wortzusammenstellungen (Eingabemarke bewegt sich ins nächste Eingabefeld)
+
+0.17.0 2012-02-14
 -----------------
 
 * Neu: Wortzusammenstellungen. Diese können ausgeblendet werden. Mehr
