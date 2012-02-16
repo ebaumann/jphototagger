@@ -82,21 +82,38 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     }
 
     private void setProgressbarStart(ProgressEvent evt) {
-        if (evt.isIndeterminate()) {
-            progressBar.setIndeterminate(true);
-        } else {
-            progressBar.setMinimum(evt.getMinimum());
-            progressBar.setMaximum(evt.getMaximum());
-            progressBar.setValue(evt.getValue());
-        }
+        final boolean indeterminate = evt.isIndeterminate();
+        final int minimum = evt.getMinimum();
+        final int maximum = evt.getMaximum();
+        final int value = evt.getValue();
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (indeterminate) {
+                    progressBar.setIndeterminate(true);
+                } else {
+                    progressBar.setMinimum(minimum);
+                    progressBar.setMaximum(maximum);
+                    progressBar.setValue(value);
+                }
+            }
+        });
     }
 
     private void setProgressbarEnd(ProgressEvent evt) {
-        if (progressBar.isIndeterminate()) {
-            progressBar.setIndeterminate(false);
-        } else {
-            progressBar.setValue(evt.getValue());
-        }
+        final int value = evt.getValue();
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+            @Override
+            public void run() {
+                if (progressBar.isIndeterminate()) {
+                    progressBar.setIndeterminate(false);
+                } else {
+                    progressBar.setValue(value);
+                }
+            }
+        });
     }
 
     public void getsVisible(boolean visible) {
@@ -232,10 +249,12 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         }
     }
 
-    private void appendMessage(ProgressEvent evt) {
-        Object info = evt.getInfo();
+    private void appendMessage(Object info) {
         if (info != null) {
-            appendMessage(info.toString());
+            String message = info.toString().trim();
+            if (!message.isEmpty()) {
+                appendMessage(message);
+            }
         }
     }
 
@@ -249,41 +268,45 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
     @Override
     public void progressStarted(final ProgressEvent evt) {
+        final Object info = evt.getInfo();
+        checkCancel(evt);
+        setProgressbarStart(evt);
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                appendMessage(evt);
+                appendMessage(info);
                 buttonDeleteMessages.setEnabled(false);
-                setProgressbarStart(evt);
                 buttonCancelAction.setEnabled(!(evt.getSource() instanceof CompressRepository));
-                checkCancel(evt);
             }
         });
     }
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
+        final Object info = evt.getInfo();
+        final int value = evt.getValue();
+        checkCancel(evt);
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                progressBar.setValue(evt.getValue());
-                appendMessage(evt);
-                checkCancel(evt);
+                progressBar.setValue(value);
+                appendMessage(info);
             }
         });
     }
 
     @Override
     public void progressEnded(final ProgressEvent evt) {
+        final Object info = evt.getInfo();
+        setProgressbarEnd(evt);
+        final Object source = evt.getSource();
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                setProgressbarEnd(evt);
-                appendMessage(evt);
-                Object source = evt.getSource();
+                appendMessage(info);
                 Class<?> sourceClass = source.getClass();
                 JLabel labelFinished = finishedLabelOfRunnable.get(sourceClass);
                 progressBar.setValue(0);
