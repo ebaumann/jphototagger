@@ -68,6 +68,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.image.util.ThumbnailCreatorService;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpMetadata;
 
 /**
@@ -750,43 +751,34 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.createStatement();
-
             String sql = "SELECT filename FROM files";
-
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             boolean cancel = notifyProgressListenerStart(listener, event);
-
             while (!cancel && rs.next()) {
                 File imgFile = getFile(rs.getString(1));
-
+                event.setInfo(null);
                 if (!imgFile.exists()) {
                     Xmp xmp = getXmpOfImageFile(imgFile);
                     Exif exif = getExifOfImageFile(imgFile);
                     int deletedRows = deleteRowWithFilename(con, imgFile);
-
                     countDeleted += deletedRows;
-
                     if (deletedRows > 0) {
+                        event.setInfo(Bundle.getString(ImageFilesDatabase.class, "ImageFilesDatabase.DeleteAbsentImageFiles.ImageFileDeleted", imgFile));
                         tnRepo.deleteThumbnail(imgFile);
                         notifyImageFileDeleted(imgFile);
-
                         if (xmp != null) {
                             notifyXmpDeleted(imgFile, xmp);
                         }
-
                         if (exif != null) {
                             notifyExifDeleted(imgFile, exif);
                         }
                     }
                 }
-
                 event.setValue(event.getValue() + 1);
                 notifyProgressListenerPerformed(listener, event);
                 cancel = event.isCancel();
@@ -797,10 +789,8 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         event.setInfo(countDeleted);
         notifyProgressListenerEnd(listener, event);
-
         return countDeleted;
     }
 
@@ -1235,27 +1225,25 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.createStatement();
-
             String sql = "SELECT files.filename FROM files, xmp WHERE files.id = xmp.id_file";
-
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
-            File imageFile = null;
+            File imageFile;
             boolean cancel = notifyProgressListenerStart(listener, progressEvent);
-
             while (!cancel && rs.next()) {
+                progressEvent.setInfo(null);
                 imageFile = getFile(rs.getString(1));
-
                 if (XmpMetadata.getSidecarFile(imageFile) == null) {
-                    countDeleted += deleteXmpOfImageFile(con, imageFile);
+                    int deleteCount = deleteXmpOfImageFile(con, imageFile);
+                    countDeleted += deleteCount;
+                    progressEvent.setInfo(deleteCount > 0
+                            ? Bundle.getString(ImageFilesDatabase.class, "ImageFilesDatabase.Info.DeleteAbsentXmp.XmpMetadataDeleted", imageFile)
+                            : null);
                 }
-
                 progressEvent.setValue(progressEvent.getValue() + 1);
                 notifyProgressListenerPerformed(listener, progressEvent);
                 cancel = progressEvent.isCancel();
@@ -1266,10 +1254,8 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         progressEvent.setInfo(countDeleted);
         notifyProgressListenerEnd(listener, progressEvent);
-
         return countDeleted;
     }
 
@@ -2629,15 +2615,11 @@ final class ImageFilesDatabase extends Database {
 
         try {
             con = getConnection();
-
             String sql = "SELECT filename FROM files";
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
-            File tnFile = null;
-
+            File tnFile;
             while (rs.next()) {
                 tnFile = tnRepo.findThumbnailFile(getFile(rs.getString(1)));
 
@@ -2659,15 +2641,12 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-
         if (value == null) {
             throw new NullPointerException("value == null");
         }
-
         String sql = Join.getDeleteSql(column.getCategory());
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
@@ -2679,6 +2658,7 @@ final class ImageFilesDatabase extends Database {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
+            free(con);
         }
     }
 
