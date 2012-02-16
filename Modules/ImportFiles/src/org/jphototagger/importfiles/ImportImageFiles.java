@@ -1,10 +1,7 @@
 package org.jphototagger.importfiles;
 
 import java.io.File;
-import java.text.DecimalFormat;
-import java.text.MessageFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +21,6 @@ import org.jphototagger.domain.FileImportService;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.imagecollections.ImageCollectionService;
-import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
@@ -44,7 +40,6 @@ import org.jphototagger.lib.util.ProgressBarUpdater;
 public final class ImportImageFiles extends Thread implements FileImportService, ProgressListener {
 
     private static final String progressBarString = Bundle.getString(ImportImageFiles.class, "ImportImageFiles.Info.ProgressBar");
-    private static final DecimalFormat SUBDIR_DAY_MONTH_FORMAT = new DecimalFormat();
     private final List<File> copiedTargetFiles = new ArrayList<File>();
     private final List<File> copiedSourceFiles = new ArrayList<File>();
     private final List<SourceTargetFile> sourceTargetFiles;
@@ -54,10 +49,6 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     private static final int MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS = 240000;
     private final String scriptForRuntime;
     private static final Logger LOGGER = Logger.getLogger(ImportImageFiles.class.getName());
-
-    static {
-        SUBDIR_DAY_MONTH_FORMAT.setMinimumIntegerDigits(2);
-    }
 
     public ImportImageFiles() {
         this(Collections.<SourceTargetFile>emptyList(), null, false, null);
@@ -75,54 +66,54 @@ public final class ImportImageFiles extends Thread implements FileImportService,
 
     public static void importFrom(File sourceDirectory) {
         ImportImageFilesDialog dlg = new ImportImageFilesDialog();
-
         if (sourceDirectory != null) {
             dlg.setSourceDir(sourceDirectory);
         }
-
         dlg.setVisible(true);
-
         if (dlg.isAccepted()) {
             File targetDir = dlg.getTargetDir();
-            boolean createSubdirs = dlg.isAutocreateSubdirs();
+            SubdirectoryCreateStrategy subdirectoryCreateStrategy = dlg.getSubdirectoryCreateStrategy();
             boolean deleteSourceFilesAfterCopying = dlg.isDeleteSourceFilesAfterCopying();
             File script = dlg.getScriptFile();
             if (dlg.filesChoosed()) {
-                copy(dlg.getSourceFiles(), targetDir, createSubdirs, deleteSourceFilesAfterCopying, script);
+                copy(dlg.getSourceFiles(), targetDir, subdirectoryCreateStrategy, deleteSourceFilesAfterCopying, script);
             } else {
                 List<File> sourceDirectories = new ArrayList<File>();
                 File srcDir = dlg.getSourceDir();
-
                 sourceDirectories.add(srcDir);
                 sourceDirectories.addAll(FileUtil.getSubDirectoriesRecursive(srcDir, null));
-
                 List<File> sourceImageFiles = FileFilterUtil.getImageFilesOfDirectories(sourceDirectories);
-
-                copy(sourceImageFiles, targetDir, createSubdirs, deleteSourceFilesAfterCopying, script);
+                copy(sourceImageFiles, targetDir, subdirectoryCreateStrategy, deleteSourceFilesAfterCopying, script);
             }
         }
     }
 
-    private static void copy(List<File> sourceImageFiles, File targetDir, boolean autoCreateSubdirs,
+    private static void copy(List<File> sourceImageFiles, File targetDir, SubdirectoryCreateStrategy subdirectoryCreateStrategy,
             boolean deleteScrFilesAfterCopying, File scriptFile) {
         if (sourceImageFiles.size() > 0) {
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
-            List<SourceTargetFile> scrTgtFiles = createSourceTargetFiles(sourceImageFiles, targetDir, autoCreateSubdirs);
+            List<SourceTargetFile> scrTgtFiles = createSourceTargetFiles(sourceImageFiles, targetDir, subdirectoryCreateStrategy);
             ImportImageFiles importImageFiles = new ImportImageFiles(scrTgtFiles, targetDir, deleteScrFilesAfterCopying, scriptFile);
             executor.addTask(importImageFiles);
         }
     }
 
     private static List<SourceTargetFile> createSourceTargetFiles(
-            Collection<? extends File> sourceFiles, File targetDirectory, boolean autoCreateSubdirs) {
+            Collection<? extends File> sourceFiles, File targetDirectory, SubdirectoryCreateStrategy subdirectoryCreateStrategy) {
         List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceFiles.size());
         String targetDir = targetDirectory.getAbsolutePath();
         for (File sourceFile : sourceFiles) {
-            File targetFile = createTargetFile(sourceFile, targetDir, autoCreateSubdirs);
+            File targetFile = createTargetFile(sourceFile, targetDir, subdirectoryCreateStrategy);
             ensureTargetDirExists(targetFile);
             sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
         }
         return sourceTargetFiles;
+    }
+
+    private static File createTargetFile(File sourceFile, String targetDir, SubdirectoryCreateStrategy subdirectoryCreateStrategy) {
+        String subdir = subdirectoryCreateStrategy.createSubdirectoryName(sourceFile);
+        String subdirSeparator = subdir.isEmpty() ? "" : File.separator;
+        return new File(targetDir + File.separator + subdir + subdirSeparator + sourceFile.getName());
     }
 
     private static void ensureTargetDirExists(File targetFile) {
@@ -134,26 +125,6 @@ public final class ImportImageFiles extends Thread implements FileImportService,
                 Logger.getLogger(ImportImageFiles.class.getName()).log(Level.SEVERE, null, t);
             }
         }
-    }
-
-    private static File createTargetFile(File sourceFile, String targetDir, boolean autoCreateSubdirs) {
-        String subdir = autoCreateSubdirs
-                ? getDateDirString(sourceFile) + File.separator
-                : "";
-        return new File(targetDir + File.separator + subdir + sourceFile.getName());
-    }
-
-    private static String getDateDirString(File file) {
-        ExifInfo exifInfo = Lookup.getDefault().lookup(ExifInfo.class);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(exifInfo.getTimeTakenInMillis(file));
-        int day = calendar.get(Calendar.DATE);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int year = calendar.get(Calendar.YEAR);
-        String delimiter = "-";
-        return String.valueOf(year)
-                + delimiter + SUBDIR_DAY_MONTH_FORMAT.format(month)
-                + delimiter + SUBDIR_DAY_MONTH_FORMAT.format(day);
     }
 
     @Override
