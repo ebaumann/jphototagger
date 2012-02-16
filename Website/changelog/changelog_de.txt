@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.18.0 2012-02-16
+-----------------
+
+* Import von Bildern ("Datei > Bilder importieren"): Einführung einer
+  Unterordner-Erzeugungsstrategie, vorerst zusätzlich weitere Möglichkeit
+  zusätzlich Jahresunterordner zu erzeugen
+
 0.17.1 2012-02-15
 -----------------
 
