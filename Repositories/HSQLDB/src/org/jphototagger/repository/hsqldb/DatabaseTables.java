@@ -70,6 +70,7 @@ final class DatabaseTables extends Database {
             createFileExcludePatternsTable(con, stmt);
             createProgramsTable(con, stmt);
             createActionsAfterDbInsertionTable(con, stmt);
+            createDefaultProgramsTable(con, stmt);
             createHierarchicalSubjectsTable(con, stmt);
             createSynonymsTable(con, stmt);
             createRenameTemplatesTable(con, stmt);
@@ -374,6 +375,17 @@ final class DatabaseTables extends Database {
                     + ");");
             stmt.execute("CREATE UNIQUE INDEX idx_actions_after_db_insertion_id_programs ON actions_after_db_insertion (id_program)");
             stmt.execute("CREATE INDEX idx_actions_after_db_insertion_action_order ON actions_after_db_insertion (action_order)");
+        }
+    }
+
+    private void createDefaultProgramsTable(Connection con, Statement stmt) throws SQLException {
+        if (!DatabaseMetadata.INSTANCE.existsTable(con, "default_programs")) {
+            stmt.execute("CREATE CACHED TABLE default_programs"
+                    + " (id_program BIGINT NOT NULL"
+                    + " , filename_suffix VARCHAR_IGNORECASE(64)"
+                    + ");");
+            stmt.execute("CREATE INDEX idx_default_programs_id_program ON default_programs (id_program)");
+            stmt.execute("CREATE UNIQUE INDEX idx_default_programs_filename_suffix ON default_programs (filename_suffix)");
         }
     }
 

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -29,14 +30,12 @@ import org.jphototagger.lib.util.StringUtil;
 public final class FileUtil {
 
     /**
-     * Returns the content of a file as string.
-     * <p>
-     * Usage for text files.
+     * Returns the content of a file as string. <p> Usage for text files.
      *
-     * @param file     file
+     * @param file file
      * @param encoding encoding of the file's text content
-     * @return         content
-     * @throws         IOException
+     * @return content
+     * @throws IOException
      */
     public static String getContentAsString(File file, String encoding) throws IOException {
         if (file == null) {
@@ -92,8 +91,8 @@ public final class FileUtil {
      * Returns the content of a file als byte array.
      *
      * @param file file
-     * @return     content
-     * @throws     IOException
+     * @return content
+     * @throws IOException
      */
     public static byte[] getContentAsBytes(File file) throws IOException {
         if (file == null) {
@@ -117,11 +116,10 @@ public final class FileUtil {
     }
 
     /**
-     * Ensures that a file exists. Creates the file and it's not existing parent
-     * files (directories).
+     * Ensures that a file exists. Creates the file and it's not existing parent files (directories).
      *
-     * @param  file file
-     * @throws      IOException
+     * @param file file
+     * @throws IOException
      */
     public static void ensureFileExists(File file) throws IOException {
         if (file == null) {
@@ -142,11 +140,10 @@ public final class FileUtil {
     }
 
     /**
-     * Returns whether a file exists and is <em>not</em> a directory (weaker
-     * than {@code File#isFile()}).
+     * Returns whether a file exists and is <em>not</em> a directory (weaker than {@code File#isFile()}).
      *
      * @param file file
-     * @return     true if the file exists and is not a directory
+     * @return true if the file exists and is not a directory
      */
     public static boolean existsFile(File file) {
         if (file == null) {
@@ -157,11 +154,11 @@ public final class FileUtil {
     }
 
     /**
-     * Ensures that a directory exists. If it does not exist, this method
-     * creates a new directory including its parent directories.
+     * Ensures that a directory exists. If it does not exist, this method creates a new directory including its parent
+     * directories.
      *
-     * @param  directory directory
-     * @throws           IOException
+     * @param directory directory
+     * @throws IOException
      */
     public static void ensureDirectoryExists(File directory) throws IOException {
         if (directory == null) {
@@ -180,7 +177,7 @@ public final class FileUtil {
     /**
      * Returns whether a file is a writable directory.
      *
-     * @param  directory directory
+     * @param directory directory
      * @return true if the file is a writable directory
      */
     public static boolean isWritableDirectory(File directory) {
@@ -194,9 +191,9 @@ public final class FileUtil {
     /**
      * Copies a file (fast).
      *
-     * @param  sourceFile source file
-     * @param  targetFile target file
-     * @throws        java.io.IOException
+     * @param sourceFile source file
+     * @param targetFile target file
+     * @throws java.io.IOException
      */
     public static void copyFile(File sourceFile, File targetFile) throws IOException {
         if (sourceFile == null) {
@@ -235,14 +232,12 @@ public final class FileUtil {
     }
 
     /**
-     * Returns the path to a file up to it's root file.
-     * <p>
-     * Every stack element obove another stack element is the parent file
-     * ({@code File#getParentFile()}) of the element below it. The top of the
-     * stack is the root file.
+     * Returns the path to a file up to it's root file. <p> Every stack element obove another stack element is the
+     * parent file
+     * ({@code File#getParentFile()}) of the element below it. The top of the stack is the root file.
      *
-     * @param  file file
-     * @return      path
+     * @param file file
+     * @return path
      */
     public static Stack<File> getPathFromRoot(File file) {
         if (file == null) {
@@ -266,10 +261,10 @@ public final class FileUtil {
     /**
      * Returns recursive all subdirectories of a parent directory.
      *
-     * @param  directory     parent directory
-     * @param  cancelRequest cancel request or null
-     * @param  options       options
-     * @return               subdirectories or empty list
+     * @param directory parent directory
+     * @param cancelRequest cancel request or null
+     * @param options options
+     * @return subdirectories or empty list
      */
     public static List<File> getSubDirectoriesRecursive(File directory, CancelRequest cancelRequest, DirectoryFilter.Option... options) {
         if (directory == null) {
@@ -311,11 +306,10 @@ public final class FileUtil {
     }
 
     /**
-     * Returns the absolute path names ({@code File#getAbsolutePath()} of a
-     * collection of files.
+     * Returns the absolute path names ({@code File#getAbsolutePath()} of a collection of files.
      *
-     * @param  files files
-     * @return        path names of the files
+     * @param files files
+     * @return path names of the files
      */
     public static List<String> getAbsolutePathnames(Collection<? extends File> files) {
         if (files == null) {
@@ -334,8 +328,8 @@ public final class FileUtil {
     /**
      * Returns a list of files from a collection of path names.
      *
-     * @param  pathnames path names
-     * @return           files
+     * @param pathnames path names
+     * @return files
      */
     public static List<File> getStringsAsFiles(Collection<? extends String> pathnames) {
         if (pathnames == null) {
@@ -374,8 +368,8 @@ public final class FileUtil {
     /**
      * Deletes a directory and all it's contents: files and subdirectories.
      *
-     * @param  directory directory
-     * @throws           IOException
+     * @param directory directory
+     * @throws IOException
      */
     public static void deleteDirectoryRecursive(File directory) throws IOException {
         if (directory == null) {
@@ -404,9 +398,8 @@ public final class FileUtil {
     /**
      * Returns a not existing file.
      *
-     * @param  file suggested file
-     * @return      file in the same path with a unique number prepending the
-     *              suffix
+     * @param file suggested file
+     * @return file in the same path with a unique number prepending the suffix
      */
     public static File getNotExistingFile(File file) {
         if (file == null) {
@@ -437,15 +430,14 @@ public final class FileUtil {
     }
 
     /**
-     * Returns the root of a file.
-     * <p>
-     * The Windows file name <code>"C:\Programs\MyProg\Readme.txt"</code>
-     * has the root name <code>"C:\"</code>, the Unix file name
-     * <code>"/home/me/Readme.txt"</code> has the root name <code>"/"</code>.
+     * Returns the root of a file. <p> The Windows file name
+     * <code>"C:\Programs\MyProg\Readme.txt"</code> has the root name
+     * <code>"C:\"</code>, the Unix file name
+     * <code>"/home/me/Readme.txt"</code> has the root name
+     * <code>"/"</code>.
      *
-     * @param  file file
-     * @return      root file of the file or the file itself if it has no
-     *              parents
+     * @param file file
+     * @return root file of the file or the file itself if it has no parents
      */
     public static File getRoot(File file) {
         if (file == null) {
@@ -468,12 +460,10 @@ public final class FileUtil {
     }
 
     /**
-     * Returns the directory path of a file.
-     * <p>
-     * The directory path is path of the parent file without the root.
+     * Returns the directory path of a file. <p> The directory path is path of the parent file without the root.
      *
-     * @param  file file
-     * @return      directory path
+     * @param file file
+     * @return directory path
      */
     public static String getDirectoryPath(File file) {
         if (file == null) {
@@ -496,13 +486,11 @@ public final class FileUtil {
     }
 
     /**
-     * Returns the suffix of a file path.
-     * <p>
-     * The suffix is the substring after the last dot in the filename.
+     * Returns the suffix of a file path. <p> The suffix is the substring after the last dot in the filename.
      *
-     * @param  file file
-     * @return      suffix or empty string if the filename has no dot or the dot
-     *              is the first or last character within the filename
+     * @param file file
+     * @return suffix or empty string if the filename has no dot or the dot is the first or last character within the
+     * filename
      */
     public static String getSuffix(File file) {
         if (file == null) {
@@ -525,14 +513,32 @@ public final class FileUtil {
     }
 
     /**
-     * Returns the prefix of a filename.
-     * <p>
-     * The prefix is the substring before the last dot in a filename. If the
-     * last dot is the first or last character within the string, the prefix is
-     * equal to the filename.
+     * @param files
+     * @return key is a suffix in lower case, values are files with that suffix ignoring case taken from {@code files}
+     */
+    public static Map<String, List<File>> getFilesWithSuffixIgnoreCase(List<File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+        Map<String, List<File>> filesOfSuffix = new HashMap<String, List<File>>();
+        for (File file : files) {
+            String suffixLowerCase = getSuffix(file).toLowerCase();
+            List<File> fos = filesOfSuffix.get(suffixLowerCase);
+            if (fos == null) {
+                fos = new LinkedList<File>();
+                filesOfSuffix.put(suffixLowerCase, fos);
+            }
+            fos.add(file);
+        }
+        return filesOfSuffix;
+    }
+
+    /**
+     * Returns the prefix of a filename. <p> The prefix is the substring before the last dot in a filename. If the last
+     * dot is the first or last character within the string, the prefix is equal to the filename.
      *
-     * @param  file file
-     * @return      prefix
+     * @param file file
+     * @return prefix
      */
     public static String getPrefix(File file) {
         if (file == null) {
@@ -622,14 +628,14 @@ public final class FileUtil {
     /**
      * Ensures that a file has a specific suffix. Ignores the case
      *
-     * @param file   file
+     * @param file file
      * @param suffix suffix - a dot will <em>not</em> be prepended - e.g.
-     *               <code>".xml"</code>
-     * @return       file or a new file with the old file path but the suffix.
-     *               E.g. if the suffix is <code>".xml"</code> and the file name
-     *               is <code>"file.xml"</code> or the file name is
-     *               <code>"file"</code> in both cases a file named
-     *               <code>"file.xml"</code> will be returned.
+     * <code>".xml"</code>
+     * @return file or a new file with the old file path but the suffix. E.g. if the suffix is
+     * <code>".xml"</code> and the file name is
+     * <code>"file.xml"</code> or the file name is
+     * <code>"file"</code> in both cases a file named
+     * <code>"file.xml"</code> will be returned.
      */
     public static File ensureSuffix(File file, String suffix) {
         if (file == null) {
@@ -650,9 +656,8 @@ public final class FileUtil {
     /**
      * Changes the last modification time of a file.
      *
-     * @param fileToTouch   file
-     * @param referenceFile file from which the time shall be taken
-     *                      or null if the current system time shall be used
+     * @param fileToTouch file
+     * @param referenceFile file from which the time shall be taken or null if the current system time shall be used
      */
     public static void touch(File fileToTouch, File referenceFile) {
         if (fileToTouch == null) {

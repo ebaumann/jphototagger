@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.openide.util.lookup.ServiceProvider;
 
+import org.jphototagger.domain.programs.DefaultProgram;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
@@ -62,5 +63,30 @@ public final class ProgramsRepositoryImpl implements ProgramsRepository {
     @Override
     public boolean updateProgram(Program program) {
         return ProgramsDatabase.INSTANCE.updateProgram(program);
+    }
+
+    @Override
+    public List<DefaultProgram> findAllDefaultPrograms() {
+        return ProgramsDatabase.INSTANCE.findAllDefaultPrograms();
+    }
+
+    @Override
+    public Program findDefaultProgram(String filenameSuffix) {
+        return ProgramsDatabase.INSTANCE.findDefaultProgram(filenameSuffix);
+    }
+
+    @Override
+    public boolean existsDefaultProgram(String filenameSuffix) {
+        return ProgramsDatabase.INSTANCE.existsDefaultProgram(filenameSuffix);
+    }
+
+    @Override
+    public boolean setDefaultProgram(String filenameSuffix, long idProgram) {
+        return ProgramsDatabase.INSTANCE.setDefaultProgram(filenameSuffix, idProgram);
+    }
+
+    @Override
+    public boolean removeDefaultProgram(String filenameSuffix) {
+        return ProgramsDatabase.INSTANCE.deleteDefaultProgram(filenameSuffix);
     }
 }
