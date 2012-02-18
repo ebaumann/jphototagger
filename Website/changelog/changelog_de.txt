@@ -3,13 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.19.0 2012-02-17
+0.19.0 2012-02-18
 -----------------
 
 * Neu: Bearbeiten > Einstellungen > Bilder öffnen: Schaltfläche
  "Standardprogramme". Ordnet Dateitypen verschiedene Programme zu.
  Bei Doppelklick kann so z.B. für eine RAW-Datei ein RAW-Konverter
  gestartet werden und für RGB-Bilder ein Bildbearbeitungsprogramm.
+* Neu: Bearbeiten > Einstellungen > Sonstiges: Lange
+  XMP-Filialdateinamen benutzen, z.B. "Bild.nef.xmp". Siehe auch
+  Hilfe/Handbuch zu "Einstellungen > Sonstiges" sowie Meldung, falls
+  diese Option ausgewählt wird
 
 0.18.0 2012-02-16
 -----------------

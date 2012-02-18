@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -16,6 +17,7 @@ import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.MetaDataValueProvider;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 
 /**
  * @author Elmar Baumann
@@ -24,6 +26,7 @@ import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 public final class XmpMetaDataValueProvider implements MetaDataValueProvider {
 
     private static final List<MetaDataValue> XMP_META_DATA_VALUES = new LinkedList<MetaDataValue>(XmpMetaDataValues.get());
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     @Override
     public Collection<MetaDataValue> getProvidedValues() {
@@ -33,7 +36,7 @@ public final class XmpMetaDataValueProvider implements MetaDataValueProvider {
     @Override
     public Collection<MetaDataValueData> getMetaDataForImageFile(File file) {
         try {
-            Xmp xmp = XmpMetadata.hasImageASidecarFile(file)
+            Xmp xmp = xmpSidecarFileResolver.hasXmpSidecarFile(file)
                     ? XmpMetadata.getXmpFromSidecarFileOf(file)
                     : XmpMetadata.getEmbeddedXmp(file);
             if (xmp == null) {

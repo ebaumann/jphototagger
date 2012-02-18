@@ -20,6 +20,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
@@ -31,7 +32,6 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
-import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * @author Elmar Baumann
@@ -42,6 +42,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private static final String KEY_TARGET_DIRECTORY = "org.jphototagger.program.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
     private final List<File> movedFiles = new ArrayList<File>();
     private final transient ProgressListenerSupport pListenerSupport = new ProgressListenerSupport();
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private transient FileSystemMove moveTask;
     private boolean runs = false;
     private boolean cancel = false;
@@ -92,15 +93,12 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private void addXmpFiles() {
         List<File> xmpFiles = new ArrayList<File>();
-
         for (File sourceFile : sourceFiles) {
-            File xmpFile = XmpMetadata.getSidecarFile(sourceFile);
-
+            File xmpFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(sourceFile);
             if (xmpFile != null) {
                 xmpFiles.add(xmpFile);
             }
         }
-
         sourceFiles.addAll(xmpFiles);
     }
 
@@ -117,16 +115,13 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         boolean renameIfTargetFileExists = copyMoveFilesOptions.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
         moveTask = new FileSystemMove(sourceFiles, targetDirectory, renameIfTargetFileExists);
         addListenerToMoveTask();
-
         Thread thread = new Thread(moveTask, getMoveThreadName());
-
         thread.start();
         runs = true;
     }
 
     private CopyMoveFilesOptions getCopyMoveFilesOptions() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
                 ? CopyMoveFilesOptions.parseInteger(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
@@ -147,17 +142,13 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private void chooseTargetDirectory() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
-
         dlg.setStorageKey("MoveToDirectoriesDialog.DirChooser");
         dlg.setVisible(true);
         toFront();
-
         if (dlg.isAccepted()) {
             List<File> files = dlg.getSelectedDirectories();
-
             if (files.size() > 0) {
                 targetDirectory = files.get(0);
-
                 if (targetDirectory.canWrite()) {
                     labelDirectoryName.setText(targetDirectory.getAbsolutePath());
                     setIconToLabelTargetDirectory();
@@ -169,7 +160,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             }
         } else {
             File dir = new File(labelDirectoryName.getText().trim());
-
             buttonStart.setEnabled(FileUtil.isWritableDirectory(dir));
         }
     }
@@ -200,7 +190,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
-
         this.sourceFiles = new ArrayList<File>(sourceFiles);
         addXmpFiles();
         Collections.sort(this.sourceFiles);
@@ -217,7 +206,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         if (directory.exists()) {
             targetDirectory = directory;
             buttonStart.setEnabled(false);
@@ -244,7 +232,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private void setTargetDirectory() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
         targetDirectory = new File(storage.getString(KEY_TARGET_DIRECTORY));
-
         if (targetDirectory.exists()) {
             labelDirectoryName.setText(targetDirectory.getAbsolutePath());
             setIconToLabelTargetDirectory();
@@ -254,7 +241,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private void targetDirectoryToSettings() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         storage.setString(KEY_TARGET_DIRECTORY, targetDirectory.getAbsolutePath());
     }
 
@@ -289,15 +275,11 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             public void run() {
                 progressBar.setValue(evt.getValue());
                 Object info = evt.getInfo();
-
                 if (info instanceof SourceTargetFile) {
                     SourceTargetFile sourceTargetFile = (SourceTargetFile) info;
-
                     String filename = sourceTargetFile.getSourceFile().getAbsolutePath();
-
                     labelCurrentFilename.setText(filename);
                 }
-
                 checkCancel(evt);
                 pListenerSupport.notifyPerformed(evt);
             }
@@ -328,7 +310,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         for (File movedFile : movedFiles) {
             sourceFiles.remove(movedFile);
         }
-
         buttonStart.setEnabled(sourceFiles.size() > 0);
     }
 
@@ -341,7 +322,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     @EventSubscriber(eventClass = FileMovedEvent.class)
     public void fileMoved(FileMovedEvent evt) {
         File sourceFile = evt.getSourceFile();
-
         movedFiles.add(sourceFile);
     }
 

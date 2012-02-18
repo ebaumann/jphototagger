@@ -16,6 +16,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -51,26 +52,21 @@ public final class RenameDeleteXmpValue {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-
         if (oldValue == null) {
             throw new NullPointerException("oldValue == null");
         }
-
         checkMetaDataValue(metaDataValue);
         String info = Bundle.getString(RenameDeleteXmpValue.class, "RenameDeleteXmpValue.Input.NewValue");
         String input = oldValue;
         String newValue = MessageDisplayer.input(info, input);
-
         if (newValue != null) {
             newValue = newValue.trim();
-
             if (newValue.equals(oldValue.trim())) {
                 String message = Bundle.getString(RenameDeleteXmpValue.class, "RenameDeleteXmpValue.Error.ValuesEquals");
                 MessageDisplayer.error(null, message);
             } else {
                 SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
                 Rename rename = new Rename(metaDataValue, oldValue, newValue);
-
                 executor.addTask(rename);
             }
         }
@@ -93,23 +89,17 @@ public final class RenameDeleteXmpValue {
         if (mdValue == null) {
             throw new NullPointerException("mdValue == null");
         }
-
         if (value == null) {
             throw new NullPointerException("value == null");
         }
-
         checkMetaDataValue(mdValue);
-
         if (value.trim().isEmpty()) {
             return;
         }
-
         String message = Bundle.getString(RenameDeleteXmpValue.class, "RenameDeleteXmpValue.Confirm.Delete", value);
-
         if (MessageDisplayer.confirmYesNo(null, message)) {
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
             Rename rename = new Rename(mdValue, value, "");
-
             executor.addTask(rename);
         }
     }
@@ -118,7 +108,6 @@ public final class RenameDeleteXmpValue {
         if (!XmpMetaDataValues.get().contains(mdValue)) {
             throw new IllegalArgumentException("Not a XMP metadata value: " + mdValue);
         }
-
         if (mdValue.equals(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
             throw new IllegalArgumentException("DC subjects are invalid!");
         }
@@ -132,6 +121,7 @@ public final class RenameDeleteXmpValue {
         private final String oldValue;
         private volatile boolean cancel;
         private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+        private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
         Rename(MetaDataValue metaDataValue, String oldValue, String newValue) {
             super("JPhotoTagger: Renaming XMP value");
@@ -150,25 +140,20 @@ public final class RenameDeleteXmpValue {
             List<File> imageFiles = repo.findImageFilesWhereMetaDataValueHasExactValue(metaDataValue, oldValue);
             int size = imageFiles.size();
             int value = 0;
-
             notifyStarted(size);
-
             for (File imageFile : imageFiles) {
                 if (cancel || isInterrupted()) {
                     break;
                 }
-
                 Xmp xmp = null;
-
                 try {
                     xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
                 } catch (IOException ex) {
                     Logger.getLogger(RenameDeleteXmpValue.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 if (xmp != null) {
                     rename(xmp);
-                    File suggestSidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
+                    File suggestSidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile);
                     if (XmpMetadata.writeXmpToSidecarFile(xmp, suggestSidecarFile)) {
                         SaveToOrUpdateFilesInRepositoryImpl insertImageFilesIntoRepository =
                                 new SaveToOrUpdateFilesInRepositoryImpl(Collections.singletonList(imageFile),
@@ -176,7 +161,6 @@ public final class RenameDeleteXmpValue {
                         insertImageFilesIntoRepository.run();    // Has to run in this thread!
                     }
                 }
-
                 value++;
                 notifyPerformed(value, size);
             }

@@ -32,6 +32,7 @@ import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -59,6 +60,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private final Set<SaveOrUpdate> saveOrUpdate = EnumSet.noneOf(SaveOrUpdate.class);
     private final List<File> files;
     private final ThumbnailsRepository thumbnailsRepository = Lookup.getDefault().lookup(ThumbnailsRepository.class);
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private volatile boolean cancel;
 
     public SaveToOrUpdateFilesInRepositoryImpl() {
@@ -68,15 +70,12 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     public SaveToOrUpdateFilesInRepositoryImpl(Collection<? extends File> files, SaveOrUpdate... saveOrUpdate) {
         super("JPhotoTagger: Inserting image files into repository");
-
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         if (saveOrUpdate == null) {
             throw new NullPointerException("saveOrUpdate == null");
         }
-
         this.files = new ArrayList<File>(files);
         this.saveOrUpdate.addAll(Arrays.asList(saveOrUpdate));
     }
@@ -86,11 +85,9 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         if (saveOrUpdate == null) {
             throw new NullPointerException("what == saveOrUpdate");
         }
-
         return new SaveToOrUpdateFilesInRepositoryImpl(files, saveOrUpdate);
     }
 
@@ -107,21 +104,16 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     @Override
     public void run() {
         int count = files.size();
-        int index = 0;
-
+        int index;
         notifyStarted();
-
         for (index = 0; !cancel && !isInterrupted() && (index < count); index++) {
             File file = files.get(index);
-
             // Notify before inserting to enable progress listeners displaying
             // the current image file
             notifyPerformed(index + 1, file);
-
             if (checkExists(file)) {
                 deleteXmpFromRepositoryIfAbsentInFilesystem(file);
                 ImageFile imageFile = createImageFile(file);
-
                 if (isUpdate(imageFile)) {
                     setExifDateToXmpDateCreated(imageFile);
                     logInsertImageFile(imageFile);
@@ -130,7 +122,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
                 }
             }
         }
-
         notifyEnded(index);
     }
 
@@ -140,20 +131,16 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private ImageFile createImageFile(File file) {
         ImageFile imageFile = new ImageFile();
-
         imageFile.setFile(file);
         imageFile.setLastmodified(file.lastModified());
-
         if (isUpdateThumbnail(file)) {
             imageFile.addToSaveIntoRepository(SaveOrUpdate.THUMBNAIL);
             createAndSetThumbnailToImageFile(imageFile);
         }
-
         if (isUpdateXmp(file)) {
             imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);
             setXmpToImageFile(imageFile);
         }
-
         if (isUpdateExif(file)) {
             imageFile.addToSaveIntoRepository(SaveOrUpdate.EXIF);
             setExifToImageFile(imageFile);
@@ -185,26 +172,21 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private boolean isImageFileUpToDate(File imageFile) {
         long repoTime = imageFilesRepository.findImageFilesLastModifiedTimestamp(imageFile);
         long fileTime = imageFile.lastModified();
-
         return fileTime == repoTime;
     }
 
     private boolean isThumbnailUpToDate(File file) {
         File thumbnailFile = thumbnailsRepository.findThumbnailFile(file);
-
         if (thumbnailFile == null || !thumbnailFile.exists()) {
             return false;
         }
-
         long lastModifiedThumbnailFile = thumbnailFile.lastModified();
         long lastModifiedFile = file.lastModified();
-
         return lastModifiedThumbnailFile >= lastModifiedFile;
     }
 
     private boolean isXmpUpToDate(File file) {
-        File xmpFile = XmpMetadata.getSidecarFile(file);
-
+        File xmpFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(file);
         return (xmpFile == null)
                 ? isScanForEmbeddedXmp() && isEmbeddedXmpUpToDate(file)
                 : isXmpSidecarFileUpToDate(file, xmpFile);
@@ -212,7 +194,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private boolean isScanForEmbeddedXmp() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage.containsKey(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                 ? storage.getBoolean(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                 : false;
@@ -221,34 +202,27 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private boolean isXmpSidecarFileUpToDate(File imageFile, File sidecarFile) {
         long repoTime = imageFilesRepository.findXmpFilesLastModifiedTimestamp(imageFile);
         long fileTime = sidecarFile.lastModified();
-
         return fileTime == repoTime;
     }
 
     private boolean isEmbeddedXmpUpToDate(File file) {
         long repoTime = imageFilesRepository.findXmpFilesLastModifiedTimestamp(file);
         long fileTime = file.lastModified();
-
         if (repoTime == fileTime) {
             return true;
         }
-
         // slow if large image file whitout XMP
         boolean hasEmbeddedXmp = XmpMetadata.getEmbeddedXmp(file) != null;
-
         if (!hasEmbeddedXmp) {    // Avoid unneccesary 2nd calls
             imageFilesRepository.setLastModifiedToXmpSidecarFileOfImageFile(file, fileTime);
         }
-
         return !hasEmbeddedXmp;
     }
 
     private void createAndSetThumbnailToImageFile(ImageFile imageFile) {
         File file = imageFile.getFile();
         Image thumbnail = ThumbnailCreatorService.INSTANCE.createScaledOrFromEmbeddedThumbnail(file);
-
         imageFile.setThumbnail(thumbnail);
-
         if (thumbnail == null) {
             logErrorNullThumbnail(file);
             imageFile.setThumbnail(AppLookAndFeel.ERROR_THUMBNAIL);
@@ -258,28 +232,23 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private void setExifToImageFile(ImageFile imageFile) {
         File file = imageFile.getFile();
         Exif exif = ExifUtil.readExif(file);
-
         imageFile.setExif(exif);
     }
 
     private void setXmpToImageFile(ImageFile imageFile) {
         File file = imageFile.getFile();
         Xmp xmp = null;
-
         try {
-            xmp = XmpMetadata.hasImageASidecarFile(file)
+            xmp = xmpSidecarFileResolver.hasXmpSidecarFile(file)
                     ? XmpMetadata.getXmpFromSidecarFileOf(file)
                     : isScanForEmbeddedXmp()
                     ? XmpMetadata.getEmbeddedXmp(file)
                     : null;
         } catch (IOException ex) {
             Logger.getLogger(SaveToOrUpdateFilesInRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
-
             return;
         }
-
         writeSidecarFileIfNotExists(file, xmp);
-
         if ((xmp != null) && !xmp.isEmpty()) {
             imageFile.setXmp(xmp);
         }
@@ -292,15 +261,11 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         boolean hasXmp = xmp != null;
         boolean hasXmpDateCreated = hasXmp && xmp.contains(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
         boolean hasExifDate = hasExif && (exif.getDateTimeOriginal() != null);
-
         if (hasXmpDateCreated || !hasXmp || !hasExif || !hasExifDate) {
             return;
         }
-
         xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, exif.getXmpDateCreated());
-
-        File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile.getFile());
-
+        File sidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile.getFile());
         if (sidecarFile.canWrite()) {
             XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
@@ -308,9 +273,9 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     }
 
     private void writeSidecarFileIfNotExists(File imageFile, Xmp xmp) {
-        if ((xmp != null) && !XmpMetadata.hasImageASidecarFile(imageFile)
+        if ((xmp != null) && !xmpSidecarFileResolver.hasXmpSidecarFile(imageFile)
                 && XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
-            File sidecarFile = XmpMetadata.suggestSidecarFile(imageFile);
+            File sidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile);
 
             XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
         }
@@ -320,10 +285,8 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         if (!isRunActionsAfterInserting(imageFile)) {
             return;
         }
-
         File file = imageFile.getFile();
         List<Program> actions = actionsAfterRepoUpdatesRepository.findAllActions();
-
         for (Program action : actions) {
             StartPrograms programStarter = new StartPrograms();
 
@@ -332,10 +295,9 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     }
 
     private void deleteXmpFromRepositoryIfAbsentInFilesystem(File file) {
-        if (XmpMetadata.hasImageASidecarFile(file)) {
+        if (xmpSidecarFileResolver.hasXmpSidecarFile(file)) {
             return;
         }
-
         if (imageFilesRepository.existsXmpForFile(file)) {
             LOGGER.log(Level.INFO, "Deleting from Repository XMP of file ''{0}'' - it does not have (anymore) a XMP sidecar file", file);
             imageFilesRepository.deleteXmpOfFile(file);
@@ -357,7 +319,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private boolean isExecuteActionsAfterImageChangeInDbAlways() {
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
         return preferences.containsKey(AppPreferencesKeys.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
                 ? preferences.getBoolean(AppPreferencesKeys.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_ALWAYS)
                 : false;
@@ -370,7 +331,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private void notifyUpdateMetadataCheckListener(Type type, File file) {
         UpdateMetadataCheckEvent evt = new UpdateMetadataCheckEvent(type, file);
-
         EventBus.publish(evt);
     }
 
@@ -379,7 +339,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         if (progessListener == null) {
             throw new NullPointerException("progessListener == null");
         }
-
         progessListeners.add(progessListener);
     }
 
@@ -388,7 +347,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         if (progessListener == null) {
             throw new NullPointerException("progessListener == null");
         }
-
         progessListeners.remove(progessListener);
     }
 
@@ -429,10 +387,8 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private boolean checkExists(File imageFile) {
         if (!imageFile.exists()) {
             LOGGER.log(Level.INFO, "Image file ''{0}'' does not (longer) exist and will not be updated in the repository", imageFile);
-
             return false;
         }
-
         return true;
     }
 
@@ -444,7 +400,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
             : Bundle.getString(SaveToOrUpdateFilesInRepositoryImpl.class, "SaveToOrUpdateFilesInRepositoryImpl.Info.StartInsert.Yes"), (data.getThumbnail() == null)
             ? Bundle.getString(SaveToOrUpdateFilesInRepositoryImpl.class, "SaveToOrUpdateFilesInRepositoryImpl.Info.StartInsert.No")
             : Bundle.getString(SaveToOrUpdateFilesInRepositoryImpl.class, "SaveToOrUpdateFilesInRepositoryImpl.Info.StartInsert.Yes")};
-
         LOGGER.log(Level.INFO, "Add metadata into the repository of file ''{0}'': EXIF: {1}, XMP: {2}, Thumbnail: {3}", params);
     }
 }

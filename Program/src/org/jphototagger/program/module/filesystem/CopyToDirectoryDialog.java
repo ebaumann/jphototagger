@@ -19,6 +19,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
@@ -30,7 +31,6 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * @author Elmar Baumann
@@ -45,6 +45,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private boolean writeProperties = true;
     private Collection<File> sourceFiles;
     private File targetDirectory = new File("");
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final FilesystemRepositoryUpdater fileSystemDbUpdater = new FilesystemRepositoryUpdater(true); // Required!
 
     public CopyToDirectoryDialog() {
@@ -62,7 +63,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         pListenerSupport.add(listener);
     }
 
@@ -70,7 +70,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         pListenerSupport.remove(listener);
     }
 
@@ -93,9 +92,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private void start(boolean addXmp, CopyMoveFilesOptions options) {
         copyTask = new CopyFiles(getFiles(addXmp), options);
         copyTask.addProgressListener(this);
-
         Thread thread = new Thread(copyTask, "JPhotoTagger: Copying files to directories");
-
         thread.start();
     }
 
@@ -109,29 +106,23 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     private List<SourceTargetFile> getFiles(boolean addXmp) {
         List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>();
-
         for (File sourceFile : sourceFiles) {
             File targetFile = new File(targetDirectory + File.separator + sourceFile.getName());
-
             // XMP first to avoid dynamically creating sidecar files before copied
             // when the embedded option is true and the image has IPTC or emb. XMP
             if (addXmp) {
                 addXmp(sourceFile, sourceTargetFiles);
             }
-
             sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
         }
-
         return sourceTargetFiles;
     }
 
     private void addXmp(File imageFile, List<SourceTargetFile> sourceTargetFiles) {
-        File sidecarFile = XmpMetadata.getSidecarFile(imageFile);
-
+        File sidecarFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(imageFile);
         if (sidecarFile != null) {
             File sourceSidecarFile = sidecarFile;
             File targetSidecarFile = new File(targetDirectory + File.separator + sourceSidecarFile.getName());
-
             sourceTargetFiles.add(new SourceTargetFile(sourceSidecarFile, targetSidecarFile));
         }
     }
@@ -144,17 +135,13 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private void chooseTargetDirectory() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
-
         dlg.setStorageKey("CopyToDirectoryDialog.DirChooser");
         dlg.setVisible(true);
         toFront();
-
         if (dlg.isAccepted()) {
             List<File> files = dlg.getSelectedDirectories();
-
             if (files.size() > 0) {
                 targetDirectory = files.get(0);
-
                 if (targetDirectory.canWrite()) {
                     labelTargetDirectory.setText(targetDirectory.getAbsolutePath());
                     setIconToLabelTargetDirectory();
@@ -166,7 +153,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             }
         } else {
             File dir = new File(labelTargetDirectory.getText().trim());
-
             buttonStart.setEnabled(FileUtil.isWritableDirectory(dir));
         }
     }
@@ -179,7 +165,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     private boolean isAcceptHiddenDirectories() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
@@ -187,7 +172,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     private void setIconToLabelTargetDirectory() {
         File dir = new File(labelTargetDirectory.getText());
-
         if (dir.isDirectory()) {
             labelTargetDirectory.setIcon(FileSystemView.getFileSystemView().getSystemIcon(dir));
         }
@@ -202,7 +186,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
-
         this.sourceFiles = new ArrayList<File>(sourceFiles);
     }
 
@@ -215,7 +198,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         if (directory.isDirectory() && directory.exists()) {
             targetDirectory = directory;
         }
@@ -233,7 +215,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         if (options == null) {
             throw new NullPointerException("options == null");
         }
-
         if (targetDirectory.exists() && (sourceFiles.size() > 0)) {
             labelTargetDirectory.setText(targetDirectory.getAbsolutePath());
             setOptionsToRadioButtons(options);
@@ -276,17 +257,13 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                 writeProperties();
             }
         }
-
         super.setVisible(visible);
     }
 
     private void readProperties() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         storage.applyToggleButtonSettings(KEY_COPY_XMP, checkBoxCopyXmp);
-
         File directory = new File(storage.getString(KEY_LAST_DIRECTORY));
-
         if (directory.isDirectory()) {
             targetDirectory = directory;
         }
@@ -294,7 +271,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     private void writeProperties() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         storage.setString(KEY_LAST_DIRECTORY, targetDirectory.getAbsolutePath());
         storage.setToggleButton(KEY_COPY_XMP, checkBoxCopyXmp);
     }
@@ -333,16 +309,13 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             public void run() {
                 progressBar.setValue(evt.getValue());
                 Object info = evt.getInfo();
-
                 if (info instanceof SourceTargetFile) {
                     SourceTargetFile files = (SourceTargetFile) info;
                     File sourceFile = files.getSourceFile();
                     File targetFile = files.getTargetFile();
-
                     labelCurrentFilename.setText(files.getSourceFile().getAbsolutePath());
                     EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile));
                 }
-
                 pListenerSupport.notifyPerformed(evt);
             }
         });
@@ -356,9 +329,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
             @Override
             public void run() {
                 progressBar.setValue(evt.getValue());
-
                 List<String> errorFiles = (List<String>) evt.getInfo();
-
                 checkError(errorFiles);
                 buttonCancel.setEnabled(false);
                 buttonStart.setEnabled(true);

@@ -50,6 +50,7 @@ import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
@@ -87,6 +88,7 @@ final class EditMetaDataPanels implements FocusListener {
     private final JComponent parentContainer;
     private final Object monitor = new Object();
     private final EditMetaDataActionsPanel editMetadataActionsPanel = new EditMetaDataActionsPanel(this);
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private EditRepeatableTextEntryPanel keywordsPanel;
     private Component lastFocussedEditControl;
 
@@ -94,7 +96,6 @@ final class EditMetaDataPanels implements FocusListener {
         if (parentContainer == null) {
             throw new NullPointerException("parentContainer == null");
         }
-
         this.parentContainer = parentContainer;
         createEditPanels();
         addEditPanelsToParentContainer();
@@ -172,7 +173,6 @@ final class EditMetaDataPanels implements FocusListener {
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
         List<File> selFiles = evt.getSelectedFiles();
-
         if (evt.isAFileSelected()) {
             boolean canEdit = canEdit(selFiles);
             setEditable(canEdit);
@@ -197,7 +197,6 @@ final class EditMetaDataPanels implements FocusListener {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         synchronized (monitor) {
             setEditable(false);
             parentContainer.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -216,13 +215,11 @@ final class EditMetaDataPanels implements FocusListener {
 
     private List<Xmp> getXmpOfFilesXmp(Collection<? extends FileXmp> filesXmp) {
         List<Xmp> xmps = new ArrayList<Xmp>(filesXmp.size());
-
         for (FileXmp fileXmp : filesXmp) {
             Xmp xmp = fileXmp.getXmp();
 
             xmps.add(xmp);
         }
-
         return xmps;
     }
 
@@ -242,7 +239,6 @@ final class EditMetaDataPanels implements FocusListener {
         @Override
         public void run() {
             setFilesXmp();
-
             if (!cancelled) {
                 synchronized (monitor) {
                     List<Xmp> xmps = getXmpOfFilesXmp(threadFilesXmp);
@@ -255,7 +251,6 @@ final class EditMetaDataPanels implements FocusListener {
                     parentContainer.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 }
             }
-
             synchronized (monitor) {
                 if (currentSetFilesThread == this) {
                     currentSetFilesThread = null;
@@ -269,23 +264,18 @@ final class EditMetaDataPanels implements FocusListener {
                 if (cancelled) {
                     return;
                 }
-
                 Xmp xmp = null;
-
-                if (XmpMetadata.hasImageASidecarFile(file)) {
+                if (xmpSidecarFileResolver.hasXmpSidecarFile(file)) {
                     try {
                         xmp = XmpMetadata.getXmpFromSidecarFileOf(file);
                     } catch (Throwable t) {
                         LOGGER.log(Level.SEVERE, null, t);
                     }
                 }
-
                 if (xmp == null) {
                     xmp = new Xmp();
                 }
-
                 FileXmp fileXmp = new FileXmp(file, xmp);
-
                 threadFilesXmp.add(fileXmp);
             }
         }
@@ -301,7 +291,6 @@ final class EditMetaDataPanels implements FocusListener {
         if (xmps.isEmpty()) {
             return;
         }
-
         final Map<MetaDataValue, Collection<String>> commonXmpOfRepeatableMetaDataValues = getCommonXmpOfRepeatableMetaDataValues(xmps);
         final Map<MetaDataValue, String> commonXmpOfNotRepeatableMetaDataValues = getCommonXmpOfNotRepeatableMetaDataValues(xmps);
 
@@ -311,7 +300,6 @@ final class EditMetaDataPanels implements FocusListener {
             public void run() {
                 List<TextEntry> textEntriesWithDifferentValues = new ArrayList<TextEntry>();
                 boolean containsMultipleFilesForEdit = xmps.size() > 1;
-
                 for (TextEntry textEntry : textEntries) {
                     MetaDataValue metaDataValue = textEntry.getMetaDataValue();
                     if (textEntry instanceof EditRepeatableTextEntryPanel) {
@@ -327,7 +315,6 @@ final class EditMetaDataPanels implements FocusListener {
                     }
                     textEntry.setDirty(false);
                 }
-
                 if (containsMultipleFilesForEdit && !textEntriesWithDifferentValues.isEmpty()) {
                     watchDifferentValues.setEntries(textEntriesWithDifferentValues);
                     watchDifferentValues.setListen(true);
@@ -338,25 +325,19 @@ final class EditMetaDataPanels implements FocusListener {
 
     private Map<MetaDataValue, Collection<String>> getCommonXmpOfRepeatableMetaDataValues(List<? extends Xmp> xmps) {
         Map<MetaDataValue, Collection<String>> commonXmp = new HashMap<MetaDataValue, Collection<String>>();
-
         for (MetaDataValue metaDataValue : repeatableMetaDataValuesOfTextEntries) {
             Collection<String> commonXmpAsStrings = getCommonXmpValuesAsStrings(xmps, metaDataValue);
-
             commonXmp.put(metaDataValue, commonXmpAsStrings);
         }
-
         return commonXmp;
     }
 
     private Map<MetaDataValue, String> getCommonXmpOfNotRepeatableMetaDataValues(List<? extends Xmp> xmps) {
         Map<MetaDataValue, String> commonXmp = new HashMap<MetaDataValue, String>();
-
         for (MetaDataValue metaDataValue : notRepeatableMetaDataValuesOfTextEntries) {
             String commonXmpAsString = getCommonXmpString(xmps, metaDataValue);
-
             commonXmp.put(metaDataValue, commonXmpAsString);
         }
-
         return commonXmp;
     }
 
@@ -365,37 +346,28 @@ final class EditMetaDataPanels implements FocusListener {
         if (xmps.size() == 1) {
             Xmp xmp = xmps.get(0);
             Object currentXmpValue = xmp.getValue(metaDataValue);
-
             if (currentXmpValue instanceof List<?>) {
                 return (List<String>) currentXmpValue;
             } else {
                 return new ArrayList<String>(1);
             }
         }
-
         // more then 1 file
         Stack<List<String>> lists = new Stack<List<String>>();
-
         for (Xmp xmp : xmps) {
             Object xmpValue = xmp.getValue(metaDataValue);
-
             if (xmpValue instanceof List<?>) {
                 lists.push((List<String>) xmpValue);
             }
         }
-
         if (lists.size() != xmps.size()) {
-
             // 1 ore more files without metadata
             return new ArrayList<String>(1);
         }
-
         List<String> coll = lists.pop();
-
         while (!lists.isEmpty() && (coll.size() > 0)) {
             coll.retainAll(lists.pop());
         }
-
         return coll;
     }
 
@@ -404,36 +376,28 @@ final class EditMetaDataPanels implements FocusListener {
             Xmp xmp = xmps.get(0);
             Object currentXmpValue = xmp.getValue(metaDataValue);
             String currentXmpValueAsString = valueToString(currentXmpValue);
-
             return (currentXmpValueAsString == null)
                     ? ""
                     : currentXmpValueAsString.trim();
         }
-
         // more then 1 file
         Stack<String> strings = new Stack<String>();
-
         for (Xmp xmp : xmps) {
             Object xmpValue = xmp.getValue(metaDataValue);
             String xmpValueAsString = valueToString(xmpValue);
-
             if (xmpValueAsString != null) {
                 strings.push(xmpValueAsString.trim());
             }
         }
-
         if (strings.size() != xmps.size()) {
             return "";
         }
-
         String string = strings.pop();
-
         while (!strings.empty()) {
             if (!strings.pop().equalsIgnoreCase(string)) {
                 return "";
             }
         }
-
         return string;
     }
 
@@ -441,12 +405,10 @@ final class EditMetaDataPanels implements FocusListener {
         for (Xmp xmp : xmps) {
             Object xmpValue = xmp.getValue(metaDataValue);
             String xmpValueAsString = valueToString(xmpValue);
-
             if (StringUtil.hasContent(xmpValueAsString)) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -503,7 +465,6 @@ final class EditMetaDataPanels implements FocusListener {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-
         for (TextEntry textEntry : textEntries) {
             if (!(textEntry instanceof JPanel)) {
                 throw new IllegalStateException("Unexpected type of TextEntry: " + textEntry.getClass());
@@ -513,7 +474,6 @@ final class EditMetaDataPanels implements FocusListener {
                 return (JPanel) textEntry;
             }
         }
-
         return null;
     }
 
@@ -521,11 +481,9 @@ final class EditMetaDataPanels implements FocusListener {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-
         if (text == null) {
             throw new NullPointerException("text == null");
         }
-
         synchronized (monitor) {
             if (!editable) {
                 return;
@@ -538,7 +496,6 @@ final class EditMetaDataPanels implements FocusListener {
             public void run() {
                 TextEntry textEntryForAdd = null;
                 int size = textEntries.size();
-
                 for (int i = 0; textEntryForAdd == null && i < size; i++) {
                     TextEntry textEntry = textEntries.get(i);
                     MetaDataValue textEntryMetaDataValue = textEntry.getMetaDataValue();
@@ -547,7 +504,6 @@ final class EditMetaDataPanels implements FocusListener {
                         textEntryForAdd = textEntry;
                     }
                 }
-
                 if (textEntryForAdd instanceof EditRepeatableTextEntryPanel) {
                     EditRepeatableTextEntryPanel editRepeatableTextEntryPanel = (EditRepeatableTextEntryPanel) textEntryForAdd;
                     editRepeatableTextEntryPanel.addText(text);
@@ -555,7 +511,6 @@ final class EditMetaDataPanels implements FocusListener {
                     textEntryForAdd.setText(text);
                     textEntryForAdd.setDirty(true);
                 }
-
                 saveIfDirtyAndInputIsSaveEarly();
             }
         });
@@ -565,33 +520,27 @@ final class EditMetaDataPanels implements FocusListener {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-
         if (text == null) {
             throw new NullPointerException("text == null");
         }
-
         synchronized (monitor) {
             if (!editable) {
                 return;
             }
         }
-
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
                 TextEntry textEntryForRemove = null;
                 int size = textEntries.size();
-
                 for (int i = 0; textEntryForRemove == null && i < size; i++) {
                     TextEntry textEntry = textEntries.get(i);
                     MetaDataValue textEntryMetaDataValue = textEntry.getMetaDataValue();
-
                     if (textEntryMetaDataValue.equals(metaDataValue)) {
                         textEntryForRemove = textEntry;
                     }
                 }
-
                 if (textEntryForRemove instanceof EditRepeatableTextEntryPanel) {
                     EditRepeatableTextEntryPanel editRepeatableTextEntryPanel = (EditRepeatableTextEntryPanel) textEntryForRemove;
                     editRepeatableTextEntryPanel.removeText(text);
@@ -599,7 +548,6 @@ final class EditMetaDataPanels implements FocusListener {
                     textEntryForRemove.setText("");
                     textEntryForRemove.setDirty(true);
                 }
-
                 saveIfDirtyAndInputIsSaveEarly();
             }
         });
@@ -609,9 +557,7 @@ final class EditMetaDataPanels implements FocusListener {
         if (!EventQueue.isDispatchThread()) {
             throw new IllegalStateException("Not called in EDT");
         }
-
         Xmp xmp = new Xmp();
-
         for (TextEntry textEntry : textEntries) {
             if (textEntry instanceof EditTextEntryPanel) {
                 EditTextEntryPanel panel = (EditTextEntryPanel) textEntry;
@@ -651,7 +597,6 @@ final class EditMetaDataPanels implements FocusListener {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
-
         if (!editable) {
             return;
         }
@@ -660,7 +605,6 @@ final class EditMetaDataPanels implements FocusListener {
 
             @Override
             public void run() {
-
                 for (TextEntry textEntry : textEntries) {
                     if (textEntry instanceof EditTextEntryPanel) {
                         EditTextEntryPanel panel = (EditTextEntryPanel) textEntry;
@@ -707,11 +651,9 @@ final class EditMetaDataPanels implements FocusListener {
         if (rating == null) {
             throw new NullPointerException("rating == null");
         }
-
         if (!editable) {
             return;
         }
-
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
@@ -744,7 +686,6 @@ final class EditMetaDataPanels implements FocusListener {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
         synchronized (monitor) {
             if (!editable) {
                 return;
@@ -758,10 +699,8 @@ final class EditMetaDataPanels implements FocusListener {
                 for (TextEntry textEntry : textEntries) {
                     MetaDataValue metaDataValue = textEntry.getMetaDataValue();
                     Object templateValue = template.getMetaDataValue(metaDataValue);
-
                     if (templateValue instanceof String) {
                         String string = (String) templateValue;
-
                         if (!string.isEmpty()) {
                             textEntry.setText(string);
                             textEntry.setDirty(true);
@@ -769,7 +708,6 @@ final class EditMetaDataPanels implements FocusListener {
                     } else if (templateValue instanceof Collection<?>) {
                         @SuppressWarnings("unchecked") Collection<String> strings = (Collection<String>) templateValue;
                         EditRepeatableTextEntryPanel repeatableTextEntry = (EditRepeatableTextEntryPanel) textEntry;
-
                         repeatableTextEntry.setTexts(strings);
                         repeatableTextEntry.setDirty(true);
                     }
@@ -782,26 +720,21 @@ final class EditMetaDataPanels implements FocusListener {
         if (!EventQueue.isDispatchThread()) {
             throw new IllegalStateException("Not called in EDT");
         }
-
         MetadataTemplate template = new MetadataTemplate();
-
         for (TextEntry textEntry : textEntries) {
             if (textEntry instanceof EditRepeatableTextEntryPanel) {
                 EditRepeatableTextEntryPanel repeatableEntry = (EditRepeatableTextEntryPanel) textEntry;
                 MetaDataValue metaDataValue = textEntry.getMetaDataValue();
                 Collection<String> repeatableText = repeatableEntry.getRepeatableText();
-
                 template.setMetaDataValue(metaDataValue, repeatableText);
             } else {
                 String text = textEntry.getText();
-
                 if (text != null && !text.trim().isEmpty()) {
                     MetaDataValue metaDataValue = textEntry.getMetaDataValue();
                     template.setMetaDataValue(metaDataValue, text.trim());
                 }
             }
         }
-
         return template;
     }
 
@@ -846,13 +779,11 @@ final class EditMetaDataPanels implements FocusListener {
 
     private GridBagConstraints newConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
-
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 10, 0, 10);
         gbc.weightx = 1;
-
         return gbc;
     }
 
@@ -870,7 +801,6 @@ final class EditMetaDataPanels implements FocusListener {
             public void run() {
                 if (textEntries.size() > 0) {
                     TextEntry textEntry = textEntries.get(0);
-
                     textEntry.requestFocus();
                     lastFocussedEditControl = (Component) textEntries.get(0);
                 }
@@ -896,14 +826,12 @@ final class EditMetaDataPanels implements FocusListener {
         if (!textEntries.isEmpty()) {
             throw new IllegalStateException("Panels already created");
         }
-
         for (MetaDataValue metaDataValue : EditableMetaDataValues.get()) {
             EditHints editHints = EditableMetaDataValues.getEditHints(metaDataValue);
             SizeEditField sizeEditField = editHints.getSizeEditField();
             boolean large = sizeEditField.equals(SizeEditField.LARGE);
             boolean medium = sizeEditField.equals(SizeEditField.MEDIUM);
             boolean isRepeatable = editHints.isRepeatable();
-
             if (isRepeatable) {
                 EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(metaDataValue);
                 panel.textAreaInput.addFocusListener(this);
@@ -946,7 +874,6 @@ final class EditMetaDataPanels implements FocusListener {
 
     private boolean isAutocompleteEnabled() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
@@ -963,7 +890,6 @@ final class EditMetaDataPanels implements FocusListener {
 
             @Override
             public void run() {
-
                 for (TextEntry textEntry : textEntries) {
                     textEntry.empty();
                 }
@@ -974,11 +900,9 @@ final class EditMetaDataPanels implements FocusListener {
     @Override
     public void focusGained(FocusEvent evt) {
         Component sourceComponent = (Component) evt.getSource();
-
         if (isEditComponent(sourceComponent) && !(sourceComponent instanceof RatingSelectionPanel)) {
             lastFocussedEditControl = sourceComponent;
         }
-
         scrollToVisible(sourceComponent);
     }
 
@@ -1000,7 +924,6 @@ final class EditMetaDataPanels implements FocusListener {
             @Override
             public void run() {
                 Component parent = getParentNextToContainer(component);
-
                 if (parent != null) {
                     parentContainer.scrollRectToVisible(parent.getBounds());
                 }
@@ -1010,17 +933,13 @@ final class EditMetaDataPanels implements FocusListener {
 
     private Component getParentNextToContainer(Component component) {
         Component parent = component;
-
         while (parent != null) {
             Container parentsParent = parent.getParent();
-
             if (parentsParent == parentContainer) {
                 return parent;
             }
-
             parent = parent.getParent();
         }
-
         return null;
     }
 
@@ -1046,13 +965,11 @@ final class EditMetaDataPanels implements FocusListener {
         if (!editable || !isSaveInputEarly() || !isDirty()) {
             return;
         }
-
         save();
     }
 
     private boolean isSaveInputEarly() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage.containsKey(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
                 ? storage.getBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
                 : true;
@@ -1078,12 +995,9 @@ final class EditMetaDataPanels implements FocusListener {
             if (!isAsSingleFileInEdit(file) || isDirty()) {
                 return;
             }
-
             FileXmp currentFileXmpInEdit = filesXmp.get(0);
             filesXmp.set(0, new FileXmp(file, xmp));
-
             Xmp currentXmpInEdit = currentFileXmpInEdit.getXmp();
-
             removeXmpAsListenerFromAllTextEntries(currentXmpInEdit);
             addXmpAsListenerToAllTextEntries(xmp);
             setXmpToEditPanels(Arrays.asList(xmp));
@@ -1095,10 +1009,8 @@ final class EditMetaDataPanels implements FocusListener {
             if (!editable || !containsExactlyOneFileForEdit()) {
                 return false;
             }
-
             FileXmp currentFileXmp = filesXmp.get(0);
             File currentFile = currentFileXmp.getFile();
-
             return file.equals(currentFile);
         }
     }
@@ -1114,12 +1026,10 @@ final class EditMetaDataPanels implements FocusListener {
         private final List<TextEntry> entries = new ArrayList<TextEntry>();
         private final Set<TextEntry> releasedEntries = new HashSet<TextEntry>();
         private volatile boolean listen;
-
         public synchronized void setListen(boolean listen) {
             if (listen) {
                 listenToEntries();
             }
-
             this.listen = listen;
         }
 
@@ -1130,7 +1040,6 @@ final class EditMetaDataPanels implements FocusListener {
                 } else {
                     entry.setText(Bundle.getString(EditMetaDataPanels.class, "EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
                 }
-
                 entry.addMouseListenerToInputComponents(this);
                 entry.setDirty(false);
                 entry.setEditable(false);
@@ -1157,7 +1066,6 @@ final class EditMetaDataPanels implements FocusListener {
             if (entries == null) {
                 throw new NullPointerException("entries == null");
             }
-
             releaseAllEntries();
             this.releasedEntries.clear();
             this.entries.clear();
@@ -1170,9 +1078,7 @@ final class EditMetaDataPanels implements FocusListener {
                 if (!editable || !listen) {
                     return;
                 }
-
                 TextEntry entry = getTextEntry(evt.getSource());
-
                 if (enableEdit(entry) && (entry instanceof RatingSelectionPanel)) {
                     ((RatingSelectionPanel) entry).repeatLastClick();
                 }
@@ -1181,15 +1087,12 @@ final class EditMetaDataPanels implements FocusListener {
 
         private TextEntry getTextEntry(Object o) {
             Object obj = o;
-
             if (obj instanceof TextEntry) {
                 return (TextEntry) obj;
             }
-
             while (obj != null) {
                 if (obj instanceof Component) {
                     obj = ((Component) obj).getParent();
-
                     if (obj instanceof TextEntry) {
                         return (TextEntry) obj;
                     }
@@ -1197,7 +1100,6 @@ final class EditMetaDataPanels implements FocusListener {
                     return null;
                 }
             }
-
             return null;
         }
 
@@ -1205,15 +1107,11 @@ final class EditMetaDataPanels implements FocusListener {
             if (entry == null) {
                 throw new NullPointerException("entry == null");
             }
-
             String message = Bundle.getString(WatchDifferentValues.class, "EditMetadataPanels.DisableIfMultipleValues.Confirm.Edit");
-
             if (MessageDisplayer.confirmYesNo(null, message)) {
                 releaseEntry(entry);
-
                 return true;
             }
-
             return false;
         }
     }

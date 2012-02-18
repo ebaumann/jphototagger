@@ -9,6 +9,7 @@ import javax.swing.Icon;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.lib.util.Bundle;
@@ -30,6 +31,7 @@ public class RepositoryImageFileInfo {
     private String timeImageFileWarning;
     private String timeXmpFileWarning;
     private String thumbnailSizeInfo;
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ImageFilesRepository imageFileRepository = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private static final DateFormat DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
     private static final String TIME_WARNING_STRING = Bundle.getString(RepositoryImageFileInfo.class, "RepositoryImageFileInfo.TimeWarningString");
@@ -72,7 +74,7 @@ public class RepositoryImageFileInfo {
     private void setXmpFileTimeStamps() {
         long repoTimestamp = imageFileRepository.findXmpFilesLastModifiedTimestamp(imageFile);
         timeXmpFileInRepository = createDateStringOfTimestamp(repoTimestamp);
-        File xmpFile = resolveXmpFile(imageFile);
+        File xmpFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile);
         timeXmpFileInFileSystem = createDateStringOfFile(xmpFile);
         setTimeXmpFileWarning(repoTimestamp, xmpFile);
     }
@@ -90,20 +92,6 @@ public class RepositoryImageFileInfo {
         }
     }
 
-    private File resolveXmpFile(File imageFile) {
-        return new File(resolveXmpFilepath(imageFile.getAbsolutePath()));
-    }
-
-    private String resolveXmpFilepath(String imageFilePath) {
-        int indexOfLastDot = imageFilePath.lastIndexOf('.');
-
-        if (indexOfLastDot < 1) {
-            return "";
-        }
-
-        return imageFilePath.substring(0, indexOfLastDot + 1) + "xmp"; // may fail on case sensitive file systems
-    }
-
     private void setTimeXmpFileWarning(long repoTimeStamp, File xmpFile) {
         long lastModified = xmpFile.lastModified();
         timeXmpFileWarning = xmpFile.exists() && lastModified != repoTimeStamp ? TIME_WARNING_STRING : "";
@@ -116,7 +104,8 @@ public class RepositoryImageFileInfo {
 
     private void setFilesExists() {
         imageFileExists = existsImageFile();
-        xmpFileExists = imageFile != null && resolveXmpFile(imageFile).exists();
+        xmpFileExists = imageFile != null
+                && xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile).exists();
     }
 
     private boolean existsImageFile() {

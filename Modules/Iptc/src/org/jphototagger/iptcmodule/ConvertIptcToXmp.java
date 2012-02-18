@@ -16,6 +16,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.metadata.iptc.Iptc;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
@@ -32,6 +33,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     private final List<File> files;
     private boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(ConvertIptcToXmp.class.getName());
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     public ConvertIptcToXmp(Collection<? extends File> imageFiles) {
         if (imageFiles == null) {
@@ -57,43 +59,33 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
     @Override
     public void run() {
         notifyStart();
-
         int size = files.size();
-        int index = 0;
-
+        int index;
         for (index = 0; !cancel && (index < size); index++) {
             File file = files.get(index);
-            File xmpFile = XmpMetadata.suggestSidecarFile(file);
+            File xmpFile = xmpSidecarFileResolver.suggestXmpSidecarFile(file);
             Iptc iptc = null;
-
             if (!isUserDefinedFileType(file)) {
                 iptc = IptcMetadata.getIptc(file);
             }
-
             if (iptc != null) {
                 Xmp xmp = null;
-
                 try {
                     xmp = XmpMetadata.getXmpFromSidecarFileOf(file);
                 } catch (IOException ex) {
                     Logger.getLogger(ConvertIptcToXmp.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 if (xmp == null) {
                     xmp = new Xmp();
                 }
-
                 xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
                 logWriteXmpFile(file);
-
                 if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
                     updateRepository(file);
                 }
             }
-
             notifyPerformed(index);
         }
-
         notifyEnd(index);
     }
 
@@ -131,7 +123,6 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
                 .value(0)
                 .info(info)
                 .build();
-
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressStarted(event);
             checkCancel(event);
@@ -146,7 +137,6 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
                 .value(index + 1)
                 .info(files.get(index))
                 .build();
-
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressPerformed(event);
             checkCancel(event);
@@ -161,7 +151,6 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
                 .value(index + 1)
                 .info("")
                 .build();
-
         for (ProgressListener progressListener : progressListeners) {
             progressListener.progressEnded(event);
         }

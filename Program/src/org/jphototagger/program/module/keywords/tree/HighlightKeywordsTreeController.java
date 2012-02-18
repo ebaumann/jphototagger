@@ -15,10 +15,10 @@ import org.jdesktop.swingx.JXTree;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Listens to a {@code ThumbnailsPanel} and highlights in the tree of a  {@code KeywordsPanel} the keywords of the
@@ -28,6 +28,7 @@ import org.jphototagger.xmp.XmpMetadata;
  */
 public final class HighlightKeywordsTreeController {
 
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public HighlightKeywordsTreeController() {
@@ -73,6 +74,6 @@ public final class HighlightKeywordsTreeController {
     }
 
     private boolean hasSidecarFile(List<File> selFile) {
-        return XmpMetadata.hasImageASidecarFile(selFile.get(0));
+        return xmpSidecarFileResolver.hasXmpSidecarFile(selFile.get(0));
     }
 }

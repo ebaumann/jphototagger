@@ -11,6 +11,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ControllerFactory;
@@ -22,6 +23,7 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class FilesystemImageUtil {
+    private static final XmpSidecarFileResolver XMP_SIDECAR_FILE_RESOLVER = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     private FilesystemImageUtil() {
     }
@@ -53,23 +55,17 @@ public final class FilesystemImageUtil {
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
-
         if (targetDirectory == null) {
             throw new NullPointerException("targetDirectory == null");
         }
-
         if (confirm == null) {
             throw new NullPointerException("confirm == null");
         }
-
         String message = Bundle.getString(FilesystemImageUtil.class, "FilesystemImageUtil.Confirm.Copy", sourceFiles.size(), targetDirectory.getAbsolutePath());
-
         if (confirm.yes() && !confirmFileAction(message)) {
             return;
         }
-
         CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();
-
         dlg.setTargetDirectory(targetDirectory);
         dlg.setSourceFiles(sourceFiles);
         addProgressListener(dlg);
@@ -78,7 +74,6 @@ public final class FilesystemImageUtil {
 
     private static CopyMoveFilesOptions getCopyMoveFilesOptions() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
                 ? CopyMoveFilesOptions.parseInteger(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
@@ -94,13 +89,10 @@ public final class FilesystemImageUtil {
      */
     public static void moveImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
         String message = Bundle.getString(FilesystemImageUtil.class, "FilesystemImageUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath());
-
         if (confirm.yes() && !confirmFileAction(message)) {
             return;
         }
-
         MoveFilesController ctrl = ControllerFactory.INSTANCE.getController(MoveFilesController.class);
-
         if (ctrl != null) {
             ctrl.moveFiles(sourceFiles, targetDirectory);
             GUI.refreshThumbnailsPanel();
@@ -144,21 +136,16 @@ public final class FilesystemImageUtil {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-
         List<File> files = new ArrayList<File>(imageFiles.size() * 2);
-
         for (File imageFile : imageFiles) {
             if ((imageFile != null) && FileFilterUtil.isImageFile(imageFile)) {
                 files.add(imageFile);
-
-                File sidecarFile = XmpMetadata.getSidecarFile(imageFile);
-
+                File sidecarFile = XMP_SIDECAR_FILE_RESOLVER.getXmpSidecarFileOrNullIfNotExists(imageFile);
                 if (sidecarFile != null) {
                     files.add(sidecarFile);
                 }
             }
         }
-
         return files;
     }
 
@@ -173,11 +160,9 @@ public final class FilesystemImageUtil {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (!XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
             String message = Bundle.getString(FilesystemImageUtil.class, "FilesystemImageUtil.Error.WriteSidecarFile", imageFile.getParentFile());
             MessageDisplayer.error(null, message);
-
             return false;
         }
 

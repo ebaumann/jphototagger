@@ -51,6 +51,7 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
@@ -69,7 +70,6 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Database containing metadata of image files.
@@ -79,6 +79,7 @@ import org.jphototagger.xmp.XmpMetadata;
 final class ImageFilesDatabase extends Database {
 
     static final ImageFilesDatabase INSTANCE = new ImageFilesDatabase();
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
 
     private enum DcSubjectOption {
@@ -100,15 +101,12 @@ final class ImageFilesDatabase extends Database {
         if (fromImageFile == null) {
             throw new NullPointerException("fromImageFile == null");
         }
-
         if (toImageFile == null) {
             throw new NullPointerException("toImageFile == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
@@ -117,7 +115,6 @@ final class ImageFilesDatabase extends Database {
             stmt.setString(2, getFilePath(fromImageFile));
             logFiner(stmt);
             count = stmt.executeUpdate();
-
             if (tnRepo.renameThumbnail(fromImageFile, toImageFile)) {
                 notifyImageFileRenamed(fromImageFile, toImageFile);
             }
@@ -127,7 +124,6 @@ final class ImageFilesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -136,16 +132,12 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT filename FROM files";
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 files.add(getFile(rs.getString(1)));
             }
@@ -155,7 +147,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return files;
     }
 
@@ -164,13 +155,11 @@ final class ImageFilesDatabase extends Database {
         String sql = "SELECT COUNT(*) FROM files WHERE filename LIKE ?";
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, start + "%");
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getLong(1);
             }
@@ -179,7 +168,6 @@ final class ImageFilesDatabase extends Database {
         } finally {
             close(rs, stmt);
         }
-
         return count;
     }
 
@@ -199,22 +187,18 @@ final class ImageFilesDatabase extends Database {
         if (before == null) {
             throw new NullPointerException("before == null");
         }
-
         if (after == null) {
             throw new NullPointerException("after == null");
         }
-
         if (before.equals(after)) {
             return 0;
         }
-
         int countRenamed = 0;
         int startLength = before.length();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         ProgressEvent progressEvent = new ProgressEvent.Builder().source(this).minimum(0).maximum(0).value(0).build();
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
@@ -223,13 +207,10 @@ final class ImageFilesDatabase extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             progressEvent.setMaximum((int) getFileCountNameStartingWith(con, before));
-
             boolean cancel = notifyProgressListenerStart(progressListener, progressEvent);
-
             while (!cancel && rs.next()) {
                 String from = rs.getString(1);
                 String to = after + from.substring(startLength);
-
                 updateImageFilename(con, getFile(from), getFile(to));
                 countRenamed++;
                 progressEvent.setValue(countRenamed);
@@ -243,7 +224,6 @@ final class ImageFilesDatabase extends Database {
             free(con);
             notifyProgressListenerEnd(progressListener, null);
         }
-
         return countRenamed;
     }
 
@@ -251,12 +231,9 @@ final class ImageFilesDatabase extends Database {
         if (fromImageFile.equals(toImageFile)) {
             return;
         }
-
         PreparedStatement stmt = null;
-
         try {
             String sql = "UPDATE files SET filename = ? WHERE filename = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(toImageFile));
             stmt.setString(2, getFilePath(fromImageFile));
@@ -272,7 +249,6 @@ final class ImageFilesDatabase extends Database {
     private int deleteRowWithFilename(Connection con, File imageFile) {
         int countDeleted = 0;
         PreparedStatement stmt = null;
-
         try {
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
@@ -283,7 +259,6 @@ final class ImageFilesDatabase extends Database {
         } finally {
             close(stmt);
         }
-
         return countDeleted;
     }
 
@@ -291,22 +266,16 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (exif == null) {
             throw new NullPointerException("exif == null");
         }
-
         Connection con = null;
-
         try {
             con = getConnection();
-
             long idFile = findIdImageFile(con, imageFile);
-
             if (idFile < 0) {
                 return false;
             }
-
             insertOrUpdateExif(con, imageFile, idFile, exif);
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -314,7 +283,6 @@ final class ImageFilesDatabase extends Database {
         } finally {
             free(con);
         }
-
         return true;
     }
 
@@ -322,23 +290,17 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
-
         Connection con = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
-
             long idFile = findIdImageFile(con, imageFile);
-
             if (idFile < 0) {
                 return false;
             }
-
             insertOrUpdateXmp(con, imageFile, idFile, xmp);
             setLastModifiedToXmpSidecarFileOfImageFile(imageFile, xmp.contains(XmpLastModifiedMetaDataValue.INSTANCE)
                     ? (Long) xmp.getValue(XmpLastModifiedMetaDataValue.INSTANCE)
@@ -349,7 +311,6 @@ final class ImageFilesDatabase extends Database {
         } finally {
             free(con);
         }
-
         return true;
     }
 
@@ -373,53 +334,38 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         boolean success = false;
-
         if (existsImageFile(imageFile.getFile())) {
             return updateImageFile(imageFile);
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
-
             String sqlWithXmpLastModified = "INSERT INTO files (filename, lastmodified, xmp_lastmodified) VALUES (?, ?, ?)";
             String sqlWithoutXmpLastModified = "INSERT INTO files (filename, lastmodified) VALUES (?, ?)";
-
             stmt = con.prepareStatement(imageFile.isInsertXmpIntoDb()
                     ? sqlWithXmpLastModified
                     : sqlWithoutXmpLastModified);
-
             File imgFile = imageFile.getFile();
-
             stmt.setString(1, getFilePath(imgFile));
             stmt.setLong(2, imageFile.getLastmodified());
-
             if (imageFile.isInsertXmpIntoDb()) {
                 stmt.setLong(3, getLastmodifiedXmp(imageFile));
             }
-
             logFiner(stmt);
             stmt.executeUpdate();
-
             long idFile = findIdImageFile(con, imgFile);
-
             if (imageFile.isInsertThumbnailIntoDb()) {
                 updateThumbnailFile(imgFile, imageFile.getThumbnail());
             }
-
             if (imageFile.isInsertXmpIntoDb()) {
                 insertXmp(con, imgFile, idFile, imageFile.getXmp());
             }
-
             if (imageFile.isInsertExifIntoDb()) {
                 insertExif(con, imgFile, idFile, imageFile.getExif());
             }
-
             con.commit();
             success = true;
             notifyImageFileInserted(imgFile);
@@ -430,7 +376,6 @@ final class ImageFilesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return success;
     }
 
@@ -438,21 +383,15 @@ final class ImageFilesDatabase extends Database {
         if (file == null) {
             throw new NullPointerException("imgFile == null");
         }
-
         ImageFile imageFile = new ImageFile();
-
         imageFile.setExif(getExifOfImageFile(file));
         imageFile.setFile(file);
         imageFile.setLastmodified(getImageFilesLastModifiedTimestamp(file));
-
         Image thumbnail = tnRepo.findThumbnail(file);
-
         if (thumbnail != null) {
             imageFile.setThumbnail(thumbnail);
         }
-
         imageFile.setXmp(getXmpOfImageFile(file));
-
         return imageFile;
     }
 
@@ -475,49 +414,37 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         boolean success = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
-
             String sqlWithXmpLastModified = "UPDATE files SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?";
             String sqlWithoutXmpLastModified = "UPDATE files SET lastmodified = ? WHERE id = ?";
-
             stmt = con.prepareStatement(imageFile.isInsertXmpIntoDb()
                     ? sqlWithXmpLastModified
                     : sqlWithoutXmpLastModified);
-
             File imgFile = imageFile.getFile();
             long idFile = findIdImageFile(con, imgFile);
-
             stmt.setLong(1, imageFile.getLastmodified());
-
             if (imageFile.isInsertXmpIntoDb()) {
                 stmt.setLong(2, getLastmodifiedXmp(imageFile));
             }
-
             stmt.setLong(imageFile.isInsertXmpIntoDb()
                     ? 3
                     : 2, idFile);
             logFiner(stmt);
             stmt.executeUpdate();
-
             if (imageFile.isInsertThumbnailIntoDb()) {
                 updateThumbnailFile(imgFile, imageFile.getThumbnail());
             }
-
             if (imageFile.isInsertXmpIntoDb()) {
                 insertOrUpdateXmp(con, imgFile, idFile, imageFile.getXmp());
             }
-
             if (imageFile.isInsertExifIntoDb()) {
                 insertOrUpdateExif(con, imgFile, idFile, imageFile.getExif());
             }
-
             con.commit();
             success = true;
         } catch (Exception ex) {
@@ -527,7 +454,6 @@ final class ImageFilesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return success;
     }
 
@@ -545,39 +471,28 @@ final class ImageFilesDatabase extends Database {
         Statement stmt = null;
         ResultSet rs = null;
         RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
-
-
         try {
             int filecount = repoStatistics.getFileCount();
             ProgressEvent progressEvent = new ProgressEvent.Builder().source(this).minimum(0).maximum(filecount).value(0).info("").build();
-
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.createStatement();
-
             String sql = "SELECT filename FROM files ORDER BY filename ASC";
-
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             int count = 0;
-
             notifyProgressListenerStart(listener, progressEvent);
-
             while (!progressEvent.isCancel() && rs.next()) {
                 File imgFile = getFile(rs.getString(1));
                 Image thumbnail = ThumbnailCreatorService.INSTANCE.createScaledOrFromEmbeddedThumbnail(imgFile);
-
                 if (thumbnail != null) {
                     updateThumbnailFile(imgFile, thumbnail);
                 }
-
                 updated++;
                 progressEvent.setValue(++count);
                 progressEvent.setInfo(imgFile);
                 notifyProgressListenerPerformed(listener, progressEvent);
             }
-
             notifyProgressListenerEnd(listener, progressEvent);
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -585,7 +500,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return updated;
     }
 
@@ -600,25 +514,20 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (thumbnail == null) {
             throw new NullPointerException("thumbnail == null");
         }
-
         Connection con = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             updateThumbnailFile(imageFile, thumbnail);
-
             return true;
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             free(con);
         }
-
         return false;
     }
 
@@ -640,19 +549,16 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         long lastModified = -1;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT lastmodified FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 lastModified = rs.getLong(1);
             }
@@ -662,7 +568,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return lastModified;
     }
 
@@ -670,19 +575,16 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -692,7 +594,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -700,35 +601,26 @@ final class ImageFilesDatabase extends Database {
         if (imageFiles == null) {
             throw new NullPointerException("files == null");
         }
-
         int countDeleted = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
-
             for (File imageFile : imageFiles) {
                 stmt.setString(1, getFilePath(imageFile));
                 logFiner(stmt);
-
                 int countAffectedRows = stmt.executeUpdate();
-
                 countDeleted += countAffectedRows;
-
                 if (countAffectedRows > 0) {
                     Xmp xmp = getXmpOfImageFile(imageFile);
                     Exif exif = getExifOfImageFile(imageFile);
-
                     tnRepo.deleteThumbnail(imageFile);
                     notifyImageFileDeleted(imageFile);
-
                     if (xmp != null) {
                         notifyXmpDeleted(imageFile, xmp);
                     }
-
                     if (exif != null) {
                         notifyExifDeleted(imageFile, exif);
                     }
@@ -740,7 +632,6 @@ final class ImageFilesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return countDeleted;
     }
 
@@ -798,20 +689,17 @@ final class ImageFilesDatabase extends Database {
         long id = -1;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT id FROM xmp WHERE id_file = ?");
             stmt.setLong(1, idFile);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return id;
     }
 
@@ -826,19 +714,16 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         long lastModified = -1;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT xmp_lastmodified FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 lastModified = rs.getLong(1);
             }
@@ -848,7 +733,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return lastModified;
     }
 
@@ -863,11 +747,9 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         boolean set = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
@@ -875,9 +757,7 @@ final class ImageFilesDatabase extends Database {
             stmt.setLong(1, time);
             stmt.setString(2, getFilePath(imageFile));
             logFiner(stmt);
-
             int count = stmt.executeUpdate();
-
             set = count > 0;
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -885,13 +765,11 @@ final class ImageFilesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return set;
     }
 
     private long getLastmodifiedXmp(ImageFile imageFile) {
         Xmp xmp = imageFile.getXmp();
-
         return (xmp == null)
                 ? -1
                 : xmp.contains(XmpLastModifiedMetaDataValue.INSTANCE)
@@ -903,19 +781,16 @@ final class ImageFilesDatabase extends Database {
     private void insertXmp(Connection con, File imageFile, long idImageFile, Xmp xmp) throws SQLException {
         if ((xmp != null) && !xmp.isEmpty()) {
             PreparedStatement stmt = null;
-
             try {
                 stmt = con.prepareStatement(getInsertIntoXmpStatement());
                 setXmpValues(stmt, idImageFile, xmp);
                 logFiner(stmt);
                 stmt.executeUpdate();
-
                 long idXmp = findIdXmpOfIdFile(con, idImageFile);
 
                 if (xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
                     insertXmpDcSubjects(con, idXmp, (List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE));
                 }
-
                 notifyXmpInserted(imageFile, xmp);
             } finally {
                 close(stmt);
@@ -926,11 +801,9 @@ final class ImageFilesDatabase extends Database {
     private void insertXmpDcSubjects(Connection con, long idXmp, List<String> dcSubjects) throws SQLException {
         for (String dcSubject : dcSubjects) {
             Long idDcSubject = ensureDcSubjectExists(con, dcSubject);
-
             if (idDcSubject == null) {
                 throw new SQLException("Couldn't ensure ID of DC subject!");
             }
-
             if (!existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
                 insertXmpDcSubjectsLink(con, idXmp, idDcSubject);
             }
@@ -939,7 +812,6 @@ final class ImageFilesDatabase extends Database {
 
     private void insertXmpDcSubjectsLink(Connection con, long idXmp, long idDcSubject) throws SQLException {
         PreparedStatement stmt = null;
-
         try {
             stmt = con.prepareStatement("INSERT INTO xmp_dc_subject (id_xmp, id_dc_subject) VALUES (?, ?)");
             stmt.setLong(1, idXmp);
@@ -953,19 +825,16 @@ final class ImageFilesDatabase extends Database {
 
     private Long ensureDcSubjectExists(Connection con, String dcSubject) throws SQLException {
         Long idDcSubject = getIdDcSubject(dcSubject);
-
         if (idDcSubject == null) {
             insertDcSubject(con, dcSubject);
             idDcSubject = getIdDcSubject(dcSubject);
         }
-
         return idDcSubject;
     }
 
     private int insertDcSubject(Connection con, String dcSubject) throws SQLException {
         PreparedStatement stmt = null;
         int count = 0;
-
         try {
             stmt = con.prepareStatement("INSERT INTO dc_subjects (subject) VALUES (?)");
             stmt.setString(1, dcSubject);
@@ -974,7 +843,6 @@ final class ImageFilesDatabase extends Database {
         } finally {
             close(stmt);
         }
-
         return count;
     }
 
@@ -991,18 +859,13 @@ final class ImageFilesDatabase extends Database {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
-
         boolean inserted = false;
         Connection con = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
-
             int count = insertDcSubject(con, dcSubject);
-
             inserted = count == 1;
-
             if (inserted) {
                 notifyDcSubjectInserted(dcSubject);
             }
@@ -1011,7 +874,6 @@ final class ImageFilesDatabase extends Database {
         } finally {
             free(con);
         }
-
         return inserted;
     }
 
@@ -1094,25 +956,20 @@ final class ImageFilesDatabase extends Database {
     private void insertOrUpdateXmp(Connection con, File imageFile, long idFile, Xmp xmp) throws SQLException {
         if (xmp != null) {
             long idXmp = findIdXmpOfIdFile(con, idFile);
-
             if (idXmp > 0) {
                 PreparedStatement stmt = null;
-
                 try {
                     Xmp oldXmp = getXmpOfImageFile(imageFile);
-
                     stmt = con.prepareStatement(getUpdateXmpStatement());
                     setXmpValues(stmt, idFile, xmp);
                     stmt.setLong(19, idXmp);
                     logFiner(stmt);
                     stmt.executeUpdate();
                     deleteXmpDcSubjects(con, idXmp);
-
                     if (xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
                         insertXmpDcSubjects(con, idXmp,
                                 (List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE));
                     }
-
                     notifyXmpUpdated(imageFile, oldXmp, xmp);
                 } finally {
                     close(stmt);
@@ -1127,20 +984,17 @@ final class ImageFilesDatabase extends Database {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT xmp.iptc4xmpcore_datecreated FROM files INNER JOIN xmp ON files.id = xmp.id_file WHERE files.filename = ?";
         String result = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(file));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 result = rs.getString(1);
             }
@@ -1150,7 +1004,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return result;
     }
 
@@ -1158,20 +1011,17 @@ final class ImageFilesDatabase extends Database {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT COUNT(*) FROM files INNER JOIN xmp ON files.id = xmp.id_file WHERE files.filename = ?";
         long count = 0;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(file));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getLong(1);
             }
@@ -1181,7 +1031,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count > 0;
     }
 
@@ -1189,10 +1038,8 @@ final class ImageFilesDatabase extends Database {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         Connection con = null;
         int countDeleted = 0;
-
         try {
             con = getConnection();
             countDeleted = deleteXmpOfImageFile(con, file);
@@ -1201,13 +1048,11 @@ final class ImageFilesDatabase extends Database {
         } finally {
             free(con);
         }
-
         return countDeleted;
     }
 
     private void deleteXmpDcSubjects(Connection con, long idXmp) throws SQLException {
         PreparedStatement stmt = null;
-
         try {
             stmt = con.prepareStatement("DELETE FROM xmp_dc_subject WHERE id_xmp = ?");
             stmt.setLong(1, idXmp);
@@ -1237,7 +1082,7 @@ final class ImageFilesDatabase extends Database {
             while (!cancel && rs.next()) {
                 progressEvent.setInfo(null);
                 imageFile = getFile(rs.getString(1));
-                if (XmpMetadata.getSidecarFile(imageFile) == null) {
+                if (xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(imageFile) == null) {
                     int deleteCount = deleteXmpOfImageFile(con, imageFile);
                     countDeleted += deleteCount;
                     progressEvent.setInfo(deleteCount > 0
@@ -1262,7 +1107,6 @@ final class ImageFilesDatabase extends Database {
     private int deleteXmpOfImageFile(Connection con, File imageFile) {
         int count = 0;
         PreparedStatement stmt = null;
-
         try {
             stmt = con.prepareStatement("DELETE FROM xmp WHERE xmp.id_file in"
                     + " (SELECT xmp.id_file FROM xmp, files"
@@ -1279,7 +1123,6 @@ final class ImageFilesDatabase extends Database {
         } finally {
             close(stmt);
         }
-
         return count;
     }
 
@@ -1343,32 +1186,24 @@ final class ImageFilesDatabase extends Database {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-
         List<FileXmp> list = new ArrayList<FileXmp>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = getXmpOfImageFilesStatement(imageFiles.size());
-
             stmt = con.prepareStatement(sql);
             setStrings(stmt, imageFiles.toArray(new File[0]), 1);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             String prevFilepath = "";
             Xmp xmp = new Xmp();
-
             while (rs.next()) {
                 String filepath = rs.getString(1);
-
                 if (!filepath.equals(prevFilepath)) {
                     xmp = new Xmp();
                 }
-
                 xmp.setValue(XmpDcCreatorMetaDataValue.INSTANCE, getString(rs, 2));
                 xmp.setValue(XmpDcDescriptionMetaDataValue.INSTANCE, getString(rs, 3));
                 xmp.setValue(XmpDcRightsMetaDataValue.INSTANCE, getString(rs, 4));
@@ -1384,23 +1219,17 @@ final class ImageFilesDatabase extends Database {
                 xmp.setValue(XmpPhotoshopSourceMetaDataValue.INSTANCE, getString(rs, 14));
                 xmp.setValue(XmpPhotoshopStateMetaDataValue.INSTANCE, getString(rs, 15));
                 xmp.setValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE, getString(rs, 16));
-
                 String dcSubject = getString(rs, 17);
-
                 if (dcSubject != null) {
                     xmp.setValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, dcSubject);
                 }
-
                 xmp.setValue(XmpRatingMetaDataValue.INSTANCE,
                         getLongMinMax(rs, 18, XmpRatingMetaDataValue.getMinValue(), XmpRatingMetaDataValue.getMaxValue()));
                 xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, getString(rs, 19));
-
                 if (!filepath.equals(prevFilepath)) {
                     File file = getFile(filepath);
-
                     list.add(new FileXmp(file, xmp));
                 }
-
                 prevFilepath = filepath;
             }
         } catch (Exception ex) {
@@ -1414,11 +1243,8 @@ final class ImageFilesDatabase extends Database {
     }
 
     private void setStrings(PreparedStatement stmt, File[] files, int startIndex) throws SQLException {
-        assert startIndex >= 1 : "Invalid SQL statement position: " + startIndex;
-
         int endIndex = startIndex + files.length;
         int stringIndex = 0;
-
         for (int i = startIndex; i < endIndex; i++) {
             stmt.setString(i, getFilePath(files[stringIndex++]));
         }
@@ -1426,13 +1252,11 @@ final class ImageFilesDatabase extends Database {
 
     private static String getPlaceholder(int count) {
         StringBuilder sb = new StringBuilder(count * 3 - 2);    // 3: ", ?"
-
         for (int i = 0; i < count; i++) {
             sb.append(((i > 0) && (i < count))
                     ? ", ?"
                     : "?");
         }
-
         return sb.toString();
     }
 
@@ -1485,19 +1309,16 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         Xmp xmp = new Xmp();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement(getXmpOfStatement());
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 xmp.setValue(XmpDcCreatorMetaDataValue.INSTANCE, getString(rs, 1));
                 xmp.setValue(XmpDcDescriptionMetaDataValue.INSTANCE, getString(rs, 2));
@@ -1514,13 +1335,10 @@ final class ImageFilesDatabase extends Database {
                 xmp.setValue(XmpPhotoshopSourceMetaDataValue.INSTANCE, getString(rs, 13));
                 xmp.setValue(XmpPhotoshopStateMetaDataValue.INSTANCE, getString(rs, 14));
                 xmp.setValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE, getString(rs, 15));
-
                 String dcSubject = getString(rs, 16);
-
                 if (dcSubject != null) {
                     xmp.setValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, dcSubject);
                 }
-
                 xmp.setValue(XmpRatingMetaDataValue.INSTANCE,
                         getLongMinMax(rs, 17, XmpRatingMetaDataValue.getMinValue(), XmpRatingMetaDataValue.getMaxValue()));
                 xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, getString(rs, 18));
@@ -1531,7 +1349,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return xmp;
     }
 
@@ -1545,18 +1362,14 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT subject FROM dc_subjects WHERE ID NOT in"
                     + " (SELECT DISTINCT id_dc_subject from xmp_dc_subject)"
                     + "ORDER BY 1";
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
             }
@@ -1566,7 +1379,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return dcSubjects;
     }
 
@@ -1580,15 +1392,11 @@ final class ImageFilesDatabase extends Database {
         if (subject == null) {
             throw new NullPointerException("subject == null");
         }
-
         Connection con = null;
         boolean ref = false;
-
         try {
             con = getConnection();
-
             Long id = getId(con, "dc_subjects", "subject", subject);
-
             if (id != null) {
                 ref = getCount(con, "xmp_dc_subject", "id_dc_subject", id) > 0;
             }
@@ -1597,7 +1405,6 @@ final class ImageFilesDatabase extends Database {
         } finally {
             free(con);
         }
-
         return ref;
     }
 
@@ -1606,16 +1413,12 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT subject FROM dc_subjects ORDER BY 1 ASC";
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
             }
@@ -1625,7 +1428,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return dcSubjects;
     }
 
@@ -1633,15 +1435,12 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         List<String> dcSubjects = new ArrayList<String>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT DISTINCT dc_subjects.subject FROM"
                     + " files INNER JOIN xmp ON files.id = xmp.id_file"
                     + " INNER JOIN xmp_dc_subject"
@@ -1650,12 +1449,10 @@ final class ImageFilesDatabase extends Database {
                     + " ON xmp_dc_subject.id_dc_subject = dc_subjects.id"
                     + " WHERE files.filename = ? "
                     + " ORDER BY dc_subjects.subject ASC";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
             }
@@ -1665,7 +1462,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return dcSubjects;
     }
 
@@ -1673,7 +1469,6 @@ final class ImageFilesDatabase extends Database {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
-
         Set<File> imageFiles = new LinkedHashSet<File>();
         Connection con = null;
         PreparedStatement stmt = null;
@@ -1681,14 +1476,12 @@ final class ImageFilesDatabase extends Database {
         Set<DcSubjectOption> opts = includeSynonyms
                 ? EnumSet.<DcSubjectOption>copyOf(Arrays.asList(DcSubjectOption.INCLUDE_SYNONYMS))
                 : EnumSet.noneOf(DcSubjectOption.class);
-
         try {
             con = getConnection();
             stmt = con.prepareStatement(getGetFilenamesOfDcSubjectSql(dcSubject, opts));
             setDcSubjectSynonyms(dcSubject, opts, stmt);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 imageFiles.add(getFile(rs.getString(1)));
             }
@@ -1698,18 +1491,14 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return imageFiles;
     }
 
-    private void setDcSubjectSynonyms(String dcSubject, Set<DcSubjectOption> options, PreparedStatement stmt)
-            throws SQLException {
+    private void setDcSubjectSynonyms(String dcSubject, Set<DcSubjectOption> options, PreparedStatement stmt) throws SQLException {
         stmt.setString(1, dcSubject);
-
         if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
             int paramIndex = 2;
             SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);
-
             for (String synonym : synonymsRepo.findSynonymsOfWord(dcSubject)) {
                 stmt.setString(paramIndex++, synonym);
             }
@@ -1723,16 +1512,13 @@ final class ImageFilesDatabase extends Database {
                 + " INNER JOIN xmp ON xmp_dc_subject.id_xmp = xmp.id"
                 + " INNER JOIN files ON xmp.id_file = files.id"
                 + " WHERE dc_subjects.subject = ?");
-
         if (options.contains(DcSubjectOption.INCLUDE_SYNONYMS)) {
             SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);
             int size = synonymsRepo.findSynonymsOfWord(dcSubject).size();
-
             for (int i = 0; i < size; i++) {
                 sql.append(" OR dc_subjects.subject = ?");
             }
         }
-
         return sql.toString();
     }
 
@@ -1753,15 +1539,12 @@ final class ImageFilesDatabase extends Database {
         if (dcSubjects == null) {
             throw new NullPointerException("dcSubjects == null");
         }
-
         Set<File> imageFiles = new LinkedHashSet<File>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             int count = dcSubjects.size();
             String sql = " SELECT files.filename FROM"
                     + " dc_subjects INNER JOIN xmp_dc_subject"
@@ -1772,12 +1555,10 @@ final class ImageFilesDatabase extends Database {
                     + getParamsInParentheses(count)
                     + " GROUP BY files.filename HAVING COUNT(*) = "
                     + count;
-
             stmt = con.prepareStatement(sql);
             setStringParams(stmt, dcSubjects, 0);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 imageFiles.add(getFile(rs.getString(1)));
             }
@@ -1787,7 +1568,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return imageFiles;
     }
 
@@ -1795,15 +1575,12 @@ final class ImageFilesDatabase extends Database {
         if (dcSubjects == null) {
             throw new NullPointerException("dcSubjects == null");
         }
-
         Set<File> imageFiles = new LinkedHashSet<File>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             int count = dcSubjects.size();
             String sql = " SELECT DISTINCT files.filename FROM dc_subjects"
                     + " INNER JOIN xmp_dc_subject ON dc_subjects.id"
@@ -1811,12 +1588,10 @@ final class ImageFilesDatabase extends Database {
                     + " ON xmp_dc_subject.id_xmp = xmp.id INNER JOIN files"
                     + " ON xmp.id_file = files.id WHERE dc_subjects.subject IN "
                     + getParamsInParentheses(count);
-
             stmt = con.prepareStatement(sql);
             setStringParams(stmt, dcSubjects, 0);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 imageFiles.add(getFile(rs.getString(1)));
             }
@@ -1826,7 +1601,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return imageFiles;
     }
 
@@ -1846,19 +1620,15 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-
         if (words == null) {
             throw new NullPointerException("words == null");
         }
-
         Set<File> imageFiles = new LinkedHashSet<File>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String tableName = column.getCategory();
             String columnName = column.getValueName();
             int count = words.size();
@@ -1869,12 +1639,10 @@ final class ImageFilesDatabase extends Database {
                     + " IN " + getParamsInParentheses(count)
                     + " GROUP BY files.filename"
                     + " HAVING COUNT(*) = " + count;
-
             stmt = con.prepareStatement(sql);
             setStringParams(stmt, words, 0);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 imageFiles.add(getFile(rs.getString(1)));
             }
@@ -1884,7 +1652,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return imageFiles;
     }
 
@@ -1902,20 +1669,15 @@ final class ImageFilesDatabase extends Database {
     private void insertOrUpdateExif(Connection con, File imageFile, long idFile, Exif exif) throws SQLException {
         if (exif != null) {
             long idExif = findIdExifOfIdFile(con, idFile);
-
             if (idExif > 0) {
                 PreparedStatement stmt = null;
-
                 try {
                     Exif oldExif = getExifOfImageFile(imageFile);
-
                     stmt = con.prepareStatement(getUpdateExifStatement());
                     setExifValues(stmt, idFile, exif);
                     stmt.setLong(8, idFile);
                     logFiner(stmt);
-
                     int count = stmt.executeUpdate();
-
                     if (count > 0) {
                         notifyExifUpdated(imageFile, oldExif, exif);
                     }
@@ -1942,7 +1704,6 @@ final class ImageFilesDatabase extends Database {
     private void insertExif(Connection con, File imageFile, long idFile, Exif exif) throws SQLException {
         if ((exif != null) && !exif.isEmpty()) {
             PreparedStatement stmt = null;
-
             try {
                 stmt = con.prepareStatement(getInsertIntoExifStatement());
                 setExifValues(stmt, idFile, exif);
@@ -1969,20 +1730,17 @@ final class ImageFilesDatabase extends Database {
         long id = -1;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT id FROM exif WHERE id_file = ?");
             stmt.setLong(1, idFile);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return id;
     }
 
@@ -1997,25 +1755,19 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT exif_date_time_original FROM exif"
                     + " WHERE exif_date_time_original IS NOT NULL"
                     + " ORDER BY exif_date_time_original ASC";
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 Calendar cal = Calendar.getInstance();
-
                 cal.setTime(rs.getDate(1));
                 timeline.add(cal);
             }
-
             addXmpDateCreatedToTimeline(con, timeline);
             timeline.addUnknownNode();
         } catch (Exception ex) {
@@ -2024,7 +1776,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return timeline;
     }
 
@@ -2032,12 +1783,10 @@ final class ImageFilesDatabase extends Database {
         Statement stmt = null;
         ResultSet rs = null;
         String sql = "SELECT iptc4xmpcore_datecreated FROM xmp WHERE iptc4xmpcore_datecreated IS NOT NULL";
-
         try {
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 Timeline.Date date = new Timeline.Date(-1, -1, -1);
 
@@ -2067,10 +1816,8 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT files.filename FROM exif LEFT JOIN files"
                     + " ON exif.id_file = files.id"
                     + " WHERE exif.exif_date_time_original LIKE ?"
@@ -2079,17 +1826,13 @@ final class ImageFilesDatabase extends Database {
                     + " ON xmp.id_file = files.id"
                     + " WHERE xmp.iptc4xmpcore_datecreated LIKE ?"
                     + " ORDER BY files.filename ASC";
-
             stmt = con.prepareStatement(sql);
-
             String exifDateString = getExifSqlDateString(year, month, day);
             String xmpDateString = getXmpSqlDateString(year, month, day);
-
             stmt.setString(1, exifDateString);
             stmt.setString(2, xmpDateString);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 files.add(getFile(rs.getString(1)));
             }
@@ -2106,7 +1849,6 @@ final class ImageFilesDatabase extends Database {
     // All EXIF dates considered as complete (having year and month and day)
     private String getExifSqlDateString(int year, int month, int day) {
         StringBuilder sb = new StringBuilder(String.valueOf(year));
-
         if (month > 0) {
             sb.append("-");
             sb.append(getMonthDayPrefix(month));
@@ -2114,7 +1856,6 @@ final class ImageFilesDatabase extends Database {
         } else {
             sb.append("-%");
         }
-
         if (day > 0) {
             sb.append("-");
             sb.append(getMonthDayPrefix(day));
@@ -2122,7 +1863,6 @@ final class ImageFilesDatabase extends Database {
         } else {
             sb.append("-%");
         }
-
         return sb.toString();
     }
 
@@ -2134,27 +1874,22 @@ final class ImageFilesDatabase extends Database {
         boolean hasMonth = month > 0;
         boolean hasDay = day > 0;
         boolean hasOnlyYear = !hasMonth && !hasDay;
-
         if (hasOnlyYear) {
             sb.append("%");
             return sb.toString();
         }
-
         if (hasMonth) {
             sb.append("-");
             sb.append(getMonthDayPrefix(month));
             sb.append(String.valueOf(month));
         }
-
         if (!hasDay) {
             sb.append("%");
             return sb.toString();
         }
-
         sb.append("-");
         sb.append(getMonthDayPrefix(day));
         sb.append(String.valueOf(day));
-
         return sb.toString();
     }
 
@@ -2169,21 +1904,17 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT files.filename FROM files LEFT JOIN exif"
                     + " ON files.id = exif.id_file"
                     + " LEFT JOIN xmp ON files.id = xmp.id_file"
                     + " WHERE (exif.id IS NOT NULL AND exif.exif_date_time_original IS NULL)"
                     + " AND (xmp.id IS NOT NULL AND xmp.iptc4xmpcore_datecreated IS NULL)"
                     + " ORDER BY files.filename ASC";
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 files.add(getFile(rs.getString(1)));
             }
@@ -2193,7 +1924,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return files;
     }
 
@@ -2201,24 +1931,19 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-
         Set<String> values = new LinkedHashSet<String>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT DISTINCT " + column.getValueName()
                     + " FROM " + column.getCategory()
                     + " WHERE " + column.getValueName() + " IS NOT NULL"
                     + " ORDER BY " + column.getValueName();
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 values.add(rs.getString(1));
             }
@@ -2228,13 +1953,11 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return values;
     }
 
     private String getFilesNotNullInSql(String tablename, String columnName) {
         boolean isLink = !tablename.equals("xmp") && !tablename.equals("exif");
-
         return isLink
                 ? Join.getNotNullSqlOf(tablename)
                 : "SELECT DISTINCT files.filename FROM " + tablename
@@ -2248,23 +1971,18 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-
         List<File> files = new ArrayList<File>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String tablename = column.getCategory();
             String columnName = column.getValueName();
             String sql = getFilesNotNullInSql(tablename, columnName);
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 files.add(getFile(rs.getString(1)));
             }
@@ -2274,7 +1992,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return files;
     }
 
@@ -2300,26 +2017,21 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-
         List<File> files = new ArrayList<File>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String tableName = column.getCategory();
         String columnName = column.getValueName();
-
         try {
             con = getConnection();
-
             String sql = "SELECT files.filename FROM files" + Join.getJoinToFiles(tableName, Type.INNER)
                     + " WHERE " + tableName + "." + columnName + " = ?"
                     + " ORDER BY files.filename ASC";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, exactValue);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 files.add(getFile(rs.getString(1)));
             }
@@ -2329,7 +2041,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return files;
     }
 
@@ -2337,12 +2048,10 @@ final class ImageFilesDatabase extends Database {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         long timestamp = -1;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             String sql = "SELECT exif.exif_date_time_original_timestamp"
@@ -2352,7 +2061,6 @@ final class ImageFilesDatabase extends Database {
             stmt.setString(1, getFilePath(file));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 timestamp = rs.getLong(1);
             }
@@ -2362,7 +2070,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return timestamp;
     }
 
@@ -2385,19 +2092,16 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         Exif exif = null;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement(getExifOfStatement());
             stmt.setString(1, getFilePath(imageFile));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exif = new Exif();
                 exif.setRecordingEquipment(rs.getString(1));
@@ -2413,7 +2117,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exif;
     }
 
@@ -2421,30 +2124,23 @@ final class ImageFilesDatabase extends Database {
         if (date == null) {
             throw new NullPointerException("date == null");
         }
-
         boolean exists = false;
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             Calendar cal = Calendar.getInstance();
-
             cal.setTime(date);
-
             int year = cal.get(Calendar.YEAR);
             int month = cal.get(Calendar.MONTH) + 1;
             int day = cal.get(Calendar.DAY_OF_MONTH);
             String sql = "SELECT COUNT(*) FROM exif"
                     + " WHERE exif_date_time_original LIKE '"
                     + year + "-" + getMonthDayPrefix(month) + month + "-" + getMonthDayPrefix(day) + day + "%'";
-
             stmt = con.createStatement();
             logFinest(sql);
             rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -2454,7 +2150,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -2462,22 +2157,17 @@ final class ImageFilesDatabase extends Database {
         if (date == null) {
             throw new NullPointerException("date == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT COUNT(*) FROM xmp WHERE iptc4xmpcore_datecreated = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, date);
             logFinest(sql);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -2487,7 +2177,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -2495,22 +2184,17 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT COUNT(*) FROM " + column.getCategory() + " WHERE " + column.getValueName() + " = ?";
-
             stmt = con.prepareStatement(sql);
             logFinest(stmt);
             stmt.setObject(1, value);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -2520,13 +2204,11 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
     private String getFilenamesWithoutMetadataInSql(String tablename, String columnName) {
         boolean isLink = !tablename.equals("xmp") && !tablename.equals("exif");
-
         return isLink
                 ? Join.getNullSqlOf(tablename)
                 : "SELECT files.filename FROM files INNER JOIN "
@@ -2546,23 +2228,18 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-
         List<File> imageFiles = new ArrayList<File>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String columnName = column.getValueName();
             String tablename = column.getCategory();
             String sql = getFilenamesWithoutMetadataInSql(tablename, columnName);
-
             stmt = con.prepareStatement(sql);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 imageFiles.add(getFile(rs.getString(1)));
             }
@@ -2572,7 +2249,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return imageFiles;
     }
 
@@ -2590,20 +2266,17 @@ final class ImageFilesDatabase extends Database {
         long id = -1;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT id FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(file));
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return id;
     }
 
@@ -2612,7 +2285,6 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             String sql = "SELECT filename FROM files";
@@ -2633,7 +2305,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return tnFiles;
     }
 
@@ -2674,21 +2345,16 @@ final class ImageFilesDatabase extends Database {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, dcSubject);
             logFiner(stmt);
-
             int count = stmt.executeUpdate();
-
             con.commit();
-
             if (count > 0) {
                 notifyDcSubjectDeleted(dcSubject);
             }
@@ -2705,19 +2371,16 @@ final class ImageFilesDatabase extends Database {
         if (subject == null) {
             throw new NullPointerException("subject == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, subject);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) == 1;
             }
@@ -2735,19 +2398,16 @@ final class ImageFilesDatabase extends Database {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
-
         Long id = null;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT id FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, dcSubject);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
@@ -2757,7 +2417,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return id;
     }
 
@@ -2766,7 +2425,6 @@ final class ImageFilesDatabase extends Database {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM xmp_dc_subject WHERE id_xmp = ? AND id_dc_subject = ?");
@@ -2774,7 +2432,6 @@ final class ImageFilesDatabase extends Database {
             stmt.setLong(2, idDcSubject);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) == 1;
             }
@@ -2784,7 +2441,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -2848,14 +2504,10 @@ final class ImageFilesDatabase extends Database {
      * @throws        SQLException
      */
     private void setStringParams(PreparedStatement stmt, List<? extends String> params, int offset) throws SQLException {
-        assert offset >= 0 : "Negative offset: " + offset;
-
         if (offset < 0) {
             return;
         }
-
         int size = params.size();
-
         for (int i = 0; i < size; i++) {
             stmt.setString(i + 1 + offset, params.get(i));
         }
@@ -2872,19 +2524,14 @@ final class ImageFilesDatabase extends Database {
         if (count < 1) {
             throw new IllegalArgumentException("Count < 1: " + count);
         }
-
         StringBuilder sb = new StringBuilder(count * 2);
-
         sb.append("(");
-
         for (int i = 0; i < count; i++) {
             sb.append((i == 0)
                     ? ""
                     : ",").append("?");
         }
-
         sb.append(")");
-
         return sb.toString();
     }
 }

@@ -9,13 +9,13 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpFileReader;
-import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * Extracts in images embedded XMP metadata into sidecar files.
@@ -24,22 +24,21 @@ import org.jphototagger.xmp.XmpMetadata;
  */
 public final class ExtractEmbeddedXmp extends FileEditor {
 
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
+
     @Override
     public void edit(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (!FileLock.INSTANCE.lockLogWarning(file, this)) {
             return;
         }
-
-        File sidecarFile = XmpMetadata.getSidecarFile(file);
+        File sidecarFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(file);
 
         if ((sidecarFile != null) && !confirmRemove(sidecarFile)) {
             return;
         }
-
         writeSidecarFile(file);
         FileLock.INSTANCE.unlock(file, this);
     }
@@ -47,7 +46,6 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     private boolean confirmRemove(File file) {
         if (getConfirmOverwrite()) {
             String message = Bundle.getString(ExtractEmbeddedXmp.class, "ExtractEmbeddedXmp.Confirm.Overwrite", file);
-
             return MessageDisplayer.confirmYesNo(null, message);
         }
 
@@ -65,11 +63,10 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     private void writeSidecarFile(File file) {
         String xmp = XmpFileReader.readFile(file);
         FileOutputStream fos = null;
-
         if (xmp != null) {
             try {
                 create(file);
-                fos = new FileOutputStream(XmpMetadata.suggestSidecarFile(file));
+                fos = new FileOutputStream(xmpSidecarFileResolver.suggestXmpSidecarFile(file));
                 fos.getChannel().lock();
                 fos.write(xmp.getBytes());
                 fos.flush();
@@ -91,7 +88,6 @@ public final class ExtractEmbeddedXmp extends FileEditor {
     private void updateRepository(File imageFile) {
         SaveToOrUpdateFilesInRepository updater = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class)
                 .createInstance(Arrays.asList(imageFile), SaveOrUpdate.XMP);
-
         updater.saveOrUpdateWaitForTermination();
     }
 }
