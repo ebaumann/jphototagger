@@ -14,6 +14,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelBottomComponentProvider;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
@@ -23,7 +24,6 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.types.ByteSizeUnit;
-import org.jphototagger.xmp.XmpMetadata;
 
 /**
  * @author Elmar Baumann
@@ -34,6 +34,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
     private static final long serialVersionUID = 1L;
     private static final String PROMPT_DATE_TIME_TAKEN = Bundle.getString(InfoOfSelectedThumbnailPanel.class, "InfoOfSelectedThumbnailPanel.Prompt.DateTimeTaken");
     private static final String PROMPT_DATE_TIME_LAST_MODIFIED = Bundle.getString(InfoOfSelectedThumbnailPanel.class, "InfoOfSelectedThumbnailPanel.Prompt.LastModified");
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private File selectedFile;
 
     public InfoOfSelectedThumbnailPanel() {
@@ -74,7 +75,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
             return;
         }
         labelSelectedFilePathName.setText(selectedFile.getAbsolutePath());
-        File sidecarFile = XmpMetadata.getSidecarFile(selectedFile);
+        File sidecarFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(selectedFile);
         checkBoxSelectedFileHasSidecarFile.setSelected(sidecarFile != null);
         buttonOpenDirectoryOfSelectedFile.setEnabled(selectedFile.getParentFile() != null);
         setDateTimeTake();
@@ -84,13 +85,10 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
     private void setDateTimeTake() {
         ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
         long millis = repo.findExifDateTimeOriginalTimestamp(selectedFile);
-
         labelSelectedFileDatePrompt.setText(millis > 0 ? PROMPT_DATE_TIME_TAKEN : PROMPT_DATE_TIME_LAST_MODIFIED);
-
         if (millis <= 0) {
             millis = selectedFile.lastModified();
         }
-
         setDateToLabel(millis, labelSelectedFileDate);
     }
 

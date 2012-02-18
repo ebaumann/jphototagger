@@ -11,6 +11,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.concurrent.HelperThread;
 import org.jphototagger.lib.util.Bundle;
@@ -25,6 +26,7 @@ import org.jphototagger.xmp.XmpMetadata;
 public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
 
     private volatile boolean cancel;
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public RefreshXmpOfKnownFilesInRepository() {
@@ -36,17 +38,14 @@ public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
     public void run() {
         List<File> imageFiles = repo.findAllImageFiles();
         int fileCount = imageFiles.size();
-
         progressStarted(0, 0, fileCount, (fileCount > 0)
                 ? imageFiles.get(0)
                 : null);
-
         for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
             File imageFile = imageFiles.get(i);
             Xmp xmp = null;
-
             try {
-                xmp = XmpMetadata.hasImageASidecarFile(imageFile)
+                xmp = xmpSidecarFileResolver.hasXmpSidecarFile(imageFile)
                         ? XmpMetadata.getXmpFromSidecarFileOf(imageFile)
                         : isScanForEmbeddedXmp()
                         ? XmpMetadata.getEmbeddedXmp(imageFile)
@@ -54,11 +53,9 @@ public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
             } catch (IOException ex) {
                 Logger.getLogger(RefreshXmpOfKnownFilesInRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
-
             if (xmp != null) {
                 repo.saveOrUpdateXmpOfImageFile(imageFile, xmp);
             }
-
             progressPerformed(i + 1, imageFile.getName());
         }
 
@@ -67,7 +64,6 @@ public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
 
     private boolean isScanForEmbeddedXmp() {
         Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-
         return storage.containsKey(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                 ? storage.getBoolean(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                 : false;

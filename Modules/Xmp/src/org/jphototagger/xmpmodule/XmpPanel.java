@@ -36,6 +36,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
@@ -61,6 +62,7 @@ public class XmpPanel extends javax.swing.JPanel {
     private final XmpTableCellRenderer xmpTableCellRenderer = new XmpTableCellRenderer();
     private final Map<JTable, XmpTableModel> modelOfTable = new HashMap<JTable, XmpTableModel>();
     private final Map<XmpTableModel, String[]> namespacesOfXmpTableModel = new HashMap<XmpTableModel, String[]>();
+    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     public XmpPanel() {
         initComponents();
@@ -166,7 +168,7 @@ public class XmpPanel extends javax.swing.JPanel {
 
     private void setXmpModels(File file) {
         List<XMPPropertyInfo> allInfos = null;
-        File sidecarFile = XmpMetadata.getSidecarFile(file);
+        File sidecarFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(file);
 
         try {
             allInfos = (sidecarFile != null)
