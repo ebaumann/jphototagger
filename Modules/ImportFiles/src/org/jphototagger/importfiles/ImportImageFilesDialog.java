@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,9 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.importfiles.filerenamers.FileRenameStrategyComboBoxModel;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
@@ -52,8 +55,8 @@ public class ImportImageFilesDialog extends Dialog {
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private static final Color LABEL_FOREGROUND = getLabelForeground();
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-    private File sourceDir = new File(prefs.getString(KEY_LAST_SRC_DIR));
-    private File targetDir = new File(prefs.getString(KEY_LAST_TARGET_DIR));
+    private File sourceDirectory = new File(prefs.getString(KEY_LAST_SRC_DIR));
+    private File targetDirectory = new File(prefs.getString(KEY_LAST_TARGET_DIR));
     private File scriptFile;
     private String lastChoosenScriptDir = "";
     private final List<File> sourceFiles = new ArrayList<File>();
@@ -61,7 +64,7 @@ public class ImportImageFilesDialog extends Dialog {
     private Component currentPanelOfSourceStrategy;
     private boolean filesChoosed;
     private boolean accepted;
-    private boolean deleteSrcFilesAfterCopying;
+    private boolean deleteSourceFilesAfterCopying;
     private boolean listenToCheckBox = true;
 
     public ImportImageFilesDialog() {
@@ -84,11 +87,11 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void initDirectories() {
-        if (sourceDir.isDirectory()) {
-            setDirLabel(labelSourceDir, sourceDir);
+        if (sourceDirectory.isDirectory()) {
+            setDirLabel(labelSourceDir, sourceDirectory);
         }
         if (dirsValid()) {
-            setDirLabel(labelTargetDir, targetDir);
+            setDirLabel(labelTargetDir, targetDirectory);
             buttonOk.setEnabled(true);
         }
         initDeleteSourceFilesAfterCopying();
@@ -128,7 +131,7 @@ public class ImportImageFilesDialog extends Dialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
-        gbc.insets = new Insets(8, 5, 0, 5);
+        gbc.insets = new Insets(5, 5, 0, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         return gbc;
     }
@@ -145,51 +148,38 @@ public class ImportImageFilesDialog extends Dialog {
     private void initDeleteSourceFilesAfterCopying() {
         listenToCheckBox = false;
         checkBoxDeleteAfterCopy.setSelected(prefs.getBoolean(KEY_DEL_SRC_AFTER_COPY));
-        deleteSrcFilesAfterCopying = checkBoxDeleteAfterCopy.isSelected();
+        deleteSourceFilesAfterCopying = checkBoxDeleteAfterCopy.isSelected();
         listenToCheckBox = true;
     }
 
     public boolean isDeleteSourceFilesAfterCopying() {
-        return deleteSrcFilesAfterCopying;
+        return deleteSourceFilesAfterCopying;
     }
 
-    /**
-     * Call prior <code>setVisible()</code>.
-     * @param dir
-     */
-    public void setSourceDir(File dir) {
+    public void setSourceDirectory(File dir) {
         if (dir == null) {
             throw new NullPointerException("dir == null");
         }
-        sourceDir = dir;
+        sourceDirectory = dir;
         initDirectories();
         comboBoxSourceStrategy.setSelectedIndex(0);
     }
 
-    /**
-     * Call prior <code>setVisible()</code>.
-     * @param dir
-     */
-    public void setTargetDir(File dir) {
+    public void setTargetDirectory(File dir) {
         if (dir == null) {
             throw new NullPointerException("dir == null");
         }
-        targetDir = dir;
+        targetDirectory = dir;
         initDirectories();
         comboBoxSourceStrategy.setSelectedIndex(1);
     }
 
-    /**
-     * Returns the source directory if the user choosed a source directory
-     * rather than separate files.
-     * @return source directory
-     */
-    public File getSourceDir() {
-        return sourceDir;
+    public File getSourceDirectory() {
+        return sourceDirectory;
     }
 
-    public File getTargetDir() {
-        return targetDir;
+    public File getTargetDirectory() {
+        return targetDirectory;
     }
 
     public boolean isAccepted() {
@@ -202,12 +192,12 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void chooseSourceDir() {
-        File dir = chooseDir(sourceDir);
+        File dir = chooseDir(sourceDirectory);
         if (dir == null) {
             return;
         }
-        if (!targetDir.exists() || checkDirsDifferent(dir, targetDir)) {
-            sourceDir = dir;
+        if (!targetDirectory.exists() || checkDirsDifferent(dir, targetDirectory)) {
+            sourceDirectory = dir;
             filesChoosed = false;
             sourceFiles.clear();
             persistFilePath(KEY_LAST_SRC_DIR, dir);
@@ -218,7 +208,7 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void chooseSourceFiles() {
-        JFileChooser fileChooser = new JFileChooser(sourceDir);
+        JFileChooser fileChooser = new JFileChooser(sourceDirectory);
         ImagePreviewPanel imgPanel = new ImagePreviewPanel();
         fileChooser.setAccessory(imgPanel);
         fileChooser.addPropertyChangeListener(imgPanel);
@@ -231,8 +221,8 @@ public class ImportImageFilesDialog extends Dialog {
                 return;
             }
             sourceFiles.addAll(Arrays.asList(selFiles));
-            sourceDir = selFiles[0].getParentFile();
-            persistFilePath(KEY_LAST_SRC_DIR, sourceDir);
+            sourceDirectory = selFiles[0].getParentFile();
+            persistFilePath(KEY_LAST_SRC_DIR, sourceDirectory);
             filesChoosed = true;
             resetLabelSourceDir();
             setFileLabel(selFiles[0], selFiles.length > 1);
@@ -240,15 +230,24 @@ public class ImportImageFilesDialog extends Dialog {
         setEnabledOkButton();
     }
 
-    /**
-     * Returns the choosen files.
-     * <p>
-     * <em>Verify, that {@code #filesChoosed()} returns true!</em>
-     *
-     * @return choosen files
-     */
     public List<File> getSourceFiles() {
-        return new ArrayList<File>(sourceFiles);
+        if (filesChoosed) {
+            return new ArrayList<File>(sourceFiles);
+        } else {
+            List<File> sourceDirectoriesRecursive = new LinkedList<File>();
+            sourceDirectoriesRecursive.add(sourceDirectory);
+            sourceDirectoriesRecursive.addAll(FileUtil.getSubDirectoriesRecursive(sourceDirectory, null));
+            return FileFilterUtil.getImageFilesOfDirectories(sourceDirectoriesRecursive);
+        }
+    }
+
+    public ImportData createImportData() {
+        return new ImportData.Builder(getSourceFiles(), targetDirectory)
+                .deleteSourceFilesAfterCopying(deleteSourceFilesAfterCopying)
+                .fileRenameStrategy(getFileRenameStrategy())
+                .subdirectoryCreateStrategy(getSubdirectoryCreateStrategy())
+                .scriptFile(scriptFile)
+                .build();
     }
 
     /**
@@ -263,12 +262,12 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void chooseTargetDir() {
-        File dir = chooseDir(targetDir);
+        File dir = chooseDir(targetDirectory);
         if (dir == null) {
             return;
         }
-        if (!sourceDir.exists() || checkDirsDifferent(sourceDir, dir)) {
-            targetDir = dir;
+        if (!sourceDirectory.exists() || checkDirsDifferent(sourceDirectory, dir)) {
+            targetDirectory = dir;
             persistFilePath(KEY_LAST_TARGET_DIR, dir);
             setDirLabel(labelTargetDir, dir);
         }
@@ -436,18 +435,18 @@ public class ImportImageFilesDialog extends Dialog {
 
     private boolean dirsValid() {
         if (filesChoosed) {
-            return !sourceFiles.isEmpty() && targetDir.isDirectory() && dirsDifferent();
+            return !sourceFiles.isEmpty() && targetDirectory.isDirectory() && dirsDifferent();
         } else {
             return existsBothDirs() && dirsDifferent();
         }
     }
 
     private boolean dirsDifferent() {
-        return !sourceDir.equals(targetDir);
+        return !sourceDirectory.equals(targetDirectory);
     }
 
     private boolean existsBothDirs() {
-        return sourceDir.isDirectory() && targetDir.isDirectory();
+        return sourceDirectory.isDirectory() && targetDirectory.isDirectory();
     }
 
     private boolean checkDirsDifferent(File src, File tgt) {
@@ -473,8 +472,8 @@ public class ImportImageFilesDialog extends Dialog {
                 listenToCheckBox = true;
             }
         }
-        deleteSrcFilesAfterCopying = selected;
-        prefs.setBoolean(KEY_DEL_SRC_AFTER_COPY, deleteSrcFilesAfterCopying);
+        deleteSourceFilesAfterCopying = selected;
+        prefs.setBoolean(KEY_DEL_SRC_AFTER_COPY, deleteSourceFilesAfterCopying);
     }
 
     public SubdirectoryCreateStrategy getSubdirectoryCreateStrategy() {

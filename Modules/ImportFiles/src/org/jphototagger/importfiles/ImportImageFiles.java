@@ -2,7 +2,6 @@ package org.jphototagger.importfiles;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,14 +12,11 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.file.CopyMoveFilesOptions;
-import org.jphototagger.api.file.FileRenameStrategy;
-import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.DirectorySelectService;
 import org.jphototagger.domain.FileCopyService;
 import org.jphototagger.domain.FileImportService;
-import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.imagecollections.ImageCollectionService;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
@@ -42,13 +38,13 @@ import org.jphototagger.lib.util.ProgressBarUpdater;
 public final class ImportImageFiles extends Thread implements FileImportService, ProgressListener {
 
     private static final String progressBarString = Bundle.getString(ImportImageFiles.class, "ImportImageFiles.Info.ProgressBar");
+    private static final int MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS = 240000;
     private final List<File> copiedTargetFiles = new ArrayList<File>();
     private final List<File> copiedSourceFiles = new ArrayList<File>();
     private final List<SourceTargetFile> sourceTargetFiles;
     private final File targetDirectory;
-    private final boolean deleteScrFilesAfterCopying;
+    private final boolean deleteSourceFilesAfterCopying;
     private final File scriptFile;
-    private static final int MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS = 240000;
     private final String scriptForRuntime;
     private static final Logger LOGGER = Logger.getLogger(ImportImageFiles.class.getName());
 
@@ -57,73 +53,75 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     }
 
     private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, File targetDirectory,
-            boolean deleteScrFilesAfterCopying, File scriptFile) {
+            boolean deleteSourceFilesAfterCopying, File scriptFile) {
         super("JPhotoTagger: Importing image files");
         this.sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceTargetFiles);
-        this.deleteScrFilesAfterCopying = deleteScrFilesAfterCopying;
+        this.deleteSourceFilesAfterCopying = deleteSourceFilesAfterCopying;
         this.scriptFile = scriptFile;
         this.targetDirectory = targetDirectory;
         scriptForRuntime = scriptFile == null ? "" : RuntimeUtil.quoteForCommandLine(scriptFile);
     }
 
     public static void importFrom(File sourceDirectory) {
-        ImportImageFilesDialog dlg = new ImportImageFilesDialog();
+        ImportImageFilesDialog importDialog = new ImportImageFilesDialog();
         if (sourceDirectory != null) {
-            dlg.setSourceDir(sourceDirectory);
+            importDialog.setSourceDirectory(sourceDirectory);
         }
-        dlg.setVisible(true);
-        if (dlg.isAccepted()) {
-            File targetDir = dlg.getTargetDir();
-            SubdirectoryCreateStrategy subdirectoryCreateStrategy = dlg.getSubdirectoryCreateStrategy();
-            FileRenameStrategy fileRenameStrategy = dlg.getFileRenameStrategy();
-            fileRenameStrategy.init();
-            boolean deleteSourceFilesAfterCopying = dlg.isDeleteSourceFilesAfterCopying();
-            File script = dlg.getScriptFile();
-            if (dlg.filesChoosed()) {
-                copy(dlg.getSourceFiles(), targetDir, subdirectoryCreateStrategy, fileRenameStrategy,
-                        deleteSourceFilesAfterCopying, script);
-            } else {
-                List<File> sourceDirectories = new ArrayList<File>();
-                File srcDir = dlg.getSourceDir();
-                sourceDirectories.add(srcDir);
-                sourceDirectories.addAll(FileUtil.getSubDirectoriesRecursive(srcDir, null));
-                List<File> sourceImageFiles = FileFilterUtil.getImageFilesOfDirectories(sourceDirectories);
-                copy(sourceImageFiles, targetDir, subdirectoryCreateStrategy, fileRenameStrategy,
-                        deleteSourceFilesAfterCopying, script);
-            }
+        importDialog.setVisible(true);
+        if (importDialog.isAccepted()) {
+            ImportData importData = importDialog.createImportData();
+            initFileRenameStrategy(importData);
+            copy(importData);
         }
     }
 
-    private static void copy(List<File> sourceImageFiles, File targetDir,
-            SubdirectoryCreateStrategy subdirectoryCreateStrategy, FileRenameStrategy fileRenameStrategy,
-            boolean deleteScrFilesAfterCopying, File scriptFile) {
-        if (sourceImageFiles.size() > 0) {
+    private static void initFileRenameStrategy(ImportData importData) {
+        if (importData.hasFileRenameStrategy()) {
+            importData.getFileRenameStrategy().init();
+        }
+    }
+
+    ;
+
+    private static void copy(ImportData importData) {
+        if (importData.hasSourceFiles()) {
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
-            List<SourceTargetFile> scrTgtFiles = createSourceTargetFiles(
-                    sourceImageFiles, targetDir, subdirectoryCreateStrategy, fileRenameStrategy);
-            ImportImageFiles importImageFiles = new ImportImageFiles(scrTgtFiles, targetDir, deleteScrFilesAfterCopying, scriptFile);
+            List<SourceTargetFile> sourceTargetFiles = createSourceTargetFiles(importData);
+            ImportImageFiles importImageFiles = new ImportImageFiles(
+                    sourceTargetFiles,
+                    importData.getTargetDirectory(),
+                    importData.isDeleteSourceFilesAfterCopying(),
+                    importData.getScriptFile());
             executor.addTask(importImageFiles);
         }
     }
 
-    private static List<SourceTargetFile> createSourceTargetFiles(
-            Collection<? extends File> sourceFiles, File targetDirectory,
-            SubdirectoryCreateStrategy subdirectoryCreateStrategy, FileRenameStrategy fileRenameStrategy) {
-        List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceFiles.size());
-        String targetDir = targetDirectory.getAbsolutePath();
+    private static List<SourceTargetFile> createSourceTargetFiles(ImportData importData) {
+        List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>(importData.getSourceFileCount());
+        List<File> sourceFiles = importData.getSourceFiles();
+        Collections.sort(sourceFiles, ExifDateTimeOriginalAscendingComparator.INSTANCE);
         for (File sourceFile : sourceFiles) {
-            File targetFile = createTargetFile(sourceFile, targetDir, subdirectoryCreateStrategy, fileRenameStrategy);
+            File targetFile = createTargetFile(sourceFile, importData);
             ensureTargetDirExists(targetFile);
             sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
         }
         return sourceTargetFiles;
     }
 
-    private static File createTargetFile(File sourceFile, String targetDir,
-            SubdirectoryCreateStrategy subdirectoryCreateStrategy, FileRenameStrategy fileRenameStrategy) {
-        String subdir = subdirectoryCreateStrategy.suggestSubdirectoryName(sourceFile);
-        String newTargetDir = targetDir + File.separator + subdir;
-        return fileRenameStrategy.suggestNewFile(sourceFile, newTargetDir);
+    private static File createTargetFile(File sourceFile, ImportData importData) {
+        String targetSubdirPathname = importData.hasSubdirectoryCreateStrategy()
+                ? importData.getSubdirectoryCreateStrategy().suggestSubdirectoryName(sourceFile)
+                : "";
+        String targetDirPathname = importData.getTargetDirectory().getAbsolutePath();
+        targetDirPathname = targetSubdirPathname.isEmpty()
+                ? targetDirPathname
+                : targetDirPathname + File.separator + targetSubdirPathname;
+        if (importData.hasFileRenameStrategy()) {
+            return importData.getFileRenameStrategy().suggestNewFile(sourceFile, targetDirPathname);
+        } else {
+            String sourceFilename = sourceFile.getName();
+            return new File(targetDirPathname + File.separator + sourceFilename);
+        }
     }
 
     private static void ensureTargetDirExists(File targetFile) {
@@ -139,7 +137,8 @@ public final class ImportImageFiles extends Thread implements FileImportService,
 
     @Override
     public void run() {
-        FileCopyService copyService = Lookup.getDefault().lookup(FileCopyService.class).createInstance(sourceTargetFiles, CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
+        FileCopyService copyService = Lookup.getDefault().lookup(FileCopyService.class)
+                .createInstance(sourceTargetFiles, CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(copyService, progressBarString);
         copyService.addProgressListener(this);
         copyService.addProgressListener(pBarUpdater);
@@ -154,11 +153,9 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     @Override
     public void progressPerformed(ProgressEvent evt) {
         Object o = evt.getInfo();
-
         if (o instanceof SourceTargetFile) {
             SourceTargetFile sourceTargetFile = (SourceTargetFile) o;
             File targetFile = sourceTargetFile.getTargetFile();
-
             if (!targetFile.getName().toLowerCase().endsWith(".xmp")) {
                 copiedTargetFiles.add(targetFile);
                 copiedSourceFiles.add(sourceTargetFile.getSourceFile());
@@ -174,14 +171,13 @@ public final class ImportImageFiles extends Thread implements FileImportService,
         } else {
             addFilesToCollection();
         }
-        if (deleteScrFilesAfterCopying) {
+        if (deleteSourceFilesAfterCopying) {
             deleteCopiedSourceFiles();
         }
     }
 
     private void selectTargetDirectory() {
         DirectorySelectService service = Lookup.getDefault().lookup(DirectorySelectService.class);
-
         if (service != null) {
             service.selectDirectory(targetDirectory);
         }
@@ -222,7 +218,6 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     private void insertCopiedFilesIntoDb() {
         SaveToOrUpdateFilesInRepository inserter = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class).createInstance(copiedTargetFiles, SaveOrUpdate.OUT_OF_DATE);
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(inserter, progressBarString);
-
         inserter.addProgressListener(pBarUpdater);
         inserter.saveOrUpdateWaitForTermination();
     }
@@ -231,13 +226,10 @@ public final class ImportImageFiles extends Thread implements FileImportService,
         String collectionName = ImageCollection.PREVIOUS_IMPORT_NAME;
         ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
         List<File> prevCollectionFiles = repo.findImageFilesOfImageCollection(collectionName);
-
         if (!prevCollectionFiles.isEmpty()) {
             int delCount = repo.deleteImagesFromImageCollection(collectionName, prevCollectionFiles);
-
             if (delCount != prevCollectionFiles.size()) {
                 LOGGER.log(Level.WARNING, "Could not delete all images from ''{0}''!", collectionName);
-
                 return;
             }
         }
@@ -259,7 +251,6 @@ public final class ImportImageFiles extends Thread implements FileImportService,
     private void deleteCopiedSourceFiles() {
         for (File file : copiedSourceFiles) {
             LOGGER.log(Level.INFO, "Deleting after import file ''{0}''", file);
-
             if (!file.delete()) {
                 LOGGER.log(Level.WARNING, "Error while deleting file ''{0}''!", file);
             }
@@ -271,7 +262,6 @@ public final class ImportImageFiles extends Thread implements FileImportService,
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         importFrom(directory);
     }
 }
