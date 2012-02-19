@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.importfiles.SubdirectoryCreateStrategy;
+import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class NoSubdirectoryCreateStrategy implements SubdirectoryCreateStrategy {
 
     @Override
-    public String createSubdirectoryName(File file) {
+    public String suggestSubdirectoryName(File file) {
         return "";
     }
 

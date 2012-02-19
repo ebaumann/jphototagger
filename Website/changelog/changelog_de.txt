@@ -3,7 +3,7 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.19.0 2012-02-18
+0.19.0 2012-02-19
 -----------------
 
 * Neu: Bearbeiten > Einstellungen > Bilder öffnen: Schaltfläche
@@ -14,13 +14,17 @@ Changelog JPhotoTagger http://jphototagger.org/
   XMP-Filialdateinamen benutzen, z.B. "Bild.nef.xmp". Siehe auch
   Hilfe/Handbuch zu "Einstellungen > Sonstiges" sowie Meldung, falls
   diese Option ausgewählt wird
+* Import von Bildern ("Datei > Bilder importieren"): Einführung einer
+  Dateinamen-Umbenennungsstrategie, vorerst Möglichkeit, importierte
+  Dateien automatisch nach JJJJ-MM-TT-<laufende-Nummer> zu benennen
+
 
 0.18.0 2012-02-16
 -----------------
 
 * Import von Bildern ("Datei > Bilder importieren"): Einführung einer
-  Unterordner-Erzeugungsstrategie, vorerst zusätzlich weitere Möglichkeit
-  zusätzlich Jahresunterordner zu erzeugen
+  Unterordner-Erzeugungsstrategie, vorerst Möglichkeit,
+  Jahresunterordner zu erzeugen
 
 0.17.1 2012-02-15
 -----------------

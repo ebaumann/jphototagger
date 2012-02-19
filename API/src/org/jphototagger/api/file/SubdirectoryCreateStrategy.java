@@ -1,4 +1,4 @@
-package org.jphototagger.importfiles;
+package org.jphototagger.api.file;
 
 import java.io.File;
 
@@ -10,5 +10,5 @@ import org.jphototagger.api.component.DisplayNameProvider;
  */
 public interface SubdirectoryCreateStrategy extends DisplayNameProvider, PositionProvider {
 
-    String createSubdirectoryName(File file);
+    String suggestSubdirectoryName(File file);
 }
