@@ -23,7 +23,7 @@ public final class AppLoggingSystem {
 
     private static final String ALL_MESSAGES_LOGFILE_PATH;
     private static final String ERROR_MESSAGES_LOGFILE_PATH;
-    private static final String LOGFILE_DIR_PATHNAME;
+    private static final String LOGFILE_DIRECTORY_PATHNAME;
     private static final String LOGFILE_PATH_PREFIX;
     // Keeping a Reference ensures not loosing the Handlers (LogManager stores Loggers as Weak References)
     private static final Logger APP_LOGGER = Logger.getLogger("org.jphototagger");
@@ -33,8 +33,8 @@ public final class AppLoggingSystem {
         PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
         File userSettingsDirectory = provider.getUserPreferencesDirectory();
 
-        LOGFILE_DIR_PATHNAME = userSettingsDirectory.getAbsolutePath();
-        LOGFILE_PATH_PREFIX = LOGFILE_DIR_PATHNAME + File.separator + "jphototagger-log";
+        LOGFILE_DIRECTORY_PATHNAME = userSettingsDirectory.getAbsolutePath();
+        LOGFILE_PATH_PREFIX = LOGFILE_DIRECTORY_PATHNAME + File.separator + "jphototagger-log";
         ALL_MESSAGES_LOGFILE_PATH = LOGFILE_PATH_PREFIX + "-all.txt";
         ERROR_MESSAGES_LOGFILE_PATH = LOGFILE_PATH_PREFIX + "-errors.xml";
     }
@@ -62,7 +62,7 @@ public final class AppLoggingSystem {
     }
 
     private static void deleteObsoleteLogfiles() {
-        File logfileDir = new File(LOGFILE_DIR_PATHNAME);
+        File logfileDir = new File(LOGFILE_DIRECTORY_PATHNAME);
         File[] dirFiles = logfileDir.listFiles();
 
         for (File file : dirFiles) {
@@ -162,6 +162,10 @@ public final class AppLoggingSystem {
      */
     public static String getAllMessagesLogfilePath() {
         return ALL_MESSAGES_LOGFILE_PATH;
+    }
+
+    public static File getLofileDirectory() {
+        return new File(LOGFILE_DIRECTORY_PATHNAME);
     }
 
     private AppLoggingSystem() {
