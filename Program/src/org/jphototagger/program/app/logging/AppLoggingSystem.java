@@ -121,10 +121,10 @@ public final class AppLoggingSystem {
     // Usage now only for developers, "UserSettings.LogLevel", e.g. "INFO"
     private static Level lookupLogLevel() {
         Level level = null;
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage.containsKey(Preferences.KEY_LOG_LEVEL)) {
-            String levelString = storage.getString(Preferences.KEY_LOG_LEVEL);
+        if (prefs.containsKey(Preferences.KEY_LOG_LEVEL)) {
+            String levelString = prefs.getString(Preferences.KEY_LOG_LEVEL);
 
             try {
                 level = Level.parse(levelString);
@@ -134,7 +134,7 @@ public final class AppLoggingSystem {
         }
 
         if (level == null) {
-            storage.setString(Preferences.KEY_LOG_LEVEL, Level.ALL.getLocalizedName());
+            prefs.setString(Preferences.KEY_LOG_LEVEL, Level.ALL.getLocalizedName());
         }
 
         return level == null ? Level.ALL : level;

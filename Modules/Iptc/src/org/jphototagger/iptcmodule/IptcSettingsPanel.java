@@ -52,8 +52,8 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     }
 
     private void setIptcCharsetFromPreferences() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String charset = storage.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String charset = prefs.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
 
         String iptcCharSet = charset.isEmpty()
                 ? "ISO-8859-1"

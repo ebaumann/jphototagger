@@ -79,9 +79,9 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -90,8 +90,8 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setAcceptHiddenDirectories(boolean accept) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
     }
 
     private void chooseRepositoryDirectory() {
@@ -137,14 +137,14 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setDisplaySearchButton(boolean display) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON, display);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON, display);
     }
 
     private void setDisplayWordsetsEditPanel() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         boolean display = checkBoxDisplayWordsetsEditPanel.isSelected();
-        storage.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_WORD_SETS_EDIT_PANEL, display);
+        prefs.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_WORD_SETS_EDIT_PANEL, display);
     }
 
     private void setCopyMoveFiles() {
@@ -160,9 +160,9 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setCopyMoveFilesOptions(CopyMoveFilesOptions options) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES, options.getInt());
+        prefs.setInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES, options.getInt());
     }
 
     private void setCheckForUpdates() {
@@ -170,8 +170,8 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setCheckForUpdates(boolean auto) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
     }
 
     private void setUseLongXmpSidecarFileNames() {
@@ -236,26 +236,26 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private boolean isCheckForUpdates() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
-                ? storage.getBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
+        return prefs.containsKey(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
+                ? prefs.getBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
                 : true;
     }
 
     private boolean isDisplaySearchButton() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
-                ? storage.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
+        return prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
+                ? prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
                 : true;
     }
 
     private CopyMoveFilesOptions getCopyMoveFilesOptions() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
-                ? CopyMoveFilesOptions.parseInteger(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+        return prefs.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
+                ? CopyMoveFilesOptions.parseInteger(prefs.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 

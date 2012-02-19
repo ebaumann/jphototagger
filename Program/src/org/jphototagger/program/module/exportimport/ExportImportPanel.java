@@ -64,8 +64,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String lastDirString = storage == null ? "" : storage.getString(KEY_LAST_DIR);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String lastDirString = prefs == null ? "" : prefs.getString(KEY_LAST_DIR);
         dir = new File(lastDirString);
 
         if (dir.isDirectory()) {
@@ -178,8 +178,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
         if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);
-            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-            storage.setString(KEY_LAST_DIR, dir.getAbsolutePath());
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            prefs.setString(KEY_LAST_DIR, dir.getAbsolutePath());
             setDirLabel();
             setEnabledButtons();
         }
@@ -192,10 +192,10 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 

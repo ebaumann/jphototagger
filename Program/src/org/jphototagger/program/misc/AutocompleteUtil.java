@@ -46,10 +46,10 @@ public final class AutocompleteUtil {
     }
 
     private static boolean isUpdateAutocomplete() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainPreferencesKeys.KEY_UPDATE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainPreferencesKeys.KEY_UPDATE_AUTOCOMPLETE)
+        return prefs.containsKey(DomainPreferencesKeys.KEY_UPDATE_AUTOCOMPLETE)
+                ? prefs.getBoolean(DomainPreferencesKeys.KEY_UPDATE_AUTOCOMPLETE)
                 : true;
     }
 

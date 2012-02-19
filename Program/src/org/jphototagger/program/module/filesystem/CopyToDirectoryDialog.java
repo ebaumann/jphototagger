@@ -164,9 +164,9 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -261,18 +261,18 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.applyToggleButtonSettings(KEY_COPY_XMP, checkBoxCopyXmp);
-        File directory = new File(storage.getString(KEY_LAST_DIRECTORY));
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.applyToggleButtonSettings(KEY_COPY_XMP, checkBoxCopyXmp);
+        File directory = new File(prefs.getString(KEY_LAST_DIRECTORY));
         if (directory.isDirectory()) {
             targetDirectory = directory;
         }
     }
 
     private void writeProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setString(KEY_LAST_DIRECTORY, targetDirectory.getAbsolutePath());
-        storage.setToggleButton(KEY_COPY_XMP, checkBoxCopyXmp);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setString(KEY_LAST_DIRECTORY, targetDirectory.getAbsolutePath());
+        prefs.setToggleButton(KEY_COPY_XMP, checkBoxCopyXmp);
     }
 
     private void initDirectory() {

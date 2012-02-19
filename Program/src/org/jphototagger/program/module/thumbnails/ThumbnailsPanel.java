@@ -125,11 +125,11 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private boolean getPersistedDisplayThumbnailTooltip() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage == null || !storage.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
+        return prefs == null || !prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
                 ? true
-                : storage.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP);
+                : prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP);
     }
 
     private void listen() {
@@ -734,8 +734,8 @@ public class ThumbnailsPanel extends JPanel
 
     @EventSubscriber(eventClass = AppWillExitEvent.class)
     public void appWillExit(AppWillExitEvent evt) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH, getThumbnailWidth());
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH, getThumbnailWidth());
     }
 
     private String createTooltipTextForIndex(int index) {
@@ -852,11 +852,11 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        if (storage == null) {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        if (prefs == null) {
             return;
         }
-        int tnWidth = storage.getInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
+        int tnWidth = prefs.getInt(ThumbnailsPanel.KEY_THUMBNAIL_WIDTH);
         if (tnWidth > 0) {
             setThumbnailWidth(tnWidth);
         }
@@ -1462,8 +1462,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private void persistMetaDataOverlay() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setBoolean(KEY_SHOW_METADATA_OVERLAY, metaDataOverlay);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setBoolean(KEY_SHOW_METADATA_OVERLAY, metaDataOverlay);
     }
 
     @Override

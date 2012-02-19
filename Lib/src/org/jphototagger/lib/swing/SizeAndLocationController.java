@@ -22,21 +22,21 @@ public final class SizeAndLocationController extends WindowAdapter {
 
     @Override
     public void windowOpened(WindowEvent evt) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         Component component = evt.getComponent();
         String key = component.getClass().getName();
 
-        storage.applySize(key, component);
-        storage.applyLocation(key, component);
+        prefs.applySize(key, component);
+        prefs.applyLocation(key, component);
     }
 
     @Override
     public void windowClosing(WindowEvent evt) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         Component component = evt.getComponent();
         String key = component.getClass().getName();
 
-        storage.setSize(key, component);
-        storage.setLocation(key, component);
+        prefs.setSize(key, component);
+        prefs.setLocation(key, component);
     }
 }

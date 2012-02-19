@@ -107,9 +107,9 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private static void setCheckForUpdates(boolean auto) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
+        prefs.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
     }
 
     @Override

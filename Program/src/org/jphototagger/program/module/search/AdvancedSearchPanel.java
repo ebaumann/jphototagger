@@ -82,11 +82,11 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private boolean isAutocomplete() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        return storage == null
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs == null
                 ? true
-                : storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                : prefs.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? prefs.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 
@@ -171,16 +171,16 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     @Override
     public void restore() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        if (storage.containsKey(KEY_SELECTED_TAB_INDEX)) {
-            tabbedPane.setSelectedIndex(storage.getInt(KEY_SELECTED_TAB_INDEX));
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        if (prefs.containsKey(KEY_SELECTED_TAB_INDEX)) {
+            tabbedPane.setSelectedIndex(prefs.getInt(KEY_SELECTED_TAB_INDEX));
         }
     }
 
     @Override
     public void persist() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setInt(KEY_SELECTED_TAB_INDEX, tabbedPane.getSelectedIndex());
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setInt(KEY_SELECTED_TAB_INDEX, tabbedPane.getSelectedIndex());
     }
 
     private boolean checkIsSearchValid() {

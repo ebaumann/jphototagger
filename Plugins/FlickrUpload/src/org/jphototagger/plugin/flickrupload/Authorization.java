@@ -40,26 +40,26 @@ final class Authorization {
     }
 
     public void deleteToken() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            storage.removeKey(KEY_TOKEN);
+        if (prefs != null) {
+            prefs.removeKey(KEY_TOKEN);
         }
     }
 
     private String getToken() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage == null
+        return prefs == null
                 ? ""
-                : storage.getString(KEY_TOKEN);
+                : prefs.getString(KEY_TOKEN);
     }
 
     private void setToken(String token) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            storage.setString(KEY_TOKEN, token);
+        if (prefs != null) {
+            prefs.setString(KEY_TOKEN, token);
         }
     }
 

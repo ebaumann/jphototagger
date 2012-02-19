@@ -78,9 +78,9 @@ public final class AppWindowPersistence implements ComponentListener {
         assert isSelKeywordsCard && knownCardName : c;
 
         if (isSelKeywordsCard && knownCardName) {
-            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-            storage.setString(KEY_KEYWORDS_VIEW, NAME_OF_CARD.get(c));
+            prefs.setString(KEY_KEYWORDS_VIEW, NAME_OF_CARD.get(c));
         }
     }
 
@@ -90,11 +90,11 @@ public final class AppWindowPersistence implements ComponentListener {
 
     public void readAppFrameFromProperties() {
         final AppFrame appFrame = GUI.getAppFrame();
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = appFrame.getClass().getName();
 
-        storage.applySize(key, appFrame);
-        storage.applyLocation(key, appFrame);
+        prefs.applySize(key, appFrame);
+        prefs.applyLocation(key, appFrame);
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -111,9 +111,9 @@ public final class AppWindowPersistence implements ComponentListener {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
-                Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+                Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-                storage.applyComponentSettings(appPanel, getAppPanelSettingsHints());
+                prefs.applyComponentSettings(appPanel, getAppPanelSettingsHints());
                 setInitKeywordsView(appPanel);
             }
         });
@@ -149,10 +149,10 @@ public final class AppWindowPersistence implements ComponentListener {
         // Strings has to be equal to the card names in AppPanel
         // (errors on renamings)!
         String name = "keywordsTree";
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage.containsKey(KEY_KEYWORDS_VIEW)) {
-            String s = storage.getString(KEY_KEYWORDS_VIEW);
+        if (prefs.containsKey(KEY_KEYWORDS_VIEW)) {
+            String s = prefs.getString(KEY_KEYWORDS_VIEW);
 
             if (s.equals("flatKeywords") || s.equals("keywordsTree")) {
                 name = s;
@@ -177,11 +177,11 @@ public final class AppWindowPersistence implements ComponentListener {
 
     private void writeAppProperties() {
         AppPanel appPanel = GUI.getAppPanel();
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setComponent(appPanel, getAppPanelSettingsHints());
-        storage.setInt(KEY_DIVIDER_LOCATION_MAIN, appPanel.getSplitPaneMain().getDividerLocation());
-        storage.setInt(KEY_DIVIDER_LOCATION_THUMBNAILS, appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation());
+        prefs.setComponent(appPanel, getAppPanelSettingsHints());
+        prefs.setInt(KEY_DIVIDER_LOCATION_MAIN, appPanel.getSplitPaneMain().getDividerLocation());
+        prefs.setInt(KEY_DIVIDER_LOCATION_THUMBNAILS, appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation());
         appPanel.getPanelEditKeywords().writeProperties();
 
         // Later than settings.setTree(appPanel, null)!
@@ -246,15 +246,15 @@ public final class AppWindowPersistence implements ComponentListener {
     }
 
     private static void read(JTree tree, String key) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.applyTreeSettings(key, tree);
+        prefs.applyTreeSettings(key, tree);
     }
 
     private static void read(JList list, String key) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.applySelectedIndices(key, list);
+        prefs.applySelectedIndices(key, list);
     }
 
     // Independent from renamings
@@ -275,15 +275,15 @@ public final class AppWindowPersistence implements ComponentListener {
     }
 
     private void write(JTree tree, String key) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setTree(key, tree);
+        prefs.setTree(key, tree);
     }
 
     private void write(JList list, String key) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setSelectedIndices(key, list);
+        prefs.setSelectedIndices(key, list);
     }
 
     @Override

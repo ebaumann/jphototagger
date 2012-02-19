@@ -34,10 +34,10 @@ final class UpdateTablesPrograms extends Database {
     }
 
     private void moveDefaultImageOpenApp() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage.containsKey(KEY_DEFAULT_IMAGE_OPEN_APP)) {
-            String defaultApp = storage.getString(KEY_DEFAULT_IMAGE_OPEN_APP).trim();
+        if (prefs.containsKey(KEY_DEFAULT_IMAGE_OPEN_APP)) {
+            String defaultApp = prefs.getString(KEY_DEFAULT_IMAGE_OPEN_APP).trim();
 
             if (!defaultApp.isEmpty()) {
                 File file = new File(defaultApp);
@@ -46,7 +46,7 @@ final class UpdateTablesPrograms extends Database {
                 defaultIoApp.setSequenceNumber(0);
 
                 if (repo.saveProgram(defaultIoApp)) {
-                    storage.removeKey(KEY_DEFAULT_IMAGE_OPEN_APP);
+                    prefs.removeKey(KEY_DEFAULT_IMAGE_OPEN_APP);
 
                     List<Program> programs = repo.findAllPrograms(ProgramType.PROGRAM);
                     int sequenceNo = 0;
@@ -65,8 +65,8 @@ final class UpdateTablesPrograms extends Database {
     }
 
     private void moveOtherImageOpenApps() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        List<String> filepaths = storage.getStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        List<String> filepaths = prefs.getStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
 
         if (filepaths.size() > 0) {
 
@@ -76,7 +76,7 @@ final class UpdateTablesPrograms extends Database {
                 repo.saveProgram(new Program(file, file.getName()));
             }
 
-            storage.removeStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
+            prefs.removeStringCollection(KEY_OTHER_IMAGE_OPEN_APPS);
         }
     }
 }

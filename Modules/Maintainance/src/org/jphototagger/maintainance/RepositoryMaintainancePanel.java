@@ -70,14 +70,14 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         labelOfCheckBox.put(checkBoxDeleteUnusedKeywords, labelFinishedDeleteUnusedKeywords);
         labelOfCheckBox.put(checkBoxDeleteNotReferenced1n, labelFinishedDeleteNotReferenced1n);
 
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            checkBoxCompressRepository.setSelected(storage.getBoolean(KEY_COMPRESS_DB));
-            checkBoxDeleteOrphanedThumbnails.setSelected(storage.getBoolean(KEY_DEL_ORPHANED_THUMBS));
-            checkBoxDeleteRecordsOfNotExistingFilesInRepository.setSelected(storage.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
-            checkBoxDeleteUnusedKeywords.setSelected(storage.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
-            checkBoxDeleteNotReferenced1n.setSelected(storage.getBoolean(KEY_DEL_NOT_REF_1_N));
+        if (prefs != null) {
+            checkBoxCompressRepository.setSelected(prefs.getBoolean(KEY_COMPRESS_DB));
+            checkBoxDeleteOrphanedThumbnails.setSelected(prefs.getBoolean(KEY_DEL_ORPHANED_THUMBS));
+            checkBoxDeleteRecordsOfNotExistingFilesInRepository.setSelected(prefs.getBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES));
+            checkBoxDeleteUnusedKeywords.setSelected(prefs.getBoolean(KEY_DEL_UNUSED_KEYWORDS));
+            checkBoxDeleteNotReferenced1n.setSelected(prefs.getBoolean(KEY_DEL_NOT_REF_1_N));
         }
     }
 
@@ -630,16 +630,16 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     }//GEN-END:initComponents
 
     private void checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES, checkBoxDeleteRecordsOfNotExistingFilesInRepository.isSelected());
+        prefs.setBoolean(KEY_DEL_RECORDS_OF_NOT_EX_FILES, checkBoxDeleteRecordsOfNotExistingFilesInRepository.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed
 
     private void checkBoxCompressRepositoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCompressRepositoryActionPerformed
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(KEY_COMPRESS_DB, checkBoxCompressRepository.isSelected());
+        prefs.setBoolean(KEY_COMPRESS_DB, checkBoxCompressRepository.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxCompressRepositoryActionPerformed
 
@@ -656,23 +656,23 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     }//GEN-LAST:event_buttonDeleteMessagesActionPerformed
 
     private void checkBoxDeleteOrphanedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(KEY_DEL_ORPHANED_THUMBS, checkBoxDeleteOrphanedThumbnails.isSelected());
+        prefs.setBoolean(KEY_DEL_ORPHANED_THUMBS, checkBoxDeleteOrphanedThumbnails.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteOrphanedThumbnailsActionPerformed
 
     private void checkBoxDeleteUnusedKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteUnusedKeywordsActionPerformed
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(KEY_DEL_UNUSED_KEYWORDS, checkBoxDeleteUnusedKeywords.isSelected());
+        prefs.setBoolean(KEY_DEL_UNUSED_KEYWORDS, checkBoxDeleteUnusedKeywords.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteUnusedKeywordsActionPerformed
 
     private void checkBoxDeleteNotReferenced1nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteNotReferenced1nActionPerformed
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(KEY_DEL_NOT_REF_1_N, checkBoxDeleteNotReferenced1n.isSelected());
+        prefs.setBoolean(KEY_DEL_NOT_REF_1_N, checkBoxDeleteNotReferenced1n.isSelected());
         checkCheckboxes();
     }//GEN-LAST:event_checkBoxDeleteNotReferenced1nActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

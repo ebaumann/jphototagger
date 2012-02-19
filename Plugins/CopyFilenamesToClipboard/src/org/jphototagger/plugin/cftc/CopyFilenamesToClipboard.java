@@ -89,10 +89,10 @@ public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin 
     }
 
     private void setDelimiter() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            String delimiter = storage.getString(KEY_FILENAME_DELIMITER);
+        if (prefs != null) {
+            String delimiter = prefs.getString(KEY_FILENAME_DELIMITER);
 
             if (delimiter != null) {
                 fileNameDelimiter = delimiter;

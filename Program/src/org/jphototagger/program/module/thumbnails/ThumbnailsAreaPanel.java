@@ -110,15 +110,15 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     }
 
     private void persistFileFilter() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setInt(FileFiltersComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, fileFiltersComboBox.getSelectedIndex());
+        prefs.setInt(FileFiltersComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, fileFiltersComboBox.getSelectedIndex());
     }
 
     private void persistSortOrder() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setInt(ThumbnailsSortComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, fileSortComboBox.getSelectedIndex());
+        prefs.setInt(ThumbnailsSortComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, fileSortComboBox.getSelectedIndex());
     }
 
     @Override
@@ -155,9 +155,9 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     }
 
     void persistViewportPosition() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setScrollPane(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, thumbnailsPanelScrollPane);
+        prefs.setScrollPane(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, thumbnailsPanelScrollPane);
     }
 
     void restoreViewportPosition() {

@@ -32,10 +32,10 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
     }
 
     private void postInitComponents() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            storage.applyComponentSettings(this, null);
+        if (prefs != null) {
+            prefs.applyComponentSettings(this, null);
         }
 
         setButtonReplaceEnabled();
@@ -133,10 +133,10 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
             throw new NullPointerException("this == null");
         }
 
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        textFieldSearch.setText(storage.getString(KEY_SEARCH));
-        textFieldReplacement.setText(storage.getString(KEY_REPLACEMENT));
+        textFieldSearch.setText(prefs.getString(KEY_SEARCH));
+        textFieldReplacement.setText(prefs.getString(KEY_REPLACEMENT));
     }
 
     @Override
@@ -145,10 +145,10 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
             throw new NullPointerException("this == null");
         }
 
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(KEY_SEARCH, textFieldSearch.getText());
-        storage.setString(KEY_REPLACEMENT, textFieldReplacement.getText());
+        prefs.setString(KEY_SEARCH, textFieldSearch.getText());
+        prefs.setString(KEY_REPLACEMENT, textFieldReplacement.getText());
     }
 
     /**

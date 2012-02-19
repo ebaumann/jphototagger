@@ -44,9 +44,9 @@ public final class IptcIgnoreCache {
     }
 
     private boolean isDisplayIptc() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC);
+        return prefs.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC);
     }
 
     public void setIgnore(File imageFile, boolean ignore) {

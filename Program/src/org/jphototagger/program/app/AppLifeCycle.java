@@ -267,11 +267,11 @@ public final class AppLifeCycle {
     }
 
     private void writeProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = appFrame.getClass().getName();
 
-        storage.setSize(key, appFrame);
-        storage.setLocation(key, appFrame);
+        prefs.setSize(key, appFrame);
+        prefs.setLocation(key, appFrame);
     }
 
     public interface FinalTaskListener {

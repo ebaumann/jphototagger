@@ -40,8 +40,8 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final String KEY_EXPERT_SETTINGS = "ProgramPropertiesDialog.ExpertSettings";
     private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.ExpertSettings");
     private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.SimpleSettings");
-    private static final Preferences STORAGE = Lookup.getDefault().lookup(Preferences.class);
-    private File lastDir = new File(STORAGE.getString(KEY_LAST_DIR));
+    private static final Preferences PREFS = Lookup.getDefault().lookup(Preferences.class);
+    private File lastDir = new File(PREFS.getString(KEY_LAST_DIR));
     private File file;
     private boolean accecpted = false;
     private boolean action;
@@ -250,7 +250,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             return;
         }
 
-        STORAGE.setString(KEY_LAST_DIR, dir.getAbsolutePath());
+        PREFS.setString(KEY_LAST_DIR, dir.getAbsolutePath());
         lastDir = dir;
     }
 
@@ -308,7 +308,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             removeExpertSettings();
         }
 
-        STORAGE.setBoolean(KEY_EXPERT_SETTINGS, isExpertSettings);
+        PREFS.setBoolean(KEY_EXPERT_SETTINGS, isExpertSettings);
         pack();
         ComponentUtil.forceRepaint(this);
     }
@@ -352,7 +352,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void addExperSettingBasedOnUserSettings() {
-        boolean isExpertSettings = STORAGE.getBoolean(KEY_EXPERT_SETTINGS);
+        boolean isExpertSettings = PREFS.getBoolean(KEY_EXPERT_SETTINGS);
 
         if (isExpertSettings) {
             addExpertSettingsPanel();

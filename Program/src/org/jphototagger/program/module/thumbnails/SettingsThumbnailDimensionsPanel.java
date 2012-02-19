@@ -47,8 +47,8 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
     }
 
     private int getMaxThumbnailWidth() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        int width = storage.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        int width = prefs.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
 
         return (width != Integer.MIN_VALUE)
                 ? width

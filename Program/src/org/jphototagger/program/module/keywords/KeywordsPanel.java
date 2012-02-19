@@ -86,18 +86,18 @@ public class KeywordsPanel extends javax.swing.JPanel {
      * Reads the persistent properties, currently the selected tree node.
      */
     public void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.applyTreeSettings(keyTree, tree);
+        prefs.applyTreeSettings(keyTree, tree);
         readCardProperties();
     }
 
     private void readCardProperties() {
         String name = "Tree";
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage.containsKey(keyCard)) {
-            String s = storage.getString(keyCard);
+        if (prefs.containsKey(keyCard)) {
+            String s = prefs.getString(keyCard);
 
             if (s.equals("Tree") || s.equals("List")) {
                 name = s;
@@ -109,19 +109,19 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     private void displayCard(String name) {
         CardLayout cl = (CardLayout) (getLayout());
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
         cl.show(this, name);
-        storage.setString(keyCard, name);
+        prefs.setString(keyCard, name);
     }
 
     /**
      * Writes the persistent properties, currently the selected tree node.
      */
     public void writeProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setTree(keyTree, tree);
+        prefs.setTree(keyTree, tree);
     }
 
     /**

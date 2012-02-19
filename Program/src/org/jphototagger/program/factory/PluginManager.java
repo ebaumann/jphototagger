@@ -39,14 +39,14 @@ public class PluginManager<T extends Plugin> {
     }
 
     private boolean isFlaggedAsEnabeld(T plugin) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = getEnabledPropertyKeyForPlugin(plugin);
 
-        if (!storage.containsKey(key)) {
+        if (!prefs.containsKey(key)) {
             return true; // Don't hide unknown plugins
         }
 
-        return storage.getString(key).equals(PROPERTY_STRING_VALUE_TRUE);
+        return prefs.getString(key).equals(PROPERTY_STRING_VALUE_TRUE);
     }
 
     private String getEnabledPropertyKeyForPlugin(T plugin) {
@@ -78,15 +78,15 @@ public class PluginManager<T extends Plugin> {
             throw new NullPointerException("plugin == null");
         }
 
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = getEnabledPropertyKeyForPlugin(plugin);
 
         if (enabled) {
             ENABLED_PLUGINS.add(plugin);
-            storage.setString(key, PROPERTY_STRING_VALUE_TRUE);
+            prefs.setString(key, PROPERTY_STRING_VALUE_TRUE);
         } else {
             ENABLED_PLUGINS.remove(plugin);
-            storage.setString(key, PROPERTY_STRING_VALUE_FALSE);
+            prefs.setString(key, PROPERTY_STRING_VALUE_FALSE);
         }
     }
 

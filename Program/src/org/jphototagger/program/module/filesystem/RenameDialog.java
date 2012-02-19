@@ -355,19 +355,19 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             readProperties();
             setExampleFilename();
         } else {
-            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-            storage.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            prefs.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         }
         super.setVisible(visible);
     }
 
     private void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.applyComponentSettings(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.applyComponentSettings(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         if (!tabbedPane.isEnabledAt(1)) {
             tabbedPane.setSelectedComponent(panelInputName);
         }
-        storage.applySelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
+        prefs.applySelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
     }
 
     private void setEnabledConstantTextFields() {
@@ -527,8 +527,8 @@ public final class RenameDialog extends Dialog implements ListDataListener {
 
     private void handleComboBoxRenameTemplatesActionPerformed() {
         if (listen) {
-            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-            storage.setSelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            prefs.setSelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
             setRenameTemplate();
             setEnabledRenameTemplateButtons();
         }

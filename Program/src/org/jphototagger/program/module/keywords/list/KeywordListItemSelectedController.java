@@ -98,11 +98,11 @@ public final class KeywordListItemSelectedController implements ActionListener, 
     }
 
     private void readPersistent() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         boolean radioButtonAll = true;
 
-        if (storage.containsKey(KEY_RADIO_BUTTON)) {
-            radioButtonAll = storage.getInt(KEY_RADIO_BUTTON) == 0;
+        if (prefs.containsKey(KEY_RADIO_BUTTON)) {
+            radioButtonAll = prefs.getInt(KEY_RADIO_BUTTON) == 0;
         }
 
         getRadioButtonAllKeywords().setSelected(radioButtonAll);
@@ -110,8 +110,8 @@ public final class KeywordListItemSelectedController implements ActionListener, 
     }
 
     private void writePersistent() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setInt(KEY_RADIO_BUTTON, isAllKeywords()
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setInt(KEY_RADIO_BUTTON, isAllKeywords()
                 ? 0
                 : 1);
     }

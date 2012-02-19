@@ -53,12 +53,12 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
         panelKeywords.readProperties();
-        storage.applyTreeSettings(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
+        prefs.applyTreeSettings(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
 
-        int selIndexTabbedPane = storage.getInt(KEY_SEL_INDEX_TABBED_PANE);
+        int selIndexTabbedPane = prefs.getInt(KEY_SEL_INDEX_TABBED_PANE);
 
         if ((selIndexTabbedPane >= 0) && (selIndexTabbedPane < tabbedPane.getTabCount())) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
@@ -66,10 +66,10 @@ public class InputHelperDialog extends Dialog {
     }
 
     private void writeProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setInt(KEY_SEL_INDEX_TABBED_PANE, tabbedPane.getSelectedIndex());
-        storage.setTree(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
+        prefs.setInt(KEY_SEL_INDEX_TABBED_PANE, tabbedPane.getSelectedIndex());
+        prefs.setTree(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
         panelKeywords.writeProperties();
     }
 

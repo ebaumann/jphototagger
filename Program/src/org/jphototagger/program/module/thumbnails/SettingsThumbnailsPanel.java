@@ -63,10 +63,10 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private boolean isDisplayThumbnailTooltip() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
-                ? storage.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
+        return prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
+                ? prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
                 : true;
     }
 
@@ -79,9 +79,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private String getExternalThumbnailCreationCommand() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
+        return prefs.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
     }
 
     private void setSelectedRadioButtons() {
@@ -160,9 +160,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setExternalThumbnailCreationCommand(String command) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND, command);
+        prefs.setString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND, command);
     }
 
     private void setDisplayThumbnailTooltip() {
@@ -178,9 +178,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setDisplayThumbnailTooltip(boolean display) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP, display);
+        prefs.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP, display);
     }
 
     @Override
@@ -199,9 +199,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     }
 
     private void setThumbnailCreationStrategy(ThumbnailCreationStrategy creator) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR, creator.name());
+        prefs.setString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR, creator.name());
     }
 
     /**

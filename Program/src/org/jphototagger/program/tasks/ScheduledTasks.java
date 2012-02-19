@@ -71,8 +71,8 @@ public final class ScheduledTasks implements ActionListener {
     }
 
     public static int getMinutesToStartScheduledTasks() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        int minutes = storage.getInt(AppPreferencesKeys.KEY_SCHEDULED_TASKS_MINUTES_TO_START_SCHEDULED_TASKS);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        int minutes = prefs.getInt(AppPreferencesKeys.KEY_SCHEDULED_TASKS_MINUTES_TO_START_SCHEDULED_TASKS);
 
         return (minutes > 0)
                 ? minutes

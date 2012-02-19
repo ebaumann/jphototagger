@@ -180,18 +180,18 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            storage.applyToggleButtonSettings(KEY_FORCE, checkBoxForce);
-            storage.applyToggleButtonSettings(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
+        if (prefs != null) {
+            prefs.applyToggleButtonSettings(KEY_FORCE, checkBoxForce);
+            prefs.applyToggleButtonSettings(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
             readLastDirectoryFromProperties();
         }
     }
 
     private void readLastDirectoryFromProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String lastDirectoryName = storage.getString(KEY_LAST_DIRECTORY);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String lastDirectoryName = prefs.getString(KEY_LAST_DIRECTORY);
 
         if (!lastDirectoryName.isEmpty()) {
             File directory = new File(lastDirectoryName);
@@ -203,11 +203,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void writeProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setToggleButton(KEY_FORCE, checkBoxForce);
-        storage.setToggleButton(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
-        storage.setString(KEY_LAST_DIRECTORY, lastDirectory.getAbsolutePath());
+        prefs.setToggleButton(KEY_FORCE, checkBoxForce);
+        prefs.setToggleButton(KEY_SUBDIRECTORIES, checkBoxIncludeSubdirectories);
+        prefs.setString(KEY_LAST_DIRECTORY, lastDirectory.getAbsolutePath());
     }
 
     /**
@@ -318,10 +318,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 

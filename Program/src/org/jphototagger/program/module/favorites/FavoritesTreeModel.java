@@ -325,10 +325,10 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -532,9 +532,9 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     public void readFromProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String favname = storage.getString(KEY_SELECTED_FAV_NAME);
-        String dirname = storage.getString(KEY_SELECTED_DIR);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String favname = prefs.getString(KEY_SELECTED_FAV_NAME);
+        String dirname = prefs.getString(KEY_SELECTED_DIR);
 
         if ((favname != null) && (dirname != null) && !favname.trim().isEmpty() && !dirname.trim().isEmpty()) {
             expandToFile(favname.trim(), new File(dirname.trim()), true);
@@ -575,25 +575,25 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
                     }
                 }
 
-                Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+                Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
                 if (dirname == null) {
-                    storage.removeKey(KEY_SELECTED_DIR);
+                    prefs.removeKey(KEY_SELECTED_DIR);
                 } else {
-                    storage.setString(KEY_SELECTED_DIR, dirname);
+                    prefs.setString(KEY_SELECTED_DIR, dirname);
                 }
 
                 if (favname == null) {
-                    storage.removeKey(KEY_SELECTED_FAV_NAME);
+                    prefs.removeKey(KEY_SELECTED_FAV_NAME);
                 } else {
-                    storage.setString(KEY_SELECTED_FAV_NAME, favname);
+                    prefs.setString(KEY_SELECTED_FAV_NAME, favname);
                 }
             }
         } else {
-            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-            storage.removeKey(KEY_SELECTED_DIR);
-            storage.removeKey(KEY_SELECTED_FAV_NAME);
+            prefs.removeKey(KEY_SELECTED_DIR);
+            prefs.removeKey(KEY_SELECTED_FAV_NAME);
         }
     }
 
