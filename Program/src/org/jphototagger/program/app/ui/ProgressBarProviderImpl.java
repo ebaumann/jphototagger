@@ -31,7 +31,7 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
     private JProgressBar progressBar;
     private final Object monitor = new Object();
     private long lastProgressBarAccessInMilliseconds;
-    private static final long WARN_ON_P_BAR_ACCESS_DELAY_IN_MILLISECONDS = 60000;
+    private static final long WARN_ON_P_BAR_ACCESS_DELAY_IN_MILLISECONDS = 180 * 1000;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(threadFactory);
     private static final Logger LOGGER = Logger.getLogger(ProgressBarProviderImpl.class.getName());
 
