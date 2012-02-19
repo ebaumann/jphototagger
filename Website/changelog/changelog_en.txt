@@ -1,0 +1,27 @@
+0.19.1 2012-02-19
+-----------------
+
+* Bugfix: Renaming files created orphaned database entries and
+  thumbnails
+* Importing images: Sorting to EXIF date taken before renaming
+
+0.19.0 2012-02-19
+-----------------
+
+* New: Edit > Settings > Open Images: Button "Default Programs".
+  Associates file types to different programs. So on double click
+  a raw converter can be started for a raw file and an image
+  editor for a RGB file
+* New: Edit > Settings > Miscellaneous: Use long XMP sidecar file
+  names, e.g. "image.nef.xmp" instead of "image.xmp"
+* Importing images (File > Import Images): Introduced a filename
+  rename strategy, currently imported images can be automatically
+  renamed into YYYY-MM-DD-<sequence number>.
+  Modified the design of the import dialog.
+
+0.18.0 2012-02-16
+-----------------
+
+* Importing images (File > Import Images): Introduced a subfolder
+  creation strategy, currently year/month/day subfolders of date
+  taken can be created automatically
