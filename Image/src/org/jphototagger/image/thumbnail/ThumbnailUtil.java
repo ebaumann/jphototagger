@@ -74,9 +74,9 @@ final class ThumbnailUtil {
     }
 
     private static String getExternalThumbnailCreationCommand() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
+        return prefs.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
     }
 
     static ThumbnailCreationStrategy getThumbnailCreationStrategy() {
@@ -290,10 +290,10 @@ final class ThumbnailUtil {
     }
 
     private static int getMaxSecondsToTerminateExternalPrograms() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
-                ? storage.getInt(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+        return prefs.containsKey(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
+                ? prefs.getInt(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                 : 60;
     }
 

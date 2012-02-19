@@ -63,9 +63,9 @@ public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
     }
 
     private boolean isScanForEmbeddedXmp() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        return storage.containsKey(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
-                ? storage.getBoolean(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
+                ? prefs.getBoolean(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP)
                 : false;
     }
 

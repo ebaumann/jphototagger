@@ -57,20 +57,20 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     }
 
     private boolean isAutocompleteFastSearchIgnoreCase() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                ? storage.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+        return prefs.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
+                ? prefs.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 : false;
     }
 
     private boolean isAutocomplete() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage == null
+        return prefs == null
                 ? false
-                : storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                : prefs.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? prefs.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 

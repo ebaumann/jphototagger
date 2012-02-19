@@ -57,8 +57,8 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
     }
 
     private int getMaxTnWidth() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        int width = storage.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        int width = prefs.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
 
         return (width != Integer.MIN_VALUE)
                 ? width

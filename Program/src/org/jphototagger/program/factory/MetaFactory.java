@@ -103,10 +103,10 @@ public final class MetaFactory implements Runnable {
     }
 
     private boolean isCheckForUpdates() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
-                ? storage.getBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
+        return prefs.containsKey(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
+                ? prefs.getBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
                 : true;
     }
 

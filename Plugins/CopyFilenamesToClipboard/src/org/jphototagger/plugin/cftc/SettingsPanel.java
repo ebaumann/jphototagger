@@ -26,7 +26,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
     private final DelimiterModel model = new DelimiterModel();
     private final DelimiterRenderer renderer = new DelimiterRenderer();
-    private final Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+    private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
     public SettingsPanel() {
         initComponents();
@@ -35,8 +35,8 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private void setPersistentModelValue() {
-        if (storage != null) {
-            String delim = storage.getString(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER);
+        if (prefs != null) {
+            String delim = prefs.getString(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER);
 
             if (delim == null) {
                 delim = CopyFilenamesToClipboard.DEFAULT_FILENAME_DELIMITER;
@@ -77,8 +77,8 @@ public class SettingsPanel extends javax.swing.JPanel {
 
 
     private void writeDelimiter() {
-        if (storage != null) {
-            storage.setString(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER, model.getSelectedItem().toString());
+        if (prefs != null) {
+            prefs.setString(CopyFilenamesToClipboard.KEY_FILENAME_DELIMITER, model.getSelectedItem().toString());
         }
     }
 

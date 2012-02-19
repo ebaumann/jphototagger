@@ -73,9 +73,9 @@ public final class FilesystemImageUtil {
     }
 
     private static CopyMoveFilesOptions getCopyMoveFilesOptions() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
-                ? CopyMoveFilesOptions.parseInteger(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
+                ? CopyMoveFilesOptions.parseInteger(prefs.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 

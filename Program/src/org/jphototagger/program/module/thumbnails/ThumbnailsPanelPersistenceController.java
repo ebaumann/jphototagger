@@ -69,9 +69,9 @@ public final class ThumbnailsPanelPersistenceController {
 
     private void writeSelectionToProperties(List<File> selectedImageFiles) {
         List<String> absolutePathnames = FileUtil.getAbsolutePathnames(selectedImageFiles);
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setStringCollection(KEY_SELECTED_FILES, absolutePathnames);
+        prefs.setStringCollection(KEY_SELECTED_FILES, absolutePathnames);
     }
 
     private void readSelectedFilesFromProperties() {
@@ -90,9 +90,9 @@ public final class ThumbnailsPanelPersistenceController {
     }
 
     private void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        persistentSelectedFiles = FileUtil.getStringsAsFiles(storage.getStringCollection(KEY_SELECTED_FILES));
+        persistentSelectedFiles = FileUtil.getStringsAsFiles(prefs.getStringCollection(KEY_SELECTED_FILES));
     }
 
     void readViewportViewPositionFromProperties() {

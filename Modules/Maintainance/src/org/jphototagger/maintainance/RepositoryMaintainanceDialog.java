@@ -30,12 +30,12 @@ public final class RepositoryMaintainanceDialog extends Dialog {
 
     @Override
     public void setVisible(boolean visible) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
         if (visible) {
-            storage.applyComponentSettings(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
+            prefs.applyComponentSettings(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         } else {
-            storage.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
+            prefs.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         }
 
         panelMaintainance.getsVisible(visible);
@@ -45,9 +45,9 @@ public final class RepositoryMaintainanceDialog extends Dialog {
 
     private void close() {
         if (panelMaintainance.canClose()) {
-            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-            storage.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
+            prefs.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
             setVisible(false);
         } else {
             String message = Bundle.getString(RepositoryMaintainanceDialog.class, "RepositoryMaintainanceDialog.Error.WaitBeforeClose");

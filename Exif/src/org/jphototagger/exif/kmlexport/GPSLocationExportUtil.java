@@ -60,10 +60,10 @@ public final class GPSLocationExportUtil {
     }
 
     private static boolean isAddFilenameToGpsLocationExport() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(ExifPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
-                ? storage.getBoolean(ExifPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+        return prefs.containsKey(ExifPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
+                ? prefs.getBoolean(ExifPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
                 : false;
     }
 
@@ -193,16 +193,16 @@ public final class GPSLocationExportUtil {
     }
 
     private static synchronized File getCurrentDir() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String path = storage.getString(KEY_CURRENT_DIR);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String path = prefs.getString(KEY_CURRENT_DIR);
 
         return new File(path == null ? "" : path);
     }
 
     private static synchronized void setCurrentDir(File dir) {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        StorageUtil.setDirectory(storage, KEY_CURRENT_DIR, dir);
+        StorageUtil.setDirectory(prefs, KEY_CURRENT_DIR, dir);
     }
 
     private GPSLocationExportUtil() {

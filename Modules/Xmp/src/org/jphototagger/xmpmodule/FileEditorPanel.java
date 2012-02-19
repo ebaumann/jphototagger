@@ -172,10 +172,10 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -287,21 +287,21 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     public void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        prevSelectedDirectory = new File(storage.getString(KEY_DIRECTORY_NAME));
-        storage.applyComponentSettings(this, null);
-        checkBoxIncludeSubdirectories.setSelected(storage.getBoolean(KEY_INCLUDE_SUBDIRS));
-        checkBoxReplaceExistingFiles.setSelected(storage.getBoolean(KEY_REPLACE_EXISTING_FILES));
+        prevSelectedDirectory = new File(prefs.getString(KEY_DIRECTORY_NAME));
+        prefs.applyComponentSettings(this, null);
+        checkBoxIncludeSubdirectories.setSelected(prefs.getBoolean(KEY_INCLUDE_SUBDIRS));
+        checkBoxReplaceExistingFiles.setSelected(prefs.getBoolean(KEY_REPLACE_EXISTING_FILES));
     }
 
     public void writeProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setComponent(this, null);
-        storage.setString(KEY_DIRECTORY_NAME, prevSelectedDirectory.getAbsolutePath());
-        storage.setToggleButton(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories);
-        storage.setToggleButton(KEY_REPLACE_EXISTING_FILES, checkBoxReplaceExistingFiles);
+        prefs.setComponent(this, null);
+        prefs.setString(KEY_DIRECTORY_NAME, prevSelectedDirectory.getAbsolutePath());
+        prefs.setToggleButton(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories);
+        prefs.setToggleButton(KEY_REPLACE_EXISTING_FILES, checkBoxReplaceExistingFiles);
     }
 
     private class EditThread implements Runnable {

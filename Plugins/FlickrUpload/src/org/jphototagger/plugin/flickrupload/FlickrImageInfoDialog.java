@@ -54,20 +54,20 @@ public class FlickrImageInfoDialog extends Dialog {
     }
 
     private void writePersistent() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            storage.setSize(FlickrImageInfoDialog.class.getName(), this);
-            storage.setLocation(FlickrImageInfoDialog.class.getName(), this);
+        if (prefs != null) {
+            prefs.setSize(FlickrImageInfoDialog.class.getName(), this);
+            prefs.setLocation(FlickrImageInfoDialog.class.getName(), this);
         }
     }
 
     private void readPersistent() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            storage.applySize(FlickrImageInfoDialog.class.getName(), this);
-            storage.applyLocation(FlickrImageInfoDialog.class.getName(), this);
+        if (prefs != null) {
+            prefs.applySize(FlickrImageInfoDialog.class.getName(), this);
+            prefs.applyLocation(FlickrImageInfoDialog.class.getName(), this);
         }
     }
 

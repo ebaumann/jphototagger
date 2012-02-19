@@ -14,7 +14,7 @@ public final class Settings {
     private static final String KEY_DC_SUBJECTS = "org.jphototagger.plugin.flickrupload.AddDcSubjects";
     private static final String VALUE_BOOLEAN_TRUE = "1";
     private static final String VALUE_BOOLEAN_FALSE = "0";
-    private final Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+    private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
     public void setAddDcDescription(boolean add) {
         setBoolean(KEY_DC_DESCRIPTION, add);
@@ -41,19 +41,19 @@ public final class Settings {
     }
 
     private boolean isTrue(String key) {
-        if (storage == null) {
+        if (prefs == null) {
             return false;
         }
 
-        String value = storage.getString(key);
+        String value = prefs.getString(key);
 
         return value != null && value.equals(VALUE_BOOLEAN_TRUE);
     }
 
     private void setBoolean(String key, boolean b) {
-        if (storage != null) {
+        if (prefs != null) {
 
-            storage.setString(key, b
+            prefs.setString(key, b
                     ? VALUE_BOOLEAN_TRUE
                     : VALUE_BOOLEAN_FALSE);
         }

@@ -130,16 +130,16 @@ public class Dialog extends JDialog implements WindowListener {
     }
 
     protected void setSizeAndLocation() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (ignoreSizeAndLocation || storage == null) {
+        if (ignoreSizeAndLocation || prefs == null) {
             return;
         }
 
         String key = getSizeAndLocationKey();
 
-        storage.setSize(key, this);
-        storage.setLocation(key, this);
+        prefs.setSize(key, this);
+        prefs.setLocation(key, this);
     }
 
     protected void applySizeAndLocation() {
@@ -147,17 +147,17 @@ public class Dialog extends JDialog implements WindowListener {
             return;
         }
 
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage == null) {
+        if (prefs == null) {
             setLocationRelativeTo(null);
             return;
         }
 
         String key = getSizeAndLocationKey();
 
-        storage.applySize(key, this);
-        storage.applyLocation(key, this);
+        prefs.applySize(key, this);
+        prefs.applyLocation(key, this);
     }
 
     private String getSizeAndLocationKey() {

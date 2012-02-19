@@ -229,12 +229,12 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
      * {@code SelectObjectsPanel#SelectObjectsPanel(Properties, String)}
      */
     public void applyPropertiesSelectedIndices() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        if ((storage == null) || !storage.containsKey(storageKey)) {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        if ((prefs == null) || !prefs.containsKey(storageKey)) {
             return;
         }
 
-        StringTokenizer st = new StringTokenizer(storage.getString(storageKey), DELIM_SEL_INDICES);
+        StringTokenizer st = new StringTokenizer(prefs.getString(storageKey), DELIM_SEL_INDICES);
         int[] indices = new int[st.countTokens()];
         int i = 0;
 
@@ -281,9 +281,9 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     private void writeSelectedIndicesToProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage == null) {
+        if (prefs == null) {
             return;
         }
 
@@ -299,6 +299,6 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
             }
         }
 
-        storage.setString(storageKey, sb.toString());
+        prefs.setString(storageKey, sb.toString());
     }
 }

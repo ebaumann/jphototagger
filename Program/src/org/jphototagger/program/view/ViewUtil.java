@@ -104,8 +104,8 @@ public class ViewUtil {
             throw new NullPointerException("keyCurrentDir == null");
         }
 
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        String prevCurrentDir = storage.getString(keyCurrentDir);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String prevCurrentDir = prefs.getString(keyCurrentDir);
         PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
         String userDirectory = provider.getUserPreferencesDirectory().getAbsolutePath();
         File currentDir = new File(prevCurrentDir.isEmpty()
@@ -126,7 +126,7 @@ public class ViewUtil {
         if (fc.showOpenDialog(parentComp) == JFileChooser.APPROVE_OPTION) {
             File selFile = fc.getSelectedFile();
 
-            storage.setString(keyCurrentDir, selFile.getAbsolutePath());
+            prefs.setString(keyCurrentDir, selFile.getAbsolutePath());
 
             return selFile;
         }

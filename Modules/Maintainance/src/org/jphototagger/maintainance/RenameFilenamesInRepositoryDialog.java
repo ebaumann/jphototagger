@@ -22,11 +22,11 @@ public class RenameFilenamesInRepositoryDialog extends Dialog {
     private void postInitComponents() {
         setHelpPage();
 
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = RenameFilenamesInRepositoryDialog.class.getName();
 
-        storage.applySize(key, this);
-        storage.applyLocation(key, this);
+        prefs.applySize(key, this);
+        prefs.applyLocation(key, this);
     }
 
     private void setHelpPage() {

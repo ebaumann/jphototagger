@@ -68,10 +68,10 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -190,10 +190,10 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryFromSettings() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage.containsKey(KEY_LAST_DIRECTORY)) {
-            dir = new File(storage.getString(KEY_LAST_DIRECTORY));
+        if (prefs.containsKey(KEY_LAST_DIRECTORY)) {
+            dir = new File(prefs.getString(KEY_LAST_DIRECTORY));
         }
     }
 
@@ -202,9 +202,9 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private void directoryToSettings() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setString(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
+        prefs.setString(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
     }
 
     @Override

@@ -217,18 +217,18 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     }
 
     private void readDividerLocationFromPreferences() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null && storage.containsKey(KEY_DIVIDER_LOCATION)) {
-            splitPane.setDividerLocation(storage.getInt(KEY_DIVIDER_LOCATION));
+        if (prefs != null && prefs.containsKey(KEY_DIVIDER_LOCATION)) {
+            splitPane.setDividerLocation(prefs.getInt(KEY_DIVIDER_LOCATION));
         }
     }
 
     private void writeDividerLocationToPreferences() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        if (storage != null) {
-            storage.setInt(KEY_DIVIDER_LOCATION, splitPane.getDividerLocation());
+        if (prefs != null) {
+            prefs.setInt(KEY_DIVIDER_LOCATION, splitPane.getDividerLocation());
         }
     }
 

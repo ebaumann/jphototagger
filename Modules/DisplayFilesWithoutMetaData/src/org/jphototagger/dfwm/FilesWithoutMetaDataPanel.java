@@ -48,15 +48,15 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
     }
 
     public void readPreferences() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.applySelectedIndices(PREFERENCES_KEY, list);
+        prefs.applySelectedIndices(PREFERENCES_KEY, list);
     }
 
     public void writePreferences() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setSelectedIndices(PREFERENCES_KEY, list);
+        prefs.setSelectedIndices(PREFERENCES_KEY, list);
     }
 
     private class FilesWithoutMetaDataMetadataListModel extends DefaultListModel {

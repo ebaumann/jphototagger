@@ -131,8 +131,8 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private int getDividerLocationMain() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        int location = storage.getInt(KEY_DIVIDER_LOCATION_MAIN);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        int location = prefs.getInt(KEY_DIVIDER_LOCATION_MAIN);
 
         return (location >= 0)
                ? location
@@ -184,8 +184,8 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private int getDividerLocationThumbnails() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        int location = storage.getInt(KEY_DIVIDER_LOCATION_THUMBNAILS);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        int location = prefs.getInt(KEY_DIVIDER_LOCATION_THUMBNAILS);
 
         return (location >= 0)
                ? location

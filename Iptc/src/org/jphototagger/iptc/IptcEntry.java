@@ -107,8 +107,8 @@ public final class IptcEntry {
 
     private String getEncodedData() {
         try {
-            Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-            String iptcCharset = storage.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            String iptcCharset = prefs.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
             if (!StringUtil.hasContent(iptcCharset)) {
                 iptcCharset = "ISO-8859-1";
             }

@@ -873,9 +873,9 @@ final class EditMetaDataPanels implements FocusListener {
     }
 
     private boolean isAutocompleteEnabled() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        return storage.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
-                ? storage.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
+                ? prefs.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
     }
 
@@ -969,9 +969,9 @@ final class EditMetaDataPanels implements FocusListener {
     }
 
     private boolean isSaveInputEarly() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        return storage.containsKey(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
-                ? storage.getBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
+                ? prefs.getBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
                 : true;
     }
 

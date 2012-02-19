@@ -12,13 +12,13 @@ import org.jphototagger.image.ImagePreferencesKeys;
 @ServiceProvider(service = ThumbnailCreationStrategyProvider.class)
 public class ThumbnailCreationStrategyProviderImpl implements ThumbnailCreationStrategyProvider {
 
-    private final Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+    private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
     @Override
     public ThumbnailCreationStrategy getThumbnailCreationStrategy() {
 
-        return storage.containsKey(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR)
-                ? ThumbnailCreationStrategy.valueOf(storage.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR))
+        return prefs.containsKey(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR)
+                ? ThumbnailCreationStrategy.valueOf(prefs.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR))
                 : ThumbnailCreationStrategy.JAVA_IMAGE_IO;
     }
 }

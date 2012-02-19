@@ -123,12 +123,12 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void readProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = getClass().getName();
 
-        storage.applySize(key, this);
-        storage.applyLocation(key, this);
-        storage.applyTabbedPaneSettings(KEY_INDEX_TABBED_PANE, tabbedPane, null);
+        prefs.applySize(key, this);
+        prefs.applyLocation(key, this);
+        prefs.applyTabbedPaneSettings(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 
         for (Persistence panel : persistentPanels) {
             panel.restore();
@@ -136,9 +136,9 @@ public final class SettingsDialog extends Dialog {
     }
 
     private void writeProperties() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setTabbedPane(KEY_INDEX_TABBED_PANE, tabbedPane, null);
+        prefs.setTabbedPane(KEY_INDEX_TABBED_PANE, tabbedPane, null);
 
         for (Persistence panel : persistentPanels) {
             panel.persist();

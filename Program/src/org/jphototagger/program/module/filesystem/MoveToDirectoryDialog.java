@@ -121,9 +121,9 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private CopyMoveFilesOptions getCopyMoveFilesOptions() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        return storage.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
-                ? CopyMoveFilesOptions.parseInteger(storage.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
+                ? CopyMoveFilesOptions.parseInteger(prefs.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 
@@ -171,10 +171,10 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        return storage.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
-                ? storage.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+        return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
+                ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
     }
 
@@ -230,8 +230,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void setTargetDirectory() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        targetDirectory = new File(storage.getString(KEY_TARGET_DIRECTORY));
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        targetDirectory = new File(prefs.getString(KEY_TARGET_DIRECTORY));
         if (targetDirectory.exists()) {
             labelDirectoryName.setText(targetDirectory.getAbsolutePath());
             setIconToLabelTargetDirectory();
@@ -240,8 +240,8 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void targetDirectoryToSettings() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        storage.setString(KEY_TARGET_DIRECTORY, targetDirectory.getAbsolutePath());
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setString(KEY_TARGET_DIRECTORY, targetDirectory.getAbsolutePath());
     }
 
     private void checkCancel(ProgressEvent evt) {

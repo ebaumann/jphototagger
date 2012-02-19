@@ -12,15 +12,15 @@ public final class StorageUtil {
     /**
      * Sets to the properties as value the absolute path of a directory.
      *
-     * @param storage
+     * @param prefs
      * @param key        key
      * @param file       file or null. If the file is not a directory, it's
      *                   parent file will be setTree. If the file is a directory, it
      *                   will be setTree. If the file is null, nothing will be setTree.
      * @return           true if the directory path name was setTree
      */
-    public static boolean setDirectory(Preferences storage, String key, File file) {
-        if (storage == null) {
+    public static boolean setDirectory(Preferences prefs, String key, File file) {
+        if (prefs == null) {
             throw new NullPointerException("storage == null");
         }
 
@@ -33,11 +33,11 @@ public final class StorageUtil {
         }
 
         if (file.isDirectory()) {
-            storage.setString(key, file.getAbsolutePath());
+            prefs.setString(key, file.getAbsolutePath());
 
             return true;
         } else {
-            storage.setString(key, file.getParentFile().getAbsolutePath());
+            prefs.setString(key, file.getParentFile().getAbsolutePath());
 
             return true;
         }

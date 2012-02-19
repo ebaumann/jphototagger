@@ -98,16 +98,16 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements Persiste
 
     @Override
     public void restore() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.applyTabbedPaneSettings(KEY_TABBED_PANE, tabbedPane, null);
+        prefs.applyTabbedPaneSettings(KEY_TABBED_PANE, tabbedPane, null);
     }
 
     @Override
     public void persist() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        storage.setTabbedPane(KEY_TABBED_PANE, tabbedPane, null);
+        prefs.setTabbedPane(KEY_TABBED_PANE, tabbedPane, null);
     }
 
     @Override

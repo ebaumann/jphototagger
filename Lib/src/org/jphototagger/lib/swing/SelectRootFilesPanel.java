@@ -91,8 +91,8 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     public static List<File> readPersistentRootFiles(String key) {
         List<File> rootFiles = new ArrayList<File>();
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        List<String> rootFilePaths = storage.getStringCollection(key);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        List<String> rootFilePaths = prefs.getStringCollection(key);
 
         for (String rootFilePath : rootFilePaths) {
             File rootFile = new File(rootFilePath);
@@ -105,8 +105,8 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     @Override
     public void restore() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
-        List<String> rootFilePaths = storage.getStringCollection(persistenceKey);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        List<String> rootFilePaths = prefs.getStringCollection(persistenceKey);
         Set<JCheckBox> checkBoxes = ROOT_FILE_OF_CHECKBOX.keySet();
 
         boolean prevListenToCheckBoxSelection = listenToCheckBoxSelection;
@@ -123,17 +123,17 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
 
     @Override
     public void persist() {
-        Preferences storage = Lookup.getDefault().lookup(Preferences.class);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         List<File> selectedRootFiles = getSelectedRootFiles();
         List<String> selectedRootFilePaths = new ArrayList<String>(selectedRootFiles.size());
 
-        storage.removeKey(persistenceKey);
+        prefs.removeKey(persistenceKey);
 
         for (File selectedRootFile : selectedRootFiles) {
             selectedRootFilePaths.add(selectedRootFile.getAbsolutePath());
         }
 
-        storage.setStringCollection(persistenceKey, selectedRootFilePaths);
+        prefs.setStringCollection(persistenceKey, selectedRootFilePaths);
     }
 
     private class CheckBoxSelectionListener implements ActionListener {
