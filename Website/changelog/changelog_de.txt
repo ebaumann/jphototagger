@@ -16,7 +16,8 @@ Changelog JPhotoTagger http://jphototagger.org/
   diese Option ausgewählt wird
 * Import von Bildern ("Datei > Bilder importieren"): Einführung einer
   Dateinamen-Umbenennungsstrategie, vorerst Möglichkeit, importierte
-  Dateien automatisch nach JJJJ-MM-TT-<laufende-Nummer> zu benennen
+  Dateien automatisch nach JJJJ-MM-TT-<laufende-Nummer> zu benennen.
+  Design des Import-Dialogs modifiziert
 
 
 0.18.0 2012-02-16
