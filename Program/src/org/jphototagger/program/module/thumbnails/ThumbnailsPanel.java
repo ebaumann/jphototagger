@@ -1401,8 +1401,7 @@ public class ThumbnailsPanel extends JPanel
         }
     }
 
-    private synchronized void updateViaFileFilter(File file) {
-
+    private synchronized void removeFilesNotAcceptedByFileFilter(File file) {
         // Insertion can't be decided because we don't know whether the image
         // file is e.g. in a displayed directory or matches the criteria of a
         // search
@@ -1413,33 +1412,33 @@ public class ThumbnailsPanel extends JPanel
 
     @EventSubscriber(eventClass = ImageFileInsertedEvent.class)
     public void imageFileInserted(ImageFileInsertedEvent evt) {
-        updateViaFileFilter(evt.getImageFile());
+        removeFilesNotAcceptedByFileFilter(evt.getImageFile());
     }
 
     @EventSubscriber(eventClass = ImageFileMovedEvent.class)
     public void imageFileRenamed(ImageFileMovedEvent evt) {
-        updateViaFileFilter(evt.getOldImageFile());
-        updateViaFileFilter(evt.getNewImageFile());
+        removeFilesNotAcceptedByFileFilter(evt.getOldImageFile());
+        removeFilesNotAcceptedByFileFilter(evt.getNewImageFile());
     }
 
     @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
     public void imageFileDeleted(ImageFileDeletedEvent evt) {
-        updateViaFileFilter(evt.getImageFile());
+        removeFilesNotAcceptedByFileFilter(evt.getImageFile());
     }
 
     @EventSubscriber(eventClass = XmpInsertedEvent.class)
     public void xmpInserted(XmpInsertedEvent evt) {
-        updateViaFileFilter(evt.getImageFile());
+        removeFilesNotAcceptedByFileFilter(evt.getImageFile());
     }
 
     @EventSubscriber(eventClass = XmpUpdatedEvent.class)
     public void xmpUpdated(XmpUpdatedEvent evt) {
-        updateViaFileFilter(evt.getImageFile());
+        removeFilesNotAcceptedByFileFilter(evt.getImageFile());
     }
 
     @EventSubscriber(eventClass = XmpDeletedEvent.class)
     public void xmpDeleted(XmpDeletedEvent evt) {
-        updateViaFileFilter(evt.getImageFile());
+        removeFilesNotAcceptedByFileFilter(evt.getImageFile());
     }
 
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
