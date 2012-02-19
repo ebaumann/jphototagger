@@ -13,6 +13,8 @@ import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.file.CopyMoveFilesOptions;
+import org.jphototagger.api.file.FileRenameStrategy;
+import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.DirectorySelectService;
@@ -73,47 +75,55 @@ public final class ImportImageFiles extends Thread implements FileImportService,
         if (dlg.isAccepted()) {
             File targetDir = dlg.getTargetDir();
             SubdirectoryCreateStrategy subdirectoryCreateStrategy = dlg.getSubdirectoryCreateStrategy();
+            FileRenameStrategy fileRenameStrategy = dlg.getFileRenameStrategy();
+            fileRenameStrategy.init();
             boolean deleteSourceFilesAfterCopying = dlg.isDeleteSourceFilesAfterCopying();
             File script = dlg.getScriptFile();
             if (dlg.filesChoosed()) {
-                copy(dlg.getSourceFiles(), targetDir, subdirectoryCreateStrategy, deleteSourceFilesAfterCopying, script);
+                copy(dlg.getSourceFiles(), targetDir, subdirectoryCreateStrategy, fileRenameStrategy,
+                        deleteSourceFilesAfterCopying, script);
             } else {
                 List<File> sourceDirectories = new ArrayList<File>();
                 File srcDir = dlg.getSourceDir();
                 sourceDirectories.add(srcDir);
                 sourceDirectories.addAll(FileUtil.getSubDirectoriesRecursive(srcDir, null));
                 List<File> sourceImageFiles = FileFilterUtil.getImageFilesOfDirectories(sourceDirectories);
-                copy(sourceImageFiles, targetDir, subdirectoryCreateStrategy, deleteSourceFilesAfterCopying, script);
+                copy(sourceImageFiles, targetDir, subdirectoryCreateStrategy, fileRenameStrategy,
+                        deleteSourceFilesAfterCopying, script);
             }
         }
     }
 
-    private static void copy(List<File> sourceImageFiles, File targetDir, SubdirectoryCreateStrategy subdirectoryCreateStrategy,
+    private static void copy(List<File> sourceImageFiles, File targetDir,
+            SubdirectoryCreateStrategy subdirectoryCreateStrategy, FileRenameStrategy fileRenameStrategy,
             boolean deleteScrFilesAfterCopying, File scriptFile) {
         if (sourceImageFiles.size() > 0) {
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
-            List<SourceTargetFile> scrTgtFiles = createSourceTargetFiles(sourceImageFiles, targetDir, subdirectoryCreateStrategy);
+            List<SourceTargetFile> scrTgtFiles = createSourceTargetFiles(
+                    sourceImageFiles, targetDir, subdirectoryCreateStrategy, fileRenameStrategy);
             ImportImageFiles importImageFiles = new ImportImageFiles(scrTgtFiles, targetDir, deleteScrFilesAfterCopying, scriptFile);
             executor.addTask(importImageFiles);
         }
     }
 
     private static List<SourceTargetFile> createSourceTargetFiles(
-            Collection<? extends File> sourceFiles, File targetDirectory, SubdirectoryCreateStrategy subdirectoryCreateStrategy) {
+            Collection<? extends File> sourceFiles, File targetDirectory,
+            SubdirectoryCreateStrategy subdirectoryCreateStrategy, FileRenameStrategy fileRenameStrategy) {
         List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceFiles.size());
         String targetDir = targetDirectory.getAbsolutePath();
         for (File sourceFile : sourceFiles) {
-            File targetFile = createTargetFile(sourceFile, targetDir, subdirectoryCreateStrategy);
+            File targetFile = createTargetFile(sourceFile, targetDir, subdirectoryCreateStrategy, fileRenameStrategy);
             ensureTargetDirExists(targetFile);
             sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
         }
         return sourceTargetFiles;
     }
 
-    private static File createTargetFile(File sourceFile, String targetDir, SubdirectoryCreateStrategy subdirectoryCreateStrategy) {
-        String subdir = subdirectoryCreateStrategy.createSubdirectoryName(sourceFile);
-        String subdirSeparator = subdir.isEmpty() ? "" : File.separator;
-        return new File(targetDir + File.separator + subdir + subdirSeparator + sourceFile.getName());
+    private static File createTargetFile(File sourceFile, String targetDir,
+            SubdirectoryCreateStrategy subdirectoryCreateStrategy, FileRenameStrategy fileRenameStrategy) {
+        String subdir = subdirectoryCreateStrategy.suggestSubdirectoryName(sourceFile);
+        String newTargetDir = targetDir + File.separator + subdir;
+        return fileRenameStrategy.suggestNewFile(sourceFile, newTargetDir);
     }
 
     private static void ensureTargetDirExists(File targetFile) {
