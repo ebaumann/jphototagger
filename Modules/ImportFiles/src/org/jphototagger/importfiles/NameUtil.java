@@ -14,6 +14,7 @@ import org.jphototagger.domain.metadata.exif.ExifInfo;
 public final class NameUtil {
 
     private static final DecimalFormat DAY_MONTH_FORMAT = new DecimalFormat();
+    private static final ExifInfo EXIF_INFO = Lookup.getDefault().lookup(ExifInfo.class);
 
     static {
         DAY_MONTH_FORMAT.setMinimumIntegerDigits(2);
@@ -27,9 +28,8 @@ public final class NameUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-        ExifInfo exifInfo = Lookup.getDefault().lookup(ExifInfo.class);
         Calendar calendar = Calendar.getInstance();
-        long timeTakenInMillis = exifInfo.getTimeTakenInMillis(file);
+        long timeTakenInMillis = EXIF_INFO.getTimeTakenInMillis(file);
         calendar.setTimeInMillis(timeTakenInMillis);
         int day = calendar.get(Calendar.DATE);
         int month = calendar.get(Calendar.MONTH) + 1;
