@@ -203,13 +203,9 @@ final class PersistentThumbnails {
         if (toTnFile.exists()) {
             toTnFile.delete();
         }
-        if (!fromTnFile.renameTo(toTnFile)) {
-            LOGGER.log(Level.WARNING,
-                    "Thumbnail ''{0}'' couldn''t be renamed to ''{1}'' (Image file ''{2}'' was renamed to ''{3}''!",
-                    new Object[]{fromTnFile, toTnFile, fromImageFile, toImageFile});
-
-            return false;
+        if (!fromTnFile.renameTo(toTnFile) && toTnFile.exists()) {
+            fromTnFile.delete();
         }
-        return true;
+        return toTnFile.exists();
     }
 }
