@@ -77,6 +77,7 @@ public class ImportImageFilesDialog extends Dialog {
         setHelpPage();
         MnemonicUtil.setMnemonics(panelSourceDirectory);
         MnemonicUtil.setMnemonics(panelSelectedFiles);
+        MnemonicUtil.setMnemonics(dialogExpertSettings);
         MnemonicUtil.setMnemonics(this);
         initSourceStrategyComboBox();
         initDirectories();
@@ -485,8 +486,8 @@ public class ImportImageFilesDialog extends Dialog {
     }
 
     private void showExpertSettings() {
-        expertSettingsDialog.pack();
-        expertSettingsDialog.setVisible(true);
+        dialogExpertSettings.pack();
+        dialogExpertSettings.setVisible(true);
     }
 
     private static class ComboBoxModelSourceStrategy extends DefaultComboBoxModel {
@@ -515,7 +516,7 @@ public class ImportImageFilesDialog extends Dialog {
         panelSelectedFiles = new org.jdesktop.swingx.JXPanel();
         labelChoosenFiles = new javax.swing.JLabel();
         buttonChooseFiles = new javax.swing.JButton();
-        expertSettingsDialog = new Dialog(ComponentUtil.findFrameWithIcon(), true);
+        dialogExpertSettings = new Dialog(ComponentUtil.findFrameWithIcon(), true);
         panelExpertSettingsContent = new javax.swing.JPanel();
         panelScriptFile = new org.jdesktop.swingx.JXPanel();
         scriptFileLabel = new javax.swing.JLabel();
@@ -583,8 +584,8 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelSelectedFiles.add(buttonChooseFiles, gridBagConstraints);
 
-        expertSettingsDialog.setTitle(bundle.getString("ImportImageFilesDialog.expertSettingsDialog.title")); // NOI18N
-        expertSettingsDialog.getContentPane().setLayout(new java.awt.GridBagLayout());
+        dialogExpertSettings.setTitle(bundle.getString("ImportImageFilesDialog.dialogExpertSettings.title")); // NOI18N
+        dialogExpertSettings.getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelExpertSettingsContent.setLayout(new java.awt.GridBagLayout());
 
@@ -647,7 +648,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        expertSettingsDialog.getContentPane().add(panelExpertSettingsContent, gridBagConstraints);
+        dialogExpertSettings.getContentPane().add(panelExpertSettingsContent, gridBagConstraints);
 
         javax.swing.GroupLayout panelExpertSettingsFillLayout = new javax.swing.GroupLayout(panelExpertSettingsFill);
         panelExpertSettingsFill.setLayout(panelExpertSettingsFillLayout);
@@ -663,7 +664,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
-        expertSettingsDialog.getContentPane().add(panelExpertSettingsFill, gridBagConstraints);
+        dialogExpertSettings.getContentPane().add(panelExpertSettingsFill, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(bundle.getString("ImportImageFilesDialog.title")); // NOI18N
@@ -923,7 +924,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JComboBox comboBoxFileRenameStrategy;
     private javax.swing.JComboBox comboBoxSourceStrategy;
     private javax.swing.JComboBox comboBoxSubdirectoryCreateStrategy;
-    private javax.swing.JDialog expertSettingsDialog;
+    private javax.swing.JDialog dialogExpertSettings;
     private javax.swing.JLabel labelChoosenFiles;
     private javax.swing.JLabel labelScriptFileInfo;
     private javax.swing.JLabel labelSourceDir;
