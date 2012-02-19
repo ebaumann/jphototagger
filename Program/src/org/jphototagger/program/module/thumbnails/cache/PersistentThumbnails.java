@@ -48,32 +48,24 @@ final class PersistentThumbnails {
         if (thumbnail == null) {
             throw new NullPointerException("thumbnail == null");
         }
-
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         FileOutputStream fos = null;
         File tnFile = getThumbnailFile(imageFile);
-
         if (tnFile == null) {
             return;
         }
-
         try {
             if (!FileLock.INSTANCE.lockLogWarning(tnFile, PersistentThumbnails.class)) {
                 return;
             }
-
             logWriteThumbnail(tnFile);
             fos = new FileOutputStream(tnFile);
             fos.getChannel().lock();
-
             ByteArrayInputStream is = ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
-
             if (is != null) {
                 int nextByte;
-
                 while ((nextByte = is.read()) != -1) {
                     fos.write(nextByte);
                 }
@@ -94,14 +86,11 @@ final class PersistentThumbnails {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         File tnFile = getThumbnailFile(imageFile);
-
         if ((tnFile != null) && !tnFile.delete()) {
             LOGGER.log(Level.WARNING,
                     "Thumbnail ''{0}'' of image file ''{1}'' couldn''t be deleted!",
                     new Object[]{tnFile, imageFile});
-
             return false;
         }
 
@@ -117,24 +106,17 @@ final class PersistentThumbnails {
     private static Image getThumbnail(String md5Filename) {
         Image thumbnail = null;
         FileInputStream fis = null;
-
         try {
             File tnFile = getThumbnailfile(md5Filename);
-
             if (tnFile == null) {
                 return null;
             }
-
             if (tnFile.exists()) {
                 fis = new FileInputStream(tnFile);
-
                 int bytecount = fis.available();
                 byte[] bytes = new byte[bytecount];
-
                 fis.read(bytes, 0, bytecount);
-
                 ImageIcon icon = new ImageIcon(bytes);
-
                 thumbnail = icon.getImage();
             }
         } catch (Exception ex) {
@@ -142,7 +124,6 @@ final class PersistentThumbnails {
         } finally {
             IoUtil.close(fis);
         }
-
         return thumbnail;
     }
 
@@ -156,9 +137,7 @@ final class PersistentThumbnails {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         String md5Filename = FileUtil.getMd5FilenameOfAbsolutePath(imageFile);
-
         return getThumbnail(md5Filename);
     }
 
@@ -173,9 +152,7 @@ final class PersistentThumbnails {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         String md5Filename = FileUtil.getMd5FilenameOfAbsolutePath(imageFile);
-
         return (md5Filename == null)
                 ? null
                 : getThumbnailfile(md5Filename);
@@ -191,9 +168,7 @@ final class PersistentThumbnails {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         File tnFile = getThumbnailFile(imageFile);
-
         return (tnFile == null)
                 ? false
                 : tnFile.exists();
@@ -213,25 +188,21 @@ final class PersistentThumbnails {
         if (fromImageFile == null) {
             throw new NullPointerException("fromImageFile == null");
         }
-
         if (toImageFile == null) {
             throw new NullPointerException("toImageFile == null");
         }
-
         final String fromMd5Filename = FileUtil.getMd5FilenameOfAbsolutePath(fromImageFile);
-
         if (fromMd5Filename == null) {
             return false;
         }
-
         File fromTnFile = getThumbnailfile(fromMd5Filename);
-
         if (fromTnFile == null) {
             return false;
         }
-
         File toTnFile = getThumbnailfile(FileUtil.getMd5FilenameOfAbsolutePath(toImageFile));
-
+        if (toTnFile.exists()) {
+            toTnFile.delete();
+        }
         if (!fromTnFile.renameTo(toTnFile)) {
             LOGGER.log(Level.WARNING,
                     "Thumbnail ''{0}'' couldn''t be renamed to ''{1}'' (Image file ''{2}'' was renamed to ''{3}''!",
@@ -239,7 +210,6 @@ final class PersistentThumbnails {
 
             return false;
         }
-
         return true;
     }
 }

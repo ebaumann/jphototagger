@@ -59,6 +59,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private transient boolean listen = true;
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ThumbnailProvider tnProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
+    private final FilesystemRepositoryUpdater fileSystemDbUpdater = new FilesystemRepositoryUpdater(true); // Required!
 
     public RenameDialog() {
         super(GUI.getAppFrame(), true);
@@ -141,7 +142,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         File fromXmpFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(fromImageFile);
         if (fromXmpFile != null) {
             File toXmpFile = xmpSidecarFileResolver.suggestXmpSidecarFile(toImageFile);
-            if (fromXmpFile.exists()) {
+            if (toXmpFile.exists()) {
                 if (!toXmpFile.delete()) {
                     LOGGER.log(Level.WARNING, "XMP file ''{0}'' couldn''t be deleted!", toXmpFile);
                 }

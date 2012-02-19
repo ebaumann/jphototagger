@@ -6,7 +6,10 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.19.1 2012-02-19
 -----------------
 
-* Import von Bilddateien: Vorsortierung nach EXIF-Aufnahmedatum
+* Bugfix: Umbenennen von Bildern erzeugte verwaiste Datenbankeinträge und
+  Vorschaubilder
+* Import von Bilddateien: Sortierung nach EXIF-Aufnahmedatum vor
+  Umbenennen
 
 0.19.0 2012-02-19
 -----------------
