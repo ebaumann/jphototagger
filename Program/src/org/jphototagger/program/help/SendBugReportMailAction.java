@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
@@ -35,6 +37,14 @@ final class SendBugReportMailAction extends AbstractAction {
                 "SendBugReportMailAction.Info.AttachLogfile",
                 allMessagesLogfilePath, errorMessagesLogfilePath);
 
+        openLogfileDirectory();
         SendMail.sendMail(mailto, subject, message);
+    }
+
+    private void openLogfileDirectory() {
+        String message = Bundle.getString(SendBugReportMailAction.class, "SendBugReportMailAction.Confirm.OpenLogfileDir");
+        if (MessageDisplayer.confirmYesNo(null, message)) {
+            DesktopUtil.open(AppLoggingSystem.getLofileDirectory(), "SendBugReportMailAction.OpenLogfileDirectory");
+        }
     }
 }
