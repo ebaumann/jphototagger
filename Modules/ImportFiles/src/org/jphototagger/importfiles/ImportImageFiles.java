@@ -38,28 +38,24 @@ import org.jphototagger.lib.util.ProgressBarUpdater;
 public final class ImportImageFiles extends Thread implements FileImportService, ProgressListener {
 
     private static final String progressBarString = Bundle.getString(ImportImageFiles.class, "ImportImageFiles.Info.ProgressBar");
+    private static final Logger LOGGER = Logger.getLogger(ImportImageFiles.class.getName());
     private static final int MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS = 240000;
     private final List<File> copiedTargetFiles = new ArrayList<File>();
     private final List<File> copiedSourceFiles = new ArrayList<File>();
     private final List<SourceTargetFile> sourceTargetFiles;
     private final File targetDirectory;
-    private final boolean deleteSourceFilesAfterCopying;
-    private final File scriptFile;
-    private final String scriptForRuntime;
-    private static final Logger LOGGER = Logger.getLogger(ImportImageFiles.class.getName());
+    private boolean deleteSourceFilesAfterCopying;
+    private File scriptFile;
+    private String scriptForRuntime;
 
     public ImportImageFiles() {
-        this(Collections.<SourceTargetFile>emptyList(), null, false, null);
+        this(Collections.<SourceTargetFile>emptyList(), null);
     }
 
-    private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, File targetDirectory,
-            boolean deleteSourceFilesAfterCopying, File scriptFile) {
+    private ImportImageFiles(List<SourceTargetFile> sourceTargetFiles, File targetDirectory) {
         super("JPhotoTagger: Importing image files");
         this.sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceTargetFiles);
-        this.deleteSourceFilesAfterCopying = deleteSourceFilesAfterCopying;
-        this.scriptFile = scriptFile;
         this.targetDirectory = targetDirectory;
-        scriptForRuntime = scriptFile == null ? "" : RuntimeUtil.quoteForCommandLine(scriptFile);
     }
 
     public static void importFrom(File sourceDirectory) {
@@ -81,17 +77,16 @@ public final class ImportImageFiles extends Thread implements FileImportService,
         }
     }
 
-    ;
-
     private static void copy(ImportData importData) {
         if (importData.hasSourceFiles()) {
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
             List<SourceTargetFile> sourceTargetFiles = createSourceTargetFiles(importData);
-            ImportImageFiles importImageFiles = new ImportImageFiles(
-                    sourceTargetFiles,
-                    importData.getTargetDirectory(),
-                    importData.isDeleteSourceFilesAfterCopying(),
-                    importData.getScriptFile());
+            ImportImageFiles importImageFiles = new ImportImageFiles(sourceTargetFiles, importData.getTargetDirectory());
+            importImageFiles.deleteSourceFilesAfterCopying = importData.isDeleteSourceFilesAfterCopying();
+            importImageFiles.scriptFile = importData.getScriptFile();
+            importImageFiles.scriptForRuntime = importImageFiles.scriptFile == null
+                    ? ""
+                    : RuntimeUtil.quoteForCommandLine(importImageFiles.scriptFile);
             executor.addTask(importImageFiles);
         }
     }
@@ -103,7 +98,9 @@ public final class ImportImageFiles extends Thread implements FileImportService,
         for (File sourceFile : sourceFiles) {
             File targetFile = createTargetFile(sourceFile, importData);
             ensureTargetDirExists(targetFile);
-            sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
+            SourceTargetFile sourceTargetFile = new SourceTargetFile(sourceFile, targetFile);
+            sourceTargetFile.setUserObject(importData.getXmp());
+            sourceTargetFiles.add(sourceTargetFile);
         }
         return sourceTargetFiles;
     }
@@ -137,8 +134,8 @@ public final class ImportImageFiles extends Thread implements FileImportService,
 
     @Override
     public void run() {
-        FileCopyService copyService = Lookup.getDefault().lookup(FileCopyService.class)
-                .createInstance(sourceTargetFiles, CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
+        FileCopyService copyService = Lookup.getDefault().lookup(FileCopyService.class).createInstance(sourceTargetFiles,
+                CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
         ProgressBarUpdater pBarUpdater = new ProgressBarUpdater(copyService, progressBarString);
         copyService.addProgressListener(this);
         copyService.addProgressListener(pBarUpdater);
@@ -233,7 +230,6 @@ public final class ImportImageFiles extends Thread implements FileImportService,
                 return;
             }
         }
-
         repo.saveImageCollection(collectionName, copiedTargetFiles);
     }
 

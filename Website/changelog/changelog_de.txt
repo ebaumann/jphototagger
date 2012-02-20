@@ -3,6 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.20.0 2012-02-20
+-----------------
+
+* Importieren von Bildern: Es können vorab Metadaten vergeben werden
+* Importieren von Bildern: Selbst erstellte Umbenennungs-Vorlagen
+  (F2 im Vorschaubildfenster während mindestens ein Bild ausgewählt
+  ist, Kartenreiter "Vorlage benutzen") werden angeboten für das
+  Umbenennen importierter Bilder
+* Bugfix: Umbenennen/Verschieben von Bildern war noch nicht fehlerfrei
+  (hoffentlich ist das jetzt der Fall)
+
 0.19.1 2012-02-19
 -----------------
 
@@ -15,9 +26,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * Neu: Bearbeiten > Einstellungen > Bilder öffnen: Schaltfläche
- "Standardprogramme". Ordnet Dateitypen verschiedene Programme zu.
- Bei Doppelklick kann so z.B. für eine RAW-Datei ein RAW-Konverter
- gestartet werden und für RGB-Bilder ein Bildbearbeitungsprogramm.
+  "Standardprogramme". Ordnet Dateitypen verschiedene Programme zu.
+  Bei Doppelklick kann so z.B. für eine RAW-Datei ein RAW-Konverter
+  gestartet werden und für RGB-Bilder ein Bildbearbeitungsprogramm.
 * Neu: Bearbeiten > Einstellungen > Sonstiges: Lange
   XMP-Filialdateinamen benutzen, z.B. "Bild.nef.xmp". Siehe auch
   Hilfe/Handbuch zu "Einstellungen > Sonstiges" sowie Meldung, falls

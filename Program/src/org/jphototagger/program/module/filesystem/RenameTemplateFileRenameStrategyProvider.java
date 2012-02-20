@@ -20,50 +20,50 @@ import org.jphototagger.domain.templates.RenameTemplate;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileRenameStrategyProvider.class)
-public final class RenameTemplateFileRenameStrategyProvider implements FileRenameStrategyProvider, FileRenameStrategy {
+public final class RenameTemplateFileRenameStrategyProvider implements FileRenameStrategyProvider {
 
     private final RenameTemplatesRepository renameTemplatesRepository = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
-    private final RenameTemplate renameTemplate;
-    private FilenameFormatArray filenameFormatArray;
-    private int position;
 
-    public RenameTemplateFileRenameStrategyProvider() {
-        renameTemplate = null;
-    }
+    private static class FileRenameStrategyImpl implements FileRenameStrategy {
 
-    public RenameTemplateFileRenameStrategyProvider(RenameTemplate renameTemplate) throws InstantiationException, IllegalAccessException {
-        if (renameTemplate == null) {
-            throw new NullPointerException("renameTemplate == null");
-        }
-        this.renameTemplate = renameTemplate;
-        filenameFormatArray = FilenameFormatArray.createFormatArrayFromRenameTemplate(renameTemplate);
-    }
+        private final RenameTemplate renameTemplate;
+        private FilenameFormatArray filenameFormatArray;
+        private int position;
 
-    @Override
-    public void init() {
-        try {
+        private FileRenameStrategyImpl(RenameTemplate renameTemplate) throws InstantiationException, IllegalAccessException {
+            if (renameTemplate == null) {
+                throw new NullPointerException("renameTemplate == null");
+            }
+            this.renameTemplate = renameTemplate;
             filenameFormatArray = FilenameFormatArray.createFormatArrayFromRenameTemplate(renameTemplate);
-        } catch (Throwable t) {
-            Logger.getLogger(RenameTemplateFileRenameStrategyProvider.class.getName()).log(Level.SEVERE, null, t);
         }
-    }
 
-    @Override
-    public File suggestNewFile(File sourceFile, String targetDirectoryPath) {
-        filenameFormatArray.setFile(sourceFile);
-        String newFilename = filenameFormatArray.format();
-        filenameFormatArray.notifyNext();
-        return new File(targetDirectoryPath + File.separator + newFilename);
-    }
+        @Override
+        public void init() {
+            try {
+                filenameFormatArray = FilenameFormatArray.createFormatArrayFromRenameTemplate(renameTemplate);
+            } catch (Throwable t) {
+                Logger.getLogger(RenameTemplateFileRenameStrategyProvider.class.getName()).log(Level.SEVERE, null, t);
+            }
+        }
 
-    @Override
-    public String getDisplayName() {
-        return renameTemplate.getName();
-    }
+        @Override
+        public File suggestNewFile(File sourceFile, String targetDirectoryPath) {
+            filenameFormatArray.setFile(sourceFile);
+            String newFilename = filenameFormatArray.format();
+            filenameFormatArray.notifyNext();
+            return new File(targetDirectoryPath + File.separator + newFilename);
+        }
 
-    @Override
-    public int getPosition() {
-        return position;
+        @Override
+        public String getDisplayName() {
+            return renameTemplate.getName();
+        }
+
+        @Override
+        public int getPosition() {
+            return position;
+        }
     }
 
     @Override
@@ -73,7 +73,7 @@ public final class RenameTemplateFileRenameStrategyProvider implements FileRenam
         int pos = 10000;
         try {
             for (RenameTemplate template : renameTemplates) {
-                RenameTemplateFileRenameStrategyProvider strategy = new RenameTemplateFileRenameStrategyProvider(template);
+                FileRenameStrategyImpl strategy = new FileRenameStrategyImpl(template);
                 strategy.position = pos;
                 pos += 100;
                 strategies.add(strategy);

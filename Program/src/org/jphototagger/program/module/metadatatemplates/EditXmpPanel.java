@@ -66,6 +66,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         addAsFocusListener();
         firstInputComponent = panelDcSubjects.textAreaInput;
         lastInputComponent = panelPhotoshopCaptionwriter.getInputComponents().get(0);
+        lastFocussedComponent = firstInputComponent;
         firstInputComponent.requestFocusInWindow();
         panelDcSubjects.setBundleKeyPosRenameDialog("EditXmpPanel.Keywords.RenameDialog.Pos");
     }
@@ -107,7 +108,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
     private boolean isAutocomplete() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs == null
                 ? false
                 : prefs.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
@@ -125,14 +125,12 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
-
         this.xmp = xmp;
         setXmpToInputComponents();
     }
 
     public void setInputToXmp() {
         xmp.clear();
-
         for (TextEntry textEntry : textEntries) {
             MetaDataValue value = textEntry.getMetaDataValue();
 
@@ -140,7 +138,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
                 for (String text : ((EditRepeatableTextEntryPanel) textEntry).getRepeatableText()) {
                     xmp.setValue(value, text);
                 }
-
                 xmp.setValue(value, textEntry.getText());
             } else {
                 xmp.setValue(value, textEntry.getText());
@@ -169,7 +166,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -192,24 +188,26 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     }
 
     @Override
+    public boolean requestFocusInWindow() {
+        boolean requested = super.requestFocusInWindow();
+        focusLastFocuessedComponent();
+        return requested;
+    }
+
+    @Override
     public void focusGained(FocusEvent evt) {
         lastFocussedComponent = evt.getComponent();
-
         if (lastFocussedComponent instanceof JTextComponent) {
             ((JTextComponent) lastFocussedComponent).selectAll();
         }
-
-        scrollToVisible(lastFocussedComponent);
     }
 
     @Override
     public void focusLost(FocusEvent evt) {
         Component c = evt.getComponent();
-
         if (c == lastInputComponent) {
             firstInputComponent.requestFocusInWindow();
         }
-
         if (c instanceof JTextComponent) {
             ((JTextComponent) c).select(0, 0);
         }
@@ -219,7 +217,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         if (c == null) {
             return;
         }
-
         TextEntry textEntry = (c instanceof TextEntry)
                               ? (TextEntry) c
                               : null;
@@ -229,10 +226,8 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
             if (parent instanceof TextEntry) {
                 textEntry = (TextEntry) parent;
             }
-
             parent = parent.getParent();
         }
-
         if (textEntry != null) {
             scrollRectToVisible(((Component) textEntry).getBounds());
         }

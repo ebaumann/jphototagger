@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -24,6 +26,8 @@ import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
+import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpEditor;
 import org.jphototagger.importfiles.filerenamers.FileRenameStrategyComboBoxModel;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;
@@ -58,6 +62,7 @@ public class ImportImageFilesDialog extends Dialog {
     private File sourceDirectory = new File(prefs.getString(KEY_LAST_SRC_DIR));
     private File targetDirectory = new File(prefs.getString(KEY_LAST_TARGET_DIR));
     private File scriptFile;
+    private Xmp xmp;
     private String lastChoosenScriptDir = "";
     private final List<File> sourceFiles = new ArrayList<File>();
     private Map<Integer, Component> panelOfSourceStrategyCbIndex = new HashMap<Integer, Component>();
@@ -248,6 +253,7 @@ public class ImportImageFilesDialog extends Dialog {
                 .fileRenameStrategy(getFileRenameStrategy())
                 .subdirectoryCreateStrategy(getSubdirectoryCreateStrategy())
                 .scriptFile(scriptFile)
+                .xmp(xmp)
                 .build();
     }
 
@@ -382,6 +388,10 @@ public class ImportImageFilesDialog extends Dialog {
         return scriptFile;
     }
 
+    public Xmp getXmp() {
+        return xmp;
+    }
+
     private void persistFilePath(String key, File file) {
         prefs.setString(key, file.getAbsolutePath());
     }
@@ -499,6 +509,31 @@ public class ImportImageFilesDialog extends Dialog {
         }
     }
 
+    private class EditXmpAction extends AbstractAction {
+
+        private static final long serialVersionUID = 1L;
+        private XmpEditor xmpEditor;
+
+        private EditXmpAction() {
+            super(Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.EditXmpAction.Name"));
+            init();
+        }
+
+        private void init() {
+            xmpEditor = Lookup.getDefault().lookup(XmpEditor.class);
+            setEnabled(xmpEditor != null);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (xmp == null) {
+                xmp = xmpEditor.createXmp();
+            } else {
+                xmpEditor.editXmp(xmp);
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -535,6 +570,7 @@ public class ImportImageFilesDialog extends Dialog {
         panelFileRenameStrategy = new javax.swing.JPanel();
         comboBoxFileRenameStrategy = new javax.swing.JComboBox();
         panelDialogControlButtons = new org.jdesktop.swingx.JXPanel();
+        buttonEditMetadata = new javax.swing.JButton();
         buttonExpertSettings = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
@@ -686,7 +722,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(2, 5, 0, 5);
         panelSourceStrategy.add(comboBoxSourceStrategy, gridBagConstraints);
 
         checkBoxDeleteAfterCopy.setText(bundle.getString("ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
@@ -707,7 +743,6 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelContent.add(panelSourceStrategy, gridBagConstraints);
 
         panelTargetDir.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.panelTargetDir.border.title"))); // NOI18N
@@ -719,7 +754,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(2, 5, 0, 0);
         panelTargetDir.add(labelTargetDir, gridBagConstraints);
 
         buttonChooseTargetDir.setText(bundle.getString("ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
@@ -731,7 +766,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(2, 5, 0, 5);
         panelTargetDir.add(buttonChooseTargetDir, gridBagConstraints);
 
         comboBoxSubdirectoryCreateStrategy.setModel(new org.jphototagger.importfiles.subdircreators.SubdirectoryCreateStrategyComboBoxModel());
@@ -770,7 +805,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 5);
         panelFileRenameStrategy.add(comboBoxFileRenameStrategy, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -783,6 +818,13 @@ public class ImportImageFilesDialog extends Dialog {
 
         panelDialogControlButtons.setLayout(new java.awt.GridBagLayout());
 
+        buttonEditMetadata.setAction(new EditXmpAction());
+        buttonEditMetadata.setText(bundle.getString("ImportImageFilesDialog.buttonEditMetadata.text")); // NOI18N
+        buttonEditMetadata.setToolTipText(bundle.getString("ImportImageFilesDialog.buttonEditMetadata.toolTipText")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelDialogControlButtons.add(buttonEditMetadata, gridBagConstraints);
+
         buttonExpertSettings.setText(bundle.getString("ImportImageFilesDialog.buttonExpertSettings.text")); // NOI18N
         buttonExpertSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -791,7 +833,7 @@ public class ImportImageFilesDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelDialogControlButtons.add(buttonExpertSettings, gridBagConstraints);
 
         buttonCancel.setText(bundle.getString("ImportImageFilesDialog.buttonCancel.text")); // NOI18N
@@ -802,6 +844,7 @@ public class ImportImageFilesDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelDialogControlButtons.add(buttonCancel, gridBagConstraints);
 
@@ -917,6 +960,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JButton buttonChooseScriptFile;
     private javax.swing.JButton buttonChooseSourceDir;
     private javax.swing.JButton buttonChooseTargetDir;
+    private javax.swing.JButton buttonEditMetadata;
     private javax.swing.JButton buttonExpertSettings;
     private javax.swing.JButton buttonOk;
     private javax.swing.JButton buttonRemoveScriptFile;

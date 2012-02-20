@@ -1,3 +1,19 @@
+Character encoding of this file: UTF-8
+
+Changelog JPhotoTagger http://jphototagger.org/
+===============================================
+
+0.20.0 2012-02-20
+-----------------
+
+* Importing images: Metadata can applied before import
+* Importing images: User templates for renaming files
+  (F2 whithin thumbnails window while one or more images
+  selected, register "Use Template") can be choosen for
+  renaming imported files
+* Bugfix: Renaming/Moving of image files was even buggy
+  (hopefully now it is)
+
 0.19.1 2012-02-19
 -----------------
 

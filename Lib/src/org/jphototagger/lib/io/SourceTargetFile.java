@@ -11,6 +11,7 @@ public final class SourceTargetFile {
 
     private final File sourceFile;
     private final File targetFile;
+    private Object userObject;
 
     public SourceTargetFile(File sourceFile, File targetFile) {
         this.sourceFile = sourceFile;
@@ -25,19 +26,25 @@ public final class SourceTargetFile {
         return targetFile;
     }
 
+    public Object getUserObject() {
+        return userObject;
+    }
+
+    public void setUserObject(Object userObject) {
+        this.userObject = userObject;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
-
         if (!(obj instanceof SourceTargetFile)) {
             return false;
         }
-
         SourceTargetFile other = (SourceTargetFile) obj;
-
-        return ObjectUtil.equals(sourceFile, other.sourceFile) && ObjectUtil.equals(targetFile, other.targetFile);
+        return ObjectUtil.equals(sourceFile, other.sourceFile)
+                && ObjectUtil.equals(targetFile, other.targetFile);
     }
 
     @Override
