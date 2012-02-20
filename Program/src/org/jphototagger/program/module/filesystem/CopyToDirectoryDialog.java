@@ -46,7 +46,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private Collection<File> sourceFiles;
     private File targetDirectory = new File("");
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
-    private final FilesystemRepositoryUpdater fileSystemDbUpdater = new FilesystemRepositoryUpdater(true); // Required!
 
     public CopyToDirectoryDialog() {
         super(GUI.getAppFrame(), false);
@@ -177,11 +176,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         }
     }
 
-    /**
-     * Setzt die zu kopierenden Quelldateien.
-     *
-     * @param sourceFiles  Quelldateien
-     */
     public void setSourceFiles(Collection<File> sourceFiles) {
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
@@ -189,11 +183,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         this.sourceFiles = new ArrayList<File>(sourceFiles);
     }
 
-    /**
-     * Sets the target directory if exists.
-     *
-     * @param directory target directory
-     */
     public void setTargetDirectory(File directory) {
         if (directory == null) {
             throw new NullPointerException("directory == null");
@@ -203,14 +192,6 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         }
     }
 
-    /**
-     * Makes this dialog visible and copies the files setToggleButton with
-     * {@code #setSourceFiles(Collection)} if not empty into the directory
-     * setToggleButton with {@code #setTargetDirectory(java.io.File)} if exists.
-     *
-     * @param addXmp  true if copy XMP sidecar files too
-     * @param options copy options
-     */
     public void copy(boolean addXmp, CopyMoveFilesOptions options) {
         if (options == null) {
             throw new NullPointerException("options == null");
