@@ -1,17 +1,23 @@
 package org.jphototagger.maintainance;
 
 import java.awt.Container;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 
 import org.openide.util.Lookup;
 
@@ -22,6 +28,7 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * @author Elmar Baumann
@@ -39,7 +46,10 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private final Map<Class<?>, JLabel> finishedLabelOfRunnable = new HashMap<Class<?>, JLabel>();
     private final Set<JCheckBox> checkBoxes = new HashSet<JCheckBox>();
     private final Map<JCheckBox, JLabel> labelOfCheckBox = new HashMap<JCheckBox, JLabel>();
+    private final HTMLDocument messagesDocument = new HTMLDocument();
+    private final HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
     private volatile Runnable currentRunnable;
+    private volatile boolean containsMessages;
     private volatile boolean cancel;
     private volatile boolean canClose = true;
 
@@ -49,6 +59,8 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     }
 
     private void postInitComponents() {
+        textPaneMessages.setEditorKit(htmlEditorKit);
+        textPaneMessages.setDocument(messagesDocument);
         finishedLabelOfRunnable.put(CompressRepository.class, labelFinishedCompressRepository);
         finishedLabelOfRunnable.put(DeleteOrphanedXmp.class, labelFinishedDeleteRecordsOfNotExistingFilesInRepository);
         finishedLabelOfRunnable.put(DeleteOrphanedThumbnails.class, labelFinishedDeleteOrphanedThumbnails);
@@ -249,21 +261,26 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         }
     }
 
-    private void appendMessage(Object info) {
+    private void appendMessage(Object info, String htmlColor) {
         if (info != null) {
             String message = info.toString().trim();
             if (!message.isEmpty()) {
-                appendMessage(message);
+                appendMessage(message, htmlColor);
             }
         }
     }
 
-    private void appendMessage(String message) {
-        String newline = textAreaMessages.getText().trim().isEmpty()
-                         ? ""
-                         : "\n";
-        textAreaMessages.append(newline + message);
-        buttonDeleteMessages.setEnabled(true);
+    private void appendMessage(String message, String htmlColor) {
+        int length = messagesDocument.getLength();
+        try {
+            String coloredMessage = htmlColor == null || htmlColor.isEmpty()
+                    ? message
+                    : "<font color=\"" + htmlColor + "\">" + message + "</font>";
+            htmlEditorKit.insertHTML(messagesDocument, length, coloredMessage, 0, 0, null);
+            buttonDeleteMessages.setEnabled(true);
+        } catch (Throwable t) {
+            Logger.getLogger(RepositoryMaintainancePanel.class.getName()).log(Level.SEVERE, null, t);
+        }
     }
 
     @Override
@@ -275,7 +292,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
             @Override
             public void run() {
-                appendMessage(info);
+                appendMessage(info, "#00aa00");
                 buttonDeleteMessages.setEnabled(false);
                 buttonCancelAction.setEnabled(!(evt.getSource() instanceof CompressRepository));
             }
@@ -292,7 +309,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
             @Override
             public void run() {
                 progressBar.setValue(value);
-                appendMessage(info);
+                appendMessage(info, "");
             }
         });
     }
@@ -306,7 +323,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
             @Override
             public void run() {
-                appendMessage(info);
+                appendMessage(info, "#0000ff");
                 Class<?> sourceClass = source.getClass();
                 JLabel labelFinished = finishedLabelOfRunnable.get(sourceClass);
                 progressBar.setValue(0);
@@ -337,7 +354,8 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     }
 
     private void deleteMessages() {
-        textAreaMessages.setText("");
+        textPaneMessages.setText("");
+        containsMessages = false;
         buttonDeleteMessages.setEnabled(false);
     }
 
@@ -367,7 +385,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         panelMessages = new javax.swing.JPanel();
         labelMessages = new javax.swing.JLabel();
         scrollPaneMessages = new javax.swing.JScrollPane();
-        textAreaMessages = new javax.swing.JTextArea();
+        textPaneMessages = new javax.swing.JTextPane();
         progressBar = new javax.swing.JProgressBar();
         panelButtons = new javax.swing.JPanel();
         buttonDeleteMessages = new javax.swing.JButton();
@@ -518,13 +536,10 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         scrollPaneMessages.setName("scrollPaneMessages"); // NOI18N
 
-        textAreaMessages.setColumns(20);
-        textAreaMessages.setEditable(false);
-        textAreaMessages.setLineWrap(true);
-        textAreaMessages.setRows(2);
-        textAreaMessages.setWrapStyleWord(true);
-        textAreaMessages.setName("textAreaMessages"); // NOI18N
-        scrollPaneMessages.setViewportView(textAreaMessages);
+        textPaneMessages.setContentType(bundle.getString("RepositoryMaintainancePanel.textPaneMessages.contentType")); // NOI18N
+        textPaneMessages.setEditable(false);
+        textPaneMessages.setName(bundle.getString("RepositoryMaintainancePanel.textPaneMessages.name")); // NOI18N
+        scrollPaneMessages.setViewportView(textPaneMessages);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -617,7 +632,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE, 384, Short.MAX_VALUE)
+                .addComponent(panelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -684,6 +699,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private javax.swing.JCheckBox checkBoxDeleteOrphanedThumbnails;
     private javax.swing.JCheckBox checkBoxDeleteRecordsOfNotExistingFilesInRepository;
     private javax.swing.JCheckBox checkBoxDeleteUnusedKeywords;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelFinishedCompressRepository;
     private javax.swing.JLabel labelFinishedDeleteNotReferenced1n;
     private javax.swing.JLabel labelFinishedDeleteOrphanedThumbnails;
@@ -696,6 +712,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private javax.swing.JPanel panelTasks;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JScrollPane scrollPaneMessages;
-    private javax.swing.JTextArea textAreaMessages;
+    private javax.swing.JTextPane textPaneMessages;
     // End of variables declaration//GEN-END:variables
 }
