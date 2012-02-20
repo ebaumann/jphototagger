@@ -15,6 +15,10 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
     private int countDigits;
     private DecimalFormat decimalFormat;
 
+    public FilenameFormatNumberSequence() {
+        this(1, 1, 4);
+    }
+
     public FilenameFormatNumberSequence(int start, int increment, int countDigits) {
         this.start = start;
         this.increment = increment;
@@ -25,11 +29,9 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
 
     private void createDecimalFormat() {
         StringBuilder sb = new StringBuilder();
-
         for (int i = 0; i < countDigits; i++) {
             sb.append("0");
         }
-
         decimalFormat = new DecimalFormat(sb.toString());
     }
 
@@ -72,8 +74,5 @@ public final class FilenameFormatNumberSequence extends FilenameFormat {
     @Override
     public String toString() {
         return Bundle.getString(FilenameFormatNumberSequence.class, "FilenameFormatNumberSequence.String");
-    }
-
-    private FilenameFormatNumberSequence() {
     }
 }
