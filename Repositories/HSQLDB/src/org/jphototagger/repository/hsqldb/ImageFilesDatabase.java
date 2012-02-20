@@ -72,8 +72,6 @@ import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Database containing metadata of image files.
- *
  * @author Elmar Baumann
  */
 final class ImageFilesDatabase extends Database {
@@ -115,8 +113,9 @@ final class ImageFilesDatabase extends Database {
             stmt.setString(2, getFilePath(fromImageFile));
             logFiner(stmt);
             count = stmt.executeUpdate();
-            if (tnRepo.renameThumbnail(fromImageFile, toImageFile)) {
-                notifyImageFileRenamed(fromImageFile, toImageFile);
+            tnRepo.renameThumbnail(fromImageFile, toImageFile);
+            if (count > 0) {
+                notifyImageFileMoved(fromImageFile, toImageFile);
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -239,7 +238,7 @@ final class ImageFilesDatabase extends Database {
             stmt.setString(2, getFilePath(fromImageFile));
             logFiner(stmt);
             stmt.executeUpdate();
-            notifyImageFileRenamed(fromImageFile, toImageFile);
+            notifyImageFileMoved(fromImageFile, toImageFile);
             tnRepo.renameThumbnail(fromImageFile, toImageFile);
         } finally {
             close(stmt);
@@ -489,7 +488,8 @@ final class ImageFilesDatabase extends Database {
                     updateThumbnailFile(imgFile, thumbnail);
                 }
                 updated++;
-                progressEvent.setValue(++count);
+                count++;
+                progressEvent.setValue(count);
                 progressEvent.setInfo(imgFile);
                 notifyProgressListenerPerformed(listener, progressEvent);
             }
@@ -1246,7 +1246,8 @@ final class ImageFilesDatabase extends Database {
         int endIndex = startIndex + files.length;
         int stringIndex = 0;
         for (int i = startIndex; i < endIndex; i++) {
-            stmt.setString(i, getFilePath(files[stringIndex++]));
+            stmt.setString(i, getFilePath(files[stringIndex]));
+            stringIndex++;
         }
     }
 
@@ -1500,7 +1501,8 @@ final class ImageFilesDatabase extends Database {
             int paramIndex = 2;
             SynonymsRepository synonymsRepo = Lookup.getDefault().lookup(SynonymsRepository.class);
             for (String synonym : synonymsRepo.findSynonymsOfWord(dcSubject)) {
-                stmt.setString(paramIndex++, synonym);
+                stmt.setString(paramIndex, synonym);
+                paramIndex++;
             }
         }
     }
@@ -2452,7 +2454,7 @@ final class ImageFilesDatabase extends Database {
         EventBus.publish(new ImageFileInsertedEvent(this, imageFile));
     }
 
-    private void notifyImageFileRenamed(File oldFile, File newFile) {
+    private void notifyImageFileMoved(File oldFile, File newFile) {
         EventBus.publish(new ImageFileMovedEvent(this, oldFile, newFile));
     }
 

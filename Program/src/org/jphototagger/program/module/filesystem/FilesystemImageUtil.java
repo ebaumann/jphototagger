@@ -94,7 +94,7 @@ public final class FilesystemImageUtil {
         }
         MoveFilesController ctrl = ControllerFactory.INSTANCE.getController(MoveFilesController.class);
         if (ctrl != null) {
-            ctrl.moveFiles(sourceFiles, targetDirectory);
+            ctrl.moveFilesWithoutConfirm(sourceFiles, targetDirectory);
             GUI.refreshThumbnailsPanel();
         }
     }

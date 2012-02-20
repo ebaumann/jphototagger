@@ -42,8 +42,6 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Dialog for renaming filenames.
- *
  * @author Elmar Baumann
  */
 public final class RenameDialog extends Dialog implements ListDataListener {
@@ -59,7 +57,6 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private transient boolean listen = true;
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ThumbnailProvider tnProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
-    private final FilesystemRepositoryUpdater fileSystemDbUpdater = new FilesystemRepositoryUpdater(true); // Required!
 
     public RenameDialog() {
         super(GUI.getAppFrame(), true);
@@ -95,24 +92,13 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         setHelpPageUrl(Bundle.getString(RenameDialog.class, "RenameDialog.HelpPage"));
     }
 
-    /**
-     * En- or disables the panel for renaming via templates.
-     *
-     * @param enabled true if enabled
-     */
-    public void setEnabledTemplates(boolean enabled) {
-        tabbedPane.setEnabledAt(1, enabled);
-
-        if (!enabled) {
+    public void selectRenameViaTemplatesTab(boolean select) {
+        tabbedPane.setEnabledAt(1, select);
+        if (!select) {
             tabbedPane.setSelectedComponent(panelInputName);
         }
     }
 
-    /**
-     * Sets the image files to rename.
-     *
-     * @param imageFiles image files
-     */
     public void setImageFiles(List<File> imageFiles) {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");

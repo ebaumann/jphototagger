@@ -94,7 +94,7 @@ public final class AddFilesystemFolderToFavoritesController implements ActionLis
                 MoveFilesController ctrl = ControllerFactory.INSTANCE.getController(MoveFilesController.class);
 
                 if (ctrl != null) {
-                    ctrl.moveFiles(selFiles, dir);
+                    ctrl.moveFilesWithoutConfirm(selFiles, dir);
                 }
             }
         }

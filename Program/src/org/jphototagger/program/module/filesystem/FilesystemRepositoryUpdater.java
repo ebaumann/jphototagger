@@ -2,13 +2,14 @@ package org.jphototagger.program.module.filesystem;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.file.event.FileMovedEvent;
@@ -17,26 +18,21 @@ import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
+import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
+import org.jphototagger.program.module.thumbnails.cache.ThumbnailCache;
+import org.jphototagger.program.module.thumbnails.cache.XmpCache;
+import org.jphototagger.program.resource.GUI;
 
 /**
- * Updates the repository on file system events.
- *
  * @author Elmar Baumann
  */
 public final class FilesystemRepositoryUpdater {
 
+    public static final FilesystemRepositoryUpdater INSTANCE = new FilesystemRepositoryUpdater();
+    private static final Logger LOGGER = Logger.getLogger(FilesystemRepositoryUpdater.class.getName());
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
-    private final SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
-    private volatile boolean wait;
 
-    /**
-     * Creates a new instance.
-     *
-     * @param wait if true, wait until completion. If false, start a new
-     *             thread. Default: false (new thread)
-     */
-    public FilesystemRepositoryUpdater(boolean wait) {
-        this.wait = wait;
+    private FilesystemRepositoryUpdater() {
         listen();
     }
 
@@ -44,22 +40,8 @@ public final class FilesystemRepositoryUpdater {
         AnnotationProcessor.process(this);
     }
 
-    private void insertFileIntoRepository(File file) {
-        if (FileFilterUtil.isImageFile(file)) {
-            SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(Arrays.asList(file),
-                    SaveOrUpdate.OUT_OF_DATE);
-
-            if (wait) {
-                inserter.run();    // Has to run in this thread!
-            } else {
-                executor.addTask(inserter);
-            }
-        }
-    }
-
     private void removeFileFromRepository(File file) {
         if (FileFilterUtil.isImageFile(file)) {
-
             if (repo.existsImageFile(file)) {
                 repo.deleteImageFiles(Arrays.asList(file));
             }
@@ -69,16 +51,22 @@ public final class FilesystemRepositoryUpdater {
     @EventSubscriber(eventClass = FileCopiedEvent.class)
     public void fileCopied(FileCopiedEvent evt) {
         File targetFile = evt.getTargetFile();
-
         if (FileFilterUtil.isImageFile(targetFile)) {
-            insertFileIntoRepository(targetFile);
+            insertCopiedFileIntoRepository(targetFile);
+        }
+    }
+
+    private void insertCopiedFileIntoRepository(File targetFile) {
+        if (FileFilterUtil.isImageFile(targetFile)) {
+            SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(
+                    Arrays.asList(targetFile), SaveOrUpdate.OUT_OF_DATE);
+            inserter.run();    // Has to run in this thread!
         }
     }
 
     @EventSubscriber(eventClass = FileDeletedEvent.class)
     public void fileDeleted(FileDeletedEvent evt) {
         File file = evt.getFile();
-
         if (FileFilterUtil.isImageFile(file)) {
             removeFileFromRepository(file);
         }
@@ -88,9 +76,10 @@ public final class FilesystemRepositoryUpdater {
     public void fileMoved(FileMovedEvent evt) {
         File sourceFile = evt.getSourceFile();
         File targetFile = evt.getTargetFile();
-
         if (FileFilterUtil.isImageFile(sourceFile) && FileFilterUtil.isImageFile(targetFile)) {
+            LOGGER.log(Level.INFO, "Rename in the repository file ''{0}'' to ''{1}'' and updating caches", new Object[]{sourceFile, targetFile});
             repo.updateRenameImageFile(sourceFile, targetFile);
+            updateCaches(sourceFile, targetFile);
         }
     }
 
@@ -98,9 +87,17 @@ public final class FilesystemRepositoryUpdater {
     public void fileRenamed(final FileRenamedEvent evt) {
         File sourceFile = evt.getSourceFile();
         File targetFile = evt.getTargetFile();
-
         if (FileFilterUtil.isImageFile(sourceFile) && FileFilterUtil.isImageFile(targetFile)) {
+            LOGGER.log(Level.INFO, "Rename in the repository file ''{0}'' to ''{1}'' and updating caches", new Object[]{sourceFile, targetFile});
             repo.updateRenameImageFile(sourceFile, targetFile);
+            updateCaches(sourceFile, targetFile);
         }
+    }
+
+    private void updateCaches(final File sourceFile, final File targetFile) {
+        ThumbnailCache.INSTANCE.updateFiles(sourceFile, targetFile);
+        XmpCache.INSTANCE.updateFiles(sourceFile, targetFile);
+        RenderedThumbnailCache.INSTANCE.updateFiles(sourceFile, targetFile);
+        GUI.getThumbnailsPanel().renameFile(sourceFile, targetFile);
     }
 }

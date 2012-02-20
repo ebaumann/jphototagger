@@ -7,19 +7,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.bushe.swing.event.annotation.AnnotationProcessor;
-import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Renames files in the file system.
- *
  * @author Elmar Baumann
  */
 public final class MoveFilesController implements ActionListener {
@@ -33,7 +27,6 @@ public final class MoveFilesController implements ActionListener {
 
     private void listen() {
         ThumbnailsPopupMenu.INSTANCE.getItemFileSystemMoveFiles().addActionListener(this);
-        AnnotationProcessor.process(this);
     }
 
     @Override
@@ -43,10 +36,8 @@ public final class MoveFilesController implements ActionListener {
 
     private void moveSelectedFiles() {
         List<File> selFiles = GUI.getSelectedImageFiles();
-
         if (!selFiles.isEmpty()) {
             MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
-
             dlg.setSourceFiles(selFiles);
             dlg.setVisible(true);
         } else {
@@ -54,41 +45,18 @@ public final class MoveFilesController implements ActionListener {
         }
     }
 
-    /**
-     * Moves files into a target directory without asking for confirmation.
-     *
-     * @param srcFiles  source files to move
-     * @param targetDir target directory
-     */
-    public void moveFiles(List<File> srcFiles, File targetDir) {
+    public void moveFilesWithoutConfirm(List<File> srcFiles, File targetDir) {
         if (srcFiles == null) {
             throw new NullPointerException("srcFiles == null");
         }
-
         if (targetDir == null) {
             throw new NullPointerException("targetDir == null");
         }
-
         if (!srcFiles.isEmpty() && targetDir.isDirectory()) {
             MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
-
             dlg.setSourceFiles(srcFiles);
             dlg.setTargetDirectory(targetDir);
             dlg.setVisible(true);
-        }
-    }
-
-    private boolean isXmpFile(File file) {
-        return file.getName().toLowerCase().endsWith("xmp");
-    }
-
-    @EventSubscriber(eventClass = FileMovedEvent.class)
-    public void fileMoved(FileMovedEvent evt) {
-        File sourceFile = evt.getSourceFile();
-        File targetFile = evt.getTargetFile();
-
-        if (!isXmpFile(sourceFile)) {
-            repo.updateRenameImageFile(sourceFile, targetFile);
         }
     }
 }

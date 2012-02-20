@@ -21,7 +21,7 @@ import org.jphototagger.lib.io.IoUtil;
 /**
  * Persistent stored (cached) thumbnails.
  *
- * @author  Martin Pohlack, Elmar Baumann
+ * @author Martin Pohlack, Elmar Baumann
  */
 final class PersistentThumbnails {
 
@@ -38,12 +38,6 @@ final class PersistentThumbnails {
     private PersistentThumbnails() {
     }
 
-    /**
-     * Writes a thumbnail.
-     *
-     * @param thumbnail thumbnail
-     * @param imageFile image file
-     */
     static void writeThumbnail(Image thumbnail, File imageFile) {
         if (thumbnail == null) {
             throw new NullPointerException("thumbnail == null");
@@ -100,8 +94,8 @@ final class PersistentThumbnails {
     /**
      * Returns an existing thumbnail.
      *
-     * @param  md5Filename name returned by {@code #getMd5FilenameOfAbsolutePath(File) }
-     * @return             thumbnail if the thumbnail file exists and was read
+     * @param md5Filename name returned by {@code #getMd5FilenameOfAbsolutePath(File) }
+     * @return thumbnail if the thumbnail file exists and was read
      */
     private static Image getThumbnail(String md5Filename) {
         Image thumbnail = null;
@@ -130,8 +124,8 @@ final class PersistentThumbnails {
     /**
      * Returns the thumbnail for an image file.
      *
-     * @param  imageFile image file
-     * @return           thumbnail or null if the thumbnail does not exist
+     * @param imageFile image file
+     * @return thumbnail or null if the thumbnail does not exist
      */
     static Image getThumbnail(File imageFile) {
         if (imageFile == null) {
@@ -144,9 +138,8 @@ final class PersistentThumbnails {
     /**
      * Returns the thumbnail file for an image file.
      *
-     * @param  imageFile image file
-     * @return           thumbnail file or null on errors. The file may not
-     *                   exists, {@code File#exists()} can be false.
+     * @param imageFile image file
+     * @return thumbnail file or null on errors. The file may not exists, {@code File#exists()} can be false.
      */
     static File getThumbnailFile(File imageFile) {
         if (imageFile == null) {
@@ -161,8 +154,8 @@ final class PersistentThumbnails {
     /**
      * Returns whether an image file has a thumbnail file.
      *
-     * @param  imageFile image file
-     * @return           true if the image file has a thumbnail
+     * @param imageFile image file
+     * @return true if the image file has a thumbnail
      */
     static boolean existsThumbnail(File imageFile) {
         if (imageFile == null) {
@@ -177,8 +170,8 @@ final class PersistentThumbnails {
     /**
      * Compute final name of thumbnail on disk.
      *
-     * @param  md5Filename hash
-     * @return             thumbnail file
+     * @param md5Filename hash
+     * @return thumbnail file
      */
     private static File getThumbnailfile(String md5Filename) {
         return new File(THUMBNAILS_DIRECTORY_NAME + File.separator + md5Filename + ".jpeg");
@@ -201,11 +194,17 @@ final class PersistentThumbnails {
         }
         File toTnFile = getThumbnailfile(FileUtil.getMd5FilenameOfAbsolutePath(toImageFile));
         if (toTnFile.exists()) {
-            toTnFile.delete();
+            LOGGER.log(Level.WARNING,
+                    "Thumbnail file ''{0}'' for image file  ''{1}'' already exists and can't be renamed!",
+                    new Object[]{toTnFile, toImageFile});
+
+        } else if (!fromTnFile.renameTo(toTnFile)) {
+            LOGGER.log(Level.WARNING,
+                    "Thumbnail file ''{0}'' couldn''t be renamed to ''{1}'' (Image file ''{2}'' was renamed to ''{3}''!",
+                    new Object[]{fromTnFile, toTnFile, fromImageFile, toImageFile});
+
         }
-        if (!fromTnFile.renameTo(toTnFile) && toTnFile.exists()) {
-            fromTnFile.delete();
-        }
+        fromTnFile.delete();
         return toTnFile.exists();
     }
 }

@@ -7,33 +7,16 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
-import org.bushe.swing.event.annotation.EventSubscriber;
 
-import org.openide.util.Lookup;
-
-import org.jphototagger.api.file.event.FileRenamedEvent;
-import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
-import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
-import org.jphototagger.program.module.thumbnails.cache.ThumbnailCache;
-import org.jphototagger.program.module.thumbnails.cache.XmpCache;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Listens to key events of {@code ThumbnailsPanel} and when
- * <code>F2</code> was pressed shows the {@code RenameDialog} to renameFile the selected files.
- *
  * @author Elmar Baumann
  */
 public final class RenameFilesController implements ActionListener, KeyListener {
-
-    private static final Logger LOGGER = Logger.getLogger(RenameFilesController.class.getName());
-    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public RenameFilesController() {
         listen();
@@ -59,34 +42,13 @@ public final class RenameFilesController implements ActionListener, KeyListener 
         }
     }
 
-    private void renameImageFileWithinRepository(File fromFile, File toFile) {
-        LOGGER.log(Level.INFO, "Rename in the repository file ''{0}'' to ''{1}''", new Object[]{fromFile, toFile});
-        repo.updateRenameImageFile(fromFile, toFile);
-        updateCaches(fromFile, toFile);
-    }
-
-    private void updateCaches(final File fromFile, final File toFile) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                ThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
-                XmpCache.INSTANCE.updateFiles(fromFile, toFile);
-                RenderedThumbnailCache.INSTANCE.updateFiles(fromFile, toFile);
-                GUI.getThumbnailsPanel().renameFile(fromFile, toFile);
-            }
-        });
-    }
-
     private void renameSelectedFiles() {
         List<File> selFiles = GUI.getSelectedImageFiles();
-
         if (selFiles.size() > 0) {
             RenameDialog dlg = new RenameDialog();
-
             Collections.sort(selFiles);
             dlg.setImageFiles(selFiles);
-            dlg.setEnabledTemplates(GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().isInSameFileSystemDirectory());
+            dlg.selectRenameViaTemplatesTab(GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().isInSameFileSystemDirectory());
             dlg.setVisible(true);
         }
     }
@@ -99,15 +61,5 @@ public final class RenameFilesController implements ActionListener, KeyListener 
     @Override
     public void keyReleased(KeyEvent evt) {
         // ignore
-    }
-
-    @EventSubscriber(eventClass = FileRenamedEvent.class)
-    public void fileRenamed(final FileRenamedEvent evt) {
-        File fromFile = evt.getSourceFile();
-        File toFile = evt.getTargetFile();
-
-        if (fromFile.isFile() && toFile.isFile()) {
-            renameImageFileWithinRepository(fromFile, toFile);
-        }
     }
 }

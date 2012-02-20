@@ -31,6 +31,7 @@ import org.jphototagger.program.module.favorites.RenameFilesystemFolderInFavorit
 import org.jphototagger.program.module.favorites.UpdateFavoriteController;
 import org.jphototagger.program.module.filesystem.CopyFilesToDirectoryController;
 import org.jphototagger.program.module.filesystem.DeleteFilesController;
+import org.jphototagger.program.module.filesystem.FilesystemRepositoryUpdater;
 import org.jphototagger.program.module.filesystem.MoveFilesController;
 import org.jphototagger.program.module.filesystem.RenameFilesController;
 import org.jphototagger.program.module.imagecollections.AddImageCollectionController;
@@ -103,6 +104,7 @@ import org.jphototagger.program.settings.ShowUserSettingsDialogAction;
 public final class ControllerFactory {
 
     public static final ControllerFactory INSTANCE = new ControllerFactory();
+    private final FilesystemRepositoryUpdater fileSystemDbUpdater = FilesystemRepositoryUpdater.INSTANCE; // Required!
     private final Support support = new Support();
     private volatile boolean init;
 
@@ -284,10 +286,9 @@ public final class ControllerFactory {
     /**
      * Returns all instances of a specific controller.
      *
-     * @param  <T>             type of controller class
-     * @param  controllerClass controller class (key)
-     * @return                 controller instances or null if no controller of
-     *                         that class was instanciated
+     * @param <T> type of controller class
+     * @param controllerClass controller class (key)
+     * @return controller instances or null if no controller of that class was instanciated
      */
     public <T> List<T> getControllers(Class<T> controllerClass) {
         if (controllerClass == null) {
@@ -300,10 +301,9 @@ public final class ControllerFactory {
     /**
      * Returns the first added instance of a specific controller.
      *
-     * @param  <T>             type of controller class
-     * @param  controllerClass controller class (key)
-     * @return                 controller instance or null if no controller of
-     *                         that class was instanciated
+     * @param <T> type of controller class
+     * @param controllerClass controller class (key)
+     * @return controller instance or null if no controller of that class was instanciated
      */
     public <T> T getController(Class<T> controllerClass) {
         if (controllerClass == null) {
