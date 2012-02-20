@@ -18,6 +18,10 @@ public final class FilenameFormatDate extends FilenameFormat {
     private String delimiter;
     private String name;
 
+    public FilenameFormatDate() {
+        this("-");
+    }
+
     /**
      * Creates an instance with a delimiter between year, month and day.
      *
@@ -27,7 +31,6 @@ public final class FilenameFormatDate extends FilenameFormat {
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
         }
-
         this.delimiter = delimiter;
     }
 
@@ -40,31 +43,27 @@ public final class FilenameFormatDate extends FilenameFormat {
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
         }
-
         this.delimiter = delimiter;
     }
 
     @Override
     public String format() {
         formatDate(getFile());
-
         return name;
     }
 
     /**
-     * Sets the date from the EXIF date of a file, If this is not possible
-     * the last modification time of the file system will be used.
+     * Sets the date from the EXIF date of a file, If this is not possible the last modification time of the file system
+     * will be used.
      *
      * @param file file
      */
     private void formatDate(File file) {
         Exif exif = ExifUtil.readExifPreferCached(file);
-
         if (exif == null) {
             setFromFilesystem(file);
         } else {
             java.sql.Date date = exif.getDateTimeOriginal();
-
             if (date == null) {
                 setFromFilesystem(file);
             } else {
@@ -89,8 +88,5 @@ public final class FilenameFormatDate extends FilenameFormat {
     @Override
     public String toString() {
         return Bundle.getString(FilenameFormatDate.class, "FilenameFormatDate.String");
-    }
-
-    private FilenameFormatDate() {
     }
 }

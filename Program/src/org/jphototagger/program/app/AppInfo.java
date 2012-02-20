@@ -10,14 +10,11 @@ public final class AppInfo {
 
     public static final String APP_NAME = "JPhotoTagger";
     // Never change that scheme: "[0-9]+\.[0-9]+\.[0-9]+"!
-    public static final String APP_VERSION = "0.19.1";
+    public static final String APP_VERSION = "0.20.0";
     /**
-     * ("Historical") Name of this project.
-     * <p>
-     * This is also the name of the user settings subdirectory (properties file)
-     * and the default thumbnails parent directory. When changing, the first or
-     * second action in the main() mehtod has to be renaming that directory from
-     * the old to the new name. Also check the code accessing this field.
+     * ("Historical") Name of this project. <p> This is also the name of the user settings subdirectory (properties
+     * file) and the default thumbnails parent directory. When changing, the first or second action in the main() mehtod
+     * has to be renaming that directory from the old to the new name. Also check the code accessing this field.
      */
     // IF CHANGING, SEE COMMENT ABOVE!
     public static final String PROJECT_NAME = "ImageMetaDataViewer";
