@@ -64,8 +64,11 @@ public abstract class MetadataTemplateController extends Controller {
         }
 
         MetadataTemplatesListModel model = ModelFactory.INSTANCE.getModel(MetadataTemplatesListModel.class);
+        int size = model.getSize();
 
-        return (MetadataTemplate) model.get(index);
+        return index < size
+                ? (MetadataTemplate) model.get(index)
+                : null;
     }
 
     protected MetadataTemplate getTemplateOfInputHelperList() {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
+import org.jphototagger.domain.metadata.xmp.Xmp;
 
 /**
  * @author Elmar Baumann
@@ -17,6 +18,7 @@ public final class ImportData {
     private final SubdirectoryCreateStrategy subdirectoryCreateStrategy;
     private final FileRenameStrategy fileRenameStrategy;
     private final File scriptFile;
+    private final Xmp xmp;
     private final boolean deleteSourceFilesAfterCopying;
 
     private ImportData(Builder builder) {
@@ -26,6 +28,7 @@ public final class ImportData {
         this.fileRenameStrategy = builder.fileRenameStrategy;
         this.scriptFile = builder.scriptFile;
         this.deleteSourceFilesAfterCopying = builder.deleteSourceFilesAfterCopying;
+        this.xmp = builder.xmp;
     }
 
     public List<File> getSourceFiles() {
@@ -52,6 +55,10 @@ public final class ImportData {
         return scriptFile;
     }
 
+    public Xmp getXmp() {
+        return xmp;
+    }
+
     public boolean hasSubdirectoryCreateStrategy() {
         return subdirectoryCreateStrategy != null;
     }
@@ -72,6 +79,10 @@ public final class ImportData {
         return !sourceFiles.isEmpty();
     }
 
+    public boolean hasXmp() {
+        return xmp != null && !xmp.isEmpty();
+    }
+
     public static class Builder {
 
         private final List<File> sourceFiles;
@@ -79,7 +90,7 @@ public final class ImportData {
         private SubdirectoryCreateStrategy subdirectoryCreateStrategy;
         private FileRenameStrategy fileRenameStrategy;
         private File scriptFile;
-        ;
+        private Xmp xmp;
         private boolean deleteSourceFilesAfterCopying;
 
         public Builder(List<File> sourceFiles, File targetDirectory) {
@@ -110,6 +121,11 @@ public final class ImportData {
 
         public Builder scriptFile(File scriptFile) {
             this.scriptFile = scriptFile;
+            return this;
+        }
+
+        public Builder xmp(Xmp xmp) {
+            this.xmp = xmp;
             return this;
         }
 
