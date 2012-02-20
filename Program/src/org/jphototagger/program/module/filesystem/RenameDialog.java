@@ -2,6 +2,7 @@ package org.jphototagger.program.module.filesystem;
 
 import java.awt.Container;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComboBoxUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -766,6 +768,11 @@ public final class RenameDialog extends Dialog implements ListDataListener {
         labelToNamePrompt.setName("labelToNamePrompt"); // NOI18N
 
         textFieldToName.setName("textFieldToName"); // NOI18N
+        textFieldToName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldToNameKeyPressed(evt);
+            }
+        });
 
         buttonNextFile.setText(bundle.getString("RenameDialog.buttonNextFile.text")); // NOI18N
         buttonNextFile.setName("buttonNextFile"); // NOI18N
@@ -795,7 +802,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelInputNameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelToNamePrompt, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelFromName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)
+                            .addComponent(labelFromName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                             .addComponent(labelFromNamePrompt, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textFieldToName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 378, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputNameLayout.createSequentialGroup()
@@ -1194,7 +1201,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
                 .addContainerGap()
                 .addGroup(panelRenameTemplatesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRenameTemplatesLayout.createSequentialGroup()
-                        .addComponent(comboBoxRenameTemplates, 0, 540, Short.MAX_VALUE)
+                        .addComponent(comboBoxRenameTemplates, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(panelRenameTemplatesLayout.createSequentialGroup()
                         .addComponent(buttonSaveRenameTemplate)
@@ -1268,7 +1275,7 @@ public final class RenameDialog extends Dialog implements ListDataListener {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 597, Short.MAX_VALUE)
+                .addComponent(tabbedPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1369,6 +1376,12 @@ public final class RenameDialog extends Dialog implements ListDataListener {
     private void textFieldAtEndKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAtEndKeyReleased
         handleTextFieldAtEndKeyReleased();
     }//GEN-LAST:event_textFieldAtEndKeyReleased
+
+    private void textFieldToNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldToNameKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER && StringUtil.hasContent(textFieldToName.getText())) {
+            renameViaInput();
+        }
+    }//GEN-LAST:event_textFieldToNameKeyPressed
 
     /**
      * @param args the command line arguments

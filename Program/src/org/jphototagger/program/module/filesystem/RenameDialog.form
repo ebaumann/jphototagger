@@ -32,7 +32,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="tabbedPane" pref="597" max="32767" attributes="0"/>
+              <Component id="tabbedPane" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -124,7 +124,7 @@
                               <Component id="labelToNamePrompt" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="textFieldToName" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="280" max="32767" attributes="0"/>
+                              <EmptySpace pref="287" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="buttonRename" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonNextFile" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -238,6 +238,9 @@
               <Properties>
                 <Property name="name" type="java.lang.String" value="textFieldToName" noResource="true"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textFieldToNameKeyPressed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonNextFile">
               <Properties>
