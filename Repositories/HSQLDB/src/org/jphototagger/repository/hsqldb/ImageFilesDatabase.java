@@ -91,9 +91,9 @@ final class ImageFilesDatabase extends Database {
     /**
      * Renames an image file.
      *
-     * @param  fromImageFile old image file
-     * @param  toImageFile   new renamed image file
-     * @return               count of renamed files (0 or 1)
+     * @param fromImageFile old image file
+     * @param toImageFile new renamed image file
+     * @return count of renamed files (0 or 1)
      */
     public int updateRenameImageFile(File fromImageFile, File toImageFile) {
         if (fromImageFile == null) {
@@ -171,16 +171,13 @@ final class ImageFilesDatabase extends Database {
     }
 
     /**
-     * Renames filenames starting with a substring. Usage: Renaming a directory
-     * in the filesystem.
+     * Renames filenames starting with a substring. Usage: Renaming a directory in the filesystem.
      *
-     * @param  before          start substring of the old filenames
-     * @param  after           new start substring
-     * @param progressListener null or progress listener. The progress listener
-     *                         can cancel renaming via
-     *                         {@code ProgressEvent#setCancel(boolean)}
-     *                         (no rollback).
-     * @return                 count of renamed files
+     * @param before start substring of the old filenames
+     * @param after new start substring
+     * @param progressListener null or progress listener. The progress listener can cancel renaming via
+     *                         {@code ProgressEvent#setCancel(boolean)} (no rollback).
+     * @return count of renamed files
      */
     public synchronized int updateRenameFilenamesStartingWith(final String before, final String after, final ProgressListener progressListener) {
         if (before == null) {
@@ -314,20 +311,14 @@ final class ImageFilesDatabase extends Database {
     }
 
     /**
-     * Inserts an image file into the databse. If the image already
-     * existsValueInMetaDataValues it's data will be updated.
-     * <p>
-     * Inserts or updates this metadata:
+     * Inserts an image file into the databse. If the image already existsValueInMetaDataValues it's data will be
+     * updated. <p> Inserts or updates this metadata:
      *
-     * <ul>
-     * <li>EXIF when {@code ImageFile#isInsertExifIntoDb()} is true</li>
-     * <li>XMP when {@code ImageFile#isInsertXmpIntoDb()} is true</li>
-     * <li>Thumbnail when {@code ImageFile#isInsertThumbnailIntoDb()} is true
-     * </li>
-     * </ul>
+     * <ul> <li>EXIF when {@code ImageFile#isInsertExifIntoDb()} is true</li> <li>XMP when {@code ImageFile#isInsertXmpIntoDb()}
+     * is true</li> <li>Thumbnail when {@code ImageFile#isInsertThumbnailIntoDb()} is true </li> </ul>
      *
-     * @param  imageFile image
-     * @return           true if inserted
+     * @param imageFile image
+     * @return true if inserted
      */
     public synchronized boolean insertOrUpdateImageFile(ImageFile imageFile) {
         if (imageFile == null) {
@@ -395,19 +386,13 @@ final class ImageFilesDatabase extends Database {
     }
 
     /**
-     * Aktualisiert ein Bild in der Datenbank.
-     * <p>
-     * Updates this metadata:
+     * Aktualisiert ein Bild in der Datenbank. <p> Updates this metadata:
      *
-     * <ul>
-     * <li>EXIF when {@code ImageFile#isInsertExifIntoDb()} is true</li>
-     * <li>XMP when {@code ImageFile#isInsertXmpIntoDb()} is true</li>
-     * <li>Thumbnail when {@code ImageFile#isInsertThumbnailIntoDb()} is true
-     * </li>
-     * </ul>
+     * <ul> <li>EXIF when {@code ImageFile#isInsertExifIntoDb()} is true</li> <li>XMP when {@code ImageFile#isInsertXmpIntoDb()}
+     * is true</li> <li>Thumbnail when {@code ImageFile#isInsertThumbnailIntoDb()} is true </li> </ul>
      *
      * @param imageFile Bild
-     * @return          true bei Erfolg
+     * @return true bei Erfolg
      */
     public boolean updateImageFile(ImageFile imageFile) {
         if (imageFile == null) {
@@ -457,12 +442,10 @@ final class ImageFilesDatabase extends Database {
     }
 
     /**
-     * Updates all thumbnails, reads the files from the file system and creates
-     * thumbnails from the files.
+     * Updates all thumbnails, reads the files from the file system and creates thumbnails from the files.
      *
-     * @param  listener progress listener or null, can cancel action via event and
-     *                  receives the current filename
-     * @return          count of updated thumbnails
+     * @param listener progress listener or null, can cancel action via event and receives the current filename
+     * @return count of updated thumbnails
      */
     public int updateAllThumbnails(ProgressListener listener) {
         int updated = 0;
@@ -506,8 +489,8 @@ final class ImageFilesDatabase extends Database {
     /**
      * Updates the thumbnail of an image file.
      *
-     * @param  imageFile image file
-     * @param  thumbnail updated thumbnail
+     * @param imageFile image file
+     * @param thumbnail updated thumbnail
      * @return true if updated
      */
     public boolean updateThumbnail(File imageFile, Image thumbnail) {
@@ -541,9 +524,8 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns the last modification time of an image file.
      *
-     * @param  imageFile image file
-     * @return           time in milliseconds since 1970 or -1 if the file is
-     *                   not in the database or when errors occured
+     * @param imageFile image file
+     * @return time in milliseconds since 1970 or -1 if the file is not in the database or when errors occured
      */
     public long getImageFilesLastModifiedTimestamp(File imageFile) {
         if (imageFile == null) {
@@ -609,13 +591,13 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
             for (File imageFile : imageFiles) {
+                Xmp xmp = getXmpOfImageFile(imageFile);
+                Exif exif = getExifOfImageFile(imageFile);
                 stmt.setString(1, getFilePath(imageFile));
                 logFiner(stmt);
                 int countAffectedRows = stmt.executeUpdate();
                 countDeleted += countAffectedRows;
                 if (countAffectedRows > 0) {
-                    Xmp xmp = getXmpOfImageFile(imageFile);
-                    Exif exif = getExifOfImageFile(imageFile);
                     tnRepo.deleteThumbnail(imageFile);
                     notifyImageFileDeleted(imageFile);
                     if (xmp != null) {
@@ -706,9 +688,8 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns the last modification time of the xmp data.
      *
-     * @param  imageFile <em>image</em> file (<em>not</em> sidecar file)
-     * @return               last modification time in milliseconds since 1970
-     *                       or -1 if not defined
+     * @param imageFile <em>image</em> file (<em>not</em> sidecar file)
+     * @return last modification time in milliseconds since 1970 or -1 if not defined
      */
     public long getXmpFilesLastModifiedTimestamp(File imageFile) {
         if (imageFile == null) {
@@ -739,9 +720,9 @@ final class ImageFilesDatabase extends Database {
     /**
      * Sets the last modification time of XMP metadata.
      *
-     * @param  imageFile image file
-     * @param  time      milliseconds since 1970
-     * @return           true if set
+     * @param imageFile image file
+     * @param time milliseconds since 1970
+     * @return true if set
      */
     public boolean setLastModifiedToXmpSidecarFileOfImageFile(File imageFile, long time) {
         if (imageFile == null) {
@@ -847,13 +828,12 @@ final class ImageFilesDatabase extends Database {
     }
 
     /**
-     * Inserts a Dublin core subject.
-     * <p>
-     * Does <em>not</em> check whether it already existsValueInColumn. In that case an
+     * Inserts a Dublin core subject. <p> Does <em>not</em> check whether it already existsValueInColumn. In that case
+     * an
      * {@code SQLException} will be thrown and caught by this method.
      *
-     * @param  dcSubject subject
-     * @return           true if inserted
+     * @param dcSubject subject
+     * @return true if inserted
      */
     public boolean insertDcSubject(String dcSubject) {
         if (dcSubject == null) {
@@ -1178,9 +1158,8 @@ final class ImageFilesDatabase extends Database {
      * Returns XMP metadata of image files.
      *
      * @param imageFiles image files
-     * @return           XMP metadata where {@code FileXmp#getFile()} is the
-     *                   image file and {@code FileXmp#getXmp()} the XMP metadata of that
-     *                   image file
+     * @return XMP metadata where {@code FileXmp#getFile()} is the image file and {@code FileXmp#getXmp()} the XMP
+     * metadata of that image file
      */
     public List<FileXmp> getXmpOfImageFiles(Collection<? extends File> imageFiles) {
         if (imageFiles == null) {
@@ -1386,8 +1365,8 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns whether at least one subject is referenced by a XMP metadata.
      *
-     * @param  subject subject
-     * @return         true if that subject is referenced
+     * @param subject subject
+     * @return true if that subject is referenced
      */
     public boolean isDcSubjectReferenced(String subject) {
         if (subject == null) {
@@ -1527,15 +1506,13 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns all images files which have all subjects of a list.
      *
-     * E.g. If You are searching for an image with a tree AND a cloud AND
-     * a car the list contains these three words.
+     * E.g. If You are searching for an image with a tree AND a cloud AND a car the list contains these three words.
      *
      * Because it's faster, call
-     * {@code #getImageFilesContainingDcSubject(String, DcSubjectOption[])}
-     * if You are searching for only one subject.
+     * {@code #getImageFilesContainingDcSubject(String, DcSubjectOption[])} if You are searching for only one subject.
      *
-     * @param  dcSubjects subjects
-     * @return            images containing all of these subjects
+     * @param dcSubjects subjects
+     * @return images containing all of these subjects
      */
     public Set<File> getImageFilesContainingAllDcSubjects(List<? extends String> dcSubjects) {
         if (dcSubjects == null) {
@@ -1609,14 +1586,13 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns all images which have all words of a list in a column.
      *
-     * E.g. If You are searching for an image with a tree AND a cloud AND
-     * a car the list contains these three words.
+     * E.g. If You are searching for an image with a tree AND a cloud AND a car the list contains these three words.
      *
-     * @param  words  search words
-     * @param  column column to search. The table of that column has to be
-     *                joinable with table <code>"files"</code>
-     *                through a column <code>id_file</code>!
-     * @return        images containing all of these terms in that column
+     * @param words search words
+     * @param column column to search. The table of that column has to be joinable with table
+     * <code>"files"</code> through a column
+     * <code>id_file</code>!
+     * @return images containing all of these terms in that column
      */
     public Set<File> getImageFilesContainingAllWordsInColumn(List<? extends String> words, MetaDataValue column) {
         if (column == null) {
@@ -1747,8 +1723,7 @@ final class ImageFilesDatabase extends Database {
     }
 
     /**
-     * Returns the timeline of images where EXIF metadata date time original
-     * is defined.
+     * Returns the timeline of images where EXIF metadata date time original is defined.
      *
      * @return timeline
      */
@@ -1806,12 +1781,10 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns image files taken at a specific date.
      *
-     * @param  year  year of the date
-     * @param  month month of the date, equals or less zero if all images of
-     *               that year should be returned
-     * @param  day   day of the date, equals or less zero if all images of that
-     *               month should be returned
-     * @return       image files taken on that date
+     * @param year year of the date
+     * @param month month of the date, equals or less zero if all images of that year should be returned
+     * @param day day of the date, equals or less zero if all images of that month should be returned
+     * @return image files taken on that date
      */
     public Set<File> getImageFilesOfDateTaken(int year, int month, int day) {
         Set<File> files = new HashSet<File>();
@@ -2000,20 +1973,15 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns files where:
      *
-     * <ul>
-     * <li>a record has an exact value in a specific column</li>
-     * <li>the column's table has a foreign key that references the
-     *     file's table</li>
-     * <li>the column name of the foreign key column has the name
-     *     <code>id_file</code></li>
-     * </ul>
+     * <ul> <li>a record has an exact value in a specific column</li> <li>the column's table has a foreign key that
+     * references the file's table</li> <li>the column name of the foreign key column has the name
+     * <code>id_file</code></li> </ul>
      *
-     * This method is also unusable for one to many references (columns which
-     * are foreign keys).
+     * This method is also unusable for one to many references (columns which are foreign keys).
      *
-     * @param  column     column whith the value
-     * @param  exactValue exact value of the column content
-     * @return            files
+     * @param column column whith the value
+     * @param exactValue exact value of the column content
+     * @return files
      */
     public List<File> getImageFilesWhereColumnHasExactValue(MetaDataValue column, String exactValue) {
         if (column == null) {
@@ -2222,9 +2190,9 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns the names of files without specific metadata.
      *
-     * @param   column column where it's table has to be either table "exif"
-     *                 or table <code>"xmp"</code>
-     * @return         image files without metadata for that column
+     * @param column column where it's table has to be either table "exif" or table
+     * <code>"xmp"</code>
+     * @return image files without metadata for that column
      */
     public List<File> getImageFilesWithoutMetadataInColumn(MetaDataValue column) {
         if (column == null) {
@@ -2259,10 +2227,10 @@ final class ImageFilesDatabase extends Database {
      *
      * Intended for usage within other database methods.
      *
-     * @param  con  connection
-     * @param  file file
-     * @return      database ID or -1 if the filename does not exist
-     * @throws      SQLException on SQL errors
+     * @param con connection
+     * @param file file
+     * @return database ID or -1 if the filename does not exist
+     * @throws SQLException on SQL errors
      */
     long findIdImageFile(Connection con, File file) throws SQLException {
         long id = -1;
@@ -2336,9 +2304,7 @@ final class ImageFilesDatabase extends Database {
     }
 
     /**
-     * Deletes a Dublin Core subject.
-     * <p>
-     * <em>Call this method only, if You are sure, that no image has that
+     * Deletes a Dublin Core subject. <p> <em>Call this method only, if You are sure, that no image has that
      * subject!</em>
      *
      * @param dcSubject subject
@@ -2495,15 +2461,14 @@ final class ImageFilesDatabase extends Database {
     }
 
     /**
-     * Sets to a prepared statement all strings in a list in the order as they
-     * appear in the list.
+     * Sets to a prepared statement all strings in a list in the order as they appear in the list.
      *
-     * @param  stmt   statement
-     * @param  params parameters to set
-     * @param  offset 0 if the first string is the first parameter in the
-     *                statement. Greater than zero, if the first string shall
-     *                be the parameter <code>1 + offset</code>.
-     * @throws        SQLException
+     * @param stmt statement
+     * @param params parameters to set
+     * @param offset 0 if the first string is the first parameter in the statement. Greater than zero, if the first
+     * string shall be the parameter
+     * <code>1 + offset</code>.
+     * @throws SQLException
      */
     private void setStringParams(PreparedStatement stmt, List<? extends String> params, int offset) throws SQLException {
         if (offset < 0) {
@@ -2518,9 +2483,9 @@ final class ImageFilesDatabase extends Database {
     /**
      * Returns parameters (?) whitin paranteses.
      *
-     * @param  count count of parameters
-     * @return       parameters in parantheses, e.g. <code>"(?, ?, ?)"</code>
-     *               if count equals 3
+     * @param count count of parameters
+     * @return parameters in parantheses, e.g.
+     * <code>"(?, ?, ?)"</code> if count equals 3
      */
     private String getParamsInParentheses(int count) {
         if (count < 1) {
