@@ -2,6 +2,7 @@ package org.jphototagger.program.module.favorites;
 
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
@@ -22,19 +23,23 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 public final class FavoritesPopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
+    private static final ImageIcon ICON_ARROW_DOWN = AppLookAndFeel.getIcon("icon_arrow_down.png");
+    private static final ImageIcon ICON_ARROW_UP = AppLookAndFeel.getIcon("icon_arrow_up.png");
+    private static final ImageIcon ICON_FOLDER = AppLookAndFeel.getIcon("icon_folder.png");
+    private static final ImageIcon ICON_FOLDER_NEW = AppLookAndFeel.getIcon("icon_folder_new.png");
     public static final FavoritesPopupMenu INSTANCE = new FavoritesPopupMenu();
     private final JMenuItem itemInsertFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.InsertFavorite"), AppLookAndFeel.ICON_NEW);
     private final JMenuItem itemUpdateFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.UpdateFavorite"), AppLookAndFeel.ICON_EDIT);
     private final JMenuItem itemRenameFilesystemFolder = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.RenameFilesystemFolder"), AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
-    private final JMenuItem itemOpenInFolders = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.OpenInFolders"), AppLookAndFeel.getIcon("icon_folder.png"));
-    private final JMenuItem itemMoveUp = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.MoveUp"), AppLookAndFeel.getIcon("icon_arrow_up.png"));
-    private final JMenuItem itemMoveDown = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.MoveDown"), AppLookAndFeel.getIcon("icon_arrow_down.png"));
+    private final JMenuItem itemOpenInFolders = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.OpenInFolders"), ICON_FOLDER);
+    private final JMenuItem itemMoveUp = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.MoveUp"), ICON_ARROW_UP);
+    private final JMenuItem itemMoveDown = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.MoveDown"), ICON_ARROW_DOWN);
     private final JMenuItem itemExpandAllSubitems = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.ItemExpand"));
     private final JMenuItem itemDeleteFilesystemFolder = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.DeleteFilesystemFolder"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemDeleteFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.DeleteFavorite"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemCollapseAllSubitems = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.ItemCollapse"));
-    private final JMenuItem itemAddFilesystemFolder = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.AddFilesystemFolder"), AppLookAndFeel.getIcon("icon_folder_new.png"));
+    private final JMenuItem itemAddFilesystemFolder = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.AddFilesystemFolder"), ICON_FOLDER_NEW);
     private final JMenuItem itemOpenInDesktop = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.Action.OpenInDesktop"));
     private transient Favorite favoriteDirectory;
     private TreePath treePath;

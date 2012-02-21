@@ -58,7 +58,7 @@ public final class DisplayFilesWithoutMetaDataAction implements LookupListener {
     private void setTitle(MetaDataValue metaDataValue) {
         MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
         mainWindowManager.setMainWindowTitle(
-                Bundle.getString(DisplayFilesWithoutMetaDataAction.class,
-                "FilesWithoutMetaDataDisplayAction.MainWindowTitle", metaDataValue.getDescription()));
+                Bundle.getString(DisplayFilesWithoutMetaDataAction.class, "FilesWithoutMetaDataDisplayAction.MainWindowTitle",
+                metaDataValue.getDescription()));
     }
 }

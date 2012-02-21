@@ -192,8 +192,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         long logfileBytes = logfile.length();
         int logfileSizeInMegabytes = Math.round((float) logfileBytes / MEGABYTE_IN_BYTES);
         int maxSizeInMeagbytes = Math.round((float) maxBytes / MEGABYTE_IN_BYTES);
-        String message = Bundle.getString(LogfileDialog.class,
-                "LogfileDialog.Error.MaximumSizeExceeded",
+        String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.MaximumSizeExceeded",
                 logfileSizeInMegabytes, maxSizeInMeagbytes);
         if (MessageDisplayer.confirmYesNo(this, message)) {
             DesktopUtil.open(logfile, "LogfileDialog.OpenLogfile");

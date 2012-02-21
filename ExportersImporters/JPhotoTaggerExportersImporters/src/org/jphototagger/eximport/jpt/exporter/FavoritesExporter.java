@@ -32,9 +32,10 @@ import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 @ServiceProvider(service = RepositoryDataExporter.class)
 public final class FavoritesExporter implements RepositoryDataExporter {
 
+    private static final String SUFFIX_XML = "xml";
     public static final String DEFAULT_FILENAME = "JptFavorites.xml";
     public static final String DISPLAY_NAME = Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName.FileFilter"), "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(FavoritesExporter.class, "FavoritesExporter.DisplayName.FileFilter"), SUFFIX_XML);
     private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 80;
     private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);

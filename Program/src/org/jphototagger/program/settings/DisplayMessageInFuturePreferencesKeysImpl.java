@@ -20,8 +20,7 @@ public final class DisplayMessageInFuturePreferencesKeysImpl implements DisplayM
 
     static {
         KEY_INFOS.add(new KeyInfo(AppPreferencesKeys.KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES,
-                Bundle.getString(DisplayMessageInFuturePreferencesKeysImpl.class,
-                "DisplayMessageInFuturePreferencesKeysImpl.WarnOnEqualBasenames.LocalizedDisplayName")));
+                Bundle.getString(DisplayMessageInFuturePreferencesKeysImpl.class, "DisplayMessageInFuturePreferencesKeysImpl.WarnOnEqualBasenames.LocalizedDisplayName")));
     }
 
     @Override

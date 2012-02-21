@@ -32,9 +32,10 @@ import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 @ServiceProvider(service = RepositoryDataExporter.class)
 public final class AutoscanDirectoriesExporter implements RepositoryDataExporter {
 
+    private static final String SUFFIX_XML = "xml";
     public static final String DEFAULT_FILENAME = "JptAutoscanDirectories.xml";
     public static final String DISPLAY_NAME = Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName.FileFilter"), "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName.FileFilter"), SUFFIX_XML);
     private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 90;
     private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);

@@ -112,8 +112,9 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
             if (programsRepository.setDefaultProgram(selectedFilenameSuffix, program.getId())) {
                 setSelectedProgramName();
             } else {
-                MessageDisplayer.error(this, Bundle.getString(EditDefaultProgramsPanel.class,
-                        "EditDefaultProgramsPanel.Error.SetDefaultProgram", selectedFilenameSuffix));
+                String message = Bundle.getString(EditDefaultProgramsPanel.class, "EditDefaultProgramsPanel.Error.SetDefaultProgram",
+                        selectedFilenameSuffix);
+                MessageDisplayer.error(this, message);
             }
         }
     }
@@ -133,14 +134,15 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         if (!StringUtil.hasContent(selectedFilenameSuffix)) {
             return;
         }
-        String message = Bundle.getString(EditDefaultProgramsPanel.class,
-                "EditDefaultProgramsPanel.Confirm.RemoveProgram", selectedFilenameSuffix);
+        String message = Bundle.getString(EditDefaultProgramsPanel.class, "EditDefaultProgramsPanel.Confirm.RemoveProgram",
+                selectedFilenameSuffix);
         if (MessageDisplayer.confirmYesNo(this, message)) {
             if (programsRepository.removeDefaultProgram(selectedFilenameSuffix)) {
                 setSelectedProgramName();
             } else {
-                MessageDisplayer.error(this, Bundle.getString(EditDefaultProgramsPanel.class,
-                        "EditDefaultProgramsPanel.Error.RemoveDefaultProgram", selectedFilenameSuffix));
+                message = Bundle.getString(EditDefaultProgramsPanel.class, "EditDefaultProgramsPanel.Error.RemoveDefaultProgram",
+                        selectedFilenameSuffix);
+                MessageDisplayer.error(this, message);
             }
         }
     }

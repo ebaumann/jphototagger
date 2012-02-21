@@ -70,16 +70,15 @@ public final class DeleteThumbnailsFromRepositoryController implements ActionLis
     }
 
     private boolean confirmDelete() {
-        String message = Bundle.getString(DeleteThumbnailsFromRepositoryController.class,
-                "DeleteThumbnailsFromRepositoryController.Confirm.DeleteSelectedFiles",
+        String message = Bundle.getString(DeleteThumbnailsFromRepositoryController.class, "DeleteThumbnailsFromRepositoryController.Confirm.DeleteSelectedFiles",
                 GUI.getThumbnailsPanel().getSelectionCount());
 
         return MessageDisplayer.confirmYesNo(null, message);
     }
 
     private void errorMessageDeleteImageFiles(int countFiles, int countDeleted) {
-        String message = Bundle.getString(DeleteThumbnailsFromRepositoryController.class,
-                "DeleteThumbnailsFromRepositoryController.Error.DeleteSelectedFiles", countFiles, countDeleted);
+        String message = Bundle.getString(DeleteThumbnailsFromRepositoryController.class, "DeleteThumbnailsFromRepositoryController.Error.DeleteSelectedFiles",
+                countFiles, countDeleted);
         MessageDisplayer.error(null, message);
     }
 }

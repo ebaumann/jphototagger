@@ -31,9 +31,8 @@ public final class ShowAboutJPhotoTaggerAction extends AbstractAction {
         String key = "ShowAboutJPhotoTaggerAction.Info.About";
         String title = "JPhotoTagger";
         AppFrame parentComponent = GUI.getAppFrame();
-        String message = Bundle.getString(ShowAboutJPhotoTaggerAction.class, key, AppInfo.APP_NAME, AppInfo.APP_VERSION);
+        String message = Bundle.getString(ShowAboutJPhotoTaggerAction.class, key, AppInfo.APP_NAME, AppInfo.APP_VERSION); // NOI18N
         int messageType = JOptionPane.INFORMATION_MESSAGE;
-
         JOptionPane.showMessageDialog(parentComponent, message, title, messageType, icon);
     }
 }

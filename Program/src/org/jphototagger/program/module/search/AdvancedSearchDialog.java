@@ -66,7 +66,8 @@ public final class AdvancedSearchDialog extends Dialog implements NameListener {
     }
 
     private void setSearchName(String name) {
-        setTitle(Bundle.getString(AdvancedSearchDialog.class, "AdvancedSearchDialog.TitlePrefix") + ": " + name);
+        String delimiter =  ": ";
+        setTitle(Bundle.getString(AdvancedSearchDialog.class, "AdvancedSearchDialog.TitlePrefix") + delimiter + name);
     }
 
     /**

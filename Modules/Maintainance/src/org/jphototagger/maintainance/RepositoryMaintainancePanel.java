@@ -1,7 +1,6 @@
 package org.jphototagger.maintainance;
 
 import java.awt.Container;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,7 +14,6 @@ import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.text.BadLocationException;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 
@@ -28,7 +26,6 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.jphototagger.lib.util.StringUtil;
 
 /**
  * @author Elmar Baumann
@@ -392,17 +389,12 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         buttonCancelAction = new javax.swing.JButton();
         buttonStartMaintain = new javax.swing.JButton();
 
-        setName("Form"); // NOI18N
-
-        panelContent.setName("panelContent"); // NOI18N
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        panelTasks.setName("panelTasks"); // NOI18N
         panelTasks.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInRepository.text")); // NOI18N
-        checkBoxDeleteRecordsOfNotExistingFilesInRepository.setName("checkBoxDeleteRecordsOfNotExistingFilesInRepository"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed(evt);
@@ -416,7 +408,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setIconTextGap(0);
-        labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setName("labelFinishedDeleteRecordsOfNotExistingFilesInRepository"); // NOI18N
         labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -424,7 +415,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         panelTasks.add(labelFinishedDeleteRecordsOfNotExistingFilesInRepository, gridBagConstraints);
 
         checkBoxCompressRepository.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxCompressRepository.text")); // NOI18N
-        checkBoxCompressRepository.setName("checkBoxCompressRepository"); // NOI18N
         checkBoxCompressRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCompressRepositoryActionPerformed(evt);
@@ -438,7 +428,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedCompressRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedCompressRepository.setIconTextGap(0);
-        labelFinishedCompressRepository.setName("labelFinishedCompressRepository"); // NOI18N
         labelFinishedCompressRepository.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -447,7 +436,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         panelTasks.add(labelFinishedCompressRepository, gridBagConstraints);
 
         checkBoxDeleteOrphanedThumbnails.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
-        checkBoxDeleteOrphanedThumbnails.setName("checkBoxDeleteOrphanedThumbnails"); // NOI18N
         checkBoxDeleteOrphanedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteOrphanedThumbnailsActionPerformed(evt);
@@ -461,7 +449,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedDeleteOrphanedThumbnails.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteOrphanedThumbnails.setIconTextGap(0);
-        labelFinishedDeleteOrphanedThumbnails.setName("labelFinishedDeleteOrphanedThumbnails"); // NOI18N
         labelFinishedDeleteOrphanedThumbnails.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -470,7 +457,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         panelTasks.add(labelFinishedDeleteOrphanedThumbnails, gridBagConstraints);
 
         checkBoxDeleteUnusedKeywords.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
-        checkBoxDeleteUnusedKeywords.setName("checkBoxDeleteUnusedKeywords"); // NOI18N
         checkBoxDeleteUnusedKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteUnusedKeywordsActionPerformed(evt);
@@ -484,7 +470,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedDeleteUnusedKeywords.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteUnusedKeywords.setIconTextGap(0);
-        labelFinishedDeleteUnusedKeywords.setName("labelFinishedDeleteUnusedKeywords"); // NOI18N
         labelFinishedDeleteUnusedKeywords.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -493,7 +478,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         panelTasks.add(labelFinishedDeleteUnusedKeywords, gridBagConstraints);
 
         checkBoxDeleteNotReferenced1n.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
-        checkBoxDeleteNotReferenced1n.setName("checkBoxDeleteNotReferenced1n"); // NOI18N
         checkBoxDeleteNotReferenced1n.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteNotReferenced1nActionPerformed(evt);
@@ -507,7 +491,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedDeleteNotReferenced1n.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteNotReferenced1n.setIconTextGap(0);
-        labelFinishedDeleteNotReferenced1n.setName("labelFinishedDeleteNotReferenced1n"); // NOI18N
         labelFinishedDeleteNotReferenced1n.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -522,23 +505,18 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.weightx = 1.0;
         panelContent.add(panelTasks, gridBagConstraints);
 
-        panelMessages.setName("panelMessages"); // NOI18N
         panelMessages.setLayout(new java.awt.GridBagLayout());
 
         labelMessages.setForeground(new java.awt.Color(0, 0, 255));
         labelMessages.setText(bundle.getString("RepositoryMaintainancePanel.labelMessages.text")); // NOI18N
-        labelMessages.setName("labelMessages"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelMessages.add(labelMessages, gridBagConstraints);
 
-        scrollPaneMessages.setName("scrollPaneMessages"); // NOI18N
-
         textPaneMessages.setContentType(bundle.getString("RepositoryMaintainancePanel.textPaneMessages.contentType")); // NOI18N
         textPaneMessages.setEditable(false);
-        textPaneMessages.setName(bundle.getString("RepositoryMaintainancePanel.textPaneMessages.name")); // NOI18N
         scrollPaneMessages.setViewportView(textPaneMessages);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -559,8 +537,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelContent.add(panelMessages, gridBagConstraints);
-
-        progressBar.setName("progressBar"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -569,13 +545,11 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
-        panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonDeleteMessages.setForeground(new java.awt.Color(0, 0, 255));
         buttonDeleteMessages.setText(bundle.getString("RepositoryMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
         buttonDeleteMessages.setEnabled(false);
-        buttonDeleteMessages.setName("buttonDeleteMessages"); // NOI18N
         buttonDeleteMessages.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteMessagesActionPerformed(evt);
@@ -590,7 +564,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         buttonCancelAction.setText(bundle.getString("RepositoryMaintainancePanel.buttonCancelAction.text")); // NOI18N
         buttonCancelAction.setEnabled(false);
-        buttonCancelAction.setName("buttonCancelAction"); // NOI18N
         buttonCancelAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionActionPerformed(evt);
@@ -604,7 +577,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         buttonStartMaintain.setText(bundle.getString("RepositoryMaintainancePanel.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
-        buttonStartMaintain.setName("buttonStartMaintain"); // NOI18N
         buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStartMaintainActionPerformed(evt);
@@ -699,7 +671,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private javax.swing.JCheckBox checkBoxDeleteOrphanedThumbnails;
     private javax.swing.JCheckBox checkBoxDeleteRecordsOfNotExistingFilesInRepository;
     private javax.swing.JCheckBox checkBoxDeleteUnusedKeywords;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelFinishedCompressRepository;
     private javax.swing.JLabel labelFinishedDeleteNotReferenced1n;
     private javax.swing.JLabel labelFinishedDeleteOrphanedThumbnails;

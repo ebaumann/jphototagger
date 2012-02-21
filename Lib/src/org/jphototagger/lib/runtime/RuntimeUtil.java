@@ -39,20 +39,17 @@ public final class RuntimeUtil {
         if (appPath == null) {
             throw new NullPointerException("appPath == null");
         }
-
         if (arguments == null) {
             throw new NullPointerException("arguments == null");
         }
-
         if (!appPath.isEmpty()) {
             String openCommand = appPath + getDefaultCommandLineSeparator() + arguments;
-
             try {
                 LOGGER.log(Level.INFO, "Executing command: ''{0}''", openCommand);
                 Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
             } catch (Exception ex) {
                 Logger.getLogger(RuntimeUtil.class.getName()).log(Level.SEVERE, null, ex);
-                String message = Bundle.getString(RuntimeUtil.class, "IoUtil.Error.OpenFile");
+                String message = Bundle.getString(RuntimeUtil.class, "IoUtil.Error.OpenFile", appPath);
                 MessageDisplayer.error(null, message);
             }
         }
@@ -98,14 +95,11 @@ public final class RuntimeUtil {
         if (string == null) {
             throw new NullPointerException("string == null");
         }
-
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         String quote = getDefaultCommandlineQuote();
         String separator = getDefaultCommandLineSeparator();
-
         return quote + string + quote + separator + quote + file.getAbsolutePath() + quote;
     }
 
@@ -120,7 +114,6 @@ public final class RuntimeUtil {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         return getQuotedForCommandLine(Arrays.asList(files), getDefaultCommandLineSeparator(),
                 getDefaultCommandlineQuote());
     }
@@ -136,7 +129,6 @@ public final class RuntimeUtil {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         return getQuotedForCommandLine(files, getDefaultCommandLineSeparator(), getDefaultCommandlineQuote());
     }
 
@@ -158,17 +150,14 @@ public final class RuntimeUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
-
         String path = file.getAbsolutePath();
         String root = FileUtil.getRoot(new File(path)).getAbsolutePath();
         String dirPath = FileUtil.getDirectoryPath(file);
         String name = FileUtil.getPrefix(file);
         String extension = FileUtil.getSuffix(file);
-
         return pattern.replace(PATTERN_FS_DIR_PATH, dirPath).replace(PATTERN_FS_FILE_EXT, extension).replace(PATTERN_FS_FILE_NAME, name).replace(PATTERN_FS_PATH,
                 path).replace(PATTERN_FS_ROOT, root);
     }
@@ -176,13 +165,11 @@ public final class RuntimeUtil {
     private static String getQuotedForCommandLine(Collection<? extends File> files, String separator, String quote) {
         StringBuilder sb = new StringBuilder();
         int index = 0;
-
         for (File file : files) {
             sb.append((index++ == 0)
                     ? EMPTY
                     : separator).append(quote).append(file.getAbsolutePath()).append(quote);
         }
-
         return sb.toString();
     }
 

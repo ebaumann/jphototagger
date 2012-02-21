@@ -39,8 +39,9 @@ public final class SynonymsExporter implements RepositoryDataExporter {
     public static final String DISPLAY_NAME = Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName");
     private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 20;
+    private static final String SUFFIX_XML = "xml";
     private static final long serialVersionUID = 1L;
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName.FileFilter"), "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName.FileFilter"), SUFFIX_XML);
     public static final String DTD = "synonyms.dtd";
     public static final String TAGNAME_ROOT = "synonyms";
     public static final String TAGNAME_ENTRY = "entry";

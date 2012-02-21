@@ -76,6 +76,6 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
                 ? "ImageMagickThumbnailCreator.FileFilter.Description.Windows"
                 : "ImageMagickThumbnailCreator.FileFilter.Description.OtherOS";
 
-        return Bundle.getString(ImageMagickThumbnailCreator.class, bundleKeyDescription);
+        return Bundle.getString(ImageMagickThumbnailCreator.class, bundleKeyDescription); // NOI18N
     }
 }

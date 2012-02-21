@@ -18,8 +18,7 @@ import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Displays in the {@code ThumbnailsPanel} thumbnails of images containing all
- * specific keywords.
+ * Displays in the {@code ThumbnailsPanel} thumbnails of images containing all specific keywords.
  *
  * @author Elmar Baumann
  */
@@ -88,8 +87,8 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     private void setTitle(List<String> keywords) {
         String keywordPathString = KeywordsListControllerUtil.keywordPathString(keywords);
-        String title = Bundle.getString(ShowThumbnailsContainingAllKeywords.class,
-                "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keywords.Path", keywordPathString);
+        String title = Bundle.getString(ShowThumbnailsContainingAllKeywords.class, "ShowThumbnailsContainingAllKeywords.AppFrame.Title.Keywords.Path",
+                keywordPathString);
         MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
         mainWindowManager.setMainWindowTitle(title);
     }

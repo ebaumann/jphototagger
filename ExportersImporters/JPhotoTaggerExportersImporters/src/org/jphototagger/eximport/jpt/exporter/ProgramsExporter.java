@@ -35,7 +35,8 @@ public final class ProgramsExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptPrograms.xml";
     public static final String DISPLAY_NAME = Bundle.getString(ProgramsExporter.class, "ProgramsExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ProgramsExporter.class, "ProgramsExporter.DisplayName.FileFilter"), "xml");
+    private static final String SUFFIX_XML = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ProgramsExporter.class, "ProgramsExporter.DisplayName.FileFilter"), SUFFIX_XML);
     private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 70;
     private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);

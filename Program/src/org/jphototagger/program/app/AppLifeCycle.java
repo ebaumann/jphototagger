@@ -45,8 +45,7 @@ public final class AppLifeCycle {
     }
 
     /**
-     * Has be to called <em>once</em> after the {@code AppFrame} has been
-     * created.
+     * Has be to called <em>once</em> after the {@code AppFrame} has been created.
      *
      * @param appFrame the application's frame
      */
@@ -74,11 +73,9 @@ public final class AppLifeCycle {
     }
 
     /**
-     * Adds a thread that will be executed before the application window becomes
-     * invisible and the application exists the VM.
-     * <p>
-     * <em>At this time, the repository has been shutdown, so that repository
-     * operations are not possible!</em>
+     * Adds a thread that will be executed before the application window becomes invisible and the application exists
+     * the VM. <p> <em>At this time, the repository has been shutdown, so that repository operations are not
+     * possible!</em>
      *
      * @param task task
      */
@@ -103,12 +100,11 @@ public final class AppLifeCycle {
     }
 
     /**
-     * Adds an object which is currently or will soon saving data. As long as
-     * data is to save, the app does not exit.
+     * Adds an object which is currently or will soon saving data. As long as data is to save, the app does not exit.
      *
      * <em>Do not forget removing a save object via
-     * {@code #removeSaveObject(java.lang.Object)}, otherwise the app terminates
-     * after a timeout and does not know wheter data was saved!</em>
+     * {@code #removeSaveObject(java.lang.Object)}, otherwise the app terminates after a timeout and does not know
+     * wheter data was saved!</em>
      *
      * @param saveObject object that saves data.
      */
@@ -252,8 +248,8 @@ public final class AppLifeCycle {
                 }
 
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    String message = Bundle.getString(AppLifeCycle.class,
-                            "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded", timeoutMilliSeconds / 1000);
+                    String message = Bundle.getString(AppLifeCycle.class, "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
+                            timeoutMilliSeconds / 1000);
                     MessageDisplayer.error(null, message);
                 }
             }
@@ -314,9 +310,8 @@ public final class AppLifeCycle {
     private static class Cleanup {
 
         /**
-         * Sleep time in milliseconds before giving control to the caller, so that
-         * the threads can complete their current action before they check for
-         * interruption.
+         * Sleep time in milliseconds before giving control to the caller, so that the threads can complete their
+         * current action before they check for interruption.
          */
         private static long MILLISECONDS_SLEEP = 2000;
 
