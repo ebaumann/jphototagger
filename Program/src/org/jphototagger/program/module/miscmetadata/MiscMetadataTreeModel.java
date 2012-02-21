@@ -1,6 +1,7 @@
 package org.jphototagger.program.module.miscmetadata;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,8 +42,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * This model contains distinct values of specific EXIF and XMP repository metadata values.
  *
- * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
- * below.
+ * Elements are {@code DefaultMutableTreeNode}s with the user objects listed below.
  *
  * <ul>
  * <li>The root user object is a {@code String}</li>
@@ -60,7 +60,6 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
     private static final Object XMP_USER_OBJECT = Bundle.getString(MiscMetadataTreeModel.class, "MiscMetadataTreeModel.XmpNode.DisplayName");
     private static final Set<MetaDataValue> XMP_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
     private static final Set<MetaDataValue> EXIF_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
-    private static final Set<Object> META_DATA_VALUES_USER_OBJECTS = new LinkedHashSet<Object>();
 
     static {
         EXIF_META_DATA_VALUES.add(ExifRecordingEquipmentMetaDataValue.INSTANCE);
@@ -72,8 +71,6 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
         XMP_META_DATA_VALUES.add(XmpDcRightsMetaDataValue.INSTANCE);
         XMP_META_DATA_VALUES.add(XmpPhotoshopSourceMetaDataValue.INSTANCE);
         XMP_META_DATA_VALUES.add(XmpRatingMetaDataValue.INSTANCE);
-        META_DATA_VALUES_USER_OBJECTS.add(EXIF_USER_OBJECT);
-        META_DATA_VALUES_USER_OBJECTS.add(XMP_USER_OBJECT);
     }
     private final boolean onlyXmp;
     private final DefaultMutableTreeNode ROOT;
@@ -122,7 +119,7 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
     }
 
     private void addChildren(DefaultMutableTreeNode parentNode, Set<String> data, MetaDataValue.ValueType dataType) {
-        for (String string : data) {
+        for (String string : getTrimmedStrigns(data)) {
             DefaultMutableTreeNode node = new DefaultMutableTreeNode();
 
             if (dataType.equals(MetaDataValue.ValueType.STRING)) {
@@ -139,6 +136,14 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
 
             parentNode.add(node);
         }
+    }
+
+    private Collection<String> getTrimmedStrigns(Collection<? extends String> strings) {
+        Set<String> trimmedStrings = new LinkedHashSet<String>();
+        for (String string : strings) {
+            trimmedStrings.add(string.trim());
+        }
+        return trimmedStrings;
     }
 
     private void checkDeleted(Xmp xmp) {
