@@ -2,6 +2,7 @@ package org.jphototagger.maintainance;
 
 import java.awt.Container;
 import java.lang.reflect.Method;
+import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -258,23 +259,21 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         }
     }
 
-    private void appendMessage(Object info, String htmlColor) {
+    private void appendMessage(Object info, String formatPattern) {
         if (info != null) {
             String message = info.toString().trim();
             if (!message.isEmpty()) {
-                appendMessage(message, htmlColor);
+                appendMessage(MessageFormat.format(formatPattern, message));
             }
         }
     }
 
-    private void appendMessage(String message, String htmlColor) {
+    private void appendMessage(String message) {
         int length = messagesDocument.getLength();
         try {
-            String coloredMessage = htmlColor == null || htmlColor.isEmpty()
-                    ? message
-                    : "<font color=\"" + htmlColor + "\">" + message + "</font>";
-            htmlEditorKit.insertHTML(messagesDocument, length, coloredMessage, 0, 0, null);
+            htmlEditorKit.insertHTML(messagesDocument, length, message, 0, 0, null);
             buttonDeleteMessages.setEnabled(true);
+            containsMessages = true;
         } catch (Throwable t) {
             Logger.getLogger(RepositoryMaintainancePanel.class.getName()).log(Level.SEVERE, null, t);
         }
@@ -289,7 +288,9 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
             @Override
             public void run() {
-                appendMessage(info, "#00aa00");
+                appendMessage(info,
+                        (containsMessages ? "<hr>" : "")
+                        + "<p><font color=\"#008800\">{0}</font>");
                 buttonDeleteMessages.setEnabled(false);
                 buttonCancelAction.setEnabled(!(evt.getSource() instanceof CompressRepository));
             }
@@ -306,7 +307,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
             @Override
             public void run() {
                 progressBar.setValue(value);
-                appendMessage(info, "");
+                appendMessage(info, "{0}");
             }
         });
     }
@@ -320,7 +321,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
             @Override
             public void run() {
-                appendMessage(info, "#0000ff");
+                appendMessage(info, "<font color=\"#0000dd\">{0}</font>");
                 Class<?> sourceClass = source.getClass();
                 JLabel labelFinished = finishedLabelOfRunnable.get(sourceClass);
                 progressBar.setValue(0);
