@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.20.1 2012-02-21
+-----------------
+
+* Bugfix Kartenreiter Verschiedene Metadaten: Falls nach dem Löschen von
+  Bildern ein bestimmtes Datum nicht mehr existiert, z.B. ein ISO-Wert,
+  wird dieser sofort aus dem Register entfernt und nicht erst nach Neustart
+
 0.20.0 2012-02-20
 -----------------
 

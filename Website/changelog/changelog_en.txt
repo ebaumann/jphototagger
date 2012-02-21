@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.20.1 2012-02-21
+-----------------
+
+* Bugfix Misc Metadata register: If after deleting images
+  some metadata no longer exists, e.g. an ISO value, it will
+  be removed immediately from the register
+
 0.20.0 2012-02-20
 -----------------
 
