@@ -2,7 +2,7 @@
 
 ROOT_DIR=$PROJECTDIR/JPhotoTagger/main-repository
 
-for dir in $(find $ROOT_DIR -type d ! -path '*/test/*')
+for dir in $(find $ROOT_DIR -type d ! -path '*/test/*' ! -path '*/build/*')
 do
 	for bf in $(find $dir -maxdepth 1 -name 'Bundle.properties')
 	do
