@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -48,6 +49,20 @@ import org.jphototagger.program.plugins.PluginAction;
  */
 public final class ThumbnailsPopupMenu extends JPopupMenu {
 
+    public static final ImageIcon ICON_IMAGE_COLLECTION = AppLookAndFeel.getIcon("icon_imagecollection.png");
+    private static final ImageIcon ICON_IMAGE_COLLECTION_ADD_TO = AppLookAndFeel.getIcon("icon_imagecollection_add_to.png");
+    private static final ImageIcon ICON_IMAGE_COLLECTION_REMOVE_FROM = AppLookAndFeel.getIcon("icon_imagecollection_remove_from.png");
+    private static final ImageIcon ICON_PICKED = AppLookAndFeel.getIcon("icon_picked.png");
+    private static final ImageIcon ICON_REJECTED = AppLookAndFeel.getIcon("icon_rejected.png");
+    private static final ImageIcon ICON_ROTATE_180 = AppLookAndFeel.getIcon("icon_rotate_180.png");
+    private static final ImageIcon ICON_ROTATE_270 = AppLookAndFeel.getIcon("icon_rotate_270.png");
+    private static final ImageIcon ICON_ROTATE_90 = AppLookAndFeel.getIcon("icon_rotate_90.png");
+    private static final ImageIcon ICON_XMP_RATING_1 = AppLookAndFeel.getIcon("icon_xmp_rating_1.png");
+    private static final ImageIcon ICON_XMP_RATING_2 = AppLookAndFeel.getIcon("icon_xmp_rating_2.png");
+    private static final ImageIcon ICON_XMP_RATING_3 = AppLookAndFeel.getIcon("icon_xmp_rating_3.png");
+    private static final ImageIcon ICON_XMP_RATING_4 = AppLookAndFeel.getIcon("icon_xmp_rating_4.png");
+    private static final ImageIcon ICON_XMP_RATING_5 = AppLookAndFeel.getIcon("icon_xmp_rating_5.png");
+    private static final ImageIcon ICON_XMP_RATING_REMOVE = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
     private static final long serialVersionUID = 1L;
     private static final AddProgramController ADD_PROGRAM_ACTION = new AddProgramController();
     private final JMenu menuRefresh = new JMenu(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.MenuRefresh"));
@@ -64,18 +79,18 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemUpdateMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.UpdateMetadata"));
     private final JMenuItem itemSelectNothing = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemSelectNothing"));
     private final JMenuItem itemSelectAll = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemSelectAll"));
-    private final JMenuItem itemRotateThumbnail90 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.90"), AppLookAndFeel.getIcon("icon_rotate_90.png"));
-    private final JMenuItem itemRotateThumbnail270 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.270"), AppLookAndFeel.getIcon("icon_rotate_270.png"));
-    private final JMenuItem itemRotateThumbnai180 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.180"), AppLookAndFeel.getIcon("icon_rotate_180.png"));
-    private final JMenuItem itemReject = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Reject"), AppLookAndFeel.getIcon("icon_rejected.png"));
+    private final JMenuItem itemRotateThumbnail90 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.90"), ICON_ROTATE_90);
+    private final JMenuItem itemRotateThumbnail270 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.270"), ICON_ROTATE_270);
+    private final JMenuItem itemRotateThumbnai180 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.180"), ICON_ROTATE_180);
+    private final JMenuItem itemReject = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Reject"), ICON_REJECTED);
     private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
-    private final JMenuItem itemRating5 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating5"), AppLookAndFeel.getIcon("icon_xmp_rating_5.png"));
-    private final JMenuItem itemRating4 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating4"), AppLookAndFeel.getIcon("icon_xmp_rating_4.png"));
-    private final JMenuItem itemRating3 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating3"), AppLookAndFeel.getIcon("icon_xmp_rating_3.png"));
-    private final JMenuItem itemRating2 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating2"), AppLookAndFeel.getIcon("icon_xmp_rating_2.png"));
-    private final JMenuItem itemRating1 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating1"), AppLookAndFeel.getIcon("icon_xmp_rating_1.png"));
-    private final JMenuItem itemRating0 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating0"), AppLookAndFeel.getIcon("icon_xmp_rating_remove.png"));
-    private final JMenuItem itemPick = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Pick"), AppLookAndFeel.getIcon("icon_picked.png"));
+    private final JMenuItem itemRating5 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating5"), ICON_XMP_RATING_5);
+    private final JMenuItem itemRating4 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating4"), ICON_XMP_RATING_4);
+    private final JMenuItem itemRating3 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating3"), ICON_XMP_RATING_3);
+    private final JMenuItem itemRating2 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating2"), ICON_XMP_RATING_2);
+    private final JMenuItem itemRating1 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating1"), ICON_XMP_RATING_1);
+    private final JMenuItem itemRating0 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating0"), ICON_XMP_RATING_REMOVE);
+    private final JMenuItem itemPick = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Pick"), ICON_PICKED);
     private final JMenuItem itemPasteMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemPasteMetadata"), AppLookAndFeel.ICON_PASTE);
     private final JMenuItem itemPasteFromClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemPasteFromClipboard"), AppLookAndFeel.ICON_PASTE);
     private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.OpenFiles"));
@@ -84,12 +99,12 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemDeleteFiles"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemCopyToDirectory"), AppLookAndFeel.ICON_COPY);
     private final JMenuItem itemDeleteImageFromRepository = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteImageFromRepository"));
-    private final JMenuItem itemDeleteFromImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteFromImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection_remove_from.png"));
+    private final JMenuItem itemDeleteFromImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteFromImageCollection"), ICON_IMAGE_COLLECTION_REMOVE_FROM);
     private final JMenuItem itemCutToClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCutToClipboard"), AppLookAndFeel.ICON_CUT);
-    private final JMenuItem itemCreateImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.CreateImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection.png"));
+    private final JMenuItem itemCreateImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.CreateImageCollection"), ICON_IMAGE_COLLECTION);
     private final JMenuItem itemCopyToClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCopyToClipboard"), AppLookAndFeel.ICON_COPY);
     private final JMenuItem itemCopyMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCopyMetadata"), AppLookAndFeel.ICON_COPY);
-    private final JMenuItem itemAddToImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.AddToImageCollection"), AppLookAndFeel.getIcon("icon_imagecollection_add_to.png"));
+    private final JMenuItem itemAddToImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.AddToImageCollection"), ICON_IMAGE_COLLECTION_ADD_TO);
     // End menu items
     private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
     private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();

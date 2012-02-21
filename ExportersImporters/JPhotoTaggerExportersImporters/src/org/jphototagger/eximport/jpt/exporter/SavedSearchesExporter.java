@@ -34,7 +34,8 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptSavedSearches.xml";
     public static final String DISPLAY_NAME = Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName.FileFilter"), "xml");
+    private static final String SUFFIX_XML = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName.FileFilter"), SUFFIX_XML);
     private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 40;
     private final SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);

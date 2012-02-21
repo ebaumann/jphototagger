@@ -38,7 +38,6 @@ public final class ThumbnailDoubleklickController {
             Program program = findDefaultImageOpenProgram(selectedFile);
             if (program == null) {
                 String message = Bundle.getString(ThumbnailDoubleklickController.class, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
-                // Reusing bundle string
                 MessageDisplayer.information(null, message);
                 ProgramsUtil.openSelectedFilesWidth(ProgramsUtil.addProgram(), false);
             } else {

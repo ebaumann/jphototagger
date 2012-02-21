@@ -3,6 +3,7 @@ package org.jphototagger.program.module.directories;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
@@ -22,9 +23,10 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 public final class DirectoriesPopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
-    public static final DirectoriesPopupMenu INSTANCE = new DirectoriesPopupMenu();
-    private final JMenuItem itemAddToFavorites = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.AddToFavoriteDirectories"), AppLookAndFeel.getIcon("icon_favorite.png"));
-    private final JMenuItem itemCreateDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.CreateDirectory"), AppLookAndFeel.getIcon("icon_folder_new.png"));
+    public static final ImageIcon ICON_FAVORITE = AppLookAndFeel.getIcon("icon_favorite.png");
+    public static final ImageIcon ICON_FOLDER_NEW = AppLookAndFeel.getIcon("icon_folder_new.png");
+    private final JMenuItem itemAddToFavorites = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.AddToFavoriteDirectories"), ICON_FAVORITE);
+    private final JMenuItem itemCreateDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.CreateDirectory"), ICON_FOLDER_NEW);
     private final JMenuItem itemRenameDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.RenameDirectory"), AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
     private final JMenuItem itemDeleteDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.DeleteDirectory"), AppLookAndFeel.ICON_DELETE);
@@ -34,6 +36,7 @@ public final class DirectoriesPopupMenu extends JPopupMenu {
     private boolean treeSelected = false;
     private File directory;
     private TreePath path;
+    public static final DirectoriesPopupMenu INSTANCE = new DirectoriesPopupMenu();
 
     private DirectoriesPopupMenu() {
         init();

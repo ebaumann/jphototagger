@@ -68,9 +68,10 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void setTitle() {
-        setTitle(Bundle.getString(EditMetaDataTemplateDialog.class, templateHasName()
-                ? "EditMetaDataTemplateDialog.Title.Edit"
-                : "EditMetaDataTemplateDialog.Title.New"));
+        String title = templateHasName()
+                ? Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Title.Edit")
+                : Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Title.New");
+        setTitle(title);
     }
 
     private boolean templateHasName() {

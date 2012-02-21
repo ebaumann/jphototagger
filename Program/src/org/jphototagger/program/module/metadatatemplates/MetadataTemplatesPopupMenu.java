@@ -2,6 +2,7 @@ package org.jphototagger.program.module.metadatatemplates;
 
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
@@ -20,8 +21,9 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 public final class MetadataTemplatesPopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
+    private static final ImageIcon ICON_IMAGE = AppLookAndFeel.getIcon("icon_image.png");
     public static final MetadataTemplatesPopupMenu INSTANCE = new MetadataTemplatesPopupMenu();
-    private final JMenuItem itemSetToSelImages = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.SetToSelImages"), AppLookAndFeel.getIcon("icon_image.png"));
+    private final JMenuItem itemSetToSelImages = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.SetToSelImages"), ICON_IMAGE);
     private final JMenuItem itemRename = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
     private final JMenuItem itemEdit = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Edit"), AppLookAndFeel.ICON_EDIT);
     private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);

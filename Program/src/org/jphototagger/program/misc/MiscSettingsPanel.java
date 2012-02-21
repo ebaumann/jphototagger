@@ -179,10 +179,9 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             return;
         }
         boolean useLongSidecarFileNames = checkBoxUseLongXmpSidecarFileNames.isSelected();
-        String message = Bundle.getString(MiscSettingsPanel.class,
-                useLongSidecarFileNames
-                ? "MiscSettingsPanel.Confirm.UseLongXmpSidecarFileNames"
-                : "MiscSettingsPanel.Confirm.UseDefaultXmpSidecarFileNames");
+        String message = useLongSidecarFileNames
+                ? Bundle.getString(MiscSettingsPanel.class, "MiscSettingsPanel.Confirm.UseLongXmpSidecarFileNames")
+                : Bundle.getString(MiscSettingsPanel.class, "MiscSettingsPanel.Confirm.UseDefaultXmpSidecarFileNames");
         if (MessageDisplayer.confirmYesNo(this, message)) {
             Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
             prefs.setBoolean(XmpPreferences.KEY_USE_LONG_SIDECAR_FILENAMES, useLongSidecarFileNames);
@@ -579,7 +578,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private void checkBoxUseLongXmpSidecarFileNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxUseLongXmpSidecarFileNamesActionPerformed
         setUseLongXmpSidecarFileNames();
     }//GEN-LAST:event_checkBoxUseLongXmpSidecarFileNamesActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseRepositoryDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;

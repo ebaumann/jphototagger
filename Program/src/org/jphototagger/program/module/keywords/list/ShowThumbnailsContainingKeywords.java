@@ -86,14 +86,15 @@ public final class ShowThumbnailsContainingKeywords implements Runnable {
 
     private void setTitle(List<String> keywords) {
         String keywordPathString = KeywordsListControllerUtil.keywordPathString(keywords);
-        String title = Bundle.getString(ShowThumbnailsContainingKeywords.class,
-                "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path", keywordPathString);
+        String title = Bundle.getString(ShowThumbnailsContainingKeywords.class, "ShowThumbnailsContainingKeywords.AppFrame.Title.Keywords.Path",
+                keywordPathString);
         MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
         mainWindowManager.setMainWindowTitle(title);
     }
 
     private void setTitle(String keyword) {
-        String title = Bundle.getString(ShowThumbnailsContainingKeywords.class, "ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword", keyword);
+        String title = Bundle.getString(ShowThumbnailsContainingKeywords.class, "ShowThumbnailsContainingKeywords.AppFrame.Title.Keyword",
+                keyword);
         MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
         mainWindowManager.setMainWindowTitle(title);
     }

@@ -33,7 +33,8 @@ public final class ImageCollectionsExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptImageCollections.xml";
     public static final String DISPLAY_NAME = Bundle.getString(ImageCollectionsExporter.class, "ExportImageCollections.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ImageCollectionsExporter.class, "ImageCollectionsExporter.DisplayName.FileFilter"), "xml");
+    public static final String SUFFIX_XML = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(ImageCollectionsExporter.class, "ImageCollectionsExporter.DisplayName.FileFilter"), SUFFIX_XML);
     private static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
     public static final int POSITION = 50;
     private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);

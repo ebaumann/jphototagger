@@ -35,7 +35,8 @@ public final class UserDefinedFileFilterExporter implements RepositoryDataExport
 
     public static final String DEFAULT_FILENAME = "JptFileFilters.xml";
     public static final String DISPLAY_NAME = Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName"), "xml");
+    private static final String SUFFIX_XML = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName"), SUFFIX_XML);
     private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 110;
     private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);

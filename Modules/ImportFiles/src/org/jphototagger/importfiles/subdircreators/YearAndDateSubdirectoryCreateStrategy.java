@@ -23,14 +23,13 @@ public final class YearAndDateSubdirectoryCreateStrategy implements Subdirectory
         String dateString = NameUtil.getDateString(file);
         String[] dateToken = dateString.split("-");
         String yearString = dateToken[0];
-        return yearString + File.separator
-                + dateString;
+        return yearString + File.separator + dateString;
     }
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(DateSubdirectoryCreateStrategy.class,
-                "YearAndDateSubdirectoryCreateStrategy.Displayname", File.separator);
+        return Bundle.getString(DateSubdirectoryCreateStrategy.class, "YearAndDateSubdirectoryCreateStrategy.Displayname",
+                File.separator);
     }
 
     @Override

@@ -43,8 +43,9 @@ public final class MetadataTemplatesExporter implements RepositoryDataExporter {
     public static final String DISPLAY_NAME = Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName");
     private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 60;
+    private static final String SUFFIX_XML = "xml";
     private static final long serialVersionUID = 1L;
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName.FileFilter"), "xml");
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName.FileFilter"), SUFFIX_XML);
     public static final String DTD = "metadatatemplates.dtd";
     public static final String TAGNAME_ROOT = "templates";
     public static final String TAGNAME_TEMPLATE = "template";

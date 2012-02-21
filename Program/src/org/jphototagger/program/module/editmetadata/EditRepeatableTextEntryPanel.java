@@ -532,8 +532,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         if (checkCanSuggest(trimmedInput)) {
             Collection<String> suggestedText = suggest.suggest(trimmedInput);
             if (suggest.isAccepted() && suggestedText.isEmpty()) {
-                String message = Bundle.getString(EditTextEntryPanel.class,
-                        "EditTextEntryPanel.Warning.SuggestTextNoSuggestionsFound",
+                String message = Bundle.getString(EditTextEntryPanel.class, "EditTextEntryPanel.Warning.SuggestTextNoSuggestionsFound",
                         trimmedInput, suggest.getRequiresDescription());
                 MessageDisplayer.warning(this, message);
             } else {
@@ -604,8 +603,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
     private boolean checkAddElementExists(String element) {
         if (model.contains(element)) {
-            String message = Bundle.getString(EditTextEntryPanel.class,
-                    "EditTextEntryPanel.Warning.AddElementExists", element);
+            String message = Bundle.getString(EditTextEntryPanel.class, "EditTextEntryPanel.Warning.AddElementExists",
+                    element);
             MessageDisplayer.warning(this, message);
             return false;
         }
@@ -617,8 +616,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         for (int index = 0; index < size; index++) {
             String modelElement = (String) model.get(index);
             if (element.equalsIgnoreCase(modelElement)) {
-                String message = Bundle.getString(EditRepeatableTextEntryPanel.class,
-                        "EditRepeatableTextEntryPanel.Confirm.AddElementWithEqualCaseExists", element);
+                String message = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.Confirm.AddElementWithEqualCaseExists",
+                        element);
                 return MessageDisplayer.confirmYesNo(this, message);
             }
         }
