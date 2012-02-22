@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.21.0 2012-02-22
+-----------------
+
+* Added to Export/Import of JPhotoTagger data (File > Export >
+  JPhotoTagger Data, File > Import > JPhotoTagger Data):
+  * User Defined File Types
+  * Word Collections
+
 0.20.1 2012-02-21
 -----------------
 
