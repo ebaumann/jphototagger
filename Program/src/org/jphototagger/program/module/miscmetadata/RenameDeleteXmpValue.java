@@ -22,6 +22,7 @@ import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ProgressBarUpdater;
+import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -158,7 +159,7 @@ public final class RenameDeleteXmpValue {
                         SaveToOrUpdateFilesInRepositoryImpl insertImageFilesIntoRepository =
                                 new SaveToOrUpdateFilesInRepositoryImpl(Collections.singletonList(imageFile),
                                 SaveOrUpdate.XMP);
-                        insertImageFilesIntoRepository.run();    // Has to run in this thread!
+                        ThreadUtil.runInThisThread(insertImageFilesIntoRepository);
                     }
                 }
                 value++;

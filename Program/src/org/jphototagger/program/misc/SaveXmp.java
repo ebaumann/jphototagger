@@ -16,6 +16,7 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -36,8 +37,12 @@ public final class SaveXmp extends Thread implements Cancelable {
 
     private SaveXmp(Collection<FileXmp> imageFilesXmp) {
         super("JPhotoTagger: Saving XMP");
-        AppLifeCycle.INSTANCE.addSaveObject(this);
         this.imageFilesXmp = new ArrayList<FileXmp>(imageFilesXmp);
+        addThisToSaveObjects();
+    }
+
+    private void addThisToSaveObjects() {
+        AppLifeCycle.INSTANCE.addSaveObject(this);
     }
 
     public synchronized static void save(Collection<FileXmp> imageFilesXmp) {
@@ -75,8 +80,9 @@ public final class SaveXmp extends Thread implements Cancelable {
     }
 
     private void updateRepository(File imageFile) {
-        SaveToOrUpdateFilesInRepositoryImpl updater = new SaveToOrUpdateFilesInRepositoryImpl(Arrays.asList(imageFile), SaveOrUpdate.XMP);
-        updater.run();    // Has to run in this thread!
+        SaveToOrUpdateFilesInRepositoryImpl updater = new SaveToOrUpdateFilesInRepositoryImpl(
+                Arrays.asList(imageFile), SaveOrUpdate.XMP);
+        ThreadUtil.runInThisThread(updater);
     }
 
     private ProgressEvent createProgressEvent(int value) {

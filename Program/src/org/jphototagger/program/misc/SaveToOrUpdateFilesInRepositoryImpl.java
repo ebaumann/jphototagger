@@ -41,6 +41,7 @@ import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.program.settings.AppPreferencesKeys;
@@ -98,7 +99,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     @Override
     public void saveOrUpdateWaitForTermination() {
-        run(); // Has to run in this thread!
+        ThreadUtil.runInThisThread(this);
     }
 
     @Override
@@ -237,7 +238,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private void setXmpToImageFile(ImageFile imageFile) {
         File file = imageFile.getFile();
-        Xmp xmp = null;
+        Xmp xmp;
         try {
             xmp = xmpSidecarFileResolver.hasXmpSidecarFile(file)
                     ? XmpMetadata.getXmpFromSidecarFileOf(file)
