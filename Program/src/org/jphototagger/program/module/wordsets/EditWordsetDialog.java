@@ -65,6 +65,8 @@ public class EditWordsetDialog extends Dialog {
             }
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelEditWordset.setPreferredSize(new java.awt.Dimension(300, 200));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
