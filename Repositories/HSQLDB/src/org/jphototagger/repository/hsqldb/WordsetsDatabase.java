@@ -206,7 +206,7 @@ final class WordsetsDatabase extends Database {
         PreparedStatement stmt = null;
         try {
             con = getConnection();
-            long wordsetsId = findWordsetsId(con, wordsetName);
+            long wordsetsId = findWordsetId(con, wordsetName);
             if (wordsetsId > 0) {
                 String sql = "INSERT INTO wordsets_words (id_wordsets, word, word_order) VALUES (?, ?, ?)";
                 stmt = con.prepareStatement(sql);
@@ -241,7 +241,7 @@ final class WordsetsDatabase extends Database {
         PreparedStatement stmt = null;
         try {
             con = getConnection();
-            long wordsetsId = findWordsetsId(con, wordsetName);
+            long wordsetsId = findWordsetId(con, wordsetName);
             if (wordsetsId > 0) {
                 String sql = "REMOVE FROM wordsets_words WHERE id_wordsets = ? AND word = ?";
                 stmt = con.prepareStatement(sql);
@@ -281,7 +281,7 @@ final class WordsetsDatabase extends Database {
         PreparedStatement stmt = null;
         try {
             con = getConnection();
-            long wordsetsId = findWordsetsId(con, wordsetName);
+            long wordsetsId = findWordsetId(con, wordsetName);
             if (wordsetsId > 0) {
                 String sql = "UPDATE wordsets_words SET word = ? WHERE id_wordsets = ? AND word = ?";
                 stmt = con.prepareStatement(sql);
@@ -355,7 +355,7 @@ final class WordsetsDatabase extends Database {
             logFiner(stmt);
             countAffectedRows = stmt.executeUpdate();
             if (countAffectedRows == 1) {
-                long wordsetsId = findWordsetsId(con, wordsetName);
+                long wordsetsId = findWordsetId(con, wordsetName);
                 if (wordsetsId > 0) {
                     insertWords(con, wordsetsId, wordset.getWords());
                     con.commit();
@@ -444,7 +444,7 @@ final class WordsetsDatabase extends Database {
         }
     }
 
-    private long findWordsetsId(Connection con, String wordsetName) throws SQLException {
+    private long findWordsetId(Connection con, String wordsetName) throws SQLException {
         PreparedStatement stmt = null;
         int id = -1;
         try {
@@ -469,7 +469,8 @@ final class WordsetsDatabase extends Database {
         long id = Long.MIN_VALUE;
         Connection con = null;
         try {
-            id = findWordsetId(wordsetName);
+            con = getConnection();
+            id = findWordsetId(con, wordsetName);
         } catch (Exception ex) {
             Logger.getLogger(WordsetsDatabase.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
