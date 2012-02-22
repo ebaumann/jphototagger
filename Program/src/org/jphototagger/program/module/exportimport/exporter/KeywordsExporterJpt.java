@@ -21,6 +21,11 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.openide.util.lookup.ServiceProvider;
 
+import org.w3c.dom.DOMException;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
@@ -28,13 +33,8 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 
-import org.w3c.dom.DOMException;
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 /**
- * JPhotoTagger's own exportFile format.
+ * JPhotoTagger's own exportToFile format.
  *
  * @author Elmar Baumann
  */
@@ -82,7 +82,7 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
     }
 
     @Override
-    public void exportFile(File file) {
+    public void exportToFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }

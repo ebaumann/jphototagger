@@ -12,7 +12,7 @@ import org.jphototagger.api.collections.PositionProvider;
  */
 public interface RepositoryDataImporter extends PositionProvider {
 
-    void importFile(File file);
+    void importFromFile(File file);
 
     FileFilter getFileFilter();
 

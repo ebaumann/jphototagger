@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
@@ -20,14 +19,13 @@ import javax.xml.transform.stream.StreamResult;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.repository.RepositoryDataExporter;
-import org.jphototagger.domain.repository.SynonymsRepository;
-import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.lib.util.Bundle;
-
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import org.jphototagger.domain.repository.RepositoryDataExporter;
+import org.jphototagger.domain.repository.SynonymsRepository;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -35,13 +33,13 @@ import org.w3c.dom.Element;
 @ServiceProvider(service = RepositoryDataExporter.class)
 public final class SynonymsExporter implements RepositoryDataExporter {
 
+    private static final long serialVersionUID = 1L;
     public static final String DEFAULT_FILENAME = "JptSynonyms.xml";
     public static final String DISPLAY_NAME = Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName");
-    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 20;
-    private static final String SUFFIX_XML = "xml";
-    private static final long serialVersionUID = 1L;
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SynonymsExporter.class, "SynonymsExporter.DisplayName.FileFilter"), SUFFIX_XML);
+    private static final String FILE_FILTER_DESCRIPTION = Bundle.getString(SynonymsExporter.class, "SynonymsExporter.FileFilterDescription");
+    private static final String FILE_FILTER_SUFFIX = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(FILE_FILTER_DESCRIPTION, FILE_FILTER_SUFFIX);
     public static final String DTD = "synonyms.dtd";
     public static final String TAGNAME_ROOT = "synonyms";
     public static final String TAGNAME_ENTRY = "entry";
@@ -50,7 +48,7 @@ public final class SynonymsExporter implements RepositoryDataExporter {
     private final SynonymsRepository repo = Lookup.getDefault().lookup(SynonymsRepository.class);
 
     @Override
-    public void exportFile(File file) {
+    public void exportToFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -123,7 +121,7 @@ public final class SynonymsExporter implements RepositoryDataExporter {
 
     @Override
     public Icon getIcon() {
-        return ICON;
+        return ExportPreferences.ICON;
     }
 
     @Override

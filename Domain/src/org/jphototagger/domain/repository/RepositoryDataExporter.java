@@ -12,7 +12,7 @@ import org.jphototagger.api.collections.PositionProvider;
  */
 public interface RepositoryDataExporter extends PositionProvider {
 
-    void exportFile(File file);
+    void exportToFile(File file);
 
     FileFilter getFileFilter();
 

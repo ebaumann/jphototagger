@@ -31,7 +31,7 @@ import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExp
 public final class ImageCollectionsImporter implements RepositoryDataImporter {
 
     @Override
-    public void importFile(File file) {
+    public void importFromFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }

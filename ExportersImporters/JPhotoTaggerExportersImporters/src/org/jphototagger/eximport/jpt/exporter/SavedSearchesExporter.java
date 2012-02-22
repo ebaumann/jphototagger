@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.annotation.XmlElement;
@@ -22,7 +21,6 @@ import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 
@@ -34,14 +32,14 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptSavedSearches.xml";
     public static final String DISPLAY_NAME = Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName");
-    private static final String SUFFIX_XML = "xml";
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.DisplayName.FileFilter"), SUFFIX_XML);
-    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    private static final String FILE_FILTER_DESCRIPTION = Bundle.getString(SavedSearchesExporter.class, "SavedSearchesExporter.FileFilterDescription");
+    private static final String FILE_FILTER_SUFFIX = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(FILE_FILTER_DESCRIPTION, FILE_FILTER_SUFFIX);
     public static final int POSITION = 40;
     private final SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
 
     @Override
-    public void exportFile(File file) {
+    public void exportToFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -69,7 +67,7 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
 
     @Override
     public Icon getIcon() {
-        return ICON;
+        return ExportPreferences.ICON;
     }
 
     @Override

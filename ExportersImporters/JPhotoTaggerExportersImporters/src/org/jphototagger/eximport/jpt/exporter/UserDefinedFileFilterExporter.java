@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.annotation.XmlElement;
@@ -23,7 +22,6 @@ import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 
@@ -35,14 +33,14 @@ public final class UserDefinedFileFilterExporter implements RepositoryDataExport
 
     public static final String DEFAULT_FILENAME = "JptFileFilters.xml";
     public static final String DISPLAY_NAME = Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName");
-    private static final String SUFFIX_XML = "xml";
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.DisplayName"), SUFFIX_XML);
-    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    private static final String FILE_FILTER_DESCRIPTION = Bundle.getString(UserDefinedFileFilterExporter.class, "UserDefinedFileFilterExporter.FileFilterDescription");
+    private static final String FILE_FILTER_SUFFIX = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(FILE_FILTER_DESCRIPTION, FILE_FILTER_SUFFIX);
     public static final int POSITION = 110;
     private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     @Override
-    public void exportFile(File file) {
+    public void exportToFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -70,7 +68,7 @@ public final class UserDefinedFileFilterExporter implements RepositoryDataExport
 
     @Override
     public Icon getIcon() {
-        return ICON;
+        return ExportPreferences.ICON;
     }
 
     @Override

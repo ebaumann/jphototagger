@@ -5,7 +5,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 
 import org.openide.util.Lookup;
@@ -15,7 +14,6 @@ import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.eximport.jpt.exporter.AutoscanDirectoriesExporter;
 import org.jphototagger.eximport.jpt.exporter.AutoscanDirectoriesExporter.CollectionWrapper;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.xml.bind.StringWrapper;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 
@@ -26,10 +24,9 @@ import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 public final class AutoscanDirectoriesImporter implements RepositoryDataImporter {
 
     private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
-    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_import.png");
 
     @Override
-    public void importFile(File file) {
+    public void importFromFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -61,7 +58,7 @@ public final class AutoscanDirectoriesImporter implements RepositoryDataImporter
 
     @Override
     public Icon getIcon() {
-        return ICON;
+        return ImportPreferences.ICON;
     }
 
     @Override

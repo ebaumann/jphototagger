@@ -223,7 +223,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 RepositoryDataExporter exporter = (RepositoryDataExporter) o;
                 File exportFile = new File(dir.getAbsolutePath() + File.separator + exporter.getDefaultFilename());
                 logExport(exporter, exportFile);
-                exporter.exportFile(exportFile);
+                exporter.exportToFile(exportFile);
                 exportedFiles.add(exportFile);
             }
         }
@@ -235,7 +235,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         if (files.size() > 0) {
             LongMessageDialog dialog = new LongMessageDialog(ComponentUtil.findFrameWithIcon(), true);
             String filesString = CollectionUtil.toTokenString(files, "\n", "");
-
+            dialog.setTitle(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.DisplayFiles.DialogTitle"));
             dialog.setShortMessage(shortMessage);
             dialog.setLongMessage(filesString);
             dialog.setVisible(true);
@@ -260,7 +260,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
                 if (importFile.exists()) {
                     logImport(importer, importFile);
-                    importer.importFile(importFile);
+                    importer.importFromFile(importFile);
                     importedFiles.add(importFile);
                 } else {
                     logImportErrorFileDoesNotExist(importer, importFile);
