@@ -123,8 +123,8 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         setTitle(bundle.getString("WarnOnEqualBasenamesTaskDialog.title")); // NOI18N
         setName("Form"); // NOI18N
 
-        labelInfo.setLineWrap(true);
         labelInfo.setText(bundle.getString("WarnOnEqualBasenamesTaskDialog.labelInfo.text")); // NOI18N
+        labelInfo.setLineWrap(true);
         labelInfo.setName("labelInfo"); // NOI18N
 
         scrollPanlFiles.setName("scrollPanlFiles"); // NOI18N
@@ -160,7 +160,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
                 .addContainerGap()
                 .addComponent(labelInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(scrollPanlFiles, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+                .addComponent(scrollPanlFiles, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                 .addGap(10, 10, 10)
                 .addComponent(checkBoxDisplayInFuture)
                 .addContainerGap())
