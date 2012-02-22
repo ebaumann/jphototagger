@@ -47,6 +47,9 @@ public final class ProgressBarUpdater implements ProgressListener {
         progressBarProvider.progressPerformed(evt);
     }
 
+    /**
+     * @param evt can be null, will be ignored
+     */
     @Override
     public synchronized void progressEnded(final ProgressEvent evt) {
         progressBarProvider.progressEnded(pBarOwner);
