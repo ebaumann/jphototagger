@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.parsers.DocumentBuilder;
@@ -21,17 +20,16 @@ import javax.xml.transform.stream.StreamResult;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.metadata.MetaDataValue;
-import org.jphototagger.domain.repository.MetadataTemplatesRepository;
-import org.jphototagger.domain.repository.RepositoryDataExporter;
-import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.lib.util.Bundle;
-
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.domain.repository.MetadataTemplatesRepository;
+import org.jphototagger.domain.repository.RepositoryDataExporter;
+import org.jphototagger.domain.templates.MetadataTemplate;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -41,11 +39,11 @@ public final class MetadataTemplatesExporter implements RepositoryDataExporter {
 
     public static final String DEFAULT_FILENAME = "JptMetadataTemplates.xml";
     public static final String DISPLAY_NAME = Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName");
-    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
     public static final int POSITION = 60;
-    private static final String SUFFIX_XML = "xml";
     private static final long serialVersionUID = 1L;
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.DisplayName.FileFilter"), SUFFIX_XML);
+    private static final String FILE_FILTER_DESCRIPTION = Bundle.getString(MetadataTemplatesExporter.class, "MetadataTemplatesExporter.FileFilterDescription");
+    private static final String FILE_FILTER_SUFFIX = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(FILE_FILTER_DESCRIPTION, FILE_FILTER_SUFFIX);
     public static final String DTD = "metadatatemplates.dtd";
     public static final String TAGNAME_ROOT = "templates";
     public static final String TAGNAME_TEMPLATE = "template";
@@ -59,7 +57,7 @@ public final class MetadataTemplatesExporter implements RepositoryDataExporter {
     private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     @Override
-    public void exportFile(File file) {
+    public void exportToFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -108,10 +106,11 @@ public final class MetadataTemplatesExporter implements RepositoryDataExporter {
 
             for (Object o : (Collection<?>) value) {
                 assert o instanceof String : o;
-                sb.append((index++ == 0)
+                sb.append((index == 0)
                         ? ""
                         : COLLECTION_DELIM);
                 sb.append(o.toString());
+                index++;
             }
 
             entryElement.setAttribute(ATTR_NAME_VALUE_TYPE, Collection.class.getName());
@@ -156,7 +155,7 @@ public final class MetadataTemplatesExporter implements RepositoryDataExporter {
 
     @Override
     public Icon getIcon() {
-        return ICON;
+        return ExportPreferences.ICON;
     }
 
     @Override

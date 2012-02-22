@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,14 +17,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
-import org.jphototagger.domain.repository.RepositoryDataImporter;
-import org.jphototagger.domain.repository.SynonymsRepository;
-import org.jphototagger.eximport.jpt.exporter.SynonymsExporter;
-import org.jphototagger.lib.swing.IconUtil;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import org.jphototagger.domain.repository.RepositoryDataImporter;
+import org.jphototagger.domain.repository.SynonymsRepository;
+import org.jphototagger.eximport.jpt.exporter.SynonymsExporter;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -38,10 +36,9 @@ public final class SynonymsImporter implements RepositoryDataImporter, EntityRes
 
     private static final long serialVersionUID = 1L;
     private final SynonymsRepository repo = Lookup.getDefault().lookup(SynonymsRepository.class);
-    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_import.png");
 
     @Override
-    public void importFile(File file) {
+    public void importFromFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -126,7 +123,7 @@ public final class SynonymsImporter implements RepositoryDataImporter, EntityRes
 
     @Override
     public Icon getIcon() {
-        return ICON;
+        return ImportPreferences.ICON;
     }
 
     @Override

@@ -1,10 +1,17 @@
 package org.jphototagger.domain.filetypes;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author Elmar Baumann
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public final class UserDefinedFileType {
 
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String suffix;
     private String description;

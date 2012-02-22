@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.bind.annotation.XmlElement;
@@ -21,7 +20,6 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.StringWrapper;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
@@ -32,16 +30,16 @@ import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 @ServiceProvider(service = RepositoryDataExporter.class)
 public final class AutoscanDirectoriesExporter implements RepositoryDataExporter {
 
-    private static final String SUFFIX_XML = "xml";
     public static final String DEFAULT_FILENAME = "JptAutoscanDirectories.xml";
     public static final String DISPLAY_NAME = Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName");
-    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.DisplayName.FileFilter"), SUFFIX_XML);
-    private static final ImageIcon ICON = IconUtil.getImageIcon("/org/jphototagger/eximport/jpt/icons/icon_export.png");
+    private static final String FILE_FILTER_DESCRIPTION = Bundle.getString(AutoscanDirectoriesExporter.class, "AutoscanDirectoriesExporter.FileFilterDescription");
+    private static final String FILE_FILTER_SUFFIX = "xml";
+    public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(FILE_FILTER_DESCRIPTION, FILE_FILTER_SUFFIX);
     public static final int POSITION = 90;
     private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 
     @Override
-    public void exportFile(File file) {
+    public void exportToFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
@@ -69,7 +67,7 @@ public final class AutoscanDirectoriesExporter implements RepositoryDataExporter
 
     @Override
     public Icon getIcon() {
-        return ICON;
+        return ExportPreferences.ICON;
     }
 
     @Override

@@ -188,7 +188,7 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Repos
     }
 
     @Override
-    public void importFile(File file) {
+    public void importFromFile(File file) {
         importKeywordsFile(file);
     }
 }
