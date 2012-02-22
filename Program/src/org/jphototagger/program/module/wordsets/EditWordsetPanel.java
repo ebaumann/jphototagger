@@ -433,6 +433,8 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             addCurrentWord();
             textAreaWord.selectAll();
+            textAreaWord.requestFocusInWindow();
+            evt.consume();
         }
     }//GEN-LAST:event_textAreaWordKeyPressed
 
