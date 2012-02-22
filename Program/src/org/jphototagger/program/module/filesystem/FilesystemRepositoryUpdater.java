@@ -17,6 +17,7 @@ import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
+import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
 import org.jphototagger.program.module.thumbnails.cache.ThumbnailCache;
@@ -60,7 +61,7 @@ public final class FilesystemRepositoryUpdater {
         if (FileFilterUtil.isImageFile(targetFile)) {
             SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(
                     Arrays.asList(targetFile), SaveOrUpdate.OUT_OF_DATE);
-            inserter.run();    // Has to run in this thread!
+            ThreadUtil.runInThisThread(inserter);
         }
     }
 

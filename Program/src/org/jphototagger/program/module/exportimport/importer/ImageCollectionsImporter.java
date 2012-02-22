@@ -17,6 +17,7 @@ import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ProgressBarUpdater;
+import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
@@ -95,10 +96,9 @@ public final class ImageCollectionsImporter implements RepositoryDataImporter {
         private void insertIntoDbMissingFiles(ImageCollection imageCollection) {
             SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(imageCollection.getFiles(),
                     SaveOrUpdate.OUT_OF_DATE);
-
             inserter.addProgressListener(new ProgressBarUpdater(inserter,
                     Bundle.getString(ImportThread.class, "ImageCollectionsImporter.ProgressBar.String")));
-            inserter.run();    // Has to run in this thread!
+            ThreadUtil.runInThisThread(inserter);
         }
     }
 
