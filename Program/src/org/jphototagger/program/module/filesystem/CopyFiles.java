@@ -94,7 +94,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
                     errorFiles.add(sourceTargetFile.getSourceFile());
                 }
             }
-            notifyPerformed(i, sourceTargetFile);
+            notifyPerformed(i + 1, sourceTargetFile);
         }
         notifyEnded();
     }
@@ -141,7 +141,9 @@ public final class CopyFiles implements Runnable, FileCopyService {
     }
 
     private boolean checkOverwrite(SourceTargetFile sourceTargetFile) {
-        if (options.equals(CopyMoveFilesOptions.FORCE_OVERWRITE) || options.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS)) {
+        boolean force = options.equals(CopyMoveFilesOptions.FORCE_OVERWRITE);
+        boolean renameExisting = options.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
+        if (force || renameExisting) {
             return true;
         }
         File target = sourceTargetFile.getTargetFile();
