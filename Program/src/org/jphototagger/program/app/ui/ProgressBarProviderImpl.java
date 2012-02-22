@@ -70,14 +70,16 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
                     @Override
                     public void run() {
                         synchronized (monitor) {
-                            progressBar.setValue(0);
-                            progressBar.setString("");
-                            progressBar.setStringPainted(false);
-                            progressBar.setIndeterminate(false);
-                            progressBarOwner = null;
-                            progressBar = null;
-                            ProgressBar.INSTANCE.releaseResource(eventSource);
-                            lastProgressBarAccessInMilliseconds = System.currentTimeMillis();
+                            if (progressBar != null) {
+                                progressBar.setValue(0);
+                                progressBar.setString("");
+                                progressBar.setStringPainted(false);
+                                progressBar.setIndeterminate(false);
+                                progressBarOwner = null;
+                                progressBar = null;
+                                ProgressBar.INSTANCE.releaseResource(eventSource);
+                                lastProgressBarAccessInMilliseconds = System.currentTimeMillis();
+                            }
                         }
                     }
                 });
@@ -115,27 +117,35 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
     }
 
     private void setEventToProgressBar(final ProgressEvent evt) {
-        if (progressBar != null) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+        // ProgressEvent unfortunately is modifiable, so getting it's properties as soon as possible
+        final int minimum = evt.getMinimum();
+        final int maximum = evt.getMaximum();
+        final int value = evt.getValue();
+        final boolean indeterminate = evt.isIndeterminate();
+        final boolean stringPainted = evt.isStringPainted();
+        final String stringToPaint = evt.getStringToPaint();
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
-                @Override
-                public void run() {
-                    synchronized (monitor) {
-                        if (evt.isIndeterminate()) {
+            @Override
+            public void run() {
+                synchronized (monitor) {
+                    if (progressBar != null) {
+                        if (indeterminate) {
                             progressBar.setIndeterminate(true);
                         } else {
-                            progressBar.setMinimum(evt.getMinimum());
-                            progressBar.setMaximum(evt.getMaximum());
-                            progressBar.setValue(evt.getValue());
+                            progressBar.setMinimum(minimum);
+                            progressBar.setMaximum(maximum);
+                            progressBar.setValue(value);
                         }
-                        progressBar.setStringPainted(evt.isStringPainted());
-                        progressBar.setString(evt.getStringToPaint());
+                        progressBar.setStringPainted(stringPainted);
+                        progressBar.setString(stringToPaint);
                         lastProgressBarAccessInMilliseconds = System.currentTimeMillis();
                     }
                 }
-            });
-        }
+            }
+        });
     }
+
     private final Runnable warnOnLongProgressBarAccessDelays = new Runnable() {
 
         @Override
@@ -144,10 +154,8 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
                 if (progressBarOwner == null) {
                     return;
                 }
-
                 long nowInMilliseconds = System.currentTimeMillis();
                 long delayInMilliseconds = nowInMilliseconds - lastProgressBarAccessInMilliseconds;
-
                 if (delayInMilliseconds > WARN_ON_P_BAR_ACCESS_DELAY_IN_MILLISECONDS) {
                     LOGGER.log(Level.WARNING,
                             "Progress bar owner ''{0}'' last accessed the progressbar before {1} seconds",
@@ -161,9 +169,7 @@ public final class ProgressBarProviderImpl implements MainWindowProgressBarProvi
         @Override
         public Thread newThread(Runnable r) {
             Thread thread = new Thread(r);
-
             thread.setName("JPhotoTagger: Progress Bar Blocking Check");
-
             return thread;
         }
     };
