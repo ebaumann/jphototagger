@@ -330,6 +330,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         for (JLabel label : labels) {
             label.setOpaque(editable);
         }
+        ComponentUtil.forceRepaint(this);
     }
 
     private void setButtonsEnabled() {
