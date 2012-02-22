@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 /**
  * @author Elmar Baumann
  */
-public class Bundle {
+public final class Bundle {
 
     /**
      * Returns a string from the resource bundle {@code Bundle.properties} within the same package
