@@ -39,6 +39,8 @@ import org.jphototagger.lib.util.ProgressBarUpdater;
 @ServiceProvider(service = FileImportService.class)
 public final class ImportImageFiles implements FileImportService {
 
+    private static final String PROGRESS_BAR_STRING = Bundle.getString(ImportThread.class, "ImportImageFiles.Info.ProgressBar");
+
     @Override
     public void importFilesFromDirectory(File directory) {
         if (directory == null) {
@@ -47,6 +49,9 @@ public final class ImportImageFiles implements FileImportService {
         importFrom(directory);
     }
 
+    /**
+     * @param sourceDirectory maybe null
+     */
     public static void importFrom(File sourceDirectory) {
         ImportThread importThread = new ImportThread(sourceDirectory);
         importThread.start();
@@ -54,7 +59,6 @@ public final class ImportImageFiles implements FileImportService {
 
     private static class ImportThread extends Thread implements ProgressListener {
 
-        private static final String PROGRESS_BAR_STRING = Bundle.getString(ImportThread.class, "ImportImageFiles.Info.ProgressBar");
         private static final Logger LOGGER = Logger.getLogger(ImportThread.class.getName());
         private static final int MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS = 240000;
         private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
@@ -70,7 +74,7 @@ public final class ImportImageFiles implements FileImportService {
         private ProgressBarUpdater copyServiceProgressBarUpdater;
 
         private ImportThread(File sourceDirectory) {
-            super("JPhotoTagger: Importing Image Files");
+            super("JPhotoTagger: Importing Image Files, Collect + Copy");
             this.sourceDirectory = sourceDirectory;
         }
 
@@ -111,7 +115,7 @@ public final class ImportImageFiles implements FileImportService {
         }
 
         private void createSourceTargetFiles(ImportData importData) {
-            progressBarProvider.progressStarted(createIndeterminateProgressEvent());
+            progressBarProvider.progressStarted(createIndeterminateProgressEvent(this));
             try {
                 sourceTargetFiles = new ArrayList<SourceTargetFile>(importData.getSourceFileCount());
                 List<File> sourceFiles = importData.getSourceFiles();
@@ -155,19 +159,11 @@ public final class ImportImageFiles implements FileImportService {
             }
         }
 
-        private ProgressEvent createIndeterminateProgressEvent() {
-            return new ProgressEvent.Builder()
-                    .source(this)
-                    .indeterminate(true)
-                    .stringPainted(true)
-                    .stringToPaint(PROGRESS_BAR_STRING)
-                    .build();
-        }
-
         private void copy() {
             copyService = Lookup.getDefault().lookup(FileCopyService.class).createInstance(
                     sourceTargetFiles, CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
             copyServiceProgressBarUpdater = new ProgressBarUpdater(copyService, PROGRESS_BAR_STRING);
+            copyService.setCopyListenerShallUpdateRepository(false);
             copyService.addProgressListener(this);
             copyService.addProgressListener(copyServiceProgressBarUpdater);
             copyService.copyWaitForTermination();
@@ -188,114 +184,160 @@ public final class ImportImageFiles implements FileImportService {
                 if (!isXmpFile) {
                     copiedTargetFiles.add(targetFile);
                     copiedSourceFiles.add(sourceTargetFile.getSourceFile());
-                    executeScriptFileForCopiedFile(targetFile);
                 }
             }
         }
 
         @Override
         public void progressEnded(ProgressEvent evt) {
-            if (copyServiceProgressBarUpdater != null) {
-                copyServiceProgressBarUpdater.progressEnded(null);
+            copyServiceProgressBarUpdater.progressEnded(null);
+            startPostCopyTask(); // Leaving EDT
+        }
+
+        private void startPostCopyTask() {
+            PostCopyTask postCopyTask = new PostCopyTask();
+            postCopyTask.progressBarProvider = progressBarProvider;
+            postCopyTask.sourceTargetFiles = sourceTargetFiles;
+            postCopyTask.copiedSourceFiles = copiedSourceFiles;
+            postCopyTask.copiedTargetFiles = copiedTargetFiles;
+            postCopyTask.targetDirectory = targetDirectory;
+            postCopyTask.scriptFile = scriptFile;
+            postCopyTask.deleteSourceFilesAfterCopying = deleteSourceFilesAfterCopying;
+            postCopyTask.scriptForRuntime = scriptForRuntime;
+            postCopyTask.start();
+        }
+
+        private static class PostCopyTask extends Thread {
+
+            private MainWindowProgressBarProvider progressBarProvider;
+            private List<SourceTargetFile> sourceTargetFiles;
+            private List<File> copiedSourceFiles;
+            private List<File> copiedTargetFiles;
+            private File targetDirectory;
+            private File scriptFile;
+            private boolean deleteSourceFilesAfterCopying;
+            private String scriptForRuntime;
+
+            private PostCopyTask() {
+                super("JPhotoTagger: Importing Image Files, Post Copy");
             }
-            try {
-                progressBarProvider.progressStarted(createIndeterminateProgressEvent());
-                if (scriptFile != null) {
-                    selectTargetDirectory();
-                } else {
-                    addFilesToCollection();
-                }
-                if (deleteSourceFilesAfterCopying) {
-                    deleteCopiedSourceFiles();
-                }
-            } finally {
-                progressBarProvider.progressEnded(this  );
-            }
-        }
 
-        private void selectTargetDirectory() {
-            DirectorySelectService service = Lookup.getDefault().lookup(DirectorySelectService.class);
-            if (service != null) {
-                service.selectDirectory(targetDirectory); // Will be invoked into EDT
-            }
-        }
-
-        private void executeScriptFileForCopiedFile(File copiedFileInTarget) {
-            if (scriptFile == null) {
-                return;
-            }
-            String fileAsScriptArgument = RuntimeUtil.quoteForCommandLine(copiedFileInTarget);
-            String command = scriptForRuntime + " " + fileAsScriptArgument;
-            logScriptCommand(copiedFileInTarget, command);
-            ExternalOutput execResult = External.executeGetOutput(command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS);
-            logScriptErrors(execResult);
-        }
-
-        private void logScriptCommand(File copiedFileInTarget, String command) {
-            LOGGER.log(Level.INFO, "Executing script file ''{0}'' for copied file ''{1}'' with command ''{2}'' and waiting for a maximum of {3} milliseconds",
-                    new Object[]{scriptFile, copiedFileInTarget, command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS});
-        }
-
-        private void logScriptErrors(ExternalOutput execResult) {
-            byte[] errorStream = execResult.getErrorStream();
-            if (errorStream != null && errorStream.length > 0) {
-                LOGGER.log(Level.WARNING, new String(errorStream));
-            }
-        }
-
-        private void addFilesToCollection() {
-            if (!copiedTargetFiles.isEmpty()) {
-                // Needs to be present in the DB for adding to an image collection
-                insertCopiedFilesIntoDb();
-            }
-            insertCopiedFilesAsCollectionIntoDb();
-            selectPrevImportCollection();
-        }
-
-        private void insertCopiedFilesIntoDb() {
-            SaveToOrUpdateFilesInRepository inserter = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class)
-                    .createInstance(copiedTargetFiles, SaveOrUpdate.OUT_OF_DATE);
-            inserter.saveOrUpdateWaitForTermination();
-        }
-
-        private void insertCopiedFilesAsCollectionIntoDb() {
-            String collectionName = ImageCollection.PREVIOUS_IMPORT_NAME;
-            ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
-            List<File> prevCollectionFiles = repo.findImageFilesOfImageCollection(collectionName);
-            if (!prevCollectionFiles.isEmpty()) {
-                int delCount = repo.deleteImagesFromImageCollection(collectionName, prevCollectionFiles);
-                if (delCount != prevCollectionFiles.size()) {
-                    LOGGER.log(Level.WARNING, "Could not delete all images from ''{0}''!", collectionName);
-                    return;
+            @Override
+            public void run() {
+                try {
+                    progressBarProvider.progressStarted(createIndeterminateProgressEvent(this));
+                    if (scriptFile != null) {
+                        executeScriptFile();
+                        // Scripts may move files into an arbitrary directory or rename them,
+                        // so creating a collection may fail
+                        selectTargetDirectory();
+                    } else {
+                        addFilesToCollection();
+                    }
+                    if (deleteSourceFilesAfterCopying) {
+                        deleteCopiedSourceFiles();
+                    }
+                } finally {
+                    progressBarProvider.progressEnded(this);
                 }
             }
-            repo.saveImageCollection(collectionName, copiedTargetFiles);
-        }
 
-        private void selectPrevImportCollection() {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            private void executeScriptFile() {
+                for (SourceTargetFile sourceTargetFile : sourceTargetFiles) {
+                    executeScriptFileForCopiedFile(sourceTargetFile.getTargetFile());
+                }
+            }
 
-                @Override
-                public void run() {
-                    ImageCollectionService imageCollectionService = Lookup.getDefault().lookup(ImageCollectionService.class);
-                    if (imageCollectionService != null) {
-                        imageCollectionService.selectPreviousImportedFiles();
-                        ThumbnailsDisplayer thumbnailsDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
-                        if (thumbnailsDisplayer != null) {
-                            thumbnailsDisplayer.refresh();
-                        }
+            private void executeScriptFileForCopiedFile(File copiedFileInTarget) {
+                String fileAsScriptArgument = RuntimeUtil.quoteForCommandLine(copiedFileInTarget);
+                String command = scriptForRuntime + " " + fileAsScriptArgument;
+                logScriptCommand(copiedFileInTarget, command);
+                ExternalOutput execResult = External.executeGetOutput(command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS);
+                logScriptErrors(execResult);
+            }
+
+            private void selectTargetDirectory() {
+                DirectorySelectService service = Lookup.getDefault().lookup(DirectorySelectService.class);
+                if (service != null) {
+                    service.selectDirectory(targetDirectory); // Will be invoked into EDT
+                }
+            }
+
+            private void logScriptCommand(File copiedFileInTarget, String command) {
+                LOGGER.log(Level.INFO, "Executing script file ''{0}'' for copied file ''{1}'' with command ''{2}'' and waiting for a maximum of {3} milliseconds",
+                        new Object[]{scriptFile, copiedFileInTarget, command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS});
+            }
+
+            private void logScriptErrors(ExternalOutput execResult) {
+                byte[] errorStream = execResult.getErrorStream();
+                if (errorStream != null && errorStream.length > 0) {
+                    LOGGER.log(Level.WARNING, new String(errorStream));
+                }
+            }
+
+            private void addFilesToCollection() {
+                if (!copiedTargetFiles.isEmpty()) {
+                    // Needs to be present in the DB for adding to an image collection
+                    insertCopiedFilesIntoDb();
+                }
+                insertCopiedFilesAsCollectionIntoDb();
+                selectPrevImportCollection();
+            }
+
+            private void insertCopiedFilesIntoDb() {
+                SaveToOrUpdateFilesInRepository inserter = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class)
+                        .createInstance(copiedTargetFiles, SaveOrUpdate.OUT_OF_DATE);
+                inserter.saveOrUpdateWaitForTermination();
+            }
+
+            private void insertCopiedFilesAsCollectionIntoDb() {
+                String collectionName = ImageCollection.PREVIOUS_IMPORT_NAME;
+                ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
+                List<File> prevCollectionFiles = repo.findImageFilesOfImageCollection(collectionName);
+                if (!prevCollectionFiles.isEmpty()) {
+                    int delCount = repo.deleteImagesFromImageCollection(collectionName, prevCollectionFiles);
+                    if (delCount != prevCollectionFiles.size()) {
+                        LOGGER.log(Level.WARNING, "Could not delete all images from ''{0}''!", collectionName);
+                        return;
                     }
                 }
-            });
-        }
+                repo.saveImageCollection(collectionName, copiedTargetFiles);
+            }
 
-        private void deleteCopiedSourceFiles() {
-            for (File file : copiedSourceFiles) {
-                LOGGER.log(Level.INFO, "Deleting after import file ''{0}''", file);
-                if (!file.delete()) {
-                    LOGGER.log(Level.WARNING, "Error while deleting file ''{0}''!", file);
+            private void selectPrevImportCollection() {
+                EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        ImageCollectionService imageCollectionService = Lookup.getDefault().lookup(ImageCollectionService.class);
+                        if (imageCollectionService != null) {
+                            imageCollectionService.selectPreviousImportedFiles();
+                            ThumbnailsDisplayer thumbnailsDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
+                            if (thumbnailsDisplayer != null) {
+                                thumbnailsDisplayer.refresh();
+                            }
+                        }
+                    }
+                });
+            }
+
+            private void deleteCopiedSourceFiles() {
+                for (File file : copiedSourceFiles) {
+                    LOGGER.log(Level.INFO, "Deleting after import file ''{0}''", file);
+                    if (!file.delete()) {
+                        LOGGER.log(Level.WARNING, "Error while deleting file ''{0}''!", file);
+                    }
                 }
             }
         }
+    }
+
+    private static ProgressEvent createIndeterminateProgressEvent(Object source) {
+        return new ProgressEvent.Builder()
+                .source(source)
+                .indeterminate(true)
+                .stringPainted(true)
+                .stringToPaint(PROGRESS_BAR_STRING)
+                .build();
     }
 }
