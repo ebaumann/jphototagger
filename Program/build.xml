@@ -67,7 +67,19 @@
     nbproject/build-impl.xml file.
 
     -->
+
     <target name="-post-jar">
-        <delete file="${dist.dir}/lib/UserServices.jar" />
+        <delete file="${dist.dir}/lib/UserServices.jar"/>
+        <antcall target="-copy-pdf-manuals-to-build-dir"/>
     </target>
+
+    <target name="-copy-pdf-manuals-to-build-dir">
+        <echo message="Copying PDF manuals to build directory"/>
+        <copy todir="build">
+            <fileset dir="../../dist_files/manual" erroronmissingdir="false">
+                <filename name="**/*.pdf"/>
+            </fileset>
+        </copy>
+    </target>
+
 </project>
