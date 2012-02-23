@@ -39,6 +39,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
     private final CopyMoveFilesOptions options;
     private final List<SourceTargetFile> sourceTargetFiles;
     private volatile boolean cancel;
+    private volatile boolean copyListenerShallUpdateRepository = true;
     private static final Logger LOGGER = Logger.getLogger(CopyFiles.class.getName());
 
     public CopyFiles() {
@@ -88,7 +89,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
                     logCopyFile(sourceFile, targetFile);
                     FileUtil.copyFile(sourceFile, targetFile);
                     copyXmp(sourceTargetFile);
-                    EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile));
+                    EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile, copyListenerShallUpdateRepository));
                 } catch (Exception ex) {
                     Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
                     errorFiles.add(sourceTargetFile.getSourceFile());
@@ -126,17 +127,34 @@ public final class CopyFiles implements Runnable, FileCopyService {
     }
 
     private synchronized void notifyStart() {
-        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(0).build();
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(0)
+                .build();
         progressListeners.notifyStarted(evt);
     }
 
     private synchronized void notifyPerformed(int value, SourceTargetFile sourceTargetFile) {
-        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(value).info(sourceTargetFile).build();
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(value)
+                .info(sourceTargetFile)
+                .build();
         progressListeners.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(sourceTargetFiles.size()).info(errorFiles).build();
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(sourceTargetFiles.size())
+                .info(errorFiles)
+                .build();
         progressListeners.notifyEnded(evt);
     }
 
@@ -190,5 +208,17 @@ public final class CopyFiles implements Runnable, FileCopyService {
     @Override
     public void copyWaitForTermination() {
         run();
+    }
+
+    /**
+     * @param update Default: true
+     */
+    @Override
+    public void setCopyListenerShallUpdateRepository(boolean update) {
+        copyListenerShallUpdateRepository = update;
+    }
+
+    public boolean getCopyListenerShallUpdateRepository() {
+        return copyListenerShallUpdateRepository;
     }
 }
