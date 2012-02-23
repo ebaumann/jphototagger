@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.21.1 2012-02-23
+-----------------
+
+* Import von Bildern (Datei > Bilder importieren): Falls Quell-
+  und/oder Zielordner nicht existieren, wird ein Fehlersymbol
+  angezeigt. Außerdem sollte der Fortschrittsbalken nicht mehr
+  "einfrieren" während des Imports.
+
 0.21.0 2012-02-22
 -----------------
 

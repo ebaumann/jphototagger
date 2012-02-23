@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.21.1 2012-02-23
+-----------------
+
+* Importing images (File > Import Images): If the source and/or
+  target folder doesn't exist, error icons will be displayed.
+  Also the progress bar shouldn't be "freeze" while importing.
+
 0.21.0 2012-02-22
 -----------------
 
