@@ -15,6 +15,7 @@ import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
@@ -36,6 +37,7 @@ import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.DisplayNameListCellRenderer;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -48,6 +50,7 @@ import org.jphototagger.lib.util.StringUtil;
 public class ImportImageFilesDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
+    private static final Icon ERROR_ICON = IconUtil.getImageIcon(ImportImageFilesDialog.class, "error.png");
     private static final String KEY_LAST_SRC_DIR = "ImportImageFiles.LastSrcDir";
     private static final String KEY_LAST_TARGET_DIR = "ImportImageFiles.LastTargetDir";
     private static final String KEY_DEL_SRC_AFTER_COPY = "ImportImageFiles.DelSrcAfterCopy";
@@ -95,11 +98,15 @@ public class ImportImageFilesDialog extends Dialog {
     private void initDirectories() {
         if (sourceDirectory.isDirectory()) {
             setDirLabel(labelSourceDir, sourceDirectory);
+        } else {
+            labelSourceDir.setIcon(ERROR_ICON);
         }
-        if (dirsValid()) {
+        if (targetDirectory.isDirectory()) {
             setDirLabel(labelTargetDir, targetDirectory);
-            buttonOk.setEnabled(true);
+        } else {
+            labelTargetDir.setIcon(ERROR_ICON);
         }
+        buttonOk.setEnabled(dirsValid());
         initDeleteSourceFilesAfterCopying();
     }
 
@@ -289,9 +296,11 @@ public class ImportImageFilesDialog extends Dialog {
             boolean scriptFileExists = persistedScriptFile.isFile();
             if (scriptFileExists) {
                 scriptFile = persistedScriptFile;
-                scriptFileLabel.setIcon(fileSystemView.getSystemIcon(scriptFile));
                 buttonRemoveScriptFile.setEnabled(true);
             }
+            scriptFileLabel.setIcon(scriptFileExists
+                    ? fileSystemView.getSystemIcon(scriptFile)
+                    : ERROR_ICON);
             scriptFileLabel.setForeground(scriptFileExists ? LABEL_FOREGROUND : Color.RED);
         }
     }
