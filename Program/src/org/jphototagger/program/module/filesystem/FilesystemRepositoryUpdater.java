@@ -52,7 +52,7 @@ public final class FilesystemRepositoryUpdater {
     @EventSubscriber(eventClass = FileCopiedEvent.class)
     public void fileCopied(FileCopiedEvent evt) {
         File targetFile = evt.getTargetFile();
-        if (FileFilterUtil.isImageFile(targetFile)) {
+        if (evt.getCopyListenerShallUpdateRepository() && FileFilterUtil.isImageFile(targetFile)) {
             insertCopiedFileIntoRepository(targetFile);
         }
     }

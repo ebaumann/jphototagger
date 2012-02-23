@@ -295,7 +295,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                     File sourceFile = files.getSourceFile();
                     File targetFile = files.getTargetFile();
                     labelCurrentFilename.setText(files.getSourceFile().getAbsolutePath());
-                    EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile));
+                    EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile, true));
                 }
                 pListenerSupport.notifyPerformed(evt);
             }
