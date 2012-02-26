@@ -23,6 +23,7 @@ import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUp
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.swing.util.ComboBoxUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -32,7 +33,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private static final long serialVersionUID = 1L;
     private static final String KEY_SEL_TEMPLATE = "RenameDialog.SelectedTemplate";
     private final FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
-    private File fileForExampleFilename = new File("Image.jpg");
+    private File fileForExampleFilename = new File(Bundle.getString(RenameTemplatesPanel.class, "RenameTemplatesPanel.FileForExampleFilename"));
     private boolean listen = true;
 
     public RenameTemplatesPanel() {
