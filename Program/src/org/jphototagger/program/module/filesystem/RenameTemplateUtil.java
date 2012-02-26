@@ -16,100 +16,97 @@ import org.jphototagger.lib.util.Bundle;
 public final class RenameTemplateUtil {
 
     /**
-     * Inserts a new rename template into the repository.
-     *
-     * @param  template new template
+     * @param template
+     * @return true if inserted into the repository
      */
-    public static void insert(RenameTemplate template) {
+    public static boolean insert(RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
-        assert template.getId() == null;
-
+        boolean saved = false;
         String name = getUniqueName(null);
-
         if (name != null) {
             template.setName(name);
             RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
-
-            if (!repo.saveRenameTemplate(template)) {
+            saved = repo.saveRenameTemplate(template);
+            if (!saved) {
                 String message = Bundle.getString(RenameTemplateUtil.class, "RenameTemplateHelper.Error.Insert", template);
                 MessageDisplayer.error(null, message);
             }
         }
+        return saved;
     }
 
-    public static void update(RenameTemplate template) {
+    /**
+     * @param template
+     * @return true if updated in the repository
+     */
+    public static boolean update(RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
-        assert template.getId() != null : template.getId();
-
         RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
-
-        if (!repo.updateRenameTemplate(template)) {
+        boolean updated = repo.updateRenameTemplate(template);
+        if (!updated) {
             String message = Bundle.getString(RenameTemplateUtil.class, "RenameTemplateHelper.Error.Update", template);
             MessageDisplayer.error(null, message);
         }
+        return updated;
     }
 
-    public static void rename(RenameTemplate template) {
+    /**
+     * @param template
+     * @return true if renamed within the repository
+     */
+    public static boolean rename(RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
-        assert template.getId() != null : template.getId();
-
         String name = getUniqueName(template.getName());
-
         if (name != null) {
             template.setName(name);
-            update(template);
+            return update(template);
         }
+        return false;
     }
 
-    public static void delete(RenameTemplate template) {
+    /**
+     * @param template
+     * @return true if deleted from the repository
+     */
+    public static boolean delete(RenameTemplate template) {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
-        assert template.getId() != null : template.getId();
-
         Component parentComponent = null;
         String message = Bundle.getString(RenameTemplateUtil.class, "RenameTemplateHelper.Confirm.Delete", template);
         RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
-
+        boolean deleted = false;
         if (MessageDisplayer.confirmYesNo(parentComponent, message)) {
-            if (repo.deleteRenameTemplate(template.getName()) != 1) {
+            deleted = repo.deleteRenameTemplate(template.getName()) >= 1;
+            if (!deleted) {
                 message = Bundle.getString(RenameTemplateUtil.class, "RenameTemplateHelper.Error.Delete", template);
                 MessageDisplayer.error(null, message);
             }
         }
+        return deleted;
     }
 
     private static String getUniqueName(String suggest) {
         String info = Bundle.getString(RenameTemplateUtil.class, "RenameTemplateHelper.Input.Name");
         String input = (suggest == null) ? "" : suggest;
         InputDialog dlg = new InputDialog(info, input);
-
         dlg.setVisible(true);
-
         RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
         boolean unique = false;
-
         while (!unique && dlg.isAccepted()) {
             String name = dlg.getInput().trim();
-
             if (name.isEmpty()) {
                 return null;
             }
-
             unique = !repo.existsRenameTemplate(name);
             Component parentComponent = null;
             String message = Bundle.getString(RenameTemplateUtil.class, "RenameTemplateHelper.Confirm.InputUniqueName", name);
-
             if (!unique && MessageDisplayer.confirmYesNo(parentComponent, message)) {
                 dlg.setVisible(true);
             } else if (unique) {
@@ -118,7 +115,6 @@ public final class RenameTemplateUtil {
                 return null;
             }
         }
-
         return null;
     }
 

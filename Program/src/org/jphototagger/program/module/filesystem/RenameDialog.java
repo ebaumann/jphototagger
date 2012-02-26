@@ -289,7 +289,6 @@ public final class RenameDialog extends Dialog {
         if (!tabbedPane.isEnabledAt(1)) {
             tabbedPane.setSelectedComponent(panelInputName);
         }
-        panelRenameTemplates.readProperties();
     }
 
     private void inputNamePanelIsShown() {
@@ -309,6 +308,7 @@ public final class RenameDialog extends Dialog {
 
     private void closeWindowIfNotLocked() {
         if (!lockClose) {
+            panelRenameTemplates.checkDirty();
             setVisible(false);
             dispose();
         }
