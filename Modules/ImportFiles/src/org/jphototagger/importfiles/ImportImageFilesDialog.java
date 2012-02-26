@@ -26,6 +26,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.editors.RenameTemplatesEditor;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpEditor;
@@ -39,6 +40,7 @@ import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComboBoxUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -509,6 +511,18 @@ public class ImportImageFilesDialog extends Dialog {
         dialogExpertSettings.setVisible(true);
     }
 
+    private void editRenameTemplates() {
+        int selectedIndex = comboBoxFileRenameStrategy.getSelectedIndex();
+
+        RenameTemplatesEditor editor = Lookup.getDefault().lookup(RenameTemplatesEditor.class);
+        editor.displayEditor(this);
+
+        comboBoxFileRenameStrategy.setModel(new FileRenameStrategyComboBoxModel());
+        if (ComboBoxUtil.isValidIndex(comboBoxFileRenameStrategy, selectedIndex)) {
+            comboBoxFileRenameStrategy.setSelectedIndex(selectedIndex);
+        }
+    }
+
     private static class ComboBoxModelSourceStrategy extends DefaultComboBoxModel {
         private static final long serialVersionUID = 1L;
 
@@ -578,6 +592,7 @@ public class ImportImageFilesDialog extends Dialog {
         comboBoxSubdirectoryCreateStrategy = new javax.swing.JComboBox();
         panelFileRenameStrategy = new javax.swing.JPanel();
         comboBoxFileRenameStrategy = new javax.swing.JComboBox();
+        buttonEditRenameTemplates = new javax.swing.JButton();
         panelDialogControlButtons = new org.jdesktop.swingx.JXPanel();
         buttonEditMetadata = new javax.swing.JButton();
         buttonExpertSettings = new javax.swing.JButton();
@@ -811,11 +826,23 @@ public class ImportImageFilesDialog extends Dialog {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 0);
         panelFileRenameStrategy.add(comboBoxFileRenameStrategy, gridBagConstraints);
+
+        buttonEditRenameTemplates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/importfiles/edit.png"))); // NOI18N
+        buttonEditRenameTemplates.setToolTipText(bundle.getString("ImportImageFilesDialog.buttonEditRenameTemplates.toolTipText")); // NOI18N
+        buttonEditRenameTemplates.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonEditRenameTemplates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditRenameTemplatesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 5);
+        panelFileRenameStrategy.add(buttonEditRenameTemplates, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -942,6 +969,10 @@ public class ImportImageFilesDialog extends Dialog {
         showExpertSettings();
     }//GEN-LAST:event_buttonExpertSettingsActionPerformed
 
+    private void buttonEditRenameTemplatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditRenameTemplatesActionPerformed
+        editRenameTemplates();
+    }//GEN-LAST:event_buttonEditRenameTemplatesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -970,6 +1001,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JButton buttonChooseSourceDir;
     private javax.swing.JButton buttonChooseTargetDir;
     private javax.swing.JButton buttonEditMetadata;
+    private javax.swing.JButton buttonEditRenameTemplates;
     private javax.swing.JButton buttonExpertSettings;
     private javax.swing.JButton buttonOk;
     private javax.swing.JButton buttonRemoveScriptFile;

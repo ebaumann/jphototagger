@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.jphototagger.lib.util.ObjectUtil;
+
 /**
  * @author Elmar Baumann
  */
@@ -182,21 +184,14 @@ public final class RenameTemplate {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof RenameTemplate)) {
             return false;
         }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final RenameTemplate other = (RenameTemplate) obj;
-
-        if ((this.id != other.id) && ((this.id == null) || !this.id.equals(other.id))) {
-            return false;
-        }
-
-        return true;
+        RenameTemplate other = (RenameTemplate) obj;
+        return ObjectUtil.equals(id, other.id);
     }
 
     @Override
