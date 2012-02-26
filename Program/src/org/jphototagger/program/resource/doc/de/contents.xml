@@ -224,16 +224,16 @@
             <title>Fenster &gt; Synonyme</title>
         </page>
         <page>
+            <url>rename_templates_dialog.html</url>
+            <title>Fenster &gt; Datei-Umbenennungs-Schablonen</title>
+        </page>
+        <page>
             <url>user_defined_file_filter.html</url>
             <title>Fenster &gt; Benutzerdefinierte Dateifilter</title>
         </page>
         <page>
             <url>user_defined_file_type_edit.html</url>
             <title>Fenster &gt; Benutzerdefinierte Dateitypen</title>
-        </page>
-        <page>
-            <url>rename_templates_dialog.html</url>
-            <title>Datei-Umbenennungs-Schablonen</title>
         </page>
         <page>
             <url>accelerator_keys.html</url>
