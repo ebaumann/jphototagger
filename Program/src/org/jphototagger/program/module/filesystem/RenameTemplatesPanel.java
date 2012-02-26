@@ -22,6 +22,7 @@ import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateIn
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.swing.util.ComboBoxUtil;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
@@ -283,8 +284,10 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
     public void checkDirty() {
         if (dirty) {
+            buttonCheckDirtyDialogCreateNew.requestFocusInWindow();
             checkDirtyDialog.setVisible(true);
             checkDirtyDialog.toFront();
+            ComponentUtil.parentWindowToFront(this);
         }
     }
 
@@ -454,9 +457,9 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         checkDirtyDialog = new javax.swing.JDialog();
         labelDirtyConfirmSaveChanges = new javax.swing.JLabel();
         panelDirtyButtons = new javax.swing.JPanel();
-        buttonDirtyCreateNew = new javax.swing.JButton();
-        buttonDirtyUpdate = new javax.swing.JButton();
-        buttonDirtyReject = new javax.swing.JButton();
+        buttonCheckDirtyDialogCreateNew = new javax.swing.JButton();
+        buttonCheckDirtyDialogUpdate = new javax.swing.JButton();
+        buttonCheckDirtyDialogReject = new javax.swing.JButton();
         panelNumbers = new javax.swing.JPanel();
         panelNumbersContents = new javax.swing.JPanel();
         labelStartNumber = new javax.swing.JLabel();
@@ -513,37 +516,37 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
         panelDirtyButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonDirtyCreateNew.setText(bundle.getString("RenameTemplatesPanel.buttonDirtyCreateNew.text")); // NOI18N
-        buttonDirtyCreateNew.addActionListener(new java.awt.event.ActionListener() {
+        buttonCheckDirtyDialogCreateNew.setText(bundle.getString("RenameTemplatesPanel.buttonCheckDirtyDialogCreateNew.text")); // NOI18N
+        buttonCheckDirtyDialogCreateNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDirtyCreateNewActionPerformed(evt);
+                buttonCheckDirtyDialogCreateNewActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        panelDirtyButtons.add(buttonDirtyCreateNew, gridBagConstraints);
+        panelDirtyButtons.add(buttonCheckDirtyDialogCreateNew, gridBagConstraints);
 
-        buttonDirtyUpdate.setText(bundle.getString("RenameTemplatesPanel.buttonDirtyUpdate.text")); // NOI18N
-        buttonDirtyUpdate.addActionListener(new java.awt.event.ActionListener() {
+        buttonCheckDirtyDialogUpdate.setText(bundle.getString("RenameTemplatesPanel.buttonCheckDirtyDialogUpdate.text")); // NOI18N
+        buttonCheckDirtyDialogUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDirtyUpdateActionPerformed(evt);
+                buttonCheckDirtyDialogUpdateActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDirtyButtons.add(buttonDirtyUpdate, gridBagConstraints);
+        panelDirtyButtons.add(buttonCheckDirtyDialogUpdate, gridBagConstraints);
 
-        buttonDirtyReject.setText(bundle.getString("RenameTemplatesPanel.buttonDirtyReject.text")); // NOI18N
-        buttonDirtyReject.addActionListener(new java.awt.event.ActionListener() {
+        buttonCheckDirtyDialogReject.setText(bundle.getString("RenameTemplatesPanel.buttonCheckDirtyDialogReject.text")); // NOI18N
+        buttonCheckDirtyDialogReject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDirtyRejectActionPerformed(evt);
+                buttonCheckDirtyDialogRejectActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDirtyButtons.add(buttonDirtyReject, gridBagConstraints);
+        panelDirtyButtons.add(buttonCheckDirtyDialogReject, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1050,26 +1053,26 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         updateRenameTemplate();
     }//GEN-LAST:event_buttonUpdateRenameTemplateActionPerformed
 
-    private void buttonDirtyCreateNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDirtyCreateNewActionPerformed
+    private void buttonCheckDirtyDialogCreateNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckDirtyDialogCreateNewActionPerformed
         checkDirtyDialog.setVisible(false);
         saveAsRenameTemplate();
-    }//GEN-LAST:event_buttonDirtyCreateNewActionPerformed
+    }//GEN-LAST:event_buttonCheckDirtyDialogCreateNewActionPerformed
 
-    private void buttonDirtyUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDirtyUpdateActionPerformed
+    private void buttonCheckDirtyDialogUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckDirtyDialogUpdateActionPerformed
         checkDirtyDialog.setVisible(false);
         updateRenameTemplate();
-    }//GEN-LAST:event_buttonDirtyUpdateActionPerformed
+    }//GEN-LAST:event_buttonCheckDirtyDialogUpdateActionPerformed
 
-    private void buttonDirtyRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDirtyRejectActionPerformed
+    private void buttonCheckDirtyDialogRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckDirtyDialogRejectActionPerformed
         checkDirtyDialog.setVisible(false);
         dirty = false;
-    }//GEN-LAST:event_buttonDirtyRejectActionPerformed
+    }//GEN-LAST:event_buttonCheckDirtyDialogRejectActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCheckDirtyDialogCreateNew;
+    private javax.swing.JButton buttonCheckDirtyDialogReject;
+    private javax.swing.JButton buttonCheckDirtyDialogUpdate;
     private javax.swing.JButton buttonDeleteRenameTemplate;
-    private javax.swing.JButton buttonDirtyCreateNew;
-    private javax.swing.JButton buttonDirtyReject;
-    private javax.swing.JButton buttonDirtyUpdate;
     private javax.swing.JButton buttonRenameRenameTemplate;
     private javax.swing.JButton buttonSaveRenameTemplate;
     private javax.swing.JButton buttonUpdateRenameTemplate;
