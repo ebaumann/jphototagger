@@ -11,6 +11,8 @@ Changelog JPhotoTagger http://jphototagger.org/
   without the file rename dialog
 * Dialog for importing images: File Rename Templates
   can be added and edited
+* Dialog for importing images: Metadata Templates can be added
+  within the input dialog for Metadata Templates
 
 0.21.1 2012-02-23
 -----------------
