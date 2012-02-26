@@ -24,6 +24,7 @@ import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.swing.util.ComboBoxUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
  * @author Elmar Baumann
@@ -34,7 +35,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private static final String KEY_SEL_TEMPLATE = "RenameDialog.SelectedTemplate";
     private final FilenameFormatArray filenameFormatArray = new FilenameFormatArray();
     private File fileForExampleFilename = new File(Bundle.getString(RenameTemplatesPanel.class, "RenameTemplatesPanel.FileForExampleFilename"));
-    private boolean listen = true;
+    private boolean listen;
+    private boolean dirty;
 
     public RenameTemplatesPanel() {
         initComponents();
@@ -43,10 +45,21 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
     private void postInitComponents() {
         MnemonicUtil.setMnemonics(this);
+        initCheckDirtyDialog();
         setComboBoxModels();
         setRenameTemplate();
         setEnabledRenameTemplateButtons();
+        readProperties();
         comboBoxRenameTemplates.getModel().addListDataListener(this);
+        listen = true;
+    }
+
+    private void initCheckDirtyDialog() {
+        MnemonicUtil.setMnemonics(checkDirtyDialog);
+        checkDirtyDialog.setIconImages(AppLookAndFeel.getAppIcons());
+        checkDirtyDialog.setModal(true);
+        checkDirtyDialog.pack();
+        checkDirtyDialog.setLocationRelativeTo(this);
     }
 
     private void setComboBoxModels() {
@@ -83,7 +96,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         return filenameFormatArray;
     }
 
-    public void readProperties() {
+    private void readProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         if (prefs != null) {
             prefs.applySelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
@@ -98,31 +111,45 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     }
 
     private void saveAsRenameTemplate() {
+        listen = false;
         RenameTemplate template = createTemplate();
-        RenameTemplateUtil.insert(template);
+        boolean inserted = RenameTemplateUtil.insert(template); // Has not to be dirty to be inserted (copy to another name)
+        dirty = dirty && !inserted;
+        listen = true;
     }
 
     private void renameRenameTemplate() {
+        listen = false;
         Object selItem = comboBoxRenameTemplates.getSelectedItem();
         if (selItem instanceof RenameTemplate) {
-            RenameTemplateUtil.rename((RenameTemplate) selItem);
+            boolean renamed = RenameTemplateUtil.rename((RenameTemplate) selItem); // Has not to be dirty to be renamed
+            dirty = dirty && !renamed;
         }
+        listen = true;
     }
 
     private void deleteRenameTemplate() {
+        listen = false;
         Object selItem = comboBoxRenameTemplates.getSelectedItem();
         if (selItem instanceof RenameTemplate) {
-            RenameTemplateUtil.delete((RenameTemplate) selItem);
+            boolean deleted = RenameTemplateUtil.delete((RenameTemplate) selItem); // Has not to be dirty to be deleted
+            dirty = dirty && !deleted;
+            if (deleted) {
+                setRenameTemplate();
+            }
         }
+        listen = true;
     }
 
     private void updateRenameTemplate() {
+        listen = false;
         Object selItem = comboBoxRenameTemplates.getSelectedItem();
         if (selItem instanceof RenameTemplate) {
             RenameTemplate template = (RenameTemplate) selItem;
             setValuesToTemplate(template);
             RenameTemplateUtil.update(template);
         }
+        listen = true;
     }
 
     private void setRenameTemplate() {
@@ -254,88 +281,108 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         setEnabledRenameTemplateButtons();
     }
 
-    private void atBeginChanged() {
-        if (listen) {
-            showExampleFilename();
-            setEnabledConstantTextFields();
+    public void checkDirty() {
+        if (dirty) {
+            checkDirtyDialog.setVisible(true);
+            checkDirtyDialog.toFront();
         }
     }
 
-    private void inTheMiddleChanged() {
+    private void startNumberChanged() {
         if (listen) {
-            showExampleFilename();
-            setEnabledConstantTextFields();
-        }
-    }
-
-    private void atEndChanged() {
-        if (listen) {
-            showExampleFilename();
-            setEnabledConstantTextFields();
-        }
-    }
-
-    private void dateDelimiterChanged() {
-        if (listen) {
-            showExampleFilename();
-            setEnabledConstantTextFields();
-        }
-    }
-
-    private void renameTemplateChanged() {
-        if (listen) {
-            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-            prefs.setSelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
-            setRenameTemplate();
-            setEnabledRenameTemplateButtons();
-        }
-    }
-
-    private void numberCountChanged() {
-        if (listen) {
+            dirty = true;
             showExampleFilename();
         }
     }
 
     private void numberStepWidthChanged() {
         if (listen) {
+            dirty = true;
             showExampleFilename();
         }
     }
 
-    private void startNumberChanged() {
+    private void numberCountChanged() {
         if (listen) {
+            dirty = true;
             showExampleFilename();
+        }
+    }
+
+    private void dateDelimiterChanged() {
+        if (listen) {
+            dirty = true;
+            showExampleFilename();
+            setEnabledConstantTextFields();
+        }
+    }
+
+    private void atBeginChanged() {
+        if (listen) {
+            dirty = true;
+            showExampleFilename();
+            setEnabledConstantTextFields();
+        }
+    }
+
+    private void delimiter1Changed() {
+        if (listen) {
+            dirty = true;
+            showExampleFilename();
+        }
+    }
+
+    private void inTheMiddleChanged() {
+        if (listen) {
+            dirty = true;
+            showExampleFilename();
+            setEnabledConstantTextFields();
+        }
+    }
+
+    private void delimiter2Changed() {
+        if (listen) {
+            dirty = true;
+            showExampleFilename();
+        }
+    }
+
+    private void atEndChanged() {
+        if (listen) {
+            dirty = true;
+            showExampleFilename();
+            setEnabledConstantTextFields();
         }
     }
 
     private void textAtBeginChanged() {
         if (listen) {
+            dirty = true;
             showExampleFilename();
         }
     }
 
     private void textInTheMiddleChanged() {
         if (listen) {
+            dirty = true;
             showExampleFilename();
         }
     }
 
     private void textAtEndChanged() {
         if (listen) {
+            dirty = true;
             showExampleFilename();
         }
     }
 
-    private void delimiter1Changed() {
+    private void renameTemplateChanged() {
         if (listen) {
-            showExampleFilename();
-        }
-    }
-
-    private void delimiter2Changed() {
-        if (listen) {
-            showExampleFilename();
+            checkDirty();
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            prefs.setSelectedIndex(KEY_SEL_TEMPLATE, comboBoxRenameTemplates);
+            setRenameTemplate();
+            setEnabledRenameTemplateButtons();
         }
     }
 
@@ -404,6 +451,12 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
+        checkDirtyDialog = new javax.swing.JDialog();
+        labelDirtyConfirmSaveChanges = new javax.swing.JLabel();
+        panelDirtyButtons = new javax.swing.JPanel();
+        buttonDirtyCreateNew = new javax.swing.JButton();
+        buttonDirtyUpdate = new javax.swing.JButton();
+        buttonDirtyReject = new javax.swing.JButton();
         panelNumbers = new javax.swing.JPanel();
         panelNumbersContents = new javax.swing.JPanel();
         labelStartNumber = new javax.swing.JLabel();
@@ -445,9 +498,62 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         buttonDeleteRenameTemplate = new javax.swing.JButton();
         buttonUpdateRenameTemplate = new javax.swing.JButton();
 
+        checkDirtyDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
+        checkDirtyDialog.setTitle(bundle.getString("RenameTemplatesPanel.checkDirtyDialog.title")); // NOI18N
+        checkDirtyDialog.getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        labelDirtyConfirmSaveChanges.setText(bundle.getString("RenameTemplatesPanel.labelDirtyConfirmSaveChanges.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        checkDirtyDialog.getContentPane().add(labelDirtyConfirmSaveChanges, gridBagConstraints);
+
+        panelDirtyButtons.setLayout(new java.awt.GridBagLayout());
+
+        buttonDirtyCreateNew.setText(bundle.getString("RenameTemplatesPanel.buttonDirtyCreateNew.text")); // NOI18N
+        buttonDirtyCreateNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDirtyCreateNewActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelDirtyButtons.add(buttonDirtyCreateNew, gridBagConstraints);
+
+        buttonDirtyUpdate.setText(bundle.getString("RenameTemplatesPanel.buttonDirtyUpdate.text")); // NOI18N
+        buttonDirtyUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDirtyUpdateActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelDirtyButtons.add(buttonDirtyUpdate, gridBagConstraints);
+
+        buttonDirtyReject.setText(bundle.getString("RenameTemplatesPanel.buttonDirtyReject.text")); // NOI18N
+        buttonDirtyReject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDirtyRejectActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelDirtyButtons.add(buttonDirtyReject, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
+        checkDirtyDialog.getContentPane().add(panelDirtyButtons, gridBagConstraints);
+
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
         panelNumbers.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelNumbers.border.title"))); // NOI18N
         panelNumbers.setLayout(new java.awt.GridBagLayout());
 
@@ -943,11 +1049,31 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private void buttonUpdateRenameTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateRenameTemplateActionPerformed
         updateRenameTemplate();
     }//GEN-LAST:event_buttonUpdateRenameTemplateActionPerformed
+
+    private void buttonDirtyCreateNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDirtyCreateNewActionPerformed
+        checkDirtyDialog.setVisible(false);
+        saveAsRenameTemplate();
+    }//GEN-LAST:event_buttonDirtyCreateNewActionPerformed
+
+    private void buttonDirtyUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDirtyUpdateActionPerformed
+        checkDirtyDialog.setVisible(false);
+        updateRenameTemplate();
+    }//GEN-LAST:event_buttonDirtyUpdateActionPerformed
+
+    private void buttonDirtyRejectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDirtyRejectActionPerformed
+        checkDirtyDialog.setVisible(false);
+        dirty = false;
+    }//GEN-LAST:event_buttonDirtyRejectActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDeleteRenameTemplate;
+    private javax.swing.JButton buttonDirtyCreateNew;
+    private javax.swing.JButton buttonDirtyReject;
+    private javax.swing.JButton buttonDirtyUpdate;
     private javax.swing.JButton buttonRenameRenameTemplate;
     private javax.swing.JButton buttonSaveRenameTemplate;
     private javax.swing.JButton buttonUpdateRenameTemplate;
+    private javax.swing.JDialog checkDirtyDialog;
     private javax.swing.JComboBox comboBoxAtBegin;
     private javax.swing.JComboBox comboBoxAtEnd;
     private javax.swing.JComboBox comboBoxDateDelimiter;
@@ -962,6 +1088,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private javax.swing.JLabel labelDateDelim;
     private javax.swing.JLabel labelDelim1;
     private javax.swing.JLabel labelDelim2;
+    private javax.swing.JLabel labelDirtyConfirmSaveChanges;
     private javax.swing.JLabel labelInTheMid;
     private javax.swing.JLabel labelNumberCount;
     private javax.swing.JLabel labelNumberStepWidth;
@@ -970,6 +1097,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private javax.swing.JPanel panelDateDelimiter;
     private javax.swing.JPanel panelDefineName;
     private javax.swing.JPanel panelDefineNameContents;
+    private javax.swing.JPanel panelDirtyButtons;
     private javax.swing.JPanel panelExample;
     private javax.swing.JPanel panelExampleContents;
     private javax.swing.JPanel panelNumbers;
