@@ -1,27 +1,30 @@
 package org.jphototagger.program.module.filesystem;
 
-import org.openide.util.lookup.ServiceProvider;
+import java.awt.Frame;
 
-import org.jphototagger.domain.editors.RenameTemplatesEditor;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = RenameTemplatesEditor.class)
-public class RenameTemplatesDialog extends Dialog implements RenameTemplatesEditor {
+public class RenameTemplatesDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
 
     public RenameTemplatesDialog() {
-        super(ComponentUtil.findFrameWithIcon(), true);
-        initComponents();
+        this(ComponentUtil.findFrameWithIcon());
     }
 
-    @Override
-    public void displayEditor() {
-        setVisible(true);
+    public RenameTemplatesDialog(Frame parentFrame) {
+        super(ComponentUtil.findFrameWithIcon(), true);
+        initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
+        setHelpPageUrl(Bundle.getString(RenameTemplatesDialog.class, "RenameTemplatesDialog.HelpPage"));
     }
 
     /**

@@ -232,6 +232,10 @@
             <title>Fenster &gt; Benutzerdefinierte Dateitypen</title>
         </page>
         <page>
+            <url>rename_templates_dialog.html</url>
+            <title>Datei-Umbenennungs-Schablonen</title>
+        </page>
+        <page>
             <url>accelerator_keys.html</url>
             <title>Hilfe &gt; Tastenkombinationen</title>
         </page>

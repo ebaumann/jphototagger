@@ -1,6 +1,7 @@
 package org.jphototagger.lib.swing.util;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.JComboBox;
 
 import org.jphototagger.lib.awt.EventQueueUtil;
 
@@ -103,6 +104,14 @@ public final class ComboBoxUtil {
                 }
             }
         });
+    }
+
+    public static boolean isValidIndex(JComboBox comboBox, int index) {
+        if (comboBox == null) {
+            throw new NullPointerException("comboBox == null");
+        }
+        int itemCount = comboBox.getItemCount();
+        return index >= 0 && index < itemCount;
     }
 
     private ComboBoxUtil() {
