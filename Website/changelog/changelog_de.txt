@@ -11,6 +11,8 @@ Changelog JPhotoTagger http://jphototagger.org/
   Datei-Umbenennungs-Schablonen außerhalb des Datei-Umbennenen-Dialogs
 * Dialog zum Importieren von Bildern: Datei-Umbenennungs-Schablonen
   können hinzugefügt und bearbeitet werden
+* Dialog zum Importieren von Bildern: Metadaten-Vorlagen können
+  hinzugefügt werden innerhalb des Eingabedialogs für Metadaten
 
 0.21.1 2012-02-23
 -----------------
