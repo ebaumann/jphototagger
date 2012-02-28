@@ -8,12 +8,9 @@ import java.util.List;
 
 import javax.swing.filechooser.FileSystemView;
 
-import org.bushe.swing.event.EventBus;
-
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.file.CopyMoveFilesOptions;
-import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -292,10 +289,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                 Object info = evt.getInfo();
                 if (info instanceof SourceTargetFile) {
                     SourceTargetFile files = (SourceTargetFile) info;
-                    File sourceFile = files.getSourceFile();
-                    File targetFile = files.getTargetFile();
                     labelCurrentFilename.setText(files.getSourceFile().getAbsolutePath());
-                    EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile, true));
                 }
                 pListenerSupport.notifyPerformed(evt);
             }
