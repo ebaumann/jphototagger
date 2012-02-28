@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.23.0 2012-02-28
+-----------------
+
+* While copying, moving, renaming and deleting files, other
+  files with arbitrary suffixes can also be copied, moved,
+  renamed and deleted automatically:
+  Edit > Settings > Miscellaneous > File Hooks > JPhotoTagger Actions
+
 0.22.0 2012-02-26
 -----------------
 
