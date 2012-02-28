@@ -12,7 +12,9 @@ import org.jphototagger.lib.util.Bundle;
 @ServiceProvider(service = Module.class)
 public final class ModuleInstaller implements Module, ModuleDescription {
 
-    private final FileEventHooksScriptExecutor EXECUTOR = new FileEventHooksScriptExecutor(); // Keep alive
+    // References required to get not garbage collected
+    private final UserScriptsExecutor userScriptsExecutor = new UserScriptsExecutor();
+    private final JPhotoTaggerExecutor jptHooksExecutor = new JPhotoTaggerExecutor();
 
     @Override
     public void init() {

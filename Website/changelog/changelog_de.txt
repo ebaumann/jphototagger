@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.23.0 2012-02-28
+-----------------
+
+* Beim Kopieren, Verschieben, Umbenennen und Löschen von Dateien
+  können weitere Dateien beliebiger Endungen automatisch kopiert,
+  verschoben, umbenannt und gelöscht werden:
+  Bearbeiten > Einstellungen > Verschiedenes > Datei-Hooks >
+  JPhotoTagger-Aktionen
+
 0.22.0 2012-02-26
 -----------------
 

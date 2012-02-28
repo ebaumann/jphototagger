@@ -21,16 +21,16 @@ import org.jphototagger.lib.util.StringUtil;
 /**
  * @author Elmar Baumann
  */
-public final class FileEventHooksScriptExecutor {
+public final class UserScriptsExecutor {
 
-    private static final Logger LOGGER = Logger.getLogger(FileEventHooksScriptExecutor.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UserScriptsExecutor.class.getName());
     private String fileCopiedScript;
     private String fileDeletedScript;
     private String fileMovedScript;
     private String fileRenamedScript;
     private final Object monitor = new Object();
 
-    public FileEventHooksScriptExecutor() {
+    public UserScriptsExecutor() {
         initScriptFiles();
         listen();
     }
@@ -170,7 +170,7 @@ public final class FileEventHooksScriptExecutor {
         if (script == null) {
             return false;
         }
-        
+
         if (!new File(script).isFile()) {
             LOGGER.log(Level.WARNING, "File Hook script ''{0}'' does not exist", script);
             return false;
