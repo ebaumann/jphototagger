@@ -40,12 +40,11 @@ public final class UserScriptsExecutor {
     }
 
     private void initScriptFiles() {
-        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
-        fileCopiedScript = preferences.getString(FileEventHooksPreferencesKeys.FILE_COPIED_KEY);
-        fileDeletedScript = preferences.getString(FileEventHooksPreferencesKeys.FILE_DELETED_KEY);
-        fileMovedScript = preferences.getString(FileEventHooksPreferencesKeys.FILE_MOVED_KEY);
-        fileRenamedScript = preferences.getString(FileEventHooksPreferencesKeys.FILE_RENAMED_KEY);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        fileCopiedScript = prefs.getString(PreferencesKeys.FILE_COPIED_KEY);
+        fileDeletedScript = prefs.getString(PreferencesKeys.FILE_DELETED_KEY);
+        fileMovedScript = prefs.getString(PreferencesKeys.FILE_MOVED_KEY);
+        fileRenamedScript = prefs.getString(PreferencesKeys.FILE_RENAMED_KEY);
     }
 
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
@@ -53,19 +52,19 @@ public final class UserScriptsExecutor {
         String key = evt.getKey();
         String stringValue = evt.getNewValue() == null ? null : evt.getNewValue().toString();
 
-        if (FileEventHooksPreferencesKeys.FILE_COPIED_KEY.equals(key)) {
+        if (PreferencesKeys.FILE_COPIED_KEY.equals(key)) {
             synchronized (monitor) {
                 fileCopiedScript = stringValue;
             }
-        } else if (FileEventHooksPreferencesKeys.FILE_DELETED_KEY.equals(key)) {
+        } else if (PreferencesKeys.FILE_DELETED_KEY.equals(key)) {
             synchronized (monitor) {
                 fileDeletedScript = stringValue;
             }
-        } else if (FileEventHooksPreferencesKeys.FILE_MOVED_KEY.equals(key)) {
+        } else if (PreferencesKeys.FILE_MOVED_KEY.equals(key)) {
             synchronized (monitor) {
                 fileMovedScript = stringValue;
             }
-        } else if (FileEventHooksPreferencesKeys.FILE_RENAMED_KEY.equals(key)) {
+        } else if (PreferencesKeys.FILE_RENAMED_KEY.equals(key)) {
             synchronized (monitor) {
                 fileRenamedScript = stringValue;
             }
@@ -76,7 +75,6 @@ public final class UserScriptsExecutor {
     public void fileCopied(FileCopiedEvent evt) {
         File sourceFile = evt.getSourceFile();
         File targetFile = evt.getTargetFile();
-
         synchronized (monitor) {
             executeScript(fileCopiedScript, sourceFile, targetFile);
         }
@@ -85,7 +83,6 @@ public final class UserScriptsExecutor {
     @EventSubscriber(eventClass = FileDeletedEvent.class)
     public void fileDeleted(FileDeletedEvent evt) {
         File file = evt.getFile();
-
         synchronized (monitor) {
             executeScript(fileDeletedScript, file, null);
         }
@@ -95,7 +92,6 @@ public final class UserScriptsExecutor {
     public void fileMoved(FileMovedEvent evt) {
         File sourceFile = evt.getSourceFile();
         File targetFile = evt.getTargetFile();
-
         synchronized (monitor) {
             executeScript(fileMovedScript, sourceFile, targetFile);
         }
@@ -134,35 +130,28 @@ public final class UserScriptsExecutor {
     private String[] createCommandArray(String script, File fromFile, File toFile) {
         String[] command = new String[toFile == null ? 2 : 3];
         String fromFilePath = fromFile.getAbsolutePath();
-
         command[0] = script;
         command[1] = fromFilePath;
-
         if (toFile != null) {
             String toFilePath = toFile.getAbsolutePath();
-
             command[2] = toFilePath;
         }
-
         return command;
     }
 
     private boolean isSidecarFile(File fromFile) {
         String filenameLowercase = fromFile.getName().toLowerCase();
-
         return filenameLowercase.endsWith(".xmp");
     }
 
     private void logCommand(String[] commandArray) {
         StringBuilder command = new StringBuilder();
-
         for (String token : commandArray) {
             command.append('"');
             command.append(token);
             command.append('"');
             command.append(" ");
         }
-
         LOGGER.log(Level.INFO, "Executing file hook command {0}", command.toString());
     }
 
@@ -170,12 +159,10 @@ public final class UserScriptsExecutor {
         if (script == null) {
             return false;
         }
-
         if (!new File(script).isFile()) {
             LOGGER.log(Level.WARNING, "File Hook script ''{0}'' does not exist", script);
             return false;
         }
-
         return true;
     }
 }
