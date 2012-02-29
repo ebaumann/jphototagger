@@ -14,7 +14,7 @@ public final class ModuleInstaller implements Module, ModuleDescription {
 
     // References required to get not garbage collected
     private final UserScriptsExecutor userScriptsExecutor = new UserScriptsExecutor();
-    private final JPhotoTaggerExecutor jptHooksExecutor = new JPhotoTaggerExecutor();
+    private final JPhotoTaggerActionsExecutor jptHooksExecutor = new JPhotoTaggerActionsExecutor();
 
     @Override
     public void init() {

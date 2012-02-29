@@ -24,14 +24,14 @@ import org.jphototagger.lib.io.FileUtil;
 /**
  * @author Elmar Baumann
  */
-public final class JPhotoTaggerExecutor {
+public final class JPhotoTaggerActionsExecutor {
 
-    private static final Logger LOGGER = Logger.getLogger(JPhotoTaggerExecutor.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(JPhotoTaggerActionsExecutor.class.getName());
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private final Set<String> filenameSuffixes = new HashSet<String>();
 
-    public JPhotoTaggerExecutor() {
-        filenameSuffixes.addAll(prefs.getStringCollection(FileEventHooksPreferencesKeys.FILENAME_SUFFIXES_KEY));
+    public JPhotoTaggerActionsExecutor() {
+        filenameSuffixes.addAll(prefs.getStringCollection(PreferencesKeys.FILENAME_SUFFIXES_KEY));
         listen();
     }
 
@@ -148,10 +148,10 @@ public final class JPhotoTaggerExecutor {
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
     public void userPreferenceChanged(PreferencesChangedEvent evt) {
         String key = evt.getKey();
-        if (FileEventHooksPreferencesKeys.FILENAME_SUFFIXES_KEY.equals(key)) {
+        if (PreferencesKeys.FILENAME_SUFFIXES_KEY.equals(key)) {
             synchronized (filenameSuffixes) {
                 filenameSuffixes.clear();
-                filenameSuffixes.addAll(prefs.getStringCollection(FileEventHooksPreferencesKeys.FILENAME_SUFFIXES_KEY));
+                filenameSuffixes.addAll(prefs.getStringCollection(PreferencesKeys.FILENAME_SUFFIXES_KEY));
             }
         }
     }
