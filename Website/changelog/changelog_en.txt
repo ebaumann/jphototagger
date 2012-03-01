@@ -3,6 +3,16 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.23.1 2012-03-01
+-----------------
+
+* JPhotoTagger downloads current versions in future from
+  another server via redirection. Older versions aren't able
+  to load updates automatically (they are not able to follow
+  URL redirections). If you have an older version than 0.23.1
+  please download the current version from
+  http://www.jphototagger.org/download.html
+
 0.23.0 2012-02-28
 -----------------
 
