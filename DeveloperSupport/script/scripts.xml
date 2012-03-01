@@ -1,17 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="JPhotoTagger" default="default" basedir=".">
     <description>Helper scripts for developers</description>
-    <target name="Create ZIP distribution">
+    <property file="scripts.properties"/>
+    <property environment="env"/>
+    <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode.jar"/>
+    <target name="dist-upload" description="Uploading Distribution to Google Code">
+        <!--${googlecode.username}, ${googlecode.password} and ${jptversion}
+        will be read from scripts.properties within this directory
+        -->
+        <gcupload
+            projectname="jphototagger"
+            username="${googlecode.username}"
+            password="${googlecode.password}"
+            filename="${env.PROJECTDIR}/JPhotoTagger/dist_files/upload/JPhotoTagger.zip"
+            targetfilename="JPhotoTagger-${jptversion}.zip"
+            summary="JPhotoTagger Version ${jptversion} - System independent ZIP archive"
+            verbose="true"
+            labels="photomanager, tagging, xmp, java"
+        />
+        <gcupload
+            projectname="jphototagger"
+            username="${googlecode.username}"
+            password="${googlecode.password}"
+            filename="${env.PROJECTDIR}/JPhotoTagger/dist_files/upload/JPhotoTagger-setup.exe"
+            targetfilename="JPhotoTagger-setup-${jptversion}.exe"
+            summary="JPhotoTagger Version ${jptversion} - Windows Installer"
+            verbose="true"
+            labels="photomanager, tagging, xmp, java"
+        />
+    </target>
+    <target name="dist-zip-create" description="Create ZIP distribution">
         <exec executable="bash">
             <arg value="mkdist.sh" />
         </exec>
     </target>
-    <target name="Toggle user dir between test and working data">
+    <target name="toggle-test-working" description="Toggling user dir between test and working data">
         <exec executable="bash">
             <arg value="togglesettingsdir.sh" />
         </exec>
     </target>
-    <target name="Create PDF manual, language German">
+    <target name="pdf-manual" description="Creating PDF manual, language German">
         <exec executable="bash">
             <arg value="create_html_index_user_doc.sh" />
             <arg value="de"/>
@@ -23,12 +51,12 @@
             <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;" />
         </exec>
     </target>
-    <target name="Find missing Bundle strings">
+    <target name="bundles-find-missing-strings" description="Finding missing Bundle strings">
         <exec executable="bash">
             <arg value="find_missing_bundle_strings.sh" />
         </exec>
     </target>
-    <target name="Compare Line count in Bundles">
+    <target name="bundles-cmp-line-count" description="Comparing Line count in Bundles">
         <exec executable="bash">
             <arg value="cmp_line_count._bundle.sh" />
         </exec>

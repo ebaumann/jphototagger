@@ -4,3 +4,5 @@ All scripts require that the environment variable PROJECTDIR is set and as the
 root directory of the 'JPhotoTagger'.
 
 The directory of this file is $PROJECTDIR/JPhotoTagger/Support/script.
+
+ant-googlecode.jar -> ant-googlecode-0.0.3.jar (https://code.google.com/p/ant-googlecode/)

@@ -1,7 +1,7 @@
 [Setup]
 AppName=JPhotoTagger
-AppVerName=JPhotoTagger 0.22.0
-AppVersion=0.22.0
+AppVerName=JPhotoTagger 0.23.1
+AppVersion=0.23.1
 AppPublisher=Elmar Baumann <eb@elmar-baumann.de>
 AppPublisherURL=http://www.jphototagger.org/
 AppSupportURL=mailto:support@jphototagger.org
@@ -10,7 +10,7 @@ AppComments=Photo Manager
 DefaultDirName={pf}\JPhotoTagger
 DefaultGroupName=JPhotoTagger
 AllowNoIcons=yes
-OutputDir=D:\projekte\JPhotoTagger\main-repository\Website\dist
+OutputDir=D:\Projekte\JPhotoTagger\dist_files\upload
 OutputBaseFilename=JPhotoTagger-setup
 SetupIconFile=D:\projekte\JPhotoTagger\Support\res\app-icon-exports\JPhotoTagger.ico
 WizardImageFile=D:\projekte\JPhotoTagger\Support\res\app-icon-exports\WizardImageFile.bmp
