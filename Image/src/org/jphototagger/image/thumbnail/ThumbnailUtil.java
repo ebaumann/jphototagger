@@ -57,7 +57,7 @@ final class ThumbnailUtil {
         }
 
         ThumbnailCreationStrategy creationStrategy = getThumbnailCreationStrategy();
-        int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromStorage();
+        int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromPreferences();
 
         if (creationStrategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP)) {
             String createCommand = getExternalThumbnailCreationCommand();
@@ -100,7 +100,7 @@ final class ThumbnailUtil {
         if (fileType == null || !fileType.isExternalThumbnailCreator()) {
             return IconUtil.getIconImage("/org/jphototagger/program/resource/images/user_defined_file_type.jpg");
         } else {
-            int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromStorage();
+            int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromPreferences();
             String createCommand = getExternalThumbnailCreationCommand();
 
             return getThumbnailFromExternalApplication(file, createCommand, maxLength);
@@ -328,7 +328,7 @@ final class ThumbnailUtil {
      * @param qfactor Ein Wert zwichen 0 und 1. Je kleiner die Zahl, desto mehr Duchgänge wird der Skalierungsprozess machen. Empfohlener Wert ist 0.5.
      * @return Das skalierte Bild.
      */
-    private static BufferedImage stepScaleImage(BufferedImage image, int minWidth, double qfactor) {
+    static BufferedImage stepScaleImage(BufferedImage image, int minWidth, double qfactor) {
 
         // Damit Assertions ausgewertet werden, muss die VM mit dem Argument -ea gestartet werden.
         assert qfactor < 1.0 : "qfactor must be < 1.0";    // wir wollen nur verkleinern! :-)

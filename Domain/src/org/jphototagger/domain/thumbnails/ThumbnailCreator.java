@@ -1,8 +1,11 @@
 package org.jphototagger.domain.thumbnails;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.util.Set;
+
+import org.jphototagger.api.collections.PositionProvider;
 
 /**
  * Creates a thumbnail, can extend JPhotoTagger's capability
@@ -16,7 +19,7 @@ import java.util.Set;
  *
  * @author Elmar Baumann
  */
-public interface ThumbnailCreator {
+public interface ThumbnailCreator extends PositionProvider {
 
     /**
      *
@@ -55,4 +58,11 @@ public interface ThumbnailCreator {
     Set<String> getAllSupportedFileTypeSuffixes();
 
     Set<String> getSupportedRawFormatFileTypeSuffixes();
+
+    /**
+     * @return maybe null
+     */
+    Component getSettingsComponent();
+
+    String getDisplayName();
 }

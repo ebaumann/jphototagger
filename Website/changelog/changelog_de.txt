@@ -3,6 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.0 2012-03-03
+-----------------
+
+* Für einige Betriebssysteme wird der RAW-Konverter dcraw
+  mitgeliefert, sodass JPhotoTagger unter Umständen von RAW-Dateien
+  Vorschaubilder ereugen kann, ohne dass Zusatzprogramme/-Skripte zu
+  definieren sind. Falls die Automatik nicht funktioniert,
+  kann DCRaw ausgewählt werden über:
+  Bearbeiten > Einstellungen > Vorschaubilder > Weitere Einstellungen > DCRaw
+  Aktuell automatisch utnerstützt: Windows 32 Bit und Linux 32 Bit
+
 0.23.1 2012-03-01
 -----------------
 

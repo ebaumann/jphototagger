@@ -78,7 +78,7 @@ public final class ThumbnailCreatorService {
         return createFromEmbeddedThumbnail(file);
     }
 
-    public static int readMaxThumbnailWidthFromStorage() {
+    public static int readMaxThumbnailWidthFromPreferences() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         int width = prefs.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
 

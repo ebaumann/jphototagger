@@ -3,6 +3,18 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.0 2012-03-03
+-----------------
+
+* For some operating systems the RAW converter DCRaw will be
+  installed along with JPhotoTagger, so that under good
+  circumstances JPhotoTagger creates thumbnails from RAW files
+  without the need of defining external scripts/programs. If
+  this automatic does not work, a DCRaw executable can be set
+  manually through
+  Edit > Settings > Thumbnails > Further Settings > DCRaw
+  Currently automatically supported: Windows 32 Bit and Linux 32 Bit
+
 0.23.1 2012-03-01
 -----------------
 
