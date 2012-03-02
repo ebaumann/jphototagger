@@ -5,8 +5,12 @@ import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.nio.channels.FileChannel;
+import java.security.CodeSource;
 import java.security.MessageDigest;
+import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -734,6 +738,31 @@ public final class FileUtil {
             sb.append(fill).append(filenameRemainder);
         }
         return sb.toString();
+
+    }
+
+    /**
+     * @param classWithinJar
+     * @return existing directory or null
+     */
+    public static File getJarDirectory(Class<?> classWithinJar) {
+        if (classWithinJar == null) {
+            throw new NullPointerException("classWithinJar == null");
+        }
+        try {
+            ProtectionDomain protectionDomain = classWithinJar.getProtectionDomain();
+            CodeSource codeSource = protectionDomain.getCodeSource();
+            URL locationURL = codeSource.getLocation();
+            URI locationURI = locationURL.toURI();
+            File jarPath = new File(locationURI);
+            File parentFile = jarPath.getParentFile();
+            if (parentFile != null && parentFile.isDirectory()) {
+                return parentFile;
+            }
+        } catch (Throwable t) {
+            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, t);
+        }
+        return null;
 
     }
 
