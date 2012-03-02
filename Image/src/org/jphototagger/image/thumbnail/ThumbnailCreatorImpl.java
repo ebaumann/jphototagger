@@ -1,5 +1,6 @@
 package org.jphototagger.image.thumbnail;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -48,5 +50,20 @@ public final class ThumbnailCreatorImpl implements ThumbnailCreator {
     @Override
     public Set<String> getSupportedRawFormatFileTypeSuffixes() {
         return ThumbnailSupport.INSTANCE.getSupportedRawFormatFileTypeSuffixes();
+    }
+
+    @Override
+    public Component getSettingsComponent() {
+        return null;
+    }
+
+    @Override
+    public int getPosition() {
+        return 0;
+    }
+
+    @Override
+    public String getDisplayName() {
+        return Bundle.getString(ThumbnailCreatorImpl.class, "ThumbnailCreatorImpl.DisplayName");
     }
 }

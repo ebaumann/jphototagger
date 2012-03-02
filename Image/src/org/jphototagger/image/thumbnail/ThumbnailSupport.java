@@ -19,6 +19,7 @@ final class ThumbnailSupport {
     private static final Set<String> RAW_FORMAT_SUFFIXES_LOWERCASE = new HashSet<String>();
 
     static {
+        // HOOK RAW filename suffixes
         SCALED_IMAGE_SUFFIXES_LOWERCASE.add("jpeg"); // Joint Photographic Experts Group
         SCALED_IMAGE_SUFFIXES_LOWERCASE.add("jpg"); // Joint Photographic Experts Group
         SCALED_IMAGE_SUFFIXES_LOWERCASE.add("tif"); // Tagged Image File Format
