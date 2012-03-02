@@ -17,7 +17,7 @@
    inkscape:version="0.48.2 r9819"
    sodipodi:docname="icon_app_small.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="logo.png"
+   inkscape:export-filename="icon_app_small.png"
    inkscape:export-xdpi="45"
    inkscape:export-ydpi="45"
    version="1.0">
@@ -657,9 +657,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="25.09375"
-     inkscape:cx="7.8505604"
+     inkscape:cx="-0.95641345"
      inkscape:cy="16"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
@@ -684,17 +684,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      style="display:inline"
-     inkscape:label="Background">
-    <rect
-       style="opacity:0.64598544;fill:url(#linearGradient4162);fill-opacity:1;stroke:none;filter:url(#filter4216)"
-       id="rect4150"
-       width="32"
-       height="32"
-       x="0"
-       y="7.4940054e-16"
-       inkscape:export-xdpi="180"
-       inkscape:export-ydpi="180" />
-  </g>
+     inkscape:label="Background" />
   <g
      id="layer1"
      inkscape:label="Images"
