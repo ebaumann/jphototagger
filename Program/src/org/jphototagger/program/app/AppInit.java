@@ -76,8 +76,6 @@ public final class AppInit {
             Logger.getLogger(AppInit.class.getName()).log(Level.SEVERE, null, t);
             showErrorMessage(t);
             AppLifeCycle.quitBeforeGuiWasCreated();
-        } finally {
-            SplashScreen.INSTANCE.removeMessage();
         }
     }
 
