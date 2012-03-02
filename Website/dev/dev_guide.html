@@ -3,7 +3,6 @@
     <head>
         <title>How to implement something (&quot;Best practices&quot;)</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-        <meta name="date" content="2010-01-29T19:00:15+01:00" />
         <meta http-equiv="content-language" content="en" />
         <link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
         <link rel="shortcut icon" href="../favicon.ico" />
@@ -45,24 +44,25 @@
 
                 <h1>How to implement something (&quot;Best practices&quot;)</h1>
 
-                <p><em>Do not repeat bad code</em> in (hopefully) old parts of <strong>JPhotoTagger</strong>! For example
-                    do <em>not</em> implement <code>ActionListener</code>s, use <code>Action</code>s instead.
-                    Even better, use the <code>org.openide.util.Lookup</code> and support for the Lookup in
+                <p><em>Do not repeat bad code</em> from (hopefully) old parts of <strong>JPhotoTagger</strong>!
+                    For example, in most cases it's better to use <code>Action</code>s instead
+                    <code>ActionListener</code>s. Use the <code>org.openide.util.Lookup</code>
+                    to provide e.g. selected content together with it's support in
                     <strong>JPhotoTaggers</strong>'s <strong>Lib</strong> Project. You can see usage examples
-                    in the code of some modules, e.g. in Module <strong>Display Files Without Metadata</strong>
+                    in the code of some modules, e.g. in <strong>Display Files Without Metadata</strong>
                     or Module <strong>RepositoryFileBrowser</strong>.
                 </p>
 
                 <p><em>Do not add code to the </em> <strong>Program</strong> project. There should be only
                     bugs fixed, code refactored or the functionality enhanced (only if not possible via the
-                    Java Service Interface).
+                    Java Service Provider Interface).
                 </p>
 
-                <p><strong>Open a new project for adding features.</strong> Refactorings are always welcome,
-                    if they (really) improve the design.
+                <p><strong>Start a new project for adding features.</strong> Refactorings are always welcome,
+                    if they will improve the design.
                 </p>
 
-                <p>Don't hesitate to fix bugs in code written by others. Write tests for every method,
+                <p>Don't hesitate to fix bugs in code written by others. Write unit tests for every method,
                     <strong>NetBeans</strong> automatically generates test classes and method skeletons.
                 </p>
 
@@ -73,16 +73,13 @@
                 </p>
 
 <pre>
-MyInterfaceImplementation implementation = Lookup.getDefault().lookup(MyInterface.class);
-
-implementation.doSomething();
+MyInterface implementation = Lookup.getDefault().lookup(MyInterface.class);
 </pre>
 
                 <p>As an example, the currently used database implements <code>Repository</code> interfaces.
                     To use a different database and/or the JPA instead of JDBC, only the project implementing these
                     interfaces has to be replaced and no other code has to be changed. Ideally the user does not
-                    recognize any change. Currently the repositories implementation project is
-                    <strong>HsqlDatabase</strong>.
+                    recognize any change.
                 </p>
 
                 <p>Another example: <strong>JPhotoTagger</strong> has limited capabilities to generate thumbnails
@@ -94,7 +91,7 @@ implementation.doSomething();
 
                 <p>Do <em>not</em> create files in <code>META-INF/services</code> for your service providers. This is
                     very error prone on Move/Rename refactorings. Use the <code>@ServiceProvider</code> annotation
-                    instead, grep the source code for examples.
+                    instead, grep the source code for usage examples.
                 </p>
 
                 <h2>Extending JPhotoTagger</h2>
@@ -130,7 +127,7 @@ implementation.doSomething();
 
 				<p>Implement <code>org.jphototagger.domain.metadata.exif.ExifMakerNoteTags</code>.
 				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
-				   In Opposite to an <code>ExifReader</code>, a <code>ExifMakerNoteTags</code> instance
+				   In Opposite to an <code>ExifReader</code>, an <code>ExifMakerNoteTags</code> instance
 				   gets the already read Maker Notes byte array and has to use the specification of
 				   the maker to decode them.
 				</p>
@@ -138,15 +135,15 @@ implementation.doSomething();
                 <h3>Remarks</h3>
 
                 <p>You can add menu entries, panels etc. to the application window, get thumbnails etc. &ndash;
-                    take a look into the API project. For querying or modifying the repository (database), have also
-                    a look into the Domain project.
+                    take a look into the <strong>API</strong> project. For querying or modifying a
+                    repository (part of a database), have also a look into the <strong>Domain</strong> project.
                 </p>
 
 				<h2>Events</h2>
 
-				<p>JPhotoTagger publishes many events through <a href="http://eventbus.org/">EventBus</a>.
-				Events are defined in the API and Domain projects. If you are interested into an event,
-				e.g. if the user selects an image, you can do something like that:
+				<p>JPhotoTagger publishes many events through <a href="http://java.net/projects/eventbus/">EventBus</a>.
+                    Events are defined in the <strong>API</strong> and <strong>Domain</strong> projects.
+                    If you are interested into an event, e.g. if the user selects an image, you can do something like that:
 				</p>
 
 <pre>
@@ -159,38 +156,42 @@ public final class MyImageProcessor {
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(ThumbnailsSelectionChangedEvent event) {
-        List&lt;File&gt; selectedImageFiles = event.getSelectedImageFiles();
-
-	    for (File imageFile : selectedImageFiles) {
-                processImageFile(imageFile);
+        List&lt;File&gt; selectedFiles = event.getSelectedFiles();
+        for (File selectedFile : selectedFiles) {
+            processFile(selectedFile);
         }
     }
 }
 </pre>
 
-                <h2>Persist Settings</h2>
+                <p>Processes taking some time should create a separate thread and do their tasks
+                    in this thread since the listeners will be notified in the <strong>Event
+                    Dispatch Thread</strong> and as long as they do something, the GUI is not accessable.
+                </p>
 
-                <p>Settings can stored and retrieved through <code>Storage</code>:
+                <h2>Persist Preferences (Settings)</h2>
+
+                <p>Preferences can be persisted and restored through
+                    <code>org.jphototagger.api.preferences.Preferences</code>:
                 </p>
 <pre>
-private void writeSettings() {
-    Storage storage = Lookup.getDefault().lookup(Storage.class);
-
-    storage.setString("MyModule.PreviousDirectory", directory.getAbsolutePath());
-    storage.setBoolean("MyModule.DeleteAlways", deleteAlways);
-    storage.setLocation("MyModule.MyDialogLocation", dialog);
+private void persistPreferences() {
+    Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+    prefs.setString("MyModule.PreviousDirectory", directory.getAbsolutePath());
+    prefs.setBoolean("MyModule.DeleteAlways", deleteAlways);
+    prefs.setLocation("MyModule.MyDialogLocation", dialog);
 }
 
-private void readSettings() {
-    Storage storage = Lookup.getDefault().lookup(Storage.class);
-
-    String previousDirectory = storage.getString("MyModule.PreviousDirectory");
-    boolean deleteAlways = storage.getBoolean("MyModule.DeleteAlways");
-    storage.applyLocation("MyModule.MyDialogLocation", dialog);
+private void restorePreferences() {
+    Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+    String previousDirectory = prefs.getString("MyModule.PreviousDirectory");
+    boolean deleteAlways = prefs.getBoolean("MyModule.DeleteAlways");
+    prefs.applyLocation("MyModule.MyDialogLocation", dialog);
 }
 </pre>
                 <p>If you want react immediately to changes in user settings, subscribe to the
-                    <code>Eventbus</code> (see obove), you will get an <code>UserPropertyChangedEvent</code>.
+                    <code>Eventbus</code> (see obove), you will get a <code>PreferencesChangedEvent</code>
+                    with the old and new value.
                 </p>
 
                 <h2>Commit and push changes</h2>
@@ -201,7 +202,7 @@ private void readSettings() {
 
                 <p><strong>Author:</strong> Elmar Baumann
                     <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20How%20implement%20something">Write e-Mail</a>
-                    <br /><strong>Status of this document:</strong> 2011-09-12
+                    <br /><strong>Status of this document:</strong> 2012-03-02
                 </p>
 
             </div><!--content-->
