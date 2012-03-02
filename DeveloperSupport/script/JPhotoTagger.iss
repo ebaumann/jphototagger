@@ -1,7 +1,7 @@
 [Setup]
 AppName=JPhotoTagger
-AppVerName=JPhotoTagger 0.23.1
-AppVersion=0.23.1
+AppVerName=JPhotoTagger 0.24.0
+AppVersion=0.24.0
 AppPublisher=Elmar Baumann <eb@elmar-baumann.de>
 AppPublisherURL=http://www.jphototagger.org/
 AppSupportURL=mailto:support@jphototagger.org
@@ -32,6 +32,7 @@ Source: "D:\projekte\JPhotoTagger\dist_files\manual\Manual_de.pdf"; DestDir: "{a
 Source: "D:\projekte\JPhotoTagger\dist_files\script\rotatejpg.sh"; DestDir: "{app}\scripts"
 Source: "D:\projekte\JPhotoTagger\dist_files\script\thumbnail2stdoutwin.bat"; DestDir: "{app}\scripts"
 Source: "D:\projekte\JPhotoTagger\dist_files\script\thumbnail2stdoutwin.sh"; DestDir: "{app}\scripts"
+Source: "D:\Projekte\JPhotoTagger\dist_files\dcraw\bin\win32\dcraw.exe"; DestDir: "{app}\lib\dcraw\win32"
 
 [Icons]
 Name: "{group}\JPhotoTagger"; Filename: "{app}\JPhotoTagger.bat"; IconFilename: "{app}\JPhotoTagger.ico"; Flags: runminimized
