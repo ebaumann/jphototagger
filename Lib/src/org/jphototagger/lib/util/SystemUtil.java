@@ -35,9 +35,8 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@code Desktop#mail(java.net.URI)} can be called.
-     * <p>
-     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * Returns whether {@code Desktop#mail(java.net.URI)} can be called. <p> Shorthand for {@code Desktop#isDesktopSupported()}
+     * &amp;&amp;
      * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if mailing is possible
@@ -47,9 +46,8 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@code Desktop#browse(java.net.URI)} can be called.
-     * <p>
-     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * Returns whether {@code Desktop#browse(java.net.URI)} can be called. <p> Shorthand for {@code Desktop#isDesktopSupported()}
+     * &amp;&amp;
      * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if browsing is possible
@@ -59,9 +57,8 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@code Desktop#open(java.io.File)} can be called.
-     * <p>
-     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * Returns whether {@code Desktop#open(java.io.File)} can be called. <p> Shorthand for {@code Desktop#isDesktopSupported()}
+     * &amp;&amp;
      * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if opening is possible
@@ -71,9 +68,8 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@code Desktop#edit(java.io.File)} can be called.
-     * <p>
-     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * Returns whether {@code Desktop#edit(java.io.File)} can be called. <p> Shorthand for {@code Desktop#isDesktopSupported()}
+     * &amp;&amp;
      * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if editing is possible
@@ -83,9 +79,8 @@ public final class SystemUtil {
     }
 
     /**
-     * Returns whether {@code Desktop#print(java.io.File)} can be called.
-     * <p>
-     * Shorthand for {@code Desktop#isDesktopSupported()} &amp;&amp;
+     * Returns whether {@code Desktop#print(java.io.File)} can be called. <p> Shorthand for {@code Desktop#isDesktopSupported()}
+     * &amp;&amp;
      * {@code Desktop#isSupported(Desktop.Action)}.
      *
      * @return true, if editing is possible
@@ -105,7 +100,6 @@ public final class SystemUtil {
      */
     public static boolean isWindows() {
         String os = System.getProperty("os.name").toLowerCase();
-
         return os.contains("windows");
     }
 
@@ -116,8 +110,27 @@ public final class SystemUtil {
      */
     public static boolean isMac() {
         String os = System.getProperty("os.name").toLowerCase();
-
         return os.contains("mac");
+    }
+
+    /**
+     * @return Currently "32" or "64" or empty string on errors
+     */
+    public static String guessVmArchitecture() {
+        try {
+            String arch = System.getProperty("sun.arch.data.model");
+            if (arch == null) {
+                arch = System.getProperty("os.arch");
+            }
+            return arch == null
+                    ? ""
+                    : arch.contains("64")
+                    ? "64"
+                    : "32";
+        } catch (Throwable t) {
+            Logger.getLogger(SystemUtil.class.getName()).log(Level.SEVERE, null, t);
+            return "";
+        }
     }
 
     private SystemUtil() {

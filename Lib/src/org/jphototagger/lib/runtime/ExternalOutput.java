@@ -14,10 +14,18 @@ public final class ExternalOutput {
     }
 
     public byte[] getOutputStream() {
-        return outputStream;
+        return outputStream; // performance, resources: no copy
     }
 
     public byte[] getErrorStream() {
-        return errorStream;
+        return errorStream; // performance, resources: no copy
+    }
+
+    public boolean hasErrorStream() {
+        return errorStream != null && errorStream.length > 0;
+    }
+
+    public boolean hasOutputStream() {
+        return outputStream != null && outputStream.length > 0;
     }
 }
