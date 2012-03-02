@@ -153,16 +153,14 @@ public final class External {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
-
         if (maxMilliseconds < 0) {
             throw new IllegalArgumentException("Negative maxMilliseconds: " + maxMilliseconds);
         }
-
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
-
         try {
-            process = runtime.exec(parseQuotedCommandLine(command));
+            String[] commandLineToken = parseQuotedCommandLine(command);
+            process = runtime.exec(commandLineToken);
 
             ProcessDestroyer processDestroyer = new ProcessDestroyer(process, maxMilliseconds, command);
             Thread threadProcessDestroyer = new Thread(processDestroyer, "JPhotoTagger: Destroying process");
