@@ -567,7 +567,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         for (String text : texts) {
             String trimmedText = text.trim();
             if (!trimmedText.isEmpty()
-                    && checkAddElementExists(trimmedText)
+                    && !model.contains(trimmedText)
                     && checkAddElementWithEqualCaseExists(trimmedText)) {
                 model.addElement(trimmedText);
                 addToAutomaticWordsetsPanel(trimmedText);
@@ -599,16 +599,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         if (!settingTexts && panelWordsets != null) {
             panelWordsets.addToAutomaticWordset(word);
         }
-    }
-
-    private boolean checkAddElementExists(String element) {
-        if (model.contains(element)) {
-            String message = Bundle.getString(EditTextEntryPanel.class, "EditTextEntryPanel.Warning.AddElementExists",
-                    element);
-            MessageDisplayer.warning(this, message);
-            return false;
-        }
-        return true;
     }
 
     private boolean checkAddElementWithEqualCaseExists(String element) {
