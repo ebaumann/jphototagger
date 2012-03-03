@@ -16,12 +16,12 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 /**
  * @author Elmar Baumann
  */
-public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel implements Persistence {
+public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel implements Persistence {
 
     private static final long serialVersionUID = 1L;
     private boolean listenToMaxThumbnailWidthChanges = true;
 
-    public SettingsThumbnailDimensionsPanel() {
+    public ThumbnailDimensionsSettingsPanel() {
         initComponents();
         postInitComponents();
     }
@@ -87,7 +87,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
 
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        labelMaxThumbnailWidth.setText(bundle.getString("SettingsThumbnailDimensionsPanel.labelMaxThumbnailWidth.text")); // NOI18N
+        labelMaxThumbnailWidth.setText(bundle.getString("ThumbnailDimensionsSettingsPanel.labelMaxThumbnailWidth.text")); // NOI18N
         labelMaxThumbnailWidth.setName("labelMaxThumbnailWidth"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -112,7 +112,7 @@ public class SettingsThumbnailDimensionsPanel extends javax.swing.JPanel impleme
 
         labelUpdateAllThumbnails.setForeground(new java.awt.Color(0, 0, 255));
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelUpdateAllThumbnails.setText(bundle.getString("SettingsThumbnailDimensionsPanel.labelUpdateAllThumbnails.text")); // NOI18N
+        labelUpdateAllThumbnails.setText(bundle.getString("ThumbnailDimensionsSettingsPanel.labelUpdateAllThumbnails.text")); // NOI18N
         labelUpdateAllThumbnails.setName("labelUpdateAllThumbnails"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

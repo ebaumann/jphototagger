@@ -466,7 +466,7 @@ final class ImageFilesDatabase extends Database {
             notifyProgressListenerStart(listener, progressEvent);
             while (!progressEvent.isCancel() && rs.next()) {
                 File imgFile = getFile(rs.getString(1));
-                Image thumbnail = ThumbnailCreatorService.INSTANCE.createScaledOrFromEmbeddedThumbnail(imgFile);
+                Image thumbnail = ThumbnailCreatorService.INSTANCE.createThumbnail(imgFile);
                 if (thumbnail != null) {
                     updateThumbnailFile(imgFile, thumbnail);
                 }

@@ -16,9 +16,19 @@ public class ThumbnailCreationStrategyProviderImpl implements ThumbnailCreationS
 
     @Override
     public ThumbnailCreationStrategy getThumbnailCreationStrategy() {
-
+        String value = ensureValidValue(prefs.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR));
         return prefs.containsKey(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR)
-                ? ThumbnailCreationStrategy.valueOf(prefs.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR))
-                : ThumbnailCreationStrategy.JAVA_IMAGE_IO;
+                ? ThumbnailCreationStrategy.valueOf(value)
+                : ThumbnailCreationStrategy.JPHOTOTAGGER;
+    }
+
+    private String ensureValidValue(String value) {
+        for (ThumbnailCreationStrategy strategy : ThumbnailCreationStrategy.values()) {
+            String valueName = strategy.name();
+            if (valueName.equals(value)) {
+                return value;
+            }
+        }
+        return ThumbnailCreationStrategy.JPHOTOTAGGER.name();
     }
 }

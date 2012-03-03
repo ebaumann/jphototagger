@@ -29,14 +29,14 @@ import org.jphototagger.program.settings.AppPreferencesKeys;
 /**
  * @author Elmar Baumann
  */
-public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
+public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private JPopupMenu createExternalThumbnailCreatorPopupMenu;
     private final Map<JRadioButton, ThumbnailCreationStrategy> thumbnailCreatorOfRadioButton = new HashMap<JRadioButton, ThumbnailCreationStrategy>();
     private final EnumMap<ThumbnailCreationStrategy, JRadioButton> radioButtonOfThumbnailCreator = new EnumMap<ThumbnailCreationStrategy, JRadioButton>(ThumbnailCreationStrategy.class);
 
-    public SettingsThumbnailsPanel() {
+    public ThumbnailsSettingsPanel() {
         initComponents();
         initMaps();
         MnemonicUtil.setMnemonics((Container) this);
@@ -44,10 +44,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private void initMaps() {
         thumbnailCreatorOfRadioButton.put(radioButtonCreateThumbnailsWithExternalApp, ThumbnailCreationStrategy.EXTERNAL_APP);
-        thumbnailCreatorOfRadioButton.put(radioButtonCreateThumbnailsWithImagero, ThumbnailCreationStrategy.IMAGERO);
-        thumbnailCreatorOfRadioButton.put(radioButtonCreateThumbnailsWithJavaImageIo, ThumbnailCreationStrategy.JAVA_IMAGE_IO);
-        thumbnailCreatorOfRadioButton.put(radioButtonUseEmbeddedThumbnails, ThumbnailCreationStrategy.EMBEDDED);
-
+        thumbnailCreatorOfRadioButton.put(radioButtonCreateThumbnailsWithJPhotoTagger, ThumbnailCreationStrategy.JPHOTOTAGGER);
         for (JRadioButton radioButton : thumbnailCreatorOfRadioButton.keySet()) {
             radioButtonOfThumbnailCreator.put(thumbnailCreatorOfRadioButton.get(radioButton), radioButton);
         }
@@ -55,8 +52,8 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     @Override
     public void restore() {
-        setSelectedRadioButtons();
-        setExternalThumbnailAppEnabled();
+        restoreThumbnailCreationStrategy();
+        restoreExternalThumbnailAppEnabled();
         panelSettingsThumbnailDimensions.restore();
         textFieldExternalThumbnailCreationCommand.setText(getExternalThumbnailCreationCommand());
         checkBoxDisplayThumbnailTooltip.setSelected(isDisplayThumbnailTooltip());
@@ -65,7 +62,6 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private boolean isDisplayThumbnailTooltip() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
                 ? prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
                 : true;
@@ -73,7 +69,6 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private boolean isDisplayThumbnailsBottomPanel() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL)
                 ? prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL)
                 : true;
@@ -81,30 +76,25 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private String getExternalThumbnailCreationCommand() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);
     }
 
-    private void setSelectedRadioButtons() {
+    private void restoreThumbnailCreationStrategy() {
         ThumbnailCreationStrategy strategy = getThumbnailCreationStrategy();
-
         for (JRadioButton radioButton : radioButtonOfThumbnailCreator.values()) {
             JRadioButton radioButtonOfCreator = radioButtonOfThumbnailCreator.get(strategy);
-
             radioButton.setSelected(radioButtonOfCreator == radioButton);
         }
     }
 
     private ThumbnailCreationStrategy getThumbnailCreationStrategy() {
         ThumbnailCreationStrategyProvider provider = Lookup.getDefault().lookup(ThumbnailCreationStrategyProvider.class);
-
         return provider.getThumbnailCreationStrategy();
     }
 
-    private void setExternalThumbnailAppEnabled() {
+    private void restoreExternalThumbnailAppEnabled() {
         ThumbnailCreationStrategy strategy = getThumbnailCreationStrategy();
         boolean isCreatorExternalApp = strategy.equals(ThumbnailCreationStrategy.EXTERNAL_APP);
-
         textFieldExternalThumbnailCreationCommand.setEnabled(isCreatorExternalApp);
         buttonChooseExternalThumbnailCreator.setEnabled(isCreatorExternalApp);
     }
@@ -113,30 +103,25 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         if (createExternalThumbnailCreatorPopupMenu == null) {
             createExternalThumbnailCreatorPopupMenu = createExternalThumbnailCreatorPopupMenu();
         }
-
         int buttonHeight = buttonChooseExternalThumbnailCreator.getHeight();
-
         createExternalThumbnailCreatorPopupMenu.show(buttonChooseExternalThumbnailCreator, 0, buttonHeight);
     }
 
     private JPopupMenu createExternalThumbnailCreatorPopupMenu() {
         JPopupMenu popupMenu = new JPopupMenu();
         Collection<? extends ExternalThumbnailCreationCommand> externalThumbnailCreators = Lookup.getDefault().lookupAll(ExternalThumbnailCreationCommand.class);
-
         for (ExternalThumbnailCreationCommand externalThumbnailCreator : externalThumbnailCreators) {
             if (externalThumbnailCreator.isEnabled()) {
                 ExternalThumbnailCreatorAction action = new ExternalThumbnailCreatorAction(externalThumbnailCreator);
-
                 popupMenu.add(action);
             }
         }
-
         return popupMenu;
     }
 
     @Override
     public String getHelpPageUrl() {
-        return Bundle.getString(SettingsThumbnailDimensionsPanel.class, "SettingsThumbnailDimensionsPanel.HelpPage");
+        return Bundle.getString(ThumbnailDimensionsSettingsPanel.class, "SettingsThumbnailDimensionsPanel.HelpPage");
     }
 
     private void showThumbnailCreatorsSettingsDialog() {
@@ -168,13 +153,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private void setExternalThumbnailCreationCommand(String command) {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND, command);
     }
 
     private void setDisplayThumbnailTooltip() {
         boolean isDisplayThumbnailTooltip = checkBoxDisplayThumbnailTooltip.isSelected();
-
         setDisplayThumbnailTooltip(isDisplayThumbnailTooltip);
     }
 
@@ -186,7 +169,6 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
 
     private void setDisplayThumbnailTooltip(boolean display) {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP, display);
     }
 
@@ -200,14 +182,12 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     private void setThumbnailCreator(JRadioButton radioButton) {
         setThumbnailCreationStrategy(thumbnailCreatorOfRadioButton.get(radioButton));
         boolean selected = radioButtonCreateThumbnailsWithExternalApp.isSelected();
-
         textFieldExternalThumbnailCreationCommand.setEnabled(selected);
         buttonChooseExternalThumbnailCreator.setEnabled(selected);
     }
 
     private void setThumbnailCreationStrategy(ThumbnailCreationStrategy creator) {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_CREATOR, creator.name());
     }
 
@@ -223,11 +203,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupThumbnailCreator = new javax.swing.ButtonGroup();
-        panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsPanel();
+        panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel();
         panelThumbnailCreator = new javax.swing.JPanel();
-        radioButtonCreateThumbnailsWithJavaImageIo = new javax.swing.JRadioButton();
-        radioButtonCreateThumbnailsWithImagero = new javax.swing.JRadioButton();
-        radioButtonUseEmbeddedThumbnails = new javax.swing.JRadioButton();
+        radioButtonCreateThumbnailsWithJPhotoTagger = new javax.swing.JRadioButton();
         radioButtonCreateThumbnailsWithExternalApp = new javax.swing.JRadioButton();
         buttonChooseExternalThumbnailCreator = new javax.swing.JButton();
         panelExternalThumbnailApp = new javax.swing.JPanel();
@@ -243,7 +221,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        panelSettingsThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsThumbnailsPanel.panelSettingsThumbnailDimensions.border.title"))); // NOI18N
+        panelSettingsThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ThumbnailsSettingsPanel.panelSettingsThumbnailDimensions.border.title"))); // NOI18N
         panelSettingsThumbnailDimensions.setName("panelSettingsThumbnailDimensions"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -253,46 +231,40 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         add(panelSettingsThumbnailDimensions, gridBagConstraints);
 
-        panelThumbnailCreator.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsThumbnailsPanel.panelThumbnailCreator.border.title"))); // NOI18N
+        panelThumbnailCreator.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ThumbnailsSettingsPanel.panelThumbnailCreator.border.title"))); // NOI18N
         panelThumbnailCreator.setName("panelThumbnailCreator"); // NOI18N
+        panelThumbnailCreator.setLayout(new java.awt.GridBagLayout());
 
-        buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithJavaImageIo);
-        radioButtonCreateThumbnailsWithJavaImageIo.setText(bundle.getString("SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithJavaImageIo.text")); // NOI18N
-        radioButtonCreateThumbnailsWithJavaImageIo.setName("radioButtonCreateThumbnailsWithJavaImageIo"); // NOI18N
-        radioButtonCreateThumbnailsWithJavaImageIo.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithJPhotoTagger);
+        radioButtonCreateThumbnailsWithJPhotoTagger.setText(bundle.getString("ThumbnailsSettingsPanel.radioButtonCreateThumbnailsWithJPhotoTagger.text")); // NOI18N
+        radioButtonCreateThumbnailsWithJPhotoTagger.setName("radioButtonCreateThumbnailsWithJPhotoTagger"); // NOI18N
+        radioButtonCreateThumbnailsWithJPhotoTagger.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButtonCreateThumbnailsWithJavaImageIoActionPerformed(evt);
+                radioButtonCreateThumbnailsWithJPhotoTaggerActionPerformed(evt);
             }
         });
-
-        buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithImagero);
-        radioButtonCreateThumbnailsWithImagero.setText(bundle.getString("SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithImagero.text")); // NOI18N
-        radioButtonCreateThumbnailsWithImagero.setName("radioButtonCreateThumbnailsWithImagero"); // NOI18N
-        radioButtonCreateThumbnailsWithImagero.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButtonCreateThumbnailsWithImageroActionPerformed(evt);
-            }
-        });
-
-        buttonGroupThumbnailCreator.add(radioButtonUseEmbeddedThumbnails);
-        radioButtonUseEmbeddedThumbnails.setText(bundle.getString("SettingsThumbnailsPanel.radioButtonUseEmbeddedThumbnails.text")); // NOI18N
-        radioButtonUseEmbeddedThumbnails.setName("radioButtonUseEmbeddedThumbnails"); // NOI18N
-        radioButtonUseEmbeddedThumbnails.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButtonUseEmbeddedThumbnailsActionPerformed(evt);
-            }
-        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelThumbnailCreator.add(radioButtonCreateThumbnailsWithJPhotoTagger, gridBagConstraints);
 
         buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithExternalApp);
-        radioButtonCreateThumbnailsWithExternalApp.setText(bundle.getString("SettingsThumbnailsPanel.radioButtonCreateThumbnailsWithExternalApp.text")); // NOI18N
+        radioButtonCreateThumbnailsWithExternalApp.setText(bundle.getString("ThumbnailsSettingsPanel.radioButtonCreateThumbnailsWithExternalApp.text")); // NOI18N
         radioButtonCreateThumbnailsWithExternalApp.setName("radioButtonCreateThumbnailsWithExternalApp"); // NOI18N
         radioButtonCreateThumbnailsWithExternalApp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCreateThumbnailsWithExternalAppActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelThumbnailCreator.add(radioButtonCreateThumbnailsWithExternalApp, gridBagConstraints);
 
-        buttonChooseExternalThumbnailCreator.setText(bundle.getString("SettingsThumbnailsPanel.buttonChooseExternalThumbnailCreator.text")); // NOI18N
+        buttonChooseExternalThumbnailCreator.setText(bundle.getString("ThumbnailsSettingsPanel.buttonChooseExternalThumbnailCreator.text")); // NOI18N
         buttonChooseExternalThumbnailCreator.setEnabled(false);
         buttonChooseExternalThumbnailCreator.setName("buttonChooseExternalThumbnailCreator"); // NOI18N
         buttonChooseExternalThumbnailCreator.addActionListener(new java.awt.event.ActionListener() {
@@ -300,39 +272,12 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
                 buttonChooseExternalThumbnailCreatorActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panelThumbnailCreatorLayout = new javax.swing.GroupLayout(panelThumbnailCreator);
-        panelThumbnailCreator.setLayout(panelThumbnailCreatorLayout);
-        panelThumbnailCreatorLayout.setHorizontalGroup(
-            panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                        .addComponent(radioButtonCreateThumbnailsWithImagero, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
-                        .addGap(159, 159, 159))
-                    .addComponent(radioButtonCreateThumbnailsWithJavaImageIo)
-                    .addComponent(radioButtonUseEmbeddedThumbnails)
-                    .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                        .addComponent(radioButtonCreateThumbnailsWithExternalApp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChooseExternalThumbnailCreator)))
-                .addContainerGap())
-        );
-        panelThumbnailCreatorLayout.setVerticalGroup(
-            panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelThumbnailCreatorLayout.createSequentialGroup()
-                .addComponent(radioButtonCreateThumbnailsWithJavaImageIo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonCreateThumbnailsWithImagero)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonUseEmbeddedThumbnails)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelThumbnailCreatorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(radioButtonCreateThumbnailsWithExternalApp)
-                    .addComponent(buttonChooseExternalThumbnailCreator))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelThumbnailCreator.add(buttonChooseExternalThumbnailCreator, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -342,13 +287,13 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         add(panelThumbnailCreator, gridBagConstraints);
 
-        panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("SettingsThumbnailsPanel.panelExternalThumbnailApp.border.title"))); // NOI18N
+        panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ThumbnailsSettingsPanel.panelExternalThumbnailApp.border.title"))); // NOI18N
         panelExternalThumbnailApp.setName("panelExternalThumbnailApp"); // NOI18N
         panelExternalThumbnailApp.setLayout(new java.awt.GridBagLayout());
 
         labelIsCreateThumbnailsWithExternalApp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelIsCreateThumbnailsWithExternalApp.setLabelFor(textFieldExternalThumbnailCreationCommand);
-        labelIsCreateThumbnailsWithExternalApp.setText(bundle.getString("SettingsThumbnailsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
+        labelIsCreateThumbnailsWithExternalApp.setText(bundle.getString("ThumbnailsSettingsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
         labelIsCreateThumbnailsWithExternalApp.setName("labelIsCreateThumbnailsWithExternalApp"); // NOI18N
         labelIsCreateThumbnailsWithExternalApp.setPreferredSize(new java.awt.Dimension(1694, 60));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -383,7 +328,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         add(panelExternalThumbnailApp, gridBagConstraints);
 
-        checkBoxDisplayThumbnailTooltip.setText(bundle.getString("SettingsThumbnailsPanel.checkBoxDisplayThumbnailTooltip.text")); // NOI18N
+        checkBoxDisplayThumbnailTooltip.setText(bundle.getString("ThumbnailsSettingsPanel.checkBoxDisplayThumbnailTooltip.text")); // NOI18N
         checkBoxDisplayThumbnailTooltip.setName("checkBoxDisplayThumbnailTooltip"); // NOI18N
         checkBoxDisplayThumbnailTooltip.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -397,7 +342,7 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         add(checkBoxDisplayThumbnailTooltip, gridBagConstraints);
 
-        checkBoxDisplayThumbnailsBottomPanel.setText(bundle.getString("SettingsThumbnailsPanel.checkBoxDisplayThumbnailsBottomPanel.text")); // NOI18N
+        checkBoxDisplayThumbnailsBottomPanel.setText(bundle.getString("ThumbnailsSettingsPanel.checkBoxDisplayThumbnailsBottomPanel.text")); // NOI18N
         checkBoxDisplayThumbnailsBottomPanel.setName("checkBoxDisplayThumbnailsBottomPanel"); // NOI18N
         checkBoxDisplayThumbnailsBottomPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,11 +356,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         add(checkBoxDisplayThumbnailsBottomPanel, gridBagConstraints);
 
-        panelFurtherSettings.setName(bundle.getString("SettingsThumbnailsPanel.panelFurtherSettings.name")); // NOI18N
+        panelFurtherSettings.setName(bundle.getString("ThumbnailsSettingsPanel.panelFurtherSettings.name")); // NOI18N
         panelFurtherSettings.setLayout(new java.awt.GridBagLayout());
 
-        buttonThumbnailCreatorsSettings.setText(bundle.getString("SettingsThumbnailsPanel.buttonThumbnailCreatorsSettings.text")); // NOI18N
-        buttonThumbnailCreatorsSettings.setName(bundle.getString("SettingsThumbnailsPanel.buttonThumbnailCreatorsSettings.name")); // NOI18N
+        buttonThumbnailCreatorsSettings.setText(bundle.getString("ThumbnailsSettingsPanel.buttonThumbnailCreatorsSettings.text")); // NOI18N
+        buttonThumbnailCreatorsSettings.setName(bundle.getString("ThumbnailsSettingsPanel.buttonThumbnailCreatorsSettings.name")); // NOI18N
         buttonThumbnailCreatorsSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonThumbnailCreatorsSettingsActionPerformed(evt);
@@ -442,11 +387,11 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         panelPadding.setLayout(panelPaddingLayout);
         panelPaddingLayout.setHorizontalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 764, Short.MAX_VALUE)
+            .addGap(0, 802, Short.MAX_VALUE)
         );
         panelPaddingLayout.setVerticalGroup(
             panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 129, Short.MAX_VALUE)
+            .addGap(0, 159, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -466,17 +411,9 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
         setThumbnailCreator((JRadioButton) evt.getSource());
     }//GEN-LAST:event_radioButtonCreateThumbnailsWithExternalAppActionPerformed
 
-    private void radioButtonUseEmbeddedThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonUseEmbeddedThumbnailsActionPerformed
+    private void radioButtonCreateThumbnailsWithJPhotoTaggerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithJPhotoTaggerActionPerformed
         setThumbnailCreator((JRadioButton) evt.getSource());
-    }//GEN-LAST:event_radioButtonUseEmbeddedThumbnailsActionPerformed
-
-    private void radioButtonCreateThumbnailsWithImageroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithImageroActionPerformed
-        setThumbnailCreator((JRadioButton) evt.getSource());
-    }//GEN-LAST:event_radioButtonCreateThumbnailsWithImageroActionPerformed
-
-    private void radioButtonCreateThumbnailsWithJavaImageIoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCreateThumbnailsWithJavaImageIoActionPerformed
-        setThumbnailCreator((JRadioButton) evt.getSource());
-    }//GEN-LAST:event_radioButtonCreateThumbnailsWithJavaImageIoActionPerformed
+    }//GEN-LAST:event_radioButtonCreateThumbnailsWithJPhotoTaggerActionPerformed
 
     private void buttonChooseExternalThumbnailCreatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseExternalThumbnailCreatorActionPerformed
         chooseExternalThumbnailCreator();
@@ -504,12 +441,10 @@ public final class SettingsThumbnailsPanel extends javax.swing.JPanel implements
     private javax.swing.JPanel panelExternalThumbnailApp;
     private javax.swing.JPanel panelFurtherSettings;
     private javax.swing.JPanel panelPadding;
-    private org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsPanel panelSettingsThumbnailDimensions;
+    private org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel panelSettingsThumbnailDimensions;
     private javax.swing.JPanel panelThumbnailCreator;
     private javax.swing.JRadioButton radioButtonCreateThumbnailsWithExternalApp;
-    private javax.swing.JRadioButton radioButtonCreateThumbnailsWithImagero;
-    private javax.swing.JRadioButton radioButtonCreateThumbnailsWithJavaImageIo;
-    private javax.swing.JRadioButton radioButtonUseEmbeddedThumbnails;
+    private javax.swing.JRadioButton radioButtonCreateThumbnailsWithJPhotoTagger;
     private javax.swing.JTextField textFieldExternalThumbnailCreationCommand;
     // End of variables declaration//GEN-END:variables
 }

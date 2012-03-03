@@ -222,7 +222,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private void createAndSetThumbnailToImageFile(ImageFile imageFile) {
         File file = imageFile.getFile();
-        Image thumbnail = ThumbnailCreatorService.INSTANCE.createScaledOrFromEmbeddedThumbnail(file);
+        Image thumbnail = ThumbnailCreatorService.INSTANCE.createThumbnail(file);
         imageFile.setThumbnail(thumbnail);
         if (thumbnail == null) {
             logErrorNullThumbnail(file);

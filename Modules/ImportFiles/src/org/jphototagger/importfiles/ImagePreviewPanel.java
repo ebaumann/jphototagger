@@ -46,27 +46,19 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
         if (!evt.getPropertyName().equals(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY)) {
             return;
         }
-
         File selFile = (File) evt.getNewValue();
-
         if ((selFile == null) || !FileFilterUtil.isImageFile(selFile)) {
             image = null;
             repaint();
-
             return;
         }
-
-
         image = tnProvider.getThumbnail(selFile);
-
         if (image == null) {
-            image = ThumbnailCreatorService.INSTANCE.createScaledOrFromEmbeddedThumbnail(selFile);
+            image = ThumbnailCreatorService.INSTANCE.createThumbnail(selFile);
         }
-
         if (image != null) {
             scaleImage();
         }
-
         repaint();
     }
 
@@ -74,24 +66,22 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
         width = image.getWidth(this);
         height = image.getHeight(this);
 
-        double ratio = 1.0;
-
         /*
          * Determine how to scale the image. Since the accessory can expand
          * vertically make sure we don't go larger than 150 when scaling
          * vertically.
          */
         if (width >= height) {
-            ratio = (double) (SIZE - PADDING) / (double) width;
+            double ratio = (double) (SIZE - PADDING) / (double) width;
             width = SIZE - PADDING;
             height = (int) (height * ratio);
         } else {
             if (getHeight() > 150) {
-                ratio = (double) (SIZE - PADDING) / (double) height;
+                double ratio = (double) (SIZE - PADDING) / (double) height;
                 height = SIZE - PADDING;
                 width = (int) (width * ratio);
             } else {
-                ratio = (double) getHeight() / height;
+                double ratio = (double) getHeight() / height;
                 height = getHeight();
                 width = (int) (width * ratio);
             }

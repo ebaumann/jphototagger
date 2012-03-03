@@ -164,7 +164,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
     }
 
     private void showThumbnailDimensionsDialog() {
-        SettingsThumbnailDimensionsDialog dialog = new SettingsThumbnailDimensionsDialog();
+        ThumbnailDimensionsSettingsDialog dialog = new ThumbnailDimensionsSettingsDialog();
         dialog.setVisible(true);
     }
 
