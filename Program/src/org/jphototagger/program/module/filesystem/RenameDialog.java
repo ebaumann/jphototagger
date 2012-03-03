@@ -387,6 +387,7 @@ public final class RenameDialog extends Dialog {
         panelInputName.add(panelFolderPathname, gridBagConstraints);
 
         panelThumbnailBorder.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        panelThumbnailBorder.setMinimumSize(new java.awt.Dimension(260, 260));
         panelThumbnailBorder.setPreferredSize(new java.awt.Dimension(260, 260));
         panelThumbnailBorder.setLayout(new java.awt.GridBagLayout());
 
