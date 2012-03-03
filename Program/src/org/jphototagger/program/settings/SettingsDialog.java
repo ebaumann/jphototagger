@@ -183,7 +183,7 @@ public final class SettingsDialog extends Dialog {
         panelSearch = new org.jphototagger.lib.swing.TabbedPaneSearchPanel();
         tabbedPane = new javax.swing.JTabbedPane();
         panelPrograms = new org.jphototagger.program.module.programs.ProgramsSettingsPanel();
-        panelThumbnails = new org.jphototagger.program.module.thumbnails.SettingsThumbnailsPanel();
+        panelThumbnails = new org.jphototagger.program.module.thumbnails.ThumbnailsSettingsPanel();
         panelTasks = new org.jphototagger.program.misc.ScheduledTasksSettingsPanel();
         panelPerformance = new org.jphototagger.program.misc.PerformanceSettingsPanel();
         panelFileExcludePatterns = new org.jphototagger.program.module.fileexcludepatterns.FileExcludePatternsSettingsPanel();
@@ -292,7 +292,7 @@ public final class SettingsDialog extends Dialog {
     private org.jphototagger.program.module.programs.ProgramsSettingsPanel panelPrograms;
     private org.jphototagger.lib.swing.TabbedPaneSearchPanel panelSearch;
     private org.jphototagger.program.misc.ScheduledTasksSettingsPanel panelTasks;
-    private org.jphototagger.program.module.thumbnails.SettingsThumbnailsPanel panelThumbnails;
+    private org.jphototagger.program.module.thumbnails.ThumbnailsSettingsPanel panelThumbnails;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

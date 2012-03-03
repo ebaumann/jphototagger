@@ -79,7 +79,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="org.jphototagger.program.module.thumbnails.SettingsThumbnailsPanel" name="panelThumbnails">
+        <Component class="org.jphototagger.program.module.thumbnails.ThumbnailsSettingsPanel" name="panelThumbnails">
           <Properties>
             <Property name="name" type="java.lang.String" value="panelThumbnails" noResource="true"/>
           </Properties>

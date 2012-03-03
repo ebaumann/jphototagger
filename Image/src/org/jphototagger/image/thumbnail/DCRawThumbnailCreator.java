@@ -68,16 +68,6 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
     }
 
     @Override
-    public Image createFromEmbeddedThumbnail(File file) {
-        return null;
-    }
-
-    @Override
-    public boolean canCreateFromEmbeddedThumbnail(File file) {
-        return false;
-    }
-
-    @Override
     public Image createThumbnail(File file) {
         if (!canCreateThumbnail(file) || !file.exists()) {
             return null;

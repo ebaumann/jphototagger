@@ -8,11 +8,11 @@ import org.jphototagger.program.settings.SettingsDialog;
 /**
  * @author Elmar Baumann
  */
-public class SettingsThumbnailDimensionsDialog extends Dialog {
+public class ThumbnailDimensionsSettingsDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
 
-    public SettingsThumbnailDimensionsDialog() {
+    public ThumbnailDimensionsSettingsDialog() {
         super(GUI.getAppFrame(), true);
         initComponents();
         postInitComponents();
@@ -55,13 +55,13 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsPanel();
+        panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel();
         buttonClose = new javax.swing.JButton();
         buttonFurtherSettings = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        setTitle(bundle.getString("SettingsThumbnailDimensionsDialog.title")); // NOI18N
+        setTitle(bundle.getString("ThumbnailDimensionsSettingsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -71,7 +71,7 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
 
         panelSettingsThumbnailDimensions.setName("panelSettingsThumbnailDimensions"); // NOI18N
 
-        buttonClose.setText(bundle.getString("SettingsThumbnailDimensionsDialog.buttonClose.text")); // NOI18N
+        buttonClose.setText(bundle.getString("ThumbnailDimensionsSettingsDialog.buttonClose.text")); // NOI18N
         buttonClose.setName("buttonClose"); // NOI18N
         buttonClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +79,7 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
             }
         });
 
-        buttonFurtherSettings.setText(bundle.getString("SettingsThumbnailDimensionsDialog.buttonFurtherSettings.text")); // NOI18N
+        buttonFurtherSettings.setText(bundle.getString("ThumbnailDimensionsSettingsDialog.buttonFurtherSettings.text")); // NOI18N
         buttonFurtherSettings.setName("buttonFurtherSettings"); // NOI18N
         buttonFurtherSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +133,7 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
 
             @Override
             public void run() {
-                SettingsThumbnailDimensionsDialog dialog = new SettingsThumbnailDimensionsDialog();
+                ThumbnailDimensionsSettingsDialog dialog = new ThumbnailDimensionsSettingsDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override
@@ -148,6 +148,6 @@ public class SettingsThumbnailDimensionsDialog extends Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
     private javax.swing.JButton buttonFurtherSettings;
-    private org.jphototagger.program.module.thumbnails.SettingsThumbnailDimensionsPanel panelSettingsThumbnailDimensions;
+    private org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel panelSettingsThumbnailDimensions;
     // End of variables declaration//GEN-END:variables
 }

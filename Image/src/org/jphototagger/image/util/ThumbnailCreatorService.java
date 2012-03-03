@@ -18,70 +18,30 @@ public final class ThumbnailCreatorService {
     private final Collection<? extends ThumbnailCreator> thumbnailCreators = Lookup.getDefault().lookupAll(ThumbnailCreator.class);
 
     /**
-     * Queries all {@code ThumbnailCreator} implementations and returns
+     * Queries all {@link  ThumbnailCreator} implementations and returns
      * a thumbnail from the first implementation capable of creating it.
      *
      * @param file
      * @return thumbnail or null
      */
     public Image createThumbnail(File file) {
-
+        if (file == null) {
+            return null;
+        }
         for (ThumbnailCreator tnCreator : thumbnailCreators) {
             if (tnCreator.canCreateThumbnail(file)) {
                 Image thumbnail = tnCreator.createThumbnail(file);
-
                 if (thumbnail != null) {
                     return thumbnail;
                 }
             }
         }
-
         return null;
-    }
-
-    /**
-     * Queries all {@code ThumbnailCreator} implementations and returns
-     * a thumbnail from the first implementation capable of creating it.
-     *
-     * @param file
-     * @return thumbnail or null
-     */
-    public Image createFromEmbeddedThumbnail(File file) {
-
-        for (ThumbnailCreator tnCreator : thumbnailCreators) {
-            if (tnCreator.canCreateFromEmbeddedThumbnail(file)) {
-                Image thumbnail = tnCreator.createFromEmbeddedThumbnail(file);
-
-                if (thumbnail != null) {
-                    return thumbnail;
-                }
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Calls {@code #createThumbnail(java.io.File)} and if not successful
-     * {@code #createFromEmbeddedThumbnail(java.io.File)}.
-     *
-     * @param file
-     * @return Thumbnail or null
-     */
-    public Image createScaledOrFromEmbeddedThumbnail(File file) {
-        Image thumbnail = createThumbnail(file);
-
-        if (thumbnail != null) {
-            return thumbnail;
-        }
-
-        return createFromEmbeddedThumbnail(file);
     }
 
     public static int readMaxThumbnailWidthFromPreferences() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         int width = prefs.getInt(Preferences.KEY_MAX_THUMBNAIL_WIDTH);
-
         return (width != Integer.MIN_VALUE)
                 ? width
                 : 150;

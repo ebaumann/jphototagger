@@ -3,6 +3,16 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.1 2012-03-
+-----------------
+
+* JPhotoTagger doesn't offer any longer selecting between
+  the Java Image IO and Imagero in the thumbnail settings
+  (Edit > Settings > Thumbnails).
+  Instead it tries to select automatically the appropriate
+  method.
+  Extraction of embedded thumbnails has been dropped.
+
 0.24.0 2012-03-03
 -----------------
 
