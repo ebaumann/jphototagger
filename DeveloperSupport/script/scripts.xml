@@ -57,9 +57,4 @@
             <arg value="find_missing_bundle_strings.sh" />
         </exec>
     </target>
-    <target name="bundles-cmp-line-count" description="Comparing Line count in Bundles">
-        <exec executable="bash">
-            <arg value="cmp_line_count._bundle.sh" />
-        </exec>
-    </target>
 </project>
