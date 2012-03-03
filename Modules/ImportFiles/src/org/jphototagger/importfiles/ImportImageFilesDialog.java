@@ -410,7 +410,7 @@ public class ImportImageFilesDialog extends Dialog {
     private File chooseDir(File startDir) {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), startDir, showHiddenDirs);
-        dlg.setStorageKey("ImportImageFilesDialog.DirChooser");
+        dlg.setPreferencesKey("ImportImageFilesDialog.DirChooser");
         dlg.setVisible(true);
         toFront();
         return dlg.isAccepted()

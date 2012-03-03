@@ -63,7 +63,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         File dir = null;
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), startDirectory, showHiddenDirs);
-        dlg.setStorageKey("MiscSettingsPanel.DirChooser");
+        dlg.setPreferencesKey("MiscSettingsPanel.DirChooser");
         dlg.setVisible(true);
         ComponentUtil.parentWindowToFront(this);
         if (dlg.isAccepted()) {

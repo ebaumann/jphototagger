@@ -101,7 +101,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
     }
 
     private void showHelp() {
-        HelpUtil.displayHelp("/org/jphototagger/plugin/htmlreports/help/index.html");
+        HelpUtil.showHelp("/org/jphototagger/plugin/htmlreports/help/index.html");
     }
 
     /**

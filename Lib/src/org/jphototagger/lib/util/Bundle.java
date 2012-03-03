@@ -26,7 +26,8 @@ public final class Bundle {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-        String bundlePath = classWithinSamePackageAsBundle.getPackage().getName() + ".Bundle";
+        String packagePath = classWithinSamePackageAsBundle.getPackage().getName();
+        String bundlePath = packagePath + ".Bundle";
         ResourceBundle bundle = ResourceBundle.getBundle(bundlePath);
         return getFormattedString(bundle, key, params);
     }

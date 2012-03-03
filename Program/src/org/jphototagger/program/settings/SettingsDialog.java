@@ -157,8 +157,8 @@ public final class SettingsDialog extends Dialog {
     }
 
     @Override
-    protected void help() {
-        help(helpUrlOfComponent.get(tabbedPane.getSelectedComponent()));
+    protected void showHelp() {
+        showHelp(helpUrlOfComponent.get(tabbedPane.getSelectedComponent()));
     }
 
     @Override

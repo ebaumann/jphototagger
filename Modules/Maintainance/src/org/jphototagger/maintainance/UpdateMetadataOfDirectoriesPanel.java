@@ -292,7 +292,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), lastDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
 
         buttonChooseDirectories.setEnabled(false);
-        dlg.setStorageKey("UpdateMetadataOfDirectoriesPanel.DirChooser");
+        dlg.setPreferencesKey("UpdateMetadataOfDirectoriesPanel.DirChooser");
         dlg.setVisible(true);
         ComponentUtil.parentWindowToFront(this);
 

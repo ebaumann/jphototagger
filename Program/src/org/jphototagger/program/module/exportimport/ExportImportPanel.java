@@ -99,10 +99,10 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
             setImportCheckBoxes();
         }
 
-        panelSelectObjects.setStorageKey(isExport()
+        panelSelectObjects.setPreferencesKeyForSelectedIndices(isExport()
                                          ? KEY_SEL_INDICES_EXPORT
                                          : KEY_SEL_INDICES_IMPORT);
-        panelSelectObjects.applyPropertiesSelectedIndices();
+        panelSelectObjects.restoreSelectedIndices();
         buttonExportImport.setText(isExport()
                                    ? TEXT_EXPORT
                                    : TEXT_IMPORT);
@@ -172,7 +172,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(""), showHiddenDirs);
 
-        dlg.setStorageKey("ExportImportPanel.DirChooser");
+        dlg.setPreferencesKey("ExportImportPanel.DirChooser");
         dlg.setVisible(true);
         ComponentUtil.parentWindowToFront(this);
 

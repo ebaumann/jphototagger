@@ -13,7 +13,7 @@ public class SynonymsDialog extends Dialog {
 
     private SynonymsDialog() {
         super(ComponentUtil.findFrameWithIcon(), false);
-        setStorageKey("SynonymsDialog");
+        setPreferencesKey("SynonymsDialog");
         initComponents();
         postInitComponents();
     }

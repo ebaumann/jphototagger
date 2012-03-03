@@ -47,7 +47,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private void showHelp() {
-        HelpUtil.displayHelp("/org/jphototagger/plugin/cftc/help/index.html");
+        HelpUtil.showHelp("/org/jphototagger/plugin/cftc/help/index.html");
     }
 
     private static class DelimiterModel extends DefaultComboBoxModel {

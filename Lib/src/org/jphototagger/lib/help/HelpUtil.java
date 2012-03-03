@@ -17,11 +17,11 @@ public final class HelpUtil {
 
     /**
      * Looks up for a {@link HelpDisplayer} implementation and calls
-     * {@link HelpDisplayer#displayHelp(java.lang.String)}.
+     * {@link HelpDisplayer#showHelp(java.lang.String)}.
      *
      * @param url URL to display
      */
-    public static void displayHelp(String url) {
+    public static void showHelp(String url) {
         if (url == null) {
             throw new NullPointerException("url == null");
         }

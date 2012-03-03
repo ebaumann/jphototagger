@@ -27,7 +27,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private void showHelp() {
-        HelpUtil.displayHelp("/org/jphototagger/plugin/flickrupload/help/index.html");
+        HelpUtil.showHelp("/org/jphototagger/plugin/flickrupload/help/index.html");
     }
 
     /**
