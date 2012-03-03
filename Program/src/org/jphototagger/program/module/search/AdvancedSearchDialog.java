@@ -44,8 +44,8 @@ public final class AdvancedSearchDialog extends Dialog implements NameListener {
     }
 
     @Override
-    protected void help() {
-        help(Bundle.getString(AdvancedSearchDialog.class, "AdvancedSearchDialog.HelpPage"));
+    protected void showHelp() {
+        showHelp(Bundle.getString(AdvancedSearchDialog.class, "AdvancedSearchDialog.HelpPage"));
     }
 
     @Override

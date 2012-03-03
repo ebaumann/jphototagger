@@ -30,7 +30,7 @@ import org.jphototagger.lib.io.IoUtil;
 import org.jphototagger.lib.swing.FileChooserExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.StorageUtil;
+import org.jphototagger.lib.util.PreferencesUtil;
 
 /**
  * @author Elmar Baumann
@@ -202,7 +202,7 @@ public final class GPSLocationExportUtil {
     private static synchronized void setCurrentDir(File dir) {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
-        StorageUtil.setDirectory(prefs, KEY_CURRENT_DIR, dir);
+        PreferencesUtil.setDirectory(prefs, KEY_CURRENT_DIR, dir);
     }
 
     private GPSLocationExportUtil() {

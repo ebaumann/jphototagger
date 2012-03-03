@@ -16,7 +16,7 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
     public ExportImportDialog(ExportImportContext context) {
         super(GUI.getAppFrame());
 
-        setStorageKey("ExportImportDialog");
+        setPreferencesKey("ExportImportDialog");
 
         if (context == null) {
             throw new NullPointerException("context == null");

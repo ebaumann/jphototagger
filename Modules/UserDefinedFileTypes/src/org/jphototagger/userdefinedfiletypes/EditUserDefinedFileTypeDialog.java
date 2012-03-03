@@ -369,7 +369,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     }//GEN-LAST:event_formWindowClosing
 
     private void buttonHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHelpActionPerformed
-        help();
+        showHelp();
     }//GEN-LAST:event_buttonHelpActionPerformed
 
     /**

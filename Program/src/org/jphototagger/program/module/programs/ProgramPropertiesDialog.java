@@ -65,7 +65,7 @@ public final class ProgramPropertiesDialog extends Dialog {
             getContentPane().remove(checkBoxInputBeforeExecute);
         }
 
-        setIgnoreSizeAndLocation(true);
+        setIgnorePersistedSizeAndLocation(true);
         MnemonicUtil.setMnemonics((Container) this);
         MnemonicUtil.setMnemonics(panelExpertSettings);
         listen();
@@ -296,7 +296,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private void showPatternHelp() {
-        help("/org/jphototagger/program/resource/doc/de/parameter_substitution.html");
+        showHelp("/org/jphototagger/program/resource/doc/de/parameter_substitution.html");
     }
 
     private void toggleExpertSettings() {

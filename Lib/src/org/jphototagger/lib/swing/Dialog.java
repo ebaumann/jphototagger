@@ -5,6 +5,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -19,19 +20,18 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.help.HelpUtil;
 
 /**
- * Dialog which can close by pressing the ESC key and showing the Help dialog
- * by pressing the F1 key.
+ * Dialog which will be closed by pressing the ESC key and showing the Help Browser by pressing the F1 key.
  *
  * @author Elmar Baumann
  */
-public class Dialog extends JDialog implements WindowListener {
+public class Dialog extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private transient ActionListener actionListenerEscape;
     private transient ActionListener actionListenerHelp;
     private String helpPageUrl;
-    private String storageKey;
-    private boolean ignoreSizeAndLocation;
+    private String preferencesKey;
+    private boolean ignorePersistedSizeAndLocation;
 
     public Dialog(Frame owner, boolean modal) {
         super(owner, modal);
@@ -56,46 +56,44 @@ public class Dialog extends JDialog implements WindowListener {
     private void init() {
         createActionListener();
         registerKeyboardActions();
-        addWindowListener(this);
+        addWindowListener(sizeAndLocationPersister);
     }
 
     /**
-     * Sets the url to display in the help browser.
+     * Sets the URL to display in the Help Browser.
      *
-     * @param url  URL
+     * @param url URL
      */
     public void setHelpPageUrl(String url) {
         if (url == null) {
             throw new NullPointerException("url == null");
         }
-
         helpPageUrl = url;
     }
 
     /**
-     * This method will be called if the user presses F1. If
-     * {@code #setHelpPageUrl(java.lang.String)} was called,
-     * {@code #help(java.lang.String)} will be called.
+     * This method will be called if the user presses F1.
      *
-     * Specialized classes can call {@code #help(java.lang.String)}
-     * with an appropriate URL.
+     * <p>If {@link #setHelpPageUrl(java.lang.String)} was called,
+     * {@link #showHelp(java.lang.String)} will be called.
+     *
+     * <p> Specialized classes can call {@code #showHelp(java.lang.String)} with an appropriate URL.
      */
-    protected void help() {
+    protected void showHelp() {
         if (helpPageUrl != null) {
-            help(helpPageUrl);
+            showHelp(helpPageUrl);
         }
     }
 
-    protected void help(String url) {
+    protected void showHelp(String url) {
         if (url == null) {
             throw new NullPointerException("url == null");
         }
-
-        HelpUtil.displayHelp(url);
+        HelpUtil.showHelp(url);
     }
 
     /**
-     * This method is called if the user presses the ESC key. The
+     * This method will be called if the user presses the ESC key. The
      * default implementation calls <code>setVisible(false)</code>.
      */
     protected void escape() {
@@ -105,77 +103,67 @@ public class Dialog extends JDialog implements WindowListener {
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            applySizeAndLocation();
+            restoreSizeAndLocation();
         } else {
-            setSizeAndLocation();
+            persistSizeAndLocation();
         }
-
         super.setVisible(visible);
     }
 
     /**
      * This dialog persists size and location if a {@code Preferences} implementation
      * is present, by default it uses the class' name as key, here a different
-     * key can be setTree. This makes sense if the same dialog is used whithin different
+     * key can be set. This makes sense if the same dialog is used whithin different
      * contexts.
      *
-     * @param storageKey key
+     * @param preferencesKey key
      */
-    public void setStorageKey(String storageKey) {
-        this.storageKey = storageKey;
+    public void setPreferencesKey(String preferencesKey) {
+        this.preferencesKey = preferencesKey;
     }
 
-    public void setIgnoreSizeAndLocation(boolean ignore) {
-        ignoreSizeAndLocation = ignore;
+    public void setIgnorePersistedSizeAndLocation(boolean ignore) {
+        ignorePersistedSizeAndLocation = ignore;
     }
 
-    protected void setSizeAndLocation() {
+    protected void persistSizeAndLocation() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
-        if (ignoreSizeAndLocation || prefs == null) {
+        if (ignorePersistedSizeAndLocation || prefs == null) {
             return;
         }
-
-        String key = getSizeAndLocationKey();
-
+        String key = getSizeAndLocationPreferencesKey();
         prefs.setSize(key, this);
         prefs.setLocation(key, this);
     }
 
-    protected void applySizeAndLocation() {
-        if (ignoreSizeAndLocation) {
+    protected void restoreSizeAndLocation() {
+        if (ignorePersistedSizeAndLocation) {
             return;
         }
-
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         if (prefs == null) {
             setLocationRelativeTo(null);
             return;
         }
-
-        String key = getSizeAndLocationKey();
-
+        String key = getSizeAndLocationPreferencesKey();
         prefs.applySize(key, this);
         prefs.applyLocation(key, this);
     }
 
-    private String getSizeAndLocationKey() {
-        return (storageKey == null)
+    private String getSizeAndLocationPreferencesKey() {
+        return (preferencesKey == null)
                 ? getClass().getName()
-                : storageKey;
+                : preferencesKey;
     }
 
     private void registerKeyboardActions() {
         KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         KeyStroke strokeHelp = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
-
         for (Component component : getComponents()) {
             if (component instanceof JComponent) {
-                JComponent comp = (JComponent) component;
-
-                comp.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
-                comp.registerKeyboardAction(actionListenerHelp, strokeHelp, JComponent.WHEN_IN_FOCUSED_WINDOW);
+                JComponent jComponent = (JComponent) component;
+                jComponent.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
+                jComponent.registerKeyboardAction(actionListenerHelp, strokeHelp, JComponent.WHEN_IN_FOCUSED_WINDOW);
             }
         }
     }
@@ -188,11 +176,12 @@ public class Dialog extends JDialog implements WindowListener {
                 escape();
             }
         };
+
         actionListenerHelp = new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                help();
+                showHelp();
             }
         };
     }
@@ -202,45 +191,17 @@ public class Dialog extends JDialog implements WindowListener {
         KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
         KeyStroke strokeHelp = KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0);
         JRootPane pane = new JRootPane();
-
         pane.registerKeyboardAction(actionListenerEscape, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
         pane.registerKeyboardAction(actionListenerHelp, strokeHelp, JComponent.WHEN_IN_FOCUSED_WINDOW);
 
         return pane;
     }
 
-    @Override
-    public void windowClosing(WindowEvent evt) {
-        setSizeAndLocation();
-    }
+    private WindowListener sizeAndLocationPersister = new WindowAdapter() {
 
-    @Override
-    public void windowOpened(WindowEvent evt) {
-        // ignore
-    }
-
-    @Override
-    public void windowClosed(WindowEvent evt) {
-        // ignore
-    }
-
-    @Override
-    public void windowIconified(WindowEvent evt) {
-        // ignore
-    }
-
-    @Override
-    public void windowDeiconified(WindowEvent evt) {
-        // ignore
-    }
-
-    @Override
-    public void windowActivated(WindowEvent evt) {
-        // ignore
-    }
-
-    @Override
-    public void windowDeactivated(WindowEvent evt) {
-        // ignore
-    }
+        @Override
+        public void windowClosing(WindowEvent evt) {
+            persistSizeAndLocation();
+        }
+    };
 }

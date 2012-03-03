@@ -57,7 +57,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
- * Browser for HTML help files.
+ * Browser for HTML showHelp files.
  *
  * @author Elmar Baumann
  */

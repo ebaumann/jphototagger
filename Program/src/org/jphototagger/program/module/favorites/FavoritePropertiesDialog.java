@@ -50,7 +50,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
 
-        dlg.setStorageKey("FavoritePropertiesDialog.DirChooser");
+        dlg.setPreferencesKey("FavoritePropertiesDialog.DirChooser");
         dlg.setVisible(true);
         toFront();
 

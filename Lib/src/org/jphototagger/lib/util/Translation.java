@@ -15,18 +15,18 @@ public final class Translation {
     private final String propertiesBasename;
 
     /**
-     *
-     * @param clazz class in the package with the properties file
-     * @param propertiesBasename e.g. "Bundle"
+     * @param classWithinSamePackageAsProperties
+     * @param propertiesBasename name without suffix ".properties", e.g. "Bundle"
      */
-    public Translation(Class<?> clazz, String propertiesBasename) {
+    public Translation(Class<?> classWithinSamePackageAsProperties, String propertiesBasename) {
+        if (classWithinSamePackageAsProperties == null) {
+            throw new NullPointerException("classWithinSamePackageAsProperties == null");
+        }
         if (propertiesBasename == null) {
             throw new NullPointerException("propertiesBasename == null");
         }
-
-        String packagePath = StorageUtil.resolvePackagePathForResource(clazz);
-        this.propertiesBasename = packagePath + '/' + propertiesBasename;
-
+        String packagePath = classWithinSamePackageAsProperties.getPackage().getName();
+        this.propertiesBasename = packagePath + '.' + propertiesBasename;
         try {
             LOGGER.log(Level.FINEST, "Loading resource bundle ''{0}''", this.propertiesBasename);
             this.bundle = ResourceBundle.getBundle(this.propertiesBasename);
@@ -40,7 +40,6 @@ public final class Translation {
         if (string == null) {
             throw new NullPointerException("string == null");
         }
-
         try {
             return bundle.getString(string);
         } catch (Exception ex) {
@@ -52,7 +51,6 @@ public final class Translation {
 
     private void logMissingResource(Exception ex, String string) {
         String localizedMessage = ex.getLocalizedMessage();
-
         LOGGER.log(Level.INFO, "Missing translation for ''{0}'' in dictionary [''{1}'' ''{2}'']",
                 new Object[]{string, propertiesBasename, localizedMessage});
     }
@@ -61,17 +59,14 @@ public final class Translation {
         if (string == null) {
             throw new NullPointerException("string == null");
         }
-
         if (ifNoTranslationExists == null) {
             throw new NullPointerException("alternate == null");
         }
-
         try {
             return bundle.getString(string);
         } catch (Exception ex) {
             logMissingResource(ex, string);
         }
-
         return ifNoTranslationExists;
     }
 
@@ -80,7 +75,6 @@ public final class Translation {
     }
 
     private static final ResourceBundle EMPTY_BUNDLE = new ListResourceBundle() {
-
         @Override
         protected Object[][] getContents() {
             return new Object[][]{{"", ""}};

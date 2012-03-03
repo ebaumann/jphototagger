@@ -131,7 +131,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private void chooseTargetDirectory() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), targetDirectory, hideRootFiles, getDirChooserOptionShowHiddenDirs());
-        dlg.setStorageKey("CopyToDirectoryDialog.DirChooser");
+        dlg.setPreferencesKey("CopyToDirectoryDialog.DirChooser");
         dlg.setVisible(true);
         toFront();
         if (dlg.isAccepted()) {

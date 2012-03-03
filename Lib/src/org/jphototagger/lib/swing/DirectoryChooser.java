@@ -110,7 +110,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            applySizeAndLocation();
+            restoreSizeAndLocation();
             setSelectionMode();
             selectStartDirectory();
         }

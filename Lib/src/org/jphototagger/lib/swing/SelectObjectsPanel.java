@@ -23,10 +23,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 
 /**
- * Panel to select objects from a collection of objects.
- * <p>
- * Contains {@code JCheckBox}es to select the objects.
- * <p>
+ * Panel to select objects from a collection of objects. <p> Contains {@code JCheckBox}es to select the objects. <p>
  * <em>If a GUI builder sets a layout to this panel, ensure that it's
  * {@code GridBagLayout}!</em>
  *
@@ -39,7 +36,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private final List<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
     private final Map<JCheckBox, Object> objectOfCheckBox = new LinkedHashMap<JCheckBox, Object>();
     private final Set<SelectionListener> listeners = new CopyOnWriteArraySet<SelectionListener>();
-    private String storageKey;
+    private String preferencesKeyForSelectedIndices;
     private int componentCount;
 
     public SelectObjectsPanel() {
@@ -47,26 +44,22 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * Properties for setting and getting selected indices.
-     * <p>
-     * Usage only, if the count and order of objects is always the same. The
-     * order is defined through the order of
+     * Properties for setting and getting selected indices. <p> Usage only, if the count and order of objects is always
+     * the same. The order is defined through the order of
      * {@code #add(java.lang.Object, java.lang.String)} calls.
      *
-     * @param properties    properties
-     * @param keySelIndices key in <code>properties</code> for setting and
-     *                      getting the selected indices
+     * @param properties properties
+     * @param preferencesKeyForSelectedIndices key in
+     * <code>properties</code> for setting and getting the selected indices
      */
-    public SelectObjectsPanel(Properties properties, String keySelIndices) {
+    public SelectObjectsPanel(Properties properties, String preferencesKeyForSelectedIndices) {
         if (properties == null) {
             throw new NullPointerException("properties == null");
         }
-
-        if (keySelIndices == null) {
+        if (preferencesKeyForSelectedIndices == null) {
             throw new NullPointerException("keySelIndices == null");
         }
-
-        this.storageKey = keySelIndices;
+        this.preferencesKeyForSelectedIndices = preferencesKeyForSelectedIndices;
         init();
     }
 
@@ -118,8 +111,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * Removes all components and clears the component count. Do <em>not</em>
-     * call {@code #removeAll()}!
+     * Removes all components and clears the component count. Do <em>not</em> call {@code #removeAll()}!
      */
     public void clear() {
         removeAll();
@@ -129,8 +121,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     /**
-     * Returns the "real" object count (i.e. <em>not</em> the object count setTree
-     * via {@code #setObjectCount(int)}).
+     * Returns the "real" object count (i.e. <em>not</em> the object count setTree via {@code #setObjectCount(int)}).
      *
      * @return object count
      */
@@ -155,31 +146,24 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         return count;
     }
 
-    public void setStorageKey(String storageKey) {
-        this.storageKey = storageKey;
+    public void setPreferencesKeyForSelectedIndices(String preferencesKeyForSelectedIndices) {
+        this.preferencesKeyForSelectedIndices = preferencesKeyForSelectedIndices;
     }
 
     public void add(Object object, String displayName) {
         if (object == null) {
             throw new NullPointerException("object == null");
         }
-
         if (displayName == null) {
             throw new NullPointerException("displayName == null");
         }
-
         addCheckBox(object, displayName);
     }
 
     /**
-     * Sets, how often {@code #add(java.lang.Object, java.lang.String)} will be
-     * called.
-     * <p>
-     * If setTree, the layout manager ensures, that the check boxes are not
-     * centered within this panel but aligned to the top left edge of this
-     * panel.
-     * <p>
-     * <em>Do not call this method, if add() may be called later!</em>
+     * Sets, how often {@code #add(java.lang.Object, java.lang.String)} will be called. <p> If setTree, the layout
+     * manager ensures, that the check boxes are not centered within this panel but aligned to the top left edge of this
+     * panel. <p> <em>Do not call this method, if add() may be called later!</em>
      *
      * @param count
      */
@@ -213,31 +197,27 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     public List<Object> getSelectedObjects() {
-        List<Object> selObjects = new ArrayList<Object>(objectOfCheckBox.size());
-
+        List<Object> selectedObjects = new ArrayList<Object>(objectOfCheckBox.size());
         for (JCheckBox checkBox : objectOfCheckBox.keySet()) {
             if (checkBox.isSelected()) {
-                selObjects.add(objectOfCheckBox.get(checkBox));
+                selectedObjects.add(objectOfCheckBox.get(checkBox));
             }
         }
-
-        return selObjects;
+        return selectedObjects;
     }
 
     /**
      * Selects all check boxes if their index is in the properties setTree via
      * {@code SelectObjectsPanel#SelectObjectsPanel(Properties, String)}
      */
-    public void applyPropertiesSelectedIndices() {
+    public void restoreSelectedIndices() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        if ((prefs == null) || !prefs.containsKey(storageKey)) {
+        if ((prefs == null) || !prefs.containsKey(preferencesKeyForSelectedIndices)) {
             return;
         }
-
-        StringTokenizer st = new StringTokenizer(prefs.getString(storageKey), DELIM_SEL_INDICES);
+        StringTokenizer st = new StringTokenizer(prefs.getString(preferencesKeyForSelectedIndices), DELIM_SEL_INDICES);
         int[] indices = new int[st.countTokens()];
         int i = 0;
-
         while (st.hasMoreElements()) {
             try {
                 indices[i++] = Integer.parseInt(st.nextToken());
@@ -247,9 +227,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
                 return;
             }
         }
-
         int size = checkBoxes.size();
-
         for (int index : indices) {
             if ((index >= 0) && (index < size)) {
                 checkBoxes.get(index).setSelected(true);
@@ -266,30 +244,25 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         for (JCheckBox checkBox : checkBoxes) {
             checkBox.setSelected(selected);
         }
-
-        writeSelectedIndicesToProperties();
+        persistSelectedIndices();
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
         Object source = evt.getSource();
-
         if (source instanceof JCheckBox) {
-            writeSelectedIndicesToProperties();
+            persistSelectedIndices();
             notifyListeners(objectOfCheckBox.get((JCheckBox) source));
         }
     }
 
-    private void writeSelectedIndicesToProperties() {
+    private void persistSelectedIndices() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         if (prefs == null) {
             return;
         }
-
         int size = checkBoxes.size();
         StringBuilder sb = new StringBuilder();
-
         for (int i = 0; i < size; i++) {
             if (checkBoxes.get(i).isSelected()) {
                 sb.append((i == 0)
@@ -298,7 +271,6 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
                 sb.append(Integer.toString(i));
             }
         }
-
-        prefs.setString(storageKey, sb.toString());
+        prefs.setString(preferencesKeyForSelectedIndices, sb.toString());
     }
 }
