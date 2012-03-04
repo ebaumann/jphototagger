@@ -3,7 +3,7 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.24.1 2012-03-
+0.24.1 2012-03-04
 -----------------
 
 * JPhotoTagger bietet in den Vorschaubildeinstellungen
@@ -12,6 +12,12 @@ Changelog JPhotoTagger http://jphototagger.org/
   Statt dessen versucht es, automatisch die richtige Methode
   auszuwählen.
   Eingebettete Vorschaubilder werden nicht mehr eingelesen.
+* Sollen im Bearbeiten-Kartenreiter bereits existierende
+  Stichwörter erneut hinzugefügt werden, erscheint keine
+  Warnmedung mehr, statt dessen werden sie nicht erneut
+  hinzugefügt
+* Stichwörter, die Bilder überlagern, werden alphabetisch
+  sortiert angezeigt (Ansicht > Metadaten einblenden)
 
 
 0.24.0 2012-03-03

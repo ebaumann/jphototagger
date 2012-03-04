@@ -3,7 +3,7 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.24.1 2012-03-
+0.24.1 2012-03-04
 -----------------
 
 * JPhotoTagger doesn't offer any longer selecting between
@@ -12,6 +12,11 @@ Changelog JPhotoTagger http://jphototagger.org/
   Instead it tries to select automatically the appropriate
   method.
   Extraction of embedded thumbnails has been dropped.
+* If an already existing keyword shall be added within
+  the edit register, no error message pops up. Instead
+  it will not be added twice.
+* Keywords overlaying images will be displayed in alphabetical
+  order (View > Overlay Metadata)
 
 0.24.0 2012-03-03
 -----------------
