@@ -62,4 +62,9 @@ public final class ExifTag {
         hash = 97 * hash + (this.displayName != null ? this.displayName.hashCode() : 0);
         return hash;
     }
+
+    @Override
+    public String toString() {
+        return displayName + ": " + displayValue;
+    }
 }
