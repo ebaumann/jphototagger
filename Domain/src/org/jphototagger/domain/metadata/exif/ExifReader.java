@@ -8,9 +8,8 @@ import java.io.File;
 public interface ExifReader {
 
     /**
-     *
      * @param file
-     * @return EXIF embedded in file or null
+     * @return In file embedded EXIF or null
      */
     Exif readExif(File file);
 

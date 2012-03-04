@@ -11,14 +11,13 @@ import org.jphototagger.domain.metadata.exif.ExifReader;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ExifReader.class)
-public final class ExifReaderImpl implements ExifReader {
+public final class DefaultExifReader implements ExifReader {
 
     @Override
     public Exif readExif(File file) {
         if (!canReadExif(file)) {
             return null;
         }
-
         return ExifMetadata.getExif(file);
     }
 
@@ -27,12 +26,11 @@ public final class ExifReaderImpl implements ExifReader {
         if (!canReadExif(file)) {
             return null;
         }
-
         return ExifMetadata.getExifPreferCached(file);
     }
 
     @Override
     public boolean canReadExif(File file) {
-        return ExifSupport.INSTANCE.canReadExif(file);
+        return DefaultExifSupport.INSTANCE.canReadExif(file);
     }
 }

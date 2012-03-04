@@ -208,7 +208,7 @@ public final class ExifMetadata {
         } else {
             ExifTags exifTags = null;
 
-            if (ExifSupport.INSTANCE.canReadExif(imageFile)) {
+            if (DefaultExifSupport.INSTANCE.canReadExif(imageFile)) {
                 exifTags = getExifTags(imageFile);
             }
 
