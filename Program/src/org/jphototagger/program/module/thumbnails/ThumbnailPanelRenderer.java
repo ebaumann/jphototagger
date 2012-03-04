@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.io.File;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -307,6 +308,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             return false;
         }
 
+        Collections.sort(keywords);
         int width = getThumbnailAreaWidth();
         int height = getThumbnailAreaHeightNoText();
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
