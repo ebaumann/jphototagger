@@ -9,9 +9,9 @@ import org.jphototagger.lib.io.FileUtil;
 /**
  * @author Elmar Baumann
  */
-public final class ExifSupport {
+public final class DefaultExifSupport {
 
-    public static final ExifSupport INSTANCE = new ExifSupport();
+    public static final DefaultExifSupport INSTANCE = new DefaultExifSupport();
     private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<String>();
 
     static {
@@ -33,10 +33,9 @@ public final class ExifSupport {
     public boolean canReadExif(File file) {
         String suffix = FileUtil.getSuffix(file);
         String suffixLowerCase = suffix.toLowerCase();
-
         return SUPPORTED_SUFFIXES_LOWERCASE.contains(suffixLowerCase);
     }
 
-    private ExifSupport() {
+    private DefaultExifSupport() {
     }
 }
