@@ -123,31 +123,14 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         add(panelWordsets, gbc);
         panelWordsets.setPersistenceKeyPrefix(metaDataValue.getCategory());
         panelWordsets.addWordsetsPanelListener(wordsetsPanelListener);
-        repaintGrandParent();
+        forceRepaint();
     }
 
     public void removeWordsetsPanel() {
         if (panelWordsets != null) {
             remove(panelWordsets);
             panelWordsets = null;
-            repaintGrandParent();
-        }
-    }
-
-    private void repaintParent() {
-        Container parent = getParent();
-        if (parent != null) {
-            ComponentUtil.forceRepaint(parent);
-        }
-    }
-
-    private void repaintGrandParent() {
-        Container parent = getParent();
-        if (parent != null) {
-            parent = parent.getParent();
-            if (parent != null) {
-                ComponentUtil.forceRepaint(parent);
-            }
+            forceRepaint();
         }
     }
 
@@ -380,7 +363,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
                 notifyTextRemoved(metaDataValue, value.toString());
                 dirty = true;
             }
-            ComponentUtil.forceRepaint(getParent().getParent());
+            forceRepaint();
         }
     }
 
@@ -546,13 +529,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
             }
         }
         if (countAdded > 0) {
-            if (getParent() != null) {
-                ComponentUtil.forceRepaint(getParent());
-
-                if (getParent().getParent() != null) {
-                    ComponentUtil.forceRepaint(getParent().getParent());
-                }
-            }
+            repaint();
+            forceRepaint();
             if (autocomplete != null && getPersistedAutocomplete()) {
                 AutocompleteUtil.addAutocompleteData(metaDataValue, autocomplete, texts);
             }
@@ -753,6 +731,30 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
             }
         }
     };
+
+    private void forceRepaint() {
+        list.repaint();
+        repaint();
+        repaintParent();
+        repaintGrandParent();
+    }
+
+    private void repaintParent() {
+        Container parent = getParent();
+        if (parent != null) {
+            ComponentUtil.forceRepaint(parent);
+        }
+    }
+
+    private void repaintGrandParent() {
+        Container parent = getParent();
+        if (parent != null) {
+            parent = parent.getParent();
+            if (parent != null) {
+                ComponentUtil.forceRepaint(parent);
+            }
+        }
+    }
 
     /**
      * This method is called from within the constructor to
