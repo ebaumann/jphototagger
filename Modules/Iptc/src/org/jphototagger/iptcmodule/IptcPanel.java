@@ -58,7 +58,6 @@ public class IptcPanel extends javax.swing.JPanel {
         TableStringConverter stringConverter = iptcTableCellRenderer.createTableStringConverter();
         Document document = textFieldTableIptcFilter.getDocument();
         TableTextFilter tableTextFilter = new TableTextFilter(tableIptc, stringConverter);
-
         rowSorter.setStringConverter(stringConverter);
         document.addDocumentListener(tableTextFilter);
     }
@@ -68,7 +67,6 @@ public class IptcPanel extends javax.swing.JPanel {
         Comparator<?> column0Comparator = iptcTableCellRenderer.createColumn0Comparator();
         Comparator<?> column1Comparator = iptcTableCellRenderer.createColumn1Comparator();
         Comparator<?> column2Comparator = iptcTableCellRenderer.createColumn2Comparator();
-
         rowSorter.setComparator(0, column0Comparator);
         rowSorter.setComparator(1, column1Comparator);
         rowSorter.setComparator(2, column2Comparator);
@@ -99,7 +97,6 @@ public class IptcPanel extends javax.swing.JPanel {
             if (lookAndFeel == null) {
                 return new JLabel(StringUtil.toStringNullToEmptyString(value));
             }
-
             lookAndFeel.setTableCellColor(cellLabel, isSelected);
             IptcEntry iptcEntry = (IptcEntry) value;
             String entryNumber = getIptcEntryNumber(iptcEntry);
@@ -153,7 +150,6 @@ public class IptcPanel extends javax.swing.JPanel {
                     IptcEntry iptcEntry2 = (IptcEntry) o2;
                     String o1String = getIptcEntryNumber(iptcEntry1);
                     String o2String = getIptcEntryNumber(iptcEntry2);
-
                     return o1String.compareToIgnoreCase(o2String);
                 } else {
                     return 0;
@@ -172,7 +168,6 @@ public class IptcPanel extends javax.swing.JPanel {
                     String entryNumber2 = getIptcEntryNumber(iptcEntry2);
                     String o1String = TRANSLATION.translate(entryNumber1, entryNumber1);
                     String o2String = TRANSLATION.translate(entryNumber2, entryNumber2);
-
                     return o1String.compareToIgnoreCase(o2String);
                 } else {
                     return 0;
@@ -189,7 +184,6 @@ public class IptcPanel extends javax.swing.JPanel {
                     IptcEntry iptcEntry2 = (IptcEntry) o2;
                     String o1String = iptcEntry1.getData();
                     String o2String = iptcEntry2.getData();
-
                     return o1String.compareToIgnoreCase(o2String);
                 } else {
                     return 0;
@@ -206,11 +200,9 @@ public class IptcPanel extends javax.swing.JPanel {
             @Override
             public String toString(TableModel model, int row, int column) {
                 Object value = model.getValueAt(row, column);
-
                 if (value instanceof IptcEntry) {
                     IptcEntry iptcEntry = (IptcEntry) value;
                     String entryNumber = getIptcEntryNumber(iptcEntry);
-
                     return column == 0
                             ? entryNumber
                             : column == 1

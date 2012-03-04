@@ -35,15 +35,13 @@ public final class IptcTableModel extends TableModelExt {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
+        removeAllRows();
         if (IptcIgnoreCache.INSTANCE.isIgnore(file) || isUserDefinedFileType(file)) {
             return;
         }
-
         this.file = file;
         iptcEntries = IptcMetadata.getIptcEntries(file);
         IptcIgnoreCache.INSTANCE.setIgnore(file, iptcEntries.isEmpty());
-        removeAllRows();
         addRows();
     }
 
@@ -60,7 +58,6 @@ public final class IptcTableModel extends TableModelExt {
 
     private void addRows() {
         Collections.sort(iptcEntries, IptcEntryComparator.INSTANCE);
-
         for (IptcEntry entry : iptcEntries) {
             super.addRow(getTableRow(entry));
         }
