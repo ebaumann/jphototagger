@@ -2,13 +2,17 @@ package org.jphototagger.program.module.editmetadata;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -18,6 +22,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
@@ -30,8 +35,11 @@ import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.lib.swing.util.Autocomplete;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.AutocompleteUtil;
+import org.jphototagger.program.settings.AppPreferencesDefaults;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.
@@ -48,41 +56,69 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private Autocomplete autocomplete;
 
+    /**
+     * Only for usage within GUI editor as bean
+     */
     public EditTextEntryPanel() {
-        metaDataValue = XmpDcTitleMetaDataValue.INSTANCE;
-        initComponents();
-        listen();
-    }
-
-    private void listen() {
-        AnnotationProcessor.process(this);
+        this(XmpDcTitleMetaDataValue.INSTANCE);
     }
 
     public EditTextEntryPanel(MetaDataValue metaDataValue) {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-
         this.metaDataValue = metaDataValue;
-        initComponents();
-        postSetMetaDataValue();
-        listen();
+        postInitComponents();
     }
 
-    private void postSetMetaDataValue() {
+    private void postInitComponents() {
+        initComponents();
+        setName(metaDataValue.getDescription());
         setPropmt();
+        initTextArea();
+        AnnotationProcessor.process(this);
+    }
+
+    private void initTextArea() {
+        setTextAreaColumnWidth();
+        Border border = UIManager.getBorder("TextField.border");
+        textAreaEdit.setBorder(border == null
+                ? BorderFactory.createLineBorder(Color.BLACK)
+                : border);
+        Font font = UIManager.getFont("TextField.font");
+        if (font != null) {
+            textAreaEdit.setFont(font);
+        }
         textAreaEdit.setInputVerifier(metaDataValue.getInputVerifier());
         textAreaEdit.getDocument().addDocumentListener(this);
-        textAreaEdit.setName("JPhotoTagger text area for " + metaDataValue.getDescription());
+        textAreaEdit.setName(metaDataValue.getDescription());
+
     }
 
-    public void setMetaDataValue(MetaDataValue metaDataValue) {
-        if (metaDataValue == null) {
-            throw new NullPointerException("metaDataValue == null");
+    private void setTextAreaColumnWidth() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        if (prefs != null && prefs.containsKey(AppPreferencesKeys.KEY_UI_COLUMNS_MD_TEXT_AREAS)) {
+            int columns = prefs.getInt(AppPreferencesKeys.KEY_UI_COLUMNS_MD_TEXT_AREAS);
+            textAreaEdit.setColumns(
+                    columns >= AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MINIMUM
+                    && columns <= AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MAXIMUM
+                    ? columns
+                    : AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_DEFAULT);
+        } else {
+            textAreaEdit.setColumns(AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_DEFAULT);
         }
+    }
 
-        this.metaDataValue = metaDataValue;
-        postSetMetaDataValue();
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void preferencesChanged(PreferencesChangedEvent evt)  {
+        if (AppPreferencesKeys.KEY_UI_COLUMNS_MD_TEXT_AREAS.equals(evt.getKey())) {
+            int oldColumns = textAreaEdit.getColumns();
+            int newColumns = (Integer) evt.getNewValue();
+            if (newColumns != oldColumns) {
+                textAreaEdit.setColumns(newColumns);
+                ComponentUtil.forceRepaint(this);
+            }
+        }
     }
 
     private void setPropmt() {
@@ -110,7 +146,6 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         if (text == null) {
             throw new NullPointerException("text == null");
         }
-
         textAreaEdit.setText(text.trim());
         dirty = false;
     }
@@ -137,7 +172,6 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
                     return;
                 }
             }
-
             autocomplete = new Autocomplete(false);
             autocomplete.decorate(textAreaEdit, AutoCompleteDataOfMetaDataValue.INSTANCE.get(metaDataValue).get(), true);
         }
@@ -145,7 +179,6 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
 
     private boolean getPersistedAutocomplete() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 ? prefs.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
@@ -226,7 +259,6 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         textEntryListenerSupport.add(listener);
     }
 
@@ -235,7 +267,6 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         textEntryListenerSupport.remove(listener);
     }
 
@@ -253,9 +284,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         if (l == null) {
             throw new NullPointerException("l == null");
         }
-
         List<Component> inputComponents = getInputComponents();
-
         for (Component component : inputComponents) {
             component.addMouseListener(l);
         }
@@ -266,9 +295,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         if (l == null) {
             throw new NullPointerException("l == null");
         }
-
         List<Component> inputComponents = getInputComponents();
-
         for (Component component : inputComponents) {
             component.removeMouseListener(l);
         }
@@ -291,43 +318,35 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelPrompt = new javax.swing.JLabel();
-        scrollPane = new javax.swing.JScrollPane();
         textAreaEdit = new javax.swing.JTextArea();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
+        labelPrompt.setLabelFor(textAreaEdit);
         labelPrompt.setText("Prompt:"); // NOI18N
         labelPrompt.setToolTipText(metaDataValue.getLongerDescription());
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
 
-        scrollPane.setName("scrollPane"); // NOI18N
-
-        textAreaEdit.setColumns(1);
         textAreaEdit.setLineWrap(true);
         textAreaEdit.setRows(1);
         textAreaEdit.setWrapStyleWord(true);
         textAreaEdit.setName("textAreaEdit"); // NOI18N
-        scrollPane.setViewportView(textAreaEdit);
-        textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
-
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        add(scrollPane, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        add(textAreaEdit, gridBagConstraints);
+        textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
     }//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelPrompt;
-    private javax.swing.JScrollPane scrollPane;
     public javax.swing.JTextArea textAreaEdit;
     // End of variables declaration//GEN-END:variables
 }

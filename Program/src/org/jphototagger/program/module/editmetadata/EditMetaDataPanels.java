@@ -68,7 +68,6 @@ import org.jphototagger.program.module.wordsets.WordsetPreferences;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.xmp.EditHints;
-import org.jphototagger.xmp.EditHints.SizeEditField;
 import org.jphototagger.xmp.EditableMetaDataValues;
 import org.jphototagger.xmp.XmpMetadata;
 
@@ -748,7 +747,7 @@ final class EditMetaDataPanels implements FocusListener {
                 List<Component> excludeFromAutoMnemonicComponents = new LinkedList<Component>();
                 int size = textEntries.size();
                 for (int i = 0; i < size; i++) {
-                    GridBagConstraints constraints = newConstraints();
+                    GridBagConstraints constraints = createGridBagConstraints();
                     if (i == size - 1) {
                         constraints.insets.bottom += 10;
                     }
@@ -777,19 +776,20 @@ final class EditMetaDataPanels implements FocusListener {
         });
     }
 
-    private GridBagConstraints newConstraints() {
+    private GridBagConstraints createGridBagConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 10, 0, 10);
         gbc.weightx = 1;
+        gbc.weighty = 1.0 / ((double) textEntries.size() + 1.0);
         return gbc;
     }
 
     private void addActionPanel() {
-        GridBagConstraints gbc = newConstraints();
-        gbc.weighty = 1;
+        GridBagConstraints gbc = createGridBagConstraints();
+        gbc.gridheight = GridBagConstraints.REMAINDER;
         parentContainer.add(editMetadataActionsPanel, gbc);
         editMetadataActionsPanel.tabbedPane.addFocusListener(this);
     }
@@ -828,9 +828,6 @@ final class EditMetaDataPanels implements FocusListener {
         }
         for (MetaDataValue metaDataValue : EditableMetaDataValues.get()) {
             EditHints editHints = EditableMetaDataValues.getEditHints(metaDataValue);
-            SizeEditField sizeEditField = editHints.getSizeEditField();
-            boolean large = sizeEditField.equals(SizeEditField.LARGE);
-            boolean medium = sizeEditField.equals(SizeEditField.MEDIUM);
             boolean isRepeatable = editHints.isRepeatable();
             if (isRepeatable) {
                 EditRepeatableTextEntryPanel panel = new EditRepeatableTextEntryPanel(metaDataValue);
@@ -855,8 +852,6 @@ final class EditMetaDataPanels implements FocusListener {
                 } else {
                     EditTextEntryPanel panel = new EditTextEntryPanel(metaDataValue);
                     panel.textAreaEdit.addFocusListener(this);
-                    int rows = large ? 4 : medium ? 2 : 1;
-                    panel.textAreaEdit.setRows(rows);
                     textEntries.add(panel);
                 }
                 notRepeatableMetaDataValuesOfTextEntries.add(metaDataValue);

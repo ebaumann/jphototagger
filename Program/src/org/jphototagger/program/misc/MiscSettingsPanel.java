@@ -35,6 +35,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.wordsets.WordsetPreferences;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.AppPreferencesDefaults;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.xmp.XmpPreferences;
 
@@ -45,6 +46,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private static final long serialVersionUID = 1L;
     private static final String PREFERENCES_KEY_TABBED_PANE = "MiscSettingsPanel.TabbedPane";
+    private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private boolean listenToUseLongXmpSidecarFileNames;
 
     public MiscSettingsPanel() {
@@ -79,7 +81,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private boolean isAcceptHiddenDirectories() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
@@ -90,7 +91,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setAcceptHiddenDirectories(boolean accept) {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         prefs.setBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
     }
 
@@ -105,10 +105,9 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setRepositoryDirectoryName(String directoryName) {
-        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
         setIconRepositoryDirectory();
         labelRepositoryDirectory.setText(directoryName);
-        preferences.setString(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY, directoryName);
+        prefs.setString(FileRepositoryProvider.KEY_FILE_REPOSITORY_DIRECTORY, directoryName);
     }
 
     private void setIconRepositoryDirectory() {
@@ -137,12 +136,10 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setDisplaySearchButton(boolean display) {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         prefs.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON, display);
     }
 
     private void setDisplayWordsetsEditPanel() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         boolean display = checkBoxDisplayWordsetsEditPanel.isSelected();
         prefs.setBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_WORD_SETS_EDIT_PANEL, display);
     }
@@ -160,8 +157,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setCopyMoveFilesOptions(CopyMoveFilesOptions options) {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES, options.getInt());
     }
 
@@ -170,7 +165,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private void setCheckForUpdates(boolean auto) {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         prefs.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
     }
 
@@ -183,7 +177,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 ? Bundle.getString(MiscSettingsPanel.class, "MiscSettingsPanel.Confirm.UseLongXmpSidecarFileNames")
                 : Bundle.getString(MiscSettingsPanel.class, "MiscSettingsPanel.Confirm.UseDefaultXmpSidecarFileNames");
         if (MessageDisplayer.confirmYesNo(this, message)) {
-            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
             prefs.setBoolean(XmpPreferences.KEY_USE_LONG_SIDECAR_FILENAMES, useLongSidecarFileNames);
             SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
             RenameLongXmpSidecarFilenames task = new RenameLongXmpSidecarFilenames(useLongSidecarFileNames);
@@ -215,18 +208,33 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         setIconRepositoryDirectory();
         restoreUseLongXmpSidecarFileNames();
         restoreTabbedPaneSettings();
+        restoreMetaDataTextAreasColumns();
     }
 
     private void restoreTabbedPaneSettings() {
-        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-        if (preferences != null) {
-            preferences.applyTabbedPaneSettings(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
+        if (prefs != null) {
+            prefs.applyTabbedPaneSettings(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
+        }
+    }
+
+    private void persistMdTextAreasColumns() {
+        int value = (Integer) spinnerMdTextAreasColumns.getModel().getValue();
+        if (value >= AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MINIMUM && value <= AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MAXIMUM) {
+            prefs.setInt(AppPreferencesKeys.KEY_UI_COLUMNS_MD_TEXT_AREAS, value);
+        }
+    }
+
+    private void restoreMetaDataTextAreasColumns() {
+        if (prefs.containsKey(AppPreferencesKeys.KEY_UI_COLUMNS_MD_TEXT_AREAS)) {
+            int value = prefs.getInt(AppPreferencesKeys.KEY_UI_COLUMNS_MD_TEXT_AREAS);
+            if (value >= AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MINIMUM && value <= AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MAXIMUM) {
+                spinnerMdTextAreasColumns.getModel().setValue(value);
+            }
         }
     }
 
     private void restoreUseLongXmpSidecarFileNames() {
         listenToUseLongXmpSidecarFileNames = false;
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         if (prefs != null && prefs.containsKey(XmpPreferences.KEY_USE_LONG_SIDECAR_FILENAMES)) {
             checkBoxUseLongXmpSidecarFileNames.setSelected(
                     prefs.getBoolean(XmpPreferences.KEY_USE_LONG_SIDECAR_FILENAMES));
@@ -235,24 +243,18 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     }
 
     private boolean isCheckForUpdates() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
                 ? prefs.getBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
                 : true;
     }
 
     private boolean isDisplaySearchButton() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
                 ? prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
                 : true;
     }
 
     private CopyMoveFilesOptions getCopyMoveFilesOptions() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
                 ? CopyMoveFilesOptions.parseInteger(prefs.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
@@ -260,9 +262,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     @Override
     public void persist() {
-        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
-        preferences.setTabbedPane(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
+        prefs.setTabbedPane(PREFERENCES_KEY_TABBED_PANE, tabbedPane, null);
     }
 
     private void lookupMiscOptionPages() {
@@ -314,15 +314,21 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelCheckForUpdates = new javax.swing.JPanel();
         checkBoxCheckForUpdates = new javax.swing.JCheckBox();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
-        checkBoxDisplayWordsetsEditPanel = new javax.swing.JCheckBox();
         checkBoxUseLongXmpSidecarFileNames = new javax.swing.JCheckBox();
+        panelEditMetadata = new javax.swing.JPanel();
+        panelMdTextAreasColumns = new javax.swing.JPanel();
+        labelMdTextAreasColumnsPropmpt = new javax.swing.JLabel();
+        spinnerMdTextAreasColumns = new javax.swing.JSpinner();
+        labelMdTextAreasColumnsInfo = new javax.swing.JLabel();
+        checkBoxDisplayWordsetsEditPanel = new javax.swing.JCheckBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = new javax.swing.JRadioButton();
         radioButtonCopyMoveFileRenameIfExists = new javax.swing.JRadioButton();
         panelRepositoryDirectory = new javax.swing.JPanel();
         labelInfoRepositoryDirectory = new javax.swing.JLabel();
-        buttonSetDefaultRepositoryDirectoryName = new javax.swing.JButton();
+        panelButtonsRepositoryDirectory = new javax.swing.JPanel();
         buttonChooseRepositoryDirectory = new javax.swing.JButton();
+        buttonSetDefaultRepositoryDirectoryName = new javax.swing.JButton();
         labelRepositoryDirectory = new javax.swing.JLabel();
         panelFill = new javax.swing.JPanel();
 
@@ -337,6 +343,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
@@ -352,6 +359,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelCheckForUpdates.add(checkBoxCheckForUpdates, gridBagConstraints);
 
@@ -370,23 +378,11 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelDefault.add(checkBoxDisplaySearchButton, gridBagConstraints);
-
-        checkBoxDisplayWordsetsEditPanel.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.text")); // NOI18N
-        checkBoxDisplayWordsetsEditPanel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxDisplayWordsetsEditPanelActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        panelDefault.add(checkBoxDisplayWordsetsEditPanel, gridBagConstraints);
 
         checkBoxUseLongXmpSidecarFileNames.setText(bundle.getString("MiscSettingsPanel.checkBoxUseLongXmpSidecarFileNames.text")); // NOI18N
         checkBoxUseLongXmpSidecarFileNames.addActionListener(new java.awt.event.ActionListener() {
@@ -396,12 +392,75 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelDefault.add(checkBoxUseLongXmpSidecarFileNames, gridBagConstraints);
 
+        panelEditMetadata.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelEditMetadata.border.title"))); // NOI18N
+        panelEditMetadata.setLayout(new java.awt.GridBagLayout());
+
+        panelMdTextAreasColumns.setLayout(new java.awt.GridBagLayout());
+
+        labelMdTextAreasColumnsPropmpt.setText(bundle.getString("MiscSettingsPanel.labelMdTextAreasColumnsPropmpt.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelMdTextAreasColumns.add(labelMdTextAreasColumnsPropmpt, gridBagConstraints);
+
+        spinnerMdTextAreasColumns.setModel(new javax.swing.SpinnerNumberModel(AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_DEFAULT, AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MINIMUM, AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MAXIMUM, 5));
+        spinnerMdTextAreasColumns.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spinnerMdTextAreasColumnsStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelMdTextAreasColumns.add(spinnerMdTextAreasColumns, gridBagConstraints);
+
+        labelMdTextAreasColumnsInfo.setText(bundle.getString("MiscSettingsPanel.labelMdTextAreasColumnsInfo.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        panelMdTextAreasColumns.add(labelMdTextAreasColumnsInfo, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelEditMetadata.add(panelMdTextAreasColumns, gridBagConstraints);
+
+        checkBoxDisplayWordsetsEditPanel.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.text")); // NOI18N
+        checkBoxDisplayWordsetsEditPanel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxDisplayWordsetsEditPanelActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelEditMetadata.add(checkBoxDisplayWordsetsEditPanel, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        panelDefault.add(panelEditMetadata, gridBagConstraints);
+
         panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelCopyMoveFiles.border.title"))); // NOI18N
+        panelCopyMoveFiles.setLayout(new java.awt.GridBagLayout());
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite);
         radioButtonCopyMoveFileConfirmOverwrite.setText(bundle.getString("MiscSettingsPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
@@ -410,6 +469,13 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 radioButtonCopyMoveFileConfirmOverwriteActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite, gridBagConstraints);
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
         radioButtonCopyMoveFileRenameIfExists.setText(bundle.getString("MiscSettingsPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
@@ -418,26 +484,13 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 radioButtonCopyMoveFileRenameIfExistsActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panelCopyMoveFilesLayout = new javax.swing.GroupLayout(panelCopyMoveFiles);
-        panelCopyMoveFiles.setLayout(panelCopyMoveFilesLayout);
-        panelCopyMoveFilesLayout.setHorizontalGroup(
-            panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCopyMoveFilesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(radioButtonCopyMoveFileRenameIfExists, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
-                    .addComponent(radioButtonCopyMoveFileConfirmOverwrite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelCopyMoveFilesLayout.setVerticalGroup(
-            panelCopyMoveFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCopyMoveFilesLayout.createSequentialGroup()
-                .addComponent(radioButtonCopyMoveFileConfirmOverwrite)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonCopyMoveFileRenameIfExists)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        panelCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -448,16 +501,18 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelDefault.add(panelCopyMoveFiles, gridBagConstraints);
 
         panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelRepositoryDirectory.border.title"))); // NOI18N
+        panelRepositoryDirectory.setLayout(new java.awt.GridBagLayout());
 
         labelInfoRepositoryDirectory.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoRepositoryDirectory.setText(bundle.getString("MiscSettingsPanel.labelInfoRepositoryDirectory.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        panelRepositoryDirectory.add(labelInfoRepositoryDirectory, gridBagConstraints);
 
-        buttonSetDefaultRepositoryDirectoryName.setText(bundle.getString("MiscSettingsPanel.buttonSetDefaultRepositoryDirectoryName.text")); // NOI18N
-        buttonSetDefaultRepositoryDirectoryName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSetDefaultRepositoryDirectoryNameActionPerformed(evt);
-            }
-        });
+        panelButtonsRepositoryDirectory.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
         buttonChooseRepositoryDirectory.setText(bundle.getString("MiscSettingsPanel.buttonChooseRepositoryDirectory.text")); // NOI18N
         buttonChooseRepositoryDirectory.addActionListener(new java.awt.event.ActionListener() {
@@ -465,37 +520,32 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
                 buttonChooseRepositoryDirectoryActionPerformed(evt);
             }
         });
+        panelButtonsRepositoryDirectory.add(buttonChooseRepositoryDirectory);
+
+        buttonSetDefaultRepositoryDirectoryName.setText(bundle.getString("MiscSettingsPanel.buttonSetDefaultRepositoryDirectoryName.text")); // NOI18N
+        buttonSetDefaultRepositoryDirectoryName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSetDefaultRepositoryDirectoryNameActionPerformed(evt);
+            }
+        });
+        panelButtonsRepositoryDirectory.add(buttonSetDefaultRepositoryDirectoryName);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelRepositoryDirectory.add(panelButtonsRepositoryDirectory, gridBagConstraints);
 
         labelRepositoryDirectory.setForeground(new java.awt.Color(0, 0, 255));
+        labelRepositoryDirectory.setText(" "); // NOI18N
         labelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        javax.swing.GroupLayout panelRepositoryDirectoryLayout = new javax.swing.GroupLayout(panelRepositoryDirectory);
-        panelRepositoryDirectory.setLayout(panelRepositoryDirectoryLayout);
-        panelRepositoryDirectoryLayout.setHorizontalGroup(
-            panelRepositoryDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelRepositoryDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelRepositoryDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
-                    .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
-                        .addComponent(labelInfoRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSetDefaultRepositoryDirectoryName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChooseRepositoryDirectory)))
-                .addContainerGap())
-        );
-        panelRepositoryDirectoryLayout.setVerticalGroup(
-            panelRepositoryDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRepositoryDirectoryLayout.createSequentialGroup()
-                .addGroup(panelRepositoryDirectoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelInfoRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSetDefaultRepositoryDirectoryName)
-                    .addComponent(buttonChooseRepositoryDirectory))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelRepositoryDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelRepositoryDirectory.add(labelRepositoryDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -537,7 +587,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }//GEN-END:initComponents
@@ -578,6 +628,10 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private void checkBoxUseLongXmpSidecarFileNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxUseLongXmpSidecarFileNamesActionPerformed
         setUseLongXmpSidecarFileNames();
     }//GEN-LAST:event_checkBoxUseLongXmpSidecarFileNamesActionPerformed
+
+    private void spinnerMdTextAreasColumnsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMdTextAreasColumnsStateChanged
+        persistMdTextAreasColumns();
+    }//GEN-LAST:event_spinnerMdTextAreasColumnsStateChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseRepositoryDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
@@ -588,14 +642,20 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JCheckBox checkBoxUseLongXmpSidecarFileNames;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
+    private javax.swing.JLabel labelMdTextAreasColumnsInfo;
+    private javax.swing.JLabel labelMdTextAreasColumnsPropmpt;
     private javax.swing.JLabel labelRepositoryDirectory;
+    private javax.swing.JPanel panelButtonsRepositoryDirectory;
     private javax.swing.JPanel panelCheckForUpdates;
     private javax.swing.JPanel panelCopyMoveFiles;
     private javax.swing.JPanel panelDefault;
+    private javax.swing.JPanel panelEditMetadata;
     private javax.swing.JPanel panelFill;
+    private javax.swing.JPanel panelMdTextAreasColumns;
     private javax.swing.JPanel panelRepositoryDirectory;
     private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;
     private javax.swing.JRadioButton radioButtonCopyMoveFileRenameIfExists;
+    private javax.swing.JSpinner spinnerMdTextAreasColumns;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
 }

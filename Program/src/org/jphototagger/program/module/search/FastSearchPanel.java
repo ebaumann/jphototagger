@@ -1,6 +1,8 @@
 package org.jphototagger.program.module.search;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +16,9 @@ import java.util.StringTokenizer;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.BorderFactory;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
@@ -83,9 +88,21 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     private void postInitComponents() {
         setAutocomplete(true);
+        initTextArea();
         MnemonicUtil.setMnemonics(this);
         toggleDisplaySearchButton();
         listen();
+    }
+
+    private void initTextArea() {
+        Border border = UIManager.getBorder("TextField.border");
+        textAreaSearch.setBorder(border == null
+                ? BorderFactory.createLineBorder(Color.BLACK)
+                : border);
+        Font font = UIManager.getFont("TextField.font");
+        if (font != null) {
+            textAreaSearch.setFont(font);
+        }
     }
 
     private boolean isAutocompleteFastSearchIgnoreCase() {
@@ -106,7 +123,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     private void listen() {
         AnnotationProcessor.process(this);
-        searchTextArea.addKeyListener(new KeyAdapter() {
+        textAreaSearch.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyReleased(KeyEvent evt) {
@@ -150,7 +167,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
             @Override
             public void run() {
-                autocomplete.decorate(searchTextArea, isSearchAllDefinedMetaDataValues()
+                autocomplete.decorate(textAreaSearch, isSearchAllDefinedMetaDataValues()
                         ? AutoCompleteDataOfMetaDataValue.INSTANCE.getFastSearchData().get()
                         : AutoCompleteDataOfMetaDataValue.INSTANCE.get(getSearchMetaDataValue()).get(), true);
             }
@@ -163,7 +180,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     }
 
     private void search() {
-        search(searchTextArea.getText());
+        search(textAreaSearch.getText());
     }
 
     private void search(final String searchText) {
@@ -253,11 +270,11 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        if (searchTextArea.isEnabled()) {
+        if (textAreaSearch.isEnabled()) {
             OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
 
             if (OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH.equals(typeOfDisplayedImages)) {
-                search(searchTextArea.getText());
+                search(textAreaSearch.getText());
             }
         }
     }
@@ -266,7 +283,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     public void thumbnailsChanged(ThumbnailsChangedEvent evt) {
         OriginOfDisplayedThumbnails originOfDisplayedThumbnails = evt.getOriginOfDisplayedThumbnails();
         if (!OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH.equals(originOfDisplayedThumbnails)) {
-            searchTextArea.setText("");
+            textAreaSearch.setText("");
         }
     }
 
@@ -371,7 +388,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            searchTextArea.requestFocusInWindow();
+            textAreaSearch.requestFocusInWindow();
         }
     }
 
@@ -386,12 +403,11 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
         fastSearchComboBox = new javax.swing.JComboBox();
         searchButton = new javax.swing.JButton();
-        searchTextAreaScrollPane = new javax.swing.JScrollPane();
-        searchTextArea = new ImageTextArea();
-        ((ImageTextArea) searchTextArea).setImage(
+        textAreaSearch = new ImageTextArea();
+        ((ImageTextArea) textAreaSearch).setImage(
             AppLookAndFeel.getLocalizedImage(
                 "/org/jphototagger/program/resource/images/textfield_search.png"));
-        ((ImageTextArea) searchTextArea).setConsumeEnter(true);
+        ((ImageTextArea) textAreaSearch).setConsumeEnter(true);
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -415,33 +431,27 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
         add(searchButton, gridBagConstraints);
 
-        searchTextAreaScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        searchTextAreaScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        searchTextAreaScrollPane.setMinimumSize(new java.awt.Dimension(7, 20));
-        searchTextAreaScrollPane.setName("searchTextAreaScrollPane"); // NOI18N
-
-        searchTextArea.setRows(1);
-        searchTextArea.setMinimumSize(new java.awt.Dimension(0, 18));
-        searchTextArea.setName("searchTextArea"); // NOI18N
-        searchTextAreaScrollPane.setViewportView(searchTextArea);
-
+        textAreaSearch.setRows(1);
+        textAreaSearch.setMinimumSize(new java.awt.Dimension(0, 18));
+        textAreaSearch.setName("textAreaSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        add(searchTextAreaScrollPane, gridBagConstraints);
+        add(textAreaSearch, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox fastSearchComboBox;
     private javax.swing.JButton searchButton;
-    private javax.swing.JTextArea searchTextArea;
-    private javax.swing.JScrollPane searchTextAreaScrollPane;
+    private javax.swing.JTextArea textAreaSearch;
     // End of variables declaration//GEN-END:variables
 }

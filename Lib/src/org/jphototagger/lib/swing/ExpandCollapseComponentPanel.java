@@ -43,7 +43,6 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         if (component == null) {
             throw new NullPointerException("component == null");
         }
-
         this.component = component;
         initComponents();
         createFillLabel();
@@ -54,18 +53,16 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
     }
 
     private void addComponent(Component c) {
-        add(c, getComponentConstraints());
+        add(c, createComponentConstraints());
     }
 
-    private GridBagConstraints getComponentConstraints() {
+    private GridBagConstraints createComponentConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
-
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
-        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
-
         return gbc;
     }
 
@@ -97,9 +94,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
 
     private void setPersistenceKey() {
         String labelFillText = labelFill.getText().trim();
-
         assert !labelFillText.isEmpty();
-
         if (!labelFillText.isEmpty()) {
             keyPersistence = ExpandCollapseComponentPanel.class.getCanonicalName() + labelFillText;
         }
@@ -152,23 +147,18 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         if (component instanceof Container) {
             Container container = (Container) component;
             int componentCount = container.getComponentCount();
-
             for (int i = 0; i < componentCount; i++) {
                 Component containerComponent = container.getComponent(i);
-
                 if (containerComponent instanceof JLabel) {
                     JLabel label = (JLabel) containerComponent;
-
                     fillText = label.getText();
                     fillFont = label.getFont();
                     labelFill = new JLabel(fillText);
                     labelFill.setFont(fillFont);
-
                     return;
                 }
             }
         }
-
         labelFill = new JLabel();
     }
 
@@ -176,10 +166,8 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         if (component instanceof Container) {
             Container container = (Container) component;
             int componentCount = container.getComponentCount();
-
             for (int i = 0; i < componentCount; i++) {
                 Component containerComponent = container.getComponent(i);
-
                 if (containerComponent instanceof JTextComponent) {
                     containerComponent.addFocusListener(this);
                 }
@@ -190,7 +178,6 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
     @Override
     public void focusGained(FocusEvent evt) {
         Object source = evt.getSource();
-
         if (!expanded && (source instanceof JTextComponent)) {
             ((JTextComponent) source).transferFocus();
         }
@@ -215,12 +202,12 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        buttonExpandCollapse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        buttonExpandCollapse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(125, 125, 125)));
         buttonExpandCollapse.setContentAreaFilled(false);
         buttonExpandCollapse.setFocusable(false);
         buttonExpandCollapse.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonExpandCollapse.setName("buttonExpandCollapse"); // NOI18N
-        buttonExpandCollapse.setPreferredSize(new java.awt.Dimension(16, 16));
+        buttonExpandCollapse.setPreferredSize(new java.awt.Dimension(12, 12));
         buttonExpandCollapse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExpandCollapseActionPerformed(evt);

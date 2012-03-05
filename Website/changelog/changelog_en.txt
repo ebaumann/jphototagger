@@ -3,6 +3,15 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.2 2012-03-05
+-----------------
+
+* Within the edit register the text input fields will be
+  resized vertically if necessary. To achieve that, now their
+  width is fixed. You can change the default width through
+  "Edit > Settings > Miscellaneous > Miscellaneous: Width of
+  the text input fields".
+
 0.24.1 2012-03-04
 -----------------
 

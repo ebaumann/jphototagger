@@ -3,6 +3,7 @@ package org.jphototagger.program.module.editmetadata;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,12 +16,15 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListDataEvent;
@@ -97,13 +101,26 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     private void postInitComponents() {
-        editBackground = textAreaInput.getBackground();
-        textAreaInput.setInputVerifier(metaDataValue.getInputVerifier());
-        textAreaInput.getDocument().addDocumentListener(this);
+        initTextArea();
         model.addListDataListener(this);
         AnnotationProcessor.process(this);
         setPropmt();
-        textAreaInput.setName("JPhotoTagger Text Area for " + metaDataValue.getDescription());
+    }
+
+    private void initTextArea() {
+        editBackground = textAreaInput.getBackground();
+        Border border = UIManager.getBorder("TextField.border");
+        textAreaInput.setBorder(border == null
+                ? BorderFactory.createLineBorder(Color.BLACK)
+                : border
+                );
+        Font font = UIManager.getFont("TextField.font");
+        if (font != null) {
+            textAreaInput.setFont(font);
+        }
+        textAreaInput.setInputVerifier(metaDataValue.getInputVerifier());
+        textAreaInput.getDocument().addDocumentListener(this);
+        textAreaInput.setName(metaDataValue.getDescription());
     }
 
     public void addWordsetsPanel() {
@@ -773,12 +790,13 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         labelPrompt = new javax.swing.JLabel();
         scrollPaneList = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
-        panelButtons = new javax.swing.JPanel();
+        panelListButtons = new javax.swing.JPanel();
         buttonRemoveSelection = new javax.swing.JButton();
+        panelInput = new javax.swing.JPanel();
+        textAreaInput = new javax.swing.JTextArea();
         buttonAddInput = new javax.swing.JButton();
         buttonSuggestion = new javax.swing.JButton();
-        scrollPaneTextArea = new javax.swing.JScrollPane();
-        textAreaInput = new javax.swing.JTextArea();
+        panelFill = new javax.swing.JPanel();
 
         popupMenuList.setName("popupMenuList"); // NOI18N
 
@@ -817,6 +835,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
         scrollPaneList.setMinimumSize(new java.awt.Dimension(22, 44));
         scrollPaneList.setName("scrollPaneList"); // NOI18N
+        scrollPaneList.setPreferredSize(new java.awt.Dimension(50, 75));
 
         list.setModel(model);
         list.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
@@ -849,8 +868,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.weighty = 1.0;
         add(scrollPaneList, gridBagConstraints);
 
-        panelButtons.setName("panelButtons"); // NOI18N
-        panelButtons.setLayout(new java.awt.GridLayout(3, 1));
+        panelListButtons.setName("panelListButtons"); // NOI18N
+        panelListButtons.setLayout(new java.awt.GridLayout(1, 1));
 
         buttonRemoveSelection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/delete.png"))); // NOI18N
         buttonRemoveSelection.setMnemonic('-');
@@ -863,7 +882,35 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
                 buttonRemoveSelectionActionPerformed(evt);
             }
         });
-        panelButtons.add(buttonRemoveSelection);
+        panelListButtons.add(buttonRemoveSelection);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
+        add(panelListButtons, gridBagConstraints);
+
+        panelInput.setLayout(new java.awt.GridBagLayout());
+
+        textAreaInput.setColumns(15);
+        textAreaInput.setRows(1);
+        textAreaInput.setName("textAreaInput"); // NOI18N
+        textAreaInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textAreaInputKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textAreaInputKeyReleased(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelInput.add(textAreaInput, gridBagConstraints);
 
         buttonAddInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/add.png"))); // NOI18N
         buttonAddInput.setMnemonic('+');
@@ -876,7 +923,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
                 buttonAddInputActionPerformed(evt);
             }
         });
-        panelButtons.add(buttonAddInput);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelInput.add(buttonAddInput, gridBagConstraints);
 
         buttonSuggestion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/word.png"))); // NOI18N
         buttonSuggestion.setMnemonic('k');
@@ -889,43 +939,23 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
                 buttonSuggestionActionPerformed(evt);
             }
         });
-        panelButtons.add(buttonSuggestion);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 1, 2);
-        add(panelButtons, gridBagConstraints);
-
-        scrollPaneTextArea.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPaneTextArea.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        scrollPaneTextArea.setMinimumSize(new java.awt.Dimension(7, 18));
-        scrollPaneTextArea.setName("scrollPaneTextArea"); // NOI18N
-
-        textAreaInput.setColumns(20);
-        textAreaInput.setRows(1);
-        textAreaInput.setName("textAreaInput"); // NOI18N
-        textAreaInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                textAreaInputKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textAreaInputKeyReleased(evt);
-            }
-        });
-        scrollPaneTextArea.setViewportView(textAreaInput);
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelInput.add(buttonSuggestion, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
-        add(scrollPaneTextArea, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        add(panelInput, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        add(panelFill, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonAddInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddInputActionPerformed
@@ -971,10 +1001,11 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private org.jdesktop.swingx.JXList list;
     private javax.swing.JMenuItem menuItemRemove;
     private javax.swing.JMenuItem menuItemRename;
-    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelFill;
+    private javax.swing.JPanel panelInput;
+    private javax.swing.JPanel panelListButtons;
     private javax.swing.JPopupMenu popupMenuList;
     private javax.swing.JScrollPane scrollPaneList;
-    private javax.swing.JScrollPane scrollPaneTextArea;
     public javax.swing.JTextArea textAreaInput;
     // End of variables declaration//GEN-END:variables
 }

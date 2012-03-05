@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.2 2012-03-05
+-----------------
+
+* Im Bearbeiten-Kartenreiter vergrößern sich die Texteingabefelder
+  bei Bedarf nach unten. Damit dies verwirklicht werden konnte,
+  bleibt deren Breite konstant. Sie können die vorgegebene Breite
+  modifizieren über "Bearbeiten > Einstellungen > Sonstiges >
+  Verschiedenes: Breite der Texteingabefelder".
+
 0.24.1 2012-03-04
 -----------------
 

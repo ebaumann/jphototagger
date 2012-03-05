@@ -34,8 +34,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMet
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.module.editmetadata.EditTextEntryPanel;
-import org.jphototagger.xmp.EditHints;
-import org.jphototagger.xmp.EditableMetaDataValues;
 
 /**
  * Edits a {@code Xmp} object.
@@ -64,7 +62,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private void init() {
         initComponents();
         addTextEntries();
-        setTextAreaRows();
         setAutocomplete();
         addAsFocusListener();
         firstInputComponent = panelDcSubjects.textAreaInput;
@@ -78,23 +75,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         for (Component c : getComponents()) {
             if (c instanceof TextEntry) {
                 textEntries.add((TextEntry) c);
-            }
-        }
-    }
-
-    private void setTextAreaRows() {
-        for (Component c : getComponents()) {
-            if (c instanceof EditTextEntryPanel) {
-                EditTextEntryPanel panel = (EditTextEntryPanel) c;
-                MetaDataValue metaDataValue = panel.getMetaDataValue();
-                EditHints editHints = EditableMetaDataValues.getEditHints(metaDataValue);
-                EditHints.SizeEditField sizeEditField = editHints.getSizeEditField();
-                if (!editHints.isRepeatable()) {
-                    boolean large = sizeEditField.equals(EditHints.SizeEditField.LARGE);
-                    boolean medium = sizeEditField.equals(EditHints.SizeEditField.MEDIUM);
-                    int rows = large ? 4 : medium ? 2 : 1;
-                    panel.textAreaEdit.setRows(rows);
-                }
             }
         }
     }
