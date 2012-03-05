@@ -28,7 +28,7 @@
             verbose="true"
             labels="photomanager, tagging, xmp, java"
         />
-        <exec executable="${env.HOME/website/bin/update.sh}"/>
+        <exec executable="${env.HOME}/website/bin/update.sh"/>
     </target>
     <target name="dist-zip-create" description="Create ZIP distribution">
         <exec executable="bash">
@@ -49,12 +49,12 @@
         <exec executable="bash">
             <arg value="create_pdf_user_doc.sh" />
             <arg value="de" />
-            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;" />
+            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
         </exec>
     </target>
     <target name="bundles-find-missing-strings" description="Finding missing Bundle strings">
         <exec executable="bash">
-            <arg value="find_missing_bundle_strings.sh" />
+            <arg value="find_missing_bundle_strings.sh"/>
         </exec>
     </target>
 </project>
