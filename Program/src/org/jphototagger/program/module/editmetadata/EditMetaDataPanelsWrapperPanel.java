@@ -17,7 +17,6 @@ class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
         return editMetadtaPanels;
     }
 
-
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -30,6 +29,7 @@ class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
         scrollPaneEditMetadata = new javax.swing.JScrollPane();
         panelEditMetadata = new javax.swing.JPanel();
 
+        setName("Edit Metadata Container"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         javax.swing.GroupLayout panelEditMetadataLayout = new javax.swing.GroupLayout(panelEditMetadata);
@@ -49,10 +49,12 @@ class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(scrollPaneEditMetadata, gridBagConstraints);
     }//GEN-END:initComponents
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel panelEditMetadata;
     private javax.swing.JScrollPane scrollPaneEditMetadata;

@@ -18,6 +18,7 @@ public final class AppPreferencesKeys {
     public static final String KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP = "UserSettings.DisplayThumbnailTooltip";
     public static final String KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL = "UserSettings.DisplayThumbnailsBottomPanel";
     public static final String KEY_UI_DISPLAY_WORD_SETS_EDIT_PANEL = "UserSettings.DisplayWordSettingsEditPanel";
+    public static final String KEY_UI_COLUMNS_MD_TEXT_AREAS = "UserSettings.Columns.MetadataInputTextAreas";
 
     private AppPreferencesKeys() {
     }
