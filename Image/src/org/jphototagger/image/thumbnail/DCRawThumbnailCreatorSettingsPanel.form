@@ -5,7 +5,7 @@
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
         <TitledBorder title="DCRaw">
-          <ResourceString PropertyName="titleX" bundle="org/jphototagger/image/thumbnail/Bundle.properties" key="DCRawThumbnailCreatorPanel.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString PropertyName="titleX" bundle="org/jphototagger/image/thumbnail/Bundle.properties" key="DCRawThumbnailCreatorSettingsPanel.border.title" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </TitledBorder>
       </Border>
     </Property>
@@ -28,7 +28,7 @@
     <Component class="javax.swing.JLabel" name="labelInfo">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/jphototagger/image/thumbnail/Bundle.properties" key="DCRawThumbnailCreatorPanel.labelInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="org/jphototagger/image/thumbnail/Bundle.properties" key="DCRawThumbnailCreatorSettingsPanel.labelInfo.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <Constraints>
@@ -64,7 +64,7 @@
         <Component class="javax.swing.JButton" name="buttonChooseFile">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/jphototagger/image/thumbnail/Bundle.properties" key="DCRawThumbnailCreatorPanel.buttonChooseFile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+              <ResourceString bundle="org/jphototagger/image/thumbnail/Bundle.properties" key="DCRawThumbnailCreatorSettingsPanel.buttonChooseFile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>

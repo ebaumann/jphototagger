@@ -47,16 +47,17 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
     static {
         // HOOK RAW filename suffixes
         SUPPORTED_SUFFIXES_LOWERCASE.addAll(Arrays.asList(
-                "arw",
-                "cr2",
-                "crw",
-                "dcr",
-                "dng",
-                "mrw",
-                "nef",
-                "raw",
-                "rw2",
-                "srw"));
+                "arw", // Sony (Alpha) RAW
+                "cr2", // Canon RAW 2
+                "crw", // Canon RAW
+                "dcr", // Kodak RAW
+                "dng", // Digital Negative
+                "mrw", // Minolta RAW
+                "nef", // Nikon RAW
+                "raw", // Pansonic (some models like DMC-FZ50)
+                "rw2", // Pansonic (some models like DMC-GH2)
+                "srw"  // Samsung RAW
+                ));
     }
 
     public DCRawThumbnailCreator() {
@@ -209,7 +210,7 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
 
     @Override
     public Component getSettingsComponent() {
-        return new DCRawThumbnailCreatorPanel();
+        return new DCRawThumbnailCreatorSettingsPanel();
     }
 
     @Override

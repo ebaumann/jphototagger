@@ -42,13 +42,13 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
 
     static {
         RGB_IMAGE_SUFFIXES_LOWERCASE.add("jpeg"); // Joint Photographic Experts Group
-        RGB_IMAGE_SUFFIXES_LOWERCASE.add("jpg"); // Joint Photographic Experts Group
-        RGB_IMAGE_SUFFIXES_LOWERCASE.add("tif"); // Tagged Image File Format
+        RGB_IMAGE_SUFFIXES_LOWERCASE.add("jpg");  // Joint Photographic Experts Group
+        RGB_IMAGE_SUFFIXES_LOWERCASE.add("tif");  // Tagged Image File Format
         RGB_IMAGE_SUFFIXES_LOWERCASE.add("tiff"); // Tagged Image File Format
 
         RAW_FORMAT_SUFFIXES_LOWERCASE.add("arw"); // Sony (Alpha) RAW
-        RAW_FORMAT_SUFFIXES_LOWERCASE.add("cr2"); // Canon RAW
-        RAW_FORMAT_SUFFIXES_LOWERCASE.add("crw"); // Canon RAW 2
+        RAW_FORMAT_SUFFIXES_LOWERCASE.add("cr2"); // Canon RAW 2
+        RAW_FORMAT_SUFFIXES_LOWERCASE.add("crw"); // Canon RAW
         RAW_FORMAT_SUFFIXES_LOWERCASE.add("dcr"); // Kodak RAW
         RAW_FORMAT_SUFFIXES_LOWERCASE.add("dng"); // Digital Negative
         RAW_FORMAT_SUFFIXES_LOWERCASE.add("mrw"); // Minolta RAW
