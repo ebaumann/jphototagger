@@ -161,12 +161,15 @@ public class EditMetaDataTemplateDialog extends Dialog {
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
+        panelName = new javax.swing.JPanel();
         labelName = new javax.swing.JLabel();
         textFieldName = new javax.swing.JTextField();
         scrollPane = new javax.swing.JScrollPane();
-        panelPadding = new javax.swing.JPanel();
         panelXmpEdit = new org.jphototagger.program.module.metadatatemplates.EditXmpPanel();
+        panelButtons = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonSave = new javax.swing.JButton();
 
@@ -174,47 +177,60 @@ public class EditMetaDataTemplateDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/metadatatemplates/Bundle"); // NOI18N
         setTitle(bundle.getString("EditMetaDataTemplateDialog.title")); // NOI18N
         setName("Form"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(500, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName(bundle.getString("EditMetaDataTemplateDialog.panelContent.name")); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
+
+        panelName.setName(bundle.getString("EditMetaDataTemplateDialog.panelName.name")); // NOI18N
+        panelName.setLayout(new java.awt.GridBagLayout());
 
         labelName.setLabelFor(textFieldName);
         labelName.setText(bundle.getString("EditMetaDataTemplateDialog.labelName.text")); // NOI18N
         labelName.setName("labelName"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelName.add(labelName, gridBagConstraints);
 
+        textFieldName.setColumns(20);
         textFieldName.setEnabled(false);
         textFieldName.setName("textFieldName"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelName.add(textFieldName, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(panelName, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
 
-        panelPadding.setName("panelPadding"); // NOI18N
-
         panelXmpEdit.setName("panelXmpEdit"); // NOI18N
+        scrollPane.setViewportView(panelXmpEdit);
 
-        javax.swing.GroupLayout panelPaddingLayout = new javax.swing.GroupLayout(panelPadding);
-        panelPadding.setLayout(panelPaddingLayout);
-        panelPaddingLayout.setHorizontalGroup(
-            panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 631, Short.MAX_VALUE)
-            .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelPaddingLayout.createSequentialGroup()
-                    .addGap(8, 8, 8)
-                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        panelPaddingLayout.setVerticalGroup(
-            panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 834, Short.MAX_VALUE)
-            .addGroup(panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelPaddingLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelXmpEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(80, Short.MAX_VALUE)))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        panelContent.add(scrollPane, gridBagConstraints);
 
-        scrollPane.setViewportView(panelPadding);
+        panelButtons.setName(bundle.getString("EditMetaDataTemplateDialog.panelButtons.name")); // NOI18N
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
         buttonCancel.setText(bundle.getString("EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
@@ -223,6 +239,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
                 buttonCancelActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonCancel);
 
         buttonSave.setText(bundle.getString("EditMetaDataTemplateDialog.buttonSave.text")); // NOI18N
         buttonSave.setName("buttonSave"); // NOI18N
@@ -231,40 +248,24 @@ public class EditMetaDataTemplateDialog extends Dialog {
                 buttonSaveActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonSave);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSave))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(labelName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldName, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelName)
-                    .addComponent(textFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonSave)
-                    .addComponent(buttonCancel))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        panelContent.add(panelButtons, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -308,7 +309,9 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonSave;
     private javax.swing.JLabel labelName;
-    private javax.swing.JPanel panelPadding;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelContent;
+    private javax.swing.JPanel panelName;
     private org.jphototagger.program.module.metadatatemplates.EditXmpPanel panelXmpEdit;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextField textFieldName;
