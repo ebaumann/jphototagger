@@ -33,6 +33,9 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
+import org.jphototagger.program.module.editmetadata.EditTextEntryPanel;
+import org.jphototagger.xmp.EditHints;
+import org.jphototagger.xmp.EditableMetaDataValues;
 
 /**
  * Edits a {@code Xmp} object.
@@ -60,8 +63,8 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
 
     private void init() {
         initComponents();
-        setMetaDataValues();
         addTextEntries();
+        setTextAreaRows();
         setAutocomplete();
         addAsFocusListener();
         firstInputComponent = panelDcSubjects.textAreaInput;
@@ -71,29 +74,27 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         panelDcSubjects.setBundleKeyPosRenameDialog("EditXmpPanel.Keywords.RenameDialog.Pos");
     }
 
-    private void setMetaDataValues() {
-        panelDcTitle.setMetaDataValue(XmpDcTitleMetaDataValue.INSTANCE);
-        panelDcDescription.setMetaDataValue(XmpDcDescriptionMetaDataValue.INSTANCE);
-        panelPhotoshopHeadline.setMetaDataValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE);
-        panelIptc4xmpcoreLocation.setMetaDataValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
-        panelIptc4XmpCoreDateCreated.setMetaDataValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
-        panelPhotoshopAuthorsposition.setMetaDataValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE);
-        panelDcCreator.setMetaDataValue(XmpDcCreatorMetaDataValue.INSTANCE);
-        panelPhotoshopCity.setMetaDataValue(XmpPhotoshopCityMetaDataValue.INSTANCE);
-        panelPhotoshopState.setMetaDataValue(XmpPhotoshopStateMetaDataValue.INSTANCE);
-        panelPhotoshopCountry.setMetaDataValue(XmpPhotoshopCountryMetaDataValue.INSTANCE);
-        panelDcRights.setMetaDataValue(XmpDcRightsMetaDataValue.INSTANCE);
-        panelPhotoshopCredit.setMetaDataValue(XmpPhotoshopCreditMetaDataValue.INSTANCE);
-        panelPhotoshopSource.setMetaDataValue(XmpPhotoshopSourceMetaDataValue.INSTANCE);
-        panelPhotoshopTransmissionReference.setMetaDataValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE);
-        panelPhotoshopInstructions.setMetaDataValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE);
-        panelPhotoshopCaptionwriter.setMetaDataValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
-    }
-
     private void addTextEntries() {
         for (Component c : getComponents()) {
             if (c instanceof TextEntry) {
                 textEntries.add((TextEntry) c);
+            }
+        }
+    }
+
+    private void setTextAreaRows() {
+        for (Component c : getComponents()) {
+            if (c instanceof EditTextEntryPanel) {
+                EditTextEntryPanel panel = (EditTextEntryPanel) c;
+                MetaDataValue metaDataValue = panel.getMetaDataValue();
+                EditHints editHints = EditableMetaDataValues.getEditHints(metaDataValue);
+                EditHints.SizeEditField sizeEditField = editHints.getSizeEditField();
+                if (!editHints.isRepeatable()) {
+                    boolean large = sizeEditField.equals(EditHints.SizeEditField.LARGE);
+                    boolean medium = sizeEditField.equals(EditHints.SizeEditField.MEDIUM);
+                    int rows = large ? 4 : medium ? 2 : 1;
+                    panel.textAreaEdit.setRows(rows);
+                }
             }
         }
     }
@@ -242,120 +243,203 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         panelDcSubjects = new org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel();
-        panelDcTitle = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelDcDescription = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopHeadline = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelIptc4xmpcoreLocation = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelIptc4XmpCoreDateCreated = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopAuthorsposition = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelDcCreator = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopCity = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopState = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopCountry = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelDcRights = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopCredit = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopSource = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopTransmissionReference = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopInstructions = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
-        panelPhotoshopCaptionwriter = new org.jphototagger.program.module.editmetadata.EditTextEntryPanel();
+        panelDcTitle = new EditTextEntryPanel(XmpDcTitleMetaDataValue.INSTANCE);
+        panelDcDescription = new EditTextEntryPanel(XmpDcDescriptionMetaDataValue.INSTANCE);
+        panelPhotoshopHeadline = new EditTextEntryPanel(XmpPhotoshopHeadlineMetaDataValue.INSTANCE);
+        panelIptc4xmpcoreLocation = new EditTextEntryPanel(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
+        panelIptc4XmpCoreDateCreated = new EditTextEntryPanel(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
+        panelPhotoshopAuthorsposition = new EditTextEntryPanel(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE);
+        panelDcCreator = new EditTextEntryPanel(XmpDcCreatorMetaDataValue.INSTANCE);
+        panelPhotoshopCity = new EditTextEntryPanel(XmpPhotoshopCityMetaDataValue.INSTANCE);
+        panelPhotoshopState = new EditTextEntryPanel(XmpPhotoshopStateMetaDataValue.INSTANCE);
+        panelPhotoshopCountry = new EditTextEntryPanel(XmpPhotoshopCountryMetaDataValue.INSTANCE);
+        panelDcRights = new EditTextEntryPanel(XmpDcRightsMetaDataValue.INSTANCE);
+        panelPhotoshopCredit = new EditTextEntryPanel(XmpPhotoshopCreditMetaDataValue.INSTANCE);
+        panelPhotoshopSource = new EditTextEntryPanel(XmpPhotoshopSourceMetaDataValue.INSTANCE);
+        panelPhotoshopTransmissionReference = new EditTextEntryPanel(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE);
+        panelPhotoshopInstructions = new EditTextEntryPanel(XmpPhotoshopInstructionsMetaDataValue.INSTANCE);
+        panelPhotoshopCaptionwriter = new EditTextEntryPanel(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
+        panelFill = new javax.swing.JPanel();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         panelDcSubjects.setName("panelDcSubjects"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelDcSubjects, gridBagConstraints);
 
         panelDcTitle.setName("panelDcTitle"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelDcTitle, gridBagConstraints);
 
         panelDcDescription.setName("panelDcDescription"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelDcDescription, gridBagConstraints);
 
         panelPhotoshopHeadline.setName("panelPhotoshopHeadline"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopHeadline, gridBagConstraints);
 
         panelIptc4xmpcoreLocation.setName("panelIptc4xmpcoreLocation"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelIptc4xmpcoreLocation, gridBagConstraints);
 
         panelIptc4XmpCoreDateCreated.setName("panelIptc4XmpCoreDateCreated"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelIptc4XmpCoreDateCreated, gridBagConstraints);
 
         panelPhotoshopAuthorsposition.setName("panelPhotoshopAuthorsposition"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopAuthorsposition, gridBagConstraints);
 
         panelDcCreator.setName("panelDcCreator"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelDcCreator, gridBagConstraints);
 
         panelPhotoshopCity.setName("panelPhotoshopCity"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopCity, gridBagConstraints);
 
         panelPhotoshopState.setName("panelPhotoshopState"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopState, gridBagConstraints);
 
         panelPhotoshopCountry.setName("panelPhotoshopCountry"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopCountry, gridBagConstraints);
 
         panelDcRights.setName("panelDcRights"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelDcRights, gridBagConstraints);
 
         panelPhotoshopCredit.setName("panelPhotoshopCredit"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopCredit, gridBagConstraints);
 
         panelPhotoshopSource.setName("panelPhotoshopSource"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopSource, gridBagConstraints);
 
         panelPhotoshopTransmissionReference.setName("panelPhotoshopTransmissionReference"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopTransmissionReference, gridBagConstraints);
 
         panelPhotoshopInstructions.setName("panelPhotoshopInstructions"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopInstructions, gridBagConstraints);
 
         panelPhotoshopCaptionwriter.setName("panelPhotoshopCaptionwriter"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelPhotoshopCaptionwriter, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelDcSubjects, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelDcTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelDcDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopHeadline, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelIptc4xmpcoreLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelIptc4XmpCoreDateCreated, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopAuthorsposition, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelDcCreator, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopCity, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopState, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopCountry, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelDcRights, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopCredit, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopSource, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopTransmissionReference, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopInstructions, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-            .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/metadatatemplates/Bundle"); // NOI18N
+        panelFill.setName(bundle.getString("EditXmpPanel.panelFill.name")); // NOI18N
+
+        javax.swing.GroupLayout panelFillLayout = new javax.swing.GroupLayout(panelFill);
+        panelFill.setLayout(panelFillLayout);
+        panelFillLayout.setHorizontalGroup(
+            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelDcSubjects, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDcTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDcDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopHeadline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelIptc4xmpcoreLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelIptc4XmpCoreDateCreated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopAuthorsposition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDcCreator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelDcRights, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopCredit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopTransmissionReference, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopInstructions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPhotoshopCaptionwriter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        panelFillLayout.setVerticalGroup(
+            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 1.0;
+        add(panelFill, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.module.editmetadata.EditTextEntryPanel panelDcCreator;
@@ -363,6 +447,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private org.jphototagger.program.module.editmetadata.EditTextEntryPanel panelDcRights;
     private org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel panelDcSubjects;
     private org.jphototagger.program.module.editmetadata.EditTextEntryPanel panelDcTitle;
+    private javax.swing.JPanel panelFill;
     private org.jphototagger.program.module.editmetadata.EditTextEntryPanel panelIptc4XmpCoreDateCreated;
     private org.jphototagger.program.module.editmetadata.EditTextEntryPanel panelIptc4xmpcoreLocation;
     private org.jphototagger.program.module.editmetadata.EditTextEntryPanel panelPhotoshopAuthorsposition;
