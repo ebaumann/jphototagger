@@ -18,11 +18,11 @@ import org.jphototagger.lib.util.StringUtil;
 /**
  * @author Elmar Baumann
  */
-public class DCRawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
+public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public DCRawThumbnailCreatorSettingsPanel() {
+    public DcrawThumbnailCreatorSettingsPanel() {
         initComponents();
         postInitComponents();
     }
@@ -47,10 +47,10 @@ public class DCRawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
     private FileChooserProperties createFileChooserProperties() {
         FileChooserProperties props = new FileChooserProperties();
         props.currentDirectoryPath(getDirectoryPath());
-        props.dialogTitle(Bundle.getString(DCRawThumbnailCreatorSettingsPanel.class, "DCRawThumbnailCreatorSettingsPanel.FileChooser.Title"));
+        props.dialogTitle(Bundle.getString(DcrawThumbnailCreatorSettingsPanel.class, "DcrawThumbnailCreatorSettingsPanel.FileChooser.Title"));
         props.multiSelectionEnabled(false);
         props.fileSelectionMode(JFileChooser.FILES_ONLY);
-        props.propertyKeyPrefix("DCRawThumbnailCreatorPanel.FileChooser");
+        props.propertyKeyPrefix("DcrawThumbnailCreatorPanel.FileChooser");
         return props;
     }
 
@@ -86,7 +86,7 @@ public class DCRawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
             labelFile.setText(file.getAbsolutePath());
             labelFile.setIcon(file.isFile()
                     ? IconUtil.getSystemIcon(file)
-                    : IconUtil.getImageIcon(DCRawThumbnailCreatorSettingsPanel.class, "error.png"));
+                    : IconUtil.getImageIcon(DcrawThumbnailCreatorSettingsPanel.class, "error.png"));
         }
     }
 
@@ -105,10 +105,10 @@ public class DCRawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         buttonRemoveFile = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/image/thumbnail/Bundle"); // NOI18N
-        setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("DCRawThumbnailCreatorSettingsPanel.border.title"))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("DcrawThumbnailCreatorSettingsPanel.border.title"))); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setText(bundle.getString("DCRawThumbnailCreatorSettingsPanel.labelInfo.text")); // NOI18N
+        labelInfo.setText(bundle.getString("DcrawThumbnailCreatorSettingsPanel.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -127,7 +127,7 @@ public class DCRawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         panelChooseFile.add(labelFile, gridBagConstraints);
 
-        buttonChooseFile.setText(bundle.getString("DCRawThumbnailCreatorSettingsPanel.buttonChooseFile.text")); // NOI18N
+        buttonChooseFile.setText(bundle.getString("DcrawThumbnailCreatorSettingsPanel.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);

@@ -36,10 +36,10 @@ import com.imagero.reader.Imagero;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ThumbnailCreator.class)
-public final class DCRawThumbnailCreator implements ThumbnailCreator {
+public final class DcrawThumbnailCreator implements ThumbnailCreator {
 
     private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<String>();
-    private static final Logger LOGGER = Logger.getLogger(DCRawThumbnailCreator.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(DcrawThumbnailCreator.class.getName());
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private boolean dcrawResolved;
     private File dcraw;
@@ -60,7 +60,7 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
                 ));
     }
 
-    public DCRawThumbnailCreator() {
+    public DcrawThumbnailCreator() {
         listen();
     }
 
@@ -73,7 +73,7 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
         if (!canCreateThumbnail(file) || !file.exists()) {
             return null;
         }
-        resolveDCRaw();
+        resolveDcraw();
         if (dcraw == null) {
             return null;
         }
@@ -112,20 +112,20 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
         return maxSeconds * 1000;
     }
 
-    private void resolveDCRaw() {
+    private void resolveDcraw() {
         if (dcraw != null || dcrawResolved) {
             return;
         }
-        LOGGER.info("Trying to resolve DCRaw...");
-        resolveDCRawFromPreferences();
+        LOGGER.info("Trying to resolve dcraw...");
+        resolveDcrawFromPreferences();
         if (dcraw == null) {
-            resolveDCRawFromFileJptDir();
+            resolveDcrawFromFileJptDir();
         }
         dcrawResolved = true;
     }
 
-    private void resolveDCRawFromPreferences() {
-        LOGGER.info("Looking for DCRaw path in preferences key '" + ImagePreferencesKeys.KEY_DCRAW_FILEPATH + "'");
+    private void resolveDcrawFromPreferences() {
+        LOGGER.info("Looking for dcraw path in preferences key '" + ImagePreferencesKeys.KEY_DCRAW_FILEPATH + "'");
         String path = prefs.getString(ImagePreferencesKeys.KEY_DCRAW_FILEPATH).trim();
         if (path.isEmpty()) {
             LOGGER.info("Preferences do not contain a key named '" + ImagePreferencesKeys.KEY_DCRAW_FILEPATH + "'");
@@ -133,7 +133,7 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
             File candidate = new File(path);
             if (candidate.isFile()) {
                 dcraw = candidate;
-                LOGGER.log(Level.INFO, "Using DCRaw ''{0}''", candidate);
+                LOGGER.log(Level.INFO, "Using dcraw ''{0}''", candidate);
             } else {
                 LOGGER.log(Level.INFO, "''{0}'' is not a file", candidate);
             }
@@ -143,9 +143,9 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
     // The dcraw executable should be installed below the JAR of this module,
     // usually <JPhotoTagger installation dir>/lib/dcraw/<osdependend>,
     // e.g. /usr/opt/JPhotoTagger/lib/dcraw/linux32
-    private void resolveDCRawFromFileJptDir() {
-        LOGGER.info("Looking for DCRaw within JPhotoTagger's directory");
-        File jarDir = FileUtil.getJarDirectory(DCRawThumbnailCreator.class);
+    private void resolveDcrawFromFileJptDir() {
+        LOGGER.info("Looking for dcraw within JPhotoTagger's directory");
+        File jarDir = FileUtil.getJarDirectory(DcrawThumbnailCreator.class);
         if (jarDir != null) {
             String architecture = SystemUtil.guessVmArchitecture();
             if (!architecture.isEmpty()) {
@@ -154,22 +154,22 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
                     File candidate = new File(jarDir.getAbsolutePath() + File.separator + dcrawSuffix);
                     if (candidate.isFile()) {
                         dcraw = candidate;
-                        LOGGER.log(Level.INFO, "Using DCRaw ''{0}''", candidate);
+                        LOGGER.log(Level.INFO, "Using dcraw ''{0}''", candidate);
                     } else {
                         LOGGER.log(Level.INFO, "''{0}'' is not a file", candidate);
                     }
                 } else {
-                    LOGGER.log(Level.INFO, "JPhotoTagger does not have a DCRaw executable for {0}", System.getProperty("os.name"));
+                    LOGGER.log(Level.INFO, "JPhotoTagger does not have a dcraw executable for {0}", System.getProperty("os.name"));
                 }
             } else {
-                LOGGER.info("Can't resolve Architecture of the Java Virtual Machine to get DCRaw subdirectory");
+                LOGGER.info("Can't resolve Architecture of the Java Virtual Machine to get dcraw subdirectory");
             }
         } else {
             LOGGER.info("Can't resolve directory of this JAR");
         }
     }
 
-    // HOOK Compiled system dependend DCRaw executable, if OS count > 3 Map instead of if-else-switch
+    // HOOK Compiled system dependend dcraw executable, if OS count > 3 Map instead of if-else-switch
     private String getSupportedOsDcrawSuffix(String architecture) {
         String osNameLc = System.getProperty("os.name").toLowerCase();
         String dcrawSubdir = "dcraw" + File.separator;
@@ -188,7 +188,7 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
     public void preferencesChanged(PreferencesChangedEvent evt) {
         if (ImagePreferencesKeys.KEY_DCRAW_FILEPATH.equals(evt.getKey())) {
             dcraw = null;
-            resolveDCRaw();
+            resolveDcraw();
         }
     }
 
@@ -210,7 +210,7 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
 
     @Override
     public Component getSettingsComponent() {
-        return new DCRawThumbnailCreatorSettingsPanel();
+        return new DcrawThumbnailCreatorSettingsPanel();
     }
 
     @Override
@@ -220,6 +220,6 @@ public final class DCRawThumbnailCreator implements ThumbnailCreator {
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(DCRawThumbnailCreator.class, "DCRawThumbnailCreator.DisplayName");
+        return Bundle.getString(DcrawThumbnailCreator.class, "DcrawThumbnailCreator.DisplayName");
     }
 }
