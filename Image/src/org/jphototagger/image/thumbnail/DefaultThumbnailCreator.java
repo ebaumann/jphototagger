@@ -199,4 +199,14 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
     public String getDisplayName() {
         return Bundle.getString(DefaultThumbnailCreator.class, "ThumbnailCreatorImpl.DisplayName");
     }
+
+    @Override
+    public int getPriority() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public String toString() {
+        return getDisplayName();
+    }
 }

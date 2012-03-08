@@ -222,4 +222,14 @@ public final class DcrawThumbnailCreator implements ThumbnailCreator {
     public String getDisplayName() {
         return Bundle.getString(DcrawThumbnailCreator.class, "DcrawThumbnailCreator.DisplayName");
     }
+
+    @Override
+    public int getPriority() {
+        return 100;
+    }
+
+    @Override
+    public String toString() {
+        return getDisplayName();
+    }
 }

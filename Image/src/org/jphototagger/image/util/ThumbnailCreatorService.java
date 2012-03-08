@@ -2,12 +2,13 @@ package org.jphototagger.image.util;
 
 import java.awt.Image;
 import java.io.File;
-import java.util.Collection;
+import java.util.List;
 
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
+import org.jphototagger.domain.thumbnails.ThumbnailCreatorPriorityComparator;
 
 /**
  * @author Elmar Baumann
@@ -15,11 +16,11 @@ import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 public final class ThumbnailCreatorService {
 
     public static final ThumbnailCreatorService INSTANCE = new ThumbnailCreatorService();
-    private final Collection<? extends ThumbnailCreator> thumbnailCreators = Lookup.getDefault().lookupAll(ThumbnailCreator.class);
+    private final List<ThumbnailCreator> thumbnailCreators = ThumbnailCreatorPriorityComparator.lookupSorted();
 
     /**
-     * Queries all {@link  ThumbnailCreator} implementations and returns
-     * a thumbnail from the first implementation capable of creating it.
+     * Queries all {@link  ThumbnailCreator} implementations and returns a thumbnail from the first implementation
+     * capable of creating it.
      *
      * @param file
      * @return thumbnail or null
@@ -28,9 +29,9 @@ public final class ThumbnailCreatorService {
         if (file == null) {
             return null;
         }
-        for (ThumbnailCreator tnCreator : thumbnailCreators) {
-            if (tnCreator.canCreateThumbnail(file)) {
-                Image thumbnail = tnCreator.createThumbnail(file);
+        for (ThumbnailCreator creator : thumbnailCreators) {
+            if (creator.canCreateThumbnail(file)) {
+                Image thumbnail = creator.createThumbnail(file);
                 if (thumbnail != null) {
                     return thumbnail;
                 }
