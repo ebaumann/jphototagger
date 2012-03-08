@@ -8,8 +8,7 @@ import java.util.Set;
 import org.jphototagger.api.collections.PositionProvider;
 
 /**
- * Creates a thumbnail, can extend JPhotoTagger's capability
- * generating thumbnails for various file formats.
+ * Creates a thumbnail, can extend JPhotoTagger's capability generating thumbnails for various file formats.
  *
  * @author Elmar Baumann
  */
@@ -45,4 +44,12 @@ public interface ThumbnailCreator extends PositionProvider {
     Component getSettingsComponent();
 
     String getDisplayName();
+
+    /**
+     * If more than one provider can create thumbnails of a specific image type, the provider with the higher order will
+     * be preferred.
+     *
+     * @return
+     */
+    int getPriority();
 }
