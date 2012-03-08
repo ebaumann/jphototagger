@@ -40,7 +40,7 @@ import org.jphototagger.lib.util.StringUtil;
 public class WordsetsPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final Color LABEL_EDITABLE_BACKGROUND_COLOR = Color.WHITE;
+    private static final Color LABEL_EDITABLE_BACKGROUND_COLOR = new Color(248, 248, 248);
     private static final Color LABEL_EDITABLE_FOREGROUND_COLOR = Color.BLACK;
     private static final Border LABEL_BORDER = BorderFactory.createLineBorder(Color.BLACK);
     private static final int AUTOMATIC_WORDSET_MAX_WORDCOUNT = 9;
