@@ -238,6 +238,8 @@ public final class RenameDialog extends Dialog {
         int indexOfSuffixDelimiter = toName.lastIndexOf('.');
         if (indexOfSuffixDelimiter > 0) {
             textFieldToName.setCaretPosition(indexOfSuffixDelimiter);
+            textFieldToName.setSelectionStart(0);
+            textFieldToName.setSelectionEnd(indexOfSuffixDelimiter);
         }
     }
 
