@@ -102,18 +102,15 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
     private void postInitComponents() {
         initTextArea();
+        setTextFieldBorder(list);
+        setPropmt();
         model.addListDataListener(this);
         AnnotationProcessor.process(this);
-        setPropmt();
     }
 
     private void initTextArea() {
         editBackground = textAreaInput.getBackground();
-        Border border = UIManager.getBorder("TextField.border");
-        textAreaInput.setBorder(border == null
-                ? BorderFactory.createLineBorder(Color.BLACK)
-                : border
-                );
+        setTextFieldBorder(textAreaInput);
         Font font = UIManager.getFont("TextField.font");
         if (font != null) {
             textAreaInput.setFont(font);
@@ -121,6 +118,14 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         textAreaInput.setInputVerifier(metaDataValue.getInputVerifier());
         textAreaInput.getDocument().addDocumentListener(this);
         textAreaInput.setName(metaDataValue.getDescription());
+    }
+
+    private void setTextFieldBorder(JComponent component) {
+        Border border = UIManager.getBorder("TextField.border");
+        component.setBorder(border == null
+                ? BorderFactory.createLineBorder(Color.BLACK)
+                : border
+                );
     }
 
     public void addWordsetsPanel() {
@@ -788,7 +793,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         menuItemRename = new javax.swing.JMenuItem();
         menuItemRemove = new javax.swing.JMenuItem();
         labelPrompt = new javax.swing.JLabel();
-        scrollPaneList = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelListButtons = new javax.swing.JPanel();
         buttonRemoveSelection = new javax.swing.JButton();
@@ -833,10 +837,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         add(labelPrompt, gridBagConstraints);
 
-        scrollPaneList.setMinimumSize(new java.awt.Dimension(22, 44));
-        scrollPaneList.setName("scrollPaneList"); // NOI18N
-        scrollPaneList.setPreferredSize(new java.awt.Dimension(50, 75));
-
         list.setModel(model);
         list.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
         list.setCellRenderer(new org.jphototagger.program.module.editmetadata.KeywordsEditPanelListCellRenderer());
@@ -856,17 +856,15 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
                 listKeyPressed(evt);
             }
         });
-        scrollPaneList.setViewportView(list);
-        list.setTransferHandler(new org.jphototagger.program.datatransfer.DropListTransferHandler());
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        add(scrollPaneList, gridBagConstraints);
+        add(list, gridBagConstraints);
+        list.setTransferHandler(new org.jphototagger.program.datatransfer.DropListTransferHandler());
 
         panelListButtons.setName("panelListButtons"); // NOI18N
         panelListButtons.setLayout(new java.awt.GridLayout(1, 1));
@@ -1005,7 +1003,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private javax.swing.JPanel panelInput;
     private javax.swing.JPanel panelListButtons;
     private javax.swing.JPopupMenu popupMenuList;
-    private javax.swing.JScrollPane scrollPaneList;
     public javax.swing.JTextArea textAreaInput;
     // End of variables declaration//GEN-END:variables
 }
