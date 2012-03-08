@@ -15,15 +15,7 @@
         </p>
 
         <ul>
-            <li>Sie fotografieren RAW- und JPEG-Dateien gleichzeitig (Kamera ist eingestellt
-                auf <strong>RAW+JPEG</strong>), die Bilder haben die gleichen Namen, nur die Datei-Endung
-                unterscheidet sich <em>und</em> Sie wollen die RAW- und JPEG-Bilder <strong>im gleichen Ordner</strong> speichern.
-                Beispiel: <code>bild.nef</code> und
-                <code>bild.jpg</code> unterscheiden sich nur in der Endung. In diesem
-                Fall gibt es Probleme, <strong>JPhotoTagger</strong> würde für beide
-                Bilddateien die gleiche XMP-Filialdatei schreiben (<code>bild.xmp</code>).
-            </li>
-            <li>Sie haben RAW-Dateien und wollen keine Zeit investieren, ein
+            <li>Sie haben RAW-Dateien, die JPhotoTagger nicht kennt und wollen keine Zeit investieren, ein
                 benutzerdefiniertes Skript zum Erzeugen der Vorschaubilder
                 <a href="settings_thumbnails.html">auszuwählen</a>, das könnte
                 mit der Zusatzarbeit verbunden sein, Programme herunterzuladen und
@@ -50,17 +42,16 @@
             Heißt im gleichen Ordner ein Bild <code>img_01.cr2</code> und ein anderes
             <code>img_01.jpg</code>, würde für <em>beide</em> die Filialdatei <code>img_01.xmp</code>
             heißen und das ist problematisch. XMP-Filialdateien werden so benannt, damit
-            sie <strong>kompatibel</strong> sind zu anderen Programmen. Ginge
-            es nach <strong>JPhotoTagger</strong>, hießen alle Filialdateien wie die
-            Bilddateien plus Endung <code>xmp</code>, zum Beispiel <code>img_01.cr2.xmp</code>
-            und <code>img_01.jpg.xmp</code>. Dann gäbe es das Problem nicht und es wäre
-            leichter zur programmieren, da nicht erst der Dateiname &quot;zerlegt&quot; werden
-            muss zum Benennen und Auffinden einer XMP-Filialdatei.
+            sie <strong>kompatibel</strong> sind zu anderen Programmen.
         </p>
 
-        <p>Falls obiges für Sie zutrifft, können Sie <strong>JPhotoTagger</strong>
-            &quot;trotzdem&quot; benutzen, falls Sie gewillt sind, die
-            JPEG-Bilder in einen Unterordner zu speichern, beispielsweise könnten Sie in
+        <p>Sie können <strong>JPhotoTagger</strong> so einstellen, dass dies keine Probleme bereitet,
+            wobei aber vermutlich andere Programme die Filialdatei nicht mehr finden:
+            <a href="settings_misc.html">Einstellungen, Kartenreiter &quot;Sonstiges&quot;</a>:
+            <strong>Lange XMP-Filialdateinamen benutzen</strong>.
+        </p>
+
+        <p>Sie können die auch JPEG-Bilder in einen Unterordner zu speichern, beispielsweise könnten Sie in
             allen Bildordnern einen Ordner <code>Bearbeitet</code> anlegen, in dem Sie
             Ihre JPEG-Bilder speichern. Im Grunde sind JPEG-Bilder, die die Kamera im
             Modus RAW+JPEG schreibt, nichts anderes als bearbeitete RAW-Bilder, die
@@ -79,9 +70,7 @@
             freier Java-Biblitheken zum Verarbeiten von RAW-Formaten keine Vorschaubilder
             von RAW-Dateien erzeugen (und mir fehlt die Zeit, das nachzuholen; wäre dies
             einfach und schnell zu programmieren, gäbe es nicht wenige
-            Java-RAW-Konverter-Bibliotheken sondern sehr viele). In einigen Fällen funktioniert das Auslesen
-            der in den RAW-Dateien eingebetteten Vorschaubilder, in vielen nicht. Außerdem
-            ist die Qualität eingebetteter Vorschaubilder häufig ziemlich schlecht. Ein weiteres
+            Java-RAW-Konverter-Bibliotheken sondern sehr viele). Ein weiteres
             Problem ist, dass jeder Kamerahersteller eigene RAW-Formate benutzt, für
             unterschiedliche Kameras des gleichen Herstellers können diese variieren.
         </p>
@@ -94,6 +83,14 @@
             einige Zeit, die Sie vielleicht nicht investieren möchten, außerdem gibt es
             folgendes Problem: Funktioniert ein Skript nicht, kann es schwierig bis
             unmöglich werden, die Ursache herauszufinden.
+        </p>
+
+        <p>Für einige Betriebssysteme gibt benutzt <strong>JPhotoTagger</strong>
+            <strong>dcraw</strong> (http://www.cybercom.net/~dcoffin/dcraw/), aktuell
+            für Windows 32 Bit, Windows 64 Bit und Linux 32 Bit. Für Erweiterungen
+            bin ich auf Benutzer angewiesen, die mir
+            kompilierte <strong>dcraw</strong>-Versionen liefern und testen,
+            ob <strong>JPhotoTagger</strong> diese richtig benutzt.
         </p>
 
         <h2>Datenbank und XMP-Filialdateien</h2>
