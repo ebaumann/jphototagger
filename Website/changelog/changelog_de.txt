@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.3 2012-03-08
+-----------------
+
+* Im Bearbeiten-Kartenreiter vergrößert sich die Liste mit den
+  Stichwörtern automatisch nach unten, sie hat keine Scroll-Leisten
+  mehr
+
 0.24.2 2012-03-05
 -----------------
 

@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.3 2012-03-08
+-----------------
+
+* Within the edit register the keywords list will be
+  resized vertically if necessary and doesn't have
+  scroll bars anymore
+
 0.24.2 2012-03-05
 -----------------
 
