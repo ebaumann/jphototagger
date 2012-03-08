@@ -9,6 +9,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Within the edit register the keywords list will be
   resized vertically if necessary and doesn't have
   scroll bars anymore
+* Added dcraw for 64 Bit Windows
 
 0.24.2 2012-03-05
 -----------------

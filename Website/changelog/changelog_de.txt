@@ -9,6 +9,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Im Bearbeiten-Kartenreiter vergrößert sich die Liste mit den
   Stichwörtern automatisch nach unten, sie hat keine Scroll-Leisten
   mehr
+* dcraw für 64 Bit Windows hinzugefügt
 
 0.24.2 2012-03-05
 -----------------
