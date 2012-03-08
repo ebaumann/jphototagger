@@ -101,6 +101,7 @@ public final class DcrawThumbnailCreator implements ThumbnailCreator {
 
     private ExternalOutput getExternalOutput(File file) {
         String command = "\"" + dcraw.getAbsolutePath() + "\" -c -h -T \"" + file.getAbsolutePath() + "\"";
+        LOGGER.log(Level.INFO, "Creating thumbnail with dcraw; command: {0}", command);
         return External.executeGetOutput(command, getMaxMillisecondsToTerminate());
     }
 
