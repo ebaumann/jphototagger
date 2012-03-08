@@ -62,11 +62,9 @@ import org.jphototagger.program.module.wordsets.WordsetsPanel;
 import org.jphototagger.program.module.wordsets.WordsetsPanelListener;
 
 /**
- * Panel with an input text field an a list. The list contains multiple words,
- * the input field one word.
+ * Panel with an input text field an a list. The list contains multiple words, the input field one word.
  *
- * Text in the input field will be added to the list on hitting the ENTER key
- * or pushing the ADD button.
+ * Text in the input field will be added to the list on hitting the ENTER key or pushing the ADD button.
  *
  * @author Elmar Baumann
  */
@@ -124,8 +122,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         Border border = UIManager.getBorder("TextField.border");
         component.setBorder(border == null
                 ? BorderFactory.createLineBorder(Color.BLACK)
-                : border
-                );
+                : border);
     }
 
     public void addWordsetsPanel() {
@@ -209,7 +206,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
      */
     public Collection<String> getRepeatableText() {
         List<String> texts = new ArrayList<String>(model.size());
-        int size  = model.getSize();
+        int size = model.getSize();
         for (int i = 0; i < size; i++) {
             texts.add(model.get(i).toString());
         }
@@ -226,7 +223,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
             throw new NullPointerException("suggest == null");
         }
         this.suggest = suggest;
-        buttonSuggestion.setEnabled(editable);
+        setButtonSuggestionEnabled();
         buttonSuggestion.setToolTipText(suggest.getDescription());
     }
 
@@ -253,7 +250,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         textAreaInput.setText("");
         model.removeAllElements();
         addToList(texts);
-        setEnabledButtons();
+        setButtonsEnabled();
         dirty = false;
         settingTexts = false;
     }
@@ -313,8 +310,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     /**
-     * Adds text to the list <em>whithout</em> replacing existing words in the
-     * list if editing is allowed and sets the dirty flag to true.
+     * Adds text to the list <em>whithout</em> replacing existing words in the list if editing is allowed and sets the
+     * dirty flag to true.
      *
      * @param text text
      */
@@ -335,8 +332,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     /**
-     * Adds the text in the input text field to the list if the ENTER key
-     * was pressed.
+     * Adds the text in the input text field to the list if the ENTER key was pressed.
      *
      * @param evt key event
      */
@@ -345,12 +341,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         if ((evt.getKeyCode() == KeyEvent.VK_ENTER) && component.getInputVerifier().verify(component)) {
             addInputToList();
         } else {
-            setEnabledButtons();
+            setButtonsEnabled();
         }
     }
 
     private void addInputToList() {
-        if (addToList(Collections.singleton(textAreaInput.getText())) > 0) {
+        if (addToList(Collections.singleton(getText())) > 0) {
             textAreaInput.setText("");
         }
     }
@@ -378,7 +374,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
      * Removes from the list all selected elements.
      */
     private void removeSelectedElements() {
-        if ((list.getSelectedIndex() >= 0) && confirmRemoveSelectedItems()) {
+        if (isElementSelected() && confirmRemoveSelectedItems()) {
             Object[] values = list.getSelectedValues();
             for (Object value : values) {
                 model.removeElement(value);
@@ -387,6 +383,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
             }
             forceRepaint();
         }
+    }
+
+    private boolean isElementSelected() {
+        return list.getSelectedIndex() >= 0;
     }
 
     private boolean confirmRemoveSelectedItems() {
@@ -398,9 +398,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     public void setEditable(boolean editable) {
         this.editable = editable;
         textAreaInput.setEditable(editable);
-        buttonAddInput.setEnabled(editable);
-        buttonRemoveSelection.setEnabled(editable);
-        buttonSuggestion.setEnabled(editable && (suggest != null));
+        setButtonsEnabled();
         Color background = editable ? editBackground : getBackground();
         list.setBackground(background);
         textAreaInput.setBackground(background);
@@ -438,12 +436,29 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     private void handleListValueChanged(ListSelectionEvent evt) {
-        setEnabledButtons();
+        setButtonsEnabled();
     }
 
-    private void setEnabledButtons() {
-        buttonAddInput.setEnabled(editable &&!textAreaInput.getText().isEmpty());
-        buttonRemoveSelection.setEnabled(editable && (list.getSelectedIndex() >= 0));
+    private void setButtonsEnabled() {
+        setButtonSuggestionEnabled();
+        setButtonAddInputEnabled();
+        setButtonRemoveEnabled();
+    }
+
+    private void setButtonAddInputEnabled() {
+        buttonAddInput.setEnabled(editable && hasInput());
+    }
+
+    private void setButtonRemoveEnabled() {
+        buttonRemoveSelection.setEnabled(editable && isElementSelected());
+    }
+
+    private void setButtonSuggestionEnabled() {
+        buttonSuggestion.setEnabled(editable && hasInput() && suggest != null);
+    }
+
+    private boolean hasInput() {
+        return !getText().isEmpty();
     }
 
     @Override
@@ -470,7 +485,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     public void insertUpdate(DocumentEvent evt) {
         // Don't notify TextEntryListener listeners because the model doesn't change
         dirty = true;
-        buttonAddInput.setEnabled(true);
+        setButtonAddInputEnabled();
     }
 
     /**
@@ -482,7 +497,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     public void removeUpdate(DocumentEvent evt) {
         // Don't notify TextEntryListener listeners because the model doesn't change
         dirty = true;
-        buttonAddInput.setEnabled(!textAreaInput.getText().isEmpty());
+        setButtonAddInputEnabled();
     }
 
     /**
@@ -494,10 +509,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     public void changedUpdate(DocumentEvent evt) {
         // Don't notify TextEntryListener listeners because the model doesn't change
         dirty = true;
+        setButtonAddInputEnabled();
     }
 
     /**
-     * Invokes the text modifier if the <code>Ctrl+K</code> was pressed.
+     * Invokes the text modifier if the
+     * <code>Ctrl+K</code> was pressed.
      *
      * @param evt key event
      */
@@ -508,12 +525,12 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     private void suggestText() {
-        String trimmedInput = textAreaInput.getText().trim();
-        if (checkCanSuggest(trimmedInput)) {
-            Collection<String> suggestedText = suggest.suggest(trimmedInput);
+        String input = getText();
+        if (checkCanSuggest(input)) {
+            Collection<String> suggestedText = suggest.suggest(input);
             if (suggest.isAccepted() && suggestedText.isEmpty()) {
                 String message = Bundle.getString(EditTextEntryPanel.class, "EditTextEntryPanel.Warning.SuggestTextNoSuggestionsFound",
-                        trimmedInput, suggest.getRequiresDescription());
+                        input, suggest.getRequiresDescription());
                 MessageDisplayer.warning(this, message);
             } else {
                 addToList(suggestedText);
@@ -568,7 +585,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     private boolean containsElementIgnoreCase(String element) {
-        for (Enumeration<?> enumeration = model.elements(); enumeration.hasMoreElements(); ) {
+        for (Enumeration<?> enumeration = model.elements(); enumeration.hasMoreElements();) {
             String modelElement = (String) enumeration.nextElement();
             if (element.equalsIgnoreCase(modelElement)) {
                 return true;
@@ -606,7 +623,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
                 String message = Bundle.getString(EditRepeatableTextEntryPanel.class, "EditRepeatableTextEntryPanel.Confirm.NameExists", toName);
                 ready = !MessageDisplayer.confirmYesNo(list, message);
                 toName = null;
-            } else if ((toName != null) &&!toName.trim().isEmpty()) {
+            } else if ((toName != null) && !toName.trim().isEmpty()) {
                 ready = true;
                 toName = toName.trim();
             }
@@ -667,6 +684,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
             notifyTextAdded(metaDataValue, model.get(i).toString());
             dirty = true;
         }
+        setButtonsEnabled();
     }
 
     @Override
@@ -676,16 +694,16 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
     @Override
     public void contentsChanged(ListDataEvent evt) {
-        buttonRemoveSelection.setEnabled(list.getModel().getSize() > 0);
+        setButtonsEnabled();
     }
 
     @Override
     public List<Component> getInputComponents() {
         return Arrays.asList((Component) list,
-                             (Component) buttonRemoveSelection,
-                             (Component) buttonAddInput,
-                             (Component) buttonSuggestion,
-                             (Component) textAreaInput);
+                (Component) buttonRemoveSelection,
+                (Component) buttonAddInput,
+                (Component) buttonSuggestion,
+                (Component) textAreaInput);
     }
 
     @Override
@@ -743,7 +761,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
                 ? Collections.<Component>emptyList()
                 : Arrays.asList(panelWordsets);
     }
-
     private final WordsetsPanelListener wordsetsPanelListener = new WordsetsPanelListener() {
 
         @Override
@@ -779,13 +796,10 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     }
 
     /**
-     * This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -974,6 +988,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
     private void buttonSuggestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSuggestionActionPerformed
         suggestText();
+        textAreaInput.requestFocusInWindow();
     }//GEN-LAST:event_buttonSuggestionActionPerformed
 
     private void menuItemRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRenameActionPerformed
