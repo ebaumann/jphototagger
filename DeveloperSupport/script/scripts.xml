@@ -35,9 +35,23 @@
             <arg value="mkdist.sh" />
         </exec>
     </target>
-    <target name="toggle-test-working" description="Toggling user dir between test and working data">
+    <target name="dist-zip-create-and-upload" depends="dist-zip-create,dist-upload"/>
+    <target name="switch-settingsdir-pristine" description="Switching to pristine settings">
         <exec executable="bash">
-            <arg value="togglesettingsdir.sh" />
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-p"/>
+        </exec>
+    </target>
+    <target name="switch-settingsdir-test" description="Switching to test settings">
+        <exec executable="bash">
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-t"/>
+        </exec>
+    </target>
+    <target name="switch-settingsdir-work" description="Switching to working settings">
+        <exec executable="bash">
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-w"/>
         </exec>
     </target>
     <target name="pdf-manual" description="Creating PDF manual, language German">
