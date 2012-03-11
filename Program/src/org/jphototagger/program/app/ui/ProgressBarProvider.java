@@ -28,7 +28,7 @@ public final class ProgressBarProvider implements ProgressHandleFactory, StatusL
 
     @Override
     public int getPosition() {
-        return 400;
+        return Integer.MAX_VALUE;
     }
 
     @Override

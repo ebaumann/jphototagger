@@ -56,6 +56,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     private synchronized void showActiveProgressBarPanel(ProgressBarPanel progressBarPanel) {
         if (activeProgressBarPanels.isEmpty()) {
             add(progressBarPanel, getProgressBarPanelGbc());
+            repaintThis();
         } else {
             panelHiddenProgressBars.add(progressBarPanel, getHiddenProgressBarPanelGbc());
             repaintHiddenProgressBars();
@@ -90,9 +91,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
 
     private synchronized void removeProgressBarPanel(ProgressBarPanel progressBarPanel) {
         if (isAncestorOf(progressBarPanel)) {
-            remove(progressBarPanel);
-            setProgressBarPanelFromHidden();
-            ComponentUtil.forceRepaint(this);
+            setProgressBarPanelFromHidden(progressBarPanel);
         } else {
             panelHiddenProgressBars.remove(progressBarPanel);
             repaintHiddenProgressBars();
@@ -104,14 +103,21 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         setEnabledButtonToggleEnabled();
     }
 
-    private synchronized void setProgressBarPanelFromHidden() {
+    private void repaintThis() {
+        ComponentUtil.forceRepaint(this);
+        ComponentUtil.forceRepaint(getParent());
+    }
+
+    private synchronized void setProgressBarPanelFromHidden(ProgressBarPanel progressBarPanelToRemove) {
         List<ProgressBarPanel> pbPanels = ComponentUtil.getAllOf(panelHiddenProgressBars, ProgressBarPanel.class);
         if (!pbPanels.isEmpty()) {
+            remove(progressBarPanelToRemove);
             ProgressBarPanel pbPanel = pbPanels.get(0);
             panelHiddenProgressBars.remove(pbPanel);
             add(pbPanel, getProgressBarPanelGbc());
             ComponentUtil.forceRepaint(pbPanel);
             repaintHiddenProgressBars();
+            repaintThis();
         }
     }
 
