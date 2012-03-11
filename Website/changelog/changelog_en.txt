@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.4 2012-03-12
+-----------------
+
+* Parallel tasks having their own progress bars. If more than
+  one task is running at the same time, the additional progress
+  bars can be shown. Every cancelable task has a cancel button
+  near their progress bar.
+
 0.24.3 2012-03-08
 -----------------
 

@@ -3,13 +3,11 @@ package org.jphototagger.api.progress;
 /**
  * @author Elmar Baumann
  */
-public interface MainWindowProgressBarProvider {
+public interface ProgressHandle {
 
     void progressStarted(ProgressEvent evt);
 
     void progressPerformed(ProgressEvent evt);
 
-    void progressEnded(Object eventSource);
-
-    boolean isDisplayProgressOfSource(Object eventSource);
+    void progressEnded();
 }

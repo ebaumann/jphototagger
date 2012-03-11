@@ -13,8 +13,9 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.net.HttpUtil;
@@ -45,9 +46,9 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     private Version netVersion = currentVersion;
     private volatile boolean cancel;
     private static boolean checkPending;
-    private final Object pBarOwner = this;
+    private final Object source = this;
     private static final Logger LOGGER = Logger.getLogger(UpdateDownload.class.getName());
-    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+    private ProgressHandle progressHandle;
 
     public UpdateDownload() {
         super("JPhotoTagger: Checking for and downloading newer version");
@@ -114,17 +115,14 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
     @Override
     public void run() {
-        startProgressBar();
-
         try {
+            startProgressHandle();
             netVersion = NetVersion.getOverHttp(URL_VERSION_CHECK_FILE, VERSION_DELIMITER);
             String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.Download", currentVersion.toString3(), netVersion.toString3());
             if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, message)) {
                 progressBarDownloadInfo();
                 download();
-
                 File downloadFile = getDownloadFile();
-
                 if (cancel && downloadFile.exists()) {
                     if (!downloadFile.delete()) {
                         LOGGER.log(Level.WARNING, "Uncomplete downloaded file ''{0}'' couldn''t be deleted!", downloadFile);
@@ -134,8 +132,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "The most recent version of JPhotoTagger couldn''t be retrieved: {0}", ex.getLocalizedMessage());
         } finally {
-            progressBarProvider.progressEnded(pBarOwner);
-
+            progressHandle.progressEnded();
             synchronized (UpdateDownload.class) {
                 checkPending = false;
             }
@@ -146,13 +143,10 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         try {
             File downloadFile = getDownloadFile();
             BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(downloadFile));
-
             HttpUtil.write(new URL(getDownloadUrl()), os, this);
-
             if (cancel) {
                 return;
             }
-
             if (SystemUtil.isWindows()) {
                 setFinalExecutable(downloadFile);
             } else {
@@ -166,10 +160,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
 
     private void setFinalExecutable(File downloadFile) {
         String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.SetFinalExecutable", downloadFile);
-
         if (MessageDisplayer.confirmYesNo(null, message)) {
             FinalExecutable exec = new FinalExecutable(downloadFile.getAbsolutePath());
-
             AppLifeCycle.INSTANCE.addFinalTask(exec);
         }
     }
@@ -191,14 +183,25 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         return new File(dirname + File.separator + filename);
     }
 
-    private void startProgressBar() {
-        ProgressEvent evt = new ProgressEvent.Builder().source(pBarOwner).indeterminate(true).stringPainted(true).stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBar")).build();
-        progressBarProvider.progressStarted(evt);
+    private void startProgressHandle() {
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(source)
+                .indeterminate(true)
+                .stringPainted(true)
+                .stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBar"))
+                .build();
+        progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this);
+        progressHandle.progressStarted(evt);
     }
 
     private void progressBarDownloadInfo() {
-        ProgressEvent evt = new ProgressEvent.Builder().source(pBarOwner).indeterminate(true).stringPainted(true).stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBarDownload")).build();
-        progressBarProvider.progressStarted(evt);
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(source)
+                .indeterminate(true)
+                .stringPainted(true)
+                .stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBarDownload"))
+                .build();
+        progressHandle.progressStarted(evt);
     }
 
     private boolean hasNewerVersion() throws Exception {

@@ -6,12 +6,13 @@ import java.util.Set;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.progress.ProgressListener;
 
 /**
- * Base class for helper threads, displays progress with {@code MainWindowProgressBarProvider} when
+ * Base class for helper threads, displays progress with {@code ProgressHandleFactory} when
  * calling one of the <code>progress...</code>. methods and calling {@link Cancelable#cancel()} if
  * {@link ProgressEvent#isCancel()}.
  *
@@ -24,7 +25,7 @@ public abstract class HelperThread extends Thread implements Cancelable {
     private volatile int value;
     private volatile int minimum;
     private volatile int maximum;
-    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+    private ProgressHandle progressHandle;
 
     public HelperThread() {
     }
@@ -41,7 +42,6 @@ public abstract class HelperThread extends Thread implements Cancelable {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         synchronized (progressListeners) {
             progressListeners.add(listener);
         }
@@ -51,7 +51,6 @@ public abstract class HelperThread extends Thread implements Cancelable {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         synchronized (progressListeners) {
             progressListeners.remove(listener);
         }
@@ -79,9 +78,9 @@ public abstract class HelperThread extends Thread implements Cancelable {
         this.maximum = maximum;
         this.info = info;
         ProgressEvent evt = createProgressEvent();
-
         notifyProgressStarted(evt);
-        progressBarProvider.progressStarted(evt);
+        progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this);
+        progressHandle.progressStarted(evt);
     }
 
 
@@ -96,9 +95,8 @@ public abstract class HelperThread extends Thread implements Cancelable {
         this.value = value;
         this.info = info;
         ProgressEvent evt = createProgressEvent();
-
         notifyProgressPerformed(evt);
-        progressBarProvider.progressPerformed(evt);
+        progressHandle.progressPerformed(evt);
     }
 
     /**
@@ -109,9 +107,8 @@ public abstract class HelperThread extends Thread implements Cancelable {
      */
     protected void progressEnded(Object info) {
         ProgressEvent evt = createProgressEvent();
-
         notifyProgressEnded(evt);
-        progressBarProvider.progressEnded(this);
+        progressHandle.progressEnded();
     }
 
     private ProgressEvent createProgressEvent() {

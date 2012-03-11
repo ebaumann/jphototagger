@@ -175,7 +175,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
 
     @Override
     public int getPosition() {
-        return 5;
+        return 900;
     }
 
     /** This method is called from within the constructor to

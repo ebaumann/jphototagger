@@ -2,8 +2,10 @@ package org.jphototagger.lib.util;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
+import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.progress.ProgressListener;
 
 /**
@@ -12,25 +14,19 @@ import org.jphototagger.api.progress.ProgressListener;
 public final class ProgressBarUpdater implements ProgressListener {
 
     private final String progressBarString;
-    private final Object pBarOwner;
-    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+    private final Object source;
+    private ProgressHandle progressHandle;
 
-    /**
-     *
-     * @param progressBarOwner
-     * @param progressBarString string to paint on the progress bar or null
-     */
-    public ProgressBarUpdater(Object progressBarOwner, String progressBarString) {
-        if (progressBarOwner == null) {
-            throw new NullPointerException("progressBarOwner == null");
+    public ProgressBarUpdater(Object source, String progressBarString) {
+        if (source == null) {
+            throw new NullPointerException("source == null");
         }
-
-        this.pBarOwner = progressBarOwner;
+        this.source = source;
         this.progressBarString = progressBarString;
     }
 
     private void modifyProgressEvent(ProgressEvent evt) {
-        evt.setSource(pBarOwner);
+        evt.setSource(source);
         evt.setStringPainted(progressBarString != null);
         evt.setStringToPaint(progressBarString);
     }
@@ -38,13 +34,17 @@ public final class ProgressBarUpdater implements ProgressListener {
     @Override
     public void progressStarted(ProgressEvent evt) {
         modifyProgressEvent(evt);
-        progressBarProvider.progressStarted(evt);
+        ProgressHandleFactory phFactory = Lookup.getDefault().lookup(ProgressHandleFactory.class);
+        progressHandle = source instanceof Cancelable
+                ? phFactory.createProgressHandle((Cancelable) source)
+                : phFactory.createProgressHandle();
+        progressHandle.progressStarted(evt);
     }
 
     @Override
     public void progressPerformed(final ProgressEvent evt) {
         modifyProgressEvent(evt);
-        progressBarProvider.progressPerformed(evt);
+        progressHandle.progressPerformed(evt);
     }
 
     /**
@@ -52,6 +52,6 @@ public final class ProgressBarUpdater implements ProgressListener {
      */
     @Override
     public synchronized void progressEnded(final ProgressEvent evt) {
-        progressBarProvider.progressEnded(pBarOwner);
+        progressHandle.progressEnded();
     }
 }

@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.4 2012-03-12
+-----------------
+
+* Parallel ablaufende Aufgaben haben ihre eigene Fortschrittsanzeige.
+  Gibt es mehr als eine Aufgabe, können die Fortschrittsanzeigen der
+  anderen Aufgaben eingeblendet werden. Jede abbrechbare Aufgabe
+  kann einzeln abgebrochen werden durch eine Schaltfläche neben ihrer
+  Fortschrittsanzeige.
+
 0.24.3 2012-03-08
 -----------------
 

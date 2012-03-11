@@ -19,8 +19,9 @@ import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifPreferencesKeys;
 import org.jphototagger.exif.ExifTags;
@@ -51,17 +52,14 @@ public final class GPSLocationExportUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (isAddFilenameToGpsLocationExport()) {
             return " [" + file.getName() + "]";
         }
-
         return "";
     }
 
     private static boolean isAddFilenameToGpsLocationExport() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(ExifPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
                 ? prefs.getBoolean(ExifPreferencesKeys.KEY_GPS_ADD_FILENAME_TO_GPS_LOCATION_EXPORT)
                 : false;
@@ -73,7 +71,7 @@ public final class GPSLocationExportUtil {
         private final GPSLocationExporter exporter;
         private final List<? extends File> imageFiles;
         private static final String PROGRESS_BAR_STRING = Bundle.getString(GPSLocationExportUtil.class, "GPSLocationExportUtil.Exporter.Info");
-        private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+        private ProgressHandle progressHandle;
 
         Exporter(GPSLocationExporter exporter, Collection<? extends File> imageFiles) {
             super("JPhotoTagger: Exporting GPS locations");
@@ -89,27 +87,21 @@ public final class GPSLocationExportUtil {
         @Override
         public void run() {
             int fileCount = imageFiles.size();
-
             EventBus.publish(new FileProcessingStartedEvent(this));
-            progressBarProvider.progressStarted(createStartProgressEvent(fileCount));
-
+            progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this);
+            progressHandle.progressStarted(createStartProgressEvent(fileCount));
             List<GPSImageInfo> imageInfos = new ArrayList<GPSImageInfo>(fileCount);
-
             for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
                 File imageFile = imageFiles.get(i);
                 ExifTags et = ExifMetadata.getExifTagsPreferCached(imageFile);
-
                 if (et != null) {
                     ExifGpsMetadata gpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(et);
-
                     imageInfos.add(new GPSImageInfo(imageFile, gpsMetadata));
                 }
-
-                progressBarProvider.progressPerformed(createPerformedProgressEvent(fileCount, i + 1));
+                progressHandle.progressPerformed(createPerformedProgressEvent(fileCount, i + 1));
             }
-
             export(exporter, imageInfos);
-            createFinishedProgressEvent(fileCount, fileCount);
+            createFinishedProgressEvent();
         }
 
         private ProgressEvent createStartProgressEvent(int maximum) {
@@ -134,8 +126,8 @@ public final class GPSLocationExportUtil {
                     .build();
         }
 
-        private void createFinishedProgressEvent(int countOfImagesToUpload, int countOfUploadedImages) {
-            progressBarProvider.progressEnded(this);
+        private void createFinishedProgressEvent() {
+            progressHandle.progressEnded();
             EventBus.publish(new FileProcessingFinishedEvent(this, true));
         }
     }
@@ -149,16 +141,13 @@ public final class GPSLocationExportUtil {
     static void export(GPSLocationExporter gpsExporter, Collection<? extends File> imageFiles) {
         SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
         Exporter exporter = new Exporter(gpsExporter, imageFiles);
-
         executor.addTask(exporter);
     }
 
     private static void export(GPSLocationExporter exporter, List<GPSImageInfo> gpsImageInfos) {
         File exportFile = getFile(exporter);
-
         if (exportFile != null) {
             FileOutputStream fos = null;
-
             try {
                 fos = new FileOutputStream(exportFile);
                 exporter.export(gpsImageInfos, fos);
@@ -175,33 +164,26 @@ public final class GPSLocationExportUtil {
 
     private static File getFile(GPSLocationExporter exporter) {
         FileChooserExt fileChooser = new FileChooserExt(getCurrentDir());
-
         fileChooser.setFileFilter(exporter.getFileFilter());
         fileChooser.setConfirmOverwrite(true);
         fileChooser.setMultiSelectionEnabled(false);
         fileChooser.setSaveFilenameExtension(exporter.getFilenameExtension());
-
         if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
-
             setCurrentDir(file);
-
             return file;
         }
-
         return null;
     }
 
     private static synchronized File getCurrentDir() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String path = prefs.getString(KEY_CURRENT_DIR);
-
         return new File(path == null ? "" : path);
     }
 
     private static synchronized void setCurrentDir(File dir) {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         PreferencesUtil.setDirectory(prefs, KEY_CURRENT_DIR, dir);
     }
 

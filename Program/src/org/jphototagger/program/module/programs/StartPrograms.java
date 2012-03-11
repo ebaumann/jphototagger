@@ -11,8 +11,9 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
@@ -31,7 +32,7 @@ public final class StartPrograms {
 
     private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
     private static final Logger LOGGER = Logger.getLogger(StartPrograms.class.getName());
-    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+    private ProgressHandle progressHandle;
 
     /**
      * Executes a program.
@@ -43,7 +44,6 @@ public final class StartPrograms {
     public void startProgram(Program program, List<File> imageFiles, boolean waitForTermination) {
         if (checkFilecount(imageFiles)) {
             Execute execute = new Execute(program, imageFiles, waitForTermination);
-
             synchronized (this) {
                 if (queue.isEmpty()) {
                     execute.start();
@@ -58,10 +58,8 @@ public final class StartPrograms {
         if (imageFiles.size() <= 0) {
             String message = Bundle.getString(StartPrograms.class, "StartPrograms.Error.Selection");
             MessageDisplayer.error(null, message);
-
             return false;
         }
-
         return true;
     }
 
@@ -74,15 +72,12 @@ public final class StartPrograms {
 
         Execute(Program program, List<File> imageFiles, boolean waitForTermination) {
             super("JPhotoTagger: Executing program " + program.getAlias());
-
             if (program == null) {
                 throw new NullPointerException("program == null");
             }
-
             if (imageFiles == null) {
                 throw new NullPointerException("imageFiles == null");
             }
-
             this.imageFiles = new ArrayList<File>(imageFiles);
             this.program = program;
             this.waitForTermination = waitForTermination;
@@ -91,7 +86,6 @@ public final class StartPrograms {
         @Override
         public void run() {
             progressStarted();
-
             if (program.isUsePattern()) {
                 processPattern();
             } else if (program.isSingleFileProcessing()) {
@@ -99,8 +93,7 @@ public final class StartPrograms {
             } else {
                 processAll();
             }
-
-            progressBarProvider.progressEnded(this);
+            progressHandle.progressEnded();
             updateRepository();
             nextExecutor();
         }
@@ -111,19 +104,14 @@ public final class StartPrograms {
 
         private void processPattern() {
             int count = 0;
-
             for (File file : imageFiles) {
                 String command = getProcessPatternCommand(file);
-
                 logCommand(command);
-
                 External.ProcessResult result = External.execute(command, waitForTermination);
                 boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
-
                 if (waitForTermination && terminatedWithErrors) {
                     logError(command, result);
                 }
-
                 count++;
                 progressPerformed(count);
             }
@@ -142,7 +130,6 @@ public final class StartPrograms {
 
         private String getPattern() {
             String pattern = program.getPattern();
-
             return (program.isUsePattern() && (pattern != null) && !pattern.isEmpty())
                     ? program.getPattern()
                     : RuntimeUtil.PATTERN_FS_PATH;
@@ -150,16 +137,12 @@ public final class StartPrograms {
 
         private void processAll() {
             String command = getProcessAllCommand();
-
             logCommand(command);
-
             External.ProcessResult result = External.execute(command, waitForTermination);
             boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
-
             if (waitForTermination && terminatedWithErrors) {
                 logError(command, result);
             }
-
             progressPerformed(imageFiles.size());
         }
 
@@ -172,19 +155,14 @@ public final class StartPrograms {
 
         private void processSingle() {
             int count = 0;
-
             for (File file : imageFiles) {
                 String command = getProcessSingleCommand(file, count);
-
                 logCommand(command);
-
                 External.ProcessResult result = External.execute(command, waitForTermination);
                 boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
-
                 if (waitForTermination && terminatedWithErrors) {
                     logError(command, result);
                 }
-
                 count++;
                 progressPerformed(count);
             }
@@ -200,23 +178,18 @@ public final class StartPrograms {
             if (program.isUsePattern()) {
                 return "";
             }
-
             if (!program.isInputBeforeExecute()) {
                 return "";
             }
-
             if ((!program.isInputBeforeExecutePerFile() && (count > 1))) {
                 return dlg.getParameters();
             }
-
             dlg.setProgram(program.getAlias());
             dlg.setFilename(filename);
             dlg.setVisible(true);
-
             if (dlg.isAccepted()) {
                 return dlg.getParameters();
             }
-
             return "";
         }
 
@@ -228,12 +201,13 @@ public final class StartPrograms {
 
         private void progressStarted() {
             ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(imageFiles.size()).value(0).build();
-            progressBarProvider.progressStarted(evt);
+            progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
+            progressHandle.progressStarted(evt);
         }
 
         private void progressPerformed(int value) {
             ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(imageFiles.size()).value(value).build();
-            progressBarProvider.progressPerformed(evt);
+            progressHandle.progressPerformed(evt);
         }
 
         private void updateRepository() {

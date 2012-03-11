@@ -13,8 +13,9 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.messages.MessageType;
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -62,9 +63,7 @@ public abstract class KeywordsImporter {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         Collection<List<KeywordString>> paths = getPaths(file);
-
         if (paths != null) {
             new ImportTask(paths).start();
         }
@@ -75,17 +74,15 @@ public abstract class KeywordsImporter {
         private final Collection<List<KeywordString>> paths;
         private final TreeModel treeModel = ModelFactory.INSTANCE.getModel(KeywordsTreeModel.class);
         private volatile boolean cancel;
-        private final Object pBarOwner = this;
+        private final Object source = this;
         private static final String PROGRESSBAR_STRING = Bundle.getString(KeywordsImporter.class, "KeywordImporter.ProgressBar.String");
-        private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+        private ProgressHandle progressHandle;
 
         ImportTask(Collection<List<KeywordString>> paths) {
             super("JPhotoTagger: Importing keywords");
-
             if (paths == null) {
                 throw new NullPointerException("paths == null");
             }
-
             this.paths = paths;
         }
 
@@ -108,22 +105,17 @@ public abstract class KeywordsImporter {
         private void importKeywords() {
             if (treeModel instanceof KeywordsTreeModel) {
                 KeywordsTreeModel model = (KeywordsTreeModel) treeModel;
-
-                progressBarProvider.progressStarted(createProgressEventWithValue(0));
-
+                progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this);
+                progressHandle.progressStarted(createProgressEventWithValue(0));
                 int progressValue = 0;
                 int importCount = 0;
-
                 for (List<KeywordString> path : paths) {
                     if (cancel || isInterrupted()) {
                         break;
                     }
-
                     DefaultMutableTreeNode node = (DefaultMutableTreeNode) model.getRoot();
-
                     for (KeywordString keyword : path) {
                         DefaultMutableTreeNode existingNode = model.findChildByName(node, keyword.getKeyword());
-
                         if (existingNode == null) {
                             model.insert(node, keyword.getKeyword(), keyword.isReal(), false);
                             node = model.findChildByName(node, keyword.getKeyword());
@@ -132,12 +124,10 @@ public abstract class KeywordsImporter {
                             node = existingNode;
                         }
                     }
-
                     progressValue++;
-                    progressBarProvider.progressPerformed(createProgressEventWithValue(progressValue));
+                    progressHandle.progressPerformed(createProgressEventWithValue(progressValue));
                 }
-
-                progressBarProvider.progressEnded(pBarOwner);
+                progressHandle.progressEnded();
                 messageImported(importCount);
                 expandRootSelHk();
             }
@@ -146,18 +136,16 @@ public abstract class KeywordsImporter {
         private void expandRootSelHk() {
             JTree tree = GUI.getAppPanel().getTreeSelKeywords();
             Object root = tree.getModel().getRoot();
-
             tree.expandPath(new TreePath(((DefaultMutableTreeNode) root).getPath()));
         }
 
         private ProgressEvent createProgressEventWithValue(final int value) {
-            return new ProgressEvent.Builder().source(pBarOwner).minimum(0).maximum(paths.size()).value(value).stringPainted(true).stringToPaint(PROGRESSBAR_STRING).build();
+            return new ProgressEvent.Builder().source(source).minimum(0).maximum(paths.size()).value(value).stringPainted(true).stringToPaint(PROGRESSBAR_STRING).build();
         }
 
         private void messageImported(int importCount) {
             String message = Bundle.getString(ImportTask.class, "ImportTask.Info.Imported", importCount);
             MainWindowManager messageDisplayer = Lookup.getDefault().lookup(MainWindowManager.class);
-
             messageDisplayer.setMainWindowStatusbarText(message, MessageType.INFO, 2000);
         }
     }

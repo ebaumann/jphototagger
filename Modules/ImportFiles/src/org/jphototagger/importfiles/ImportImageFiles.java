@@ -11,8 +11,9 @@ import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
 import org.jphototagger.api.file.CopyMoveFilesOptions;
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.DirectorySelectService;
 import org.jphototagger.domain.FileCopyService;
@@ -61,7 +62,7 @@ public final class ImportImageFiles implements FileImportService {
 
         private static final Logger LOGGER = Logger.getLogger(ImportThread.class.getName());
         private static final int MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS = 240000;
-        private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+        private final ProgressHandle progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
         private final List<File> copiedTargetFiles = new ArrayList<File>();
         private final List<File> copiedSourceFiles = new ArrayList<File>();
         private final File sourceDirectory;
@@ -115,7 +116,7 @@ public final class ImportImageFiles implements FileImportService {
         }
 
         private void createSourceTargetFiles(ImportData importData) {
-            progressBarProvider.progressStarted(createIndeterminateProgressEvent(this));
+            progressHandle.progressStarted(createIndeterminateProgressEvent(this));
             try {
                 sourceTargetFiles = new ArrayList<SourceTargetFile>(importData.getSourceFileCount());
                 List<File> sourceFiles = importData.getSourceFiles();
@@ -128,7 +129,7 @@ public final class ImportImageFiles implements FileImportService {
                     sourceTargetFiles.add(sourceTargetFile);
                 }
             } finally {
-                progressBarProvider.progressEnded(this);
+                progressHandle.progressEnded();
             }
         }
 
@@ -196,7 +197,7 @@ public final class ImportImageFiles implements FileImportService {
 
         private void startPostCopyTask() {
             PostCopyTask postCopyTask = new PostCopyTask();
-            postCopyTask.progressBarProvider = progressBarProvider;
+            postCopyTask.progressHandle = progressHandle;
             postCopyTask.sourceTargetFiles = sourceTargetFiles;
             postCopyTask.copiedSourceFiles = copiedSourceFiles;
             postCopyTask.copiedTargetFiles = copiedTargetFiles;
@@ -209,7 +210,7 @@ public final class ImportImageFiles implements FileImportService {
 
         private static class PostCopyTask extends Thread {
 
-            private MainWindowProgressBarProvider progressBarProvider;
+            private ProgressHandle progressHandle;
             private List<SourceTargetFile> sourceTargetFiles;
             private List<File> copiedSourceFiles;
             private List<File> copiedTargetFiles;
@@ -225,7 +226,7 @@ public final class ImportImageFiles implements FileImportService {
             @Override
             public void run() {
                 try {
-                    progressBarProvider.progressStarted(createIndeterminateProgressEvent(this));
+                    progressHandle.progressStarted(createIndeterminateProgressEvent(this));
                     if (scriptFile != null) {
                         executeScriptFile();
                         // Scripts may move files into an arbitrary directory or rename them,
@@ -238,7 +239,7 @@ public final class ImportImageFiles implements FileImportService {
                         deleteCopiedSourceFiles();
                     }
                 } finally {
-                    progressBarProvider.progressEnded(this);
+                    progressHandle.progressEnded();
                 }
             }
 
