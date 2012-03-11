@@ -2,16 +2,21 @@ package org.jphototagger.program.module.filesystem;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ControllerFactory;
@@ -23,6 +28,7 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 public final class FilesystemImageUtil {
+
     private static final XmpSidecarFileResolver XMP_SIDECAR_FILE_RESOLVER = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     private FilesystemImageUtil() {
@@ -46,10 +52,9 @@ public final class FilesystemImageUtil {
     /**
      * Copies image files to a directory with the {@code CopyToDirectoryDialog}.
      *
-     * @param sourceFiles     source files
+     * @param sourceFiles source files
      * @param targetDirectory target directory
-     * @param confirm         {@code ConfirmOverwrite#YES} if the user must
-     *                        confirm overwrite existing files
+     * @param confirm         {@code ConfirmOverwrite#YES} if the user must confirm overwrite existing files
      */
     public static void copyImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
         if (sourceFiles == null) {
@@ -65,11 +70,10 @@ public final class FilesystemImageUtil {
         if (confirm.yes() && !confirmFileAction(message)) {
             return;
         }
-        CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();
-        dlg.setTargetDirectory(targetDirectory);
-        dlg.setSourceFiles(sourceFiles);
-        addProgressListener(dlg);
-        dlg.copy(true, getCopyMoveFilesOptions());
+        CopyFiles copyFiles = new CopyFiles(getFiles(sourceFiles, targetDirectory), getCopyMoveFilesOptions());
+        copyFiles.addProgressListener(new CopyProgressListener(copyFiles));
+        Thread thread = new Thread(copyFiles, "JPhotoTagger: Copying files to directories");
+        thread.start();
     }
 
     private static CopyMoveFilesOptions getCopyMoveFilesOptions() {
@@ -79,13 +83,31 @@ public final class FilesystemImageUtil {
                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 
+    private static List<SourceTargetFile> getFiles(Collection<? extends File> sourceFiles, File targetDirectory) {
+        List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>();
+        for (File sourceFile : sourceFiles) {
+            File targetFile = new File(targetDirectory + File.separator + sourceFile.getName());
+            addXmp(sourceFile, targetDirectory, sourceTargetFiles);
+            sourceTargetFiles.add(new SourceTargetFile(sourceFile, targetFile));
+        }
+        return sourceTargetFiles;
+    }
+
+    private static void addXmp(File imageFile, File targetDirectory, List<SourceTargetFile> sourceTargetFiles) {
+        File sidecarFile = XMP_SIDECAR_FILE_RESOLVER.getXmpSidecarFileOrNullIfNotExists(imageFile);
+        if (sidecarFile != null) {
+            File sourceSidecarFile = sidecarFile;
+            File targetSidecarFile = new File(targetDirectory + File.separator + sourceSidecarFile.getName());
+            sourceTargetFiles.add(new SourceTargetFile(sourceSidecarFile, targetSidecarFile));
+        }
+    }
+
     /**
      * Moves image files to a directory with the {@code MoveToDirectoryDialog}.
      *
-     * @param sourceFiles     source files
+     * @param sourceFiles source files
      * @param targetDirectory target directory
-     * @param confirm         {@code ConfirmOverwrite#YES} if the user must
-     *                        confirm overwrite existing files
+     * @param confirm         {@code ConfirmOverwrite#YES} if the user must confirm overwrite existing files
      */
     public static void moveImageFiles(List<File> sourceFiles, File targetDirectory, ConfirmOverwrite confirm) {
         String message = Bundle.getString(FilesystemImageUtil.class, "FilesystemImageUtil.Confirm.Move", sourceFiles.size(), targetDirectory.getAbsolutePath());
@@ -103,34 +125,46 @@ public final class FilesystemImageUtil {
         return MessageDisplayer.confirmYesNo(null, message);
     }
 
-    private synchronized static void addProgressListener(CopyToDirectoryDialog dlg) {
-        dlg.addProgressListener(new ProgressListener() {
+    private static class CopyProgressListener implements ProgressListener, Cancelable {
 
-            @Override
-            public void progressStarted(ProgressEvent evt) {
-                // ignore
-            }
+        private final CopyFiles copyFiles;
+        private ProgressHandle progressHandle;
 
-            @Override
-            public void progressPerformed(ProgressEvent evt) {
-                // ignore
-            }
+        private CopyProgressListener(CopyFiles copyFiles) {
+            this.copyFiles = copyFiles;
+        }
 
-            @Override
-            public void progressEnded(ProgressEvent evt) {
-                GUI.refreshThumbnailsPanel();
-            }
-        });
+        @Override
+        public void progressStarted(ProgressEvent evt) {
+            progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this  );
+            progressHandle.progressStarted(evt);
+        }
+
+        @Override
+        public void progressPerformed(ProgressEvent evt) {
+            progressHandle.progressPerformed(evt);
+        }
+
+        @Override
+        public void progressEnded(ProgressEvent evt) {
+            progressHandle.progressEnded();
+            GUI.refreshThumbnailsPanel();
+        }
+
+        @Override
+        public void cancel() {
+            copyFiles.cancel();
+        }
     }
 
     /**
      * Adds to a list of image files sidecar files.
      *
-     * If a file in <code>imageFiles</code> is not an image file it will not
-     * be added.
+     * If a file in
+     * <code>imageFiles</code> is not an image file it will not be added.
      *
-     * @param  imageFiles image files
-     * @return            image files and their sidecar files
+     * @param imageFiles image files
+     * @return image files and their sidecar files
      */
     public static List<File> addSidecarFiles(List<File> imageFiles) {
         if (imageFiles == null) {
@@ -150,11 +184,10 @@ public final class FilesystemImageUtil {
     }
 
     /**
-     * Checks whether a sidecar file can be written for an image file, else
-     * displays an error message.
+     * Checks whether a sidecar file can be written for an image file, else displays an error message.
      *
-     * @param  imageFile image file
-     * @return           true if a sidecar file can be written.
+     * @param imageFile image file
+     * @return true if a sidecar file can be written.
      */
     public static boolean checkImageEditable(File imageFile) {
         if (imageFile == null) {
