@@ -72,6 +72,7 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
                 progressBar.setString("");
                 progressBar.setStringPainted(false);
                 progressBar.setIndeterminate(false);
+                buttonCancelProgress.setEnabled(false);
                 notifyProgressEnded();
             }
         });
@@ -135,11 +136,19 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        buttonCancelProgress = new javax.swing.JButton();
         progressBar = new javax.swing.JProgressBar();
+        buttonCancelProgress = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
+
+        progressBar.setMaximumSize(new java.awt.Dimension(300, 14));
+        progressBar.setName("progressBar"); // NOI18N
+        progressBar.setPreferredSize(new java.awt.Dimension(250, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weighty = 1.0;
+        add(progressBar, gridBagConstraints);
 
         buttonCancelProgress.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/app/ui/cancel.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
@@ -155,18 +164,10 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
-        add(buttonCancelProgress, gridBagConstraints);
-
-        progressBar.setMaximumSize(new java.awt.Dimension(300, 14));
-        progressBar.setName("progressBar"); // NOI18N
-        progressBar.setPreferredSize(new java.awt.Dimension(250, 20));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        add(progressBar, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        add(buttonCancelProgress, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonCancelProgressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelProgressActionPerformed
