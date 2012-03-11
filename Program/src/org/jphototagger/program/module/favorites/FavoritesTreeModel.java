@@ -58,11 +58,9 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     public FavoritesTreeModel(JTree tree) {
         super(new DefaultMutableTreeNode(Bundle.getString(FavoritesTreeModel.class, "FavoritesTreeModel.Root.DisplayName")));
-
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         this.tree = tree;
         rootNode = (DefaultMutableTreeNode) getRoot();
         addFavorites();
@@ -78,11 +76,9 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
-
         synchronized (monitor) {
             listenToDb = false;
             favorite.setIndex(getNextNewFavoriteIndex());
-
             if (!existsFavoriteDirectory(favorite)) {
                 if (repo.saveOrUpdateFavorite(favorite)) {
                     addFavorite(favorite);
@@ -90,7 +86,6 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
                     errorMessage(favorite.getName(), Bundle.getString(FavoritesTreeModel.class, "FavoritesTreeModel.Error.ParamInsert"));
                 }
             }
-
             listenToDb = true;
         }
     }
@@ -99,26 +94,21 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
-
         synchronized (monitor) {
             listenToDb = false;
-
             DefaultMutableTreeNode favNode = getNode(favorite);
-
             if ((favNode != null) && repo.deleteFavorite(favorite.getName())) {
                 removeNodeFromParent(favNode);
                 resetFavoriteIndices();
             } else {
                 errorMessage(favorite.getName(), Bundle.getString(FavoritesTreeModel.class, "FavoritesTreeModel.Error.ParamDelete"));
             }
-
             listenToDb = true;
         }
     }
 
     private void deleteFavorite(Favorite favorite) {
         DefaultMutableTreeNode favNode = getNode(favorite);
-
         if (favNode != null) {
             removeNodeFromParent(favNode);
             resetFavoriteIndices();
@@ -130,10 +120,8 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         for (Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
             Object userObject = children.nextElement().getUserObject();
             int newIndex = 0;
-
             if (userObject instanceof Favorite) {
                 Favorite fav = (Favorite) userObject;
-
                 fav.setIndex(newIndex);
                 newIndex++;
                 repo.updateFavorite(fav);
@@ -143,16 +131,12 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     private void updateNodes(DefaultMutableTreeNode nodeOfFavorite, Favorite newFavorite) {
         removeAllChildren(nodeOfFavorite);
-
         Object userObject = nodeOfFavorite.getUserObject();
-
         if (userObject instanceof Favorite) {
             Favorite favorite = (Favorite) userObject;
-
             favorite.setDirectory(newFavorite.getDirectory());
             favorite.setName(newFavorite.getName());
         }
-
         addChildren(nodeOfFavorite);
         nodeChanged(nodeOfFavorite);
     }
@@ -160,11 +144,9 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     @SuppressWarnings("unchecked")
     private void removeAllChildren(DefaultMutableTreeNode node) {
         List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>(node.getChildCount());
-
         for (Enumeration<DefaultMutableTreeNode> e = node.children(); e.hasMoreElements();) {
             children.add(e.nextElement());
         }
-
         for (DefaultMutableTreeNode child : children) {
             removeNodeFromParent(child);    // notifies listeners
         }
@@ -174,18 +156,14 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
-
         synchronized (monitor) {
             DefaultMutableTreeNode nodeToMoveUp = getNode(favorite);
-
             if (nodeToMoveUp != null) {
                 int indexNodeToMoveUp = rootNode.getIndex(nodeToMoveUp);
                 boolean isFirstNode = indexNodeToMoveUp == 0;
-
                 if (!isFirstNode) {
                     DefaultMutableTreeNode prevNode = (DefaultMutableTreeNode) rootNode.getChildAt(indexNodeToMoveUp
                             - 1);
-
                     if ((prevNode != null)
                             && updateFavoriteDirectory(nodeToMoveUp.getUserObject(), indexNodeToMoveUp - 1)
                             && updateFavoriteDirectory(prevNode.getUserObject(), indexNodeToMoveUp)) {
@@ -204,15 +182,11 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
         synchronized (monitor) {
             DefaultMutableTreeNode nodeToMoveDown = getNode(favorite);
-
             if (nodeToMoveDown != null) {
                 int indexNodeToMoveDown = rootNode.getIndex(nodeToMoveDown);
                 boolean isLastNode = indexNodeToMoveDown == rootNode.getChildCount() - 1;
-
                 if (!isLastNode) {
-                    DefaultMutableTreeNode nextNode = (DefaultMutableTreeNode) rootNode.getChildAt(indexNodeToMoveDown
-                            + 1);
-
+                    DefaultMutableTreeNode nextNode = (DefaultMutableTreeNode) rootNode.getChildAt(indexNodeToMoveDown + 1);
                     if ((nextNode != null)
                             && updateFavoriteDirectory(nodeToMoveDown.getUserObject(), indexNodeToMoveDown + 1)
                             && updateFavoriteDirectory(nextNode.getUserObject(), indexNodeToMoveDown)) {
@@ -227,18 +201,14 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     private boolean updateFavoriteDirectory(Object userObject, int newIndex) {
         if (userObject instanceof Favorite) {
             Favorite favorite = (Favorite) userObject;
-
             favorite.setIndex(newIndex);
-
             return repo.updateFavorite(favorite);
         }
-
         return false;
     }
 
     private void addFavorites() {
         List<Favorite> directories = repo.findAllFavorites();
-
         for (Favorite directory : directories) {
             if (directory.getDirectory().isDirectory()) {
                 addFavorite(directory);
@@ -250,10 +220,8 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     private void addFavorite(Favorite directory) {
         DefaultMutableTreeNode dirNode = getNode(directory);
-
         if (dirNode == null) {
             DefaultMutableTreeNode node = new SortedChildrenTreeNode(directory);
-
             insertNodeInto(node, rootNode, rootNode.getChildCount());
             addChildren(node);
             tree.expandPath(new TreePath(rootNode.getPath()));
@@ -279,24 +247,17 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         if ((dir == null) || !dir.isDirectory()) {
             return;
         }
-
         LOGGER.log(Level.FINEST, "Lese Unterverzeichnisse von ''{0}'' ein'...", dir);
-
         File[] subdirs = dir.listFiles(new DirectoryFilter(getDirFilterOptionShowHiddenFiles()));
-
         LOGGER.log(Level.FINEST, "Unterverzeichnisse von ''{0}'' wurden eingelesen", dir);
-
         if (subdirs == null) {
             return;
         }
-
         int childCount = parentNode.getChildCount();
         List<File> nodeChildrenDirs = new ArrayList<File>(childCount);
-
         for (int i = 0; i < childCount; i++) {
             DefaultMutableTreeNode child = (DefaultMutableTreeNode) parentNode.getChildAt(i);
             Object usrObj = child.getUserObject();
-
             if (usrObj instanceof File) {
                 nodeChildrenDirs.add((File) usrObj);
             }
@@ -304,15 +265,11 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
         for (int i = 0; i < subdirs.length; i++) {
             File subdir = subdirs[i];
-
             if (!nodeChildrenDirs.contains(subdir)) {
                 DefaultMutableTreeNode newChild = new SortedChildrenTreeNode(subdirs[i]);
-
                 parentNode.insert(newChild, childCount);
                 childCount++;
-
                 int childIndex = parentNode.getIndex(newChild);
-
                 fireTreeNodesInserted(this, parentNode.getPath(), new int[]{childIndex}, new Object[]{newChild});
             }
         }
@@ -347,13 +304,11 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
             DefaultMutableTreeNode child = (DefaultMutableTreeNode) parentNode.getChildAt(i);
             Object userObject = child.getUserObject();
             File file = null;
-
             if (userObject instanceof File) {
                 file = (File) userObject;
             } else if (userObject instanceof Favorite) {
                 file = ((Favorite) userObject).getDirectory();
             }
-
             if ((file != null) && !file.exists()) {
                 nodesToRemove.add(child);
             }
@@ -361,14 +316,11 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
         for (DefaultMutableTreeNode childNodeToRemove : nodesToRemove) {
             Object userObject = childNodeToRemove.getUserObject();
-
             if (userObject instanceof Favorite) {
                 repo.deleteFavorite(((Favorite) userObject).getName());
             }
-
             removeNodeFromParent(childNodeToRemove);
         }
-
         return nodesToRemove.size();
     }
 
@@ -378,15 +330,12 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     @SuppressWarnings("unchecked")
     private synchronized int getNextNewFavoriteIndex() {
         int index = 0;
-
         for (Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
             Object userObject = children.nextElement().getUserObject();
-
             if (userObject instanceof Favorite) {
                 index++;
             }
         }
-
         return index;
     }
 
@@ -394,12 +343,10 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     private DefaultMutableTreeNode getNode(Favorite favoriteDirectory) {
         for (Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
             DefaultMutableTreeNode child = children.nextElement();
-
             if (favoriteDirectory.equals(child.getUserObject())) {
                 return child;
             }
         }
-
         return null;
     }
 
@@ -418,30 +365,22 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         File dirOfParentNode = (parentNode == null)
                 ? null
                 : getDirectory(parentNode);
-
         if (dirOfParentNode != null) {
             File newDir = TreeFileSystemDirectories.createDirectoryIn(dirOfParentNode);
-
             if (newDir != null) {
                 SortedChildrenTreeNode newDirNode = new SortedChildrenTreeNode(newDir);
-
                 parentNode.add(newDirNode);
-
                 int childIndex = parentNode.getIndex(newDirNode);
-
                 fireTreeNodesInserted(this, parentNode.getPath(), new int[]{childIndex},
                         new Object[]{newDirNode});
-
                 return newDir;
             }
         }
-
         return null;
     }
 
     private File getDirectory(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
-
         return (userObject instanceof Favorite)
                 ? ((Favorite) userObject).getDirectory()
                 : (userObject instanceof File)
@@ -453,25 +392,20 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         if (node == null) {
             return null;
         }
-
         Object userObject = node.getUserObject();
         File nodeFile = (userObject instanceof File)
                 ? (File) userObject
                 : (userObject instanceof Favorite)
                 ? ((Favorite) userObject).getDirectory()
                 : null;
-
         if (nodeFile != null) {
             Stack<File> filePath = FileUtil.getPathFromRoot(file);
             File filePathTop = filePath.peek();
-
             while (!filePath.isEmpty() && !nodeFile.equals(filePathTop)) {
                 filePathTop = filePath.pop();
             }
-
             return filePath;
         }
-
         return null;
     }
 
@@ -485,14 +419,11 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     private void expandToFile(String favoriteName, File file, boolean select) {
         DefaultMutableTreeNode node = getFavorite(favoriteName);
         Stack<File> filePathToFavorite = getFilePathToNode(node, file);
-
         if (filePathToFavorite == null) {
             return;
         }
-
         while ((node != null) && !filePathToFavorite.isEmpty()) {
             node = TreeUtil.findChildNodeWithFile(node, filePathToFavorite.pop());
-
             if ((node != null) && (node.getChildCount() <= 0)) {
                 addChildren(node);
             }
@@ -500,15 +431,11 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
         if (node != null) {
             TreePath nodeParentsPath = new TreePath(((DefaultMutableTreeNode) node.getParent()).getPath());
-
             tree.expandPath(nodeParentsPath);
-
             TreePath nodePath = new TreePath(node.getPath());
-
             if (select) {
                 tree.setSelectionPath(nodePath);
             }
-
             tree.scrollPathToVisible(nodePath);
         }
     }
@@ -518,16 +445,13 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         for (Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
             DefaultMutableTreeNode childNode = children.nextElement();
             Object userObject = childNode.getUserObject();
-
             if (userObject instanceof Favorite) {
                 Favorite fav = (Favorite) userObject;
-
                 if (name.equals(fav.getName())) {
                     return childNode;
                 }
             }
         }
-
         return null;
     }
 
@@ -535,15 +459,12 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String favname = prefs.getString(KEY_SELECTED_FAV_NAME);
         String dirname = prefs.getString(KEY_SELECTED_DIR);
-
         if ((favname != null) && (dirname != null) && !favname.trim().isEmpty() && !dirname.trim().isEmpty()) {
             expandToFile(favname.trim(), new File(dirname.trim()), true);
         } else if (favname != null) {
             DefaultMutableTreeNode fav = getFavorite(favname.trim());
-
             if (fav != null) {
                 TreePath path = new TreePath(fav.getPath());
-
                 tree.setSelectionPath(path);
                 tree.scrollPathToVisible(path);
             }
@@ -554,35 +475,27 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         if (tree.getSelectionCount() > 0) {
             TreePath path = tree.getSelectionPath();
             Object o = path.getLastPathComponent();
-
             if (o instanceof DefaultMutableTreeNode) {
                 String favname = null;
                 String dirname = null;
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
                 Object userObject = node.getUserObject();
-
                 if (userObject instanceof Favorite) {
                     favname = ((Favorite) userObject).getName();
                 } else if (userObject instanceof File) {
                     File file = ((File) userObject);
-
                     dirname = file.getAbsolutePath();
-
                     Favorite favDir = getParentFavDir(node);
-
                     if (favDir != null) {
                         favname = favDir.getName();
                     }
                 }
-
                 Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
                 if (dirname == null) {
                     prefs.removeKey(KEY_SELECTED_DIR);
                 } else {
                     prefs.setString(KEY_SELECTED_DIR, dirname);
                 }
-
                 if (favname == null) {
                     prefs.removeKey(KEY_SELECTED_FAV_NAME);
                 } else {
@@ -591,7 +504,6 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
             }
         } else {
             Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
             prefs.removeKey(KEY_SELECTED_DIR);
             prefs.removeKey(KEY_SELECTED_FAV_NAME);
         }
@@ -599,17 +511,13 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     private Favorite getParentFavDir(DefaultMutableTreeNode childNode) {
         TreeNode parentNode = childNode.getParent();
-
         while ((parentNode instanceof DefaultMutableTreeNode) && !parentNode.equals(rootNode)) {
             Object userObject = ((DefaultMutableTreeNode) parentNode).getUserObject();
-
             if (userObject instanceof Favorite) {
                 return (Favorite) userObject;
             }
-
             parentNode = parentNode.getParent();
         }
-
         return null;
     }
 
@@ -620,20 +528,23 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     public void update() {
         Cursor treeCursor = tree.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
-
         tree.setCursor(waitCursor);
-
         for (DefaultMutableTreeNode node : getTreeRowNodes()) {
             addChildren(node);
+            // Ensure that added nodes aware of it's children (else JTree doesn't show opening handles)
+            for (Enumeration<?> e = node.children(); e.hasMoreElements();) {
+                Object child = e.nextElement();
+                if (child instanceof DefaultMutableTreeNode) {
+                    addChildren((DefaultMutableTreeNode) child);
+                }
+            }
             removeChildrenWithNotExistingFiles(node);
         }
-
         tree.setCursor(treeCursor);
     }
 
     private void updateFavorite(Favorite oldFavorite, Favorite updatedFavorite) {
         DefaultMutableTreeNode nodeOfFavorite = getNode(oldFavorite);
-
         if (nodeOfFavorite != null) {
             updateNodes(nodeOfFavorite, updatedFavorite);
         }
@@ -663,11 +574,9 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     private List<DefaultMutableTreeNode> getTreeRowNodes() {
         int rows = tree.getRowCount();
         List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(rows);
-
         for (int i = 0; i < rows; i++) {
             nodes.add((DefaultMutableTreeNode) tree.getPathForRow(i).getLastPathComponent());
         }
-
         return nodes;
     }
 
@@ -677,22 +586,16 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         if (event == null) {
             throw new NullPointerException("event == null");
         }
-
         Cursor treeCursor = tree.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
-
         tree.setCursor(waitCursor);
-
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
-
         if (node.getChildCount() == 0) {
             addChildren(node);
         }
-
         for (Enumeration<DefaultMutableTreeNode> children = node.children(); children.hasMoreElements();) {
             addChildren(children.nextElement());
         }
-
         tree.setCursor(treeCursor);
     }
 
