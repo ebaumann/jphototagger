@@ -34,10 +34,8 @@ public final class CopyFilesToDirectoryController implements ActionListener {
 
     private void copySelectedFiles() {
         List<File> selFiles = GUI.getSelectedImageFiles();
-
         if (!selFiles.isEmpty()) {
             CopyToDirectoryDialog dlg = new CopyToDirectoryDialog();
-
             dlg.setSourceFiles(selFiles);
             dlg.setVisible(true);
         } else {

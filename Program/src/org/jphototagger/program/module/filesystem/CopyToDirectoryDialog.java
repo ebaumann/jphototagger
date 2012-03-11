@@ -37,7 +37,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp";
     private static final long serialVersionUID = 1L;
     private final transient ProgressListenerSupport pListenerSupport = new ProgressListenerSupport();
-    private transient CopyFiles copyTask;
+    private transient FilesystemCopy copyTask;
     private boolean copy;
     private boolean writeProperties = true;
     private Collection<File> sourceFiles;
@@ -86,7 +86,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void start(boolean addXmp, CopyMoveFilesOptions options) {
-        copyTask = new CopyFiles(getFiles(addXmp), options);
+        copyTask = new FilesystemCopy(getFiles(addXmp), options);
         copyTask.setCopyListenerShallUpdateRepository(true);
         copyTask.addProgressListener(this);
         Thread thread = new Thread(copyTask, "JPhotoTagger: Copying files to directories");

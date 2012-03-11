@@ -36,22 +36,21 @@ import org.jphototagger.program.settings.AppPreferencesKeys;
 /**
  * @author Elmar Baumann
  */
-public final class MoveToDirectoryDialog extends Dialog implements ProgressListener {
+public final class MoveFilesToDirectoryDialog extends Dialog implements ProgressListener {
 
     private static final long serialVersionUID = 1L;
-    private static final String KEY_TARGET_DIRECTORY = "org.jphototagger.program.view.dialogs.MoveToDirectoryDialog.TargetDirectory";
+    private static final String KEY_TARGET_DIRECTORY = "org.jphototagger.program.view.dialogs.MoveFilesToDirectoryDialog.TargetDirectory";
     private final List<File> movedFiles = new ArrayList<File>();
     private final transient ProgressListenerSupport pListenerSupport = new ProgressListenerSupport();
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
-    private transient FileSystemMove moveTask;
+    private transient FileSystemMove fileSystemMove;
     private boolean runs = false;
     private boolean cancel = false;
-    private boolean errors = false;
     private List<File> sourceFiles;
     private File targetDirectory = new File("");
     private boolean moveIfVisible = false;
 
-    public MoveToDirectoryDialog() {
+    public MoveFilesToDirectoryDialog() {
         super(GUI.getAppFrame(), false);
         initComponents();
         setHelpPage();
@@ -64,7 +63,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private void setHelpPage() {
-        setHelpPageUrl(Bundle.getString(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.HelpPage"));
+        setHelpPageUrl(Bundle.getString(MoveFilesToDirectoryDialog.class, "MoveFilesToDirectoryDialog.HelpPage"));
     }
 
     public void addProgressListener(ProgressListener listener) {
@@ -77,17 +76,10 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private void checkClosing() {
         if (runs) {
-            String message = Bundle.getString(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.Error.CancelBeforeClose");
+            String message = Bundle.getString(MoveFilesToDirectoryDialog.class, "MoveFilesToDirectoryDialog.Error.CancelBeforeClose");
             MessageDisplayer.error(this, message);
         } else {
             setVisible(false);
-        }
-    }
-
-    private void checkErrors() {
-        if (errors) {
-            String message = Bundle.getString(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.Error.CheckLogfile");
-            MessageDisplayer.error(this, message);
         }
     }
 
@@ -105,7 +97,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
     private void reset() {
         runs = false;
         cancel = false;
-        errors = false;
         movedFiles.clear();
     }
 
@@ -113,9 +104,9 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
         reset();
         CopyMoveFilesOptions copyMoveFilesOptions = getCopyMoveFilesOptions();
         boolean renameIfTargetFileExists = copyMoveFilesOptions.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
-        moveTask = new FileSystemMove(sourceFiles, targetDirectory, renameIfTargetFileExists);
-        addListenerToMoveTask();
-        Thread thread = new Thread(moveTask, getMoveThreadName());
+        fileSystemMove = new FileSystemMove(sourceFiles, targetDirectory, renameIfTargetFileExists);
+        fileSystemMove.addProgressListener(this);
+        Thread thread = new Thread(fileSystemMove, getMoveThreadName());
         thread.start();
         runs = true;
     }
@@ -129,10 +120,6 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
     private String getMoveThreadName() {
         return "JPhotoTagger: Moving files to directory " + targetDirectory.getAbsolutePath();
-    }
-
-    private void addListenerToMoveTask() {
-        moveTask.addProgressListener(this);
     }
 
     private void cancel() {
@@ -154,7 +141,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
                     setIconToLabelTargetDirectory();
                     buttonStart.setEnabled(true);
                 } else {
-                    String message = Bundle.getString(MoveToDirectoryDialog.class, "MoveToDirectoryDialog.TargetDirNotWritable", targetDirectory);
+                    String message = Bundle.getString(MoveFilesToDirectoryDialog.class, "MoveFilesToDirectoryDialog.TargetDirNotWritable", targetDirectory);
                     MessageDisplayer.error(this, message);
                 }
             }
@@ -296,11 +283,10 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
                     buttonCancel.setEnabled(true);
                     buttonStart.setEnabled(true);
                     runs = false;
-                    moveTask = null;
+                    fileSystemMove = null;
                     GUI.getThumbnailsPanel().removeFiles(movedFiles);
                     removeMovedFiles();
                     pListenerSupport.notifyEnded(evt);
-                    checkErrors();
                     setVisible(false);
                 }
         });
@@ -347,7 +333,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
-        setTitle(bundle.getString("MoveToDirectoryDialog.title")); // NOI18N
+        setTitle(bundle.getString("MoveFilesToDirectoryDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -355,10 +341,10 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
 
-        labelInfo.setText(bundle.getString("MoveToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
 
-        buttonChooseDirectory.setText(bundle.getString("MoveToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -371,17 +357,17 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
         progressBar.setName("progressBar"); // NOI18N
 
-        labelInfoCurrentFilename.setText(bundle.getString("MoveToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
         labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelCurrentFilename.setName("labelCurrentFilename"); // NOI18N
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(bundle.getString("MoveToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
         labelInfoIsThread.setName("labelInfoIsThread"); // NOI18N
 
-        buttonCancel.setText(bundle.getString("MoveToDirectoryDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -390,7 +376,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
             }
         });
 
-        buttonStart.setText(bundle.getString("MoveToDirectoryDialog.buttonStart.text")); // NOI18N
+        buttonStart.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
@@ -476,7 +462,7 @@ public final class MoveToDirectoryDialog extends Dialog implements ProgressListe
 
             @Override
             public void run() {
-                MoveToDirectoryDialog dialog = new MoveToDirectoryDialog();
+                MoveFilesToDirectoryDialog dialog = new MoveFilesToDirectoryDialog();
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 

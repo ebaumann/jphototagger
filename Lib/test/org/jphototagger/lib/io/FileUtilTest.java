@@ -114,4 +114,14 @@ public class FileUtilTest {
         string = FileUtil.toStringWithMaximumLength(file, 53);
         assertEquals("/home/elmar/bilder/2011/2011-06.../2011-06-12-001.SRW", string);
     }
+
+    @Test
+    public void testInSameDirectory() {
+        assertTrue(FileUtil.inSameDirectory(Collections.<File>emptyList()));
+        assertTrue(FileUtil.inSameDirectory(Arrays.asList(new File("/home/elmar/bla.txt"))));
+        assertTrue(FileUtil.inSameDirectory(Arrays.asList(
+                new File("/home/elmar/bla.txt"), new File("/home/elmar/blubb.txt"), new File("/home/elmar/blob.txt"))));
+        assertFalse(FileUtil.inSameDirectory(Arrays.asList(
+                new File("/home/elmar/bla.txt"), new File("/home/elmar/blubb.txt"), new File("/root/blob.txt"))));
+    }
 }

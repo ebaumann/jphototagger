@@ -19,6 +19,7 @@ import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -79,13 +80,16 @@ public final class RenameDialog extends Dialog {
         if (toImageFile == null) {
             throw new NullPointerException("toImageFile == null");
         }
-        EventBus.publish(new FileRenamedEvent(this, fromImageFile, toImageFile));
+        FileRenamedEvent evt = new FileRenamedEvent(this, fromImageFile, toImageFile);
+        evt.putProperty(SaveOrUpdate.class, SaveOrUpdate.NONE);
+        EventBus.publish(evt);
     }
 
     private boolean renameImageFile(File fromImageFile, File toImageFile) {
         boolean renamed = fromImageFile.renameTo(toImageFile);
         if (renamed) {
             renameXmpFileOfImageFile(fromImageFile, toImageFile);
+            FilesystemRepositoryUpdater.moveFile(fromImageFile, toImageFile);
         }
         return renamed;
     }
