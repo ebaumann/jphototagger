@@ -50,7 +50,7 @@ public final class FilesystemImageUtil {
     }
 
     /**
-     * Copies image files to a directory with the {@code CopyToDirectoryDialog}.
+     * Copies image files to a directory with the {@code CopyToDirectoryDialog}. Does not update the repository.
      *
      * @param sourceFiles source files
      * @param targetDirectory target directory
@@ -71,6 +71,7 @@ public final class FilesystemImageUtil {
             return;
         }
         CopyFiles copyFiles = new CopyFiles(getFiles(sourceFiles, targetDirectory), getCopyMoveFilesOptions());
+        copyFiles.setCopyListenerShallUpdateRepository(false);
         copyFiles.addProgressListener(new CopyProgressListener(copyFiles));
         Thread thread = new Thread(copyFiles, "JPhotoTagger: Copying files to directories");
         thread.start();

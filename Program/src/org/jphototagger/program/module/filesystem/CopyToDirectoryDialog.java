@@ -87,6 +87,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
     private void start(boolean addXmp, CopyMoveFilesOptions options) {
         copyTask = new CopyFiles(getFiles(addXmp), options);
+        copyTask.setCopyListenerShallUpdateRepository(true);
         copyTask.addProgressListener(this);
         Thread thread = new Thread(copyTask, "JPhotoTagger: Copying files to directories");
         thread.start();

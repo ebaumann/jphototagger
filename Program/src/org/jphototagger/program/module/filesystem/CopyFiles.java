@@ -21,6 +21,7 @@ import org.jphototagger.domain.FileCopyService;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -89,7 +90,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
                     logCopyFile(sourceFile, targetFile);
                     FileUtil.copyFile(sourceFile, targetFile);
                     copyXmp(sourceTargetFile);
-                    EventBus.publish(new FileCopiedEvent(this, sourceFile, targetFile, copyListenerShallUpdateRepository));
+                    publishCopied(sourceFile, targetFile);
                 } catch (Exception ex) {
                     Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
                     errorFiles.add(sourceTargetFile.getSourceFile());
@@ -98,6 +99,14 @@ public final class CopyFiles implements Runnable, FileCopyService {
             notifyPerformed(i + 1, sourceTargetFile);
         }
         notifyEnded();
+    }
+
+    private void publishCopied(File sourceFile, File targetFile) {
+        FileCopiedEvent evt = new FileCopiedEvent(this, sourceFile, targetFile);
+        evt.putProperty(SaveOrUpdate.class, copyListenerShallUpdateRepository
+                ? SaveOrUpdate.OUT_OF_DATE
+                : SaveOrUpdate.NONE);
+        EventBus.publish(evt);
     }
 
     private void copyXmp(SourceTargetFile sourceTargetFile) {
@@ -127,38 +136,17 @@ public final class CopyFiles implements Runnable, FileCopyService {
     }
 
     private synchronized void notifyStart() {
-        ProgressEvent evt = new ProgressEvent.Builder()
-                .source(this)
-                .minimum(0)
-                .maximum(sourceTargetFiles.size())
-                .value(0)
-                .stringPainted(true)
-                .stringToPaint(Bundle.getString(CopyFiles.class, "CopyFiles.ProgressBarString"))
-                .build();
+        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(0).stringPainted(true).stringToPaint(Bundle.getString(CopyFiles.class, "CopyFiles.ProgressBarString")).build();
         progressListeners.notifyStarted(evt);
     }
 
     private synchronized void notifyPerformed(int value, SourceTargetFile sourceTargetFile) {
-        ProgressEvent evt = new ProgressEvent.Builder()
-                .source(this)
-                .minimum(0)
-                .maximum(sourceTargetFiles.size())
-                .value(value)
-                .stringPainted(true)
-                .stringToPaint(Bundle.getString(CopyFiles.class, "CopyFiles.ProgressBarString"))
-                .info(sourceTargetFile)
-                .build();
+        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(value).stringPainted(true).stringToPaint(Bundle.getString(CopyFiles.class, "CopyFiles.ProgressBarString")).info(sourceTargetFile).build();
         progressListeners.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent.Builder()
-                .source(this)
-                .minimum(0)
-                .maximum(sourceTargetFiles.size())
-                .value(sourceTargetFiles.size())
-                .info(errorFiles)
-                .build();
+        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(sourceTargetFiles.size()).info(errorFiles).build();
         progressListeners.notifyEnded(evt);
     }
 
