@@ -35,7 +35,6 @@
             <arg value="mkdist.sh" />
         </exec>
     </target>
-    <target name="dist-zip-create-and-upload" depends="dist-zip-create,dist-upload"/>
     <target name="switch-settingsdir-pristine" description="Switching to pristine settings">
         <exec executable="bash">
             <arg value="switch_settingsdir.sh"/>
