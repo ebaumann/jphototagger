@@ -132,6 +132,8 @@ public final class CopyFiles implements Runnable, FileCopyService {
                 .minimum(0)
                 .maximum(sourceTargetFiles.size())
                 .value(0)
+                .stringPainted(true)
+                .stringToPaint(Bundle.getString(CopyFiles.class, "CopyFiles.ProgressBarString"))
                 .build();
         progressListeners.notifyStarted(evt);
     }
@@ -142,6 +144,8 @@ public final class CopyFiles implements Runnable, FileCopyService {
                 .minimum(0)
                 .maximum(sourceTargetFiles.size())
                 .value(value)
+                .stringPainted(true)
+                .stringToPaint(Bundle.getString(CopyFiles.class, "CopyFiles.ProgressBarString"))
                 .info(sourceTargetFile)
                 .build();
         progressListeners.notifyPerformed(evt);
