@@ -28,6 +28,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     private static final Icon DOWN_ARROW_ICON = IconUtil.getImageIcon(ProgressBarPanelArray.class, "arrow_down.png");
     private static final Icon UP_ARROW_ICON = IconUtil.getImageIcon(ProgressBarPanelArray.class, "arrow_up.png");
     private final ToggleVisibilityOfHiddenProgressBars toggleVisibilityOfHiddenProgressBars = new ToggleVisibilityOfHiddenProgressBars();
+    private ProgressBarPanel visibleProgressBarPanel;
 
     public ProgressBarPanelArray() {
         initComponents();
@@ -35,6 +36,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     }
 
     private void postInitComponents() {
+        visibleProgressBarPanel = initProgressBarPanel;
         buttonToggleVisibilityOfHiddenProgressBars.addActionListener(toggleVisibilityOfHiddenProgressBars);
     }
 
@@ -55,7 +57,9 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
 
     private synchronized void showActiveProgressBarPanel(ProgressBarPanel progressBarPanel) {
         if (activeProgressBarPanels.isEmpty()) {
+            remove(visibleProgressBarPanel);
             add(progressBarPanel, getProgressBarPanelGbc());
+            visibleProgressBarPanel = progressBarPanel;
             repaintThis();
         } else {
             panelHiddenProgressBars.add(progressBarPanel, getHiddenProgressBarPanelGbc());
@@ -72,10 +76,8 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
 
     private GridBagConstraints getProgressBarPanelGbc() {
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.weightx = 1.0;
         return gbc;
     }
 
@@ -91,7 +93,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
 
     private synchronized void removeProgressBarPanel(ProgressBarPanel progressBarPanel) {
         if (isAncestorOf(progressBarPanel)) {
-            setProgressBarPanelFromHidden(progressBarPanel);
+            setProgressBarPanelFromHidden();
         } else {
             panelHiddenProgressBars.remove(progressBarPanel);
             repaintHiddenProgressBars();
@@ -108,12 +110,13 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         ComponentUtil.forceRepaint(getParent());
     }
 
-    private synchronized void setProgressBarPanelFromHidden(ProgressBarPanel progressBarPanelToRemove) {
+    private synchronized void setProgressBarPanelFromHidden() {
         List<ProgressBarPanel> pbPanels = ComponentUtil.getAllOf(panelHiddenProgressBars, ProgressBarPanel.class);
         if (!pbPanels.isEmpty()) {
-            remove(progressBarPanelToRemove);
+            remove(visibleProgressBarPanel);
             ProgressBarPanel pbPanel = pbPanels.get(0);
             panelHiddenProgressBars.remove(pbPanel);
+            visibleProgressBarPanel = pbPanel;
             add(pbPanel, getProgressBarPanelGbc());
             ComponentUtil.forceRepaint(pbPanel);
             repaintHiddenProgressBars();
@@ -199,6 +202,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         dialogHiddenProgressBars = new javax.swing.JDialog();
         scrollPaneHiddenProgressBars = new javax.swing.JScrollPane();
         panelHiddenProgressBars = new javax.swing.JPanel();
+        initProgressBarPanel = new org.jphototagger.program.app.ui.ProgressBarPanel();
         buttonToggleVisibilityOfHiddenProgressBars = new javax.swing.JButton();
 
         dialogHiddenProgressBars.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -230,6 +234,11 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         dialogHiddenProgressBars.getContentPane().add(scrollPaneHiddenProgressBars, gridBagConstraints);
 
         setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(initProgressBarPanel, gridBagConstraints);
 
         buttonToggleVisibilityOfHiddenProgressBars.setIcon(UP_ARROW_ICON);
         buttonToggleVisibilityOfHiddenProgressBars.setToolTipText(bundle.getString("ProgressBarPanelArray.buttonToggleVisibilityOfHiddenProgressBars.toolTipText")); // NOI18N
@@ -240,7 +249,8 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         add(buttonToggleVisibilityOfHiddenProgressBars, gridBagConstraints);
     }//GEN-END:initComponents
@@ -251,6 +261,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonToggleVisibilityOfHiddenProgressBars;
     private javax.swing.JDialog dialogHiddenProgressBars;
+    private org.jphototagger.program.app.ui.ProgressBarPanel initProgressBarPanel;
     private javax.swing.JPanel panelHiddenProgressBars;
     private javax.swing.JScrollPane scrollPaneHiddenProgressBars;
     // End of variables declaration//GEN-END:variables
