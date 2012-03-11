@@ -8,5 +8,6 @@ public enum SaveOrUpdate {
     OUT_OF_DATE,
     EXIF,
     THUMBNAIL,
-    XMP
+    XMP,
+    NONE
 }
