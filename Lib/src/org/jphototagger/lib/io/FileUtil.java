@@ -24,6 +24,8 @@ import java.util.logging.Logger;
 
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
+import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
@@ -764,6 +766,28 @@ public final class FileUtil {
         }
         return null;
 
+    }
+
+    /**
+     * @param files
+     * @return true if all files having the same parent or the collection of files is empty
+     */
+    public static boolean inSameDirectory(Collection<? extends File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+        }
+        if (files.isEmpty()) {
+            return true;
+        }
+        File prevParent = CollectionUtil.getFirstElement(files).getParentFile();
+        for (File file : files) {
+            File parent = file.getParentFile();
+            if (!ObjectUtil.equals(parent, prevParent)) {
+                return false;
+            }
+            prevParent = parent;
+        }
+        return true;
     }
 
     private FileUtil() {

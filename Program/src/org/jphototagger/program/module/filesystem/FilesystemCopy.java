@@ -19,6 +19,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.FileCopyService;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
+import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.SaveOrUpdate;
@@ -32,7 +33,7 @@ import org.jphototagger.xmp.XmpMetadata;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = FileCopyService.class)
-public final class CopyFiles implements Runnable, FileCopyService {
+public final class FilesystemCopy implements Runnable, FileCopyService {
 
     private final ProgressListenerSupport progressListeners = new ProgressListenerSupport();
     private final List<File> errorFiles = new ArrayList<File>();
@@ -41,14 +42,14 @@ public final class CopyFiles implements Runnable, FileCopyService {
     private final List<SourceTargetFile> sourceTargetFiles;
     private volatile boolean cancel;
     private volatile boolean copyListenerShallUpdateRepository = true;
-    private static final Logger LOGGER = Logger.getLogger(CopyFiles.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FilesystemCopy.class.getName());
 
-    public CopyFiles() {
+    public FilesystemCopy() {
         sourceTargetFiles = Collections.emptyList();
         options = CopyMoveFilesOptions.CONFIRM_OVERWRITE;
     }
 
-    public CopyFiles(Collection<? extends SourceTargetFile> sourceTargetFiles, CopyMoveFilesOptions options) {
+    public FilesystemCopy(Collection<? extends SourceTargetFile> sourceTargetFiles, CopyMoveFilesOptions options) {
         if (sourceTargetFiles == null) {
             throw new NullPointerException("sourceTargetFiles == null");
         }
@@ -90,9 +91,12 @@ public final class CopyFiles implements Runnable, FileCopyService {
                     logCopyFile(sourceFile, targetFile);
                     FileUtil.copyFile(sourceFile, targetFile);
                     copyXmp(sourceTargetFile);
+                    if (!copyListenerShallUpdateRepository && FileFilterUtil.isImageFile(targetFile)) {
+                        FilesystemRepositoryUpdater.insertFile(targetFile);
+                    }
                     publishCopied(sourceFile, targetFile);
                 } catch (Exception ex) {
-                    Logger.getLogger(CopyFiles.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FilesystemCopy.class.getName()).log(Level.SEVERE, null, ex);
                     errorFiles.add(sourceTargetFile.getSourceFile());
                 }
             }
@@ -136,17 +140,37 @@ public final class CopyFiles implements Runnable, FileCopyService {
     }
 
     private synchronized void notifyStart() {
-        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(0).stringPainted(true).stringToPaint(Bundle.getString(CopyFiles.class, "CopyFiles.ProgressBarString")).build();
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(0)
+                .stringPainted(true)
+                .stringToPaint(Bundle.getString(FilesystemCopy.class, "FilesystemCopy.ProgressBarString"))
+                .build();
         progressListeners.notifyStarted(evt);
     }
 
     private synchronized void notifyPerformed(int value, SourceTargetFile sourceTargetFile) {
-        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(value).stringPainted(true).stringToPaint(Bundle.getString(CopyFiles.class, "CopyFiles.ProgressBarString")).info(sourceTargetFile).build();
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(value)
+                .stringPainted(true)
+                .stringToPaint(Bundle.getString(FilesystemCopy.class, "FilesystemCopy.ProgressBarString"))
+                .info(sourceTargetFile)
+                .build();
         progressListeners.notifyPerformed(evt);
     }
 
     private synchronized void notifyEnded() {
-        ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(sourceTargetFiles.size()).value(sourceTargetFiles.size()).info(errorFiles).build();
+        ProgressEvent evt = new ProgressEvent.Builder()
+                .source(this)
+                .minimum(0)
+                .maximum(sourceTargetFiles.size())
+                .value(sourceTargetFiles.size())
+                .info(errorFiles).build();
         progressListeners.notifyEnded(evt);
     }
 
@@ -158,7 +182,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
         }
         File target = sourceTargetFile.getTargetFile();
         if (target.exists()) {
-            String message = Bundle.getString(CopyFiles.class, "CopyFiles.Confirm.OverwriteExisting",
+            String message = Bundle.getString(FilesystemCopy.class, "FilesystemCopy.Confirm.OverwriteExisting",
                     sourceTargetFile.getTargetFile(), sourceTargetFile.getSourceFile());
             MessageDisplayer.ConfirmAction action = MessageDisplayer.confirmYesNoCancel(null, message);
             if (action.equals(MessageDisplayer.ConfirmAction.CANCEL)) {
@@ -172,7 +196,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
 
     private boolean checkDifferent(SourceTargetFile sourceTargetFile) {
         if (sourceTargetFile.getSourceFile().equals(sourceTargetFile.getTargetFile())) {
-            String message = Bundle.getString(CopyFiles.class, "CopyFiles.Error.FilesAreEquals", sourceTargetFile.getSourceFile());
+            String message = Bundle.getString(FilesystemCopy.class, "FilesystemCopy.Error.FilesAreEquals", sourceTargetFile.getSourceFile());
             MessageDisplayer.error(null, message);
             return false;
         }
@@ -187,7 +211,7 @@ public final class CopyFiles implements Runnable, FileCopyService {
         if (options == null) {
             throw new NullPointerException("options == null");
         }
-        return new CopyFiles(sourceTargetFiles, options);
+        return new FilesystemCopy(sourceTargetFiles, options);
     }
 
     @Override

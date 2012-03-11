@@ -9,9 +9,16 @@ import java.util.logging.Logger;
 
 import org.openide.util.Lookup;
 
-import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.file.CopyMoveFilesOptions;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
+import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 
 /**
  * @author Elmar Baumann
@@ -19,7 +26,6 @@ import org.jphototagger.program.resource.GUI;
 public final class MoveFilesController implements ActionListener {
 
     private static final Logger LOGGER = Logger.getLogger(MoveFilesController.class.getName());
-    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public MoveFilesController() {
         listen();
@@ -37,7 +43,7 @@ public final class MoveFilesController implements ActionListener {
     private void moveSelectedFiles() {
         List<File> selFiles = GUI.getSelectedImageFiles();
         if (!selFiles.isEmpty()) {
-            MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
+            MoveFilesToDirectoryDialog dlg = new MoveFilesToDirectoryDialog();
             dlg.setSourceFiles(selFiles);
             dlg.setVisible(true);
         } else {
@@ -45,18 +51,60 @@ public final class MoveFilesController implements ActionListener {
         }
     }
 
-    public void moveFilesWithoutConfirm(List<File> srcFiles, File targetDir) {
-        if (srcFiles == null) {
-            throw new NullPointerException("srcFiles == null");
+    public void moveFilesWithoutConfirm(List<File> sourceFiles, File targetDirectory) {
+        if (sourceFiles == null) {
+            throw new NullPointerException("sourceFiles == null");
         }
-        if (targetDir == null) {
-            throw new NullPointerException("targetDir == null");
+        if (targetDirectory == null) {
+            throw new NullPointerException("targetDirectory == null");
         }
-        if (!srcFiles.isEmpty() && targetDir.isDirectory()) {
-            MoveToDirectoryDialog dlg = new MoveToDirectoryDialog();
-            dlg.setSourceFiles(srcFiles);
-            dlg.setTargetDirectory(targetDir);
-            dlg.setVisible(true);
+        if (!sourceFiles.isEmpty() && targetDirectory.isDirectory()) {
+            CopyMoveFilesOptions copyMoveFilesOptions = getCopyMoveFilesOptions();
+            boolean renameIfTargetFileExists = copyMoveFilesOptions.equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS);
+            FileSystemMove fileSystemMove = new FileSystemMove(sourceFiles, targetDirectory, renameIfTargetFileExists);
+            fileSystemMove.setMoveListenerShallUpdateRepository(false);
+            fileSystemMove.addProgressListener(new MoveProgressListener(fileSystemMove));
+            Thread thread = new Thread(fileSystemMove, "JPhotoTagger: Moving files");
+            thread.start();
+        }
+    }
+
+    private CopyMoveFilesOptions getCopyMoveFilesOptions() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
+                ? CopyMoveFilesOptions.parseInteger(prefs.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
+                : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
+    }
+
+    private static class MoveProgressListener implements ProgressListener, Cancelable {
+
+        private final FileSystemMove fileSystemMove;
+        private ProgressHandle progressHandle;
+
+        private MoveProgressListener(FileSystemMove fileSystemMove) {
+            this.fileSystemMove = fileSystemMove;
+        }
+
+        @Override
+        public void progressStarted(ProgressEvent evt) {
+            progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this);
+            progressHandle.progressStarted(evt);
+        }
+
+        @Override
+        public void progressPerformed(ProgressEvent evt) {
+            progressHandle.progressPerformed(evt);
+        }
+
+        @Override
+        public void progressEnded(ProgressEvent evt) {
+            progressHandle.progressEnded();
+            GUI.refreshThumbnailsPanel();
+        }
+
+        @Override
+        public void cancel() {
+            fileSystemMove.cancel();
         }
     }
 }

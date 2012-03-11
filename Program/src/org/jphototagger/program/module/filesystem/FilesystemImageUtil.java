@@ -70,10 +70,10 @@ public final class FilesystemImageUtil {
         if (confirm.yes() && !confirmFileAction(message)) {
             return;
         }
-        CopyFiles copyFiles = new CopyFiles(getFiles(sourceFiles, targetDirectory), getCopyMoveFilesOptions());
-        copyFiles.setCopyListenerShallUpdateRepository(false);
-        copyFiles.addProgressListener(new CopyProgressListener(copyFiles));
-        Thread thread = new Thread(copyFiles, "JPhotoTagger: Copying files to directories");
+        FilesystemCopy fileSystemCopy = new FilesystemCopy(getFiles(sourceFiles, targetDirectory), getCopyMoveFilesOptions());
+        fileSystemCopy.setCopyListenerShallUpdateRepository(false);
+        fileSystemCopy.addProgressListener(new CopyProgressListener(fileSystemCopy));
+        Thread thread = new Thread(fileSystemCopy, "JPhotoTagger: Copying files to directories");
         thread.start();
     }
 
@@ -118,7 +118,6 @@ public final class FilesystemImageUtil {
         MoveFilesController ctrl = ControllerFactory.INSTANCE.getController(MoveFilesController.class);
         if (ctrl != null) {
             ctrl.moveFilesWithoutConfirm(sourceFiles, targetDirectory);
-            GUI.refreshThumbnailsPanel();
         }
     }
 
@@ -128,11 +127,11 @@ public final class FilesystemImageUtil {
 
     private static class CopyProgressListener implements ProgressListener, Cancelable {
 
-        private final CopyFiles copyFiles;
+        private final FilesystemCopy fileSystemCopy;
         private ProgressHandle progressHandle;
 
-        private CopyProgressListener(CopyFiles copyFiles) {
-            this.copyFiles = copyFiles;
+        private CopyProgressListener(FilesystemCopy fileSystemCopy) {
+            this.fileSystemCopy = fileSystemCopy;
         }
 
         @Override
@@ -154,7 +153,7 @@ public final class FilesystemImageUtil {
 
         @Override
         public void cancel() {
-            copyFiles.cancel();
+            fileSystemCopy.cancel();
         }
     }
 

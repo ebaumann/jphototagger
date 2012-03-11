@@ -18,7 +18,9 @@ import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.RepositoryUtil;
 import org.jphototagger.domain.repository.SaveOrUpdate;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
+import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
 import org.jphototagger.program.module.thumbnails.cache.ThumbnailCache;
 import org.jphototagger.program.module.thumbnails.cache.XmpCache;
@@ -31,7 +33,7 @@ public final class FilesystemRepositoryUpdater {
 
     public static final FilesystemRepositoryUpdater INSTANCE = new FilesystemRepositoryUpdater();
     private static final Logger LOGGER = Logger.getLogger(FilesystemRepositoryUpdater.class.getName());
-    private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+    private static final ImageFilesRepository REPO = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     private FilesystemRepositoryUpdater() {
         listen();
@@ -46,11 +48,11 @@ public final class FilesystemRepositoryUpdater {
         File targetFile = evt.getTargetFile();
         if (RepositoryUtil.isSaveOrUpdate(evt)
                 && FileFilterUtil.isImageFile(targetFile)) {
-            insertFileIntoRepository(targetFile);
+            insertFileInNewThread(targetFile);
         }
     }
 
-    private void insertFileIntoRepository(File targetFile) {
+    private static void insertFileInNewThread(File targetFile) {
         SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(
                 Arrays.asList(targetFile), SaveOrUpdate.OUT_OF_DATE);
         inserter.start();
@@ -86,13 +88,6 @@ public final class FilesystemRepositoryUpdater {
         }
     }
 
-    private void updateCaches(final File sourceFile, final File targetFile) {
-        ThumbnailCache.INSTANCE.updateFiles(sourceFile, targetFile);
-        XmpCache.INSTANCE.updateFiles(sourceFile, targetFile);
-        RenderedThumbnailCache.INSTANCE.updateFiles(sourceFile, targetFile);
-        GUI.getThumbnailsPanel().renameFile(sourceFile, targetFile);
-    }
-
     private class DeleteFileThread extends Thread {
 
         private final File file;
@@ -104,9 +99,7 @@ public final class FilesystemRepositoryUpdater {
 
         @Override
         public void run() {
-            if (repo.existsImageFile(file)) {
-                repo.deleteImageFiles(Arrays.asList(file));
-            }
+            deleteFile(file);
         }
     }
 
@@ -123,10 +116,40 @@ public final class FilesystemRepositoryUpdater {
 
         @Override
         public void run() {
-            LOGGER.log(Level.INFO, "Rename in the repository file ''{0}'' to ''{1}'' and updating caches",
-                    new Object[]{sourceFile, targetFile});
-            repo.updateRenameImageFile(sourceFile, targetFile);
-            updateCaches(sourceFile, targetFile);
+            moveFile(sourceFile, targetFile);
+        }
+    }
+
+    static void insertFile(File targetFile) {
+        SaveToOrUpdateFilesInRepositoryImpl inserter = new SaveToOrUpdateFilesInRepositoryImpl(
+                Arrays.asList(targetFile), SaveOrUpdate.OUT_OF_DATE);
+        inserter.saveOrUpdateWaitForTermination();
+    }
+
+    static void moveFile(File sourceFile, File targetFile) {
+        LOGGER.log(Level.INFO, "Rename in the repository file ''{0}'' to ''{1}'' and updating caches",
+                new Object[]{sourceFile, targetFile});
+        REPO.updateRenameImageFile(sourceFile, targetFile);
+        updateCaches(sourceFile, targetFile);
+    }
+
+    static void deleteFile(File file) {
+        if (REPO.existsImageFile(file)) {
+            REPO.deleteImageFiles(Arrays.asList(file));
+        }
+    }
+
+    private static void updateCaches(File sourceFile, File targetFile) {
+        ThumbnailCache.INSTANCE.updateFiles(sourceFile, targetFile);
+        XmpCache.INSTANCE.updateFiles(sourceFile, targetFile);
+        RenderedThumbnailCache.INSTANCE.updateFiles(sourceFile, targetFile);
+        ThumbnailsPanel thumbnailsPanel = GUI.getThumbnailsPanel();
+        boolean inSameDirectory = FileUtil.inSameDirectory(Arrays.asList(sourceFile, targetFile));
+        boolean tnPanelContainsSourceFile = thumbnailsPanel.containsFile(sourceFile);
+        if (inSameDirectory && tnPanelContainsSourceFile) {
+            thumbnailsPanel.renameFile(sourceFile, targetFile);
+        } else if (tnPanelContainsSourceFile) {
+            thumbnailsPanel.removeFiles(Arrays.asList(sourceFile));
         }
     }
 }
