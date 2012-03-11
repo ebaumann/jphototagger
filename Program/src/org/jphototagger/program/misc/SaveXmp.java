@@ -9,8 +9,9 @@ import org.openide.util.Lookup;
 
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
@@ -31,9 +32,9 @@ public final class SaveXmp extends Thread implements Cancelable {
     private static final String PROGRESSBAR_STRING = Bundle.getString(SaveXmp.class, "SaveXmp.ProgressBar.String");
     private final Collection<FileXmp> imageFilesXmp;
     private volatile boolean cancel;
-    private final Object pBarOwner = this;
+    private final Object source = this;
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
-    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+    private ProgressHandle progressHandle;
 
     private SaveXmp(Collection<FileXmp> imageFilesXmp) {
         super("JPhotoTagger: Saving XMP");
@@ -60,7 +61,8 @@ public final class SaveXmp extends Thread implements Cancelable {
     @Override
     public void run() {
         int fileIndex = 0;
-        progressBarProvider.progressStarted(createProgressEvent(0));
+        progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this);
+        progressHandle.progressStarted(createProgressEvent(0));
         // Ignore isInterrupted() because saving user input has high priority
         for (FileXmp fileXmp : imageFilesXmp) {
             if (cancel) {
@@ -73,9 +75,8 @@ public final class SaveXmp extends Thread implements Cancelable {
                 updateRepository(imageFile);
             }
             fileIndex++;
-            progressBarProvider.progressPerformed(createProgressEvent(fileIndex));
+            progressHandle.progressPerformed(createProgressEvent(fileIndex));
         }
-        progressBarProvider.progressEnded(pBarOwner);
         AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
@@ -87,7 +88,7 @@ public final class SaveXmp extends Thread implements Cancelable {
 
     private ProgressEvent createProgressEvent(int value) {
         return new ProgressEvent.Builder()
-               .source(pBarOwner)
+                .source(source)
                 .stringPainted(true)
                 .stringToPaint(PROGRESSBAR_STRING)
                 .minimum(0)

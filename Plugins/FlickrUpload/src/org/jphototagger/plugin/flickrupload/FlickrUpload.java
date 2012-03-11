@@ -30,8 +30,9 @@ import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
-import org.jphototagger.api.progress.MainWindowProgressBarProvider;
 import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.image.util.ImageUtil;
 import org.jphototagger.lib.help.HelpContentProvider;
@@ -52,7 +53,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
     private static final long serialVersionUID = 1L;
     private static final Icon icon = IconUtil.getImageIcon(FlickrUpload.class, "flickr.png");
     private static final String PROGRESS_BAR_STRING = Bundle.getString(FlickrUpload.class, "FlickrUpload.ProgressBar.String");
-    private final MainWindowProgressBarProvider progressBarProvider = Lookup.getDefault().lookup(MainWindowProgressBarProvider.class);
+    private ProgressHandle progressHandle;
 
     @Override
     public String getDisplayName() {
@@ -104,28 +105,22 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             if (!new Authorization().authenticate()) {
                 return;
             }
-
             Uploader uploader = createUploader();
             FlickrImageInfoDialog dlg = new FlickrImageInfoDialog();
-
             addImages(dlg);
             dlg.setVisible(true);
-
             if (!dlg.isUpload()) {
                 return;
             }
-
             List<ImageInfo> uploadImages = dlg.getUploadImages();
             int countOfImagesToUpload = uploadImages.size();
             int countOfProcessedImages = 0;
             FileInputStream is = null;
             boolean success = true;
-
             EventBus.publish(new FileProcessingStartedEvent(this));
-            progressBarProvider.progressStarted(createStartProgressEvent(countOfImagesToUpload));
-
+            progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
+            progressHandle.progressStarted(createStartProgressEvent(countOfImagesToUpload));
             File imageFile = null;
-
             for (ImageInfo imageInfo : uploadImages) {
                 try {
                     imageFile = imageInfo.getImageFile();
@@ -134,7 +129,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                     is.close();
                     EventBus.publish(new FileProcessedEvent(this, imageFile, false));
                     countOfProcessedImages++;
-                    progressBarProvider.progressPerformed(createPerformedProgressEvent(countOfImagesToUpload, countOfProcessedImages));
+                    progressHandle.progressPerformed(createPerformedProgressEvent(countOfImagesToUpload, countOfProcessedImages));
                 } catch (Exception ex) {
                     logDisplayUploadException(ex, imageFile);
                     success = false;
@@ -144,8 +139,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                     IoUtil.close(is);
                 }
             }
-
-            uploadFinished(countOfImagesToUpload, countOfProcessedImages, success);
+            uploadFinished(countOfProcessedImages, success);
         }
 
         private Uploader createUploader() {
@@ -160,8 +154,8 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             return new ProgressEvent.Builder().source(pBarOwner).minimum(0).maximum(maximum).value(value).stringPainted(true).stringToPaint(PROGRESS_BAR_STRING).build();
         }
 
-        private void uploadFinished(int countOfImagesToUpload, int countOfUploadedImages, boolean success) throws HeadlessException {
-            progressBarProvider.progressEnded(pBarOwner);
+        private void uploadFinished(int countOfUploadedImages, boolean success) throws HeadlessException {
+            progressHandle.progressEnded();
             JOptionPane.showMessageDialog(ComponentUtil.findFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Info.UploadCount", countOfUploadedImages));
             EventBus.publish(new FileProcessingFinishedEvent(this, success));
         }
@@ -174,37 +168,28 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
         private UploadMetaData getUploadMetaData(ImageInfo imageInfo) {
             UploadMetaData umd = new UploadMetaData();
             String description = imageInfo.getDescription();
-
             if (!description.isEmpty()) {
                 umd.setDescription(description);
             }
-
             String title = imageInfo.getTitle();
-
             if (!title.isEmpty()) {
                 umd.setTitle(title);
             }
-
             List<String> tags = imageInfo.getTags();
-
             if (!tags.isEmpty()) {
                 umd.setTags(tags);
             }
-
             return umd;
         }
 
         private Image getThumbnail(File imageFile) {
             ThumbnailProvider thumbnailProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
-
             if (thumbnailProvider != null) {
                 Image thumbnail = thumbnailProvider.getThumbnail(imageFile);
-
                 if (thumbnail != null) {
                     return ImageUtil.getScaledInstance(thumbnail, FlickrImageInfoPanel.IMAGE_WIDTH);
                 }
             }
-
             return null;
         }
 
@@ -212,47 +197,35 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             File sidecarFile = XmpProperties.getSidecarfileOf(imageFile);
             Image image = getThumbnail(imageFile);
             ImageInfo emptyImageInfo = getEmptyImageInfo(image, imageFile);
-
             if (sidecarFile == null) {
                 return emptyImageInfo;
             }
-
             List<XMPPropertyInfo> pInfos = XmpProperties.getPropertyInfosOfSidecarFile(sidecarFile);
-
             if (pInfos == null) {
                 return emptyImageInfo;
             }
-
-            List<String> values = null;
-            String value = null;
+            String value;
             String description = "";
             String title = "";
             List<String> tags = Collections.<String>emptyList();
-
             if (settings.isAddDcDescription()) {
                 value = XmpProperties.getPropertyValueFrom(pInfos, XmpProperties.PropertyValue.DC_DESCRIPTION);
-
                 if ((value != null) && !value.isEmpty()) {
                     description = value;
                 }
             }
-
             if (settings.isAddPhotoshopHeadline()) {
                 value = XmpProperties.getPropertyValueFrom(pInfos, XmpProperties.PropertyValue.PHOTOSHOP_HEADLINE);
-
                 if ((value != null) && !value.isEmpty()) {
                     title = value;
                 }
             }
-
             if (settings.isAddDcSubjects()) {
-                values = XmpProperties.getPropertyValuesFrom(pInfos, XmpProperties.PropertyValue.DC_SUBJECT);
-
+                List<String> values = XmpProperties.getPropertyValuesFrom(pInfos, XmpProperties.PropertyValue.DC_SUBJECT);
                 if (!values.isEmpty()) {
                     tags = values;
                 }
             }
-
             return new ImageInfo(image, imageFile, title, description, tags);
         }
 
@@ -262,7 +235,6 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
 
         private void addImages(FlickrImageInfoDialog dlg) {
             Settings settings = new Settings();
-
             for (File file : files) {
                 dlg.addImage(getImageInfo(file, settings));
             }

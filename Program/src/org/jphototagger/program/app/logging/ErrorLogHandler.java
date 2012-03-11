@@ -127,6 +127,6 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
 
     @Override
     public int getPosition() {
-        return 10;
+        return 500;
     }
 }
