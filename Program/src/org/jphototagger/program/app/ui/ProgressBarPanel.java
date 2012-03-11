@@ -3,9 +3,6 @@ package org.jphototagger.program.app.ui;
 import java.awt.event.MouseListener;
 import java.util.Set;
 
-import javax.swing.JButton;
-import javax.swing.JProgressBar;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressHandle;
@@ -21,21 +18,13 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
     private final ListenerSupport<ProgressBarPanelListener> ls = new ListenerSupport<ProgressBarPanelListener>();
     private final Cancelable cancelable;
 
-    ProgressBarPanel() {
+    public ProgressBarPanel() {
         this(null);
     }
 
-    ProgressBarPanel(Cancelable cancelable) {
+    public ProgressBarPanel(Cancelable cancelable) {
         this.cancelable = cancelable;
         initComponents();
-    }
-
-    JButton getButtonCancelProgress() {
-        return buttonCancelProgress;
-    }
-
-    JProgressBar getProgressBar() {
-        return progressBar;
     }
 
     @Override
@@ -93,6 +82,7 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
     private void cancel() {
         if (cancelable != null) {
             cancelable.cancel();
+            buttonCancelProgress.setEnabled(false);
         }
     }
 
