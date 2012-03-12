@@ -1,11 +1,17 @@
 package org.jphototagger.program.module.favorites;
 
 import java.awt.Cursor;
+import java.awt.EventQueue;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,22 +45,25 @@ import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Elements are {@code DefaultMutableTreeNode}s with the user objects listed
- * below.
+ * Elements are {@code DefaultMutableTreeNode}s with the user objects listed below.
  *
  * @author Elmar Baumann
  */
 public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWillExpandListener {
 
+    private static final long serialVersionUID = 1L;
     private static final String KEY_SELECTED_DIR = "FavoritesTreeModel.SelDir";
     private static final String KEY_SELECTED_FAV_NAME = "FavoritesTreeModel.SelFavDir";
-    private static final long serialVersionUID = 1L;
+    private static final long UPDATE_INTERVAL_MILLISECONDS = 2000;
+    private static final Logger LOGGER = Logger.getLogger(FavoritesTreeModel.class.getName());
+    private final DirectoryFilter directoryFilter = new DirectoryFilter(getDirFilterOptionShowHiddenFiles());
     private final Object monitor = new Object();
-    private transient boolean listenToDb = true;
+    private volatile boolean listenToRepo = true;
     private final DefaultMutableTreeNode rootNode;
     private final JTree tree;
-    private static final Logger LOGGER = Logger.getLogger(FavoritesTreeModel.class.getName());
     private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
+    private final ScheduledExecutorService updateScheduler;
+    private volatile boolean autoupdate;
 
     public FavoritesTreeModel(JTree tree) {
         super(new DefaultMutableTreeNode(Bundle.getString(FavoritesTreeModel.class, "FavoritesTreeModel.Root.DisplayName")));
@@ -65,6 +74,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         rootNode = (DefaultMutableTreeNode) getRoot();
         addFavorites();
         listen();
+        updateScheduler = Executors.newSingleThreadScheduledExecutor(threadFactory);
     }
 
     private void listen() {
@@ -77,7 +87,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
             throw new NullPointerException("favorite == null");
         }
         synchronized (monitor) {
-            listenToDb = false;
+            listenToRepo = false;
             favorite.setIndex(getNextNewFavoriteIndex());
             if (!existsFavoriteDirectory(favorite)) {
                 if (repo.saveOrUpdateFavorite(favorite)) {
@@ -86,7 +96,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
                     errorMessage(favorite.getName(), Bundle.getString(FavoritesTreeModel.class, "FavoritesTreeModel.Error.ParamInsert"));
                 }
             }
-            listenToDb = true;
+            listenToRepo = true;
         }
     }
 
@@ -95,7 +105,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
             throw new NullPointerException("favorite == null");
         }
         synchronized (monitor) {
-            listenToDb = false;
+            listenToRepo = false;
             DefaultMutableTreeNode favNode = getNode(favorite);
             if ((favNode != null) && repo.deleteFavorite(favorite.getName())) {
                 removeNodeFromParent(favNode);
@@ -103,7 +113,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
             } else {
                 errorMessage(favorite.getName(), Bundle.getString(FavoritesTreeModel.class, "FavoritesTreeModel.Error.ParamDelete"));
             }
-            listenToDb = true;
+            listenToRepo = true;
         }
     }
 
@@ -179,7 +189,6 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
-
         synchronized (monitor) {
             DefaultMutableTreeNode nodeToMoveDown = getNode(favorite);
             if (nodeToMoveDown != null) {
@@ -229,10 +238,9 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     /**
-     * Adds to a parent node not existing children where the user object is
-     * a directory if the user object of the node is a directory or a favorite
-     * directory (wich refers to a directory). The children are child
-     * directories of the directory (user object).
+     * Adds to a parent node not existing children where the user object is a directory if the user object of the node
+     * is a directory or a favorite directory (wich refers to a directory). The children are child directories of the
+     * directory (user object).
      *
      * @param parentNode parent note which gets the new children
      */
@@ -243,36 +251,48 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
                 : (userObject instanceof Favorite)
                 ? ((Favorite) userObject).getDirectory()
                 : null;
-
         if ((dir == null) || !dir.isDirectory()) {
             return;
         }
         LOGGER.log(Level.FINEST, "Lese Unterverzeichnisse von ''{0}'' ein'...", dir);
-        File[] subdirs = dir.listFiles(new DirectoryFilter(getDirFilterOptionShowHiddenFiles()));
+        File[] subdirs = dir.listFiles(directoryFilter);
         LOGGER.log(Level.FINEST, "Unterverzeichnisse von ''{0}'' wurden eingelesen", dir);
         if (subdirs == null) {
             return;
         }
-        int childCount = parentNode.getChildCount();
-        List<File> nodeChildrenDirs = new ArrayList<File>(childCount);
-        for (int i = 0; i < childCount; i++) {
-            DefaultMutableTreeNode child = (DefaultMutableTreeNode) parentNode.getChildAt(i);
-            Object usrObj = child.getUserObject();
-            if (usrObj instanceof File) {
-                nodeChildrenDirs.add((File) usrObj);
-            }
-        }
-
-        for (int i = 0; i < subdirs.length; i++) {
-            File subdir = subdirs[i];
+        List<File> nodeChildrenDirs = getChildDirectories(parentNode);
+        for (File subdir : subdirs) {
             if (!nodeChildrenDirs.contains(subdir)) {
-                DefaultMutableTreeNode newChild = new SortedChildrenTreeNode(subdirs[i]);
-                parentNode.insert(newChild, childCount);
-                childCount++;
-                int childIndex = parentNode.getIndex(newChild);
-                fireTreeNodesInserted(this, parentNode.getPath(), new int[]{childIndex}, new Object[]{newChild});
+                addChildDirectory(parentNode, subdir);
             }
         }
+    }
+
+    private static List<File> getChildDirectories(DefaultMutableTreeNode node) {
+        int childCount = node.getChildCount();
+        List<File> childFiles = new ArrayList<File>(childCount);
+        for (int i = 0; i < childCount; i++) {
+            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
+            Object childNodeUserObject = childNode.getUserObject();
+            if (childNodeUserObject instanceof File) {
+                childFiles.add((File) childNodeUserObject);
+            } else if (childNodeUserObject instanceof Favorite) {
+                Favorite favorite = (Favorite) childNodeUserObject;
+                childFiles.add(favorite.getDirectory());
+            }
+        }
+        return childFiles;
+    }
+
+    private void addChildDirectory(DefaultMutableTreeNode parentNode, File directory) {
+        LOGGER.log(Level.FINEST, "Adding subdirectory ''{0}'' to node ''{1}''",
+                new Object[]{directory, parentNode});
+        DefaultMutableTreeNode newChildNode = new SortedChildrenTreeNode(directory);
+        parentNode.add(newChildNode);
+        int newChildIndex = parentNode.getIndex(newChildNode);
+        fireTreeNodesInserted(this, parentNode.getPath(), new int[]{newChildIndex}, new Object[]{newChildNode});
+        LOGGER.log(Level.FINEST, "Subdirectory ''{0}'' has been added to node ''{1}''",
+                new Object[]{directory, parentNode});
     }
 
     private DirectoryFilter.Option getDirFilterOptionShowHiddenFiles() {
@@ -290,16 +310,14 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     /**
-     * Removes from a node child nodes with files as user objects if the
-     * file does not exist.
+     * Removes from a node child nodes with files as user objects if the file does not exist.
      *
-     * @param  parentNode parent node
-     * @return            count of removed nodes
+     * @param parentNode parent node
+     * @return count of removed nodes
      */
     private int removeChildrenWithNotExistingFiles(DefaultMutableTreeNode parentNode) {
         int childCount = parentNode.getChildCount();
         List<DefaultMutableTreeNode> nodesToRemove = new ArrayList<DefaultMutableTreeNode>();
-
         for (int i = 0; i < childCount; i++) {
             DefaultMutableTreeNode child = (DefaultMutableTreeNode) parentNode.getChildAt(i);
             Object userObject = child.getUserObject();
@@ -313,7 +331,6 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
                 nodesToRemove.add(child);
             }
         }
-
         for (DefaultMutableTreeNode childNodeToRemove : nodesToRemove) {
             Object userObject = childNodeToRemove.getUserObject();
             if (userObject instanceof Favorite) {
@@ -355,11 +372,11 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     /**
-     * Creates a new directory as child of a node. Let's the user input the
-     * new name and inserts the new created directory.
+     * Creates a new directory as child of a node. Let's the user input the new name and inserts the new created
+     * directory.
      *
-     * @param  parentNode parent node. If null, nothing will be done.
-     * @return            new created directory or null if not created
+     * @param parentNode parent node. If null, nothing will be done.
+     * @return new created directory or null if not created
      */
     public File createNewDirectory(DefaultMutableTreeNode parentNode) {
         File dirOfParentNode = (parentNode == null)
@@ -413,8 +430,8 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
      * Expands the tree to a specific file.
      *
      * @param favoriteName favorite containing this file
-     * @param file         file
-     * @param select       if true the file node will be selected
+     * @param file file
+     * @param select if true the file node will be selected
      */
     private void expandToFile(String favoriteName, File file, boolean select) {
         DefaultMutableTreeNode node = getFavorite(favoriteName);
@@ -522,8 +539,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     }
 
     /**
-     * Updates this model: Adds nodes for new files, deletes nodes with not
-     * existing files.
+     * Updates this model: Adds nodes for new files, deletes nodes with not existing files.
      */
     public void update() {
         Cursor treeCursor = tree.getCursor();
@@ -552,21 +568,21 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     @EventSubscriber(eventClass = FavoriteInsertedEvent.class)
     public void favoriteInserted(final FavoriteInsertedEvent evt) {
-        if (listenToDb) {
+        if (listenToRepo) {
             addFavorite(evt.getFavorite());
         }
     }
 
     @EventSubscriber(eventClass = FavoriteDeletedEvent.class)
     public void favoriteDeleted(final FavoriteDeletedEvent evt) {
-        if (listenToDb) {
+        if (listenToRepo) {
             deleteFavorite(evt.getFavorite());
         }
     }
 
     @EventSubscriber(eventClass = FavoriteUpdatedEvent.class)
     public void favoriteUpdated(final FavoriteUpdatedEvent evt) {
-        if (listenToDb) {
+        if (listenToRepo) {
             updateFavorite(evt.getOldFavorite(), evt.getUpdatedFavorite());
         }
     }
@@ -617,4 +633,113 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
     private void errorMessageAddDirectory(Favorite favorite) {
         LOGGER.log(Level.WARNING, "The favorite ''{0}'' couldn''t be read!", favorite.getDirectory());
     }
+
+    /**
+     * Scans external filesystem for changes. Default: false.
+     */
+    public void startAutoUpdate() {
+        synchronized (updateScheduler) {
+            if (!autoupdate) {
+                updateScheduler.scheduleWithFixedDelay(updater, 0, UPDATE_INTERVAL_MILLISECONDS, TimeUnit.MILLISECONDS);
+                autoupdate = true;
+            }
+        }
+    }
+
+    /**
+     * Stops scan for external filesystem for changes if started.
+     */
+    public void stopAutoUpdate() {
+        synchronized (updateScheduler) {
+            if (autoupdate) {
+                updateScheduler.shutdown();
+                autoupdate = false;
+            }
+        }
+    }
+
+    private final Runnable updater = new Runnable() {
+
+        private AtomicInteger taskCount = new AtomicInteger(0);
+
+        @Override
+        public void run() {
+            if (taskCount.intValue() > 0) {
+                return;
+            }
+            for (DefaultMutableTreeNode node : getTreeRowNodes()) {
+                Object userObject = node.getUserObject();
+                File dir = null;
+                if (userObject instanceof File) {
+                    dir = (File) userObject;
+                } else if (userObject instanceof Favorite) {
+                    Favorite favorite = (Favorite) userObject;
+                    dir = favorite.getDirectory();
+                }
+                if (dir != null) {
+                    if (!dir.exists()) {
+                        remove(node);
+                    } else {
+                        addNewChildren(node);
+                    }
+                }
+            }
+        }
+
+        private void remove(final DefaultMutableTreeNode node) {
+            taskCount.incrementAndGet();
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    removeNodeFromParent(node);
+                    Object userObject = node.getUserObject();
+                    if (userObject instanceof Favorite) {
+                        Favorite favorite = (Favorite) userObject;
+                        synchronized (monitor) {
+                            boolean prevListenToRepo = listenToRepo;
+                            listenToRepo = false;
+                            repo.deleteFavorite(favorite.getName());
+                            listenToRepo = prevListenToRepo;
+                        }
+                    }
+                    taskCount.decrementAndGet();
+                }
+            });
+        }
+
+        private void addNewChildren(final DefaultMutableTreeNode node) {
+            taskCount.incrementAndGet();
+            Object userObject = node.getUserObject();
+            File dir = userObject instanceof File
+                    ? (File) node.getUserObject()
+                    : userObject instanceof Favorite
+                    ? ((Favorite) userObject).getDirectory()
+                    : new File("");
+            final List<File> childDirectories = getChildDirectories(node);
+            final List<File> directories = FileUtil.listFiles(dir, directoryFilter);
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    for (File directory : directories) {
+                        if (directory.isDirectory() && !childDirectories.contains(directory)) {
+                            addChildDirectory(node, directory);
+                        }
+                    }
+                    taskCount.decrementAndGet();
+                }
+            });
+        }
+    };
+
+    private final ThreadFactory threadFactory = new ThreadFactory() {
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread thread = new Thread(r);
+            thread.setName("JPhotoTagger: Favorite Directories Tree Update");
+            return thread;
+        }
+    };
 }

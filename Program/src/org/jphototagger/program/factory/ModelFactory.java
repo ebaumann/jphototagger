@@ -298,6 +298,7 @@ public final class ModelFactory {
                         tree.setModel(model);
                         model.readFromProperties();
                         tree.setCursor(treeCursor);
+                        model.startAutoUpdate();
                         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelFavorites");
                         Support.setStatusbarInfo(message);
                     }
@@ -317,8 +318,7 @@ public final class ModelFactory {
                 final JTree tree = appPanel.getTreeDirectories();
                 final Cursor treeCursor = setWaitCursor(tree);
                 List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
-                final TreeModel model = new AllSystemDirectoriesTreeModel(tree, hideRootFiles, getDirFilterOptionShowHiddenFiles());
-
+                final AllSystemDirectoriesTreeModel model = new AllSystemDirectoriesTreeModel(tree, hideRootFiles, getDirFilterOptionShowHiddenFiles());
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -329,6 +329,7 @@ public final class ModelFactory {
                         tree.setCursor(treeCursor);
                         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelDirectories");
                         Support.setStatusbarInfo(message);
+                        model.startAutoUpdate();
                     }
                 });
             }
