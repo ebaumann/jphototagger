@@ -198,7 +198,7 @@ public final class AppPanel extends javax.swing.JPanel {
         } else {
             labelStatusbarText.setText(text);
         }
-        LOGGER.log(Level.INFO, text);
+        LOGGER.log(Level.FINE, text);
     }
 
     public JTabbedPane getTabbedPaneMetadata() {

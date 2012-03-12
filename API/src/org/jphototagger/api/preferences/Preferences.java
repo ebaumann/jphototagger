@@ -17,7 +17,7 @@ import javax.swing.JTree;
 public interface Preferences {
 
     static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
-    static final String KEY_LOG_LEVEL = "UserSettings.LogLevel";
+    static final String KEY_LOG_LEVEL = "UserSettings.Logging.Level";
     static final String KEY_MAX_THUMBNAIL_WIDTH = "UserSettings.MaxThumbnailWidth";
 
     String getString(String key);

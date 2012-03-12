@@ -12,6 +12,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Bearbeiten > Einstellungen > Vorschaubilder: Schaltfläche "Auswählen"
   enthält dcraw, falls JPhotoTagger für das System dcraw enthält
   (im Installationsorder: "lib\dcraw\<Systemspezifisch>\dcraw.exe")
+* Neu: Bearbeiten > Einstellungen > Sonstiges > Verschiedenes:
+  Ausführlichkeit des Protokolls mit allen Nachrichten. Standard
+  ist nun INFO.
 
 0.24.4 2012-03-11
 -----------------

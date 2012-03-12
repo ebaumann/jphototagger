@@ -12,6 +12,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Edit > Settings > Thumbnails: Button "Choose"
   contains dcraw, if JPhotoTagger has dcraw for the specific system
   (within installation folder: "lib\dcraw\<system specific>\dcraw.exe")
+* Added: Edit > Settings > Miscellaneous > Miscellaneous:
+  Detailedness of the log file with all messages. Standard now is INFO.
 
 0.24.4 2012-03-11
 -----------------
