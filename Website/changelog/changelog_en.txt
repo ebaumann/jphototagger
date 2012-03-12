@@ -9,6 +9,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Folder and Favorites registers updating themselve if
   a folder was created, renamed or deleted outside of
   JPhotoTagger
+* Edit > Settings > Thumbnails: Button "Choose"
+  contains dcraw, if JPhotoTagger has dcraw for the specific system
+  (within installation folder: "lib\dcraw\<system specific>\dcraw.exe")
 
 0.24.4 2012-03-11
 -----------------
