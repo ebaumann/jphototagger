@@ -9,6 +9,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Ordner-Kartenreiter und Favoriten-Kartenreiter aktualisieren
   sich automatisch, falls außerhalb JPhotoTagger Ordner erzeugt,
   umbenannt oder gelöscht werden
+* Bearbeiten > Einstellungen > Vorschaubilder: Schaltfläche "Auswählen"
+  enthält dcraw, falls JPhotoTagger für das System dcraw enthält
+  (im Installationsorder: "lib\dcraw\<Systemspezifisch>\dcraw.exe")
 
 0.24.4 2012-03-11
 -----------------

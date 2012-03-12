@@ -15,9 +15,11 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.util.ThumbnailCreatorService;
@@ -35,8 +37,11 @@ import com.imagero.reader.Imagero;
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = ThumbnailCreator.class)
-public final class DcrawThumbnailCreator implements ThumbnailCreator {
+@ServiceProviders({
+    @ServiceProvider(service = ThumbnailCreator.class),
+    @ServiceProvider(service = ExternalThumbnailCreationCommand.class)
+})
+public final class DcrawThumbnailCreator implements ThumbnailCreator, ExternalThumbnailCreationCommand {
 
     private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<String>();
     private static final Logger LOGGER = Logger.getLogger(DcrawThumbnailCreator.class.getName());
@@ -103,6 +108,21 @@ public final class DcrawThumbnailCreator implements ThumbnailCreator {
         String command = "\"" + dcraw.getAbsolutePath() + "\" -c -h -T \"" + file.getAbsolutePath() + "\"";
         LOGGER.log(Level.INFO, "Creating thumbnail with dcraw; command: {0}", command);
         return External.executeGetOutput(command, getMaxMillisecondsToTerminate());
+    }
+
+
+    @Override
+    public String getThumbnailCreationCommand() {
+        if (dcraw == null) {
+            return null;
+        }
+        return "\"" + dcraw.getAbsolutePath() + "\" \"%s\" %i";
+    }
+
+    @Override
+    public boolean isEnabled() {
+        resolveDcraw();
+        return dcraw != null;
     }
 
     private long getMaxMillisecondsToTerminate() {
