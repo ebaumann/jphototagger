@@ -12,6 +12,7 @@ import java.security.CodeSource;
 import java.security.MessageDigest;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -788,6 +789,24 @@ public final class FileUtil {
             prevParent = parent;
         }
         return true;
+    }
+
+    /**
+     * @param parentFile
+     * @param filter maybe null (then unused)
+     * @return In all cases a not null object (empty if {@link File#listFiles() or {@link File#listFiles(java.io.FileFilter)}
+     * returning null)
+     */
+    public static List<File> listFiles(File parentFile, FileFilter filter) {
+        if (parentFile == null) {
+            throw new NullPointerException("parentFile == null");
+        }
+        File[] files = filter == null
+                ? parentFile.listFiles()
+                : parentFile.listFiles(filter);
+        return files == null
+                ? Collections.<File>emptyList()
+                : Arrays.asList(files);
     }
 
     private FileUtil() {

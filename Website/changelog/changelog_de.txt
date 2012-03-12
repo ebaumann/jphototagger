@@ -3,7 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.24.4 2012-03-12
+0.24.5 2012-03-12
+-----------------
+
+* Ordner-Kartenreiter und Favoriten-Kartenreiter aktualisieren
+  sich automatisch, falls außerhalb JPhotoTagger Ordner erzeugt,
+  umbenannt oder gelöscht werden
+
+0.24.4 2012-03-11
 -----------------
 
 * Jede Aufgabe hat ihre eigene Fortschrittsanzeige. Bislang teilten sich

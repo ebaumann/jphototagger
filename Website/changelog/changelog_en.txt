@@ -3,7 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.24.4 2012-03-12
+0.24.5 2012-03-12
+-----------------
+
+* Folder and Favorites registers updating themselve if
+  a folder was created, renamed or deleted outside of
+  JPhotoTagger
+
+0.24.4 2012-03-11
 -----------------
 
 * Every task has it's own progress bar. Until now, all tasks

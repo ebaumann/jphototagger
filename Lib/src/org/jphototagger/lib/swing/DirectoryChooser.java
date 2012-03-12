@@ -24,12 +24,12 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Folder to choose one or multiple directories. Can create new directories,
- * delete and rename existing.
+ * Folder to choose one or multiple directories. Can create new directories, delete and rename existing.
  *
  * @author Elmar Baumann
  */
 public final class DirectoryChooser extends Dialog implements TreeSelectionListener, PopupMenuListener {
+
     private static final long serialVersionUID = 1L;
     private final File startDirectory;
     private final List<Option> directoryFilter;
@@ -38,19 +38,22 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     public enum Option {
 
-        /** Show hidden directories */
+        /**
+         * Show hidden directories
+         */
         DISPLAY_HIDDEN_DIRECTORIES,
-
-        /** Multiple directories can be selected (Default: Single selection) */
+        /**
+         * Multiple directories can be selected (Default: Single selection)
+         */
         MULTI_SELECTION, NO_OPTION
     }
 
     /**
      * Creates an instance.
      *
-     * @param parent          Elternframe
-     * @param startDirectory  start directory, will be selected or {@code new File("")}
-     * @param options         options
+     * @param parent Elternframe
+     * @param startDirectory start directory, will be selected or {@code new File("")}
+     * @param options options
      */
     public DirectoryChooser(java.awt.Frame parent, File startDirectory, Option... options) {
         this(parent, startDirectory, Collections.<File>emptyList(), options);
@@ -59,20 +62,16 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     public DirectoryChooser(java.awt.Frame parent, File startDirectory,
             Collection<? extends File> excludeRootDirectories, Option... options) {
         super(parent, true);
-
         if (startDirectory == null) {
             throw new NullPointerException("startDirectory == null");
         }
-
         if (excludeRootDirectories == null) {
             throw new NullPointerException("excludeRootDirectories == null");
         }
-
         if (options == null) {
             throw new NullPointerException("options == null");
         }
-
-        this.startDirectory  = startDirectory;
+        this.startDirectory = startDirectory;
         this.directoryFilter = Arrays.asList(options);
         initComponents();
         this.model = new AllSystemDirectoriesTreeModel(tree, excludeRootDirectories, getIsShowHiddenDirsFilter());
@@ -88,23 +87,23 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private void setSelectionMode() {
         tree.getSelectionModel().setSelectionMode(
-            directoryFilter.contains(Option.MULTI_SELECTION)
-            ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
-            : TreeSelectionModel.SINGLE_TREE_SELECTION);
+                directoryFilter.contains(Option.MULTI_SELECTION)
+                ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
+                : TreeSelectionModel.SINGLE_TREE_SELECTION);
         setTitle();
         setUsageText();
     }
 
     private void setUsageText() {
         labelUsage.setText(directoryFilter.contains(Option.MULTI_SELECTION)
-                           ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.MultipleSelection")
-                           : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.SingleSelection"));
+                ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.MultipleSelection")
+                : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
     private void setTitle() {
         setTitle(directoryFilter.contains(Option.MULTI_SELECTION)
-                 ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.MultipleSelection")
-                 : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.SingleSelection"));
+                ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.MultipleSelection")
+                : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.SingleSelection"));
     }
 
     @Override
@@ -113,16 +112,15 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             restoreSizeAndLocation();
             setSelectionMode();
             selectStartDirectory();
+            model.startAutoUpdate();
         }
-
         super.setVisible(visible);
     }
 
     /**
      * Liefert, ob der Benutzer (mindestens) ein Verzeichnis auswählte.
      *
-     * @return true, wenn ein Verzeichnis ausgewählt wurde und der Dialog
-     *         nicht abgebrochen wurde
+     * @return true, wenn ein Verzeichnis ausgewählt wurde und der Dialog nicht abgebrochen wurde
      */
     public boolean isAccepted() {
         return accepted;
@@ -136,22 +134,18 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     public List<File> getSelectedDirectories() {
         List<File> files = new ArrayList<File>();
         TreePath[] paths = tree.getSelectionPaths();
-
         if (paths != null) {
             for (int index = 0; index < paths.length; index++) {
                 Object[] path = paths[index].getPath();
                 int filecount = path.length;
-
                 if ((path != null) && (filecount >= 1)) {
                     Object userObject = ((DefaultMutableTreeNode) path[filecount - 1]).getUserObject();
-
                     if (userObject instanceof File) {
                         files.add((File) userObject);
                     }
                 }
             }
         }
-
         return files;
     }
 
@@ -169,11 +163,12 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private DirectoryFilter.Option getIsShowHiddenDirsFilter() {
         return directoryFilter.contains(Option.DISPLAY_HIDDEN_DIRECTORIES)
-               ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
-               : DirectoryFilter.Option.NO_OPTION;
+                ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
+                : DirectoryFilter.Option.NO_OPTION;
     }
 
     private void cancel() {
+        model.stopAutoUpdate();
         accepted = false;
         super.setVisible(false);
     }
@@ -182,19 +177,24 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         if (tree.getSelectionCount() > 0) {
             DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
             Object userObject = selNode.getUserObject();
-
             if (userObject instanceof File) {
                 accepted = true;
+                model.stopAutoUpdate();
                 super.setVisible(false);
             } else {
-                JOptionPane
-                    .showMessageDialog(
-                    this,
-                    Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Error.NoDirectoryChosen"),
-                    Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Error.NoDirectoryChosen.Title"),
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(
+                        this,
+                        Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Error.NoDirectoryChosen"),
+                        Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Error.NoDirectoryChosen.Title"),
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    @Override
+    protected void escape() {
+        model.stopAutoUpdate();
+        super.escape();
     }
 
     private void refresh() {
@@ -205,7 +205,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         TreePath[] selPaths = tree.getSelectionPaths();
 
         model.createDirectoryIn(
-            TreeFileSystemDirectories.getNodeOfLastPathComponent(selPaths[0]));
+                TreeFileSystemDirectories.getNodeOfLastPathComponent(selPaths[0]));
     }
 
     private void renameDirectory() {
@@ -214,12 +214,10 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         for (TreePath treePath : selPaths) {
             DefaultMutableTreeNode node = TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
             File dir = (node == null)
-                       ? null
-                       : TreeFileSystemDirectories.getFile(node);
-
+                    ? null
+                    : TreeFileSystemDirectories.getFile(node);
             if (dir != null) {
                 File newDir = TreeFileSystemDirectories.rename(dir);
-
                 if (newDir != null) {
                     node.setUserObject(newDir);
                     TreeFileSystemDirectories.updateInTreeModel(model, node);
@@ -230,13 +228,11 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private void deleteDirectory() {
         TreePath[] selPaths = tree.getSelectionPaths();
-
         for (TreePath treePath : selPaths) {
             DefaultMutableTreeNode node = TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
             File dir = (node == null)
-                       ? null
-                       : TreeFileSystemDirectories.getFile(node);
-
+                    ? null
+                    : TreeFileSystemDirectories.getFile(node);
             if (dir != null) {
                 if (TreeFileSystemDirectories.delete(dir)) {
                     TreeFileSystemDirectories.removeFromTreeModel(model, node);
@@ -249,7 +245,6 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
         Object node = tree.getLastSelectedPathComponent();
         boolean allDirOptions = allDirActionsPossible();
-
         menuItemAdd.setEnabled(!isWorkspace(node));
         menuItemDelete.setEnabled(allDirOptions);
         menuItemRename.setEnabled(allDirOptions);
@@ -257,13 +252,11 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     @Override
     public void popupMenuWillBecomeInvisible(PopupMenuEvent evt) {
-
         // ignore
     }
 
     @Override
     public void popupMenuCanceled(PopupMenuEvent evt) {
-
         // ignore
     }
 
@@ -272,7 +265,6 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         Object node = tree.getLastSelectedPathComponent();
         boolean allDirActions = allDirActionsPossible();
         boolean isWorkspace = isWorkspace(node);
-
         buttonAdd.setEnabled(!isWorkspace);
         buttonChoose.setEnabled(!isWorkspace);
         buttonDelete.setEnabled(allDirActions);
@@ -281,8 +273,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private boolean allDirActionsPossible() {
         Object node = tree.getLastSelectedPathComponent();
-
-        return (node != null) &&!isWorkspace(node) &&!isRootFile(node);
+        return (node != null) && !isWorkspace(node) && !isRootFile(node);
     }
 
     private boolean isWorkspace(Object o) {
@@ -292,20 +283,16 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     private boolean isRootFile(Object o) {
         if (o instanceof DefaultMutableTreeNode) {
             return ((DefaultMutableTreeNode) o).getParent()
-                   == tree.getModel().getRoot();
+                    == tree.getModel().getRoot();
         }
-
         return false;
     }
 
     /**
-     * This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-
     private void initComponents() {//GEN-BEGIN:initComponents
 
         popupMenu = new javax.swing.JPopupMenu();

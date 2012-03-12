@@ -1,6 +1,7 @@
 package org.jphototagger.lib.swing;
 
 import java.awt.Cursor;
+import java.awt.EventQueue;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,11 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Stack;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,32 +41,25 @@ import org.jphototagger.lib.util.StringUtil;
 public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implements TreeWillExpandListener {
 
     private static final long serialVersionUID = 1L;
-    private final transient DirectoryFilter directoryFilter;
+    private static final Logger LOGGER = Logger.getLogger(AllSystemDirectoriesTreeModel.class.getName());
+    private static final long UPDATE_INTERVAL_MILLISECONDS = 2000;
+    private final DirectoryFilter directoryFilter;
     private final DefaultMutableTreeNode rootNode;
     private final JTree tree;
     private final List<File> excludeRootDirectories = new ArrayList<File>();
-    private static final Logger LOGGER = Logger.getLogger(AllSystemDirectoriesTreeModel.class.getName());
-
-    /**
-     * Constructor.
-     *
-     * @param tree tree using this model. When the tree will expand new subdirectories of the expanded node will be
-     * added
-     * @param directoryFilter filterFiles, determines which directories are displayed
-     */
-    public AllSystemDirectoriesTreeModel(JTree tree, DirectoryFilter.Option... directoryFilter) {
-        this(tree, Collections.<File>emptyList(), directoryFilter);
-    }
+    private final ScheduledExecutorService updateScheduler;
+    private volatile boolean autoupdate;
 
     public AllSystemDirectoriesTreeModel(JTree tree, Collection<? extends File> excludeRootDirectories,
-            DirectoryFilter.Option... directoryFilter) {
+            DirectoryFilter.Option... directoryFilterOption) {
         super(new SortedChildrenTreeNode("Root of TreeModelAllSystemDirectories"));
         rootNode = (DefaultMutableTreeNode) getRoot();
         this.tree = tree;
-        this.directoryFilter = new DirectoryFilter(directoryFilter);
+        this.directoryFilter = new DirectoryFilter(directoryFilterOption);
         this.excludeRootDirectories.addAll(excludeRootDirectories);
         addRootDirectories();
         listen(tree);
+        updateScheduler = Executors.newSingleThreadScheduledExecutor(threadFactory);
     }
 
     private void listen(JTree tree) {
@@ -75,11 +74,11 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
         if (roots == null) {
             return;
         }
-        List<File> existingRootDirectories = Arrays.asList(roots);
-        for (File existingRootDirectory : existingRootDirectories) {
-            boolean isExclude = excludeRootDirectories.contains(existingRootDirectory);
+        List<File> rootDirectories = Arrays.asList(roots);
+        for (File rootDirectory : rootDirectories) {
+            boolean isExclude = excludeRootDirectories.contains(rootDirectory);
             if (!isExclude) {
-                DefaultMutableTreeNode rootDirectoryNode = new SortedChildrenTreeNode(existingRootDirectory);
+                DefaultMutableTreeNode rootDirectoryNode = new SortedChildrenTreeNode(rootDirectory);
                 insertNodeInto(rootDirectoryNode, rootNode, rootNode.getChildCount());
                 addChildren(rootDirectoryNode);
             }
@@ -87,42 +86,50 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
     }
 
     private void addChildren(DefaultMutableTreeNode parentNode) {
-        Object parentNodeUserObject = parentNode.getUserObject();
-        File parentDirectory = (parentNodeUserObject instanceof File)
-                ? (File) parentNodeUserObject
+        Object userObject = parentNode.getUserObject();
+        File parentDirectory = userObject instanceof File
+                ? (File) userObject
                 : null;
         if ((parentDirectory == null) || !parentDirectory.isDirectory()) {
             return;
         }
         LOGGER.log(Level.FINEST, "Reading subdirectories of ''{0}''...", parentDirectory);
-        File[] existingSubdirectories = parentDirectory.listFiles(directoryFilter);
-        LOGGER.log(Level.FINEST, "Subdirectories of ''{0}'' have been read: {1}",
-                new Object[]{parentDirectory, StringUtil.toString(existingSubdirectories)});
-        if (existingSubdirectories == null) {
+        File[] subdirectories = parentDirectory.listFiles(directoryFilter);
+        LOGGER.log(Level.FINEST, "Subdirectories of ''{0}'' has been read: {1}",
+                new Object[]{parentDirectory, StringUtil.toString(subdirectories)});
+        if (subdirectories == null) {
             return;
         }
-        int childCount = parentNode.getChildCount();
-        List<File> parentNodeChildDirectories = new ArrayList<File>(childCount);
+        List<File> parentNodeChildDirectories = getChildDirectories(parentNode);
+        for (File subdirectory : subdirectories) {
+            if (!parentNodeChildDirectories.contains(subdirectory)) {
+                addChildDirectory(parentNode, subdirectory);
+            }
+        }
+    }
+
+    private static List<File> getChildDirectories(DefaultMutableTreeNode node) {
+        int childCount = node.getChildCount();
+        List<File> childFiles = new ArrayList<File>(childCount);
         for (int i = 0; i < childCount; i++) {
-            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) parentNode.getChildAt(i);
+            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
             Object childNodeUserObject = childNode.getUserObject();
             if (childNodeUserObject instanceof File) {
-                parentNodeChildDirectories.add((File) childNodeUserObject);
+                childFiles.add((File) childNodeUserObject);
             }
         }
-        for (int i = 0; i < existingSubdirectories.length; i++) {
-            final File existingSubdirectory = existingSubdirectories[i];
-            if (!parentNodeChildDirectories.contains(existingSubdirectory)) {
-                LOGGER.log(Level.FINEST, "Adding subdirectory ''{0}'' to node ''{1}''",
-                        new Object[]{existingSubdirectory, parentNode});
-                DefaultMutableTreeNode newChildNode = new SortedChildrenTreeNode(existingSubdirectory);
-                parentNode.add(newChildNode);
-                int newChildIndex = parentNode.getIndex(newChildNode);
-                fireTreeNodesInserted(this, parentNode.getPath(), new int[]{newChildIndex}, new Object[]{newChildNode});
-                LOGGER.log(Level.FINEST, "Subdirectory ''{0}'' has been added to node ''{1}''",
-                        new Object[]{existingSubdirectory, parentNode});
-            }
-        }
+        return childFiles;
+    }
+
+    private void addChildDirectory(DefaultMutableTreeNode parentNode, File directory) {
+        LOGGER.log(Level.FINEST, "Adding subdirectory ''{0}'' to node ''{1}''",
+                new Object[]{directory, parentNode});
+        DefaultMutableTreeNode newChildNode = new SortedChildrenTreeNode(directory);
+        parentNode.add(newChildNode);
+        int newChildIndex = parentNode.getIndex(newChildNode);
+        fireTreeNodesInserted(this, parentNode.getPath(), new int[]{newChildIndex}, new Object[]{newChildNode});
+        LOGGER.log(Level.FINEST, "Subdirectory ''{0}'' has been added to node ''{1}''",
+                new Object[]{directory, parentNode});
     }
 
     private int removeChildrenWithNotExistingFiles(DefaultMutableTreeNode parentNode) {
@@ -223,9 +230,9 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
     }
 
     private List<DefaultMutableTreeNode> getTreeRowNodes() {
-        int rows = tree.getRowCount();
-        List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(rows);
-        for (int i = 0; i < rows; i++) {
+        int rowCount = tree.getRowCount();
+        List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(rowCount);
+        for (int i = 0; i < rowCount; i++) {
             nodes.add((DefaultMutableTreeNode) tree.getPathForRow(i).getLastPathComponent());
         }
         return nodes;
@@ -254,4 +261,119 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
     public void treeWillCollapse(TreeExpansionEvent event) throws ExpandVetoException {
         // ignore
     }
+
+    /**
+     * Scans external filesystem for changes. Default: false.
+     */
+    public void startAutoUpdate() {
+        synchronized (updateScheduler) {
+            if (!autoupdate) {
+                updateScheduler.scheduleWithFixedDelay(updater, 0, UPDATE_INTERVAL_MILLISECONDS, TimeUnit.MILLISECONDS);
+                autoupdate = true;
+            }
+        }
+    }
+
+    /**
+     * Stops scan for external filesystem for changes if started.
+     */
+    public void stopAutoUpdate() {
+        synchronized (updateScheduler) {
+            if (autoupdate) {
+                updateScheduler.shutdown();
+                autoupdate = false;
+            }
+        }
+    }
+
+    private final Runnable updater = new Runnable() {
+
+        private AtomicInteger taskCount = new AtomicInteger(0);
+
+        @Override
+        public void run() {
+            if (taskCount.intValue() > 0) {
+                return;
+            }
+            addNewRoots();
+            update(getTreeRowNodes());
+        }
+
+        private void update(Collection<? extends DefaultMutableTreeNode> nodes) {
+            for (DefaultMutableTreeNode node : nodes) {
+                Object userObject = node.getUserObject();
+                if (userObject instanceof File) {
+                    File dir = (File) userObject;
+                    if (!dir.exists()) {
+                        remove(node);
+                    } else {
+                        addNewChildren(node);
+                    }
+                }
+            }
+        }
+
+        private void addNewRoots() {
+            taskCount.incrementAndGet();
+            final File[] rootFiles = File.listRoots();
+            if (rootFiles == null) {
+                taskCount.decrementAndGet();
+                return;
+            }
+            final List<File> childDirectories = getChildDirectories(rootNode);
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    for (File rootFile : rootFiles) {
+                        if (rootFile.isDirectory() && !childDirectories.contains(rootFile)) {
+                            addChildDirectory(rootNode, rootFile);
+                        }
+                    }
+                    taskCount.decrementAndGet();
+                }
+            });
+        }
+
+        private void remove(final DefaultMutableTreeNode node) {
+            taskCount.incrementAndGet();
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    removeNodeFromParent(node);
+                    taskCount.decrementAndGet();
+                }
+            });
+        }
+
+        private void addNewChildren(final DefaultMutableTreeNode node) {
+            taskCount.incrementAndGet();
+            File dir = (File) node.getUserObject();
+            final List<File> childDirectories = getChildDirectories(node);
+            final List<File> directories = FileUtil.listFiles(dir, directoryFilter);
+            EventQueue.invokeLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    for (File directory : directories) {
+                        if (directory.isDirectory() && !childDirectories.contains(directory)) {
+                            addChildDirectory(node, directory);
+                        }
+                    }
+                    taskCount.decrementAndGet();
+                }
+            });
+        }
+    };
+
+    private final ThreadFactory threadFactory = new ThreadFactory() {
+
+        @Override
+        public Thread newThread(Runnable r) {
+            Thread thread = new Thread(r);
+            thread.setName("JPhotoTagger: System Directories Tree Update");
+            return thread;
+        }
+    };
 }
