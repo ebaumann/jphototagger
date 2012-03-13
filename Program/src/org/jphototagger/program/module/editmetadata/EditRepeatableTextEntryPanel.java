@@ -402,9 +402,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         Color background = editable ? editBackground : getBackground();
         list.setBackground(background);
         textAreaInput.setBackground(background);
-        if (panelWordsets != null) {
-            panelWordsets.setEditable(editable);
-        }
     }
 
     @Override

@@ -8,6 +8,10 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Abstände der Felder im Bearbeiten-Kartenreiter vergrößern sich
   nicht mehr beim Vergrößern des Programmfensters
+* Automatische Wortzusammenstellungen können über eine Schaltfläche
+  gelöscht werden
+* Wortzusammenstellungen können auch bearbeitet werden, falls kein
+  Bild ausgewählt wurde
 
 0.24.5 2012-03-12
 -----------------
