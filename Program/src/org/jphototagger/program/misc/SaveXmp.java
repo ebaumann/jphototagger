@@ -77,6 +77,7 @@ public final class SaveXmp extends Thread implements Cancelable {
             fileIndex++;
             progressHandle.progressPerformed(createProgressEvent(fileIndex));
         }
+        progressHandle.progressEnded();
         AppLifeCycle.INSTANCE.removeSaveObject(this);
     }
 
