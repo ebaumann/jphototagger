@@ -156,6 +156,10 @@ public class WordsetsPanel extends javax.swing.JPanel {
         Container parent = getParent();
         if (parent != null) {
             ComponentUtil.forceRepaint(parent);
+            parent = parent.getParent();
+            if (parent != null) {
+                ComponentUtil.forceRepaint(parent);
+            }
         }
     }
 
@@ -163,7 +167,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-        if (editable && StringUtil.hasContent(word) && !automaticWordset.containsWord(word)) {
+        if (StringUtil.hasContent(word) && !automaticWordset.containsWord(word)) {
             automaticWordset.addToWords(word);
             String oldestWord = getOldestAutomaticWordsetWord();
             addToAutomaticWordsetRingBuffer(word);
@@ -171,6 +175,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
                 automaticWordset.removeFromWords(oldestWord);
             }
             setWordsOfSelectedWordsetName();
+            buttonEraseAutomaticWords.setEnabled(true);
         }
     }
 
@@ -282,6 +287,21 @@ public class WordsetsPanel extends javax.swing.JPanel {
         }
     }
 
+    private void resetAutomaticWordset() {
+        if (isAutomaticWordsetSelected()) {
+            int persistedWordCount = automaticWordset.getWordCount();
+            automaticWordset.clear();
+            initAutomaticAddedWordsRingbuffer();
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            for (int i = 0; i < persistedWordCount; i++) {
+                String key = createAutomaticWordsetPersistenceKey(i);
+                prefs.removeKey(key);
+            }
+            setWordsOfSelectedWordsetName();
+            buttonEraseAutomaticWords.setEnabled(false);
+        }
+    }
+
     public void addWordsetsPanelListener(WordsetsPanelListener listener) {
         listenerSupport.add(listener);
     }
@@ -296,17 +316,19 @@ public class WordsetsPanel extends javax.swing.JPanel {
             listener.wordClicked(word);
         }
     }
+
     private final MouseListener wordClickedListener = new MouseAdapter() {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (editable && MouseEventUtil.isLeftClick(e)) {
+            if (MouseEventUtil.isLeftClick(e)) {
                 JLabel label = (JLabel) e.getSource();
                 String word = label.getText();
                 notifyWordClicked(word);
             }
         }
     };
+
     private final ListCellRenderer wordsetNamesComboBoxRenderer = new DefaultListCellRenderer() {
 
         private static final long serialVersionUID = 1L;
@@ -322,26 +344,12 @@ public class WordsetsPanel extends javax.swing.JPanel {
         }
     };
 
-    public void setEditable(boolean editable) {
-        this.editable = editable;
-        comboBoxWordsetNames.setEnabled(editable);
-        setButtonsEnabled();
-        List<JLabel> labels = ComponentUtil.getAllOf(this, JLabel.class);
-        for (JLabel label : labels) {
-            label.setOpaque(editable);
-        }
-        ComponentUtil.forceRepaint(this);
-    }
-
     private void setButtonsEnabled() {
         boolean automaticWordsetSelected = isAutomaticWordsetSelected();
-        buttonAddWordset.setEnabled(editable);
-        buttonEditWordset.setEnabled(editable && !automaticWordsetSelected);
-        buttonRemoveWordset.setEnabled(editable && !automaticWordsetSelected);
-    }
-
-    public boolean isEditable() {
-        return editable;
+        buttonAddWordset.setEnabled(true);
+        buttonEditWordset.setEnabled(!automaticWordsetSelected);
+        buttonRemoveWordset.setEnabled(!automaticWordsetSelected);
+        buttonEraseAutomaticWords.setEnabled(automaticWordsetSelected && !automaticWordset.isEmpty());
     }
 
     /**
@@ -355,8 +363,9 @@ public class WordsetsPanel extends javax.swing.JPanel {
         panelWordsets = new javax.swing.JPanel();
         comboBoxWordsetNames = new javax.swing.JComboBox();
         buttonRemoveWordset = new javax.swing.JButton();
-        buttonAddWordset = new javax.swing.JButton();
         buttonEditWordset = new javax.swing.JButton();
+        buttonAddWordset = new javax.swing.JButton();
+        buttonEraseAutomaticWords = new javax.swing.JButton();
         panelWords = new javax.swing.JPanel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/wordsets/Bundle"); // NOI18N
@@ -391,6 +400,20 @@ public class WordsetsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelWordsets.add(buttonRemoveWordset, gridBagConstraints);
 
+        buttonEditWordset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/wordsets/edit.png"))); // NOI18N
+        buttonEditWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonEditWordset.toolTipText")); // NOI18N
+        buttonEditWordset.setFocusable(false);
+        buttonEditWordset.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonEditWordset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditWordsetActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelWordsets.add(buttonEditWordset, gridBagConstraints);
+
         buttonAddWordset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/wordsets/add.png"))); // NOI18N
         buttonAddWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonAddWordset.toolTipText")); // NOI18N
         buttonAddWordset.setFocusable(false);
@@ -405,20 +428,20 @@ public class WordsetsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelWordsets.add(buttonAddWordset, gridBagConstraints);
 
-        buttonEditWordset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/wordsets/edit.png"))); // NOI18N
-        buttonEditWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonEditWordset.toolTipText")); // NOI18N
-        buttonEditWordset.setFocusable(false);
-        buttonEditWordset.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonEditWordset.addActionListener(new java.awt.event.ActionListener() {
+        buttonEraseAutomaticWords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/wordsets/erase.png"))); // NOI18N
+        buttonEraseAutomaticWords.setToolTipText(bundle.getString("WordsetsPanel.buttonEraseAutomaticWords.toolTipText")); // NOI18N
+        buttonEraseAutomaticWords.setFocusable(false);
+        buttonEraseAutomaticWords.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonEraseAutomaticWords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonEditWordsetActionPerformed(evt);
+                buttonEraseAutomaticWordsActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelWordsets.add(buttonEditWordset, gridBagConstraints);
+        panelWordsets.add(buttonEraseAutomaticWords, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -454,9 +477,14 @@ public class WordsetsPanel extends javax.swing.JPanel {
     private void buttonEditWordsetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditWordsetActionPerformed
         editSelectedWordset();
     }//GEN-LAST:event_buttonEditWordsetActionPerformed
+
+    private void buttonEraseAutomaticWordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEraseAutomaticWordsActionPerformed
+        resetAutomaticWordset();
+    }//GEN-LAST:event_buttonEraseAutomaticWordsActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddWordset;
     private javax.swing.JButton buttonEditWordset;
+    private javax.swing.JButton buttonEraseAutomaticWords;
     private javax.swing.JButton buttonRemoveWordset;
     private javax.swing.JComboBox comboBoxWordsetNames;
     private javax.swing.JPanel panelWords;

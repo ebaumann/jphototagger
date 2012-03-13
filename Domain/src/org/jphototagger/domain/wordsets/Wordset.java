@@ -146,6 +146,11 @@ public final class Wordset {
         return false;
     }
 
+    public void clear() {
+        words.clear();
+        propertyChangeSupport.firePropertyChange("words", null, this.words);
+    }
+
     public boolean containsWord(String word) {
         if (word == null) {
             throw new NullPointerException("word == null");
@@ -155,6 +160,10 @@ public final class Wordset {
 
     public int getWordCount() {
         return words.size();
+    }
+
+    public boolean isEmpty() {
+        return words.isEmpty();
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

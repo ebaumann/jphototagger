@@ -8,6 +8,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Edit register: Distances between input fields don't grow if
   the program window gets larger
+* Automatic word collection can be cleared via clear button
+* Word collections can be edited even if no image is selected
 
 0.24.5 2012-03-12
 -----------------
