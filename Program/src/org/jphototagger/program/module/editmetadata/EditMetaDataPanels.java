@@ -783,13 +783,16 @@ final class EditMetaDataPanels implements FocusListener {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 10, 0, 10);
         gbc.weightx = 1;
-        gbc.weighty = 1.0 / ((double) textEntries.size() + 1.0);
         return gbc;
     }
 
     private void addActionPanel() {
         GridBagConstraints gbc = createGridBagConstraints();
         gbc.gridheight = GridBagConstraints.REMAINDER;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.anchor = GridBagConstraints.NORTHWEST;
         parentContainer.add(editMetadataActionsPanel, gbc);
         editMetadataActionsPanel.tabbedPane.addFocusListener(this);
     }
