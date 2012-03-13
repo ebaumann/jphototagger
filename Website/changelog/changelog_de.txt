@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.6 2012-03-13
+-----------------
+
+* Abstände der Felder im Bearbeiten-Kartenreiter vergrößern sich
+  nicht mehr beim Vergrößern des Programmfensters
+
 0.24.5 2012-03-12
 -----------------
 

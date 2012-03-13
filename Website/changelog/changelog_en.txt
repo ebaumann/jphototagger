@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.6 2012-03-13
+-----------------
+
+* Edit register: Distances between input fields don't grow if
+  the program window gets larger
+
 0.24.5 2012-03-12
 -----------------
 
