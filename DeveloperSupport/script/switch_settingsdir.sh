@@ -19,32 +19,17 @@ function create_link() {
     ln -s ${settings_dir} ${LINK}
 }
 
-function copy_test_images() {
-    delete_test_images
-    mkdir -p ${TEST_IMG_TARGET} \
-    && \
-    cp --preserve=timestamps ${TEST_IMG_SRC}/*.[Jj][Pp][Gg] \
-        ${TEST_IMG_SRC}/*.[Nn][Ee][Ff] \
-        ${TEST_IMG_SRC}/*.[Tt][Ii][Ff] \
-        ${TEST_IMG_SRC}/*.[Xx][Mm][Pp] \
-        ${TEST_IMG_TARGET} \
-    && \
-    chmod +w ${TEST_IMG_TARGET}/*
-}
-
 function switch_to_pristine_settings() {
     echo "Switching to pristine settings..."
     rm -rf ${PRISTINE_DIR}
     mkdir -p ${PRISTINE_DIR}
     check_exists_dir ${PRISTINE_DIR}
-    copy_test_images
     create_link ${PRISTINE_DIR}
 }
 
 function switch_to_test_settings() {
     echo "Switching to test settings..."
     check_exists_dir ${TEST_DIR}
-    copy_test_images
     create_link ${TEST_DIR}
 }
 
@@ -53,11 +38,6 @@ function switch_to_working_settings() {
     check_exists_dir ${WORKING_DIR}
     create_link ${WORKING_DIR}
 }
-
-function delete_test_images() {
-    rm -rf ${TEST_IMG_TARGET}
-}
-
 
 function usage() {
 cat << EOF
@@ -81,7 +61,7 @@ fi
 while getopts "ptw" opt
 do
     case $opt in
-        p) 
+        p)
             switch_to_pristine_settings
             exit 0
         ;;

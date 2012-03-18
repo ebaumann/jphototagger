@@ -70,4 +70,9 @@
             <arg value="find_missing_bundle_strings.sh"/>
         </exec>
     </target>
+    <target name="copy-test-images" description="Copying test images">
+        <exec executable="bash">
+            <arg value="copy_test_images.sh"/>
+        </exec>
+    </target>
 </project>
