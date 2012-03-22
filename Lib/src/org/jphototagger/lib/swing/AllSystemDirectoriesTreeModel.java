@@ -286,6 +286,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
         }
     }
 
+    // FIXME Use the WatchService API when switching to Java 7
     private final Runnable updater = new Runnable() {
 
         private AtomicInteger taskCount = new AtomicInteger(0);
