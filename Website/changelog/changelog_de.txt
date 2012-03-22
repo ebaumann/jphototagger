@@ -3,6 +3,16 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.7 2012-03-22
+-----------------
+
+* Bugfix: Bearbeiten > Suchen (F3) > Einfaches SQL:
+  Mehrfache Joins der File- zur XMP-Tabelle eliminiert (Performance)
+* Bugfix: Bearbeiten > Suchen (F3) > Einfaches SQL:
+  Feld für Objektiv akzeptiert Eingaben
+* Doppelklick auf eine Suche im Suchen-Register öffnet den
+  Dialog für erweiterte Suchen mit dieser Suche
+
 0.24.6 2012-03-13
 -----------------
 

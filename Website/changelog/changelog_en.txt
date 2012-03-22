@@ -3,6 +3,16 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.7 2012-03-22
+-----------------
+
+* Bugfix: Edit > Search (F3) > Simple SQL:
+  Eliminated multiple Joins from the File to the XMP table (Performance)
+* Bugfix: Edit > Search (F3) > Simple SQL:
+  Lens field accepts input
+* Double click on search within the search register opens the advanced
+  search dialog with that search
+
 0.24.6 2012-03-13
 -----------------
 
