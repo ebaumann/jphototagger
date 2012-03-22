@@ -17,6 +17,7 @@ public final class ExifLensMetaDataValue extends MetaDataValue {
 
     private ExifLensMetaDataValue() {
         super("lens", "exif_lenses", ValueType.STRING);
+        setValueLength(125);
         setDescription(Bundle.getString(ExifLensMetaDataValue.class, "ExifLensMetaDataValue.Description"));
     }
 }
