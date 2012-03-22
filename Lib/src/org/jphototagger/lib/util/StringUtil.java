@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Utils for strings.
@@ -23,12 +25,11 @@ public final class StringUtil {
     private static final String WORD_DELIMITER = " \t\n\r";
 
     /**
-     * Calls {@code #wrapWords(java.lang.String, int, java.lang.String)} with
-     * predefined word delimiter.
+     * Calls {@code #wrapWords(java.lang.String, int, java.lang.String)} with predefined word delimiter.
      *
-     * @param text            text
+     * @param text text
      * @param maxCharsPerLine maximum characters per line
-     * @return                lines
+     * @return lines
      */
     public static List<String> wrapWords(String text, int maxCharsPerLine) {
         if (text == null) {
@@ -43,16 +44,14 @@ public final class StringUtil {
     }
 
     /**
-     * Wraps text into lines where a line has a maximum number of chars. After
-     * wrapping leading word delimiters will not be removed, only one delimiter
-     * per line will be removed.
+     * Wraps text into lines where a line has a maximum number of chars. After wrapping leading word delimiters will not
+     * be removed, only one delimiter per line will be removed.
      *
-     * @param text            text
+     * @param text text
      * @param maxCharsPerLine maximum numbers per line
-     * @param wordDelimiter   characters where lines shall be breaked. Only if
-     *                        that is not possible words will be cutted and
-     *                        continued at the next line
-     * @return                lines
+     * @param wordDelimiter characters where lines shall be breaked. Only if that is not possible words will be cutted
+     * and continued at the next line
+     * @return lines
      */
     public static List<String> wrapWords(String text, int maxCharsPerLine, String wordDelimiter) {
         if (text == null) {
@@ -74,7 +73,7 @@ public final class StringUtil {
         List<String> lines = new ArrayList<String>();
         int textLength = text.length();
         int lineBeginIndex = 0;
-        int lineEndIndex = 0;
+        int lineEndIndex;
         int currentLineBreakCharIndex = 0;
         int prevLineBreakCharIndex = 0;
         int index = 0;
@@ -171,15 +170,14 @@ public final class StringUtil {
     }
 
     /**
-     * Returns a to its last characters shortened string with dots as prefix
-     * instead of the string content.
+     * Returns a to its last characters shortened string with dots as prefix instead of the string content.
      *
-     * @param s         string
+     * @param s string
      * @param maxLength maximum length of the string included the dots
-     * @return          shortened string or the string itself if it's length
-     *                  is less or equal to <code>maxLength</code>
-     * @throws          NullPointerException if s is null
-     * @throws          IllegalArgumentException if maxLength is less than 3
+     * @return shortened string or the string itself if it's length is less or equal to
+     * <code>maxLength</code>
+     * @throws NullPointerException if s is null
+     * @throws IllegalArgumentException if maxLength is less than 3
      */
     public static String getPrefixDotted(String s, int maxLength) {
         if (s == null) {
@@ -248,8 +246,8 @@ public final class StringUtil {
     /**
      * Reads the input stream into a string and finally closes the input stream.
      *
-     * @param  is          input stream
-     * @param  charsetName encoding of the characters in the stream
+     * @param is input stream
+     * @param charsetName encoding of the characters in the stream
      * @return s
      * @throws IOException
      */
@@ -280,8 +278,8 @@ public final class StringUtil {
 
     /**
      *
-     * @param  string Can be null
-     * @return        true, if the string is not null and not empty if trimmed
+     * @param string Can be null
+     * @return true, if the string is not null and not empty if trimmed
      */
     public static boolean hasContent(String string) {
         return string != null && !string.trim().isEmpty();
@@ -332,6 +330,53 @@ public final class StringUtil {
             sb.append(string);
         }
         return sb.toString();
+    }
+
+    public static int getSubstringCount(String string, String substringRegex) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+        if (substringRegex == null) {
+            throw new NullPointerException("substringRegex == null");
+        }
+        if (substringRegex.isEmpty()) {
+            return 0;
+        }
+        Pattern pattern = Pattern.compile(substringRegex);
+        Matcher matcher = pattern.matcher(string);
+        int count = 0;
+        while (matcher.find()) {
+            count++;
+        }
+        return count;
+    }
+
+    /**
+     * @param string
+     * @param toRemove
+     * @return String without the last occurence of toRemove
+     */
+    public static String removeLast(String string, String toRemove) {
+        if (string == null) {
+            throw new NullPointerException("string == null");
+        }
+        if (toRemove == null) {
+            throw new NullPointerException("toRemove == null");
+        }
+        if (toRemove.isEmpty()) {
+            return string;
+        }
+        int lastIndex = string.lastIndexOf(toRemove);
+        if (lastIndex < 0) {
+            return string;
+        }
+        int toRemoveLength = toRemove.length();
+        int stringLength = string.length();
+        String begin = string.substring(0, lastIndex + 1);
+        String end = lastIndex + toRemoveLength >= stringLength
+                ? ""
+                : string.substring(lastIndex + toRemoveLength, stringLength);
+        return begin + end;
     }
 
     private StringUtil() {

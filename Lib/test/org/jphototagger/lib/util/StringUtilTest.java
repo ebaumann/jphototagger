@@ -96,4 +96,48 @@ public class StringUtilTest {
         result = StringUtil.getNTimesRepeated("abc", 3);
         assertEquals("abcabcabc", result);
     }
+
+    @Test
+    public void testGetSubstringCount() {
+        String string = "";
+        String substringRegex = "";
+        int count = StringUtil.getSubstringCount(string, substringRegex);
+        assertEquals(0, count);
+        substringRegex = "bla";
+        count = StringUtil.getSubstringCount(string, substringRegex);
+        assertEquals(0, count);
+        string = substringRegex;
+        count = StringUtil.getSubstringCount(string, substringRegex);
+        assertEquals(1, count);
+        string = substringRegex + " " + substringRegex;
+        count = StringUtil.getSubstringCount(string, substringRegex);
+        assertEquals(2, count);
+        string = substringRegex + substringRegex + substringRegex;
+        count = StringUtil.getSubstringCount(string, substringRegex);
+        assertEquals(3, count);
+        substringRegex = "Multiple words here ";
+        string = substringRegex + "abc" + substringRegex + substringRegex + " " + substringRegex;
+        count = StringUtil.getSubstringCount(string, substringRegex);
+        assertEquals(4, count);
+        string = "blubb";
+        count = StringUtil.getSubstringCount(string, substringRegex);
+        assertEquals(0, count);
+}
+
+    public void testRemoveLastOf() {
+        String newString = StringUtil.removeLast("", "");
+        assertEquals("", newString);
+        newString = StringUtil.removeLast("", "bla");
+        assertEquals("", newString);
+        newString = StringUtil.removeLast("bla", "");
+        assertEquals("bla", newString);
+        newString = StringUtil.removeLast("bla", "bla");
+        assertEquals("", newString);
+        newString = StringUtil.removeLast("bla bla bla", "bla bla");
+        assertEquals("bla ", newString);
+        newString = StringUtil.removeLast("xyz", "bla bla");
+        assertEquals("xyz", newString);
+        newString = StringUtil.removeLast("xyz bla xyz", "bla");
+        assertEquals("xyz  xyz", newString);
+    }
 }
