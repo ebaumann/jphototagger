@@ -4,11 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import org.jdesktop.swingx.JXList;
 
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.resource.GUI;
 
@@ -23,7 +27,9 @@ public final class EditSavedSearchController implements ActionListener, KeyListe
 
     private void listen() {
         SavedSearchesPopupMenu.INSTANCE.getItemEdit().addActionListener(this);
-        GUI.getSavedSearchesList().addKeyListener(this);
+        JXList savedSearchesList = GUI.getSavedSearchesList();
+        savedSearchesList.addKeyListener(this);
+        savedSearchesList.addMouseListener(mouseListener);
     }
 
     @Override
@@ -32,7 +38,6 @@ public final class EditSavedSearchController implements ActionListener, KeyListe
 
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_E) && !list.isSelectionEmpty()) {
             Object value = list.getSelectedValue();
-
             if (value instanceof SavedSearch) {
                 showAdvancedSearchDialog((SavedSearch) value);
             }
@@ -58,4 +63,26 @@ public final class EditSavedSearchController implements ActionListener, KeyListe
     public void keyReleased(KeyEvent evt) {
         // ignore
     }
+
+    private MouseListener mouseListener = new MouseAdapter() {
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (MouseEventUtil.isDoubleClick(e)) {
+                Object source = e.getSource();
+                if (!(source instanceof JXList)) {
+                    return;
+                }
+                JXList list = (JXList) source;
+                int index = list.locationToIndex(e.getPoint());
+                if (index >= 0) {
+                    Object element = list.getElementAt(index);
+                    if (!(element instanceof SavedSearch)) {
+                        return;
+                    }
+                    showAdvancedSearchDialog((SavedSearch) element);
+                }
+            }
+        }
+    };
 }
