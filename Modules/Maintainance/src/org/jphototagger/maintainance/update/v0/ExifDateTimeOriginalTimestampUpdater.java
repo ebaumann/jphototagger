@@ -1,5 +1,8 @@
 package org.jphototagger.maintainance.update.v0;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -7,9 +10,6 @@ import org.jphototagger.api.applifecycle.AppUpdater;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.util.ComponentUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.maintainance.RefreshExifOfKnownFilesInRepository;
 
 /**
@@ -27,9 +27,8 @@ public final class ExifDateTimeOriginalTimestampUpdater implements AppUpdater, P
         if (repo.existsKey(KEY_UPDATED)) {
             return;
         }
-
-        String message = Bundle.getString(ExifDateTimeOriginalTimestampUpdater.class, "ExifDateTimeOriginalTimestampUpdater.Info");
-        MessageDisplayer.information(ComponentUtil.findFrameWithIcon(), message);
+        Logger.getLogger(ExifDateTimeOriginalTimestampUpdater.class.getName()).log(Level.INFO,
+                "Updating database for all known images with the EXIF time of day");
         refreshExifTask.addProgressListener(this);
         refreshExifTask.start();
     }
