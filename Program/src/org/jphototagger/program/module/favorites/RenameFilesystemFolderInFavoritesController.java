@@ -9,6 +9,9 @@ import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import org.bushe.swing.event.EventBus;
+
+import org.jphototagger.api.file.event.DirectoryRenamedEvent;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
@@ -41,10 +44,8 @@ public final class RenameFilesystemFolderInFavoritesController implements Action
     @Override
     public void keyPressed(KeyEvent evt) {
         JTree tree = GUI.getFavoritesTree();
-
         if (isRename(evt) && !tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
-
             if (node instanceof DefaultMutableTreeNode) {
                 renameDirectory((DefaultMutableTreeNode) node);
             }
@@ -68,30 +69,26 @@ public final class RenameFilesystemFolderInFavoritesController implements Action
     }
 
     private void renameDirectory(DefaultMutableTreeNode node) {
-        File dir = getFile(node);
-
-        if (dir != null) {
-            File newDir = FileSystemDirectories.rename(dir);
-
+        File oldDir = getFile(node);
+        if (oldDir != null) {
+            File newDir = FileSystemDirectories.rename(oldDir);
             if (newDir != null) {
                 FavoritesTreeModel model = ModelFactory.INSTANCE.getModel(FavoritesTreeModel.class);
-
                 node.setUserObject(newDir);
                 TreeFileSystemDirectories.updateInTreeModel(model, node);
                 ControllerFactory.INSTANCE.getController(RefreshFavoritesController.class).refresh();
+                EventBus.publish(new DirectoryRenamedEvent(this, oldDir, newDir));
             }
         }
     }
 
     private File getFile(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
-
         if (userObject instanceof File) {
             return (File) userObject;
         } else if (userObject instanceof Favorite) {
             return ((Favorite) userObject).getDirectory();
         }
-
         return null;
     }
 

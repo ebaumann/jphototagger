@@ -42,6 +42,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
+import org.jphototagger.api.file.event.DirectoryRenamedEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
@@ -1470,5 +1471,26 @@ public class ThumbnailsPanel extends JPanel
         boolean requested = super.requestFocusInWindow();
         repaint(); // Border
         return requested;
+    }
+
+    @EventSubscriber(eventClass=DirectoryRenamedEvent.class)
+    public void directoryRenamed(DirectoryRenamedEvent evt) {
+        if (originOfOfDisplayedThumbnails.isInSameFileSystemDirectory() && !isEmpty()) {
+            synchronized (this) {
+                File thisDirectory = files.get(0).getParentFile();
+                File oldDirectory = evt.getOldName();
+                File newDirectory = evt.getNewName();
+                if (!ObjectUtil.equals(thisDirectory, oldDirectory) || newDirectory == null) {
+                    return;
+                }
+                List<File> newFiles = new ArrayList<File>(files.size());
+                String newDirectoryPath = newDirectory.getAbsolutePath();
+                for (File file : files) {
+                    File newFile = new File(newDirectoryPath + File.separator + file.getName());
+                    newFiles.add(newFile);
+                }
+                setFiles(newFiles, originOfOfDisplayedThumbnails);
+            }
+        }
     }
 }
