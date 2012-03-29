@@ -1,11 +1,15 @@
 package org.jphototagger.repositoryfilebrowser;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.ListModel;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -18,6 +22,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.lookup.NodesListModel;
 import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.BusyPanel;
@@ -115,15 +120,13 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         @Override
         protected void done() {
             panelListInfo.remove(progressBarGetFiles);
-            listFiles.setModel(nodesListModel);
             updateFileCountLabel();
             busyPanel.setVisible(false);
         }
     }
 
     private void updateFileCountLabel() {
-        ListModel model = listFiles.getModel();
-        int fileCount = model.getSize();
+        int fileCount = nodesListModel.getSize();
         labelFileCount.setText(Integer.toString(fileCount));
         ComponentUtil.forceRepaint(labelFileCount);
     }
@@ -148,6 +151,22 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         prefs.setSize(RepositoryFileBrowserDialog.class.getName(), this);
         prefs.setLocation(RepositoryFileBrowserDialog.class.getName(), this);
+    }
+
+    private static class FileNodeListCellRenderer extends DefaultListCellRenderer {
+        public static final ImageIcon ICON = IconUtil.getImageIcon(FileNodeListCellRenderer.class, "icon_file.png");
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            if (value instanceof FileNode) {
+                FileNode fileNode = (FileNode) value;
+                setText(fileNode.getDisplayName());
+                setIcon(ICON);
+            }
+            return label;
+        }
     }
 
     /** This method is called from within the constructor to
@@ -246,12 +265,12 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         scrollPaneFiles.setName("scrollPaneFiles"); // NOI18N
         scrollPaneFiles.setPreferredSize(new java.awt.Dimension(400, 131));
 
+        listFiles.setModel(nodesListModel);
         listFiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listFiles.setAutoCreateRowSorter(true);
-        listFiles.setCellRenderer(new org.jphototagger.lib.lookup.NodesListCellRenderer());
+        listFiles.setCellRenderer(new FileNodeListCellRenderer());
         listFiles.setComparator(org.jphototagger.repositoryfilebrowser.FileNodeAscendingComparator.INSTANCE);
         listFiles.setName("listFiles"); // NOI18N
-        listFiles.setSortOrder(javax.swing.SortOrder.ASCENDING);
         scrollPaneFiles.setViewportView(listFiles);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

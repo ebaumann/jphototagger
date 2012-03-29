@@ -5,18 +5,15 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import org.jphototagger.lib.nodes.AbstractNode;
-import org.jphototagger.lib.swing.IconUtil;
 
 /**
  * @author Elmar Baumann
  */
 public final class FileNode extends AbstractNode {
 
-    public static final ImageIcon SMALL_ICON = IconUtil.getImageIcon(FileNode.class, "icon_file.png");
+    private static final MessageFormat DISPLAY_NAME_FORMAT = new MessageFormat("{0} [{1}]");
+    private static final MessageFormat HTML_DISPLAY_NAME_FORMAT = new MessageFormat(createHtmlDisplayNamePattern());
     private final File file;
 
     public FileNode(File file) {
@@ -42,23 +39,24 @@ public final class FileNode extends AbstractNode {
     }
 
     @Override
-    public Icon getSmallIcon() {
-        return SMALL_ICON;
-    }
-
-    @Override
     public String getDisplayName() {
-        String pattern = "{0} [{1}]";
-
-        return MessageFormat.format(pattern, file.getName(), file.getAbsolutePath());
+        return DISPLAY_NAME_FORMAT.format(new Object[]{file.getName(), file.getAbsolutePath()});
     }
 
     @Override
     public String getHtmlDisplayName() {
-        StringBuilder pattern = new StringBuilder("<html>");
+        return HTML_DISPLAY_NAME_FORMAT.format(new Object[]{file.getName(), file.getAbsolutePath()});
+    }
 
-        pattern.append("<span style=\"background-color:#EAF5FF\">").append("{0}").append("</span>").append("&nbsp;&nbsp;&nbsp;").append("[{1}]").append("</html>");
-
-        return MessageFormat.format(pattern.toString(), file.getName(), file.getAbsolutePath());
+    private static String createHtmlDisplayNamePattern() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html>")
+                .append("<b>")
+                .append("{0}")
+                .append("</b>")
+                .append("&nbsp;&nbsp;&nbsp;")
+                .append("[{1}]")
+                .append("</html>");
+        return sb.toString();
     }
 }
