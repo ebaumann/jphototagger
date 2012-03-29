@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -48,6 +49,8 @@ public interface ImageFilesRepository {
     Set<String> findAllDistinctMetaDataValues(MetaDataValue value);
 
     List<File> findAllImageFiles();
+
+    void eachImage(Functor<File> functor);
 
     Set<File> findAllThumbnailFiles();
 

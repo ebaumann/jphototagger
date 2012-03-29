@@ -141,7 +141,7 @@ final class ImageCollectionsDatabase extends Database {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                imageFiles.add(getFile(rs.getString(1)));
+                imageFiles.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);

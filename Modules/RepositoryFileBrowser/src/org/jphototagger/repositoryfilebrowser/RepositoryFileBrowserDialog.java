@@ -3,7 +3,6 @@ package org.jphototagger.repositoryfilebrowser;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.util.Collection;
 import java.util.List;
 
 import javax.swing.ListModel;
@@ -13,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -51,7 +51,6 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
     private void initFileFilter() {
         listTextFilter = new ListTextFilter(listFiles);
-
         listTextFilter.filterOnActionPerformed(buttonApplyFilter, textFieldFilter.getDocument());
     }
 
@@ -87,7 +86,6 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
     private void insertImageFiles() {
         LookupImageFilesSwingWorker task = new LookupImageFilesSwingWorker();
-
         task.execute();
     }
 
@@ -96,12 +94,15 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         @Override
         protected Void doInBackground() throws Exception {
             ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
-            Collection<? extends File> imageFiles = repo.findAllImageFiles();
 
-            for (File imageFile : imageFiles) {
-                FileNode node = new FileNode(imageFile);
-                publish(node);
-            }
+            repo.eachImage(new Functor<File>() {
+
+                @Override
+                public void execute(File file) {
+                    FileNode node = new FileNode(file);
+                    publish(node);
+                }
+            });
 
             return null;
         }
@@ -123,7 +124,6 @@ public final class RepositoryFileBrowserDialog extends Dialog {
     private void updateFileCountLabel() {
         ListModel model = listFiles.getModel();
         int fileCount = model.getSize();
-
         labelFileCount.setText(Integer.toString(fileCount));
         ComponentUtil.forceRepaint(labelFileCount);
     }
@@ -133,7 +133,6 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         if (visible) {
             insertImageFiles();
         }
-
         super.setVisible(visible);
     }
 

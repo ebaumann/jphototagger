@@ -221,7 +221,7 @@ final class FavoritesDatabase extends Database {
 
                 favorite.setId(rs.getLong(1));
                 favorite.setName(rs.getString(2));
-                favorite.setDirectory(getFile(rs.getString(3)));
+                favorite.setDirectory(createFile(rs.getString(3)));
                 favorite.setIndex(rs.getInt(4));
                 favorites.add(favorite);
             }
@@ -254,7 +254,7 @@ final class FavoritesDatabase extends Database {
                 favorite = new Favorite();
                 favorite.setId(rs.getLong(1));
                 favorite.setName(rs.getString(2));
-                favorite.setDirectory(getFile(rs.getString(3)));
+                favorite.setDirectory(createFile(rs.getString(3)));
                 favorite.setIndex(rs.getInt(4));
             }
         } catch (Exception ex) {
@@ -285,7 +285,7 @@ final class FavoritesDatabase extends Database {
                 favorite = new Favorite();
                 favorite.setId(rs.getLong(1));
                 favorite.setName(rs.getString(2));
-                favorite.setDirectory(getFile(rs.getString(3)));
+                favorite.setDirectory(createFile(rs.getString(3)));
                 favorite.setIndex(rs.getInt(4));
             }
         } catch (Exception ex) {

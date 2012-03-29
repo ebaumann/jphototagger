@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.openide.util.lookup.ServiceProvider;
 
+import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -27,6 +28,11 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     @Override
     public List<File> findAllImageFiles() {
         return ImageFilesDatabase.INSTANCE.getAllImageFiles();
+    }
+
+    @Override
+    public void eachImage(Functor<File> functor) {
+        ImageFilesDatabase.INSTANCE.eachImage(functor);
     }
 
     @Override
