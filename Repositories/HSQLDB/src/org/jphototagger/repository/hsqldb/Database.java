@@ -29,14 +29,11 @@ public class Database {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
-
         if (sql == null) {
             throw new NullPointerException("sql == null");
         }
-
         Statement stmt = null;
         boolean isResultSet = false;
-
         try {
             stmt = con.createStatement();
             LOGGER.log(Level.FINER, sql);
@@ -48,37 +45,20 @@ public class Database {
                 stmt.close();
             }
         }
-
         return isResultSet;
     }
 
-    /**
-     * Returns the path of file as it will be stored into the database.
-     * <p>
-     * This maybe differend from {@code File#getAbsolutePath()}.
-     *
-     * @param  file file
-     * @return      path as stored in the database
-     */
     public static String getFilePath(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         return file.getAbsolutePath();
     }
 
-    /**
-     * Returns a file from a file path as stored into the database.
-     *
-     * @param  filePath path as returned from {@code #getFilePath(File)}
-     * @return file
-     */
-    public static File getFile(String filePath) {
+    public static File createFile(String filePath) {
         if (filePath == null) {
             throw new NullPointerException("filePath == null");
         }
-
         return new File(filePath);
     }
 
@@ -102,7 +82,6 @@ public class Database {
         if (con == null) {
             return;
         }
-
         try {
             ConnectionPool.INSTANCE.free(con);
         } catch (Exception ex) {
@@ -114,7 +93,6 @@ public class Database {
         if (stmt == null) {
             return;
         }
-
         try {
             stmt.close();
         } catch (SQLException ex) {
@@ -126,7 +104,6 @@ public class Database {
         if (stmt == null) {
             return;
         }
-
         try {
             stmt.close();
         } catch (SQLException ex) {
@@ -139,7 +116,6 @@ public class Database {
             if (rs != null) {
                 rs.close();
             }
-
             if (stmt != null) {
                 stmt.close();
             }
@@ -153,7 +129,6 @@ public class Database {
             if (rs != null) {
                 rs.close();
             }
-
             if (stmt != null) {
                 stmt.close();
             }
@@ -172,7 +147,6 @@ public class Database {
         if (con == null) {
             return;
         }
-
         try {
             con.rollback();
         } catch (Exception ex) {
@@ -184,31 +158,24 @@ public class Database {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
-
         if (tablename == null) {
             throw new NullPointerException("tablename == null");
         }
-
         if (columnName == null) {
             throw new NullPointerException("columnName == null");
         }
-
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Long id = null;
-
         if (value == null) {
             return null;
         }
-
         try {
             String sql = "SELECT id FROM " + tablename + " WHERE " + columnName + " = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, value);
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
@@ -223,29 +190,23 @@ public class Database {
         if (tablename == null) {
             throw new NullPointerException("tablename == null");
         }
-
         if (columnName == null) {
             throw new NullPointerException("columnName == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Long id = null;
-
         if (value == null) {
             return null;
         }
-
         try {
             String sql = "SELECT id FROM " + tablename + " WHERE " + columnName + " = ?";
-
             con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, value);
             logFinest(stmt);
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
@@ -253,7 +214,6 @@ public class Database {
             close(rs, stmt);
             free(con);
         }
-
         return id;
     }
 
@@ -261,24 +221,18 @@ public class Database {
         if (tablename == null) {
             throw new NullPointerException("tablename == null");
         }
-
         if (columnName == null) {
             throw new NullPointerException("columnName == null");
         }
-
         if (value == null) {
             return null;
         }
-
         Long id = getId(tablename, columnName, value);
-
         if (id == null) {
             PreparedStatement stmt = null;
             Connection con = null;
-
             try {
                 String sql = "INSERT INTO " + tablename + " (" + columnName + ") VALUES (?)";
-
                 con = getConnection();
                 con.setAutoCommit(true);
                 stmt = con.prepareStatement(sql);
@@ -291,7 +245,6 @@ public class Database {
                 free(con);
             }
         }
-
         return id;
     }
 
@@ -299,32 +252,26 @@ public class Database {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
-
         if (tablename == null) {
             throw new NullPointerException("tablename == null");
         }
-
         if (columnName == null) {
             throw new NullPointerException("columnName == null");
         }
-
         long count = 0;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename + " WHERE " + columnName + " = ?");
             stmt.setString(1, value);
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getLong(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return count;
     }
 
@@ -332,49 +279,39 @@ public class Database {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
-
         if (tablename == null) {
             throw new NullPointerException("tablename == null");
         }
-
         if (columnName == null) {
             throw new NullPointerException("columnName == null");
         }
-
         long count = 0;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM " + tablename + " WHERE " + columnName + " = ?");
             stmt.setLong(1, value);
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getLong(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return count;
     }
 
-    public static boolean exists(Connection con, String tablename, String columnName, String value)
-            throws SQLException {
+    public static boolean exists(Connection con, String tablename, String columnName, String value) throws SQLException {
         if (con == null) {
             throw new NullPointerException("con == null");
         }
-
         if (tablename == null) {
             throw new NullPointerException("tablename == null");
         }
-
         if (columnName == null) {
             throw new NullPointerException("columnName == null");
         }
-
         return getCount(con, tablename, columnName, value) > 0;
     }
 
@@ -382,13 +319,10 @@ public class Database {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
-
         double d = rs.getDouble(colIndex);
-
         if (rs.wasNull()) {
             return null;
         }
-
         return d;
     }
 
@@ -396,13 +330,10 @@ public class Database {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
-
         short s = rs.getShort(colIndex);
-
         if (rs.wasNull()) {
             return null;
         }
-
         return s;
     }
 
@@ -410,13 +341,10 @@ public class Database {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
-
         int i = rs.getInt(colIndex);
-
         if (rs.wasNull()) {
             return null;
         }
-
         return i;
     }
 
@@ -424,13 +352,10 @@ public class Database {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
-
         long l = rs.getLong(colIndex);
-
         if (rs.wasNull()) {
             return null;
         }
-
         return l;
     }
 
@@ -438,17 +363,13 @@ public class Database {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
-
         if (min > max) {
             throw new IllegalArgumentException("min > max!");
         }
-
         long l = rs.getLong(colIndex);
-
         if (rs.wasNull()) {
             return null;
         }
-
         return (l < min)
                 ? min
                 : (l > max)
@@ -460,13 +381,10 @@ public class Database {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
-
         String s = rs.getString(colIndex);
-
         if (rs.wasNull()) {
             return null;
         }
-
         return s;
     }
 
@@ -474,19 +392,15 @@ public class Database {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
-
         String classname = rs.getString(colIndex);
-
         if (classname == null) {
             return null;
         }
-
         try {
             return Class.forName(classname);
         } catch (ClassNotFoundException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
-
         return null;
     }
 
@@ -494,13 +408,10 @@ public class Database {
         if (rs == null) {
             throw new NullPointerException("rs == null");
         }
-
         Date d = rs.getDate(colIndex);
-
         if (rs.wasNull()) {
             return null;
         }
-
         return d;
     }
 
@@ -508,7 +419,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BOOLEAN);
         } else {
@@ -520,7 +430,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DOUBLE);
         } else {
@@ -532,7 +441,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.SMALLINT);
         } else {
@@ -544,7 +452,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.INTEGER);
         } else {
@@ -556,7 +463,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BIGINT);
         } else {
@@ -568,7 +474,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
         } else {
@@ -580,7 +485,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (clazz == null) {
             stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
         } else {
@@ -592,7 +496,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DATE);
         } else {
@@ -604,13 +507,10 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         boolean isBoolean = (value == null) || (value instanceof Boolean);
-
         if (!isBoolean) {
             throw new IllegalArgumentException("Not a Boolean: " + value);
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BOOLEAN);
         } else {
@@ -622,13 +522,10 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         boolean isDouble = (value == null) || (value instanceof Double);
-
         if (!isDouble) {
             throw new IllegalArgumentException("Not a Double: " + value);
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DOUBLE);
         } else {
@@ -640,13 +537,10 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         boolean isShort = (value == null) || (value instanceof Short);
-
         if (!isShort) {
             throw new IllegalArgumentException("Not a Short: " + value);
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.SMALLINT);
         } else {
@@ -658,13 +552,10 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         boolean isInteger = (value == null) || (value instanceof Integer);
-
         if (!isInteger) {
             throw new IllegalArgumentException("Not an Integer: " + value);
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.INTEGER);
         } else {
@@ -676,13 +567,10 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         boolean isLong = (value == null) || (value instanceof Long);
-
         if (!isLong) {
             throw new IllegalArgumentException("Not a Long: " + value);
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BIGINT);
         } else {
@@ -690,27 +578,21 @@ public class Database {
         }
     }
 
-    protected void setLongMinMax(Object value, long min, long max, PreparedStatement stmt, int paramIndex)
-            throws SQLException {
+    protected void setLongMinMax(Object value, long min, long max, PreparedStatement stmt, int paramIndex) throws SQLException {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         if (min > max) {
             throw new IllegalArgumentException("min > max");
         }
-
         boolean isLong = (value == null) || (value instanceof Long);
-
         if (!isLong) {
             throw new IllegalArgumentException("Not a Long: " + value);
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.BIGINT);
         } else {
             Long v = (Long) value;
-
             stmt.setLong(paramIndex, (v < min)
                     ? min
                     : (v > max)
@@ -723,13 +605,10 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         boolean isString = (value == null) || (value instanceof String);
-
         if (!isString) {
             throw new IllegalArgumentException("Not a string: " + value);
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.VARCHAR);
         } else {
@@ -741,13 +620,10 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         boolean isDate = (value == null) || (value instanceof Date);
-
         if (!isDate) {
             throw new IllegalArgumentException("Not a Date: " + value);
         }
-
         if (value == null) {
             stmt.setNull(paramIndex, java.sql.Types.DATE);
         } else {
@@ -768,7 +644,6 @@ public class Database {
 
             return event.isCancel();
         }
-
         return false;
     }
 
@@ -782,10 +657,8 @@ public class Database {
     protected boolean notifyProgressListenerPerformed(ProgressListener listener, ProgressEvent event) {
         if (listener != null) {
             listener.progressPerformed(event);
-
             return event.isCancel();
         }
-
         return false;
     }
 
@@ -805,7 +678,6 @@ public class Database {
         if (sql == null) {
             throw new NullPointerException("sql == null");
         }
-
         LOGGER.log(Level.FINER, sql);
     }
 
@@ -813,7 +685,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         LOGGER.log(Level.FINER, stmt.toString());
     }
 
@@ -821,7 +692,6 @@ public class Database {
         if (sql == null) {
             throw new NullPointerException("sql == null");
         }
-
         LOGGER.log(Level.FINEST, sql);
     }
 
@@ -829,7 +699,6 @@ public class Database {
         if (stmt == null) {
             throw new NullPointerException("stmt == null");
         }
-
         LOGGER.log(Level.FINEST, stmt.toString());
     }
 

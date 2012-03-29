@@ -23,6 +23,7 @@ import org.bushe.swing.event.EventBus;
 
 import org.openide.util.Lookup;
 
+import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.image.ImageFile;
@@ -138,7 +139,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                files.add(getFile(rs.getString(1)));
+                files.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -147,6 +148,27 @@ final class ImageFilesDatabase extends Database {
             free(con);
         }
         return files;
+    }
+
+    void eachImage(Functor<File> functor) {
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            String sql = "SELECT filename FROM files";
+            stmt = con.createStatement();
+            logFinest(sql);
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                functor.execute(createFile(rs.getString(1)));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
     }
 
     private long getFileCountNameStartingWith(Connection con, String start) throws SQLException {
@@ -207,7 +229,7 @@ final class ImageFilesDatabase extends Database {
             while (!cancel && rs.next()) {
                 String from = rs.getString(1);
                 String to = after + from.substring(startLength);
-                updateImageFilename(con, getFile(from), getFile(to));
+                updateImageFilename(con, createFile(from), createFile(to));
                 countRenamed++;
                 progressEvent.setValue(countRenamed);
                 cancel = notifyProgressListenerPerformed(progressListener, progressEvent);
@@ -465,7 +487,7 @@ final class ImageFilesDatabase extends Database {
             int count = 0;
             notifyProgressListenerStart(listener, progressEvent);
             while (!progressEvent.isCancel() && rs.next()) {
-                File imgFile = getFile(rs.getString(1));
+                File imgFile = createFile(rs.getString(1));
                 Image thumbnail = ThumbnailCreatorService.INSTANCE.createThumbnail(imgFile);
                 if (thumbnail != null) {
                     updateThumbnailFile(imgFile, thumbnail);
@@ -633,7 +655,7 @@ final class ImageFilesDatabase extends Database {
             rs = stmt.executeQuery(sql);
             boolean cancel = notifyProgressListenerStart(listener, event);
             while (!cancel && rs.next()) {
-                File imgFile = getFile(rs.getString(1));
+                File imgFile = createFile(rs.getString(1));
                 event.setInfo(null);
                 if (!imgFile.exists()) {
                     Xmp xmp = getXmpOfImageFile(imgFile);
@@ -1061,7 +1083,7 @@ final class ImageFilesDatabase extends Database {
             boolean cancel = notifyProgressListenerStart(listener, progressEvent);
             while (!cancel && rs.next()) {
                 progressEvent.setInfo(null);
-                imageFile = getFile(rs.getString(1));
+                imageFile = createFile(rs.getString(1));
                 if (xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(imageFile) == null) {
                     int deleteCount = deleteXmpOfImageFile(con, imageFile);
                     countDeleted += deleteCount;
@@ -1158,7 +1180,7 @@ final class ImageFilesDatabase extends Database {
      * Returns XMP metadata of image files.
      *
      * @param imageFiles image files
-     * @return XMP metadata where {@code FileXmp#getFile()} is the image file and {@code FileXmp#getXmp()} the XMP
+     * @return XMP metadata where {@code FileXmp#createFile()} is the image file and {@code FileXmp#getXmp()} the XMP
      * metadata of that image file
      */
     public List<FileXmp> getXmpOfImageFiles(Collection<? extends File> imageFiles) {
@@ -1206,7 +1228,7 @@ final class ImageFilesDatabase extends Database {
                         getLongMinMax(rs, 18, XmpRatingMetaDataValue.getMinValue(), XmpRatingMetaDataValue.getMaxValue()));
                 xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, getString(rs, 19));
                 if (!filepath.equals(prevFilepath)) {
-                    File file = getFile(filepath);
+                    File file = createFile(filepath);
                     list.add(new FileXmp(file, xmp));
                 }
                 prevFilepath = filepath;
@@ -1463,7 +1485,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                imageFiles.add(getFile(rs.getString(1)));
+                imageFiles.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -1539,7 +1561,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                imageFiles.add(getFile(rs.getString(1)));
+                imageFiles.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -1572,7 +1594,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                imageFiles.add(getFile(rs.getString(1)));
+                imageFiles.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -1622,7 +1644,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                imageFiles.add(getFile(rs.getString(1)));
+                imageFiles.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -1809,7 +1831,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                files.add(getFile(rs.getString(1)));
+                files.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -1891,7 +1913,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                files.add(getFile(rs.getString(1)));
+                files.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -1959,7 +1981,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                files.add(getFile(rs.getString(1)));
+                files.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -2003,7 +2025,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                files.add(getFile(rs.getString(1)));
+                files.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -2211,7 +2233,7 @@ final class ImageFilesDatabase extends Database {
             logFinest(stmt);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                imageFiles.add(getFile(rs.getString(1)));
+                imageFiles.add(createFile(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -2263,7 +2285,7 @@ final class ImageFilesDatabase extends Database {
             rs = stmt.executeQuery(sql);
             File tnFile;
             while (rs.next()) {
-                tnFile = tnRepo.findThumbnailFile(getFile(rs.getString(1)));
+                tnFile = tnRepo.findThumbnailFile(createFile(rs.getString(1)));
 
                 if (tnFile != null) {
                     tnFiles.add(tnFile);

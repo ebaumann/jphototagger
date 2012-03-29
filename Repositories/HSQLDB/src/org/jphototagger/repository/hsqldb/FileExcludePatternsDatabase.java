@@ -247,7 +247,7 @@ final class FileExcludePatternsDatabase extends Database {
                         count += affectedRows;
 
                         if (affectedRows > 0) {
-                            File imageFile = getFile(filepath);
+                            File imageFile = createFile(filepath);
 
                             tnRepo.deleteThumbnail(imageFile);
                             EventBus.publish(new ImageFileDeletedEvent(this, imageFile));
