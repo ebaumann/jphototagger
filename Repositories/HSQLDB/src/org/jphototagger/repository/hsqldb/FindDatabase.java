@@ -53,7 +53,7 @@ final class FindDatabase extends Database {
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
-                imageFiles.add(createFile(rs.getString(1)));
+                imageFiles.add(new File(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(FindDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -122,7 +122,7 @@ final class FindDatabase extends Database {
                 rs = stmt.executeQuery();
                 File imageFile;
                 while (rs.next()) {
-                    imageFile = createFile(rs.getString(1));
+                    imageFile = new File(rs.getString(1));
                     if (!imageFiles.contains(imageFile)) {
                         imageFiles.add(imageFile);
                     }
