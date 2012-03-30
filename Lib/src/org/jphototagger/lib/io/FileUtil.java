@@ -3,13 +3,16 @@ package org.jphototagger.lib.io;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URL;
 import java.nio.channels.FileChannel;
 import java.security.CodeSource;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,11 +51,9 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (encoding == null) {
             throw new NullPointerException("encoding == null");
         }
-
         return new String(getContentAsBytes(file), encoding);
     }
 
@@ -60,13 +61,10 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (string == null) {
             throw new NullPointerException("string == null");
         }
-
         FileOutputStream fos = null;
-
         try {
             fos = new FileOutputStream(file);
             fos.write(string.getBytes());
@@ -105,17 +103,12 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         FileInputStream fileInputStream = null;
-
         try {
             fileInputStream = new FileInputStream(file);
-
             int byteCount = fileInputStream.available();
             byte[] bytes = new byte[byteCount];
-
             fileInputStream.read(bytes);
-
             return bytes;
         } finally {
             IoUtil.close(fileInputStream);
@@ -132,15 +125,11 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (file.exists()) {
             return;
         }
-
         File directory = file.getParentFile();
-
         ensureDirectoryExists(directory);
-
         if (!file.createNewFile()) {
             throw new IOException("File couldn't be created: " + file);
         }
@@ -156,7 +145,6 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         return file.exists() && !file.isDirectory();
     }
 
@@ -171,11 +159,9 @@ public final class FileUtil {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         if (directory.isDirectory()) {
             return;
         }
-
         if (!directory.mkdirs()) {
             throw new IOException("Directory couldn't be created: " + directory);
         }
@@ -191,7 +177,6 @@ public final class FileUtil {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         return directory.isDirectory() && directory.canWrite();
     }
 
@@ -206,20 +191,16 @@ public final class FileUtil {
         if (sourceFile == null) {
             throw new NullPointerException("sourceFile == null");
         }
-
         if (targetFile == null) {
             throw new NullPointerException("targetFile == null");
         }
-
         if (sourceFile.equals(targetFile)) {
             return;
         }
-
         FileChannel inChannel = null;
         FileChannel outChannel = null;
         FileInputStream fis = null;
         FileOutputStream fos = null;
-
         try {
             fis = new FileInputStream(sourceFile);
             inChannel = fis.getChannel();
@@ -250,18 +231,14 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (file.getParent() == null) {
             return new Stack<File>();
         }
-
         Stack<File> path = new Stack<File>();
         File parent = file;
-
         do {
             parent = path.push(parent).getParentFile();
         } while (parent != null);
-
         return path;
     }
 
@@ -277,33 +254,24 @@ public final class FileUtil {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         if (options == null) {
             throw new NullPointerException("options == null");
         }
-
         List<File> allSubDirs = new ArrayList<File>();
         boolean isCancel = cancelRequest != null && cancelRequest.isCancel();
-
         if (isCancel) {
             return allSubDirs;
         }
-
         if (directory.isDirectory()) {
             File[] subDirs = directory.listFiles(new DirectoryFilter(options));
-
             if (subDirs != null) {
                 for (File dir : subDirs) {
                     isCancel = cancelRequest != null && cancelRequest.isCancel();
-
                     if (isCancel) {
                         return Collections.emptyList();
                     }
-
                     allSubDirs.add(dir);
-
                     List<File> subSubDirs = getSubDirectoriesRecursive(dir, cancelRequest, options);
-
                     allSubDirs.addAll(subSubDirs);
                 }
             }
@@ -322,13 +290,10 @@ public final class FileUtil {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         List<String> pathnames = new ArrayList<String>(files.size());
-
         for (File file : files) {
             pathnames.add(file.getAbsolutePath());
         }
-
         return pathnames;
     }
 
@@ -342,13 +307,10 @@ public final class FileUtil {
         if (pathnames == null) {
             throw new NullPointerException("pathnames == null");
         }
-
         List<File> files = new ArrayList<File>(pathnames.size());
-
         for (String pathname : pathnames) {
             files.add(new File(pathname));
         }
-
         return files;
     }
 
@@ -356,19 +318,15 @@ public final class FileUtil {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
-
         List<File> filteredFiles = new ArrayList<File>(files.size());
-
         for (File file : files) {
             if (filter.accept(file)) {
                 filteredFiles.add(file);
             }
         }
-
         return filteredFiles;
     }
 
@@ -382,10 +340,8 @@ public final class FileUtil {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         if (directory.isDirectory()) {
             File[] files = directory.listFiles();
-
             for (File file : files) {
                 if (file.isDirectory()) {
                     deleteDirectoryRecursive(file);
@@ -396,7 +352,6 @@ public final class FileUtil {
                 }
             }
         }
-
         if (!directory.delete()) {
             throw new IOException("Directory couldn't be deleted: " + directory);
         }
@@ -412,27 +367,21 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         File newFile = file;
         int index = 0;
-
         while (newFile.exists()) {
             String pathname = file.getPath();
             int suffixPos = pathname.lastIndexOf('.');
-
             if (suffixPos > 0) {
                 String suffix = pathname.substring(suffixPos + 1);
                 String prefix = pathname.substring(0, suffixPos);
-
                 pathname = prefix + "_" + Integer.valueOf(index) + "." + suffix;
             } else {
                 pathname += "_" + Integer.valueOf(index);
             }
-
             index++;
             newFile = new File(pathname);
         }
-
         return newFile;
     }
 
@@ -450,17 +399,14 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         File root = file.getParentFile();
         File parent = root;
-
         while (parent != null) {
             if (parent != null) {
                 root = parent;
                 parent = parent.getParentFile();
             }
         }
-
         return (root == null)
                 ? file
                 : root;
@@ -476,19 +422,14 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         String parent = file.getParent();
-
         if (parent == null) {
             return "";
         }
-
         String root = getRoot(file).getAbsolutePath();
-
         if (parent.startsWith(root) && (parent.length() > root.length())) {
             return parent.substring(root.length());
         }
-
         return "";
     }
 
@@ -515,8 +456,7 @@ public final class FileUtil {
     private static boolean hasSuffix(String pathname) {
         int index = pathname.lastIndexOf('.');
         int len = pathname.length();
-
-        return (index > 0) && (index < len - 1);
+        return index > 0 && index < len - 1;
     }
 
     /**
@@ -551,16 +491,12 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         String filename = file.getName();
-
         int index = filename.lastIndexOf('.');
         int len = filename.length();
-
         if ((index == 0) || (index == len - 1)) {
             return filename;
         }
-
         return filename.substring(0, filename.lastIndexOf('.'));
     }
 
@@ -573,9 +509,7 @@ public final class FileUtil {
         if (absolutePath == null) {
             throw new NullPointerException("absolutePath == null");
         }
-
         int index = absolutePath.lastIndexOf('.');
-
         return index > 0
                 ? absolutePath.substring(0, index)
                 : absolutePath;
@@ -591,44 +525,34 @@ public final class FileUtil {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         if (excludeSuffix == null) {
             throw new NullPointerException("excludeSuffix == null");
         }
-
         Map<String, List<File>> filesWithEqualPrefix = new HashMap<String, List<File>>();
         String excludeSuffixLowercase = excludeSuffix.toLowerCase();
-
         for (File file : files) {
             String filePathLowercase = file.getAbsolutePath();
-
             if (excludeSuffixLowercase.isEmpty() || !filePathLowercase.endsWith(excludeSuffixLowercase)) {
                 String absolutePath = file.getAbsolutePath();
                 String filePathPrefix = getAbsolutePathnamePrefix(absolutePath);
                 String filePathPrefixLowercase = filePathPrefix.toLowerCase();
                 List<File> fWithEqualPrefix = filesWithEqualPrefix.get(filePathPrefixLowercase);
-
                 if (fWithEqualPrefix == null) {
                     fWithEqualPrefix = new ArrayList<File>(3);
                     filesWithEqualPrefix.put(filePathPrefixLowercase, fWithEqualPrefix);
                 }
-
                 fWithEqualPrefix.add(file);
             }
         }
-
         List<File> filesWithEqualBasenames = new ArrayList<File>();
-
         for (List<File> fWithEqualBasenames : filesWithEqualPrefix.values()) {
             int size = fWithEqualBasenames.size();
-
             if (size > 1) {
                 for (File filepath : fWithEqualBasenames) {
                     filesWithEqualBasenames.add(filepath);
                 }
             }
         }
-
         return filesWithEqualBasenames;
     }
 
@@ -648,15 +572,12 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (suffix == null) {
             throw new NullPointerException("suffix == null");
         }
-
         if (file.getName().toLowerCase().endsWith(suffix.toLowerCase())) {
             return file;
         }
-
         return new File(file.getPath() + suffix);
     }
 
@@ -670,11 +591,9 @@ public final class FileUtil {
         if (fileToTouch == null) {
             throw new NullPointerException("fileToTouch == null");
         }
-
         long reference = referenceFile == null
                 ? System.currentTimeMillis()
                 : referenceFile.lastModified();
-
         fileToTouch.setLastModified(reference);
     }
 
@@ -682,9 +601,7 @@ public final class FileUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         MessageDigest md5;
-
         try {
             md5 = MessageDigest.getInstance("MD5");
         } catch (Exception ex) {
@@ -692,13 +609,10 @@ public final class FileUtil {
 
             return null;
         }
-
         md5.reset();
         md5.update(("file://" + file.getAbsolutePath()).getBytes());
-
         byte[] result = md5.digest();
         StringBuilder hex = new StringBuilder();
-
         for (int i = 0; i < result.length; i++) {
             if ((result[i] & 0xff) == 0) {
                 hex.append("00");
@@ -708,8 +622,38 @@ public final class FileUtil {
                 hex.append(Integer.toHexString(0xFF & result[i]));
             }
         }
-
         return hex.toString();
+    }
+
+    // http://www.rgagnon.com/javadetails/java-0416.html
+    public static String getMd5HexOfFileContent(File file) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+        if (!file.exists()) {
+            throw new FileNotFoundException("File does not exist: " + file);
+        }
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        InputStream is = null;
+        try {
+            is = new FileInputStream(file);
+            int bytesRead;
+            byte[] buffer = new byte[102400];
+            do {
+                bytesRead = is.read(buffer);
+                if (bytesRead > 0) {
+                    messageDigest.update(buffer, 0, bytesRead);
+                }
+            } while (bytesRead != -1);
+            byte[] digest = messageDigest.digest();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < digest.length; i++) {
+                sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            return sb.toString();
+        } finally {
+            IoUtil.close(is);
+        }
     }
 
     public static String toStringWithMaximumLength(File file, int maximumLength) {

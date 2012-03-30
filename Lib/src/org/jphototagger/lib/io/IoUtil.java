@@ -5,6 +5,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,22 +46,36 @@ public final class IoUtil {
             StringBuilder sb = new StringBuilder();
             String line;
             boolean isFirstLine = true;
-
             br = new BufferedReader(isr);
-
             while ((line = br.readLine()) != null) {
                 sb.append(isFirstLine ? "" : newline);
                 sb.append(line);
                 isFirstLine = false;
             }
-
             if (sb.length() > 0) {
                 sb.append(newline);
             }
-
             return sb.toString();
         } finally {
             close(br);
+        }
+    }
+
+    public static void fromIsToOs(InputStream is, OutputStream os) throws IOException, InterruptedException {
+        if (is == null) {
+            throw new NullPointerException("is == null");
+        }
+        if (os == null) {
+            throw new NullPointerException("os == null");
+        }
+        byte[] buffer = new byte[1024];
+        int len = is.read(buffer);
+        while (len != -1) {
+            os.write(buffer, 0, len);
+            len = is.read(buffer);
+            if (Thread.interrupted()) {
+                throw new InterruptedException();
+            }
         }
     }
 
