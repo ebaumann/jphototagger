@@ -45,7 +45,7 @@ final class FavoritesDatabase extends Database {
                     + " (favorite_name, directory_name, favorite_index)"
                     + " VALUES (?, ?, ?)");
             stmt.setString(1, favorite.getName());
-            stmt.setString(2, getFilePath(favorite.getDirectory()));
+            stmt.setString(2, favorite.getDirectory().getAbsolutePath());
             stmt.setInt(3, favorite.getIndex());
             LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
@@ -151,7 +151,7 @@ final class FavoritesDatabase extends Database {
                     + " favorite_name = ?, directory_name = ?, favorite_index = ?"
                     + " WHERE id = ?");
             stmt.setString(1, favorite.getName());
-            stmt.setString(2, getFilePath(favorite.getDirectory()));
+            stmt.setString(2, favorite.getDirectory().getAbsolutePath());
             stmt.setInt(3, favorite.getIndex());
             stmt.setLong(4, favorite.getId());
             LOGGER.log(Level.FINER, stmt.toString());
