@@ -23,6 +23,7 @@ import org.jphototagger.domain.templates.RenameTemplate;
 final class RenameTemplatesDatabase extends Database {
 
     static final RenameTemplatesDatabase INSTANCE = new RenameTemplatesDatabase();
+    private static final Logger LOGGER = Logger.getLogger(RenameTemplatesDatabase.class.getName());
 
     private RenameTemplatesDatabase() {
     }
@@ -64,23 +65,18 @@ final class RenameTemplatesDatabase extends Database {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
         boolean inserted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(getInsertSql());
             setValues(template, stmt);
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             inserted = count == 1;
-
             if (inserted) {
                 template.setId(getId(template.getName()));
                 notifyInserted(template);
@@ -92,7 +88,6 @@ final class RenameTemplatesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return inserted;
     }
 
@@ -117,21 +112,18 @@ final class RenameTemplatesDatabase extends Database {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
         int count = 0;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(getUpdateSql());
             setValues(template, stmt);
             stmt.setLong(14, template.getId());
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count == 1) {
                 notifyUpdated(template);
             }
@@ -142,7 +134,6 @@ final class RenameTemplatesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count == 1;
     }
 
@@ -150,22 +141,18 @@ final class RenameTemplatesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
         int count = 0;
-
         try {
             RenameTemplate delTemplate = findRenameTemplate(name);
-
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count == 1) {
                 notifyDeleted(delTemplate);
             }
@@ -176,7 +163,6 @@ final class RenameTemplatesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -224,16 +210,12 @@ final class RenameTemplatesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = getGetAllSql();
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 templates.add(getTemplate(rs));
             }
@@ -244,7 +226,6 @@ final class RenameTemplatesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return templates;
     }
 
@@ -277,19 +258,16 @@ final class RenameTemplatesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         RenameTemplate template = null;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement(getGetSql());
             stmt.setString(1, name);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 template = getTemplate(rs);
             }
@@ -299,7 +277,6 @@ final class RenameTemplatesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return template;
     }
 
@@ -307,25 +284,20 @@ final class RenameTemplatesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             int count = 0;
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-
             exists = count > 0;
         } catch (Exception ex) {
             Logger.getLogger(RenameTemplatesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -333,7 +305,6 @@ final class RenameTemplatesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -342,14 +313,12 @@ final class RenameTemplatesDatabase extends Database {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         long id = -1;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT id FROM rename_templates WHERE name = ?");
             stmt.setString(1, name);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getInt(1);
             }
@@ -359,7 +328,6 @@ final class RenameTemplatesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return id;
     }
 

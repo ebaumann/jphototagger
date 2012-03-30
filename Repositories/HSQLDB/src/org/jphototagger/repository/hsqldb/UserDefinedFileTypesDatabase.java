@@ -22,19 +22,18 @@ import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefined
 final class UserDefinedFileTypesDatabase extends Database {
 
     static final UserDefinedFileTypesDatabase INSTANCE = new UserDefinedFileTypesDatabase();
+    private static final Logger LOGGER = Logger.getLogger(UserDefinedFileTypesDatabase.class.getName());
 
     int insert(UserDefinedFileType fileType) {
         if (fileType == null) {
             throw new NullPointerException("fileType == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
         String suffix = fileType.getSuffix();
         String description = fileType.getDescription();
         boolean externalThumbnailCreator = fileType.isExternalThumbnailCreator();
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
@@ -43,10 +42,9 @@ final class UserDefinedFileTypesDatabase extends Database {
             stmt.setString(1, suffix);
             stmt.setString(2, description);
             stmt.setBoolean(3, externalThumbnailCreator);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 fileType.setId(findIdOfSuffix(con, suffix));
                 notifyFileTypeInserted(fileType);
@@ -59,7 +57,6 @@ final class UserDefinedFileTypesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -67,7 +64,6 @@ final class UserDefinedFileTypesDatabase extends Database {
         if (newFileType == null) {
             throw new NullPointerException("fileType == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
@@ -75,7 +71,6 @@ final class UserDefinedFileTypesDatabase extends Database {
         String suffix = newFileType.getSuffix();
         String description = newFileType.getDescription();
         boolean externalThumbnailCreator = newFileType.isExternalThumbnailCreator();
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
@@ -85,10 +80,9 @@ final class UserDefinedFileTypesDatabase extends Database {
             stmt.setString(2, description);
             stmt.setBoolean(3, externalThumbnailCreator);
             stmt.setLong(4, id);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 notifyFileTypeUpdated(oldFileType, newFileType);
             }
@@ -100,7 +94,6 @@ final class UserDefinedFileTypesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -113,21 +106,18 @@ final class UserDefinedFileTypesDatabase extends Database {
         if (fileType == null) {
             throw new NullPointerException("fileType == null");
         }
-
         int count = 0;
         String suffix = fileType.getSuffix();
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM user_defined_file_types WHERE suffix = ?");
             stmt.setString(1, suffix);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 notifyFileTypeDeleted(fileType);
             }
@@ -139,7 +129,6 @@ final class UserDefinedFileTypesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -148,28 +137,22 @@ final class UserDefinedFileTypesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT id, suffix, description, external_thumbnail_creator FROM user_defined_file_types ORDER BY suffix";
-
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 UserDefinedFileType fileType = new UserDefinedFileType();
                 long id = rs.getLong(1);
                 String suffix = rs.getString(2);
                 String description = rs.getString(3);
                 boolean externalThumbnailCreator = rs.getBoolean(4);
-
                 fileType.setId(id);
                 fileType.setSuffix(suffix);
                 fileType.setDescription(description);
                 fileType.setExternalThumbnailCreator(externalThumbnailCreator);
-
                 fileTypes.add(fileType);
             }
         } catch (Exception ex) {
@@ -179,7 +162,6 @@ final class UserDefinedFileTypesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return fileTypes;
     }
 
@@ -191,22 +173,17 @@ final class UserDefinedFileTypesDatabase extends Database {
         if (suffix == null) {
             throw new NullPointerException("suffix == null");
         }
-
         long count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT COUNT(*) FROM user_defined_file_types WHERE suffix = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, suffix);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getLong(1);
             }
@@ -218,7 +195,6 @@ final class UserDefinedFileTypesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count > 0;
     }
 
@@ -226,28 +202,22 @@ final class UserDefinedFileTypesDatabase extends Database {
         if (suffix == null) {
             throw new NullPointerException("suffix == null");
         }
-
         UserDefinedFileType fileType = null;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT id, description, external_thumbnail_creator FROM user_defined_file_types WHERE suffix = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, suffix);
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 fileType = new UserDefinedFileType();
                 long id = rs.getLong(1);
                 String description = rs.getString(2);
                 boolean externalThumbnailCreator = rs.getBoolean(3);
-
                 fileType.setId(id);
                 fileType.setSuffix(suffix);
                 fileType.setDescription(description);
@@ -259,7 +229,6 @@ final class UserDefinedFileTypesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return fileType;
     }
 
@@ -267,13 +236,11 @@ final class UserDefinedFileTypesDatabase extends Database {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Long id = null;
-
         try {
             stmt = con.prepareStatement("SELECT id FROM user_defined_file_types WHERE suffix = ?");
             stmt.setString(1, suffix);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
@@ -282,7 +249,6 @@ final class UserDefinedFileTypesDatabase extends Database {
         } finally {
             close(rs, stmt);
         }
-
         return id;
     }
 

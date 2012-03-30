@@ -37,16 +37,12 @@ final class ImageCollectionsDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT name FROM collection_names ORDER BY name";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 names.add(rs.getString(1));
             }
@@ -57,18 +53,15 @@ final class ImageCollectionsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return names;
     }
 
     List<ImageCollection> getAllImageCollections() {
         List<String> names = getAllImageCollectionNames();
         List<ImageCollection> collections = new ArrayList<ImageCollection>(names.size());
-
         for (String name : names) {
             collections.add(new ImageCollection(name, getImageFilesOfImageCollection(name)));
         }
-
         return collections;
     }
 
@@ -83,28 +76,23 @@ final class ImageCollectionsDatabase extends Database {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
-
         if (toName == null) {
             throw new NullPointerException("toName == null");
         }
-
         if (ImageCollection.isSpecialCollection(fromName) || ImageCollection.isSpecialCollection(toName)) {
             return 0;
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement("UPDATE collection_names SET name = ? WHERE name = ?");
             stmt.setString(1, toName);
             stmt.setString(2, fromName);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
-
             if (count > 0) {
                 notifyCollectionRenamed(fromName, toName);
             }
@@ -114,7 +102,6 @@ final class ImageCollectionsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -122,12 +109,10 @@ final class ImageCollectionsDatabase extends Database {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-
         List<File> imageFiles = new ArrayList<File>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT files.filename FROM"
@@ -137,9 +122,8 @@ final class ImageCollectionsDatabase extends Database {
                     + " WHERE collection_names.name = ?"
                     + " ORDER BY collections.sequence_number ASC");
             stmt.setString(1, collectionName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 imageFiles.add(createFile(rs.getString(1)));
             }
@@ -150,7 +134,6 @@ final class ImageCollectionsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return imageFiles;
     }
 
@@ -158,7 +141,6 @@ final class ImageCollectionsDatabase extends Database {
         if (collection == null) {
             throw new NullPointerException("collection == null");
         }
-
         return insertImageCollection(collection.getName(), collection.getFiles());
     }
 
@@ -176,21 +158,16 @@ final class ImageCollectionsDatabase extends Database {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-
         boolean added = false;
-
         if (existsImageCollection(collectionName)) {
             deleteImageCollection(collectionName);
         }
-
         Connection con = null;
         PreparedStatement stmtName = null;
         PreparedStatement stmtColl = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
@@ -199,29 +176,24 @@ final class ImageCollectionsDatabase extends Database {
                     + " (id_collectionnname, id_file, sequence_number)"
                     + " VALUES (?, ?, ?)");
             stmtName.setString(1, collectionName);
-            logFiner(stmtName);
+            LOGGER.log(Level.FINER, stmtName.toString());
             stmtName.executeUpdate();
-
             long idCollectionName = findId(con, collectionName);
             int sequence_number = 0;
-
             for (File imageFile : imageFiles) {
                 long idImageFile = repo.findIdImageFile(con, imageFile);
-
                 if (!repo.existsImageFile(imageFile)) {
                     LOGGER.log(Level.WARNING, "File ''{0}'' is not in the database! No photo album will be created!", imageFile);
                     rollback(con);
 
                     return false;
                 }
-
                 stmtColl.setLong(1, idCollectionName);
                 stmtColl.setLong(2, idImageFile);
                 stmtColl.setInt(3, sequence_number++);
-                logFiner(stmtColl);
+                LOGGER.log(Level.FINER, stmtColl.toString());
                 stmtColl.executeUpdate();
             }
-
             con.commit();
             added = true;
             notifyCollectionInserted(collectionName, imageFiles);
@@ -233,7 +205,6 @@ final class ImageCollectionsDatabase extends Database {
             close(stmtName);
             free(con);
         }
-
         return added;
     }
 
@@ -247,23 +218,19 @@ final class ImageCollectionsDatabase extends Database {
         if (collectioNname == null) {
             throw new NullPointerException("collectioNname == null");
         }
-
         if (ImageCollection.isSpecialCollection(collectioNname)) {
             return false;
         }
-
         boolean deleted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             List<File> delFiles = getImageFilesOfImageCollection(collectioNname);
-
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement("DELETE FROM collection_names WHERE name = ?");
             stmt.setString(1, collectioNname);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             deleted = true;
             notifyCollectionDeleted(collectioNname, delFiles);
@@ -273,7 +240,6 @@ final class ImageCollectionsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return deleted;
     }
 
@@ -288,35 +254,27 @@ final class ImageCollectionsDatabase extends Database {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-
         int delCount = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM collections WHERE id_collectionnname = ? AND id_file = ?");
-
             List<File> deletedFiles = new ArrayList<File>(imageFiles.size());
-
             for (File imageFile : imageFiles) {
                 int prevDelCount = delCount;
                 long idCollectionName = findId(con, collectionName);
                 long idFile = repo.findIdImageFile(con, imageFile);
-
                 stmt.setLong(1, idCollectionName);
                 stmt.setLong(2, idFile);
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 delCount += stmt.executeUpdate();
-
                 if (prevDelCount < delCount) {
                     deletedFiles.add(imageFile);
                 }
-
                 reorderSequenceNumber(con, collectionName);
             }
-
             con.commit();
             notifyImagesDeleted(collectionName, deletedFiles);
         } catch (Exception ex) {
@@ -326,7 +284,6 @@ final class ImageCollectionsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return delCount;
     }
 
@@ -343,15 +300,12 @@ final class ImageCollectionsDatabase extends Database {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-
         boolean added = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             if (existsImageCollection(collectionName)) {
                 con = getConnection();
@@ -359,30 +313,25 @@ final class ImageCollectionsDatabase extends Database {
                 stmt = con.prepareStatement("INSERT INTO collections"
                         + " (id_file, id_collectionnname, sequence_number)"
                         + " VALUES (?, ?, ?)");
-
                 long idCollectionNames = findId(con, collectionName);
                 int sequence_number = getMaxSequenceNumber(con, collectionName) + 1;
                 List<File> insertedFiles = new ArrayList<File>(imageFiles.size());
-
                 for (File imageFile : imageFiles) {
                     if (!isImageIn(con, collectionName, imageFile)) {
                         long idFiles = repo.findIdImageFile(con, imageFile);
-
                         stmt.setLong(1, idFiles);
                         stmt.setLong(2, idCollectionNames);
                         stmt.setInt(3, sequence_number++);
-                        logFiner(stmt);
+                        LOGGER.log(Level.FINER, stmt.toString());
                         stmt.executeUpdate();
                         insertedFiles.add(imageFile);
                     }
                 }
-
                 reorderSequenceNumber(con, collectionName);
                 notifyImagesInserted(collectionName, insertedFiles);
             } else {
                 return insertImageCollection(collectionName, imageFiles);
             }
-
             con.commit();
             added = true;
         } catch (Exception ex) {
@@ -392,7 +341,6 @@ final class ImageCollectionsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return added;
     }
 
@@ -400,23 +348,20 @@ final class ImageCollectionsDatabase extends Database {
         int max = -1;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT MAX(collections.sequence_number)"
                     + " FROM collections INNER JOIN collection_names"
                     + " ON collections.id_collectionnname = collection_names.id"
                     + " AND collection_names.name = ?");
             stmt.setString(1, collectionName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 max = rs.getInt(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return max;
     }
 
@@ -425,30 +370,24 @@ final class ImageCollectionsDatabase extends Database {
         PreparedStatement stmtIdFiles = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmtIdFiles = con.prepareStatement("SELECT id_file FROM collections WHERE id_collectionnname = ?"
                     + " ORDER BY collections.sequence_number ASC");
             stmtIdFiles.setLong(1, idCollectionName);
-            logFinest(stmtIdFiles);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmtIdFiles.executeQuery();
-
             List<Long> idFiles = new ArrayList<Long>();
-
             while (rs.next()) {
                 idFiles.add(rs.getLong(1));
             }
-
             stmt = con.prepareStatement("UPDATE collections SET sequence_number = ?"
                     + " WHERE id_collectionnname = ? AND id_file = ?");
-
             int sequenceNumer = 0;
-
             for (Long idFile : idFiles) {
                 stmt.setInt(1, sequenceNumer++);
                 stmt.setLong(2, idCollectionName);
                 stmt.setLong(3, idFile);
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 stmt.executeUpdate();
             }
         } finally {
@@ -467,19 +406,16 @@ final class ImageCollectionsDatabase extends Database {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM collection_names WHERE name = ?");
             stmt.setString(1, collectionName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -489,7 +425,6 @@ final class ImageCollectionsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -503,16 +438,12 @@ final class ImageCollectionsDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT COUNT(*) FROM collection_names";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -522,7 +453,6 @@ final class ImageCollectionsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -536,16 +466,12 @@ final class ImageCollectionsDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT COUNT(*) FROM collections";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -555,7 +481,6 @@ final class ImageCollectionsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -563,7 +488,6 @@ final class ImageCollectionsDatabase extends Database {
         boolean isInCollection = false;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM"
                     + " collections INNER JOIN collection_names"
@@ -572,16 +496,14 @@ final class ImageCollectionsDatabase extends Database {
                     + " WHERE collection_names.name = ? AND files.filename = ?");
             stmt.setString(1, collectionName);
             stmt.setString(2, getFilePath(imageFile));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 isInCollection = rs.getInt(1) > 0;
             }
         } finally {
             close(rs, stmt);
         }
-
         return isInCollection;
     }
 
@@ -589,20 +511,17 @@ final class ImageCollectionsDatabase extends Database {
         long id = -1;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT id FROM collection_names WHERE name = ?");
             stmt.setString(1, collectionname);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return id;
     }
 

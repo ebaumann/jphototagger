@@ -36,6 +36,7 @@ import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 final class ProgramsDatabase extends Database {
 
     static final ProgramsDatabase INSTANCE = new ProgramsDatabase();
+    private static final Logger LOGGER = Logger.getLogger(ProgramsDatabase.class.getName());
     private final ActionsAfterRepoUpdatesRepository repo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     private enum WhereFilter {
@@ -80,7 +81,7 @@ final class ProgramsDatabase extends Database {
             stmt = con.prepareStatement(sql);
             ensureSequenceNumber(con, program);
             setValuesInsert(stmt, program);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             con.commit();
             notifyInserted(program);
@@ -125,7 +126,7 @@ final class ProgramsDatabase extends Database {
         try {
             stmt = con.createStatement();
             String sql = "SELECT MAX(id) FROM programs";
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 program.setId(rs.getLong(1) + 1);
@@ -168,7 +169,7 @@ final class ProgramsDatabase extends Database {
             ensureSequenceNumber(con, program);
             setValuesUpdate(stmt, program);
             stmt.setLong(13, program.getId());
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             con.commit();
             notifyUpdated(program);
@@ -224,7 +225,7 @@ final class ProgramsDatabase extends Database {
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM programs WHERE id = ?");
             stmt.setLong(1, program.getId());
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             con.commit();
             // Hack because of dirty design of this table (no cascade possible)
@@ -259,7 +260,7 @@ final class ProgramsDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement(getSelectProgramSql(WhereFilter.ACTION));
             stmt.setBoolean(1, type.equals(ProgramType.ACTION));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 programs.add(createProgramOfCurrentRecord(rs));
@@ -352,7 +353,7 @@ final class ProgramsDatabase extends Database {
             con = getConnection();
             String sql = getDefaultImageOpenProgramSql();
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 program = createProgramOfCurrentRecord(rs);
@@ -387,7 +388,7 @@ final class ProgramsDatabase extends Database {
             stmt = con.prepareStatement(sql);
             setString(program.getAlias(), stmt, 1);
             setString(program.getFile().getAbsolutePath(), stmt, 2);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getLong(1) > 0;
@@ -416,7 +417,7 @@ final class ProgramsDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement(getSelectProgramSql(WhereFilter.ID));
             stmt.setLong(1, id);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 program = createProgramOfCurrentRecord(rs);
@@ -456,10 +457,8 @@ final class ProgramsDatabase extends Database {
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM programs WHERE action = "
-                    + (action
-                    ? "TRUE"
-                    : "FALSE"));
-            logFinest(stmt);
+                    + (action ? "TRUE" : "FALSE"));
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -501,7 +500,7 @@ final class ProgramsDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setBoolean(1, actions);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getInt(1);
@@ -529,7 +528,7 @@ final class ProgramsDatabase extends Database {
             String sql = "SELECT MAX(sequence_number) FROM programs WHERE action = ?";
             stmt = con.prepareStatement(sql);
             stmt.setBoolean(1, program.isAction());
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 int max = rs.getInt(1);
@@ -552,7 +551,7 @@ final class ProgramsDatabase extends Database {
                     + " FROM default_programs d INNER JOIN programs p"
                     + " ON d.id_program = p.id";
             stmt = con.prepareStatement(sql);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 DefaultProgram defaultProgram = new DefaultProgram();
@@ -591,7 +590,7 @@ final class ProgramsDatabase extends Database {
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, idProgram);
             stmt.setString(2, filenameSuffix);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             if (countAffectedRows == 1) {
                 EventBus.publish(new DefaultProgramInsertedEvent(this, filenameSuffix, idProgram));
@@ -617,7 +616,7 @@ final class ProgramsDatabase extends Database {
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, idProgram);
             stmt.setString(2, filenameSuffix);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             if (countAffectedRows == 1) {
                 EventBus.publish(new DefaultProgramUpdatedEvent(this, filenameSuffix, idProgram));
@@ -642,7 +641,7 @@ final class ProgramsDatabase extends Database {
             String sql = "DELETE FROM default_programs WHERE filename_suffix = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, filenameSuffix);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             if (countAffectedRows == 1) {
                 EventBus.publish(new DefaultProgramDeletedEvent(this, filenameSuffix));
@@ -665,7 +664,7 @@ final class ProgramsDatabase extends Database {
             String sql = "DELETE FROM default_programs WHERE id_program = ?";
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, idProgram);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffected = stmt.executeUpdate(); // Possibly critical: Not notifications to event listeners
             if (countAffected > 0) {
                 Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.INFO,
@@ -704,7 +703,7 @@ final class ProgramsDatabase extends Database {
             String sql = "SELECT id_program FROM default_programs WHERE filename_suffix = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, filenameSuffix);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getLong(1);
@@ -727,7 +726,7 @@ final class ProgramsDatabase extends Database {
             String sql = "SELECT COUNT(*) FROM default_programs WHERE filename_suffix = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, filenameSuffix);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);

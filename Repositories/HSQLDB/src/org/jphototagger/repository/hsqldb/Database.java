@@ -205,7 +205,7 @@ public class Database {
             con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, value);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getLong(1);
@@ -237,7 +237,7 @@ public class Database {
                 con.setAutoCommit(true);
                 stmt = con.prepareStatement(sql);
                 stmt.setString(1, value);
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 stmt.executeUpdate();
                 id = getId(tablename, columnName, value);
             } finally {
@@ -672,34 +672,6 @@ public class Database {
         if (listener != null) {
             listener.progressEnded(event);
         }
-    }
-
-    protected void logFiner(String sql) {
-        if (sql == null) {
-            throw new NullPointerException("sql == null");
-        }
-        LOGGER.log(Level.FINER, sql);
-    }
-
-    protected void logFiner(PreparedStatement stmt) {
-        if (stmt == null) {
-            throw new NullPointerException("stmt == null");
-        }
-        LOGGER.log(Level.FINER, stmt.toString());
-    }
-
-    protected void logFinest(String sql) {
-        if (sql == null) {
-            throw new NullPointerException("sql == null");
-        }
-        LOGGER.log(Level.FINEST, sql);
-    }
-
-    protected void logFinest(PreparedStatement stmt) {
-        if (stmt == null) {
-            throw new NullPointerException("stmt == null");
-        }
-        LOGGER.log(Level.FINEST, stmt.toString());
     }
 
     /**

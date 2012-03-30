@@ -26,6 +26,7 @@ import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
 public final class SavedSearchesDatabase extends Database {
 
     public static final SavedSearchesDatabase INSTANCE = new SavedSearchesDatabase();
+    private static final Logger LOGGER = Logger.getLogger(SavedSearchesDatabase.class.getName());
 
     private SavedSearchesDatabase() {
     }
@@ -41,37 +42,27 @@ public final class SavedSearchesDatabase extends Database {
         if (savedSearch == null) {
             throw new NullPointerException("savedSearch == null");
         }
-
         boolean inserted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         if (!savedSearch.isValid()) {
-            assert false : savedSearch;
-
             return false;
         }
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(getInsertSql());
             stmt.setString(1, savedSearch.getName());
-
             String customSql = savedSearch.getCustomSql();
-
             if (customSql != null) {
                 stmt.setBytes(2, customSql.getBytes());
             }
-
             setSearchType(stmt, 3, savedSearch);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
-
             long id = findId(con, savedSearch.getName());
             List<SavedSearchPanel> panels = savedSearch.getPanels();
             List<String> keywords = savedSearch.getKeywords();
-
             insertSavedSearchPanels(con, id, panels);
             insertSavedSearchKeywords(con, id, keywords);
             con.commit();
@@ -84,7 +75,6 @@ public final class SavedSearchesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return inserted;
     }
 
@@ -92,7 +82,6 @@ public final class SavedSearchesDatabase extends Database {
         if ((search == null) || !search.isValid()) {
             return;
         }
-
         stmt.setShort(parameterIndex, search.getType().getValue());
     }
 
@@ -113,11 +102,9 @@ public final class SavedSearchesDatabase extends Database {
             throws SQLException {
         if ((idSavedSearch > 0) && (panels != null)) {
             PreparedStatement stmt = null;
-
             try {
                 stmt = con.prepareStatement(getInsertSavedSearchPanelsSql());
                 stmt.setLong(1, idSavedSearch);
-
                 for (SavedSearchPanel panel : panels) {
                     stmt.setInt(2, panel.getPanelIndex());
                     stmt.setBoolean(3, panel.isBracketLeft1Selected());
@@ -127,7 +114,7 @@ public final class SavedSearchesDatabase extends Database {
                     stmt.setInt(7, panel.getComparatorId());
                     stmt.setString(8, panel.getValue());
                     stmt.setBoolean(9, panel.isBracketRightSelected());
-                    logFiner(stmt);
+                    LOGGER.log(Level.FINER, stmt.toString());
                     stmt.executeUpdate();
                 }
             } finally {
@@ -140,18 +127,15 @@ public final class SavedSearchesDatabase extends Database {
         return "INSERT INTO saved_searches_keywords (id_saved_search, keyword) VALUES (?, ?)";
     }
 
-    private void insertSavedSearchKeywords(Connection con, long idSavedSearch, List<String> keywords)
-            throws SQLException {
+    private void insertSavedSearchKeywords(Connection con, long idSavedSearch, List<String> keywords) throws SQLException {
         if ((idSavedSearch > 0) && (keywords != null)) {
             PreparedStatement stmt = null;
-
             try {
                 stmt = con.prepareStatement(getInsertSavedSearchKeywordsSql());
                 stmt.setLong(1, idSavedSearch);
-
                 for (String keyword : keywords) {
                     stmt.setString(2, keyword);
-                    logFiner(stmt);
+                    LOGGER.log(Level.FINER, stmt.toString());
                     stmt.executeUpdate();
                 }
             } finally {
@@ -164,20 +148,17 @@ public final class SavedSearchesDatabase extends Database {
         long id = -1;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement("SELECT id FROM saved_searches WHERE name = ?");
             stmt.setString(1, name);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return id;
     }
 
@@ -191,16 +172,12 @@ public final class SavedSearchesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT COUNT(*) FROM saved_searches";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -210,7 +187,6 @@ public final class SavedSearchesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -218,21 +194,16 @@ public final class SavedSearchesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         Connection con = null;
-
         try {
             con = getConnection();
-
             long id = findId(con, name);
-
             return id > 0;
         } catch (Exception ex) {
             Logger.getLogger(SavedSearchesDatabase.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             free(con);
         }
-
         return false;
     }
 
@@ -240,23 +211,18 @@ public final class SavedSearchesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         boolean deleted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM saved_searches WHERE name = ?");
             stmt.setString(1, name);
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             deleted = count > 0;
-
             if (deleted) {
                 notifyDeleted(name);
             }
@@ -267,7 +233,6 @@ public final class SavedSearchesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return deleted;
     }
 
@@ -275,27 +240,21 @@ public final class SavedSearchesDatabase extends Database {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
-
         if (toName == null) {
             throw new NullPointerException("toName == null");
         }
-
         boolean renamed = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement("UPDATE saved_searches SET name = ? WHERE name = ?");
             stmt.setString(1, toName);
             stmt.setString(2, fromName);
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             renamed = count > 0;
-
             if (renamed) {
                 notifyRenamed(fromName, toName);
             }
@@ -305,7 +264,6 @@ public final class SavedSearchesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return renamed;
     }
 
@@ -313,21 +271,14 @@ public final class SavedSearchesDatabase extends Database {
         if (savedSearch == null) {
             throw new NullPointerException("savedSearch == null");
         }
-
         if (!savedSearch.isValid()) {
-            assert false : savedSearch;
-
             return false;
         }
-
         delete(savedSearch.getName());
-
         boolean updated = insert(savedSearch);
-
         if (updated) {
             notifyUpdated(savedSearch);
         }
-
         return updated;
     }
 
@@ -339,19 +290,16 @@ public final class SavedSearchesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         SavedSearch savedSearch = null;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement(getFindSql());
             stmt.setString(1, name);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 savedSearch = new SavedSearch();
                 savedSearch.setName(rs.getString(1));
@@ -367,7 +315,6 @@ public final class SavedSearchesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return savedSearch;
     }
 
@@ -376,7 +323,6 @@ public final class SavedSearchesDatabase extends Database {
         SavedSearch.Type type = rs.wasNull()
                 ? SavedSearch.Type.KEYWORDS_AND_PANELS
                 : SavedSearch.Type.fromValue(value);
-
         search.setType(type);
     }
 
@@ -394,19 +340,14 @@ public final class SavedSearchesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = getGetAllSql();
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 SavedSearch savedSearch = new SavedSearch();
-
                 savedSearch.setName(rs.getString(1));
                 savedSearch.setCustomSql(new String(rs.getBytes(2)));
                 setSearchType(rs, 3, savedSearch);
@@ -421,7 +362,6 @@ public final class SavedSearchesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return searches;
     }
 
@@ -429,17 +369,13 @@ public final class SavedSearchesDatabase extends Database {
         if (what == null) {
             throw new NullPointerException("what == null");
         }
-
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
-
         for (SavedSearch search : getAll()) {
             ParamStatement stmt = search.createParamStatement();
-
             if (search.isCustomSql() && stmt.getSql().contains(what)) {
                 String name = search.getName();
-
                 if (!name.startsWith(tag) && !name.endsWith(tag)) {
                     delete(name);
                     search.setName(tag + name + tag);
@@ -467,18 +403,14 @@ public final class SavedSearchesDatabase extends Database {
     private void setSavedSearchPanels(Connection con, SavedSearch savedSearch) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement(getSetSavedSearchPanelsSql());
             stmt.setString(1, savedSearch.getName());
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
-
             while (rs.next()) {
                 SavedSearchPanel panel = new SavedSearchPanel();
-
                 panel.setPanelIndex(rs.getInt(1));
                 panel.setBracketLeft1Selected(rs.getBoolean(2));
                 panel.setOperatorId(rs.getInt(3));
@@ -489,7 +421,6 @@ public final class SavedSearchesDatabase extends Database {
                 panel.setBracketRightSelected(rs.getBoolean(8));
                 panels.add(panel);
             }
-
             savedSearch.setPanels(panels);
         } finally {
             close(rs, stmt);
@@ -507,19 +438,15 @@ public final class SavedSearchesDatabase extends Database {
     private void setSavedSearchKeywords(Connection con, SavedSearch savedSearch) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             stmt = con.prepareStatement(getSetSavedSearchKeywordsSql());
             stmt.setString(1, savedSearch.getName());
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             List<String> keywords = new ArrayList<String>();
-
             while (rs.next()) {
                 keywords.add(rs.getString(1));
             }
-
             savedSearch.setKeywords(keywords);
         } finally {
             close(rs, stmt);

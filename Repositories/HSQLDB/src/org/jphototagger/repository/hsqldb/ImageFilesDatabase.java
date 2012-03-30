@@ -78,6 +78,7 @@ import org.jphototagger.lib.util.Bundle;
 final class ImageFilesDatabase extends Database {
 
     static final ImageFilesDatabase INSTANCE = new ImageFilesDatabase();
+    private static final Logger LOGGER = Logger.getLogger(ImageFilesDatabase.class.getName());
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
 
@@ -112,7 +113,7 @@ final class ImageFilesDatabase extends Database {
             stmt = con.prepareStatement("UPDATE files SET filename = ? WHERE filename = ?");
             stmt.setString(1, getFilePath(toImageFile));
             stmt.setString(2, getFilePath(fromImageFile));
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             tnRepo.renameThumbnail(fromImageFile, toImageFile);
             if (count > 0) {
@@ -136,7 +137,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             String sql = "SELECT filename FROM files";
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 files.add(createFile(rs.getString(1)));
@@ -158,7 +159,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             String sql = "SELECT filename FROM files";
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 functor.execute(createFile(rs.getString(1)));
@@ -179,7 +180,7 @@ final class ImageFilesDatabase extends Database {
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, start + "%");
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);
@@ -222,7 +223,7 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement("SELECT filename FROM files WHERE filename LIKE ?");
             stmt.setString(1, before + "%");
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             progressEvent.setMaximum((int) getFileCountNameStartingWith(con, before));
             boolean cancel = notifyProgressListenerStart(progressListener, progressEvent);
@@ -255,7 +256,7 @@ final class ImageFilesDatabase extends Database {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(toImageFile));
             stmt.setString(2, getFilePath(fromImageFile));
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             notifyImageFileMoved(fromImageFile, toImageFile);
             tnRepo.renameThumbnail(fromImageFile, toImageFile);
@@ -270,7 +271,7 @@ final class ImageFilesDatabase extends Database {
         try {
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countDeleted = stmt.executeUpdate();
         } catch (Exception ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -366,7 +367,7 @@ final class ImageFilesDatabase extends Database {
             if (imageFile.isInsertXmpIntoDb()) {
                 stmt.setLong(3, getLastmodifiedXmp(imageFile));
             }
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             long idFile = findIdImageFile(con, imgFile);
             if (imageFile.isInsertThumbnailIntoDb()) {
@@ -440,7 +441,7 @@ final class ImageFilesDatabase extends Database {
             stmt.setLong(imageFile.isInsertXmpIntoDb()
                     ? 3
                     : 2, idFile);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             if (imageFile.isInsertThumbnailIntoDb()) {
                 updateThumbnailFile(imgFile, imageFile.getThumbnail());
@@ -482,7 +483,7 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(true);
             stmt = con.createStatement();
             String sql = "SELECT filename FROM files ORDER BY filename ASC";
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             int count = 0;
             notifyProgressListenerStart(listener, progressEvent);
@@ -561,7 +562,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement("SELECT lastmodified FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 lastModified = rs.getLong(1);
@@ -587,7 +588,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -616,7 +617,7 @@ final class ImageFilesDatabase extends Database {
                 Xmp xmp = getXmpOfImageFile(imageFile);
                 Exif exif = getExifOfImageFile(imageFile);
                 stmt.setString(1, getFilePath(imageFile));
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 int countAffectedRows = stmt.executeUpdate();
                 countDeleted += countAffectedRows;
                 if (countAffectedRows > 0) {
@@ -651,7 +652,7 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(true);
             stmt = con.createStatement();
             String sql = "SELECT filename FROM files";
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             boolean cancel = notifyProgressListenerStart(listener, event);
             while (!cancel && rs.next()) {
@@ -696,7 +697,7 @@ final class ImageFilesDatabase extends Database {
         try {
             stmt = con.prepareStatement("SELECT id FROM xmp WHERE id_file = ?");
             stmt.setLong(1, idFile);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getLong(1);
@@ -725,7 +726,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement("SELECT xmp_lastmodified FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(imageFile));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 lastModified = rs.getLong(1);
@@ -759,7 +760,7 @@ final class ImageFilesDatabase extends Database {
             stmt = con.prepareStatement("UPDATE files SET xmp_lastmodified = ? WHERE filename = ?");
             stmt.setLong(1, time);
             stmt.setString(2, getFilePath(imageFile));
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
             set = count > 0;
         } catch (Exception ex) {
@@ -787,10 +788,9 @@ final class ImageFilesDatabase extends Database {
             try {
                 stmt = con.prepareStatement(getInsertIntoXmpStatement());
                 setXmpValues(stmt, idImageFile, xmp);
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 stmt.executeUpdate();
                 long idXmp = findIdXmpOfIdFile(con, idImageFile);
-
                 if (xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
                     insertXmpDcSubjects(con, idXmp, (List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE));
                 }
@@ -819,7 +819,7 @@ final class ImageFilesDatabase extends Database {
             stmt = con.prepareStatement("INSERT INTO xmp_dc_subject (id_xmp, id_dc_subject) VALUES (?, ?)");
             stmt.setLong(1, idXmp);
             stmt.setLong(2, idDcSubject);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } finally {
             close(stmt);
@@ -841,7 +841,7 @@ final class ImageFilesDatabase extends Database {
         try {
             stmt = con.prepareStatement("INSERT INTO dc_subjects (subject) VALUES (?)");
             stmt.setString(1, dcSubject);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
         } finally {
             close(stmt);
@@ -965,7 +965,7 @@ final class ImageFilesDatabase extends Database {
                     stmt = con.prepareStatement(getUpdateXmpStatement());
                     setXmpValues(stmt, idFile, xmp);
                     stmt.setLong(19, idXmp);
-                    logFiner(stmt);
+                    LOGGER.log(Level.FINER, stmt.toString());
                     stmt.executeUpdate();
                     deleteXmpDcSubjects(con, idXmp);
                     if (xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
@@ -995,7 +995,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(file));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 result = rs.getString(1);
@@ -1022,7 +1022,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(file));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);
@@ -1058,7 +1058,7 @@ final class ImageFilesDatabase extends Database {
         try {
             stmt = con.prepareStatement("DELETE FROM xmp_dc_subject WHERE id_xmp = ?");
             stmt.setLong(1, idXmp);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } finally {
             close(stmt);
@@ -1077,7 +1077,7 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(true);
             stmt = con.createStatement();
             String sql = "SELECT files.filename FROM files, xmp WHERE files.id = xmp.id_file";
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             File imageFile;
             boolean cancel = notifyProgressListenerStart(listener, progressEvent);
@@ -1114,7 +1114,7 @@ final class ImageFilesDatabase extends Database {
                     + " (SELECT xmp.id_file FROM xmp, files"
                     + " WHERE xmp.id_file = files.id AND files.filename = ?)");
             stmt.setString(1, getFilePath(imageFile));
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             Xmp xmp = getXmpOfImageFile(imageFile);
             count = stmt.executeUpdate();
             if (count > 0) {
@@ -1196,7 +1196,7 @@ final class ImageFilesDatabase extends Database {
             String sql = getXmpOfImageFilesStatement(imageFiles.size());
             stmt = con.prepareStatement(sql);
             setStrings(stmt, imageFiles.toArray(new File[0]), 1);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             String prevFilepath = "";
             Xmp xmp = new Xmp();
@@ -1319,7 +1319,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement(getXmpOfStatement());
             stmt.setString(1, getFilePath(imageFile));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 xmp.setValue(XmpDcCreatorMetaDataValue.INSTANCE, getString(rs, 1));
@@ -1370,7 +1370,7 @@ final class ImageFilesDatabase extends Database {
                     + " (SELECT DISTINCT id_dc_subject from xmp_dc_subject)"
                     + "ORDER BY 1";
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
@@ -1419,7 +1419,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             String sql = "SELECT subject FROM dc_subjects ORDER BY 1 ASC";
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
@@ -1453,7 +1453,7 @@ final class ImageFilesDatabase extends Database {
                     + " ORDER BY dc_subjects.subject ASC";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(imageFile));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
@@ -1482,7 +1482,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement(getGetFilenamesOfDcSubjectSql(dcSubject, opts));
             setDcSubjectSynonyms(dcSubject, opts, stmt);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 imageFiles.add(createFile(rs.getString(1)));
@@ -1558,7 +1558,7 @@ final class ImageFilesDatabase extends Database {
                     + count;
             stmt = con.prepareStatement(sql);
             setStringParams(stmt, dcSubjects, 0);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 imageFiles.add(createFile(rs.getString(1)));
@@ -1591,7 +1591,7 @@ final class ImageFilesDatabase extends Database {
                     + getParamsInParentheses(count);
             stmt = con.prepareStatement(sql);
             setStringParams(stmt, dcSubjects, 0);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 imageFiles.add(createFile(rs.getString(1)));
@@ -1641,7 +1641,7 @@ final class ImageFilesDatabase extends Database {
                     + " HAVING COUNT(*) = " + count;
             stmt = con.prepareStatement(sql);
             setStringParams(stmt, words, 0);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 imageFiles.add(createFile(rs.getString(1)));
@@ -1676,7 +1676,7 @@ final class ImageFilesDatabase extends Database {
                     stmt = con.prepareStatement(getUpdateExifStatement());
                     setExifValues(stmt, idFile, exif);
                     stmt.setLong(8, idFile);
-                    logFiner(stmt);
+                    LOGGER.log(Level.FINER, stmt.toString());
                     int count = stmt.executeUpdate();
                     if (count > 0) {
                         notifyExifUpdated(imageFile, oldExif, exif);
@@ -1707,7 +1707,7 @@ final class ImageFilesDatabase extends Database {
             try {
                 stmt = con.prepareStatement(getInsertIntoExifStatement());
                 setExifValues(stmt, idFile, exif);
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 stmt.executeUpdate();
                 notifyExifInserted(imageFile, exif);
             } finally {
@@ -1733,7 +1733,7 @@ final class ImageFilesDatabase extends Database {
         try {
             stmt = con.prepareStatement("SELECT id FROM exif WHERE id_file = ?");
             stmt.setLong(1, idFile);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getLong(1);
@@ -1760,7 +1760,7 @@ final class ImageFilesDatabase extends Database {
                     + " WHERE exif_date_time_original IS NOT NULL"
                     + " ORDER BY exif_date_time_original ASC";
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Calendar cal = Calendar.getInstance();
@@ -1784,7 +1784,7 @@ final class ImageFilesDatabase extends Database {
         String sql = "SELECT iptc4xmpcore_datecreated FROM xmp WHERE iptc4xmpcore_datecreated IS NOT NULL";
         try {
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Timeline.Date date = new Timeline.Date(-1, -1, -1);
@@ -1828,7 +1828,7 @@ final class ImageFilesDatabase extends Database {
             String xmpDateString = getXmpSqlDateString(year, month, day);
             stmt.setString(1, exifDateString);
             stmt.setString(2, xmpDateString);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 files.add(createFile(rs.getString(1)));
@@ -1910,7 +1910,7 @@ final class ImageFilesDatabase extends Database {
                     + " AND (xmp.id IS NOT NULL AND xmp.iptc4xmpcore_datecreated IS NULL)"
                     + " ORDER BY files.filename ASC";
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 files.add(createFile(rs.getString(1)));
@@ -1939,7 +1939,7 @@ final class ImageFilesDatabase extends Database {
                     + " WHERE " + column.getValueName() + " IS NOT NULL"
                     + " ORDER BY " + column.getValueName();
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 values.add(rs.getString(1));
@@ -1978,7 +1978,7 @@ final class ImageFilesDatabase extends Database {
             String columnName = column.getValueName();
             String sql = getFilesNotNullInSql(tablename, columnName);
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 files.add(createFile(rs.getString(1)));
@@ -2022,7 +2022,7 @@ final class ImageFilesDatabase extends Database {
                     + " ORDER BY files.filename ASC";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, exactValue);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 files.add(createFile(rs.getString(1)));
@@ -2051,7 +2051,7 @@ final class ImageFilesDatabase extends Database {
                     + " WHERE files.filename = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, getFilePath(file));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 timestamp = rs.getLong(1);
@@ -2092,7 +2092,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement(getExifOfStatement());
             stmt.setString(1, getFilePath(imageFile));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 exif = new Exif();
@@ -2131,7 +2131,7 @@ final class ImageFilesDatabase extends Database {
                     + " WHERE exif_date_time_original LIKE '"
                     + year + "-" + getMonthDayPrefix(month) + month + "-" + getMonthDayPrefix(day) + day + "%'";
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -2158,7 +2158,7 @@ final class ImageFilesDatabase extends Database {
             String sql = "SELECT COUNT(*) FROM xmp WHERE iptc4xmpcore_datecreated = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, date);
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
@@ -2184,7 +2184,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             String sql = "SELECT COUNT(*) FROM " + column.getCategory() + " WHERE " + column.getValueName() + " = ?";
             stmt = con.prepareStatement(sql);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             stmt.setObject(1, value);
             rs = stmt.executeQuery();
             if (rs.next()) {
@@ -2230,7 +2230,7 @@ final class ImageFilesDatabase extends Database {
             String tablename = column.getCategory();
             String sql = getFilenamesWithoutMetadataInSql(tablename, columnName);
             stmt = con.prepareStatement(sql);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
                 imageFiles.add(createFile(rs.getString(1)));
@@ -2261,7 +2261,7 @@ final class ImageFilesDatabase extends Database {
         try {
             stmt = con.prepareStatement("SELECT id FROM files WHERE filename = ?");
             stmt.setString(1, getFilePath(file));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getLong(1);
@@ -2281,7 +2281,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             String sql = "SELECT filename FROM files";
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             File tnFile;
             while (rs.next()) {
@@ -2315,7 +2315,7 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(true);
             stmt = con.prepareStatement(sql);
             stmt.setString(1, value);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -2342,7 +2342,7 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, dcSubject);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
             con.commit();
             if (count > 0) {
@@ -2369,7 +2369,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, subject);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) == 1;
@@ -2396,7 +2396,7 @@ final class ImageFilesDatabase extends Database {
             con = getConnection();
             stmt = con.prepareStatement("SELECT id FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, dcSubject);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getLong(1);
@@ -2420,7 +2420,7 @@ final class ImageFilesDatabase extends Database {
             stmt = con.prepareStatement("SELECT COUNT(*) FROM xmp_dc_subject WHERE id_xmp = ? AND id_dc_subject = ?");
             stmt.setLong(1, idXmp);
             stmt.setLong(2, idDcSubject);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
                 exists = rs.getInt(1) == 1;

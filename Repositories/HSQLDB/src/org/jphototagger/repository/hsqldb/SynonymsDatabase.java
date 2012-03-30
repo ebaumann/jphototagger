@@ -24,24 +24,21 @@ import org.jphototagger.domain.repository.event.synonyms.WordRenamedEvent;
 final class SynonymsDatabase extends Database {
 
     static final SynonymsDatabase INSTANCE = new SynonymsDatabase();
+    private static final Logger LOGGER = Logger.getLogger(SynonymsDatabase.class.getName());
 
     int updateSynonymOfWord(String word, String oldSynonym, String newSynonym) {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-
         if (oldSynonym == null) {
             throw new NullPointerException("oldSynonym == null");
         }
-
         if (newSynonym == null) {
             throw new NullPointerException("newSynonym == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
@@ -49,10 +46,9 @@ final class SynonymsDatabase extends Database {
             stmt.setString(1, newSynonym);
             stmt.setString(2, word);
             stmt.setString(3, oldSynonym);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 notifySynonymOfWordRenamed(word, oldSynonym, newSynonym);
             }
@@ -64,7 +60,6 @@ final class SynonymsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -72,25 +67,21 @@ final class SynonymsDatabase extends Database {
         if (oldWord == null) {
             throw new NullPointerException("oldWord == null");
         }
-
         if (newWord == null) {
             throw new NullPointerException("newWord == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("UPDATE synonyms SET word = ? WHERE word = ?");
             stmt.setString(1, newWord);
             stmt.setString(2, oldWord);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 notifyWordRenamed(oldWord, newWord);
             }
@@ -102,7 +93,6 @@ final class SynonymsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -110,25 +100,21 @@ final class SynonymsDatabase extends Database {
         if (oldSynonym == null) {
             throw new NullPointerException("oldSynonym == null");
         }
-
         if (newSynonym == null) {
             throw new NullPointerException("newSynonym == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("UPDATE synonyms SET synonym = ? WHERE synonym = ?");
             stmt.setString(1, newSynonym);
             stmt.setString(2, oldSynonym);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 notifySynonymRenamed(oldSynonym, newSynonym);
             }
@@ -140,7 +126,6 @@ final class SynonymsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -148,22 +133,17 @@ final class SynonymsDatabase extends Database {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-
         long count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT COUNT(*) FROM synonyms WHERE word = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, word);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getLong(1);
             }
@@ -175,7 +155,6 @@ final class SynonymsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count > 0;
     }
 
@@ -183,27 +162,21 @@ final class SynonymsDatabase extends Database {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-
         if (synonym == null) {
             throw new NullPointerException("synonym == null");
         }
-
         long count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT COUNT(*) FROM synonyms WHERE word = ? AND synonym = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, word);
             stmt.setString(2, synonym);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getLong(1);
             }
@@ -215,7 +188,6 @@ final class SynonymsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count == 1;
     }
 
@@ -223,29 +195,24 @@ final class SynonymsDatabase extends Database {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-
         if (synonym == null) {
             throw new NullPointerException("synonym == null");
         }
-
         if (existsSynonym(word, synonym)) {
             return 0;
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("INSERT INTO synonyms (word, synonym) VALUES (?, ?)");
             stmt.setString(1, word);
             stmt.setString(2, synonym);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 notifySynonymInserted(word, synonym);
             }
@@ -257,7 +224,6 @@ final class SynonymsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -265,25 +231,21 @@ final class SynonymsDatabase extends Database {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-
         if (synonym == null) {
             throw new NullPointerException("synonym == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM synonyms WHERE word = ? AND synonym = ?");
             stmt.setString(1, word);
             stmt.setString(2, synonym);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 notifySynonymOfWordDeleted(word, synonym);
             }
@@ -295,7 +257,6 @@ final class SynonymsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -309,20 +270,17 @@ final class SynonymsDatabase extends Database {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM synonyms WHERE word = ?");
             stmt.setString(1, word);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count > 0) {
                 notifyWordDeleted(word);
             }
@@ -334,7 +292,6 @@ final class SynonymsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -354,20 +311,17 @@ final class SynonymsDatabase extends Database {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-
         Set<String> synonyms = new LinkedHashSet<String>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement(getGetSynonymsOfSql());
             stmt.setString(1, word);
             stmt.setString(2, word);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             while (rs.next()) {
                 synonyms.add(rs.getString(1));
             }
@@ -377,7 +331,6 @@ final class SynonymsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return synonyms;
     }
 
@@ -386,16 +339,12 @@ final class SynonymsDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT DISTINCT word FROM synonyms ORDER BY word";
-
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 words.add(rs.getString(1));
             }
@@ -406,7 +355,6 @@ final class SynonymsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return words;
     }
 

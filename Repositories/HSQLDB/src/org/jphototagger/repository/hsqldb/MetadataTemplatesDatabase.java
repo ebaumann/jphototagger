@@ -43,8 +43,9 @@ import org.jphototagger.domain.templates.MetadataTemplate;
  */
 final class MetadataTemplatesDatabase extends Database {
 
-    private static final String DELIM_REPEATABLE_STRINGS = "\t";
     static final MetadataTemplatesDatabase INSTANCE = new MetadataTemplatesDatabase();
+    private static final String DELIM_REPEATABLE_STRINGS = "\t";
+    private static final Logger LOGGER = Logger.getLogger(MetadataTemplatesDatabase.class.getName());
 
     private MetadataTemplatesDatabase() {
     }
@@ -60,19 +61,15 @@ final class MetadataTemplatesDatabase extends Database {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
         if (existsMetadataTemplate(template.getName())) {
             return updateMetadataTemplate(template);
         }
-
         boolean inserted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
-
             String sql = "INSERT INTO metadata_edit_templates ("
                     + "name" // --  1 --
                     + ", dcSubjects" // --  2 --
@@ -94,10 +91,9 @@ final class MetadataTemplatesDatabase extends Database {
                     + ", rating" // -- 18 --
                     + ", iptc4xmpcore_datecreated" // -- 19 --
                     + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?" + ", ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
             stmt = con.prepareStatement(sql);
             set(stmt, template);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             con.commit();
             inserted = true;
@@ -109,7 +105,6 @@ final class MetadataTemplatesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return inserted;
     }
 
@@ -179,25 +174,21 @@ final class MetadataTemplatesDatabase extends Database {
     private String fromRepeatable(Collection<String> strings) {
         StringBuilder sb = new StringBuilder();
         int index = 0;
-
         for (String string : strings) {
             sb.append((index++ == 0)
                     ? ""
                     : DELIM_REPEATABLE_STRINGS);
             sb.append(string);
         }
-
         return sb.toString();
     }
 
     private List<String> toRepeatable(String string) {
         List<String> strings = new ArrayList<String>();
         StringTokenizer tokenizer = new StringTokenizer(string, DELIM_REPEATABLE_STRINGS);
-
         while (tokenizer.hasMoreTokens()) {
             strings.add(tokenizer.nextToken());
         }
-
         return strings;
     }
 
@@ -211,22 +202,17 @@ final class MetadataTemplatesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         MetadataTemplate template = null;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = getSelectForSetValues() + " WHERE name = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 template = new MetadataTemplate();
                 setValues(template, rs);
@@ -237,7 +223,6 @@ final class MetadataTemplatesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return template;
     }
 
@@ -251,19 +236,14 @@ final class MetadataTemplatesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = getSelectForSetValues() + " WHERE name IS NOT NULL";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 MetadataTemplate template = new MetadataTemplate();
-
                 setValues(template, rs);
                 templates.add(template);
             }
@@ -273,7 +253,6 @@ final class MetadataTemplatesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return templates;
     }
 
@@ -302,7 +281,6 @@ final class MetadataTemplatesDatabase extends Database {
 
     private void setValues(MetadataTemplate template, ResultSet rs) throws SQLException {
         byte[] bytes;
-
         template.setName(rs.getString(1));
         bytes = rs.getBytes(2);
         template.setMetaDataValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, rs.wasNull()
@@ -388,11 +366,9 @@ final class MetadataTemplatesDatabase extends Database {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
         boolean updated = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             String sql = "UPDATE metadata_edit_templates" + " SET name = ?" // --  1 --
                     + ", dcSubjects = ?" // --  2 --
@@ -414,22 +390,16 @@ final class MetadataTemplatesDatabase extends Database {
                     + ", rating = ?" // -- 18 --
                     + ", iptc4xmpcore_datecreated = ?" // -- 19 --
                     + " WHERE name = ?";    // -- 20 --
-
             con = getConnection();
             con.setAutoCommit(false);
-
             MetadataTemplate oldTemplate = findMetadataTemplate(template.getName());
-
             stmt = con.prepareStatement(sql);
             set(stmt, template);
             stmt.setString(20, template.getName());
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             updated = count > 0;
-
             if (updated) {
                 notifyUpdated(oldTemplate, template);
             }
@@ -440,7 +410,6 @@ final class MetadataTemplatesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return updated;
     }
 
@@ -448,24 +417,19 @@ final class MetadataTemplatesDatabase extends Database {
         if (toName == null) {
             throw new NullPointerException("toName == null");
         }
-
         boolean renamed = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("UPDATE metadata_edit_templates SET name = ? WHERE name = ?");
             stmt.setString(1, toName);
             stmt.setString(2, fromName);
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             renamed = count > 0;
-
             if (renamed) {
                 notifyRenamed(fromName, toName);
             }
@@ -476,7 +440,6 @@ final class MetadataTemplatesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return renamed;
     }
 
@@ -490,26 +453,19 @@ final class MetadataTemplatesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         boolean deleted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
-
             MetadataTemplate template = findMetadataTemplate(name);
-
             stmt = con.prepareStatement("DELETE FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             deleted = count > 0;
-
             if (deleted) {
                 notifyDelted(template);
             }
@@ -520,7 +476,6 @@ final class MetadataTemplatesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return deleted;
     }
 
@@ -528,19 +483,16 @@ final class MetadataTemplatesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -550,7 +502,6 @@ final class MetadataTemplatesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 

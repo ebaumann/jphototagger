@@ -21,6 +21,7 @@ import org.jphototagger.domain.repository.event.autoscandirectories.AutoscanDire
 final class AutoscanDirectoriesDatabase extends Database {
 
     static final AutoscanDirectoriesDatabase INSTANCE = new AutoscanDirectoriesDatabase();
+    private static final Logger LOGGER = Logger.getLogger(AutoscanDirectoriesDatabase.class.getName());
 
     private AutoscanDirectoriesDatabase() {
     }
@@ -29,24 +30,18 @@ final class AutoscanDirectoriesDatabase extends Database {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         boolean inserted = false;
-
         if (!existsDirectory(directory)) {
             Connection con = null;
             PreparedStatement stmt = null;
-
             try {
                 con = getConnection();
                 con.setAutoCommit(true);
                 stmt = con.prepareStatement("INSERT INTO autoscan_directories (directory) VALUES (?)");
                 stmt.setString(1, getFilePath(directory));
-                logFiner(stmt);
-
+                LOGGER.log(Level.FINER, stmt.toString());
                 int count = stmt.executeUpdate();
-
                 inserted = count > 0;
-
                 if (inserted) {
                     notifyInserted(directory);
                 }
@@ -57,7 +52,6 @@ final class AutoscanDirectoriesDatabase extends Database {
                 free(con);
             }
         }
-
         return inserted;
     }
 
@@ -65,22 +59,17 @@ final class AutoscanDirectoriesDatabase extends Database {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         boolean deleted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement("DELETE FROM autoscan_directories WHERE directory = ?");
             stmt.setString(1, getFilePath(directory));
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             deleted = count > 0;
-
             if (deleted) {
                 notifyDeleted(directory);
             }
@@ -90,7 +79,6 @@ final class AutoscanDirectoriesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return deleted;
     }
 
@@ -98,19 +86,16 @@ final class AutoscanDirectoriesDatabase extends Database {
         if (directory == null) {
             throw new NullPointerException("directory == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?");
             stmt.setString(1, getFilePath(directory));
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -120,7 +105,6 @@ final class AutoscanDirectoriesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -129,16 +113,12 @@ final class AutoscanDirectoriesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT directory FROM autoscan_directories ORDER BY directory ASC";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 directories.add(createFile(rs.getString(1)));
             }
@@ -149,7 +129,6 @@ final class AutoscanDirectoriesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return directories;
     }
 

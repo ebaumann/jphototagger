@@ -23,6 +23,7 @@ import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefin
 final class UserDefinedFileFiltersDatabase extends Database {
 
     static final UserDefinedFileFiltersDatabase INSTANCE = new UserDefinedFileFiltersDatabase();
+    private static final Logger LOGGER = Logger.getLogger(UserDefinedFileFiltersDatabase.class.getName());
 
     private String getInsertSql() {
         return "INSERT INTO user_defined_file_filters" + " (is_not, type, name, expression) VALUES (?, ?, ?, ?)";
@@ -32,17 +33,13 @@ final class UserDefinedFileFiltersDatabase extends Database {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
-
         if (existsUserDefinedFileFilter(filter.getName())) {
             return updateUserDefinedFileFilter(filter);
         }
-
         checkFilter(filter, false);
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
@@ -51,10 +48,9 @@ final class UserDefinedFileFiltersDatabase extends Database {
             stmt.setInt(2, filter.getType().getValue());
             stmt.setString(3, filter.getName());
             stmt.setString(4, filter.getExpression());
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count == 1) {
                 filter.setId(findId(con, filter.getName()));
                 notifyInserted(filter);
@@ -67,7 +63,6 @@ final class UserDefinedFileFiltersDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count == 1;
     }
 
@@ -75,11 +70,9 @@ final class UserDefinedFileFiltersDatabase extends Database {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
-
         if (requiresId && (filter.getId() == null)) {
             throw new IllegalArgumentException("Id is null: " + filter);
         }
-
         if (!filter.isValid()) {
             throw new IllegalArgumentException("Invalid filter: " + filter);
         }
@@ -89,22 +82,18 @@ final class UserDefinedFileFiltersDatabase extends Database {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Long id = null;
-
         try {
             String sql = "SELECT id FROM user_defined_file_filters WHERE name = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
         } finally {
             close(rs, stmt);
         }
-
         return id;
     }
 
@@ -115,11 +104,9 @@ final class UserDefinedFileFiltersDatabase extends Database {
 
     boolean updateUserDefinedFileFilter(UserDefinedFileFilter filter) {
         checkFilter(filter, true);
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
@@ -129,10 +116,9 @@ final class UserDefinedFileFiltersDatabase extends Database {
             stmt.setString(3, filter.getName());
             stmt.setString(4, filter.getExpression());
             stmt.setLong(5, filter.getId());
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count == 1) {
                 notifyUpdated(filter);
             }
@@ -144,7 +130,6 @@ final class UserDefinedFileFiltersDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count == 1;
     }
 
@@ -154,20 +139,17 @@ final class UserDefinedFileFiltersDatabase extends Database {
 
     boolean deleteUserDefinedFileFilter(UserDefinedFileFilter filter) {
         checkFilter(filter, true);
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(getDeleteSql());
             stmt.setLong(1, filter.getId());
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
             con.commit();
-
             if (count == 1) {
                 notifyDeleted(filter);
             }
@@ -179,7 +161,6 @@ final class UserDefinedFileFiltersDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return count == 1;
     }
 
@@ -187,21 +168,16 @@ final class UserDefinedFileFiltersDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
-            String sql = "SELECT COUNT (*) FROM user_defined_file_filters"
-                    + " WHERE name = ?";
-
+            String sql = "SELECT COUNT (*) FROM user_defined_file_filters WHERE name = ?";
             con = getConnection();
             stmt = con.prepareStatement(sql);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -211,7 +187,6 @@ final class UserDefinedFileFiltersDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count > 0;
     }
 
@@ -220,19 +195,15 @@ final class UserDefinedFileFiltersDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             String sql = "SELECT id, is_not, type, name, expression FROM"
                     + " user_defined_file_filters ORDER BY name ASC";
-
             con = getConnection();
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 UserDefinedFileFilter f = new UserDefinedFileFilter();
-
                 f.setId(getLong(rs, 1));
                 f.setIsNot(rs.getBoolean(2));
                 f.setType(UserDefinedFileFilter.Type.parseValue(getInt(rs, 3)));
@@ -246,7 +217,6 @@ final class UserDefinedFileFiltersDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return filter;
     }
 

@@ -16,6 +16,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 final class MetaDataValuesDatabase extends Database {
 
     static final MetaDataValuesDatabase INSTANCE = new MetaDataValuesDatabase();
+    private static final Logger LOGGER = Logger.getLogger(MetaDataValuesDatabase.class.getName());
 
     private MetaDataValuesDatabase() {
     }
@@ -30,27 +31,20 @@ final class MetaDataValuesDatabase extends Database {
         if (metaDataValue == null) {
             throw new NullPointerException("column == null");
         }
-
         Set<String> content = new LinkedHashSet<String>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String columnName = metaDataValue.getValueName();
-
             stmt = con.createStatement();
-
             String sql = "SELECT DISTINCT " + columnName
                     + " FROM " + metaDataValue.getCategory()
                     + " WHERE " + columnName
                     + " IS NOT NULL ORDER BY 1 ASC";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 content.add(rs.getString(1));
             }
@@ -61,7 +55,6 @@ final class MetaDataValuesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return content;
     }
 
@@ -76,13 +69,10 @@ final class MetaDataValuesDatabase extends Database {
         if (metaDataValues == null) {
             throw new NullPointerException("columns == null");
         }
-
         Set<String> content = new LinkedHashSet<String>();
-
         for (MetaDataValue column : metaDataValues) {
             content.addAll(getDistinctMetaDataValues(column));
         }
-
         return content;
     }
 }
