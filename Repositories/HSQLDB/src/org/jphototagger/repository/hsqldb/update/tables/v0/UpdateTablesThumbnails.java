@@ -188,7 +188,7 @@ final class UpdateTablesThumbnails extends Database {
                     rs = stmt.executeQuery();
 
                     if (rs.next()) {
-                        File imageFile = Database.createFile(rs.getString(1));
+                        File imageFile = new File(rs.getString(1));
 
                         convertThumbnail(id, imageFile);
                     } else {

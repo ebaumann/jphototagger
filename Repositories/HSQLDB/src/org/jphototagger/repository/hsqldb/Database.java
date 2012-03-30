@@ -1,6 +1,5 @@
 package org.jphototagger.repository.hsqldb;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -46,13 +45,6 @@ public class Database {
             }
         }
         return isResultSet;
-    }
-
-    public static File createFile(String filePath) {
-        if (filePath == null) {
-            throw new NullPointerException("filePath == null");
-        }
-        return new File(filePath);
     }
 
     /**

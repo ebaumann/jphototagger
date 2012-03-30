@@ -120,7 +120,7 @@ final class AutoscanDirectoriesDatabase extends Database {
             LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                directories.add(createFile(rs.getString(1)));
+                directories.add(new File(rs.getString(1)));
             }
         } catch (Exception ex) {
             Logger.getLogger(AutoscanDirectoriesDatabase.class.getName()).log(Level.SEVERE, null, ex);

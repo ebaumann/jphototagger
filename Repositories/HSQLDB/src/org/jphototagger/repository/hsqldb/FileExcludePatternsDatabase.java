@@ -213,7 +213,7 @@ final class FileExcludePatternsDatabase extends Database {
                         int affectedRows = stmtUpdate.executeUpdate();
                         count += affectedRows;
                         if (affectedRows > 0) {
-                            File imageFile = createFile(filepath);
+                            File imageFile = new File(filepath);
                             tnRepo.deleteThumbnail(imageFile);
                             EventBus.publish(new ImageFileDeletedEvent(this, imageFile));
                         }
