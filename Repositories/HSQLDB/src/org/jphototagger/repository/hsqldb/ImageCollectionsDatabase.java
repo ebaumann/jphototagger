@@ -495,7 +495,7 @@ final class ImageCollectionsDatabase extends Database {
                     + " INNER JOIN files on collections.id_file = files.id"
                     + " WHERE collection_names.name = ? AND files.filename = ?");
             stmt.setString(1, collectionName);
-            stmt.setString(2, getFilePath(imageFile));
+            stmt.setString(2, imageFile.getAbsolutePath());
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {

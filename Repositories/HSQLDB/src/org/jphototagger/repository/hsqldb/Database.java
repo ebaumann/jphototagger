@@ -48,13 +48,6 @@ public class Database {
         return isResultSet;
     }
 
-    public static String getFilePath(File file) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-        return file.getAbsolutePath();
-    }
-
     public static File createFile(String filePath) {
         if (filePath == null) {
             throw new NullPointerException("filePath == null");
@@ -182,7 +175,6 @@ public class Database {
         } finally {
             close(rs, stmt);
         }
-
         return id;
     }
 

@@ -38,7 +38,7 @@ final class AutoscanDirectoriesDatabase extends Database {
                 con = getConnection();
                 con.setAutoCommit(true);
                 stmt = con.prepareStatement("INSERT INTO autoscan_directories (directory) VALUES (?)");
-                stmt.setString(1, getFilePath(directory));
+                stmt.setString(1, directory.getAbsolutePath());
                 LOGGER.log(Level.FINER, stmt.toString());
                 int count = stmt.executeUpdate();
                 inserted = count > 0;
@@ -66,7 +66,7 @@ final class AutoscanDirectoriesDatabase extends Database {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement("DELETE FROM autoscan_directories WHERE directory = ?");
-            stmt.setString(1, getFilePath(directory));
+            stmt.setString(1, directory.getAbsolutePath());
             LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
             deleted = count > 0;
@@ -93,7 +93,7 @@ final class AutoscanDirectoriesDatabase extends Database {
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM autoscan_directories WHERE directory = ?");
-            stmt.setString(1, getFilePath(directory));
+            stmt.setString(1, directory.getAbsolutePath());
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
