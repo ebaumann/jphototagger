@@ -27,6 +27,7 @@ import org.jphototagger.domain.wordsets.Wordset;
 final class WordsetsDatabase extends Database {
 
     static final WordsetsDatabase INSTANCE = new WordsetsDatabase();
+    private static final Logger LOGGER = Logger.getLogger(WordsetsDatabase.class.getName());
 
     List<Wordset> findAll() {
         List<Wordset> wordsets = new LinkedList<Wordset>();
@@ -36,7 +37,7 @@ final class WordsetsDatabase extends Database {
             con = getConnection();
             String sql = "SELECT id, name FROM wordsets ORDER BY name ASC";
             stmt = con.prepareStatement(sql);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 long id = rs.getLong(1);
@@ -68,7 +69,7 @@ final class WordsetsDatabase extends Database {
             String sql = "SELECT id FROM wordsets WHERE name = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, wordsetName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 long id = rs.getLong(1);
@@ -108,7 +109,7 @@ final class WordsetsDatabase extends Database {
             String sql = "SELECT name FROM wordsets WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, id);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 name = rs.getString(1);
@@ -130,7 +131,7 @@ final class WordsetsDatabase extends Database {
             con = getConnection();
             String sql = "SELECT name FROM wordsets ORDER BY name ASC";
             stmt = con.prepareStatement(sql);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String name = rs.getString(1);
@@ -152,7 +153,7 @@ final class WordsetsDatabase extends Database {
             String sql = "SELECT word FROM wordsets_words WHERE id_wordsets = ? ORDER BY word_order ASC";
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, wordsetsId);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String word = rs.getString(1);
@@ -176,7 +177,7 @@ final class WordsetsDatabase extends Database {
             String sql = "DELETE FROM wordsets WHERE name = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, wordsetName);
-            logFiner(sql);
+            LOGGER.log(Level.FINER, sql);
             con.setAutoCommit(true);
             countAffectedRows = stmt.executeUpdate();
             if (countAffectedRows > 0) {
@@ -213,7 +214,7 @@ final class WordsetsDatabase extends Database {
                 stmt.setLong(1, wordsetsId);
                 stmt.setString(2, word);
                 stmt.setLong(3, getWordCount(con, wordsetsId));
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 countAffectedRows = stmt.executeUpdate();
                 if (countAffectedRows > 0) {
                     EventBus.publish(new WordsetWordAddedEvent(this, wordsetName, word));
@@ -247,7 +248,7 @@ final class WordsetsDatabase extends Database {
                 stmt = con.prepareStatement(sql);
                 stmt.setLong(1, wordsetsId);
                 stmt.setString(2, word);
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 countAffectedRows = stmt.executeUpdate();
                 if (countAffectedRows > 0) {
                     EventBus.publish(new WordsetWordRemovedEvent(this, wordsetName, word));
@@ -288,7 +289,7 @@ final class WordsetsDatabase extends Database {
                 stmt.setString(1, newWord);
                 stmt.setLong(2, wordsetsId);
                 stmt.setString(3, oldWord);
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 countAffectedRows = stmt.executeUpdate();
                 if (countAffectedRows > 0) {
                     EventBus.publish(new WordsetWordRenamedEvent(this, wordsetName, oldWord, newWord));
@@ -320,7 +321,7 @@ final class WordsetsDatabase extends Database {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, oldWordsetName);
             stmt.setString(2, newWordsetName);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             if (countAffectedRows > 0) {
                 EventBus.publish(new WordsetRenamedEvent(this, oldWordsetName, newWordsetName));
@@ -352,7 +353,7 @@ final class WordsetsDatabase extends Database {
             String sql = "INSERT INTO wordsets (name) VALUES (?)";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, wordsetName);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             if (countAffectedRows == 1) {
                 long wordsetsId = findWordsetId(con, wordsetName);
@@ -396,7 +397,7 @@ final class WordsetsDatabase extends Database {
                 stmt.setString(1, wordset.getName());
                 stmt.setLong(2, wordsetsId);
                 stmt.executeUpdate();
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
             }
             insertWords(con, wordsetsId, wordset.getWords());
             con.commit();
@@ -418,7 +419,7 @@ final class WordsetsDatabase extends Database {
             String sql = "DELETE FROM wordsets_words WHERE id_wordsets = ?";
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, wordsetsId);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } finally {
             close(stmt);
@@ -435,7 +436,7 @@ final class WordsetsDatabase extends Database {
                 stmt.setLong(1, wordsetsId);
                 stmt.setString(2, word);
                 stmt.setInt(3, wordOrder);
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 stmt.executeUpdate();
                 wordOrder++;
             }
@@ -451,7 +452,7 @@ final class WordsetsDatabase extends Database {
             String sql = "SELECT id FROM wordsets WHERE name = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, wordsetName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getInt(1);
@@ -486,7 +487,7 @@ final class WordsetsDatabase extends Database {
             String sql = "SELECT COUNT(*) FROM wordsets_words WHERE id_wordsets = ?";
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, wordsetsId);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);
@@ -514,7 +515,7 @@ final class WordsetsDatabase extends Database {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, wordsetName);
             stmt.setString(2, word);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);
@@ -540,7 +541,7 @@ final class WordsetsDatabase extends Database {
             String sql = "SELECT COUNT(*) FROM wordsets WHERE name = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, wordsetName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);
@@ -563,7 +564,7 @@ final class WordsetsDatabase extends Database {
             String sql = "SELECT COUNT(*) FROM wordsets WHERE id = ?";
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, id);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 count = rs.getLong(1);

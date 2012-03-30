@@ -46,11 +46,9 @@ final class ActionsAfterDbInsertionDatabase extends Database {
         if (program == null) {
             throw new NullPointerException("action == null");
         }
-
         int countAffectedRows = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
@@ -58,10 +56,9 @@ final class ActionsAfterDbInsertionDatabase extends Database {
                     + " (id_program, action_order) VALUES (?, ?)");
             stmt.setLong(1, program.getId());
             stmt.setInt(2, order);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             con.commit();
-
             if (countAffectedRows > 0) {
                 EventBus.publish(new ActionAfterRepoUpdateInsertedEvent(this, program));
             }
@@ -86,20 +83,17 @@ final class ActionsAfterDbInsertionDatabase extends Database {
         if (program == null) {
             throw new NullPointerException("action == null");
         }
-
         int countAffectedRows = 0;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM actions_after_db_insertion WHERE id_program = ?");
             stmt.setLong(1, program.getId());
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
             con.commit();
-
             if (countAffectedRows > 0) {
                 EventBus.publish(new ActionAfterRepoUpdateDeletedEvent(this, program));
             }
@@ -110,7 +104,6 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return countAffectedRows == 1;
     }
 
@@ -124,20 +117,15 @@ final class ActionsAfterDbInsertionDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT id_program FROM actions_after_db_insertion ORDER BY action_order ASC";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 long idProgram = rs.getLong(1);
                 Program program = programsRepo.findProgram(idProgram);
-
                 if (program == null) {
                     LOGGER.log(Level.WARNING,
                             "Error getting an action to start after insertion of metadata into the database: The programm whith the ID {0} not exist!",
@@ -152,7 +140,6 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return programs;
     }
 
@@ -166,20 +153,17 @@ final class ActionsAfterDbInsertionDatabase extends Database {
         if (action == null) {
             throw new NullPointerException("action == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM actions_after_db_insertion"
                     + " WHERE id_program = ?");
             stmt.setLong(1, action.getId());
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -189,7 +173,6 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -198,16 +181,12 @@ final class ActionsAfterDbInsertionDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT COUNT(*) FROM actions_after_db_insertion";
-
             stmt = con.createStatement();
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -217,7 +196,6 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -234,30 +212,24 @@ final class ActionsAfterDbInsertionDatabase extends Database {
         if (actions == null) {
             throw new NullPointerException("actions == null");
         }
-
         Connection con = null;
         boolean allReordered = false;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("UPDATE actions_after_db_insertion SET action_order = ?"
                     + " WHERE id_program = ?");
-
             int index = startIndex;
             int countAffected = 0;
-
             for (Program action : actions) {
                 stmt.setInt(1, index++);
                 stmt.setLong(2, action.getId());
-                logFiner(stmt);
+                LOGGER.log(Level.FINER, stmt.toString());
                 countAffected += stmt.executeUpdate();
             }
-
             con.commit();
             allReordered = countAffected == actions.size();
-
             if (allReordered) {
                 EventBus.publish(new ActionsAfterRepoUpdateReorderedEvent(this, actions));
             }
@@ -268,7 +240,6 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return allReordered;
     }
 }

@@ -26,10 +26,8 @@ final class DatabaseMaintainance extends Database {
         if (!ConnectionPool.INSTANCE.isInit()) {
             return;
         }
-
         Connection con = null;
         Statement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
@@ -39,10 +37,10 @@ final class DatabaseMaintainance extends Database {
         } catch (Exception ex) {
             Logger.getLogger(DatabaseMaintainance.class.getName()).log(Level.SEVERE, null, ex);
             String message = Bundle.getString(DatabaseMaintainance.class, "DatabaseMaintainance.Error.Shutdown");
-
             MessageDisplayer.error(null, message);
         } finally {
             close(stmt);
+            free(con);
         }
     }
 
@@ -55,7 +53,6 @@ final class DatabaseMaintainance extends Database {
         boolean success = false;
         Connection con = null;
         Statement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
@@ -68,7 +65,6 @@ final class DatabaseMaintainance extends Database {
             close(stmt);
             free(con);
         }
-
         return success;
     }
 
@@ -124,16 +120,13 @@ final class DatabaseMaintainance extends Database {
         Connection con = null;
         Statement stmt = null;
         int deleted = 0;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.createStatement();
-
             for (Ref1nInfo info : REF_1_N_INFOS) {
                 String sql = format(sqlTemplate, info.getTable(), info.getRefColumn(), info.getRefTable());
-
-                logFiner(sql);
+                LOGGER.log(Level.FINER, sql);
                 deleted += stmt.executeUpdate(sql);
             }
         } catch (Exception ex) {

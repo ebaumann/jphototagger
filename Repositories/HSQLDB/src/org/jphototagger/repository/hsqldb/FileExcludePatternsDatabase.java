@@ -28,6 +28,7 @@ import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent
 final class FileExcludePatternsDatabase extends Database {
 
     static final FileExcludePatternsDatabase INSTANCE = new FileExcludePatternsDatabase();
+    private static final Logger LOGGER = Logger.getLogger(FileExcludePatternsDatabase.class.getName());
 
     private FileExcludePatternsDatabase() {
     }
@@ -42,23 +43,18 @@ final class FileExcludePatternsDatabase extends Database {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
-
         boolean inserted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("INSERT INTO file_exclude_patterns (pattern) VALUES (?)");
             stmt.setString(1, pattern);
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             inserted = count > 0;
-
             if (inserted) {
                 notifyInserted(pattern);
             }
@@ -69,7 +65,6 @@ final class FileExcludePatternsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return inserted;
     }
 
@@ -83,23 +78,18 @@ final class FileExcludePatternsDatabase extends Database {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
-
         boolean deleted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM file_exclude_patterns WHERE pattern = ?");
             stmt.setString(1, pattern);
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             deleted = count > 0;
-
             if (deleted) {
                 notifyDeleted(pattern);
             }
@@ -110,7 +100,6 @@ final class FileExcludePatternsDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return deleted;
     }
 
@@ -124,19 +113,16 @@ final class FileExcludePatternsDatabase extends Database {
         if (pattern == null) {
             throw new NullPointerException("pattern == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM file_exclude_patterns WHERE pattern = ?");
             stmt.setString(1, pattern);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
@@ -146,7 +132,6 @@ final class FileExcludePatternsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -160,16 +145,12 @@ final class FileExcludePatternsDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT pattern FROM file_exclude_patterns ORDER BY pattern ASC";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 patterns.add(rs.getString(1));
             }
@@ -179,7 +160,6 @@ final class FileExcludePatternsDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return patterns;
     }
 
@@ -194,26 +174,21 @@ final class FileExcludePatternsDatabase extends Database {
         if (patterns == null) {
             throw new NullPointerException("patterns == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmtUpdate = null;
         Statement stmtQuery = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
-
             List<String> deletedFiles = new LinkedList<String>();
             String sqlUpdate = "DELETE FROM files WHERE filename = ?";
             String sqlQuery = "SELECT filename FROM files";
-
             stmtQuery = con.createStatement();
             stmtUpdate = con.prepareStatement(sqlUpdate);
-            logFinest(sqlQuery);
+            LOGGER.log(Level.FINEST, sqlQuery);
             rs = stmtQuery.executeQuery(sqlQuery);
-
             int patternCount = patterns.size();
             int progress = 0;
             RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
@@ -224,44 +199,31 @@ final class FileExcludePatternsDatabase extends Database {
                     .value(0)
                     .build();
             ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
-
             notifyProgressListenerStart(listener, event);
-
             boolean cancel = event.isCancel();
-
             while (!cancel && rs.next()) {
                 String filepath = rs.getString(1);
-
                 for (int i = 0; !cancel && (i < patternCount); i++) {
                     progress++;
-
                     String pattern = patterns.get(i);
-
                     if (filepath.matches(pattern)) {
                         stmtUpdate.setString(1, filepath);
                         deletedFiles.add(filepath);
-                        logFiner(stmtUpdate);
-
+                        LOGGER.log(Level.FINER, stmtUpdate.toString());
                         int affectedRows = stmtUpdate.executeUpdate();
-
                         count += affectedRows;
-
                         if (affectedRows > 0) {
                             File imageFile = createFile(filepath);
-
                             tnRepo.deleteThumbnail(imageFile);
                             EventBus.publish(new ImageFileDeletedEvent(this, imageFile));
                         }
-
                         cancel = event.isCancel();
                     }
-
                     event.setInfo(filepath);
                     event.setValue(progress);
                     notifyProgressListenerPerformed(listener, event);
                 }
             }
-
             con.commit();
             notifyProgressListenerEnd(listener, event);
         } catch (Exception ex) {
@@ -272,7 +234,6 @@ final class FileExcludePatternsDatabase extends Database {
             close(stmtUpdate);
             free(con);
         }
-
         return count;
     }
 

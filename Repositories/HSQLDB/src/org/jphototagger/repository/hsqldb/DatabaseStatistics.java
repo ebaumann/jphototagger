@@ -16,6 +16,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 final class DatabaseStatistics extends Database {
 
     static final DatabaseStatistics INSTANCE = new DatabaseStatistics();
+    private static final Logger LOGGER = Logger.getLogger(DatabaseStatistics.class.getName());
 
     private DatabaseStatistics() {
     }
@@ -32,22 +33,17 @@ final class DatabaseStatistics extends Database {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-
         int count = -1;
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT COUNT(*) FROM " + metaDataValue.getCategory()
                     + " WHERE " + metaDataValue.getValueName() + " IS NOT NULL";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -57,7 +53,6 @@ final class DatabaseStatistics extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -71,16 +66,12 @@ final class DatabaseStatistics extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT COUNT(*) FROM files";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -90,7 +81,6 @@ final class DatabaseStatistics extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -104,16 +94,12 @@ final class DatabaseStatistics extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT COUNT(*) FROM xmp LEFT JOIN files ON xmp.id_file = files.id";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -123,7 +109,6 @@ final class DatabaseStatistics extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count;
     }
 
@@ -138,30 +123,23 @@ final class DatabaseStatistics extends Database {
         if (metaDataValues == null) {
             throw new NullPointerException("columns == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             int size = metaDataValues.size();
-
             for (int i = 0; !exists && (i < size); i++) {
                 MetaDataValue column = metaDataValues.get(i);
-
                 stmt = con.prepareStatement("SELECT COUNT(*) FROM " + column.getCategory()
                         + " WHERE " + column.getValueName() + " = ?");
                 stmt.setString(1, value);
-                logFinest(stmt);
+                LOGGER.log(Level.FINEST, stmt.toString());
                 rs = stmt.executeQuery();
-
                 if (rs.next()) {
                     exists = rs.getInt(1) > 0;
                 }
-
                 rs.close();
                 stmt.close();
             }
@@ -171,7 +149,6 @@ final class DatabaseStatistics extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 
@@ -186,20 +163,17 @@ final class DatabaseStatistics extends Database {
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-
         int count = 0;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM " + metaDataValue.getCategory()
                     + " WHERE " + metaDataValue.getValueName() + " = ?");
             stmt.setString(1, value);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
@@ -209,7 +183,6 @@ final class DatabaseStatistics extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return count > 0;
     }
 }

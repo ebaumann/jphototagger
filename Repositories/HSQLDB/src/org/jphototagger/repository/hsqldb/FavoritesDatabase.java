@@ -23,6 +23,7 @@ import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
 final class FavoritesDatabase extends Database {
 
     static final FavoritesDatabase INSTANCE = new FavoritesDatabase();
+    private static final Logger LOGGER = Logger.getLogger(FavoritesDatabase.class.getName());
 
     private FavoritesDatabase() {
     }
@@ -31,16 +32,13 @@ final class FavoritesDatabase extends Database {
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
-
         boolean inserted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             if (existsFavorite(favorite.getName())) {
                 return updateFavorite(favorite);
             }
-
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("INSERT INTO favorite_directories"
@@ -49,13 +47,10 @@ final class FavoritesDatabase extends Database {
             stmt.setString(1, favorite.getName());
             stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             inserted = count > 0;
-
             if (inserted) {
                 favorite.setId(findIdByFavoriteName(favorite.getName()));
                 notifyInserted(favorite);
@@ -67,7 +62,6 @@ final class FavoritesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return inserted;
     }
 
@@ -75,25 +69,19 @@ final class FavoritesDatabase extends Database {
         if (favoriteName == null) {
             throw new NullPointerException("favoriteName == null");
         }
-
         boolean deleted = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             Favorite delFavorite = find(favoriteName);
-
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             deleted = count > 0;
-
             if (deleted && (delFavorite != null)) {
                 notifyDeleted(delFavorite);
             }
@@ -104,7 +92,6 @@ final class FavoritesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return deleted;
     }
 
@@ -112,29 +99,22 @@ final class FavoritesDatabase extends Database {
         if (fromFavoriteName == null) {
             throw new NullPointerException("fromFavoriteName == null");
         }
-
         if (toFavoriteName == null) {
             throw new NullPointerException("toFavoriteName == null");
         }
-
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int count = 0;
-
         try {
             Favorite oldFavorite = find(fromFavoriteName);
             Connection con = getConnection();
-
             con.setAutoCommit(true);
-
             String sql = "UPDATE favorite_directories SET favorite_name = ? WHERE favorite_name = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, toFavoriteName);
             stmt.setString(2, fromFavoriteName);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             count = stmt.executeUpdate();
-
             if (count > 0) {
                 notifyUpdated(oldFavorite, find(toFavoriteName));
             }
@@ -143,7 +123,6 @@ final class FavoritesDatabase extends Database {
         } finally {
             close(rs, stmt);
         }
-
         return count > 0;
     }
 
@@ -161,17 +140,13 @@ final class FavoritesDatabase extends Database {
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
-
         boolean updated = false;
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(false);
-
             Favorite oldFavorite = find(favorite.getId());
-
             stmt = con.prepareStatement("UPDATE favorite_directories SET"
                     + " favorite_name = ?, directory_name = ?, favorite_index = ?"
                     + " WHERE id = ?");
@@ -179,13 +154,10 @@ final class FavoritesDatabase extends Database {
             stmt.setString(2, getFilePath(favorite.getDirectory()));
             stmt.setInt(3, favorite.getIndex());
             stmt.setLong(4, favorite.getId());
-            logFiner(stmt);
-
+            LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
-
             con.commit();
             updated = count > 0;
-
             if (updated) {
                 notifyUpdated(oldFavorite, favorite);
             }
@@ -196,7 +168,6 @@ final class FavoritesDatabase extends Database {
             close(stmt);
             free(con);
         }
-
         return updated;
     }
 
@@ -205,20 +176,15 @@ final class FavoritesDatabase extends Database {
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.createStatement();
-
             String sql = "SELECT id, favorite_name, directory_name, favorite_index"
                     + " FROM favorite_directories ORDER BY favorite_index ASC";
-
-            logFinest(sql);
+            LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
-
             while (rs.next()) {
                 Favorite favorite = new Favorite();
-
                 favorite.setId(rs.getLong(1));
                 favorite.setName(rs.getString(2));
                 favorite.setDirectory(createFile(rs.getString(3)));
@@ -232,7 +198,6 @@ final class FavoritesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return favorites;
     }
 
@@ -241,15 +206,13 @@ final class FavoritesDatabase extends Database {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT id, favorite_name, directory_name, favorite_index"
                     + " FROM favorite_directories WHERE id = ?");
             stmt.setLong(1, id);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 favorite = new Favorite();
                 favorite.setId(rs.getLong(1));
@@ -263,7 +226,6 @@ final class FavoritesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return favorite;
     }
 
@@ -272,15 +234,13 @@ final class FavoritesDatabase extends Database {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT id, favorite_name, directory_name, favorite_index"
                     + " FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 favorite = new Favorite();
                 favorite.setId(rs.getLong(1));
@@ -294,7 +254,6 @@ final class FavoritesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return favorite;
     }
 
@@ -303,14 +262,12 @@ final class FavoritesDatabase extends Database {
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT id FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 id = rs.getLong(1);
             }
@@ -320,7 +277,6 @@ final class FavoritesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return id;
     }
 
@@ -328,25 +284,20 @@ final class FavoritesDatabase extends Database {
         if (favoriteName == null) {
             throw new NullPointerException("favoriteName == null");
         }
-
         boolean exists = false;
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM favorite_directories WHERE favorite_name = ?");
             stmt.setString(1, favoriteName);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             int count = 0;
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-
             exists = count > 0;
         } catch (Exception ex) {
             Logger.getLogger(FavoritesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -354,7 +305,6 @@ final class FavoritesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return exists;
     }
 

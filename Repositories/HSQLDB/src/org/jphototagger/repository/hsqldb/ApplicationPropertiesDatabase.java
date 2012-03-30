@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 final class ApplicationPropertiesDatabase extends Database {
 
     static final ApplicationPropertiesDatabase INSTANCE = new ApplicationPropertiesDatabase();
+    private static final Logger LOGGER = Logger.getLogger(ApplicationPropertiesDatabase.class.getName());
     private static final String VALUE_FALSE = "0";    // Never change that!
     private static final String VALUE_TRUE = "1";    // Never change that!
 
@@ -34,27 +35,20 @@ final class ApplicationPropertiesDatabase extends Database {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
         try {
             con = getConnection();
-
             String sql = "SELECT COUNT(*) FROM application WHERE key = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, key);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             int count = 0;
-
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-
             return count > 0;
         } catch (Exception ex) {
             Logger.getLogger(ApplicationPropertiesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -62,7 +56,6 @@ final class ApplicationPropertiesDatabase extends Database {
             close(rs, stmt);
             free(con);
         }
-
         return false;
     }
 
@@ -75,19 +68,15 @@ final class ApplicationPropertiesDatabase extends Database {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
-
             String sql = "DELETE FROM application WHERE key = ?";
-
             stmt = con.prepareStatement(sql);
             stmt.setString(1, key);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } catch (Exception ex) {
             Logger.getLogger(ApplicationPropertiesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -109,9 +98,7 @@ final class ApplicationPropertiesDatabase extends Database {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         String value = getString(key);
-
         return (value == null)
                 ? false
                 : value.equals(VALUE_TRUE);
@@ -127,7 +114,6 @@ final class ApplicationPropertiesDatabase extends Database {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         setString(key, value
                 ? VALUE_TRUE
                 : VALUE_FALSE);
@@ -151,21 +137,18 @@ final class ApplicationPropertiesDatabase extends Database {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (string == null) {
             throw new NullPointerException("string == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.prepareStatement(getInsertOrUpdateStmt(key));
             stmt.setBytes(1, string.getBytes());
             stmt.setString(2, key);
-            logFiner(stmt);
+            LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } catch (Exception ex) {
             Logger.getLogger(ApplicationPropertiesDatabase.class.getName()).log(Level.SEVERE, null, ex);
@@ -186,24 +169,19 @@ final class ApplicationPropertiesDatabase extends Database {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String string = null;
-
         try {
             String sql = "SELECT value FROM application WHERE key = ?";
-
             con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setString(1, key);
-            logFinest(stmt);
+            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-
             if (rs.next()) {
                 byte[] bytes = rs.getBytes(1);
-
                 if (rs.wasNull() || (bytes == null)) {
                     string = null;
                 } else {
