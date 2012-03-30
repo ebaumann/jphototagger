@@ -1,9 +1,14 @@
 package org.jphototagger.lib.io;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import org.jphototagger.lib.util.SystemProperties;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -123,5 +128,39 @@ public class FileUtilTest {
                 new File("/home/elmar/bla.txt"), new File("/home/elmar/blubb.txt"), new File("/home/elmar/blob.txt"))));
         assertFalse(FileUtil.inSameDirectory(Arrays.asList(
                 new File("/home/elmar/bla.txt"), new File("/home/elmar/blubb.txt"), new File("/root/blob.txt"))));
+    }
+
+
+    @Test
+    public void testGetMd5HexOfFileContent() throws Exception {
+        InputStream is = null;
+        OutputStream os = null;
+        File outfile = new File(SystemProperties.getTemporaryDir() + File.separator + "JPT-temp-test-md5hex");
+        if (outfile.exists()) {
+            throw new RuntimeException("File exists: " + outfile);
+        }
+        try {
+            is = FileUtilTest.class.getResourceAsStream("md5file1"); // text file
+            os = new FileOutputStream(outfile);
+            IoUtil.fromIsToOs(is, os);
+            String expected = "646168e06ba20d739d3d9bb76487db86";
+            String actual = FileUtil.getMd5HexOfFileContent(outfile);
+            assertEquals(expected, actual);
+            FileUtil.writeStringAsFile("", outfile); // empty file
+            expected = "d41d8cd98f00b204e9800998ecf8427e";
+            actual = FileUtil.getMd5HexOfFileContent(outfile);
+            assertEquals(expected, actual);
+            is = FileUtilTest.class.getResourceAsStream("md5file2"); // binary file
+            os = new FileOutputStream(outfile);
+            IoUtil.fromIsToOs(is, os);
+            expected = "7ffb89fac9a950e844ea940d266dd26d";
+            actual = FileUtil.getMd5HexOfFileContent(outfile);
+            assertEquals(expected, actual);
+        } finally {
+            IoUtil.close(is);
+            IoUtil.close(os);
+            outfile.delete();
+        }
+
     }
 }

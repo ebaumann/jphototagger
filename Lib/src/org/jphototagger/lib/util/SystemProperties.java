@@ -81,6 +81,10 @@ public final class SystemProperties {
         return System.getProperty("user.dir");
     }
 
+    public static String getTemporaryDir() {
+        return System.getProperty("java.io.tmpdir");
+    }
+
     public static String systemInfoToString() {
         String lineSeparator = System.getProperty("line.separator");
         StringBuilder sb = new StringBuilder();
