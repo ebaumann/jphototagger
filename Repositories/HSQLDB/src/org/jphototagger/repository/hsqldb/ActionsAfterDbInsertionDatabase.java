@@ -63,7 +63,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
                 EventBus.publish(new ActionAfterRepoUpdateInsertedEvent(this, program));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ActionsAfterDbInsertionDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -98,7 +98,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
                 EventBus.publish(new ActionAfterRepoUpdateDeletedEvent(this, program));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ActionsAfterDbInsertionDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -135,7 +135,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(ActionsAfterDbInsertionDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -168,7 +168,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            Logger.getLogger(ActionsAfterDbInsertionDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -191,7 +191,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ActionsAfterDbInsertionDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -234,7 +234,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
                 EventBus.publish(new ActionsAfterRepoUpdateReorderedEvent(this, actions));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ActionsAfterDbInsertionDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);

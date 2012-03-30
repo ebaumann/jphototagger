@@ -48,7 +48,7 @@ final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -76,7 +76,7 @@ final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -104,7 +104,7 @@ final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -144,7 +144,7 @@ final class DatabaseStatistics extends Database {
                 stmt.close();
             }
         } catch (Exception ex) {
-            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -178,7 +178,7 @@ final class DatabaseStatistics extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(DatabaseStatistics.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

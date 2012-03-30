@@ -57,7 +57,7 @@ final class KeywordsDatabase extends Database {
                 keywords.add(new Keyword(rs.getLong(1), idParent, rs.getString(3), rs.getBoolean(4)));
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             keywords.clear();
         } finally {
             close(rs, stmt);
@@ -100,7 +100,7 @@ final class KeywordsDatabase extends Database {
             LOGGER.log(Level.FINER, stmt.toString());
             updated = stmt.executeUpdate() == 1;
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -156,7 +156,7 @@ final class KeywordsDatabase extends Database {
                 keyword.setId(nextId);
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -181,7 +181,7 @@ final class KeywordsDatabase extends Database {
             countAffected = stmt.executeUpdate();
             con.commit();
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -217,7 +217,7 @@ final class KeywordsDatabase extends Database {
             con.commit();
             deleted = true;
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -271,7 +271,7 @@ final class KeywordsDatabase extends Database {
                 idParent = parent.getIdParent();
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             free(con);
         }
@@ -307,7 +307,7 @@ final class KeywordsDatabase extends Database {
                 children.add(new Keyword(rs.getLong(1), idPar, rs.getString(3), rs.getBoolean(4)));
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -341,7 +341,7 @@ final class KeywordsDatabase extends Database {
                 children.add(new Keyword(rs.getLong(1), idParent, rs.getString(3), rs.getBoolean(4)));
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -406,7 +406,7 @@ final class KeywordsDatabase extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -439,7 +439,7 @@ final class KeywordsDatabase extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -466,7 +466,7 @@ final class KeywordsDatabase extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -502,7 +502,7 @@ final class KeywordsDatabase extends Database {
             LOGGER.log(Level.FINEST, stmt.toString());
             count = stmt.executeUpdate();
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -551,7 +551,7 @@ final class KeywordsDatabase extends Database {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(KeywordsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

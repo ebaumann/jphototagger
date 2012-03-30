@@ -56,7 +56,7 @@ final class FindDatabase extends Database {
                 imageFiles.add(new File(rs.getString(1)));
             }
         } catch (Exception ex) {
-            Logger.getLogger(FindDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             imageFiles.clear();
         } finally {
             close(rs, stmt);
@@ -128,7 +128,7 @@ final class FindDatabase extends Database {
                     }
                 }
             } catch (Exception ex) {
-                Logger.getLogger(FindDatabase.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.log(Level.SEVERE, null, ex);
                 imageFiles.clear();
             } finally {
                 close(rs, stmt);

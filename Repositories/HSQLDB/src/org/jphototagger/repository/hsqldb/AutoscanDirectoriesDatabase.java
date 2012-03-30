@@ -46,7 +46,7 @@ final class AutoscanDirectoriesDatabase extends Database {
                     notifyInserted(directory);
                 }
             } catch (Exception ex) {
-                Logger.getLogger(AutoscanDirectoriesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.log(Level.SEVERE, null, ex);
             } finally {
                 close(stmt);
                 free(con);
@@ -74,7 +74,7 @@ final class AutoscanDirectoriesDatabase extends Database {
                 notifyDeleted(directory);
             }
         } catch (Exception ex) {
-            Logger.getLogger(AutoscanDirectoriesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -100,7 +100,7 @@ final class AutoscanDirectoriesDatabase extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            Logger.getLogger(AutoscanDirectoriesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -123,7 +123,7 @@ final class AutoscanDirectoriesDatabase extends Database {
                 directories.add(new File(rs.getString(1)));
             }
         } catch (Exception ex) {
-            Logger.getLogger(AutoscanDirectoriesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             directories.clear();
         } finally {
             close(rs, stmt);
