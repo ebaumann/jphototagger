@@ -36,6 +36,7 @@ import org.jphototagger.domain.repository.FileRepositoryProvider;
 public final class ConnectionPool implements Runnable {
 
     public static final ConnectionPool INSTANCE = new ConnectionPool();
+    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class.getName());
     private boolean connectionPending = false;
     /**
      * The list of available connections
@@ -159,7 +160,7 @@ public final class ConnectionPool implements Runnable {
                 try {
                     wait();
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(ConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -213,7 +214,7 @@ public final class ConnectionPool implements Runnable {
 
             // Give up on new connection and wait for existing one
             // to free up.
-            Logger.getLogger(ConnectionPool.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
     }
 

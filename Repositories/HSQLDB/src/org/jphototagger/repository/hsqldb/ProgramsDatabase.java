@@ -86,7 +86,7 @@ final class ProgramsDatabase extends Database {
             con.commit();
             notifyInserted(program);
         } catch (Exception ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -174,7 +174,7 @@ final class ProgramsDatabase extends Database {
             con.commit();
             notifyUpdated(program);
         } catch (Exception ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -233,7 +233,7 @@ final class ProgramsDatabase extends Database {
             deleteProgramFromDefaultPrograms(con, program.getId());
             notifyDeleted(program);
         } catch (Exception ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -266,7 +266,7 @@ final class ProgramsDatabase extends Database {
                 programs.add(createProgramOfCurrentRecord(rs));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -359,7 +359,7 @@ final class ProgramsDatabase extends Database {
                 program = createProgramOfCurrentRecord(rs);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -394,7 +394,7 @@ final class ProgramsDatabase extends Database {
                 exists = rs.getLong(1) > 0;
             }
         } catch (Exception ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -423,7 +423,7 @@ final class ProgramsDatabase extends Database {
                 program = createProgramOfCurrentRecord(rs);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -464,7 +464,7 @@ final class ProgramsDatabase extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -506,7 +506,7 @@ final class ProgramsDatabase extends Database {
                 count = rs.getInt(1);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
         }
@@ -561,7 +561,7 @@ final class ProgramsDatabase extends Database {
                 defaultPrograms.add(defaultProgram);
             }
         } catch (Exception e) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, e);
+            LOGGER.log(Level.SEVERE, null, e);
             return Collections.emptyList();
         } finally {
             close(stmt);
@@ -596,7 +596,7 @@ final class ProgramsDatabase extends Database {
                 EventBus.publish(new DefaultProgramInsertedEvent(this, filenameSuffix, idProgram));
             }
         } catch (Throwable t) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, t);
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -622,7 +622,7 @@ final class ProgramsDatabase extends Database {
                 EventBus.publish(new DefaultProgramUpdatedEvent(this, filenameSuffix, idProgram));
             }
         } catch (Throwable t) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, t);
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -647,7 +647,7 @@ final class ProgramsDatabase extends Database {
                 EventBus.publish(new DefaultProgramDeletedEvent(this, filenameSuffix));
             }
         } catch (Throwable t) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, t);
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -667,7 +667,7 @@ final class ProgramsDatabase extends Database {
             LOGGER.log(Level.FINER, stmt.toString());
             countAffected = stmt.executeUpdate(); // Possibly critical: Not notifications to event listeners
             if (countAffected > 0) {
-                Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.INFO,
+                LOGGER.log(Level.INFO,
                         "Deleted {0} entries from default programs where program id was {1}",
                         new Object[]{countAffected, idProgram});
             }
@@ -689,7 +689,7 @@ final class ProgramsDatabase extends Database {
                 return findProgram(id);
             }
         } catch (Throwable t) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, t);
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             free(con);
         }
@@ -732,7 +732,7 @@ final class ProgramsDatabase extends Database {
                 count = rs.getLong(1);
             }
         } catch (Throwable t) {
-            Logger.getLogger(ProgramsDatabase.class.getName()).log(Level.SEVERE, null, t);
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);

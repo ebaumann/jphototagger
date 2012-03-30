@@ -49,7 +49,7 @@ final class MetaDataValuesDatabase extends Database {
                 content.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            Logger.getLogger(MetaDataValuesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             content.clear();
         } finally {
             close(rs, stmt);

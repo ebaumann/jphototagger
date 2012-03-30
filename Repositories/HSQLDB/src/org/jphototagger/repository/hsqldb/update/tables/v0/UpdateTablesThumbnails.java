@@ -110,7 +110,7 @@ final class UpdateTablesThumbnails extends Database {
 
                 writeThumbnail(thumbnail, id);
             } catch (Exception ex) {
-                Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -141,7 +141,7 @@ final class UpdateTablesThumbnails extends Database {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, UpdateTablesThumbnails.class);
             closeStream(fos);
@@ -153,7 +153,7 @@ final class UpdateTablesThumbnails extends Database {
             try {
                 fis.close();
             } catch (Exception ex) {
-                Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+                LOGGER.log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -197,13 +197,13 @@ final class UpdateTablesThumbnails extends Database {
                         }
                     }
                 } catch (Exception ex) {
-                    Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+                    LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
 
             appPropertiesRepo.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
         } catch (Exception ex) {
-            Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             Database.close(rs, stmt);
         }
@@ -229,7 +229,7 @@ final class UpdateTablesThumbnails extends Database {
 
             return new File(directoryName + File.separator + id);
         } catch (Exception ex) {
-            Logger.getLogger(UpdateTablesThumbnails.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         }
 
         return null;

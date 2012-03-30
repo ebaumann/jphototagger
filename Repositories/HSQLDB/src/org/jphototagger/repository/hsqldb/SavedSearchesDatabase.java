@@ -69,7 +69,7 @@ public final class SavedSearchesDatabase extends Database {
             inserted = true;
             notifyInserted(savedSearch);
         } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -182,7 +182,7 @@ public final class SavedSearchesDatabase extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -200,7 +200,7 @@ public final class SavedSearchesDatabase extends Database {
             long id = findId(con, name);
             return id > 0;
         } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             free(con);
         }
@@ -227,7 +227,7 @@ public final class SavedSearchesDatabase extends Database {
                 notifyDeleted(name);
             }
         } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -259,7 +259,7 @@ public final class SavedSearchesDatabase extends Database {
                 notifyRenamed(fromName, toName);
             }
         } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -310,7 +310,7 @@ public final class SavedSearchesDatabase extends Database {
             }
         } catch (Exception ex) {
             savedSearch = null;
-            Logger.getLogger(SavedSearchesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -356,7 +356,7 @@ public final class SavedSearchesDatabase extends Database {
                 searches.add(savedSearch);
             }
         } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             searches.clear();
         } finally {
             close(rs, stmt);

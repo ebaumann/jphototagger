@@ -51,7 +51,7 @@ final class ApplicationPropertiesDatabase extends Database {
             }
             return count > 0;
         } catch (Exception ex) {
-            Logger.getLogger(ApplicationPropertiesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -79,7 +79,7 @@ final class ApplicationPropertiesDatabase extends Database {
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } catch (Exception ex) {
-            Logger.getLogger(ApplicationPropertiesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -151,7 +151,7 @@ final class ApplicationPropertiesDatabase extends Database {
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
         } catch (Exception ex) {
-            Logger.getLogger(ApplicationPropertiesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -190,7 +190,7 @@ final class ApplicationPropertiesDatabase extends Database {
             }
         } catch (Exception ex) {
             string = null;
-            Logger.getLogger(ApplicationPropertiesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

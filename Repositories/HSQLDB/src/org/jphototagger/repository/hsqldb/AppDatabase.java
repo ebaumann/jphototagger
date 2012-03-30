@@ -25,6 +25,7 @@ public final class AppDatabase {
     private static boolean init;
     // Is the JPhotoTagger version where the database structure was changed (newest change)
     static final Version DATABASE_VERSION = new Version(0, 19, 0);
+    private static final Logger LOGGER = Logger.getLogger(AppDatabase.class.getName());
 
     private AppDatabase() {
     }
@@ -91,7 +92,7 @@ public final class AppDatabase {
         try {
             FileUtil.ensureDirectoryExists(directory);
         } catch (Throwable t) {
-            Logger.getLogger(AppDatabase.class.getName()).log(Level.SEVERE, null, t);
+            LOGGER.log(Level.SEVERE, null, t);
             String message = Bundle.getString(AppDatabase.class, "AppDatabase.Error.TnDir", directory);
             MessageDisplayer.error(null, message);
             throw new RuntimeException("Thumbnail directory could not be created");

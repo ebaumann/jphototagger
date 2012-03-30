@@ -59,7 +59,7 @@ final class FileExcludePatternsDatabase extends Database {
                 notifyInserted(pattern);
             }
         } catch (Exception ex) {
-            Logger.getLogger(FileExcludePatternsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -94,7 +94,7 @@ final class FileExcludePatternsDatabase extends Database {
                 notifyDeleted(pattern);
             }
         } catch (Exception ex) {
-            Logger.getLogger(FileExcludePatternsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -127,7 +127,7 @@ final class FileExcludePatternsDatabase extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            Logger.getLogger(FileExcludePatternsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -155,7 +155,7 @@ final class FileExcludePatternsDatabase extends Database {
                 patterns.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            Logger.getLogger(FileExcludePatternsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -227,7 +227,7 @@ final class FileExcludePatternsDatabase extends Database {
             con.commit();
             notifyProgressListenerEnd(listener, event);
         } catch (Exception ex) {
-            Logger.getLogger(FileExcludePatternsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(rs, stmtQuery);

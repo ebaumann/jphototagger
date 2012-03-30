@@ -47,7 +47,7 @@ final class ImageCollectionsDatabase extends Database {
                 names.add(rs.getString(1));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             names.clear();
         } finally {
             close(rs, stmt);
@@ -97,7 +97,7 @@ final class ImageCollectionsDatabase extends Database {
                 notifyCollectionRenamed(fromName, toName);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -128,7 +128,7 @@ final class ImageCollectionsDatabase extends Database {
                 imageFiles.add(new File(rs.getString(1)));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             imageFiles.clear();
         } finally {
             close(rs, stmt);
@@ -198,7 +198,7 @@ final class ImageCollectionsDatabase extends Database {
             added = true;
             notifyCollectionInserted(collectionName, imageFiles);
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmtColl);
@@ -235,7 +235,7 @@ final class ImageCollectionsDatabase extends Database {
             deleted = true;
             notifyCollectionDeleted(collectioNname, delFiles);
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(stmt);
             free(con);
@@ -278,7 +278,7 @@ final class ImageCollectionsDatabase extends Database {
             con.commit();
             notifyImagesDeleted(collectionName, deletedFiles);
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -335,7 +335,7 @@ final class ImageCollectionsDatabase extends Database {
             con.commit();
             added = true;
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
         } finally {
             close(stmt);
@@ -420,7 +420,7 @@ final class ImageCollectionsDatabase extends Database {
                 exists = rs.getInt(1) > 0;
             }
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -448,7 +448,7 @@ final class ImageCollectionsDatabase extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -476,7 +476,7 @@ final class ImageCollectionsDatabase extends Database {
                 count = rs.getInt(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);

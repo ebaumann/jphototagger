@@ -50,7 +50,7 @@ final class UserDefinedFileTypesDatabase extends Database {
                 notifyFileTypeInserted(fileType);
             }
         } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTypesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -87,7 +87,7 @@ final class UserDefinedFileTypesDatabase extends Database {
                 notifyFileTypeUpdated(oldFileType, newFileType);
             }
         } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTypesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -122,7 +122,7 @@ final class UserDefinedFileTypesDatabase extends Database {
                 notifyFileTypeDeleted(fileType);
             }
         } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTypesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -156,7 +156,7 @@ final class UserDefinedFileTypesDatabase extends Database {
                 fileTypes.add(fileType);
             }
         } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTypesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             fileTypes.clear();
         } finally {
             close(rs, stmt);
@@ -188,7 +188,7 @@ final class UserDefinedFileTypesDatabase extends Database {
                 count = rs.getLong(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTypesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
             count = 0;
             rollback(con);
         } finally {
@@ -224,7 +224,7 @@ final class UserDefinedFileTypesDatabase extends Database {
                 fileType.setExternalThumbnailCreator(externalThumbnailCreator);
             }
         } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTypesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
             free(con);
@@ -245,7 +245,7 @@ final class UserDefinedFileTypesDatabase extends Database {
                 id = rs.getLong(1);
             }
         } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTypesDatabase.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
         }
