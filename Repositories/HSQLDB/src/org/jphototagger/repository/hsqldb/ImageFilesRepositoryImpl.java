@@ -26,6 +26,11 @@ import org.jphototagger.domain.timeline.Timeline;
 public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
 
     @Override
+    public long getFileCount() {
+        return ImageFilesDatabase.INSTANCE.getFileCount();
+    }
+
+    @Override
     public List<File> findAllImageFiles() {
         return ImageFilesDatabase.INSTANCE.getAllImageFiles();
     }
@@ -273,5 +278,20 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     @Override
     public long findExifDateTimeOriginalTimestamp(File file) {
         return ImageFilesDatabase.INSTANCE.findExifDateTimeOriginalTimestamp(file);
+    }
+
+    @Override
+    public boolean existsCheckSum(File file) {
+        return ImageFilesDatabase.INSTANCE.existsCheckSum(file);
+    }
+
+    @Override
+    public String getCheckSum(File file) {
+        return ImageFilesDatabase.INSTANCE.getCheckSum(file);
+    }
+
+    @Override
+    public int updateCheckSum(File file, String checkSum) {
+        return ImageFilesDatabase.INSTANCE.updateCheckSum(file, checkSum);
     }
 }

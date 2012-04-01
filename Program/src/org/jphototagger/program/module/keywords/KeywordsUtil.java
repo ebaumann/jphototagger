@@ -37,6 +37,7 @@ import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.HelperThread;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
@@ -425,11 +426,21 @@ public final class KeywordsUtil {
         if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile)) {
             ImageFile imageFile = new ImageFile();
             imageFile.setFile(imgFile);
+            imageFile.setCheckSum(getChecksum(imgFile));
             imageFile.setLastmodified(imgFile.lastModified());
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
             imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);
             imageFileRepo.saveOrUpdateImageFile(imageFile);
+        }
+    }
+
+    private static String getChecksum(File file) {
+        try {
+            return FileUtil.getMd5HexOfFileContent(file);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+            return null;
         }
     }
 

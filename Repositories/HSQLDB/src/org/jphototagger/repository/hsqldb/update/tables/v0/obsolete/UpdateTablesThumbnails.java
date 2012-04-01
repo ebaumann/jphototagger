@@ -1,4 +1,4 @@
-package org.jphototagger.repository.hsqldb.update.tables.v0;
+package org.jphototagger.repository.hsqldb.update.tables.v0.obsolete;
 
 import java.awt.Image;
 import java.io.ByteArrayInputStream;
@@ -46,6 +46,7 @@ final class UpdateTablesThumbnails extends Database {
         LOGGER.log(Level.INFO, "Writing Thumbnails from database into file system");
         writeThumbnailsFromTableIntoFilesystem(con);
         convertThumbnailIdNamesIntoHashNames(con);
+        Database.execute(con, "ALTER TABLE files DROP COLUMN thumbnail");
     }
 
     private void writeThumbnailsFromTableIntoFilesystem(Connection con) throws SQLException {
@@ -121,9 +122,10 @@ final class UpdateTablesThumbnails extends Database {
             fos.getChannel().lock();
             ByteArrayInputStream is = ImageUtil.getByteArrayInputStream(thumbnail, "jpeg");
             if (is != null) {
-                int nextByte;
-                while ((nextByte = is.read()) != -1) {
+                int nextByte = is.read();
+                while (nextByte != -1) {
                     fos.write(nextByte);
+                    nextByte = is.read();
                 }
             }
         } catch (Exception ex) {
