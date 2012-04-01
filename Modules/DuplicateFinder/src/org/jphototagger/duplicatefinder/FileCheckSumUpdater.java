@@ -74,6 +74,7 @@ public final class FileCheckSumUpdater implements AppUpdater, Cancelable {
                 updateCheckSum(file);
                 countUpdated++;
                 progressEvent.setValue(countUpdated);
+                progressHandle.progressPerformed(progressEvent);
             }
         }
 
