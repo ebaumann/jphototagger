@@ -1,4 +1,4 @@
-package org.jphototagger.repository.hsqldb.update.tables.v0;
+package org.jphototagger.repository.hsqldb.update.tables.v0.obsolete;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -20,15 +20,11 @@ public final class DatabaseUpdateTask01 extends Database implements DatabaseUpda
 
     @Override
     public void preCreateTables() {
-
         // DO NOT ADD FURTHER TASKS, implement DatabaseUpdateTask's as service providers!
-
         Connection con = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
-
             // Never change the order!
             new UpdateTablesMakePlural().update(con);
         } catch (SQLException ex) {
@@ -40,20 +36,16 @@ public final class DatabaseUpdateTask01 extends Database implements DatabaseUpda
 
     @Override
     public void postCreateTables() {
-
         // DO NOT ADD FURTHER TASKS, implement DatabaseUpdateTask's as service providers!
-
         Connection con = null;
-
         try {
             con = getConnection();
             con.setAutoCommit(true);
-
             // Never change the order!
             new UpdateTablesDropTables().update(con);
             new UpdateTablesDropColumns().update(con);
             new UpdateTablesRenameColumns().update(con);
-            new UpdateTablesInsertColumns().update(con);
+            new UpdateTablesAddColumns().update(con);
             new UpdateTablesIndexes().update(con);
             new UpdateTablesPrimaryKeys().update(con);
             new UpdateTablesXmpLastModified().update(con);

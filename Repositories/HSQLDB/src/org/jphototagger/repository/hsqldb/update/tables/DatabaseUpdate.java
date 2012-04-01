@@ -26,14 +26,10 @@ public final class DatabaseUpdate {
     private synchronized void lookupUpdaters() {
         Version databaseVersion = AppDatabase.getPersistedDatabaseVersion();
         Collection<? extends DatabaseUpdateTask> allUpdateTasks = Lookup.getDefault().lookupAll(DatabaseUpdateTask.class);
-
         for (DatabaseUpdateTask updateTask : allUpdateTasks) {
             Version updatesToDatabaseVersion = updateTask.getUpdatesToDatabaseVersion();
-
             esnureCanUpdateDatabaseVersion(updateTask, databaseVersion);
-
             boolean databaseHasOlderVersionThanTask = databaseVersion.compareTo(updatesToDatabaseVersion) < 0;
-
             if (databaseHasOlderVersionThanTask) {
                 requiredUpdateTasks.add(updateTask);
             }

@@ -1,4 +1,4 @@
-package org.jphototagger.repository.hsqldb.update.tables.v0;
+package org.jphototagger.repository.hsqldb.update.tables.v0.obsolete;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,30 +16,30 @@ import org.jphototagger.repository.hsqldb.DatabaseMetadata;
  *
  * @author Elmar Baumann
  */
-final class UpdateTablesInsertColumns {
+final class UpdateTablesAddColumns {
 
-    private static final List<ColumnInfo> columns = new ArrayList<ColumnInfo>();
-    private static final Logger LOGGER = Logger.getLogger(UpdateTablesInsertColumns.class.getName());
+    private static final List<ColumnInfo> COLUMNS = new ArrayList<ColumnInfo>();
+    private static final Logger LOGGER = Logger.getLogger(UpdateTablesAddColumns.class.getName());
 
     static {
-        columns.add(new ColumnInfo("programs", "parameters_after_filename", "BINARY", null));
-        columns.add(new ColumnInfo("programs", "action", "BOOLEAN",
+        COLUMNS.add(new ColumnInfo("programs", "parameters_after_filename", "BINARY", null));
+        COLUMNS.add(new ColumnInfo("programs", "action", "BOOLEAN",
                 new IndexOfColumn("programs", "action", "idx_programs_action", false)));
-        columns.add(new ColumnInfo("programs", "input_before_execute", "BOOLEAN", null));
-        columns.add(new ColumnInfo("programs", "input_before_execute_per_file", "BOOLEAN", null));
-        columns.add(new ColumnInfo("programs", "single_file_processing", "BOOLEAN", null));
-        columns.add(new ColumnInfo("programs", "change_file", "BOOLEAN", null));
-        columns.add(new ColumnInfo("programs", "use_pattern", "BOOLEAN", null));
-        columns.add(new ColumnInfo("programs", "pattern", "BINARY", null));
-        columns.add(new ColumnInfo("hierarchical_subjects", "real", "BOOLEAN",
+        COLUMNS.add(new ColumnInfo("programs", "input_before_execute", "BOOLEAN", null));
+        COLUMNS.add(new ColumnInfo("programs", "input_before_execute_per_file", "BOOLEAN", null));
+        COLUMNS.add(new ColumnInfo("programs", "single_file_processing", "BOOLEAN", null));
+        COLUMNS.add(new ColumnInfo("programs", "change_file", "BOOLEAN", null));
+        COLUMNS.add(new ColumnInfo("programs", "use_pattern", "BOOLEAN", null));
+        COLUMNS.add(new ColumnInfo("programs", "pattern", "BINARY", null));
+        COLUMNS.add(new ColumnInfo("hierarchical_subjects", "real", "BOOLEAN",
                 new IndexOfColumn("hierarchical_subjects", "real", "idx_hierarchical_subjects_real", false)));
-        columns.add(new ColumnInfo("xmp", "iptc4xmpcore_datecreated", "VARCHAR_IGNORECASE(32)",
+        COLUMNS.add(new ColumnInfo("xmp", "iptc4xmpcore_datecreated", "VARCHAR_IGNORECASE(32)",
                 new IndexOfColumn("xmp", "iptc4xmpcore_datecreated", "idx_iptc4xmpcore_datecreated", false)));
-        columns.add(new ColumnInfo("metadata_edit_templates", "rating", "BINARY", null));
-        columns.add(new ColumnInfo("metadata_edit_templates", "iptc4xmpcore_datecreated", "BINARY", null));
-        columns.add(new ColumnInfo("exif", "exif_lens", "VARCHAR_IGNORECASE(256)",
+        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "rating", "BINARY", null));
+        COLUMNS.add(new ColumnInfo("metadata_edit_templates", "iptc4xmpcore_datecreated", "BINARY", null));
+        COLUMNS.add(new ColumnInfo("exif", "exif_lens", "VARCHAR_IGNORECASE(256)",
                 new IndexOfColumn("exif", "exif_lens", "idx_exif_lens", false)));
-        columns.add(new ColumnInfo("saved_searches", "search_type", "SMALLINT", null));
+        COLUMNS.add(new ColumnInfo("saved_searches", "search_type", "SMALLINT", null));
     }
     private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
 
@@ -60,7 +60,7 @@ final class UpdateTablesInsertColumns {
 
         missingColumns.clear();
 
-        for (ColumnInfo info : columns) {
+        for (ColumnInfo info : COLUMNS) {
             if (!dbMeta.existsColumn(con, info.getTableName(), info.getColumnName())) {
                 missingColumns.add(info);
             }

@@ -1,4 +1,4 @@
-package org.jphototagger.repository.hsqldb.update.tables.v0;
+package org.jphototagger.repository.hsqldb.update.tables.v0.obsolete;
 
 import java.io.File;
 import java.sql.Connection;

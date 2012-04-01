@@ -20,6 +20,8 @@ import org.jphototagger.domain.timeline.Timeline;
  */
 public interface ImageFilesRepository {
 
+    long getFileCount();
+
     int deleteImageFiles(List<File> files);
 
     void deleteDcSubject(String dcSubject);
@@ -119,4 +121,10 @@ public interface ImageFilesRepository {
     int updateAllThumbnails(ProgressListener listener);
 
     int updateRenameFilenamesStartingWith(final String before, final String after, final ProgressListener progressListener);
+
+    boolean existsCheckSum(File file);
+
+    String getCheckSum(File file);
+
+    int updateCheckSum(File file, String checkSum);
 }

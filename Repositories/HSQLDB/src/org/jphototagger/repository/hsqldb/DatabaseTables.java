@@ -91,6 +91,7 @@ final class DatabaseTables extends Database {
                     + ", filename VARCHAR_IGNORECASE(512) NOT NULL"
                     + ", lastmodified BIGINT"
                     + ", xmp_lastmodified BIGINT"
+                    + ", checksum VARCHAR(255)"
                     + ");");
             stmt.execute("CREATE UNIQUE INDEX idx_files ON files (filename)");
         }
