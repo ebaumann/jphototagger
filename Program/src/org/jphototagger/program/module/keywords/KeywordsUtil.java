@@ -437,7 +437,7 @@ public final class KeywordsUtil {
 
     private static String getChecksum(File file) {
         try {
-            return FileUtil.getMd5HexOfFileContent(file);
+            return FileUtil.getMd5OfFileContent(file);
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
             return null;

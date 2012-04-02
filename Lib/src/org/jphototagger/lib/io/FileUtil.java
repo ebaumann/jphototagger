@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.lib.util.Md5Util;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.StringUtil;
 
@@ -626,31 +627,20 @@ public final class FileUtil {
     }
 
     // http://www.rgagnon.com/javadetails/java-0416.html
-    public static String getMd5HexOfFileContent(File file) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
+    public static String getMd5OfFileContent(File file) throws IOException, NoSuchAlgorithmException {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
         if (!file.exists()) {
-            throw new FileNotFoundException("File does not exist: " + file);
+            throw new IllegalStateException("File does not exist: " + file);
         }
-        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
         InputStream is = null;
         try {
             is = new FileInputStream(file);
-            int bytesRead;
-            byte[] buffer = new byte[102400];
-            do {
-                bytesRead = is.read(buffer);
-                if (bytesRead > 0) {
-                    messageDigest.update(buffer, 0, bytesRead);
-                }
-            } while (bytesRead != -1);
-            byte[] digest = messageDigest.digest();
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < digest.length; i++) {
-                sb.append(Integer.toString((digest[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            return sb.toString();
+            return Md5Util.getMd5FromStream(is);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         } finally {
             IoUtil.close(is);
         }
