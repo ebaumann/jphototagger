@@ -374,7 +374,6 @@ final class ImageCollectionsDatabase extends Database {
             stmtIdFiles = con.prepareStatement("SELECT id_file FROM collections WHERE id_collectionnname = ?"
                     + " ORDER BY collections.sequence_number ASC");
             stmtIdFiles.setLong(1, idCollectionName);
-            LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmtIdFiles.executeQuery();
             List<Long> idFiles = new ArrayList<Long>();
             while (rs.next()) {
@@ -382,6 +381,7 @@ final class ImageCollectionsDatabase extends Database {
             }
             stmt = con.prepareStatement("UPDATE collections SET sequence_number = ?"
                     + " WHERE id_collectionnname = ? AND id_file = ?");
+            LOGGER.log(Level.FINEST, stmt.toString());
             int sequenceNumer = 0;
             for (Long idFile : idFiles) {
                 stmt.setInt(1, sequenceNumer++);
