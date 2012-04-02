@@ -61,6 +61,7 @@ public final class FileCheckSumUpdater implements AppUpdater, Cancelable {
 
         private final ProgressHandle progressHandle;
         private final ProgressEvent progressEvent;
+        private boolean forceUpdate;
         private int countUpdated;
 
         private Updater(ProgressHandle progressHandle, int countToUpdate) {
@@ -80,9 +81,9 @@ public final class FileCheckSumUpdater implements AppUpdater, Cancelable {
 
         private void updateCheckSum(File file) {
             try {
-                if (file.exists()) {
+                if (file.exists() && (forceUpdate || !imageFilesRepo.existsCheckSum(file))) {
                     LOGGER.log(Level.INFO, "Updating checksum of file {0}", file);
-                    String checkSum = FileUtil.getMd5HexOfFileContent(file);
+                    String checkSum = FileUtil.getMd5OfFileContent(file);
                     imageFilesRepo.updateCheckSum(file, checkSum);
                 }
             } catch (Throwable t) {
@@ -92,6 +93,14 @@ public final class FileCheckSumUpdater implements AppUpdater, Cancelable {
 
         public int getCountUpdated() {
             return countUpdated;
+        }
+
+        public boolean isForceUpdate() {
+            return forceUpdate;
+        }
+
+        public void setForceUpdate(boolean forceUpdate) {
+            this.forceUpdate = forceUpdate;
         }
     }
 

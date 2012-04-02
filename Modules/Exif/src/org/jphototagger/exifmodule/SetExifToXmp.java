@@ -145,7 +145,7 @@ public final class SetExifToXmp extends HelperThread {
 
     private static String getChecksum(File file) {
         try {
-            return FileUtil.getMd5HexOfFileContent(file);
+            return FileUtil.getMd5OfFileContent(file);
         } catch (Throwable t) {
             Logger.getLogger(SetExifToXmp.class.getName()).log(Level.SEVERE, null, t);
             return null;

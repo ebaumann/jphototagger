@@ -132,7 +132,7 @@ public class FileUtilTest {
 
 
     @Test
-    public void testGetMd5HexOfFileContent() throws Exception {
+    public void testGetMd5OfFileContent() throws Exception {
         InputStream is = null;
         OutputStream os = null;
         File outfile = new File(SystemProperties.getTemporaryDir() + File.separator + "JPT-temp-test-md5hex");
@@ -144,17 +144,17 @@ public class FileUtilTest {
             os = new FileOutputStream(outfile);
             IoUtil.fromIsToOs(is, os);
             String expected = "646168e06ba20d739d3d9bb76487db86";
-            String actual = FileUtil.getMd5HexOfFileContent(outfile);
+            String actual = FileUtil.getMd5OfFileContent(outfile);
             assertEquals(expected, actual);
             FileUtil.writeStringAsFile("", outfile); // empty file
             expected = "d41d8cd98f00b204e9800998ecf8427e";
-            actual = FileUtil.getMd5HexOfFileContent(outfile);
+            actual = FileUtil.getMd5OfFileContent(outfile);
             assertEquals(expected, actual);
             is = FileUtilTest.class.getResourceAsStream("md5file2"); // binary file
             os = new FileOutputStream(outfile);
             IoUtil.fromIsToOs(is, os);
             expected = "7ffb89fac9a950e844ea940d266dd26d";
-            actual = FileUtil.getMd5HexOfFileContent(outfile);
+            actual = FileUtil.getMd5OfFileContent(outfile);
             assertEquals(expected, actual);
         } finally {
             IoUtil.close(is);
