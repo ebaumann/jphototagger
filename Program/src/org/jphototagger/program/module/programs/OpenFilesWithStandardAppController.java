@@ -3,11 +3,15 @@ package org.jphototagger.program.module.programs;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
+import org.jphototagger.api.file.FileViewer;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.io.FileUtil;
@@ -21,7 +25,8 @@ import org.jphototagger.program.resource.GUI;
 /**
  * @author Elmar Baumann
  */
-public final class OpenFilesWithStandardAppController implements ActionListener {
+@ServiceProvider(service = FileViewer.class)
+public final class OpenFilesWithStandardAppController implements ActionListener, FileViewer {
 
     private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
@@ -35,12 +40,11 @@ public final class OpenFilesWithStandardAppController implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        openSelectedImages();
+        openFiles(GUI.getSelectedImageFiles());
     }
 
-    private void openSelectedImages() {
-        Map<String, List<File>> selectedImageFilesWithSuffix =
-                FileUtil.getFilesWithSuffixIgnoreCase(GUI.getSelectedImageFiles());
+    private void openFiles(Collection<? extends File> files) {
+        Map<String, List<File>> selectedImageFilesWithSuffix = FileUtil.getFilesWithSuffixIgnoreCase(files);
         if (selectedImageFilesWithSuffix.isEmpty()) {
             return;
         }
@@ -73,5 +77,10 @@ public final class OpenFilesWithStandardAppController implements ActionListener 
                 ? repo.findDefaultImageOpenProgram()
                 : program;
 
+    }
+
+    @Override
+    public void view(File file) {
+        openFiles(Collections.singleton(file));
     }
 }
