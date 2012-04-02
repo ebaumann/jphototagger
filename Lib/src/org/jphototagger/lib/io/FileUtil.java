@@ -464,7 +464,7 @@ public final class FileUtil {
      * @param files
      * @return key is a suffix in lower case, values are files with that suffix ignoring case taken from {@code files}
      */
-    public static Map<String, List<File>> getFilesWithSuffixIgnoreCase(List<File> files) {
+    public static Map<String, List<File>> getFilesWithSuffixIgnoreCase(Collection<? extends File> files) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
