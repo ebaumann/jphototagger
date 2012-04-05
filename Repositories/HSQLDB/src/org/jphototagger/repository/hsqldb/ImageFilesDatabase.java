@@ -356,8 +356,8 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            String sqlWithXmpLastModified = "INSERT INTO files (filename, lastmodified, xmp_lastmodified, checksum) VALUES (?, ?, ?, ?)";
-            String sqlWithoutXmpLastModified = "INSERT INTO files (filename, lastmodified, checksum) VALUES (?, ?, ?)";
+            String sqlWithXmpLastModified = "INSERT INTO files (filename, lastmodified, xmp_lastmodified) VALUES (?, ?, ?)";
+            String sqlWithoutXmpLastModified = "INSERT INTO files (filename, lastmodified) VALUES (?, ?)";
             boolean insertXmpIntoDb = imageFile.isInsertXmpIntoDb();
             stmt = con.prepareStatement(insertXmpIntoDb ? sqlWithXmpLastModified : sqlWithoutXmpLastModified);
             File imgFile = imageFile.getFile();
@@ -366,7 +366,6 @@ final class ImageFilesDatabase extends Database {
             if (insertXmpIntoDb) {
                 stmt.setLong(3, getLastmodifiedXmp(imageFile));
             }
-            setString(imageFile.getCheckSum(), stmt, insertXmpIntoDb ? 4 : 3);
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             long idFile = findIdImageFile(con, imgFile);
@@ -399,7 +398,6 @@ final class ImageFilesDatabase extends Database {
         ImageFile imageFile = new ImageFile();
         imageFile.setExif(getExifOfImageFile(file));
         imageFile.setFile(file);
-        imageFile.setCheckSum(getCheckSum(file));
         imageFile.setLastmodified(getImageFilesLastModifiedTimestamp(file));
         Image thumbnail = tnRepo.findThumbnail(file);
         if (thumbnail != null) {
@@ -428,8 +426,8 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            String sqlWithXmpLastModified = "UPDATE files SET lastmodified = ?, xmp_lastmodified = ?, checksum = ? WHERE id = ?";
-            String sqlWithoutXmpLastModified = "UPDATE files SET lastmodified = ?, checksum = ? WHERE id = ?";
+            String sqlWithXmpLastModified = "UPDATE files SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?";
+            String sqlWithoutXmpLastModified = "UPDATE files SET lastmodified = ? WHERE id = ?";
             boolean insertXmpIntoDb = imageFile.isInsertXmpIntoDb();
             stmt = con.prepareStatement(insertXmpIntoDb ? sqlWithXmpLastModified : sqlWithoutXmpLastModified);
             File imgFile = imageFile.getFile();
@@ -437,12 +435,8 @@ final class ImageFilesDatabase extends Database {
             stmt.setLong(1, imageFile.getLastmodified());
             if (insertXmpIntoDb) {
                 stmt.setLong(2, getLastmodifiedXmp(imageFile));
-                setString(imageFile.getCheckSum(), stmt, 3);
-                stmt.setLong(4, idFile);
-            } else {
-                setString(imageFile.getCheckSum(), stmt, 2);
-                stmt.setLong(3, idFile);
             }
+            stmt.setLong(insertXmpIntoDb ? 3 : 2, idFile);
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             if (imageFile.isInsertThumbnailIntoDb()) {
@@ -2547,84 +2541,5 @@ final class ImageFilesDatabase extends Database {
             free(con);
         }
         return count;
-    }
-
-    public boolean existsCheckSum(File file) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-        boolean exists = false;
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        try {
-            con = getConnection();
-            stmt = con.prepareStatement("SELECT COUNT(*) FROM files WHERE filename = ? AND checksum IS NOT NULL");
-            stmt.setString(1, file.getAbsolutePath());
-            LOGGER.log(Level.FINEST, stmt.toString());
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                exists = rs.getInt(1) > 0;
-            }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-        } finally {
-            close(rs, stmt);
-            free(con);
-        }
-        return exists;
-    }
-
-    public String getCheckSum(File file) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-        String checkSum = null;
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        try {
-            con = getConnection();
-            stmt = con.prepareStatement("SELECT checksum FROM files WHERE filename = ?");
-            stmt.setString(1, file.getAbsolutePath());
-            LOGGER.log(Level.FINEST, stmt.toString());
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                checkSum = rs.getString(1);
-            }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-        } finally {
-            close(rs, stmt);
-            free(con);
-        }
-        return checkSum;
-    }
-
-    public int updateCheckSum(File file, String checkSum) {
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-        int countAffected = 0;
-        Connection con = null;
-        PreparedStatement stmt = null;
-        try {
-            con = getConnection();
-            con.setAutoCommit(false);
-            String sql = "UPDATE files SET checksum = ? WHERE filename = ?";
-            stmt = con.prepareStatement(sql);
-            stmt.setString(1, checkSum);
-            stmt.setString(2, file.getAbsolutePath());
-            LOGGER.log(Level.FINER, stmt.toString());
-            countAffected = stmt.executeUpdate();
-            con.commit();
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-            rollback(con);
-        } finally {
-            close(stmt);
-            free(con);
-        }
-        return countAffected;
     }
 }
