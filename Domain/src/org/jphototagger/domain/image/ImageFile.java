@@ -2,8 +2,6 @@ package org.jphototagger.domain.image;
 
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
@@ -11,20 +9,18 @@ import java.util.Set;
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.SaveOrUpdate;
-import org.jphototagger.lib.io.FileUtil;
 
 /**
  * @author Elmar Baumann
  */
 public final class ImageFile {
 
-    private long lastmodified = -1;
     private Set<SaveOrUpdate> insertIntoDb = EnumSet.noneOf(SaveOrUpdate.class);
     private Exif exif;
     private File file;
+    private long lastmodified = -1;
     private Image thumbnail;
     private Xmp xmp;
-    private String checkSum;
 
     public File getFile() {
         return file;
@@ -70,46 +66,6 @@ public final class ImageFile {
 
     public void setExif(Exif exif) {
         this.exif = exif;
-    }
-
-    public String getCheckSum() {
-        return checkSum;
-    }
-
-    public void setCheckSum(String checkSum) {
-        this.checkSum = checkSum;
-    }
-
-    /**
-     * Uses {@link FileUtil#getMd5OfFileContent(java.io.File)}.
-     *
-     * <p>{@link #getFile()} has to return an existing file!
-     * @param checkSum arbitrary checksum
-     * @return
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
-     */
-    public boolean matchesCheckSum(String checkSum) throws IOException, NoSuchAlgorithmException {
-        if (checkSum == null) {
-            throw new NullPointerException("checkSum == null");
-        }
-        if (file == null) {
-            throw new IllegalStateException("No file set");
-        }
-        if (this.checkSum == null) {
-            return false;
-        }
-        return FileUtil.getMd5OfFileContent(file).equals(checkSum);
-    }
-
-    /**
-     * Shortcut for {@link #matchesCheckSum(java.lang.String)} with {@link #getCheckSum()} as parameter.
-     * @return
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
-     */
-    public boolean matchesCheckSum() throws IOException, NoSuchAlgorithmException {
-        return matchesCheckSum(checkSum);
     }
 
     /**

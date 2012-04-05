@@ -121,10 +121,4 @@ public interface ImageFilesRepository {
     int updateAllThumbnails(ProgressListener listener);
 
     int updateRenameFilenamesStartingWith(final String before, final String after, final ProgressListener progressListener);
-
-    boolean existsCheckSum(File file);
-
-    String getCheckSum(File file);
-
-    int updateCheckSum(File file, String checkSum);
 }

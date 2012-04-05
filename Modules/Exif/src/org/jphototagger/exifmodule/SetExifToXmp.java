@@ -134,21 +134,11 @@ public final class SetExifToXmp extends HelperThread {
                     // Avoiding re-reading thumbnails
                     imageFile.setLastmodified(file.lastModified());
                     imageFile.setFile(file);
-                    imageFile.setCheckSum(getChecksum(file));
                     imageFile.setXmp(xmp);
                     imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);
                     IMAGE_FILES_REPOSITORY.saveOrUpdateImageFile(imageFile);
                 }
             }
-        }
-    }
-
-    private static String getChecksum(File file) {
-        try {
-            return FileUtil.getMd5OfFileContent(file);
-        } catch (Throwable t) {
-            Logger.getLogger(SetExifToXmp.class.getName()).log(Level.SEVERE, null, t);
-            return null;
         }
     }
 

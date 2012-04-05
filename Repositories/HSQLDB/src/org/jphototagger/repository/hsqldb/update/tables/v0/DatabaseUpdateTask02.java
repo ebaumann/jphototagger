@@ -49,7 +49,6 @@ public final class DatabaseUpdateTask02 extends Database implements DatabaseUpda
         try {
             con = getConnection();
             dropThumbnailColumn(con);
-            addChecksumColumn(con);
         } finally {
             free(con);
         }
@@ -61,13 +60,5 @@ public final class DatabaseUpdateTask02 extends Database implements DatabaseUpda
         }
         LOGGER.log(Level.INFO, "Deleting column 'thumbnail' from table 'files'");
         Database.execute(con, "ALTER TABLE files DROP COLUMN thumbnail");
-    }
-
-    private void addChecksumColumn(Connection con) throws SQLException {
-        if (DatabaseMetadata.INSTANCE.existsColumn(con, "files", "checksum")) {
-            return;
-        }
-        LOGGER.log(Level.INFO, "Adding column 'checksum' to table 'files'");
-        Database.execute(con, "ALTER TABLE files ADD COLUMN checksum VARCHAR(255)");
     }
 }

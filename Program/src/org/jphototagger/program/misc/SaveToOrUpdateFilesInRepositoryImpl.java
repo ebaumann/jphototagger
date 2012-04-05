@@ -40,7 +40,6 @@ import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.image.util.ThumbnailCreatorService;
-import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
@@ -134,7 +133,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private ImageFile createImageFile(File file) {
         ImageFile imageFile = new ImageFile();
         imageFile.setFile(file);
-        imageFile.setCheckSum(getChecksum(file));
         imageFile.setLastmodified(file.lastModified());
         if (isUpdateThumbnail(file)) {
             imageFile.addToSaveIntoRepository(SaveOrUpdate.THUMBNAIL);
@@ -149,15 +147,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
             setExifToImageFile(imageFile);
         }
         return imageFile;
-    }
-
-    private String getChecksum(File file) {
-        try {
-            return FileUtil.getMd5OfFileContent(file);
-        } catch (Throwable t) {
-            LOGGER.log(Level.SEVERE, null, t);
-            return null;
-        }
     }
 
     private boolean isUpdateThumbnail(File imageFile) {
