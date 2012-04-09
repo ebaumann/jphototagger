@@ -19,6 +19,7 @@ public final class ImageFile {
     private Exif exif;
     private File file;
     private long lastmodified = -1;
+    private long sizeInBytes;
     private Image thumbnail;
     private Xmp xmp;
 
@@ -44,6 +45,14 @@ public final class ImageFile {
 
     public void setLastmodified(long lastmodified) {
         this.lastmodified = lastmodified;
+    }
+
+    public long getSizeInBytes() {
+        return sizeInBytes;
+    }
+
+    public void setSizeInBytes(long sizeInBytes) {
+        this.sizeInBytes = sizeInBytes;
     }
 
     /**

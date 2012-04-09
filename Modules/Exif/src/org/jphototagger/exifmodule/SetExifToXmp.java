@@ -133,6 +133,7 @@ public final class SetExifToXmp extends HelperThread {
                     xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, xmpFile.lastModified());
                     // Avoiding re-reading thumbnails
                     imageFile.setLastmodified(file.lastModified());
+                    imageFile.setSizeInBytes(file.length());
                     imageFile.setFile(file);
                     imageFile.setXmp(xmp);
                     imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);

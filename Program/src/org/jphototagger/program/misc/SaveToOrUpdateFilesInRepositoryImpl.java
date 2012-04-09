@@ -134,6 +134,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         ImageFile imageFile = new ImageFile();
         imageFile.setFile(file);
         imageFile.setLastmodified(file.lastModified());
+        imageFile.setSizeInBytes(file.length());
         if (isUpdateThumbnail(file)) {
             imageFile.addToSaveIntoRepository(SaveOrUpdate.THUMBNAIL);
             createAndSetThumbnailToImageFile(imageFile);
@@ -172,7 +173,9 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private boolean isImageFileUpToDate(File imageFile) {
         long repoTime = imageFilesRepository.findImageFilesLastModifiedTimestamp(imageFile);
         long fileTime = imageFile.lastModified();
-        return fileTime == repoTime;
+        long repoSizeInBytes = imageFilesRepository.findImageFilesSizeInBytes(imageFile);
+        long fileSizeInBytes = imageFile.length();
+        return fileTime == repoTime && fileSizeInBytes == repoSizeInBytes;
     }
 
     private boolean isThumbnailUpToDate(File file) {

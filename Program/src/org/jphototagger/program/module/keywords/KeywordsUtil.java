@@ -421,11 +421,12 @@ public final class KeywordsUtil {
         executor.addTask(deleteDcSubject);
     }
 
-    private static void updateXmp(Xmp xmp, File imgFile, File sidecarFile) {
+    private static void updateXmp(Xmp xmp, File file, File sidecarFile) {
         if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile)) {
             ImageFile imageFile = new ImageFile();
-            imageFile.setFile(imgFile);
-            imageFile.setLastmodified(imgFile.lastModified());
+            imageFile.setFile(file);
+            imageFile.setLastmodified(file.lastModified());
+            imageFile.setSizeInBytes(file.length());
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
             imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);
