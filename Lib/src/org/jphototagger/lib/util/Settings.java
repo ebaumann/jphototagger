@@ -959,21 +959,21 @@ public final class Settings {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
-
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         String keyWidth = getKeyWidth(key);
         String keyHeight = getKeyHeight(key);
-
         if (properties.containsKey(keyWidth) && properties.containsKey(keyHeight)) {
             try {
                 int width = Integer.parseInt(properties.getProperty(keyWidth));
                 int height = Integer.parseInt(properties.getProperty(keyHeight));
-
-                component.setPreferredSize(new Dimension(width, height));
-                component.setSize(new Dimension(width, height));
+                Dimension preferredSize = component.getPreferredSize();
+                boolean isResize = width >= preferredSize.width & height >= preferredSize.height;
+                if (isResize) {
+                    component.setPreferredSize(new Dimension(width, height));
+                    component.setSize(new Dimension(width, height));
+                }
             } catch (Exception ex) {
                 Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
