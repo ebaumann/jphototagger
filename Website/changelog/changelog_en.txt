@@ -7,6 +7,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * The image file size will be stored into the database
+* Size of windows such as dialogs should not be go below
+  a minimum, so that e.g. all buttons will be displayed
 
 0.24.7 2012-03-22
 -----------------

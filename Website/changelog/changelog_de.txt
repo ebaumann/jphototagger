@@ -7,6 +7,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * Die Größe der Bilddateien wird in die Datenbank gespeichert
+* Eine minimale Größe von Fenstern wie Dialogen sollte beim erneuten Öffnen
+  nicht mehr unterschritten werden, sodass z.B. alle Schaltflächen angezeigt
+  werden
 
 0.24.7 2012-03-22
 -----------------
