@@ -46,6 +46,11 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     }
 
     @Override
+    public long findImageFilesSizeInBytes(File file) {
+        return ImageFilesDatabase.INSTANCE.getImageFilesSizeInBytes(file);
+    }
+
+    @Override
     public long findXmpFilesLastModifiedTimestamp(File imageFile) {
         return ImageFilesDatabase.INSTANCE.getXmpFilesLastModifiedTimestamp(imageFile);
     }

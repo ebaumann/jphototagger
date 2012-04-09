@@ -80,6 +80,8 @@ public interface ImageFilesRepository {
 
     long findImageFilesLastModifiedTimestamp(File file);
 
+    long findImageFilesSizeInBytes(File file);
+
     Set<File> findImageFilesOfDateTaken(int year, int month, int day);
 
     List<File> findImageFilesOfUnknownDateTaken();

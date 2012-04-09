@@ -356,31 +356,32 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            String sqlWithXmpLastModified = "INSERT INTO files (filename, lastmodified, xmp_lastmodified) VALUES (?, ?, ?)";
-            String sqlWithoutXmpLastModified = "INSERT INTO files (filename, lastmodified) VALUES (?, ?)";
+            String sqlWithXmpLastModified = "INSERT INTO files (filename, size_in_bytes, lastmodified, xmp_lastmodified) VALUES (?, ?, ?, ?)";
+            String sqlWithoutXmpLastModified = "INSERT INTO files (filename, size_in_bytes, lastmodified) VALUES (?, ?, ?)";
             boolean insertXmpIntoDb = imageFile.isInsertXmpIntoDb();
             stmt = con.prepareStatement(insertXmpIntoDb ? sqlWithXmpLastModified : sqlWithoutXmpLastModified);
-            File imgFile = imageFile.getFile();
-            stmt.setString(1, imgFile.getAbsolutePath());
-            stmt.setLong(2, imageFile.getLastmodified());
+            File file = imageFile.getFile();
+            stmt.setString(1, file.getAbsolutePath());
+            stmt.setLong(2, imageFile.getSizeInBytes());
+            stmt.setLong(3, imageFile.getLastmodified());
             if (insertXmpIntoDb) {
-                stmt.setLong(3, getLastmodifiedXmp(imageFile));
+                stmt.setLong(4, getLastmodifiedXmp(imageFile));
             }
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
-            long idFile = findIdImageFile(con, imgFile);
+            long idFile = findIdImageFile(con, file);
             if (imageFile.isInsertThumbnailIntoDb()) {
-                updateThumbnailFile(imgFile, imageFile.getThumbnail());
+                updateThumbnailFile(file, imageFile.getThumbnail());
             }
             if (insertXmpIntoDb) {
-                insertXmp(con, imgFile, idFile, imageFile.getXmp());
+                insertXmp(con, file, idFile, imageFile.getXmp());
             }
             if (imageFile.isInsertExifIntoDb()) {
-                insertExif(con, imgFile, idFile, imageFile.getExif());
+                insertExif(con, file, idFile, imageFile.getExif());
             }
             con.commit();
             success = true;
-            notifyImageFileInserted(imgFile);
+            notifyImageFileInserted(file);
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, null, ex);
             rollback(con);
@@ -399,6 +400,7 @@ final class ImageFilesDatabase extends Database {
         imageFile.setExif(getExifOfImageFile(file));
         imageFile.setFile(file);
         imageFile.setLastmodified(getImageFilesLastModifiedTimestamp(file));
+        imageFile.setSizeInBytes(getImageFilesSizeInBytes(file));
         Image thumbnail = tnRepo.findThumbnail(file);
         if (thumbnail != null) {
             imageFile.setThumbnail(thumbnail);
@@ -426,17 +428,18 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            String sqlWithXmpLastModified = "UPDATE files SET lastmodified = ?, xmp_lastmodified = ? WHERE id = ?";
-            String sqlWithoutXmpLastModified = "UPDATE files SET lastmodified = ? WHERE id = ?";
+            String sqlWithXmpLastModified = "UPDATE files SET size_in_bytes = ?, lastmodified = ?, xmp_lastmodified = ? WHERE id = ?";
+            String sqlWithoutXmpLastModified = "UPDATE files SET size_in_bytes = ?, lastmodified = ? WHERE id = ?";
             boolean insertXmpIntoDb = imageFile.isInsertXmpIntoDb();
             stmt = con.prepareStatement(insertXmpIntoDb ? sqlWithXmpLastModified : sqlWithoutXmpLastModified);
             File imgFile = imageFile.getFile();
             long idFile = findIdImageFile(con, imgFile);
-            stmt.setLong(1, imageFile.getLastmodified());
+            stmt.setLong(1, imageFile.getSizeInBytes());
+            stmt.setLong(2, imageFile.getLastmodified());
             if (insertXmpIntoDb) {
-                stmt.setLong(2, getLastmodifiedXmp(imageFile));
+                stmt.setLong(3, getLastmodifiedXmp(imageFile));
             }
-            stmt.setLong(insertXmpIntoDb ? 3 : 2, idFile);
+            stmt.setLong(insertXmpIntoDb ? 4 : 3, idFile);
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             if (imageFile.isInsertThumbnailIntoDb()) {
@@ -570,6 +573,32 @@ final class ImageFilesDatabase extends Database {
             free(con);
         }
         return lastModified;
+    }
+
+    public long getImageFilesSizeInBytes(File file) {
+        if (file == null) {
+            throw new NullPointerException("file == null");
+        }
+        long sizeInBytes = 0;
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement("SELECT size_in_bytes FROM files WHERE filename = ?");
+            stmt.setString(1, file.getAbsolutePath());
+            LOGGER.log(Level.FINEST, stmt.toString());
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                sizeInBytes = rs.getLong(1);
+            }
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+        return sizeInBytes;
     }
 
     public boolean existsImageFile(File imageFile) {

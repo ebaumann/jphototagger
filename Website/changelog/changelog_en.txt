@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.8 2012-04-09
+-----------------
+
+* The image file size will be stored into the database
+
 0.24.7 2012-03-22
 -----------------
 
