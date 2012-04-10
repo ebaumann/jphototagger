@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.9 2012-04-10
+-----------------
+
+* Export and Import dialog of JPhotoTagger data: Length of
+  displayed folder limited
+
 0.24.8 2012-04-09
 -----------------
 
