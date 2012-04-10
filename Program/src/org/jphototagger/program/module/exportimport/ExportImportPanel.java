@@ -17,6 +17,7 @@ import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.api.LayerUtil;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.IconUtil;
@@ -33,6 +34,7 @@ import org.jphototagger.program.resource.GUI;
  * @author Elmar Baumann
  */
 public class ExportImportPanel extends javax.swing.JPanel implements SelectObjectsPanel.SelectionListener {
+
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(ExportImportPanel.class.getName());
     private static final String TEXT_EXPORT = Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Button.DisplayName.Export");
@@ -47,7 +49,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     public ExportImportPanel() {
         initComponents();
         postInitComponents();
-
         // Do not call addObjects()!
     }
 
@@ -55,7 +56,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         if (context == null) {
             throw new NullPointerException("context == null");
         }
-
         this.context = context;
         initComponents();
         postInitComponents();
@@ -67,19 +67,17 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String lastDirString = prefs == null ? "" : prefs.getString(KEY_LAST_DIR);
         dir = new File(lastDirString);
-
         if (dir.isDirectory()) {
             setDirLabel();
         }
-
         setInfoLabel();
         panelSelectObjects.addSelectionListener(this);
     }
 
     private void setInfoLabel() {
         labelSelectInfo.setText(isExport()
-                                ? Bundle.getString(ExportImportPanel.class, "ExportImportPanel.LabelSelectInfo.Text.Export")
-                                : Bundle.getString(ExportImportPanel.class, "ExportImportPanel.LabelSelectInfo.Text.Import"));
+                ? Bundle.getString(ExportImportPanel.class, "ExportImportPanel.LabelSelectInfo.Text.Export")
+                : Bundle.getString(ExportImportPanel.class, "ExportImportPanel.LabelSelectInfo.Text.Import"));
     }
 
     public void setContext(ExportImportContext context) {
@@ -100,12 +98,12 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         }
 
         panelSelectObjects.setPreferencesKeyForSelectedIndices(isExport()
-                                         ? KEY_SEL_INDICES_EXPORT
-                                         : KEY_SEL_INDICES_IMPORT);
+                ? KEY_SEL_INDICES_EXPORT
+                : KEY_SEL_INDICES_IMPORT);
         panelSelectObjects.restoreSelectedIndices();
         buttonExportImport.setText(isExport()
-                                   ? TEXT_EXPORT
-                                   : TEXT_IMPORT);
+                ? TEXT_EXPORT
+                : TEXT_IMPORT);
         MnemonicUtil.setMnemonics((Container) this);
         setEnabledButtons();
     }
@@ -116,10 +114,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void setExportCheckBoxes() {
         List<RepositoryDataExporter> exporters = getJptExporters();
-
         panelSelectObjects.removeAll();
         panelSelectObjects.setObjectCount(exporters.size());
-
         for (RepositoryDataExporter exporter : exporters) {
             panelSelectObjects.add(exporter, exporter.getDisplayName());
         }
@@ -128,13 +124,11 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private List<RepositoryDataExporter> getJptExporters() {
         Collection<? extends RepositoryDataExporter> allExporters = Lookup.getDefault().lookupAll(RepositoryDataExporter.class);
         List<RepositoryDataExporter> jptExporters = new ArrayList<RepositoryDataExporter>(allExporters.size());
-
         for (RepositoryDataExporter exporter : allExporters) {
             if (exporter.isJPhotoTaggerData()) {
                 jptExporters.add(exporter);
             }
         }
-
         Collections.sort(jptExporters, PositionProviderAscendingComparator.INSTANCE);
         LayerUtil.logWarningIfNotUniquePositions(jptExporters);
 
@@ -143,10 +137,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void setImportCheckBoxes() {
         List<RepositoryDataImporter> importers = getJptImporters();
-
         panelSelectObjects.removeAll();
         panelSelectObjects.setObjectCount(importers.size());
-
         for (RepositoryDataImporter importer : importers) {
             panelSelectObjects.add(importer, importer.getDisplayName());
         }
@@ -155,27 +147,23 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private List<RepositoryDataImporter> getJptImporters() {
         Collection<? extends RepositoryDataImporter> allImporters = Lookup.getDefault().lookupAll(RepositoryDataImporter.class);
         List<RepositoryDataImporter> jptImporters = new ArrayList<RepositoryDataImporter>(allImporters.size());
-
         for (RepositoryDataImporter importer : allImporters) {
             if (importer.isJPhotoTaggerData()) {
                 jptImporters.add(importer);
             }
         }
-
         Collections.sort(jptImporters, PositionProviderAscendingComparator.INSTANCE);
         LayerUtil.logWarningIfNotUniquePositions(jptImporters);
-
         return jptImporters;
     }
 
     private void selectDirectory() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), new File(""), showHiddenDirs);
-
+        File lastDir = getLastDirForChooser();
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDir, showHiddenDirs);
         dlg.setPreferencesKey("ExportImportPanel.DirChooser");
         dlg.setVisible(true);
         ComponentUtil.parentWindowToFront(this);
-
         if (dlg.isAccepted()) {
             dir = dlg.getSelectedDirectories().get(0);
             Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
@@ -183,6 +171,17 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
             setDirLabel();
             setEnabledButtons();
         }
+    }
+
+    private File getLastDirForChooser() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        if (prefs.containsKey(KEY_LAST_DIR)) {
+            File lastDir = new File(prefs.getString(KEY_LAST_DIR));
+            if (lastDir.isDirectory()) {
+                return lastDir;
+            }
+        }
+        return new File("");
     }
 
     private DirectoryChooser.Option getDirChooserOptionShowHiddenDirs() {
@@ -200,7 +199,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     }
 
     private void setDirLabel() {
-        labelDir.setText(dir.getAbsolutePath());
+        labelDir.setText(FileUtil.toStringWithMaximumLength(dir, 45));
         labelDir.setIcon(IconUtil.getSystemIcon(dir));
     }
 
@@ -216,8 +215,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void exportFiles() {
         List<Object> selectedObjects = panelSelectObjects.getSelectedObjects();
-        List<File> exportedFiles  = new ArrayList<File>(selectedObjects.size());
-
+        List<File> exportedFiles = new ArrayList<File>(selectedObjects.size());
         for (Object o : selectedObjects) {
             if (o instanceof RepositoryDataExporter) {
                 RepositoryDataExporter exporter = (RepositoryDataExporter) o;
@@ -227,7 +225,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 exportedFiles.add(exportFile);
             }
         }
-
         displayFiles(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Info.ExportedFiles"), exportedFiles);
     }
 
@@ -244,7 +241,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void logExport(RepositoryDataExporter exporter, File exportFile) {
         String exporterDisplayName = exporter.getDisplayName();
-
         LOGGER.log(Level.INFO, "{0}: Exporting File ''{1}''", new Object[]{exporterDisplayName, exportFile});
     }
 
@@ -252,12 +248,10 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         List<File> importedFiles = new ArrayList<File>();
         List<File> missingFiles = new ArrayList<File>();
         List<Object> selectedObjects = panelSelectObjects.getSelectedObjects();
-
         for (Object o : selectedObjects) {
             if (o instanceof RepositoryDataImporter) {
                 RepositoryDataImporter importer = (RepositoryDataImporter) o;
                 File importFile = new File(dir.getAbsolutePath() + File.separator + importer.getDefaultFilename());
-
                 if (importFile.exists()) {
                     logImport(importer, importFile);
                     importer.importFromFile(importFile);
@@ -268,19 +262,16 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 }
             }
         }
-
         displayFiles(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Info.ImportedFiles"), importedFiles);
     }
 
     private void logImport(RepositoryDataImporter importer, File importFile) {
         String importerDisplayName = importer.getDisplayName();
-
         LOGGER.log(Level.INFO, "{0}: Importing File ''{1}''", new Object[]{importerDisplayName, importFile});
     }
 
     private void logImportErrorFileDoesNotExist(RepositoryDataImporter importer, File importFile) {
         String importerDisplayName = importer.getDisplayName();
-
         LOGGER.log(Level.INFO, "{0}: The following file can''t be imported, because it does not exist: ''{1}''",
                 new Object[]{importerDisplayName, importFile});
     }
@@ -288,7 +279,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private void setEnabledButtons() {
         int selCount = panelSelectObjects.getSelectionCount();
         int objectCount = panelSelectObjects.getObjectCount();
-
         buttonExportImport.setEnabled((dir != null) && dir.isDirectory() && (selCount > 0));
         buttonSelectAll.setEnabled((objectCount > 0) && (objectCount > selCount));
         buttonSelectNone.setEnabled(selCount > 0);
@@ -312,12 +302,10 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         void done();
     }
 
-
     public void addListener(ExportImportListener listener) {
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         ls.add(listener);
     }
 
@@ -325,7 +313,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         if (listener == null) {
             throw new NullPointerException("listener == null");
         }
-
         ls.remove(listener);
     }
 
@@ -336,32 +323,45 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     }
 
     /**
-     * This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
+     * content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelDirectory = new javax.swing.JPanel();
         labelPromptDir = new javax.swing.JLabel();
         labelDir = new javax.swing.JLabel();
         buttonSelDir = new javax.swing.JButton();
         labelSelectInfo = new javax.swing.JLabel();
-        buttonSelectAll = new javax.swing.JButton();
-        buttonSelectNone = new javax.swing.JButton();
         scrollPane = new javax.swing.JScrollPane();
         panelSelectObjects = new org.jphototagger.lib.swing.SelectObjectsPanel();
+        panelButtons = new javax.swing.JPanel();
+        buttonSelectAll = new javax.swing.JButton();
+        buttonSelectNone = new javax.swing.JButton();
         buttonExportImport = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/exportimport/Bundle"); // NOI18N
+        panelDirectory.setName(bundle.getString("ExportImportPanel.panelDirectory.name")); // NOI18N
+        panelDirectory.setLayout(new java.awt.GridBagLayout());
+
         labelPromptDir.setText(bundle.getString("ExportImportPanel.labelPromptDir.text")); // NOI18N
         labelPromptDir.setName("labelPromptDir"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelDirectory.add(labelPromptDir, gridBagConstraints);
 
         labelDir.setName("labelDir"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelDirectory.add(labelDir, gridBagConstraints);
 
         buttonSelDir.setText(bundle.getString("ExportImportPanel.buttonSelDir.text")); // NOI18N
         buttonSelDir.setName("buttonSelDir"); // NOI18N
@@ -370,9 +370,45 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 buttonSelDirActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelDirectory.add(buttonSelDir, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        add(panelDirectory, gridBagConstraints);
 
         labelSelectInfo.setText("Auswahl:"); // NOI18N
         labelSelectInfo.setName("labelSelectInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(labelSelectInfo, gridBagConstraints);
+
+        scrollPane.setName("scrollPane"); // NOI18N
+
+        panelSelectObjects.setName("panelSelectObjects"); // NOI18N
+        scrollPane.setViewportView(panelSelectObjects);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipady = 100;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(scrollPane, gridBagConstraints);
+
+        panelButtons.setName(bundle.getString("ExportImportPanel.panelButtons.name")); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonSelectAll.setText(bundle.getString("ExportImportPanel.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.setEnabled(false);
@@ -382,6 +418,9 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 buttonSelectAllActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelButtons.add(buttonSelectAll, gridBagConstraints);
 
         buttonSelectNone.setText(bundle.getString("ExportImportPanel.buttonSelectNone.text")); // NOI18N
         buttonSelectNone.setEnabled(false);
@@ -391,11 +430,10 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 buttonSelectNoneActionPerformed(evt);
             }
         });
-
-        scrollPane.setName("scrollPane"); // NOI18N
-
-        panelSelectObjects.setName("panelSelectObjects"); // NOI18N
-        scrollPane.setViewportView(panelSelectObjects);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonSelectNone, gridBagConstraints);
 
         buttonExportImport.setText(TEXT_EXPORT);
         buttonExportImport.setEnabled(false);
@@ -405,49 +443,19 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
                 buttonExportImportActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonExportImport, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(buttonSelectAll)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSelectNone)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
-                .addComponent(buttonExportImport))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(labelPromptDir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDir, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonSelDir))
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
-            .addComponent(labelSelectInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonSelectAll, buttonSelectNone});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(labelDir, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPromptDir)
-                    .addComponent(buttonSelDir))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelSelectInfo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonExportImport)
-                    .addComponent(buttonSelectNone)
-                    .addComponent(buttonSelectAll)))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDir, labelPromptDir});
-
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonSelDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelDirActionPerformed
@@ -473,6 +481,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private javax.swing.JLabel labelDir;
     private javax.swing.JLabel labelPromptDir;
     private javax.swing.JLabel labelSelectInfo;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelDirectory;
     private org.jphototagger.lib.swing.SelectObjectsPanel panelSelectObjects;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
