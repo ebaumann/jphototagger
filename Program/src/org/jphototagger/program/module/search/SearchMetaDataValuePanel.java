@@ -29,10 +29,10 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
 
     private static final long   serialVersionUID = 1L;
-    private static final String SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
-    private static final String NOT_SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#777777\"><b>(</b></font></html>";
-    private static final String SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
-    private static final String NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#777777\"><b>)</b></font></html>";
+    private static final String SEL_LEFT_BRACKET = "<html><font color=\"#000000\"><b>(</b></font></html>";
+    private static final String NOT_SEL_LEFT_BRACKET = "<html><font color=\"#777777\"><b>(</b></font></html>";
+    private static final String SEL_RIGHT_BRACKET = "<html><font color=\"#000000\"><b>)</b></font></html>";
+    private static final String NOT_SEL_RIGHT_BRACKET = "<html><font color=\"#777777\"><b>)</b></font></html>";
     private MetaDataValue.ValueType  prevColumnDataType;
     private boolean isOperatorsEnabled = true;
     private boolean listenToActions = true;
@@ -346,7 +346,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft1.setText("("); // NOI18N
         toggleButtonBracketLeft1.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketLeft1.setName("toggleButtonBracketLeft1"); // NOI18N
@@ -373,7 +372,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(comboBoxOperators, gridBagConstraints);
 
-        toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft2.setText("("); // NOI18N
         toggleButtonBracketLeft2.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketLeft2.setName("toggleButtonBracketLeft2"); // NOI18N
@@ -385,7 +383,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketLeft2, gridBagConstraints);
 
@@ -432,7 +429,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(textFieldValue, gridBagConstraints);
 
-        toggleButtonBracketRight.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketRight.setText(")"); // NOI18N
         toggleButtonBracketRight.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketRight.setName("toggleButtonBracketRight"); // NOI18N
@@ -444,7 +440,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 2;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
 
