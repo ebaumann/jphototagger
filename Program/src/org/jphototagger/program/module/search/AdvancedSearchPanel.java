@@ -184,7 +184,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private boolean checkIsSearchValid() {
-        if (!checkSearchTypeIsUnique()) {
+        if (!checkSearchTypeIsValid()) {
             return false;
         }
         if (existsCustomSqlText()) {
@@ -207,16 +207,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         return valid;
     }
 
-    boolean checkSearchTypeIsUnique() {
+    private boolean checkSearchTypeIsValid() {
         boolean customSqlTextExists = existsCustomSqlText();
         boolean keywordsExisting = existsKeywords();
         boolean simpleSqlValueExists = existsSimpleSqlValue();
-        boolean unique = !customSqlTextExists && ! keywordsExisting && !simpleSqlValueExists
-                || customSqlTextExists && ! keywordsExisting && !simpleSqlValueExists
-                || keywordsExisting && !customSqlTextExists && !simpleSqlValueExists
-                || simpleSqlValueExists && !customSqlTextExists && !keywordsExisting;
-        if (!unique) {
-            String message = Bundle.getString(AdvancedSearchPanel.class, "AdvancedSearchPanel.Error.Inconsistent");
+        boolean valid = !customSqlTextExists || customSqlTextExists && !keywordsExisting && !simpleSqlValueExists;
+        if (!valid) {
+            String message = Bundle.getString(AdvancedSearchPanel.class, "AdvancedSearchPanel.Error.SearchTypeInvalid");
             MessageDisplayer.error(this, message);
             return false;
         }
