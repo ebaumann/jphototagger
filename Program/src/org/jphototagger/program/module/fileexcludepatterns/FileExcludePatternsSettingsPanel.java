@@ -3,6 +3,7 @@ package org.jphototagger.program.module.fileexcludepatterns;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -16,6 +17,7 @@ import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.help.HelpPageProvider;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -51,7 +53,6 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         } else {
             cancelUpdateRepository();
         }
-
         super.setVisible(visible);
     }
 
@@ -59,9 +60,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         if (list.getSelectedIndex() < 0) {
             return;
         }
-
         String pattern = (String) list.getSelectedValue();
-
         model.delete(pattern);
         setEnabled();
         list.requestFocusInWindow();
@@ -90,13 +89,22 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
 
     private void insertPattern() {
         String input = textFieldInputPattern.getText().trim();
-
-        if (!input.isEmpty() && !model.contains(input)) {
+        if (!input.isEmpty() && !model.contains(input) && checkRegex(input)) {
             model.insert(input);
             textFieldInputPattern.setText("");
         }
-
         setEnabled();
+    }
+
+    private boolean checkRegex(String regex) {
+        try {
+            Pattern.compile(regex);
+        } catch (Throwable t) {
+            String message = Bundle.getString(FileExcludePatternsSettingsPanel.class, "FileExcludePatternsSettingsPanel.Error.Regex");
+            MessageDisplayer.error(this, message);
+            return false;
+        }
+        return true;
     }
 
     private void setEnabledButtonInsertPattern() {
@@ -108,14 +116,12 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
     }
     private boolean existsInput() {
         String input = textFieldInputPattern.getText().trim();
-
         return !input.isEmpty() && model.contains(input);
     }
 
     private void setEnabled() {
         int size = model.getSize();
         boolean itemIsSelected = list.getSelectedIndex() >= 0;
-
         setEnabledButtonInsertPattern();
         buttonDeletePattern.setEnabled(itemIsSelected);
         menuItemDeletePattern.setEnabled(itemIsSelected);
@@ -125,7 +131,6 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
 
     private void setSelectedPatternToInput() {
         String pattern = (String) list.getSelectedValue();
-
         if (pattern != null) {
             textFieldInputPattern.setText(pattern);
         }
@@ -133,7 +138,6 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
 
     private void updateRepository() {
         List<String> patterns = model.getPatterns();
-
         if (patterns.size() > 0) {
             isUpdateRepository = true;
             cancel = false;
