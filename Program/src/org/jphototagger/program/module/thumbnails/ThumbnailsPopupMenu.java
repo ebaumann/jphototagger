@@ -133,8 +133,8 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         menuRefresh.add(itemRefresh);
         add(menuRefresh);
         menuRotateThumbnail.add(itemRotateThumbnail90);
-        menuRotateThumbnail.add(itemRotateThumbnai180);
         menuRotateThumbnail.add(itemRotateThumbnail270);
+        menuRotateThumbnail.add(itemRotateThumbnai180);
         add(menuRotateThumbnail);
         add(new Separator());
         add(itemOpenFilesWithStandardApp);
