@@ -24,18 +24,15 @@ import org.jphototagger.lib.thirdparty.DateChooserDialog;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- * Panel mit einer Suchspalte und deren möglichen Verknüpfungen, Operatoren
- * und Suchtext.
- *
  * @author Elmar Baumann, Tobias Stening
  */
 public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
 
     private static final long   serialVersionUID = 1L;
     private static final String SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>(</b></font></html>";
-    private static final String NOT_SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>(</b></font></html>";
+    private static final String NOT_SEL_LEFT_BRACKET = "<html><font size=\"+1\" color=\"#777777\"><b>(</b></font></html>";
     private static final String SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#000000\"><b>)</b></font></html>";
-    private static final String NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#dddddd\"><b>)</b></font></html>";
+    private static final String NOT_SEL_RIGHT_BRACKET = "<html><font size=\"+1\" color=\"#777777\"><b>)</b></font></html>";
     private MetaDataValue.ValueType  prevColumnDataType;
     private boolean isOperatorsEnabled = true;
     private boolean listenToActions = true;
@@ -351,8 +348,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
 
         toggleButtonBracketLeft1.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft1.setText("("); // NOI18N
-        toggleButtonBracketLeft1.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        toggleButtonBracketLeft1.setContentAreaFilled(false);
         toggleButtonBracketLeft1.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketLeft1.setName("toggleButtonBracketLeft1"); // NOI18N
         toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
@@ -380,8 +375,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
 
         toggleButtonBracketLeft2.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketLeft2.setText("("); // NOI18N
-        toggleButtonBracketLeft2.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        toggleButtonBracketLeft2.setContentAreaFilled(false);
         toggleButtonBracketLeft2.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketLeft2.setName("toggleButtonBracketLeft2"); // NOI18N
         toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
@@ -441,8 +434,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
 
         toggleButtonBracketRight.setForeground(new java.awt.Color(255, 0, 0));
         toggleButtonBracketRight.setText(")"); // NOI18N
-        toggleButtonBracketRight.setBorder(javax.swing.BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        toggleButtonBracketRight.setContentAreaFilled(false);
         toggleButtonBracketRight.setMargin(new java.awt.Insets(2, 2, 2, 2));
         toggleButtonBracketRight.setName("toggleButtonBracketRight"); // NOI18N
         toggleButtonBracketRight.addActionListener(new java.awt.event.ActionListener() {

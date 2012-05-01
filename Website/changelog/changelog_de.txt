@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.10 2012-05-01
+------------------
+
+* Bugfix: Keine Fehlermeldung mehr beim Öffnen und Speichern einer
+  erweiterten Suche, falls "Stichwortkombinationen" und "Einfaches SQL"
+  zusammen benutzt werden
+* Klammern in erweiterter Suche (Einfaches SQL) deutlicher hervorgehoben
+
 0.24.9 2012-04-10
 -----------------
 

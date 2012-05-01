@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.10 2012-05-01
+------------------
+
+* Bugfix: No error message when opening or saving an "Advanced Search"
+  if "Keyword combinations" are used together with "Simple SQL"
+* Brackets in "Simple SQL" of "Advanced Search" are better visible
+
 0.24.9 2012-04-10
 -----------------
 
