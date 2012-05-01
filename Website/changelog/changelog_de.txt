@@ -12,6 +12,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Klammern in erweiterter Suche (Einfaches SQL) deutlicher hervorgehoben
 * Einstellungen: Reguläre Ausdrücke für auszuschließende Dateien werden
   überprüft vor dem Hinzufügen
+* Kontextmenü Vorschaubilder, Vorschaubild drehen: "270° im
+  Uhrzeigersinn" umbenannt in "90° gegen den Uhrzeigersinn",
+  180° ohne "Uhrzeigersinn"
 
 0.24.9 2012-04-10
 -----------------

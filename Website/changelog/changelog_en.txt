@@ -11,6 +11,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Brackets in "Simple SQL" of "Advanced Search" are better visible
 * Settings: Regular expressions for files to exclude will be validated
   before adding them
+* Context menu thumbnails, rotating thumbnails: Renamed "Rotate 270°
+  clockwise" into "Rotate 90° counter clockwise", 180° without
+  direction
 
 0.24.9 2012-04-10
 -----------------
