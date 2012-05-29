@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.11 2012-05-29
+------------------
+
+* Neuer Kommandozeilenparameter: "-cplaf" (_C_ross _P_latform _L_ook _A_nd
+  _F_eel): JPhotoTagger im "Java-Design" starten anstelle eines Designs, das
+  dem Betriebssystem-Design ähnelt. Siehe auch:
+  http://www.jphototagger.org/manual/de/commandline.html
+
 0.24.10 2012-05-01
 ------------------
 

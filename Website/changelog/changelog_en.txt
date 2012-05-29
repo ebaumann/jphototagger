@@ -6,13 +6,21 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.24.10 2012-05-01
 ------------------
 
+0.24.11 2012-05-29
+------------------
+
+* New Command line parameter: "-cplaf" (_C_ross _P_latform _L_ook _A_nd
+  _F_eel): Starts JPhotoTagger in Java Look And Feel instead of a Look
+  And Feel similar to the operating system's Look and Feel. See also:
+  http://www.jphototagger.org/manual/de/commandline.html (German language)
+
 * Bugfix: No error message when opening or saving an "Advanced Search"
   if "Keyword combinations" are used together with "Simple SQL"
 * Brackets in "Simple SQL" of "Advanced Search" are better visible
 * Settings: Regular expressions for files to exclude will be validated
   before adding them
-* Context menu thumbnails, rotating thumbnails: Renamed "Rotate 270°
-  clockwise" into "Rotate 90° counter clockwise", 180° without
+* Context menu thumbnails, rotating thumbnails: Renamed "Rotate 270ï¿½
+  clockwise" into "Rotate 90ï¿½ counter clockwise", 180ï¿½ without
   direction
 
 0.24.9 2012-04-10
