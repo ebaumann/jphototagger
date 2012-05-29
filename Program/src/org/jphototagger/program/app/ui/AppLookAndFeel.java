@@ -154,8 +154,30 @@ public final class AppLookAndFeel {
         return IconUtil.getImageIcon(ICONS_PATH + "/" + name);
     }
 
-    public static void set() {
-        LookAndFeelUtil.setSystemLookAndFeel();
+    public enum LookAndFeel {
+
+        SYSTEM,
+        CROSS_PLATFORM;
+
+        private void set() {
+            switch (this) {
+                case SYSTEM:
+                    LookAndFeelUtil.setSystemLookAndFeel();
+                    break;
+                case CROSS_PLATFORM:
+                    LookAndFeelUtil.setCrossPlatformLookuAndFeel();
+                    break;
+                default:
+                    throw new IllegalStateException("Unsupported Look and Feel: " + this);
+            }
+        }
+    }
+
+    public static void set(LookAndFeel lookAndFeel) {
+        if (lookAndFeel == null) {
+            throw new NullPointerException("lookAndFeel == null");
+        }
+        lookAndFeel.set();
         setFonts();
         setUiColors();
     }

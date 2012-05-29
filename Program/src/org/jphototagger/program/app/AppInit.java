@@ -42,22 +42,18 @@ public final class AppInit {
 
     public void init(String[] args) {
         synchronized (this) {
-            assert !init;
-
             if (init) {
-                return;
+                throw new IllegalStateException("Already init!");
             }
-
             init = true;
         }
-
-        this.commandLineOptions = new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
+        commandLineOptions = new AppCommandLineOptions(new CommandLineParser(args, "-", "="));
         init();
     }
 
     private void init() {
         try {
-            AppLookAndFeel.set();
+            AppLookAndFeel.set(commandLineOptions.getLookAndFeel());
             AppLoggingSystem.init();
             AppLogUtil.logSystemInfo();
             checkJavaVersion();
@@ -83,7 +79,6 @@ public final class AppInit {
         if (!commandLineOptions.isShowSplashScreen()) {
             return;
         }
-
         SplashScreen.INSTANCE.setMessage(Bundle.getString(AppInit.class, "AppInit.Info.InitGui"));
         SplashScreen.INSTANCE.setProgress(100);
         SplashScreen.INSTANCE.close();
@@ -93,7 +88,6 @@ public final class AppInit {
         if (!commandLineOptions.isShowSplashScreen()) {
             return;
         }
-
         SplashScreen.INSTANCE.init();
         SplashScreen.INSTANCE.setProgress(50);
     }
@@ -127,7 +121,6 @@ public final class AppInit {
     private static void checkJavaVersion() {
         Version javaVersion = SystemUtil.getJavaVersion();
         boolean javaVersionIsTooOld = javaVersion != null && javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0;
-
         if (javaVersionIsTooOld) {
             errorMessageJavaVersion(javaVersion);
             throw new RuntimeException("Java version" + javaVersion.toString3()
@@ -138,14 +131,12 @@ public final class AppInit {
     private static void errorMessageJavaVersion(Version javaVersion) {
         String message = Bundle.getString(AppInit.class, "AppInit.Error.JavaVersion",
                 javaVersion.toString3(), AppInfo.MIN_JAVA_VERSION.toString3());
-
         MessageDisplayer.error(null, message);
     }
 
     private void showErrorMessage(Throwable t) {
         LongMessageDialog dlg = new LongMessageDialog(null, true);
         String message = t.getLocalizedMessage() + "\n" + ExceptionUtil.getStackTraceAsString(t);
-
         dlg.setTitle(Bundle.getString(AppInit.class, "AppInit.Error.Thrown"));
         dlg.setLongMessage(message);
         dlg.setVisible(true);
