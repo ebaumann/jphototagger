@@ -1,4 +1,4 @@
-package org.jphototagger.ttc.def.scripts.unix;
+package org.jphototagger.tcc.def.scripts.unix;
 
 import java.io.File;
 import java.util.logging.Level;
