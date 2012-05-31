@@ -3,8 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.24.10 2012-05-01
+0.24.12 2012-05-31
 ------------------
+
+* Bugfix: Under Windows programs creating thumbnails could be blocked
+  if they printed long error messages
 
 0.24.11 2012-05-29
 ------------------
@@ -13,6 +16,9 @@ Changelog JPhotoTagger http://jphototagger.org/
   _F_eel): Starts JPhotoTagger in Java Look And Feel instead of a Look
   And Feel similar to the operating system's Look and Feel. See also:
   http://www.jphototagger.org/manual/de/commandline.html (German language)
+
+0.24.10 2012-05-01
+------------------
 
 * Bugfix: No error message when opening or saving an "Advanced Search"
   if "Keyword combinations" are used together with "Simple SQL"
