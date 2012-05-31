@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.12 2012-05-31
+------------------
+
+* Bugfix: Unter Windows konnten Programme, die eigene Vorschaubilder erzeugen,
+  blockiert werden, falls sie viele Fehlermeldungen ausgaben
+
 0.24.11 2012-05-29
 ------------------
 
