@@ -18,12 +18,6 @@ import org.jphototagger.lib.io.IoUtil;
  */
 public final class External {
 
-    private enum Stream {
-
-        STANDARD_ERROR,
-        STANDARD_IN,
-        STANDARD_OUT,}
-
     public static class ProcessResult {
 
         private final int exitValue;
@@ -72,10 +66,8 @@ public final class External {
             try {
                 InputStreamReader isr = new InputStreamReader(is);
                 br = new BufferedReader(isr);
-
                 if (storeStreamInString) {
                     String line = null;
-
                     while ((line = br.readLine()) != null) {
                         sb.append(line);
                     }
@@ -91,6 +83,17 @@ public final class External {
         }
     }
 
+    private static class StreamBytes {
+
+        private byte[] outBytes;
+        private byte[] errBytes;
+
+        private StreamBytes(byte[] outBytes, byte[] errBytes) {
+            this.outBytes = outBytes;
+            this.errBytes = errBytes;
+        }
+    }
+
     /**
      * Executes an external program and can wait until it's completed.
      *
@@ -103,7 +106,6 @@ public final class External {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
-
         try {
             Runtime runtime = Runtime.getRuntime();
             String[] cmd = parseQuotedCommandLine(command);
@@ -113,21 +115,17 @@ public final class External {
             InputStream errorStream = p.getErrorStream();
             StreamGobbler outputGobbler = new StreamGobbler(inputStream, storeStreamInString);
             StreamGobbler errorGobbler = new StreamGobbler(errorStream, storeStreamInString);
-
             errorGobbler.start();
             outputGobbler.start();
-
             if (wait) {
                 int exitValue = p.waitFor();
                 String outputStreamString = outputGobbler.getStreamAsString();
                 String errorStreamString = errorGobbler.getStreamAsString();
-
                 return new ProcessResult(exitValue, outputStreamString, errorStreamString);
             }
         } catch (Throwable t) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
         }
-
         return null;
     }
 
@@ -156,80 +154,83 @@ public final class External {
         if (maxMilliseconds < 0) {
             throw new IllegalArgumentException("Negative maxMilliseconds: " + maxMilliseconds);
         }
-        Runtime runtime = Runtime.getRuntime();
-        Process process = null;
         try {
             String[] commandLineToken = parseQuotedCommandLine(command);
-            process = runtime.exec(commandLineToken);
-
+            Runtime runtime = Runtime.getRuntime();
+            Process process = runtime.exec(commandLineToken);
             ProcessDestroyer processDestroyer = new ProcessDestroyer(process, maxMilliseconds, command);
             Thread threadProcessDestroyer = new Thread(processDestroyer, "JPhotoTagger: Destroying process");
-
             threadProcessDestroyer.start();
-            byte[] outputStream = getStream(process, Stream.STANDARD_OUT);
-            byte[] errorStream = getStream(process, Stream.STANDARD_ERROR);
-
-            ExternalOutput streamContent = new ExternalOutput(outputStream, errorStream);
-
+            StreamBytes streamBytes = getStreamBytes(process);
+            ExternalOutput streamContent = new ExternalOutput(streamBytes.outBytes, streamBytes.errBytes);
             processDestroyer.processFinished();
             threadProcessDestroyer.interrupt();
-
             if (processDestroyer.destroyed()) {
                 return null;
             }
-
             return streamContent;
         } catch (Exception ex) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
-
             return null;
         }
     }
 
-    private static byte[] getStream(Process process, Stream s) {
-        assert process != null;
-        assert s.equals(Stream.STANDARD_ERROR) || s.equals(Stream.STANDARD_OUT);
+    private static class ProcessStreamReaderThread extends Thread {
 
-        final int buffersize = 100 * 1024;
-        byte[] returnBytes = null;
+        private static final int BUFFER_SIZE = 100 * 1024;
+        private final byte[] streamBuffer = new byte[BUFFER_SIZE];
+        private final Process process;
+        private final InputStream processStream;
+        private byte[] readStreamBytes = null;
 
-        try {
-            InputStream stream = s.equals(Stream.STANDARD_OUT)
-                    ? process.getInputStream()
-                    : process.getErrorStream();
-            byte[] buffer = new byte[buffersize];
-            int bytesRead = -1;
-            boolean finished = false;
-
-            while (!finished) {
-                bytesRead = stream.read(buffer, 0, buffersize);
-
-                if (bytesRead > 0) {
-                    if (returnBytes == null) {
-                        returnBytes = new byte[bytesRead];
-                        System.arraycopy(buffer, 0, returnBytes, 0, bytesRead);
-                    } else {
-                        returnBytes = appendToByteArray(returnBytes, buffer, bytesRead);
-                    }
-                }
-
-                finished = bytesRead < 0;
-            }
-
-            process.waitFor();
-        } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+        private ProcessStreamReaderThread(Process process, InputStream processStream) {
+            super("JPhotoTagger: Reading Process Stream");
+            this.process = process;
+            this.processStream = processStream;
         }
 
-        return returnBytes;
+        @Override
+        public void run() {
+            try {
+                boolean isFinish = false;
+                while (!isFinish) {
+                    int numberOfBytesRead = processStream.read(streamBuffer, 0, BUFFER_SIZE);
+                    if (numberOfBytesRead > 0) {
+                        if (readStreamBytes == null) {
+                            readStreamBytes = new byte[numberOfBytesRead];
+                            System.arraycopy(streamBuffer, 0, readStreamBytes, 0, numberOfBytesRead);
+                        } else {
+                            readStreamBytes = createMergedByteArray(readStreamBytes, streamBuffer, numberOfBytesRead);
+                        }
+                    }
+                    isFinish = numberOfBytesRead < 0;
+                }
+                process.waitFor();
+            } catch (Throwable t) {
+                Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
+            }
+        }
     }
 
-    private static byte[] appendToByteArray(byte[] appendTo, byte[] appendThis, int count) {
-        byte[] newArray = new byte[appendTo.length + count];
+    private static StreamBytes getStreamBytes(Process process) {
+        ProcessStreamReaderThread stdOutReader = new ProcessStreamReaderThread(process, process.getInputStream());
+        ProcessStreamReaderThread stdErrReader = new ProcessStreamReaderThread(process, process.getErrorStream());
+        stdOutReader.start();
+        stdErrReader.start();
+        try {
+            stdOutReader.join();
+            stdErrReader.join();
+            return new StreamBytes(stdOutReader.readStreamBytes, stdErrReader.readStreamBytes);
+        } catch (Throwable t) {
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
+            return new StreamBytes(null, null);
+        }
+    }
 
-        System.arraycopy(appendTo, 0, newArray, 0, appendTo.length);
-        System.arraycopy(appendThis, 0, newArray, appendTo.length, count);
-
+    private static byte[] createMergedByteArray(byte[] array1, byte[] array2, int readNumberOfBytesInArray2) {
+        byte[] newArray = new byte[array1.length + readNumberOfBytesInArray2];
+        System.arraycopy(array1, 0, newArray, 0, array1.length);
+        System.arraycopy(array2, 0, newArray, array1.length, readNumberOfBytesInArray2);
         return newArray;
     }
 
@@ -262,11 +263,9 @@ public final class External {
             } catch (InterruptedException ex) {
                 // ignore
             }
-
             if (!processFinished) {
                 process.destroy();
                 destroyed = true;
-
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE,
                         "The command {1} did run more than {0} milliseconds and was terminated.",
                         new Object[]{millisecondsWait, command});
@@ -278,7 +277,6 @@ public final class External {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
-
         // http://gcc.gnu.org/ml/java-patches/2000-q3/msg00026.html:
         // "\nnn (octal esacpe) are converted to the appropriate char values"
         // On Windows systems, where the backslash is a path delimiter, the
@@ -290,19 +288,16 @@ public final class External {
         String[] cmd_array = new String[0];
         String[] new_cmd_array;
         StreamTokenizer st = new StreamTokenizer(new StringReader(cmd));
-
         st.resetSyntax();
         st.wordChars('\u0000', '\uFFFF');
         st.whitespaceChars(' ', ' ');
         st.quoteChar('"');
-
         for (int i = 0; st.nextToken() != StreamTokenizer.TT_EOF; i++) {
             new_cmd_array = new String[i + 1];
             new_cmd_array[i] = st.sval;
             System.arraycopy(cmd_array, 0, new_cmd_array, 0, i);
             cmd_array = new_cmd_array;
         }
-
         return cmd_array;
     }
 
