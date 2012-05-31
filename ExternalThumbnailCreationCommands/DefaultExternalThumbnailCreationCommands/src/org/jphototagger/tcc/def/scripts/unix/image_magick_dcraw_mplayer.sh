@@ -41,7 +41,8 @@ jpeg
 jpg
 png
 tif
-tiff"
+tiff
+xcf"
 
 # File name suffixes of video files
 video_filename_suffixes="m2ts
