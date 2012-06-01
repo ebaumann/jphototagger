@@ -22,7 +22,7 @@ import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.lib.runtime.ExternalOutput;
+import org.jphototagger.lib.runtime.FinishedProcessResult;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -105,11 +105,11 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", Integer.toString(maxLength));
         Image image = null;
         LOGGER.log(Level.FINEST, "Creating thumbnail with external application. Command: ''{0}''", cmd);
-        ExternalOutput output = External.executeGetOutput(cmd, getMaxSecondsToTerminateExternalPrograms() * 1000);
+        FinishedProcessResult output = External.executeWaitForTermination(cmd, getMaxSecondsToTerminateExternalPrograms() * 1000);
         if (output == null) {
             return null;
         }
-        byte[] stdout = output.getOutputStream();
+        byte[] stdout = output.getStdOutBytes();
         if (stdout != null) {
             try {
                 image = javax.imageio.ImageIO.read(new ByteArrayInputStream(stdout));
@@ -117,7 +117,7 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
                 Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if (output.getErrorStream() != null) {
+        if (output.getStdErrBytes() != null) {
             logErrorStream(file, output);
         }
         return image;
@@ -134,8 +134,8 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
                 : minSeconds;
     }
 
-    private static void logErrorStream(File imageFile, ExternalOutput output) {
-        byte[] errorStreamBytes = output.getErrorStream();
+    private static void logErrorStream(File imageFile, FinishedProcessResult output) {
+        byte[] errorStreamBytes = output.getStdErrBytes();
         String errorMessage = ((errorStreamBytes == null)
                 ? ""
                 : new String(errorStreamBytes).trim());

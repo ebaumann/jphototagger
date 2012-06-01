@@ -5,8 +5,8 @@ import org.jphototagger.program.app.AppLifeCycle.FinalTask;
 
 /**
  * Executable command that can be called before JPhotoTaggers quits.
- * <p>
- * Usage: Create an instance and add it to
+ *
+ * <p>Usage: Create an instance and add it to
  * {@code AppLifeCycle#addFinalTask(org.jphototagger.program.app.AppLifeCycle.FinalTask)}
  *
  * @author Elmar Baumann
@@ -17,15 +17,14 @@ public final class FinalExecutable extends FinalTask {
 
     public FinalExecutable(String executable) {
         if (executable == null) {
-            throw new NullPointerException("exec == null");
+            throw new NullPointerException("executable == null");
         }
-
         this.executable = executable;
     }
 
     @Override
     public void execute() {
-        External.execute(executable, false);
+        External.execute(executable);
         notifyFinished();
     }
 }

@@ -18,27 +18,26 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.lib.runtime.External.ProcessResult;
+import org.jphototagger.lib.runtime.FinishedProcessResult;
 import org.jphototagger.lib.runtime.RuntimeUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Executes in a thread programs which processes image files.
- *
  * @author Elmar Baumann
  */
 public final class StartPrograms {
 
-    private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
+    private static final long MAX_MILLISECONDS_UNTIL_TERMINATE = 300 * 1000;
     private static final Logger LOGGER = Logger.getLogger(StartPrograms.class.getName());
+    private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
     private ProgressHandle progressHandle;
 
     /**
      * Executes a program.
      *
-     * @param  program           program
-     * @param  imageFiles        files to process
+     * @param program program
+     * @param imageFiles files to process
      * @param waitForTermination
      */
     public void startProgram(Program program, List<File> imageFiles, boolean waitForTermination) {
@@ -107,20 +106,25 @@ public final class StartPrograms {
             for (File file : imageFiles) {
                 String command = getProcessPatternCommand(file);
                 logCommand(command);
-                External.ProcessResult result = External.execute(command, waitForTermination);
-                boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
-                if (waitForTermination && terminatedWithErrors) {
-                    logError(command, result);
+                if (waitForTermination) {
+                    FinishedProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
+                    boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
+                    if (terminatedWithErrors) {
+                        logError(command, processResult);
+                    }
+                } else {
+                    External.execute(command);
                 }
                 count++;
                 progressPerformed(count);
             }
         }
 
-        private void logError(String command, ProcessResult result) {
-            LOGGER.log(Level.WARNING, "Error executing command  ''{0}'': {1}!", new Object[]{command, (result == null)
+        private void logError(String command, FinishedProcessResult processResult) {
+            LOGGER.log(Level.WARNING, "Error executing command  ''{0}'': {1}!", new Object[]{
+                        command, (processResult == null)
                         ? "?"
-                        : result.getErrorStreamAsString()});
+                        : new String(processResult.getStdErrBytes())});
         }
 
         private String getProcessPatternCommand(File file) {
@@ -138,10 +142,14 @@ public final class StartPrograms {
         private void processAll() {
             String command = getProcessAllCommand();
             logCommand(command);
-            External.ProcessResult result = External.execute(command, waitForTermination);
-            boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
-            if (waitForTermination && terminatedWithErrors) {
-                logError(command, result);
+            if (waitForTermination) {
+                FinishedProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
+                boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
+                if (terminatedWithErrors) {
+                    logError(command, processResult);
+                }
+            } else {
+                External.execute(command);
             }
             progressPerformed(imageFiles.size());
         }
@@ -158,10 +166,14 @@ public final class StartPrograms {
             for (File file : imageFiles) {
                 String command = getProcessSingleCommand(file, count);
                 logCommand(command);
-                External.ProcessResult result = External.execute(command, waitForTermination);
-                boolean terminatedWithErrors = result == null || result.getExitValue() != 0;
-                if (waitForTermination && terminatedWithErrors) {
-                    logError(command, result);
+                if (waitForTermination) {
+                    FinishedProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
+                    boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
+                    if (terminatedWithErrors) {
+                        logError(command, processResult);
+                    }
+                } else {
+                    External.execute(command);
                 }
                 count++;
                 progressPerformed(count);
@@ -200,20 +212,29 @@ public final class StartPrograms {
         }
 
         private void progressStarted() {
-            ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(imageFiles.size()).value(0).build();
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(imageFiles.size())
+                    .value(0)
+                    .build();
             progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
             progressHandle.progressStarted(evt);
         }
 
         private void progressPerformed(int value) {
-            ProgressEvent evt = new ProgressEvent.Builder().source(this).minimum(0).maximum(imageFiles.size()).value(value).build();
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .minimum(0)
+                    .maximum(imageFiles.size())
+                    .value(value)
+                    .build();
             progressHandle.progressPerformed(evt);
         }
 
         private void updateRepository() {
             if (program.isChangeFile()) {
-                SaveToOrUpdateFilesInRepository updater = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class)
-                        .createInstance(imageFiles, SaveOrUpdate.OUT_OF_DATE);
+                SaveToOrUpdateFilesInRepository updater = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class).createInstance(imageFiles, SaveOrUpdate.OUT_OF_DATE);
                 updater.saveOrUpdateWaitForTermination();
             }
         }

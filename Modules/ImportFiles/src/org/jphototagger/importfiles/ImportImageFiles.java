@@ -28,7 +28,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.lib.runtime.ExternalOutput;
+import org.jphototagger.lib.runtime.FinishedProcessResult;
 import org.jphototagger.lib.runtime.RuntimeUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -253,7 +253,7 @@ public final class ImportImageFiles implements FileImportService {
                 String fileAsScriptArgument = RuntimeUtil.quoteForCommandLine(copiedFileInTarget);
                 String command = scriptForRuntime + " " + fileAsScriptArgument;
                 logScriptCommand(copiedFileInTarget, command);
-                ExternalOutput execResult = External.executeGetOutput(command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS);
+                FinishedProcessResult execResult = External.executeWaitForTermination(command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS);
                 logScriptErrors(execResult);
             }
 
@@ -269,8 +269,8 @@ public final class ImportImageFiles implements FileImportService {
                         new Object[]{scriptFile, copiedFileInTarget, command, MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS});
             }
 
-            private void logScriptErrors(ExternalOutput execResult) {
-                byte[] errorStream = execResult.getErrorStream();
+            private void logScriptErrors(FinishedProcessResult execResult) {
+                byte[] errorStream = execResult.getStdErrBytes();
                 if (errorStream != null && errorStream.length > 0) {
                     LOGGER.log(Level.WARNING, new String(errorStream));
                 }
