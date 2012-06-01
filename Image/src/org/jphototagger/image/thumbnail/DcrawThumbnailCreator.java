@@ -25,7 +25,7 @@ import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.lib.runtime.ExternalOutput;
+import org.jphototagger.lib.runtime.FinishedProcessResult;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemUtil;
 
@@ -82,13 +82,13 @@ public final class DcrawThumbnailCreator implements ThumbnailCreator, ExternalTh
         if (dcraw == null) {
             return null;
         }
-        ExternalOutput output = getExternalOutput(file);
-        if (output != null && !output.hasErrorStream() && output.hasOutputStream()) {
+        FinishedProcessResult output = getExternalOutput(file);
+        if (output != null && !output.hasStdErrBytes() && output.hasStdOutBytes()) {
             try {
                 int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromPreferences();
                 IOParameterBlock ioParamBlock = new IOParameterBlock();
                 ImageProcOptions procOptions = new ImageProcOptions();
-                ioParamBlock.setSource(output.getOutputStream());
+                ioParamBlock.setSource(output.getStdOutBytes());
                 procOptions.setSource(ioParamBlock);
                 procOptions.setScale(maxLength);
                 Image image = Imagero.readImage(procOptions);
@@ -104,10 +104,10 @@ public final class DcrawThumbnailCreator implements ThumbnailCreator, ExternalTh
         return null;
     }
 
-    private ExternalOutput getExternalOutput(File file) {
+    private FinishedProcessResult getExternalOutput(File file) {
         String command = "\"" + dcraw.getAbsolutePath() + "\" -c -h -T \"" + file.getAbsolutePath() + "\"";
         LOGGER.log(Level.INFO, "Creating thumbnail with dcraw; command: {0}", command);
-        return External.executeGetOutput(command, getMaxMillisecondsToTerminate());
+        return External.executeWaitForTermination(command, getMaxMillisecondsToTerminate());
     }
 
 

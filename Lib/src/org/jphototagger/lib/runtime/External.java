@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,183 +20,139 @@ import org.jphototagger.lib.io.IoUtil;
  */
 public final class External {
 
-    public static class ProcessResult {
-
-        private final int exitValue;
-        private final String outputStream;
-        private final String errorStream;
-
-        public ProcessResult(int exitValue, String outputStream, String errorStream) {
-            this.exitValue = exitValue;
-            this.outputStream = outputStream;
-            this.errorStream = errorStream;
+    /**
+     * Executes an external command <em>without</em> waiting for it's termination.
+     *
+     * @param command command
+     */
+    public static void execute(String command) {
+        if (command == null) {
+            throw new NullPointerException("command == null");
         }
-
-        public int getExitValue() {
-            return exitValue;
-        }
-
-        public String getOutputStreamAsString() {
-            return outputStream;
-        }
-
-        public String getErrorStreamAsString() {
-            return errorStream;
+        try {
+            Process process = Runtime.getRuntime().exec(parseQuotedCommandLine(command));
+            InputStream inputStream = process.getInputStream();
+            InputStream errorStream = process.getErrorStream();
+            Thread outputGobblerThread = new Thread(new StreamGobbler(inputStream));
+            Thread errorGobblerThread = new Thread(new StreamGobbler(errorStream));
+            outputGobblerThread.setName("JPhotoTagger: Consuming stdout of " + command);
+            errorGobblerThread.setName("JPhotoTagger: Consuming stderr of " + command);
+            errorGobblerThread.start();
+            outputGobblerThread.start();
+        } catch (Throwable t) {
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 
-    // Modified http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html?page=4
-    private static class StreamGobbler extends Thread {
+    // Modified http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html?page=4, see also http://kylecartmell.com/?p=9
+    private static class StreamGobbler implements Runnable {
 
-        private final InputStream is;
-        private final StringBuilder sb = new StringBuilder();
-        private final boolean storeStreamInString;
+        private final InputStream inputStream;
 
-        private StreamGobbler(InputStream is, boolean storeStreamInString) {
-            this.is = is;
-            this.storeStreamInString = storeStreamInString;
-        }
-
-        private String getStreamAsString() {
-            return sb.toString();
+        private StreamGobbler(InputStream inputStream) {
+            this.inputStream = inputStream;
         }
 
         @Override
         public void run() {
-            BufferedReader br = null;
-
+            BufferedReader bufferedReader = null;
             try {
-                InputStreamReader isr = new InputStreamReader(is);
-                br = new BufferedReader(isr);
-                if (storeStreamInString) {
-                    String line = null;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line);
-                    }
-                } else {
-                    while (br.readLine() != null) {
-                    }
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                bufferedReader = new BufferedReader(inputStreamReader);
+                while (bufferedReader.readLine() != null) {
                 }
             } catch (Throwable t) {
                 Logger.getLogger(External.class.getName()).log(Level.WARNING, null, t);
             } finally {
-                IoUtil.close(br);
+                IoUtil.close(bufferedReader);
             }
-        }
-    }
-
-    private static class StreamBytes {
-
-        private byte[] outBytes;
-        private byte[] errBytes;
-
-        private StreamBytes(byte[] outBytes, byte[] errBytes) {
-            this.outBytes = outBytes;
-            this.errBytes = errBytes;
         }
     }
 
     /**
-     * Executes an external program and can wait until it's completed.
+     * Executes an external command, waits for it's termination and returns it's output.
      *
-     * @param  command command
-     * @param wait     true if wait for the process' completion
-     * @return         process result after execution or null if not to wait or
-     *                 on errors
+     * @param command command, e.g. {@code /bin/ls -l /home}
+     * @param maxMillisecondsUntilDestroy Maximum time in milliseconds to wait before (automatically) destroying the
+     * external process
+     * @return Bytes output by the program or null if errors occured
      */
-    public static ProcessResult execute(String command, boolean wait) {
+    public static FinishedProcessResult executeWaitForTermination(String command, long maxMillisecondsUntilDestroy) {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
+        if (maxMillisecondsUntilDestroy < 0) {
+            throw new IllegalArgumentException("Negative maximum milliseconds until destroy: " + maxMillisecondsUntilDestroy);
+        }
+        Timer timer = new Timer(true);
         try {
-            Runtime runtime = Runtime.getRuntime();
-            String[] cmd = parseQuotedCommandLine(command);
-            Process p = runtime.exec(cmd);
-            boolean storeStreamInString = wait;
-            InputStream inputStream = p.getInputStream();
-            InputStream errorStream = p.getErrorStream();
-            StreamGobbler outputGobbler = new StreamGobbler(inputStream, storeStreamInString);
-            StreamGobbler errorGobbler = new StreamGobbler(errorStream, storeStreamInString);
-            errorGobbler.start();
-            outputGobbler.start();
-            if (wait) {
-                int exitValue = p.waitFor();
-                String outputStreamString = outputGobbler.getStreamAsString();
-                String errorStreamString = errorGobbler.getStreamAsString();
-                return new ProcessResult(exitValue, outputStreamString, errorStreamString);
-            }
+            InterruptTimerTask interrupter = new InterruptTimerTask(Thread.currentThread()); // http://kylecartmell.com/?p=9
+            timer.schedule(interrupter, maxMillisecondsUntilDestroy);
+            Process process = Runtime.getRuntime().exec(parseQuotedCommandLine(command));
+            return waitForTermination(process, command, maxMillisecondsUntilDestroy);
         } catch (Throwable t) {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
+            return null;
+        } finally {
+            timer.cancel();
+            Thread.interrupted();
         }
-        return null;
     }
 
-    /**
-     * Executes an external program and returns it's output.
-     *
-     * @param  command          command, e.g. <code>/bin/ls -l /home</code>
-     * @param  maxMilliseconds  Maximum time in milliseconds to wait for closing
-     *                          the process' streams. If this time is exceeded,
-     *                          the process streams will be closed. In this case
-     *                          {@code ExternalOutput#getErrorStream()} contains an error
-     *                          message that the stream was closed.
-     * @return         Bytes written by the program or null if errors
-     *                 occured. {@code ExternalOutput#getOutputStream()} is null if the
-     *                 program didn't write anything to the system's standard
-     *                 output or the bytes the program has written to the
-     *                 system's standard output. The {@code ExternalOutput#getErrorStream()}
-     *                 is null if the program didn't write anything to the
-     *                 system's standard error output or the bytes the program
-     *                 has written to the system's standard error output.
-     */
-    public static ExternalOutput executeGetOutput(String command, long maxMilliseconds) {
-        if (command == null) {
-            throw new NullPointerException("command == null");
+    private static class InterruptTimerTask extends TimerTask {
+
+        private Thread thread;
+
+        private InterruptTimerTask(Thread t) {
+            this.thread = t;
         }
-        if (maxMilliseconds < 0) {
-            throw new IllegalArgumentException("Negative maxMilliseconds: " + maxMilliseconds);
+
+        @Override
+        public void run() {
+            thread.interrupt();
         }
+    }
+
+    private static FinishedProcessResult waitForTermination(Process process, String command, long maxMillisecondsUntilDestroy) {
+        StreamReader stdOutStreamReader = new StreamReader(process.getInputStream());
+        Thread stdOutReaderThread = new Thread(stdOutStreamReader);
+        StreamReader stdErrStreamReader = new StreamReader(process.getErrorStream());
+        Thread stdErrReaderThread = new Thread(stdErrStreamReader);
+        stdOutReaderThread.setName("JPhotoTagger: Reading stdout of " + command);
+        stdErrReaderThread.setName("JPhotoTagger: Reading stderr of " + command);
+        stdOutReaderThread.start();
+        stdErrReaderThread.start();
         try {
-            String[] commandLineToken = parseQuotedCommandLine(command);
-            Runtime runtime = Runtime.getRuntime();
-            Process process = runtime.exec(commandLineToken);
-            ProcessDestroyer processDestroyer = new ProcessDestroyer(process, maxMilliseconds, command);
-            Thread threadProcessDestroyer = new Thread(processDestroyer, "JPhotoTagger: Destroying process");
-            threadProcessDestroyer.start();
-            StreamBytes streamBytes = getStreamBytes(process);
-            ExternalOutput streamContent = new ExternalOutput(streamBytes.outBytes, streamBytes.errBytes);
-            processDestroyer.processFinished();
-            threadProcessDestroyer.interrupt();
-            if (processDestroyer.destroyed()) {
-                return null;
-            }
-            return streamContent;
-        } catch (Exception ex) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, ex);
+            int processExitValue = process.waitFor();
+            byte[] stdOutBytes = stdOutStreamReader.readStreamBytes;
+            byte[] stdErrBytes = stdErrStreamReader.readStreamBytes;
+            return new FinishedProcessResult(stdOutBytes, stdErrBytes, processExitValue);
+        } catch (InterruptedException ex) {
+            process.destroy();
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE,
+                    "The command {1} did run more than {0} milliseconds and was terminated.",
+                    new Object[]{maxMillisecondsUntilDestroy, command});
             return null;
         }
     }
 
-    private static class ProcessStreamReaderThread extends Thread {
+    private static class StreamReader implements Runnable {
 
         private static final int BUFFER_SIZE = 100 * 1024;
         private final byte[] streamBuffer = new byte[BUFFER_SIZE];
-        private final Process process;
-        private final InputStream processStream;
+        private final InputStream stream;
         private byte[] readStreamBytes = null;
 
-        private ProcessStreamReaderThread(Process process, InputStream processStream) {
-            super("JPhotoTagger: Reading Process Stream");
-            this.process = process;
-            this.processStream = processStream;
+        private StreamReader(InputStream stream) {
+            this.stream = stream;
         }
 
         @Override
         public void run() {
             try {
-                boolean isFinish = false;
-                while (!isFinish) {
-                    int numberOfBytesRead = processStream.read(streamBuffer, 0, BUFFER_SIZE);
+                int numberOfBytesRead;
+                do {
+                    numberOfBytesRead = stream.read(streamBuffer, 0, BUFFER_SIZE);
                     if (numberOfBytesRead > 0) {
                         if (readStreamBytes == null) {
                             readStreamBytes = new byte[numberOfBytesRead];
@@ -203,73 +161,17 @@ public final class External {
                             readStreamBytes = createMergedByteArray(readStreamBytes, streamBuffer, numberOfBytesRead);
                         }
                     }
-                    isFinish = numberOfBytesRead < 0;
-                }
-                process.waitFor();
+                } while (numberOfBytesRead >= 0);
             } catch (Throwable t) {
                 Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
             }
         }
-    }
 
-    private static StreamBytes getStreamBytes(Process process) {
-        ProcessStreamReaderThread stdOutReader = new ProcessStreamReaderThread(process, process.getInputStream());
-        ProcessStreamReaderThread stdErrReader = new ProcessStreamReaderThread(process, process.getErrorStream());
-        stdOutReader.start();
-        stdErrReader.start();
-        try {
-            stdOutReader.join();
-            stdErrReader.join();
-            return new StreamBytes(stdOutReader.readStreamBytes, stdErrReader.readStreamBytes);
-        } catch (Throwable t) {
-            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
-            return new StreamBytes(null, null);
-        }
-    }
-
-    private static byte[] createMergedByteArray(byte[] array1, byte[] array2, int readNumberOfBytesInArray2) {
-        byte[] newArray = new byte[array1.length + readNumberOfBytesInArray2];
-        System.arraycopy(array1, 0, newArray, 0, array1.length);
-        System.arraycopy(array2, 0, newArray, array1.length, readNumberOfBytesInArray2);
-        return newArray;
-    }
-
-    private static class ProcessDestroyer implements Runnable {
-
-        private final Process process;
-        private final long millisecondsWait;
-        private final String command;
-        private volatile boolean processFinished;
-        private boolean destroyed = false;
-
-        ProcessDestroyer(Process process, long millisecondsWait, String command) {
-            this.process = process;
-            this.millisecondsWait = millisecondsWait;
-            this.command = command;
-        }
-
-        public boolean destroyed() {
-            return destroyed;
-        }
-
-        public void processFinished() {
-            processFinished = true;
-        }
-
-        @Override
-        public void run() {
-            try {
-                Thread.sleep(millisecondsWait);
-            } catch (InterruptedException ex) {
-                // ignore
-            }
-            if (!processFinished) {
-                process.destroy();
-                destroyed = true;
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE,
-                        "The command {1} did run more than {0} milliseconds and was terminated.",
-                        new Object[]{millisecondsWait, command});
-            }
+        private static byte[] createMergedByteArray(byte[] array1, byte[] array2, int readNumberOfBytesInArray2) {
+            byte[] newArray = new byte[array1.length + readNumberOfBytesInArray2];
+            System.arraycopy(array1, 0, newArray, 0, array1.length);
+            System.arraycopy(array2, 0, newArray, array1.length, readNumberOfBytesInArray2);
+            return newArray;
         }
     }
 
