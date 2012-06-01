@@ -109,9 +109,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         notifyStarted();
         for (index = 0; !cancel && !isInterrupted() && (index < count); index++) {
             File file = files.get(index);
-            // Notify before inserting to enable progress listeners displaying
-            // the current image file
-            notifyPerformed(index + 1, file);
             if (checkExists(file)) {
                 deleteXmpFromRepositoryIfAbsentInFilesystem(file);
                 ImageFile imageFile = createImageFile(file);
@@ -122,6 +119,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
                     runActionsAfterInserting(imageFile);
                 }
             }
+            notifyPerformed(index + 1, file);
         }
         notifyEnded(index);
     }
