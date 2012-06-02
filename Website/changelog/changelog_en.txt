@@ -3,6 +3,15 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.13 2012-06-03
+------------------
+
+* Invalid strings in EXIF metadata will be ignored
+* Automatic generated thumbnail creating scripts using
+  ImageMagick convert recognizing "xcf" files (GIMP)
+* If a thumbnail creating program/script will be killed due
+  timeout, JPhotoTagger updates the corresponding progress bar
+
 0.24.12 2012-05-31
 ------------------
 
