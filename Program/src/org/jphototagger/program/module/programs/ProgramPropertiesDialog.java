@@ -24,6 +24,7 @@ import org.jphototagger.lib.swing.util.LookAndFeelUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.program.resource.GUI;
 
 /**
@@ -41,7 +42,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private static final String BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.ExpertSettings");
     private static final String BUTTON_TEXT_TOGGLE_TO_SIMPLE_SETTINGS = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.ButtonText.SimpleSettings");
     private static final Preferences PREFS = Lookup.getDefault().lookup(Preferences.class);
-    private File lastDir = new File(PREFS.getString(KEY_LAST_DIR));
+    private File lastDir = initCreateLastDir();
     private File file;
     private boolean accecpted = false;
     private boolean action;
@@ -58,13 +59,20 @@ public final class ProgramPropertiesDialog extends Dialog {
         postInitComponents();
     }
 
+    private File initCreateLastDir() {
+        String lastDirPath = PREFS.getString(KEY_LAST_DIR);
+        if (!StringUtil.hasContent(lastDirPath)) {
+            return new File(SystemUtil.getDefaultProgramDirPath());
+        }
+        return new File(lastDirPath);
+    }
+
     private void postInitComponents() {
         if (action) {
             setActionTexts();
         } else {
             getContentPane().remove(checkBoxInputBeforeExecute);
         }
-
         setIgnorePersistedSizeAndLocation(true);
         MnemonicUtil.setMnemonics((Container) this);
         MnemonicUtil.setMnemonics(panelExpertSettings);
@@ -99,7 +107,6 @@ public final class ProgramPropertiesDialog extends Dialog {
         } else {
             labelErrorFileDoesNotExist.setText(Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.LabelErrorFileDoesNotExist.ErrorText"));
         }
-
         labelFile.setForeground(exists
                                 ? FG_COLOR_LABEL_FILE_EXISTS
                                 : FG_COLOR_LABEL_FILE_NOT_EXISTS);
@@ -112,13 +119,10 @@ public final class ProgramPropertiesDialog extends Dialog {
         if (program == null) {
             throw new NullPointerException("program == null");
         }
-
         this.program = program;
         file = program.getFile();
-
         String parametersBeforeFilename = program.getParametersBeforeFilename();
         String parametersAfterFilename = program.getParametersAfterFilename();
-
         labelFile.setText(file.getAbsolutePath());
         textFieldAlias.setText(program.getAlias());
         textAreaParametersBeforeFilename.setText((parametersBeforeFilename
@@ -136,9 +140,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         radioButtonSingleFileProcessingNo.setSelected(!program.isSingleFileProcessing());
         checkBoxChangeFile.setSelected(program.isChangeFile());
         checkBoxUsePattern.setSelected(program.isUsePattern());
-
         String pattern = program.getPattern();
-
         textAreaUsePattern.setText((pattern == null)
                                    ? ""
                                    : pattern);
@@ -173,7 +175,6 @@ public final class ProgramPropertiesDialog extends Dialog {
             String parametersBeforeFilename = textAreaParametersBeforeFilename.getText().trim();
             String parametersAfterFilename = textAreaParametersAfterFilename.getText().trim();
             String pattern = textAreaUsePattern.getText().trim();
-
             program.setAction(action);
             program.setFile(file);
             program.setAlias(textFieldAlias.getText().trim());
@@ -217,14 +218,10 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void chooseProgram() {
         JFileChooser fileChooser = new JFileChooser(lastDir);
-
         fileChooser.setMultiSelectionEnabled(false);
-
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File choosenFile = fileChooser.getSelectedFile();
-
             storeLastDirOfFile(choosenFile);
-
             if (choosenFile.isFile()) {
                 file = choosenFile;
                 labelFile.setText(file.getAbsolutePath());
@@ -239,28 +236,23 @@ public final class ProgramPropertiesDialog extends Dialog {
                 MessageDisplayer.error(this, message);
             }
         }
-
         setEnabledButtonOk();
     }
 
     private void storeLastDirOfFile(File file) {
         File dir = file.getParentFile();
-
         if ((dir == null) ||!dir.isDirectory()) {
             return;
         }
-
         PREFS.setString(KEY_LAST_DIR, dir.getAbsolutePath());
         lastDir = dir;
     }
 
     private void handleCheckBoxInputBeforeExecuteActionPerformed() {
         boolean selected = checkBoxInputBeforeExecute.isSelected();
-
         if (!selected && checkBoxInputBeforeExecutePerFile.isSelected()) {
             checkBoxInputBeforeExecutePerFile.setSelected(false);
         }
-
         checkBoxInputBeforeExecutePerFile.setEnabled(selected);
     }
 
@@ -272,21 +264,17 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void setPatternStatus() {
         boolean usePattern = checkBoxUsePattern.isSelected();
-
         textAreaParametersBeforeFilename.setEnabled(!usePattern);
         textAreaParametersAfterFilename.setEnabled(!usePattern);
         textAreaUsePattern.setEnabled(usePattern);
-
         if (usePattern && radioButtonSingleFileProcessingNo.isSelected()) {
             radioButtonSingleFileProcessingYes.setSelected(true);
         }
-
         if (usePattern && checkBoxInputBeforeExecute.isSelected()) {
             checkBoxInputBeforeExecute.setSelected(false);
             checkBoxInputBeforeExecutePerFile.setSelected(false);
             checkBoxInputBeforeExecutePerFile.setEnabled(false);
         }
-
         radioButtonSingleFileProcessingNo.setEnabled(!usePattern);
         checkBoxInputBeforeExecute.setEnabled(!usePattern);
     }
@@ -301,13 +289,11 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private void toggleExpertSettings() {
         boolean isExpertSettings = toggleButtonExpertSettings.isSelected();
-
         if (isExpertSettings) {
             addExpertSettingsPanel();
         } else {
             removeExpertSettings();
         }
-
         PREFS.setBoolean(KEY_EXPERT_SETTINGS, isExpertSettings);
         pack();
         ComponentUtil.forceRepaint(this);
@@ -327,7 +313,6 @@ public final class ProgramPropertiesDialog extends Dialog {
 
     private GridBagConstraints getExpertSettingsConstraints() {
         GridBagConstraints gbc = new GridBagConstraints();
-
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -336,7 +321,6 @@ public final class ProgramPropertiesDialog extends Dialog {
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.insets = new Insets(5, 5, 0, 5);
         gbc.fill = GridBagConstraints.BOTH;
-
         return gbc;
     }
 
@@ -347,13 +331,11 @@ public final class ProgramPropertiesDialog extends Dialog {
             pack();
             setLocationRelativeTo(null);
         }
-
         super.setVisible(visible);
     }
 
     private void addExperSettingBasedOnUserSettings() {
         boolean isExpertSettings = PREFS.getBoolean(KEY_EXPERT_SETTINGS);
-
         if (isExpertSettings) {
             addExpertSettingsPanel();
             toggleButtonExpertSettings.setSelected(true);
@@ -367,7 +349,6 @@ public final class ProgramPropertiesDialog extends Dialog {
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -814,9 +795,6 @@ public final class ProgramPropertiesDialog extends Dialog {
         toggleExpertSettings();
     }//GEN-LAST:event_toggleButtonExpertSettingsActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
