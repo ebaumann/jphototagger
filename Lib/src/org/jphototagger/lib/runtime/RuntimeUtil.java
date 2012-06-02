@@ -3,23 +3,18 @@ package org.jphototagger.lib.runtime;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.util.Bundle;
 
 /**
- * I/O utils.
- *
  * @author Elmar Baumann
  */
 public final class RuntimeUtil {
 
-    private static final String QUOTE = "\"";
-    private static final String SEPARATOR = " ";
-    private static final String EMPTY = "";
+    private static final String DEFAULT_COMMAND_LINE_QUOTE = "\"";
+    private static final String DEFAULT_COMMAND_LINE_SEPARATOR = " ";
+    private static final String EMPTY_STRING = "";
     public static final String PATTERN_FS_PATH = "%s";
     public static final String PATTERN_FS_ROOT = "%d";
     public static final String PATTERN_FS_DIR_PATH = "%p";
@@ -27,109 +22,31 @@ public final class RuntimeUtil {
     public static final String PATTERN_FS_FILE_EXT = "%x";
     private static final Logger LOGGER = Logger.getLogger(RuntimeUtil.class.getName());
 
-    /**
-     * Executes an application and desplays a message dialog on errors.
-     *
-     * Does <em>not</em> quote any of the parameters.
-     *
-     * @param appPath   path to the external application
-     * @param arguments arguments added to the path
-     */
-    public static void execute(String appPath, String arguments) {
-        if (appPath == null) {
-            throw new NullPointerException("appPath == null");
-        }
-        if (arguments == null) {
-            throw new NullPointerException("arguments == null");
-        }
-        if (!appPath.isEmpty()) {
-            String openCommand = appPath + getDefaultCommandLineSeparator() + arguments;
-            try {
-                LOGGER.log(Level.INFO, "Executing command: ''{0}''", openCommand);
-                Runtime.getRuntime().exec(External.parseQuotedCommandLine(openCommand));
-            } catch (Exception ex) {
-                Logger.getLogger(RuntimeUtil.class.getName()).log(Level.SEVERE, null, ex);
-                String message = Bundle.getString(RuntimeUtil.class, "IoUtil.Error.OpenFile", appPath);
-                MessageDisplayer.error(null, message);
-            }
-        }
-    }
-
-    /**
-     * Returns the default quote string for quoting command line tokens.
-     *
-     * @return quote string
-     */
-    public static String getDefaultCommandlineQuote() {
-        return QUOTE;
-    }
-
-    /**
-     * Returns the default separator string for separating command line tokens.
-     *
-     * @return separator string
-     */
     public static String getDefaultCommandLineSeparator() {
-        return SEPARATOR;
+        return DEFAULT_COMMAND_LINE_SEPARATOR;
     }
 
-    public static String quoteForCommandLine(String string) {
-        if (string == null) {
-            throw new NullPointerException("string == null");
-        }
-
-        String quote = getDefaultCommandlineQuote();
-
-        return quote + string + quote;
-    }
-
-    /**
-     * Quotes a string and a file with {@code #getDefaultCommandlineQuote()} and
-     * separates them with a space character.
-     *
-     * @param  string  usually the program path
-     * @param  file    usually the file to open with the program
-     * @return         quoted string
-     */
-    public static String quoteForCommandLine(String string, File file) {
-        if (string == null) {
-            throw new NullPointerException("string == null");
-        }
-        if (file == null) {
-            throw new NullPointerException("file == null");
-        }
-        String quote = getDefaultCommandlineQuote();
-        String separator = getDefaultCommandLineSeparator();
-        return quote + string + quote + separator + quote + file.getAbsolutePath() + quote;
-    }
-
-    /**
-     * Quotes each file with {@code #getDefaultCommandlineQuote()} and separates
-     * them with a space character.
-     *
-     * @param  files files
-     * @return       quoted string
-     */
     public static String quoteForCommandLine(File... files) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-        return getQuotedForCommandLine(Arrays.asList(files), getDefaultCommandLineSeparator(),
-                getDefaultCommandlineQuote());
+        return quoteForCommandLine(Arrays.asList(files));
     }
 
-    /**
-     * Quotes each file of a collection with
-     * {@code #getDefaultCommandlineQuote()} and separates them with a space character.
-     *
-     * @param  files files
-     * @return       quoted string
-     */
     public static String quoteForCommandLine(Collection<? extends File> files) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-        return getQuotedForCommandLine(files, getDefaultCommandLineSeparator(), getDefaultCommandlineQuote());
+        StringBuilder sb = new StringBuilder();
+        int index = 0;
+        for (File file : files) {
+            sb.append(index == 0 ? EMPTY_STRING : DEFAULT_COMMAND_LINE_SEPARATOR);
+            sb.append(DEFAULT_COMMAND_LINE_QUOTE);
+            sb.append(file.getAbsolutePath());
+            sb.append(DEFAULT_COMMAND_LINE_QUOTE);
+            index++;
+        }
+        return sb.toString();
     }
 
     /**
@@ -158,19 +75,12 @@ public final class RuntimeUtil {
         String dirPath = FileUtil.getDirectoryPath(file);
         String name = FileUtil.getPrefix(file);
         String extension = FileUtil.getSuffix(file);
-        return pattern.replace(PATTERN_FS_DIR_PATH, dirPath).replace(PATTERN_FS_FILE_EXT, extension).replace(PATTERN_FS_FILE_NAME, name).replace(PATTERN_FS_PATH,
-                path).replace(PATTERN_FS_ROOT, root);
-    }
-
-    private static String getQuotedForCommandLine(Collection<? extends File> files, String separator, String quote) {
-        StringBuilder sb = new StringBuilder();
-        int index = 0;
-        for (File file : files) {
-            sb.append((index++ == 0)
-                    ? EMPTY
-                    : separator).append(quote).append(file.getAbsolutePath()).append(quote);
-        }
-        return sb.toString();
+        return pattern
+                .replace(PATTERN_FS_DIR_PATH, dirPath)
+                .replace(PATTERN_FS_FILE_EXT, extension)
+                .replace(PATTERN_FS_FILE_NAME, name)
+                .replace(PATTERN_FS_PATH, path)
+                .replace(PATTERN_FS_ROOT, root);
     }
 
     private RuntimeUtil() {
