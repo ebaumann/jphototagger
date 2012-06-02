@@ -103,6 +103,11 @@ public final class SystemUtil {
         return os.contains("windows");
     }
 
+    public static boolean isLinux() {
+        String os = System.getProperty("os.name").toLowerCase();
+        return os.contains("linux");
+    }
+
     /**
      * Returns whether the VM runs on a Macintosh operating system.
      *
@@ -111,6 +116,21 @@ public final class SystemUtil {
     public static boolean isMac() {
         String os = System.getProperty("os.name").toLowerCase();
         return os.contains("mac");
+    }
+
+    /**
+     * @return Empty if unknown
+     */
+    public static String getDefaultProgramDirPath() {
+        if (isWindows()) {
+            String programFiles = System.getenv("ProgramFiles");
+            return programFiles == null
+                    ? ""
+                    : programFiles;
+        } else if (isLinux()) {
+            return "/usr/bin";
+        }
+        return "";
     }
 
     /**
