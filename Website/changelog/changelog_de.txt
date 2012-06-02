@@ -3,6 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.24.13 2012-06-03
+------------------
+
+* Ungültige Zeichenketten in EXIF-Metadaten werden ignoriert
+* Automatisch erzeugte Skripte, die Vorschaubilder liefern und
+  ImageMagick convert benutzen, berücksichtigen "xcf"-Dateien
+  (GIMP)
+* Wird aufgrund einer Zeitüberschreitung ein Programm/Skript
+  zwangsweise beendet, aktualisiert JPhotoTagger die betroffene
+  Fortschrittsanzeige
+
 0.24.12 2012-05-31
 ------------------
 
