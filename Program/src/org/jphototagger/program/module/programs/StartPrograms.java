@@ -18,7 +18,7 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.lib.runtime.FinishedProcessResult;
+import org.jphototagger.lib.runtime.ProcessResult;
 import org.jphototagger.lib.runtime.RuntimeUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -107,7 +107,7 @@ public final class StartPrograms {
                 String command = getProcessPatternCommand(file);
                 logCommand(command);
                 if (waitForTermination) {
-                    FinishedProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
+                    ProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
                     boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
                     if (terminatedWithErrors) {
                         logError(command, processResult);
@@ -120,7 +120,7 @@ public final class StartPrograms {
             }
         }
 
-        private void logError(String command, FinishedProcessResult processResult) {
+        private void logError(String command, ProcessResult processResult) {
             LOGGER.log(Level.WARNING, "Error executing command  ''{0}'': {1}!", new Object[]{
                         command, (processResult == null)
                         ? "?"
@@ -143,7 +143,7 @@ public final class StartPrograms {
             String command = getProcessAllCommand();
             logCommand(command);
             if (waitForTermination) {
-                FinishedProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
+                ProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
                 boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
                 if (terminatedWithErrors) {
                     logError(command, processResult);
@@ -167,7 +167,7 @@ public final class StartPrograms {
                 String command = getProcessSingleCommand(file, count);
                 logCommand(command);
                 if (waitForTermination) {
-                    FinishedProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
+                    ProcessResult processResult = External.executeWaitForTermination(command, MAX_MILLISECONDS_UNTIL_TERMINATE);
                     boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
                     if (terminatedWithErrors) {
                         logError(command, processResult);

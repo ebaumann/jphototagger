@@ -18,7 +18,7 @@ public class ExternalTest {
     public void testExecuteGetOutput() {
         String output = "abcd";
         String command = "echo " + output;
-        FinishedProcessResult result = External.executeWaitForTermination(command, 10000);
+        ProcessResult result = External.executeWaitForTermination(command, 10000);
         String resultToString = new String(result.getStdOutBytes()).trim();    // trim(): "echo" appends "\n"
 
         assertEquals(output, resultToString);

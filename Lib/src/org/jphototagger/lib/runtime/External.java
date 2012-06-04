@@ -77,7 +77,7 @@ public final class External {
      * external process
      * @return Bytes output by the program or null if errors occured
      */
-    public static FinishedProcessResult executeWaitForTermination(String command, long maxMillisecondsUntilDestroy) {
+    public static ProcessResult executeWaitForTermination(String command, long maxMillisecondsUntilDestroy) {
         if (command == null) {
             throw new NullPointerException("command == null");
         }
@@ -113,7 +113,7 @@ public final class External {
         }
     }
 
-    private static FinishedProcessResult waitForTermination(Process process, String command, long maxMillisecondsUntilDestroy) {
+    private static ProcessResult waitForTermination(Process process, String command, long maxMillisecondsUntilDestroy) {
         StreamReader stdOutStreamReader = new StreamReader(process.getInputStream());
         Thread stdOutReaderThread = new Thread(stdOutStreamReader);
         StreamReader stdErrStreamReader = new StreamReader(process.getErrorStream());
@@ -126,7 +126,7 @@ public final class External {
             int processExitValue = process.waitFor();
             byte[] stdOutBytes = stdOutStreamReader.readStreamBytes;
             byte[] stdErrBytes = stdErrStreamReader.readStreamBytes;
-            return new FinishedProcessResult(stdOutBytes, stdErrBytes, processExitValue);
+            return new ProcessResult(stdOutBytes, stdErrBytes, processExitValue);
         } catch (InterruptedException ex) {
             process.destroy();
             Logger.getLogger(External.class.getName()).log(Level.SEVERE,

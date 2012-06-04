@@ -22,7 +22,7 @@ import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.lib.runtime.FinishedProcessResult;
+import org.jphototagger.lib.runtime.ProcessResult;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -105,7 +105,7 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
         String cmd = command.replace("%s", file.getAbsolutePath()).replace("%i", Integer.toString(maxLength));
         Image image = null;
         LOGGER.log(Level.FINEST, "Creating thumbnail with external application. Command: ''{0}''", cmd);
-        FinishedProcessResult output = External.executeWaitForTermination(cmd, getMaxSecondsToTerminateExternalPrograms() * 1000);
+        ProcessResult output = External.executeWaitForTermination(cmd, getMaxSecondsToTerminateExternalPrograms() * 1000);
         if (output == null) {
             return null;
         }
@@ -134,7 +134,7 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
                 : minSeconds;
     }
 
-    private static void logErrorStream(File imageFile, FinishedProcessResult output) {
+    private static void logErrorStream(File imageFile, ProcessResult output) {
         byte[] errorStreamBytes = output.getStdErrBytes();
         String errorMessage = ((errorStreamBytes == null)
                 ? ""
