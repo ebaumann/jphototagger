@@ -25,7 +25,7 @@ import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
-import org.jphototagger.lib.runtime.FinishedProcessResult;
+import org.jphototagger.lib.runtime.ProcessResult;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemUtil;
 
@@ -82,7 +82,7 @@ public final class DcrawThumbnailCreator implements ThumbnailCreator, ExternalTh
         if (dcraw == null) {
             return null;
         }
-        FinishedProcessResult output = getExternalOutput(file);
+        ProcessResult output = getExternalOutput(file);
         if (output != null && !output.hasStdErrBytes() && output.hasStdOutBytes()) {
             try {
                 int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromPreferences();
@@ -104,7 +104,7 @@ public final class DcrawThumbnailCreator implements ThumbnailCreator, ExternalTh
         return null;
     }
 
-    private FinishedProcessResult getExternalOutput(File file) {
+    private ProcessResult getExternalOutput(File file) {
         String command = "\"" + dcraw.getAbsolutePath() + "\" -c -h -T \"" + file.getAbsolutePath() + "\"";
         LOGGER.log(Level.INFO, "Creating thumbnail with dcraw; command: {0}", command);
         return External.executeWaitForTermination(command, getMaxMillisecondsToTerminate());

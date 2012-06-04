@@ -3,13 +3,13 @@ package org.jphototagger.lib.runtime;
 /**
  * @author Elmar Baumann
  */
-public final class FinishedProcessResult {
+public final class ProcessResult {
 
     private final byte[] stdOutBytes;
     private final byte[] stdErrBytes;
     private final int exitValue;
 
-    public FinishedProcessResult(byte[] stdOutBytes, byte[] stdErrBytes, int exitValue) {
+    public ProcessResult(byte[] stdOutBytes, byte[] stdErrBytes, int exitValue) {
         this.stdOutBytes = stdOutBytes;
         this.stdErrBytes = stdErrBytes;
         this.exitValue = exitValue;
