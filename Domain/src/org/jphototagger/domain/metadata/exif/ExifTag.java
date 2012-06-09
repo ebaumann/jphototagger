@@ -12,6 +12,11 @@ public final class ExifTag {
      * a Google Maps URL.
      */
     public static final String NAME_GOOGLE_MAPS_URL = "Google Maps URL";
+    /**
+     * If {@link #getDisplayName()} returns this, {@link #getDisplayValue()} returns
+     * an Open Street Map URL.
+     */
+    public static final String NAME_OPEN_STREET_MAP_URL = "OpenStreetMap URL";
     private final String displayName;
     private final String displayValue;
 
@@ -24,11 +29,9 @@ public final class ExifTag {
         if (displayName == null) {
             throw new NullPointerException("displayName == null");
         }
-
         if (displayValue == null) {
             throw new NullPointerException("displayValue == null");
         }
-
         this.displayName = displayName;
         this.displayValue = displayValue;
     }
@@ -46,13 +49,10 @@ public final class ExifTag {
         if (obj == this) {
             return true;
         }
-
         if (!(obj instanceof ExifTag)) {
             return false;
         }
-
         ExifTag other = (ExifTag) obj;
-
         return ObjectUtil.equals(displayName, other.displayName);
     }
 

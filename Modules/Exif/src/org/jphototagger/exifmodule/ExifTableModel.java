@@ -44,7 +44,6 @@ public final class ExifTableModel extends TableModelExt {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         this.file = file;
         removeAllRows();
         addExifTags();
@@ -52,11 +51,17 @@ public final class ExifTableModel extends TableModelExt {
 
     private void addExifTags() {
         Collection<ExifTag> exifTags = ExifUtil.getExifTagsPreferCached(file);
-
         for (ExifTag exifTag : exifTags) {
-            boolean isGpsUrl = exifTag.getDisplayName().equals(ExifTag.NAME_GOOGLE_MAPS_URL);
-            if (isGpsUrl) {
-                super.addRow(new Object[]{exifTag, new JButton(new GpsButtonListener(exifTag.getDisplayValue()))});
+            boolean isGoogleMapsUrl = exifTag.getDisplayName().equals(ExifTag.NAME_GOOGLE_MAPS_URL);
+            boolean isOpenStreetMapUrl = exifTag.getDisplayName().equals(ExifTag.NAME_OPEN_STREET_MAP_URL);
+            if (isGoogleMapsUrl) {
+                String name = Bundle.getString(ExifTableModel.class, "ExifTableModel.Button.GoogleMaps");
+                GpsButtonListener action = new GpsButtonListener(name, exifTag.getDisplayValue());
+                super.addRow(new Object[]{exifTag, new JButton(action)});
+            } else if (isOpenStreetMapUrl) {
+                String name = Bundle.getString(ExifTableModel.class, "ExifTableModel.Button.OpenStreetMap");
+                GpsButtonListener action = new GpsButtonListener(name, exifTag.getDisplayValue());
+                super.addRow(new Object[]{exifTag, new JButton(action)});
             } else {
                 super.addRow(new Object[]{exifTag, exifTag});
             }
@@ -73,8 +78,8 @@ public final class ExifTableModel extends TableModelExt {
         private static final long serialVersionUID = 1L;
         private final String url;
 
-        GpsButtonListener(String url) {
-            super(Bundle.getString(ExifTableModel.class, "ExifTableModel.Button.GoogleMaps"));
+        GpsButtonListener(String name, String url) {
+            super(name);
             this.url = url;
         }
 

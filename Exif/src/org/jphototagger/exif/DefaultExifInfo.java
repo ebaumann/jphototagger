@@ -113,11 +113,23 @@ public final class DefaultExifInfo implements ExifInfo {
             target.add(exifTag);
         }
         if (longitude != null && latitude != null) {
-            String nameString = org.jphototagger.domain.metadata.exif.ExifTag.NAME_GOOGLE_MAPS_URL;
-            String valueString = ExifGpsUtil.getGoogleMapsUrl(exifGpsMetadata.getLongitude(), exifGpsMetadata.getLatitude());
-            org.jphototagger.domain.metadata.exif.ExifTag exifTag = new org.jphototagger.domain.metadata.exif.ExifTag(nameString, valueString);
-            target.add(exifTag);
+            addGoogleMapsUrl(target, exifGpsMetadata);
+            addOpenStreetMapUrl(target, exifGpsMetadata);
         }
+    }
+
+    private static void addGoogleMapsUrl(Collection<org.jphototagger.domain.metadata.exif.ExifTag> target, ExifGpsMetadata exifGpsMetadata) {
+        String nameString = org.jphototagger.domain.metadata.exif.ExifTag.NAME_GOOGLE_MAPS_URL;
+        String valueString = ExifGpsUtil.getGoogleMapsUrl(exifGpsMetadata.getLongitude(), exifGpsMetadata.getLatitude());
+        org.jphototagger.domain.metadata.exif.ExifTag exifTag = new org.jphototagger.domain.metadata.exif.ExifTag(nameString, valueString);
+        target.add(exifTag);
+    }
+
+    private static void addOpenStreetMapUrl(Collection<org.jphototagger.domain.metadata.exif.ExifTag> target, ExifGpsMetadata exifGpsMetadata) {
+        String nameString = org.jphototagger.domain.metadata.exif.ExifTag.NAME_OPEN_STREET_MAP_URL;
+        String valueString = ExifGpsUtil.getOpenStreetMapUrl(exifGpsMetadata.getLongitude(), exifGpsMetadata.getLatitude());
+        org.jphototagger.domain.metadata.exif.ExifTag exifTag = new org.jphototagger.domain.metadata.exif.ExifTag(nameString, valueString);
+        target.add(exifTag);
     }
 
     private static String getTagName(ExifTag exifTag) {

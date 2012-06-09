@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.25.0 2012-
+------------------
+
+* If the EXIF metadata of an image containing the GPS
+  longitude and latitude, the tab "EXIF" displays a button
+  "OpenStreetMap". It displays the location in a web browser
+  on an OpenStreetMap map.
+
 0.24.13 2012-06-03
 ------------------
 
@@ -34,8 +42,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Brackets in "Simple SQL" of "Advanced Search" are better visible
 * Settings: Regular expressions for files to exclude will be validated
   before adding them
-* Context menu thumbnails, rotating thumbnails: Renamed "Rotate 270�
-  clockwise" into "Rotate 90� counter clockwise", 180� without
+* Context menu thumbnails, rotating thumbnails: Renamed "Rotate 270°
+  clockwise" into "Rotate 90° counter clockwise", 180° without
   direction
 
 0.24.9 2012-04-10
