@@ -15,6 +15,8 @@ public final class Exif {
 
     private Date dateTimeOriginal;
     private double focalLength = -1;
+    private double gpsLatitude = Integer.MIN_VALUE;
+    private double gpsLongitude = Integer.MIN_VALUE;
     private short isoSpeedRatings = -1;
     private String recordingEquipment;
     private String lens;
@@ -113,11 +115,50 @@ public final class Exif {
         this.lens = lens;
     }
 
+    public void resetGps() {
+        gpsLatitude = Integer.MIN_VALUE;
+        gpsLongitude = Integer.MIN_VALUE;
+    }
+
+    /**
+     * @return Degrees from -180 to +180, South negative, North positive
+     */
+    public double getGpsLatitude() {
+        return gpsLatitude;
+    }
+
+    /**
+     * @param gpsLatitudeDegrees Degrees from -180 to +180, South negative, North positive
+     */
+    public void setGpsLatitude(double gpsLatitudeDegrees) {
+        this.gpsLatitude = gpsLatitudeDegrees;
+    }
+
+    /**
+     * @return Degrees from -180 to +180, West negative, East positive
+     */
+    public double getGpsLongitude() {
+        return gpsLongitude;
+    }
+
+    /**
+     * @param gpsLongitudeDegrees  Degrees from -180 to +180, West negative, East positive
+     */
+    public void setGpsLongitude(double gpsLongitudeDegrees) {
+        this.gpsLongitude = gpsLongitudeDegrees;
+    }
+
+    /**
+     * @return true if latitude and longitude defined within their accepted range
+     */
+    public boolean hasGpsCoordinates() {
+        return gpsLatitude >= -180.0 && gpsLatitude <= 180.0 && gpsLongitude >= -180.0 && gpsLongitude <= 180.0;
+    }
+
     public String getXmpDateCreated() {
         if (dateTimeOriginal == null) {
             return "";
         }
-
         return DATE_FORMAT.format(dateTimeOriginal);
     }
 

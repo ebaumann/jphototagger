@@ -24,7 +24,7 @@ public final class AppDatabase {
     private static final String KEY_DATABASE_VERSION = "VersionLastDbUpdate";
     private static boolean init;
     // Is the JPhotoTagger version where the database structure was changed (newest change)
-    static final Version DATABASE_VERSION = new Version(0, 24, 8);
+    static final Version DATABASE_VERSION = new Version(0, 25, 0);
     private static final Logger LOGGER = Logger.getLogger(AppDatabase.class.getName());
 
     private AppDatabase() {
@@ -53,11 +53,9 @@ public final class AppDatabase {
     private static void ensureAppIsNotTooOld() {
         Version appVersion = getAppVersion();
         Version dbVersion = getPersistedDatabaseVersion();
-
         if (appVersion.compareTo(dbVersion) < 0) {
             String message = Bundle.getString(AppDatabase.class, "AppDatabase.Error.NewerDbVersion",
                     dbVersion.toString3(), appVersion.toString3());
-
             MessageDisplayer.error(null, message);
             throw new RuntimeException("Invalid database version (Database is newer than JPhotoTagger)");
         }
@@ -65,13 +63,11 @@ public final class AppDatabase {
 
     private static Version getAppVersion() {
         String versionString = Lookup.getDefault().lookup(AppProperties.class).getAppVersionString();
-
         return Version.parseVersion(versionString, ".");
     }
 
     public static Version getPersistedDatabaseVersion() {
         ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
-
         return appPropertiesRepo.existsKey(KEY_DATABASE_VERSION)
                 ? Version.parseVersion(appPropertiesRepo.getString(KEY_DATABASE_VERSION), ".")
                 : new Version(0, 0, 0);
@@ -80,7 +76,6 @@ public final class AppDatabase {
     private static void persistDatabaseVersion() {
         ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
         String versionString = DATABASE_VERSION.toString3();
-
         appPropertiesRepo.setString(KEY_DATABASE_VERSION, versionString);
     }
 
@@ -88,7 +83,6 @@ public final class AppDatabase {
     private static void ensureThumbnailDirExists() {
         ThumbnailsDirectoryProvider provider = Lookup.getDefault().lookup(ThumbnailsDirectoryProvider.class);
         File directory = provider.getThumbnailsDirectory();
-
         try {
             FileUtil.ensureDirectoryExists(directory);
         } catch (Throwable t) {

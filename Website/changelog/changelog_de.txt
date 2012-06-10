@@ -3,13 +3,18 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.25.0 2012-
+0.25.0 2012-06-10
 ------------------
 
 * Enthalten die EXIF-Daten eines Bilds GPS-Längen- und Breitengrad,
   wird im Kartenreiter "EXIF" eine Schaltfläche für OpenStreetMap
   angezeigt. Diese zeigt den Standort auf einer OpenStreetMap-Karte
   im Webbrowser an.
+* GPS-Längen- und Breitengrad der EXIF-Metadaten werden in die Datenbank
+  gespeichert für zukünftige Nutzung. Wer bereits jetzt über das API aus
+  Exif-Klassen die Information lesen will, sollte vorher die EXIF-Metadaten
+  einmalig aktualisieren (Datei > Datenbank > Aktualisieren: Exif neu
+  einlesen ...).
 
 0.24.13 2012-06-03
 ------------------
