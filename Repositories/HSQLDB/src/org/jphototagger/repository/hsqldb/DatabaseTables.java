@@ -209,6 +209,8 @@ final class DatabaseTables extends Database {
                     + ", exif_iso_speed_ratings SMALLINT"
                     + ", id_exif_lens BIGINT"
                     + ", exif_date_time_original_timestamp BIGINT"
+                    + ", exif_gps_latitude DOUBLE"
+                    + ", exif_gps_longitude DOUBLE"
                     + ", FOREIGN KEY (id_file) REFERENCES files (id) ON DELETE CASCADE"
                     + ", FOREIGN KEY (id_exif_recording_equipment) REFERENCES exif_recording_equipment (id) ON DELETE SET NULL"
                     + ", FOREIGN KEY (id_exif_lens) REFERENCES exif_lenses (id) ON DELETE SET NULL"

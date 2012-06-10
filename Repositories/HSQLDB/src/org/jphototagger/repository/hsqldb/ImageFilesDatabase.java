@@ -1681,14 +1681,17 @@ final class ImageFilesDatabase extends Database {
     }
 
     private String getUpdateExifStatement() {
-        return "UPDATE exif SET id_file = ?" // -- 1 --
+        return "UPDATE exif SET"
+                + " id_file = ?" // -- 1 --
                 + ", id_exif_recording_equipment = ?" // -- 2 --
                 + ", exif_date_time_original = ?" // -- 3 --
                 + ", exif_focal_length = ?" // -- 4 --
                 + ", exif_iso_speed_ratings = ?" // -- 5 --
                 + ", id_exif_lens = ?" // -- 6 --
                 + ", exif_date_time_original_timestamp = ?" // -- 7 --
-                + " WHERE id_file = ?";    // -- 8 --
+                + ", exif_gps_latitude = ?" // -- 8 --
+                + ", exif_gps_longitude = ?" // -- 9 --
+                + " WHERE id_file = ?";    // -- 10 --
     }
 
     private void insertOrUpdateExif(Connection con, File imageFile, long idFile, Exif exif) throws SQLException {
@@ -1700,7 +1703,7 @@ final class ImageFilesDatabase extends Database {
                     Exif oldExif = getExifOfImageFile(imageFile);
                     stmt = con.prepareStatement(getUpdateExifStatement());
                     setExifValues(stmt, idFile, exif);
-                    stmt.setLong(8, idFile);
+                    stmt.setLong(10, idFile);
                     LOGGER.log(Level.FINER, stmt.toString());
                     int count = stmt.executeUpdate();
                     if (count > 0) {
@@ -1716,14 +1719,19 @@ final class ImageFilesDatabase extends Database {
     }
 
     private String getInsertIntoExifStatement() {
-        return "INSERT INTO exif (id_file" // -- 1 --
+        return "INSERT INTO exif"
+                + " ("
+                + "id_file" // -- 1 --
                 + ", id_exif_recording_equipment" // -- 2 --
                 + ", exif_date_time_original" // -- 3 --
                 + ", exif_focal_length" // -- 4 --
                 + ", exif_iso_speed_ratings" // -- 5 --
                 + ", id_exif_lens" // -- 6 --
                 + ", exif_date_time_original_timestamp" // -- 7 --
-                + ") VALUES (?, ?, ?, ?, ?, ?, ?)";
+                + ", exif_gps_latitude" // -- 8 --
+                + ", exif_gps_longitude" // -- 9 --
+                + ")"
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     private void insertExif(Connection con, File imageFile, long idFile, Exif exif) throws SQLException {
@@ -1749,6 +1757,10 @@ final class ImageFilesDatabase extends Database {
         setShort(exif.getIsoSpeedRatings(), stmt, 5);
         setLong(ensureValueExists("exif_lenses", "lens", exif.getLens()), stmt, 6);
         setLong(exif.getDateTimeOriginalTimestamp(), stmt, 7);
+        if (exif.hasGpsCoordinates()) {
+            setDouble(exif.getGpsLatitude(), stmt, 8);
+            setDouble(exif.getGpsLongitude(), stmt, 9);
+        }
     }
 
     private long findIdExifOfIdFile(Connection con, long idFile) throws SQLException {
@@ -2091,12 +2103,15 @@ final class ImageFilesDatabase extends Database {
     }
 
     private String getExifOfStatement() {
-        return "SELECT exif_recording_equipment.equipment" // -- 1 --
+        return "SELECT"
+                + " exif_recording_equipment.equipment" // -- 1 --
                 + ", exif.exif_date_time_original" // -- 2 --
                 + ", exif.exif_focal_length" // -- 3 --
                 + ", exif.exif_iso_speed_ratings" // -- 4 --
                 + ", exif_lenses.lens" // -- 5 --
                 + ", exif_date_time_original_timestamp" // -- 6 --
+                + ", exif_gps_latitude" // -- 7 --
+                + ", exif_gps_longitude" // -- 8 --
                 + " FROM files INNER JOIN exif ON files.id = exif.id_file"
                 + " LEFT JOIN exif_recording_equipment ON"
                 + " exif.id_exif_recording_equipment"
@@ -2127,6 +2142,14 @@ final class ImageFilesDatabase extends Database {
                 exif.setIsoSpeedRatings(rs.getShort(4));
                 exif.setLens(rs.getString(5));
                 exif.setDateTimeOriginalTimestamp(rs.getLong(6));
+                double gpsLatitude = rs.getDouble(7);
+                boolean hasGpsLatitude = !rs.wasNull();
+                double gpsLongitude = rs.getDouble(8);
+                boolean hasGpsLongitude = !rs.wasNull();
+                if (hasGpsLatitude && hasGpsLongitude) {
+                    exif.setGpsLatitude(gpsLatitude);
+                    exif.setGpsLongitude(gpsLongitude);
+                }
             }
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, null, ex);

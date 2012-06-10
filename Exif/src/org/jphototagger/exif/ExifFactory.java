@@ -7,6 +7,10 @@ import java.util.logging.Logger;
 
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.exif.formatter.ExifFormatterAscii;
+import org.jphototagger.exif.tag.ExifGpsLatitude;
+import org.jphototagger.exif.tag.ExifGpsLongitude;
+import org.jphototagger.exif.tag.ExifGpsMetadata;
+import org.jphototagger.exif.tag.ExifGpsUtil;
 import org.jphototagger.lib.util.NumberUtil;
 
 /**
@@ -23,36 +27,29 @@ final class ExifFactory {
         if (exifTags == null) {
             return null;
         }
-
         try {
             Exif exif = new Exif();
-
             ExifTag dateTimeOriginalTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
             ExifTag focalLengthTag = exifTags.findExifTagByTagId(ExifTag.Id.FOCAL_LENGTH.getTagId());
             ExifTag isoSpeedRatingsTag = exifTags.findExifTagByTagId(ExifTag.Id.ISO_SPEED_RATINGS.getTagId());
             ExifTag modelTag = exifTags.findExifTagByTagId(ExifTag.Id.MODEL.getTagId());
             ExifTag lensTag = exifTags.findExifTagByTagId(ExifTag.Id.MAKER_NOTE_LENS.getTagId());
-
             if (dateTimeOriginalTag != null) {
                 setExifDateTimeOriginal(exif, dateTimeOriginalTag);
             }
-
             if (focalLengthTag != null) {
                 setExifFocalLength(exif, focalLengthTag);
             }
-
             if (isoSpeedRatingsTag != null) {
                 setExifIsoSpeedRatings(exif, isoSpeedRatingsTag);
             }
-
             if (modelTag != null) {
                 setExifEquipment(exif, modelTag);
             }
-
             if (lensTag != null) {
                 exif.setLens(lensTag.getStringValue());
             }
-
+            setExifGps(exifTags, exif);
             return exif;
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, null, ex);
@@ -66,7 +63,6 @@ final class ExifFactory {
                 ? ""
                 : exifTagStringValue.trim();
         int dateTimeStringLength = dateTimeString.length();
-
         if (dateTimeStringLength >= 19) {
             long timeInMillis = ExifMetadata.exifDateTimeStringToTimestamp(dateTimeString);
             Date dateTimeOriginal = new Date(timeInMillis < 0 ? 0 : timeInMillis);
@@ -88,7 +84,6 @@ final class ExifFactory {
             StringTokenizer tokenizer = exifTagStringValue == null
                     ? new StringTokenizer("")
                     : new StringTokenizer(exifTagStringValue.trim(), "/:");
-
             if (tokenizer.countTokens() >= 1) {
                 String denominatorString = tokenizer.nextToken();
                 String numeratorString = null;
@@ -96,22 +91,17 @@ final class ExifFactory {
                 if (tokenizer.hasMoreTokens()) {
                     numeratorString = tokenizer.nextToken();
                 }
-
                 if (!NumberUtil.isDouble(denominatorString)) {
                     return;
                 }
-
                 double denominator = Double.parseDouble(denominatorString);
                 double focalLength = denominator;
-
                 if (NumberUtil.isDouble(numeratorString)) {
                     double numerator = Double.parseDouble(numeratorString);
-
                     if (numerator != 0) {
                         focalLength = denominator / numerator;
                     }
                 }
-
                 if (focalLength > 0) {
                     exif.setFocalLength(focalLength);
                 }
@@ -127,14 +117,30 @@ final class ExifFactory {
             String isoSpeedRatingsString = exifTagStringValue == null
                     ? null
                     : exifTagStringValue.trim();
-
             if (NumberUtil.isShort(isoSpeedRatingsString)) {
                 short isoSpeedRatings = Short.parseShort(isoSpeedRatingsString);
-
                 exif.setIsoSpeedRatings(isoSpeedRatings);
             }
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void setExifGps(ExifTags fromExifTags, Exif toExif) {
+        ExifGpsMetadata gpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(fromExifTags);
+        ExifGpsLongitude longitude = gpsMetadata.getLongitude();
+        ExifGpsLatitude latitude = gpsMetadata.getLatitude();
+        if ((latitude != null) && (longitude != null)) {
+            double longitudeDegrees = ExifGpsUtil.convertExifDegreesToDouble(longitude.getExifDegrees());
+            double latitudeDegrees = ExifGpsUtil.convertExifDegreesToDouble(latitude.getExifDegrees());
+            if (ExifGpsLatitude.Ref.SOUTH.equals(latitude.getRef())) {
+                latitudeDegrees *= -1;
+            }
+            if (ExifGpsLongitude.Ref.WEST.equals(longitude.getRef())) {
+                longitudeDegrees *= -1;
+            }
+            toExif.setGpsLatitude(latitudeDegrees);
+            toExif.setGpsLongitude(longitudeDegrees);
         }
     }
 

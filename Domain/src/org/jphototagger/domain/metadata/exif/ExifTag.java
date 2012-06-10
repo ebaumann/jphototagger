@@ -1,5 +1,6 @@
 package org.jphototagger.domain.metadata.exif;
 
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ObjectUtil;
 
 /**
@@ -11,12 +12,12 @@ public final class ExifTag {
      * If {@link #getDisplayName()} returns this, {@link #getDisplayValue()} returns
      * a Google Maps URL.
      */
-    public static final String NAME_GOOGLE_MAPS_URL = "Google Maps URL";
+    public static final String NAME_GOOGLE_MAPS_URL = Bundle.getString(ExifTag.class, "ExifTag.GPSCoordinatesUrl.GoogleMaps");
     /**
      * If {@link #getDisplayName()} returns this, {@link #getDisplayValue()} returns
      * an Open Street Map URL.
      */
-    public static final String NAME_OPEN_STREET_MAP_URL = "OpenStreetMap URL";
+    public static final String NAME_OPEN_STREET_MAP_URL = Bundle.getString(ExifTag.class, "ExifTag.GPSCoordinatesUrl.OpenStreetMap");
     private final String displayName;
     private final String displayValue;
 

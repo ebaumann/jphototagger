@@ -3,13 +3,18 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.25.0 2012-
+0.25.0 2012-06-10
 ------------------
 
 * If the EXIF metadata of an image containing the GPS
   longitude and latitude, the tab "EXIF" displays a button
   "OpenStreetMap". It displays the location in a web browser
   on an OpenStreetMap map.
+* GPS latitude and longitude of the EXIF metadata will be stored
+  into the database for future usage. If anybody wants to read that
+  information from Exif objects through the API, previously the EXIF
+  metadata should be updated once (File > Database > Update >
+  Re-read EXIF...).
 
 0.24.13 2012-06-03
 ------------------
