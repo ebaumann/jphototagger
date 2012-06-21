@@ -96,6 +96,9 @@ public final class ThumbnailsSortComboBoxModel extends DefaultComboBoxModel {
             addElement(new FileSorter(fileSortComparator.getAscendingSortComparator(), fileSortComparator.getAscendingSortComparatorDisplayName()));
             addElement(new FileSorter(fileSortComparator.getDescendingSortComparator(), fileSortComparator.getDescendingSortComparatorDisplayName()));
         }
+
+        addElement(new FileSorter(FileSort.NO_SORT.getComparator(),
+                Bundle.getString(ThumbnailsSortComboBoxModel.class, "ThumbnailsSortComboBoxModel.DisplayName.ComparatorNoSort")));
     }
 
     void selectPersistedItem() {
