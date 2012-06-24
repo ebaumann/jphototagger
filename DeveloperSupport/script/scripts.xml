@@ -30,9 +30,14 @@
         />
         <exec executable="${env.HOME}/website/bin/update.sh"/>
     </target>
-    <target name="dist-zip-create" description="Create ZIP distribution">
+    <target name="dist-create-zip" description="Create ZIP distribution">
         <exec executable="bash">
-            <arg value="mkdist.sh" />
+            <arg value="dist_create_zip.sh" />
+        </exec>
+    </target>
+    <target name="dist-set-version-info" description="Set Version Info to Dist">
+        <exec executable="bash">
+            <arg value="dist_set_version_info.sh" />
         </exec>
     </target>
     <target name="switch-settingsdir-pristine" description="Switching to pristine settings">
@@ -53,14 +58,14 @@
             <arg value="-w"/>
         </exec>
     </target>
-    <target name="pdf-manual" description="Creating PDF manual, language German">
+    <target name="create-pdf-manual" description="Creating PDF manual">
         <exec executable="bash">
-            <arg value="create_html_index_user_doc.sh" />
+            <arg value="create_html_index_manual.sh" />
             <arg value="de"/>
             <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
         </exec>
         <exec executable="bash">
-            <arg value="create_pdf_user_doc.sh" />
+            <arg value="create_pdf_manual.sh" />
             <arg value="de" />
             <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
         </exec>
