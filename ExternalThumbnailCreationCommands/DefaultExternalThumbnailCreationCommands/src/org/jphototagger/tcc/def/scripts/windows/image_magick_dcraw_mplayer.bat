@@ -1,7 +1,7 @@
 @echo off
 
 rem Author: Matthias Vonken, 2011/05/05
-rem         Extended by Elmar Baumann 2001/07/11 (Videos with mplayer)
+rem         Extended by Elmar Baumann 2011/07/11 (Videos with mplayer)
 
 set IMAGE=%1
 set MAX_DIM=%2
