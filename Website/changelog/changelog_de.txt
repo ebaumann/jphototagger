@@ -3,8 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+
+-----------------
+
+* Neue Option: Bearbeiten > Einstellungen > Leistung: Dateisystem überwachen
+
 0.25.0 2012-06-10
-------------------
+-----------------
 
 * Enthalten die EXIF-Daten eines Bilds GPS-Längen- und Breitengrad,
   wird im Kartenreiter "EXIF" eine Schaltfläche für OpenStreetMap

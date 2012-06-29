@@ -3,8 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+
+-----------------
+
+* Added Option: Edit > Settings > Performance: Watch file system
+
 0.25.0 2012-06-10
-------------------
+-----------------
 
 * If the EXIF metadata of an image containing the GPS
   longitude and latitude, the tab "EXIF" displays a button

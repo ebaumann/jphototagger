@@ -14,9 +14,14 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import org.openide.util.Lookup;
+
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
@@ -32,7 +37,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private static final long serialVersionUID = 1L;
     private final File startDirectory;
-    private final List<Option> directoryFilter;
+    private final List<Option> options;
     private boolean accepted;
     private final AllSystemDirectoriesTreeModel model;
 
@@ -72,7 +77,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             throw new NullPointerException("options == null");
         }
         this.startDirectory = startDirectory;
-        this.directoryFilter = Arrays.asList(options);
+        this.options = Arrays.asList(options);
         initComponents();
         this.model = new AllSystemDirectoriesTreeModel(tree, excludeRootDirectories, getIsShowHiddenDirsFilter());
         postInitComponents();
@@ -87,7 +92,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private void setSelectionMode() {
         tree.getSelectionModel().setSelectionMode(
-                directoryFilter.contains(Option.MULTI_SELECTION)
+                options.contains(Option.MULTI_SELECTION)
                 ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
                 : TreeSelectionModel.SINGLE_TREE_SELECTION);
         setTitle();
@@ -95,13 +100,13 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     }
 
     private void setUsageText() {
-        labelUsage.setText(directoryFilter.contains(Option.MULTI_SELECTION)
+        labelUsage.setText(options.contains(Option.MULTI_SELECTION)
                 ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.MultipleSelection")
                 : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
     private void setTitle() {
-        setTitle(directoryFilter.contains(Option.MULTI_SELECTION)
+        setTitle(options.contains(Option.MULTI_SELECTION)
                 ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.MultipleSelection")
                 : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.SingleSelection"));
     }
@@ -112,9 +117,18 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             restoreSizeAndLocation();
             setSelectionMode();
             selectStartDirectory();
-            model.startAutoUpdate();
+            if (lookupAutoScanDirectories()) {
+                model.startAutoUpdate();
+            }
         }
         super.setVisible(visible);
+    }
+
+    private static boolean lookupAutoScanDirectories() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(PreferencesKeys.KEY_AUTOSCAN_DIRECTORIES)
+                ? prefs.getBoolean(PreferencesKeys.KEY_AUTOSCAN_DIRECTORIES)
+                : true;
     }
 
     /**
@@ -162,7 +176,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     }
 
     private DirectoryFilter.Option getIsShowHiddenDirsFilter() {
-        return directoryFilter.contains(Option.DISPLAY_HIDDEN_DIRECTORIES)
+        return options.contains(Option.DISPLAY_HIDDEN_DIRECTORIES)
                 ? DirectoryFilter.Option.ACCEPT_HIDDEN_FILES
                 : DirectoryFilter.Option.NO_OPTION;
     }
@@ -203,14 +217,12 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private void addDirectory() {
         TreePath[] selPaths = tree.getSelectionPaths();
-
         model.createDirectoryIn(
                 TreeFileSystemDirectories.getNodeOfLastPathComponent(selPaths[0]));
     }
 
     private void renameDirectory() {
         TreePath[] selPaths = tree.getSelectionPaths();
-
         for (TreePath treePath : selPaths) {
             DefaultMutableTreeNode node = TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
             File dir = (node == null)
@@ -282,8 +294,10 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
     private boolean isRootFile(Object o) {
         if (o instanceof DefaultMutableTreeNode) {
-            return ((DefaultMutableTreeNode) o).getParent()
-                    == tree.getModel().getRoot();
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) o;
+            TreeNode parentNode = node.getParent();
+            Object rootNode = tree.getModel().getRoot();
+            return parentNode == rootNode;
         }
         return false;
     }
