@@ -15,6 +15,7 @@ import org.jdesktop.swingx.sort.ListSortController;
 import org.openide.util.Lookup;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -298,7 +299,9 @@ public final class ModelFactory {
                         tree.setModel(model);
                         model.readFromProperties();
                         tree.setCursor(treeCursor);
-                        model.startAutoUpdate();
+                        if (lookupAutoScanDirectories()) {
+                            model.startAutoUpdate();
+                        }
                         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelFavorites");
                         Support.setStatusbarInfo(message);
                     }
@@ -329,7 +332,9 @@ public final class ModelFactory {
                         tree.setCursor(treeCursor);
                         String message = Bundle.getString(ModelFactory.class, "ModelFactory.Finished.TreeModelDirectories");
                         Support.setStatusbarInfo(message);
-                        model.startAutoUpdate();
+                        if (lookupAutoScanDirectories()) {
+                            model.startAutoUpdate();
+                        }
                     }
                 });
             }
@@ -398,5 +403,12 @@ public final class ModelFactory {
         tree.setCursor(waitCursor);
 
         return treeCursor;
+    }
+
+    private static boolean lookupAutoScanDirectories() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(PreferencesKeys.KEY_AUTOSCAN_DIRECTORIES)
+                ? prefs.getBoolean(PreferencesKeys.KEY_AUTOSCAN_DIRECTORIES)
+                : true;
     }
 }
