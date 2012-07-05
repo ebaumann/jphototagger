@@ -4,8 +4,19 @@ Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
 
+0.25.0 2012-07-05
 -----------------
 
+* Kartenreiter EXIF zeigt zwei neue Werte an:
+  * "Datum/Uhrzeit Dateispeicherung", Tag 36868 (9004.H) = DateTimeDigitized.
+    Auszug aus dem EXIF 2.2-Standard:
+    "The date and time when the image was stored as digital data."
+  * "Datum/Uhrzeit Datei", Tag 306 = DateTime.
+    Auszug aus dem EXIF 2.2-Standard:
+    "The date and time of image creation. In this standard it is the date and time the file was changed."
+* Falls aus den EXIF-Daten nicht DateTimeOriginal ermittelt werden kann,
+  sucht JPhotoTagger zuerst in DateTimeDigitized, dann in DateTime und benutzt
+  diese als Aufnahmezeit
 * Neue Option: Bearbeiten > Einstellungen > Leistung: Dateisystem überwachen
 
 0.25.0 2012-06-10

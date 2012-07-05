@@ -8,11 +8,11 @@ import org.jphototagger.exif.ExifTag;
  *
  * @author Elmar Baumann
  */
-public final class ExifFormatterDateTime extends ExifFormatter {
+public final class ExifFormatterDateTimeOriginal extends ExifFormatter {
 
-    public static final ExifFormatterDateTime INSTANCE = new ExifFormatterDateTime();
+    public static final ExifFormatterDateTimeOriginal INSTANCE = new ExifFormatterDateTimeOriginal();
 
-    private ExifFormatterDateTime() {
+    private ExifFormatterDateTimeOriginal() {
     }
 
     @Override
@@ -20,7 +20,7 @@ public final class ExifFormatterDateTime extends ExifFormatter {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-        Ensure.exifTagId(exifTag, ExifTag.Id.DATE_TIME);
+        Ensure.exifTagId(exifTag, ExifTag.Id.DATE_TIME_ORIGINAL);
         return ExifDateTimeFormatter.format(exifTag.getRawValue());
     }
 }

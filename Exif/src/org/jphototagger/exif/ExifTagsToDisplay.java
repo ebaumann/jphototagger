@@ -22,6 +22,8 @@ public final class ExifTagsToDisplay {
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.CONTRAST.getTagId());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.COPYRIGHT.getTagId());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.DATE_TIME_DIGITIZED.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.DATE_TIME.getTagId());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.EXPOSURE_PROGRAM.getTagId());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.EXPOSURE_TIME.getTagId());
         ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.FILE_SOURCE.getTagId());

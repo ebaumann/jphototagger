@@ -37,24 +37,19 @@ public final class ExifMetadata {
         if (imageFile == null || !imageFile.exists()) {
             return null;
         }
-
         ExifTags exifTags = new ExifTags();
-
         try {
             LOGGER.log(Level.INFO, "Reading EXIF from image file ''{0}'', size {1} Bytes", new Object[]{imageFile, imageFile.length()});
             addExifTags(imageFile, exifTags);
         } catch (Exception ex) {
             Logger.getLogger(ExifMetadata.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         ExifMakerNotesAdder.addMakerNotesToExifTags(imageFile, exifTags);
-
         return exifTags;
     }
 
     private static void addExifTags(File imageFile, ExifTags exifTags) throws IOException {
-        ImageReader imageReader = null;
-
+        ImageReader imageReader;
         if (ImageFileType.isJpegFile(imageFile.getName())) {
             LOGGER.log(Level.INFO, "Reading EXIF metadata of file ''{0}'''' with JPEG reader", imageFile);
             imageReader = new JpegReader(imageFile);
@@ -64,14 +59,12 @@ public final class ExifMetadata {
             imageReader = new TiffReader(imageFile);
             TiffReader tiffReader = (TiffReader) imageReader;
             int count = tiffReader.getIFDCount();
-
             for (int i = 0; i < count; i++) {
                 // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD (using not IfdType.EXIF)?
                 ImageFileDirectory iFD = tiffReader.getIFD(i);
                 addTagsOfIfd(iFD, ExifIfdType.EXIF, exifTags);
             }
         }
-
         closeImageReader(imageReader);
     }
 
@@ -81,7 +74,6 @@ public final class ExifMetadata {
         if (allIfdEntries != null) {
             for (int i = 0; i < allIfdEntries.length; i++) {
                 IFDEntry[] currentIfdEntry = allIfdEntries[i];
-
                 for (int j = 0; j < currentIfdEntry.length; j++) {
                     IFDEntry entry = currentIfdEntry[j];
                     ExifTag exifTag = new ExifTag(entry, ExifIfdType.EXIF);
@@ -109,27 +101,19 @@ public final class ExifMetadata {
         if (!ifdType.equals(ExifIfdType.UNDEFINED)) {
             addExifTags(ifd, ifdType, exifTags);
         }
-
         for (int i = 0; i < ifd.getIFDCount(); i++) {
             ImageFileDirectory subIfd = ifd.getIFDAt(i);
-
             addTagsOfIfd(subIfd, ExifIfdType.UNDEFINED, exifTags);    // recursive
         }
-
         ImageFileDirectory exifIFD = ifd.getExifIFD();
-
         if (exifIFD != null) {
             addTagsOfIfd(exifIFD, ExifIfdType.EXIF, exifTags);    // recursive
         }
-
         ImageFileDirectory gpsIFD = ifd.getGpsIFD();
-
         if (gpsIFD != null) {
             addTagsOfIfd(gpsIFD, ExifIfdType.GPS, exifTags);    // recursive
         }
-
         ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
-
         if (interoperabilityIFD != null) {
             addTagsOfIfd(interoperabilityIFD, ExifIfdType.INTEROPERABILITY, exifTags);    // recursive
         }
@@ -137,34 +121,23 @@ public final class ExifMetadata {
 
     private static void addExifTags(ImageFileDirectory ifd, ExifIfdType ifdType, ExifTags exifTags) {
         int entryCount = ifd.getEntryCount();
-
         for (int i = 0; i < entryCount; i++) {
             IFDEntry ifdEntry = ifd.getEntryAt(i);
-
             if (ifdEntry != null) {
                 ExifTag exifTag = new ExifTag(ifdEntry, ifdType);
-
                 switch (ifdType) {
                     case EXIF:
                         exifTags.addExifTag(exifTag);
-
                         break;
-
                     case GPS:
                         exifTags.addGpsTag(exifTag);
-
                         break;
-
                     case INTEROPERABILITY:
                         exifTags.addInteroperabilityTag(exifTag);
-
                         break;
-
                     case MAKER_NOTE:
                         exifTags.addMakerNoteTag(exifTag);
-
                         break;
-
                     default:
                         assert (false);
                 }
@@ -176,9 +149,7 @@ public final class ExifMetadata {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         ExifTags exifTags = getExifTags(imageFile);
-
         return ExifFactory.getExif(exifTags);
     }
 
@@ -186,7 +157,6 @@ public final class ExifMetadata {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         return ExifFactory.getExif(getExifTagsPreferCached(imageFile));
     }
 
@@ -202,48 +172,43 @@ public final class ExifMetadata {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (ExifCache.INSTANCE.containsUpToDateExifTags(imageFile)) {
             return ExifCache.INSTANCE.getCachedExifTags(imageFile);
         } else {
             ExifTags exifTags = null;
-
             if (DefaultExifSupport.INSTANCE.canReadExif(imageFile)) {
                 exifTags = getExifTags(imageFile);
             }
-
             if (exifTags == null) {
                 ExifCache.INSTANCE.cacheExifTags(imageFile, new ExifTags());
             } else {
                 ExifCache.INSTANCE.cacheExifTags(imageFile, exifTags);
             }
-
             return exifTags;
         }
     }
 
     static long getTimeTakenInMillis(File file) {
         ExifTags exifTags = getExifTags(file);
-
         if (exifTags == null) {
             return file.lastModified();
         }
-
-        ExifTag dateTimeOriginalTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
-
-        if (dateTimeOriginalTag == null) {
+        ExifTag dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
+        if (dateTimeTag == null) {
+            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_DIGITIZED.getTagId());
+        }
+        if (dateTimeTag == null) {
+            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME.getTagId());
+        }
+        if (dateTimeTag == null) {
             return file.lastModified();
         }
-
-        String dateTimeString = dateTimeOriginalTag.getStringValue().trim();
+        String dateTimeString = dateTimeTag.getStringValue().trim();
         int dateTimeStringLength = dateTimeString.length();
-
         if (dateTimeStringLength < 19) {
             return file.lastModified();
         }
-
         long timestamp = exifDateTimeStringToTimestamp(dateTimeString);
-
         return timestamp < 0 ? file.lastModified() : timestamp;
     }
 
@@ -251,7 +216,6 @@ public final class ExifMetadata {
         if (dateTimeString.length() < 19) {
             return -1;
         }
-
         try {
             String yearString = dateTimeString.substring(0, 4);
             String monthString = dateTimeString.substring(5, 7);
@@ -259,27 +223,21 @@ public final class ExifMetadata {
             String hoursString = dateTimeString.substring(11, 13);
             String minutesString = dateTimeString.substring(14, 16);
             String secondsString = dateTimeString.substring(17, 19);
-
             if (!NumberUtil.allStringsAreIntegers(Arrays.asList(yearString, monthString, dayString, hoursString, minutesString, secondsString))) {
                 return -1;
             }
-
             int year = Integer.parseInt(yearString);
             int month = Integer.parseInt(monthString);
             int day = Integer.parseInt(dayString);
             int hours = Integer.parseInt(hoursString);
             int minutes = Integer.parseInt(minutesString);
             int seconds = Integer.parseInt(secondsString);
-
             Calendar calendar = new GregorianCalendar();
-
             if (year < 1839) {
                 LOGGER.log(Level.WARNING, "Year {0} is not plausible and EXIF date time taken will not be set!", year);
                 return -1;
             }
-
             calendar.set(year, month - 1, day, hours, minutes, seconds);
-
             return calendar.getTimeInMillis();
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, null, ex);
