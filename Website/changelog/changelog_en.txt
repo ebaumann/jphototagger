@@ -3,9 +3,19 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-
+0.25.0 2012-07-05
 -----------------
 
+* Tab EXIF displays two new values:
+  * "Date and time saved", Tag 36868 (9004.H) = DateTimeDigitized.
+    Excerpt from the EXIF 2.2 standard:
+    "The date and time when the image was stored as digital data."
+  * "File change time", Tag 306 = DateTime.
+    Excerpt from the EXIF 2.2 standard:
+    "The date and time of image creation. In this standard it is the date and time the file was changed."
+* If DateTimeOriginal can't be found within the EXIF metadata,
+  JPhotoTagger first looks for DateTimeDigitized, then for DateTime and
+  uses them as date time taken
 * Added Option: Edit > Settings > Performance: Watch file system
 
 0.25.0 2012-06-10

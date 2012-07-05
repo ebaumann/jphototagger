@@ -21,7 +21,9 @@ public final class ExifFormatterFactory {
         // Ordered alphabetically for faster check
         FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.CONTRAST.getTagId(), ExifFormatterContrast.INSTANCE);
         FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.COPYRIGHT.getTagId(), ExifFormatterCopyright.INSTANCE);
-        FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId(), ExifFormatterDateTime.INSTANCE);
+        FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.DATE_TIME.getTagId(), ExifFormatterDateTime.INSTANCE);
+        FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId(), ExifFormatterDateTimeOriginal.INSTANCE);
+        FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.DATE_TIME_DIGITIZED.getTagId(), ExifFormatterDateTimeDigitized.INSTANCE);
         FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.EXPOSURE_PROGRAM.getTagId(), ExifFormatterExposureProgram.INSTANCE);
         FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.EXPOSURE_TIME.getTagId(), ExifFormatterExposureTime.INSTANCE);
         FORMATTER_OF_EXIF_IFD_TAG_ID.put(ExifTag.Id.FILE_SOURCE.getTagId(), ExifFormatterFileSource.INSTANCE);

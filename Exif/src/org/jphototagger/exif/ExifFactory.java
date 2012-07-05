@@ -29,7 +29,7 @@ final class ExifFactory {
         }
         try {
             Exif exif = new Exif();
-            ExifTag dateTimeOriginalTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
+            ExifTag dateTimeOriginalTag = findDateTimeTag(exifTags);
             ExifTag focalLengthTag = exifTags.findExifTagByTagId(ExifTag.Id.FOCAL_LENGTH.getTagId());
             ExifTag isoSpeedRatingsTag = exifTags.findExifTagByTagId(ExifTag.Id.ISO_SPEED_RATINGS.getTagId());
             ExifTag modelTag = exifTags.findExifTagByTagId(ExifTag.Id.MODEL.getTagId());
@@ -55,6 +55,17 @@ final class ExifFactory {
             LOGGER.log(Level.SEVERE, null, ex);
             return null;
         }
+    }
+
+    private static ExifTag findDateTimeTag(ExifTags exifTags) {
+        ExifTag dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
+        if (dateTimeTag == null) {
+            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_DIGITIZED.getTagId());
+        }
+        if (dateTimeTag == null) {
+            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME.getTagId());
+        }
+        return dateTimeTag;
     }
 
     private static void setExifDateTimeOriginal(Exif exif, ExifTag dateTimeOriginalTag) {
