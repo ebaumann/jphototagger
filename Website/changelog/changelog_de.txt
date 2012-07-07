@@ -4,7 +4,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
 
-0.25.0 2012-07-05
+0.26.0 2012-07-05
 -----------------
 
 * Kartenreiter EXIF zeigt zwei neue Werte an:
