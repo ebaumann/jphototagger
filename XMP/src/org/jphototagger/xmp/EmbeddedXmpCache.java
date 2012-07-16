@@ -34,13 +34,10 @@ public final class EmbeddedXmpCache {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (xmpAsString == null) {
             throw new NullPointerException("xmpAsString == null");
         }
-
         File cacheFile = getCacheFile(imageFile);
-
         try {
             LOGGER.log(Level.FINE, "Embedded Xmp Cache: Caching embedded XMP of image file ''{0}'' into ''{1}''", new Object[]{imageFile, cacheFile});
             FileUtil.writeStringAsFile(xmpAsString, cacheFile);
@@ -55,11 +52,9 @@ public final class EmbeddedXmpCache {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (xmpAsString == null) {
             throw new NullPointerException("xmpAsString == null");
         }
-
         if (!containsUpToDateXmp(imageFile)) {
             LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Updating embedded XMP cache file of image file ''{0}''", new Object[]{imageFile});
             cacheXmp(imageFile, xmpAsString);
@@ -70,7 +65,6 @@ public final class EmbeddedXmpCache {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         return getCacheFile(imageFile).isFile();
     }
 
@@ -78,15 +72,12 @@ public final class EmbeddedXmpCache {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (!containsXmp(imageFile)) {
             return false;
         }
-
         File cacheFile = getCacheFile(imageFile);
         long timestampImageFile = imageFile.lastModified();
         long timestampCachedFile = cacheFile.lastModified();
-
         return timestampCachedFile == timestampImageFile;
     }
 
@@ -100,13 +91,10 @@ public final class EmbeddedXmpCache {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         File cacheFile = getCacheFile(imageFile);
-
         if (!cacheFile.isFile()) {
             return null;
         }
-
         try {
             LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Reading embedded XMP cache of image file ''{0}'' from cache file ''{1}''",
                     new Object[]{imageFile, cacheFile});
@@ -114,7 +102,6 @@ public final class EmbeddedXmpCache {
         } catch (Throwable throwable) {
             LOGGER.log(Level.SEVERE, null, throwable);
         }
-
         return null;
     }
 
@@ -122,9 +109,7 @@ public final class EmbeddedXmpCache {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         File cacheFile = getCacheFile(imageFile);
-
         if (cacheFile.isFile()) {
             LOGGER.log(Level.FINEST, "Embedded Xmp Cache: Deleting embedded XMP cache file ''{0}'' of image file ''{1}''",
                     new Object[]{cacheFile, imageFile});
@@ -136,19 +121,15 @@ public final class EmbeddedXmpCache {
         if (!containsXmp(oldImageFile)) {
             return;
         }
-
         File oldCacheFile = getCacheFile(oldImageFile);
         File newCacheFile = getCacheFile(newImageFile);
-
         LOGGER.log(
                 Level.FINEST,
                 "Embedded Xmp Cache: Renaming embedded XMP cache file ''{0}'' of renamed image file ''{1}'' to cache file ''{2}'' of new image file ''{3}''",
                 new Object[]{oldCacheFile, oldImageFile, newCacheFile, newImageFile});
-
         if (newCacheFile.isFile()) {
             newCacheFile.delete();
         }
-
         oldCacheFile.renameTo(newCacheFile);
     }
 
@@ -156,21 +137,17 @@ public final class EmbeddedXmpCache {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
-        String xmpAsString = "";
-
+        String xmpAsString;
         if (containsUpToDateXmp(imageFile)) {
             xmpAsString = getCachedXmp(imageFile);
         } else {
             xmpAsString = XmpMetadata.getEmbeddedXmpAsString(imageFile);
-
             if (xmpAsString == null) {
                 cacheXmp(imageFile, EMPTY_XMP);
             } else {
                 cacheXmp(imageFile, xmpAsString);
             }
         }
-
         return XmpMetadata.getPropertyInfosOfXmpString(xmpAsString);
     }
 
@@ -180,7 +157,6 @@ public final class EmbeddedXmpCache {
 
     private String getEmptyXmp() {
         InputStream is = null;
-
         try {
             is = EmbeddedXmpCache.class.getResourceAsStream("Empty.xmp");
             return StringUtil.convertStreamToString(is, "UTF-8");
@@ -189,7 +165,6 @@ public final class EmbeddedXmpCache {
         } finally {
             IoUtil.close(is);
         }
-
         return "";
     }
 
@@ -197,14 +172,12 @@ public final class EmbeddedXmpCache {
     public void imageFileMoved(ImageFileMovedEvent event) {
         File oldImageFile = event.getOldImageFile();
         File newImageFile = event.getNewImageFile();
-
         renameCachedXmp(oldImageFile, newImageFile);
     }
 
     @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
     public void imageFileRemoved(ImageFileDeletedEvent event) {
         File deletedImageFile = event.getImageFile();
-
         deleteCachedXmp(deletedImageFile);
     }
 
@@ -219,7 +192,6 @@ public final class EmbeddedXmpCache {
 
     private File lookupCacheDirectory() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-
         return provider.getCacheDirectory("EmbeddedXmpCache");
     }
 
