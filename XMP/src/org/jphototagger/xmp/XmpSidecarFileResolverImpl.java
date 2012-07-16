@@ -1,6 +1,8 @@
 package org.jphototagger.xmp;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
@@ -11,6 +13,7 @@ import org.openide.util.lookup.ServiceProvider;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.lib.io.filefilter.FilenameIgnoreCaseFileFilter;
 
 /**
  * @author Elmar Baumann
@@ -57,12 +60,10 @@ public final class XmpSidecarFileResolverImpl implements XmpSidecarFileResolver 
         if (contentFile == null) {
             throw new NullPointerException("contentFile == null");
         }
-        if (useLongXmpSidecarFilenames) {
-            return getLongXmpSidecarFileOrNullIfNotExists(contentFile);
-        } else {
-            return getDefaultXmpSidecarFileOrNullIfNotExists(contentFile);
+        return useLongXmpSidecarFilenames
+                ? getLongXmpSidecarFileOrNullIfNotExists(contentFile)
+                : getDefaultXmpSidecarFileOrNullIfNotExists(contentFile);
         }
-    }
 
     @Override
     public boolean hasXmpSidecarFile(File contentFile) {
@@ -106,9 +107,32 @@ public final class XmpSidecarFileResolverImpl implements XmpSidecarFileResolver 
             throw new NullPointerException("contentFile == null");
         }
         File sidecarFile = suggestDefaultSidecarFile(contentFile);
-        return sidecarFile.isFile()
-                ? sidecarFile
+        return findSidecarFile(sidecarFile);
+    }
+
+    @Override
+    public File findSidecarFile(File sidecarFile) {
+        if (sidecarFile.isFile()) {
+            return sidecarFile;
+        }
+        File directory = sidecarFile.getParentFile();
+        if (directory == null) {
+            return null;
+        }
+        try {
+            File[] sidecarFiles = directory.listFiles(new FilenameIgnoreCaseFileFilter(sidecarFile.getName()));
+            if (sidecarFiles != null && sidecarFiles.length > 1) {
+                Logger.getLogger(XmpSidecarFileResolverImpl.class.getName()).log(Level.WARNING, "Sidecar file ''{0}'' is ambigious: {1}", new Object[]{sidecarFile, sidecarFiles});
+            }
+            return sidecarFiles == null
+                    ? null
+                    : sidecarFiles.length > 0
+                    ? sidecarFiles[0]
                 : null;
+        } catch (Throwable t) {
+            Logger.getLogger(XmpSidecarFileResolverImpl.class.getName()).log(Level.SEVERE, null, t);
+            return null;
+    }
     }
 
     @Override
@@ -117,9 +141,7 @@ public final class XmpSidecarFileResolverImpl implements XmpSidecarFileResolver 
             throw new NullPointerException("contentFile == null");
         }
         File sidecarFile = suggestLongSidecarFile(contentFile);
-        return sidecarFile.isFile()
-                ? sidecarFile
-                : null;
+        return findSidecarFile(sidecarFile);
     }
 
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)

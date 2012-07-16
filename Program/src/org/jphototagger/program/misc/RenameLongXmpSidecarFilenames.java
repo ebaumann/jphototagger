@@ -49,9 +49,12 @@ public final class RenameLongXmpSidecarFilenames extends HelperThread {
     private void renameXmpSidecarFile(File file) {
         File longSidecarFile = xmpSidecarFileResolver.suggestLongSidecarFile(file);
         File defaultSidecarFile = xmpSidecarFileResolver.suggestDefaultSidecarFile(file);
-        File fromFile = setLongNames ? defaultSidecarFile : longSidecarFile;
+        File fromFile = xmpSidecarFileResolver.findSidecarFile(setLongNames ? defaultSidecarFile : longSidecarFile);
         File toFile = setLongNames ? longSidecarFile : defaultSidecarFile;
-        boolean isRename = fromFile.isFile() && !toFile.exists();
+        boolean fromFileExists = fromFile != null;
+        File foundToFile = xmpSidecarFileResolver.findSidecarFile(toFile);
+        boolean toFileExists = foundToFile != null;
+        boolean isRename = fromFileExists && !toFileExists;
         if (isRename) {
             LOGGER.log(Level.INFO, "Renaming XMP sidecar file ''{0}'' to ''{1}", new Object[]{fromFile, toFile});
             boolean renamed = fromFile.renameTo(toFile);

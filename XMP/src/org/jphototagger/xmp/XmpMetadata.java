@@ -112,10 +112,11 @@ public final class XmpMetadata {
      * @return Metadata or null if the image file has no XMP metadata or on errors while reading
      */
     static List<XMPPropertyInfo> getEmbeddedPropertyInfos(File imageFile) {
-        if ((imageFile == null) || !imageFile.exists()) {
+        if (imageFile == null || !imageFile.exists()) {
             return null;
         }
-        return getPropertyInfosOfXmpString(getEmbeddedXmpAsString(imageFile));
+        String embeddedXmp = getEmbeddedXmpAsString(imageFile);
+        return getPropertyInfosOfXmpString(embeddedXmp);
     }
 
     /**
@@ -126,10 +127,21 @@ public final class XmpMetadata {
      * @throws IOException
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfSidecarFile(File sidecarFile) throws IOException {
-        if ((sidecarFile == null) || !sidecarFile.exists()) {
+        if (sidecarFile == null || !sidecarFile.exists()) {
             return null;
         }
-        return getPropertyInfosOfXmpString(getXmpAsStringOfSidecarFile(sidecarFile));
+        String xmpOfSidecarFile = getXmpAsStringOfSidecarFile(sidecarFile);
+        if (xmpOfSidecarFile == null) {
+            return null;
+    }
+        if (!xmpOfSidecarFile.startsWith("<")) {
+            int firstStartTagIndex = xmpOfSidecarFile.indexOf('<');
+            if (firstStartTagIndex < 0) {
+                return null;
+            }
+            xmpOfSidecarFile = xmpOfSidecarFile.substring(firstStartTagIndex);
+        }
+        return getPropertyInfosOfXmpString(xmpOfSidecarFile);
     }
 
     /**
@@ -139,11 +151,9 @@ public final class XmpMetadata {
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmpAsString) {
         List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
-
         try {
             if ((xmpAsString != null) && (xmpAsString.length() > 0)) {
                 XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmpAsString);
-
                 if (xmpMeta != null) {
                     addXmpPropertyInfosTo(xmpMeta, propertyInfos);
                 }
@@ -290,7 +300,6 @@ public final class XmpMetadata {
         for (MetaDataValue metaDataValue : EditableMetaDataValues.get()) {
             String namespaceUri = XmpMetaDataValuesNamespaceUriMapping.getNamespaceUriOfXmpMetaDataValue(metaDataValue);
             String arrayName = XmpMetaDataValueXmpArrayNameMapping.getXmpArrayNameOfXmpMetaDataValue(metaDataValue);
-
             copyMetadata(fromXmp, toXmpMeta, metaDataValue, namespaceUri, arrayName);
         }
     }
@@ -354,7 +363,6 @@ public final class XmpMetadata {
 
                 for (String value : values) {
                     String trimmedValue = value.trim();
-
                     if (!doesArrayItemExist(toXmpMeta, namespaceUri, arrayName, trimmedValue)) {
                         toXmpMeta.appendArrayItem(namespaceUri, arrayName, getArrayPropertyOptionsOf(mdValue),
                                 trimmedValue, null);
@@ -370,18 +378,14 @@ public final class XmpMetadata {
         }
     }
 
-    private static boolean doesArrayItemExist(XMPMeta xmpMeta, String namespaceUri, String propertyName, String item)
-            throws XMPException {
+    private static boolean doesArrayItemExist(XMPMeta xmpMeta, String namespaceUri, String propertyName, String item) throws XMPException {
         if (xmpMeta.doesPropertyExist(namespaceUri, propertyName)) {
             for (XMPIterator it = xmpMeta.iterator(namespaceUri, propertyName, new IteratorOptions()); it.hasNext();) {
                 XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) it.next();
-
                 if (xmpPropertyInfo != null) {
                     Object value = xmpPropertyInfo.getValue();
-
                     if (value != null) {
                         String itemValue = value.toString().trim();
-
                         if (itemValue.equals(item)) {
                             return true;
                         }
@@ -460,10 +464,10 @@ public final class XmpMetadata {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-        String xmpString = EmbeddedXmpCache.INSTANCE.getCachedXmp(imageFile);
-        return (xmpString == null)
+        String cachedXmpString = EmbeddedXmpCache.INSTANCE.getCachedXmp(imageFile);
+        return (cachedXmpString == null)
                 ? null
-                : getXmp(getPropertyInfosOfXmpString(xmpString), imageFile, XmpLocation.EMBEDDED);
+                : getXmp(getPropertyInfosOfXmpString(cachedXmpString), imageFile, XmpLocation.EMBEDDED);
     }
 
     /**
