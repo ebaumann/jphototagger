@@ -13,7 +13,7 @@ public interface XmpModifier {
      *
      * @param sidecarFile existing XMP file
      * @param xmp to modify, usually contains metadata
-     * @return true if modified (so that the caller can re write  the sidecar file)
+     * @return true if modified (so that the caller can re write the sidecar file)
      */
     boolean modifyXmp(File sidecarFile, Xmp xmp);
 }
