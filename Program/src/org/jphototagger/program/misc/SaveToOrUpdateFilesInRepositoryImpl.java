@@ -32,6 +32,7 @@ import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpModifier;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
@@ -62,6 +63,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private final List<File> files;
     private final ThumbnailsRepository thumbnailsRepository = Lookup.getDefault().lookup(ThumbnailsRepository.class);
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
+    private final Collection<? extends XmpModifier> xmpModifiers = Lookup.getDefault().lookupAll(XmpModifier.class);
     private volatile boolean cancel;
 
     public SaveToOrUpdateFilesInRepositoryImpl() {
@@ -249,9 +251,19 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
             Logger.getLogger(SaveToOrUpdateFilesInRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
+        modifyXmp(xmpSidecarFileResolver.findSidecarFile(xmpSidecarFileResolver.suggestXmpSidecarFile(file)), xmp);
         writeSidecarFileIfNotExists(file, xmp);
         if ((xmp != null) && !xmp.isEmpty()) {
             imageFile.setXmp(xmp);
+        }
+    }
+
+    private void modifyXmp(File sidecarFile, Xmp xmp) {
+        if (sidecarFile == null || xmp == null) {
+            return;
+        }
+        for (XmpModifier xmpModifier : xmpModifiers) {
+            xmpModifier.modifyXmp(sidecarFile, xmp);
         }
     }
 
@@ -277,7 +289,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         if ((xmp != null) && !xmpSidecarFileResolver.hasXmpSidecarFile(imageFile)
                 && XmpMetadata.canWriteSidecarFileForImageFile(imageFile)) {
             File sidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile);
-
             XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
         }
     }
@@ -290,7 +301,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         List<Program> actions = actionsAfterRepoUpdatesRepository.findAllActions();
         for (Program action : actions) {
             StartPrograms programStarter = new StartPrograms();
-
             programStarter.startProgram(action, Collections.singletonList(file), true);
         }
     }
@@ -312,7 +322,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private boolean isExecuteActionsAfterImageChangeInDbIfImageHasXmp() {
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
         return preferences.containsKey(AppPreferencesKeys.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
                 ? preferences.getBoolean(AppPreferencesKeys.KEY_EXECUTE_ACTIONS_AFTER_IMAGE_CHANGE_IN_DB_IF_IMAGE_HAS_XMP)
                 : false;
