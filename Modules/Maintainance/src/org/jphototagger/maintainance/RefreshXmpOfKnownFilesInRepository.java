@@ -2,6 +2,7 @@ package org.jphototagger.maintainance;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import org.openide.util.Lookup;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpModifier;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.concurrent.HelperThread;
@@ -27,6 +29,7 @@ public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
 
     private volatile boolean cancel;
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
+    private final Collection<? extends XmpModifier> xmpModifiers = Lookup.getDefault().lookupAll(XmpModifier.class);
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public RefreshXmpOfKnownFilesInRepository() {
@@ -54,12 +57,23 @@ public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
                 Logger.getLogger(RefreshXmpOfKnownFilesInRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (xmp != null) {
+                modifyXmp(xmpSidecarFileResolver.findSidecarFile(xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile)), xmp);
                 repo.saveOrUpdateXmpOfImageFile(imageFile, xmp);
             }
             progressPerformed(i + 1, imageFile.getName());
         }
-
         progressEnded(null);
+    }
+
+    private void modifyXmp(File sidecarFile, Xmp xmp) {
+        if (sidecarFile == null || xmp == null) {
+            return;
+        }
+        for (XmpModifier xmpModifier : xmpModifiers) {
+            if (xmpModifier.modifyXmp(sidecarFile, xmp)) {
+                XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
+            }
+        }
     }
 
     private boolean isScanForEmbeddedXmp() {
