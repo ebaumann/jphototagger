@@ -263,7 +263,9 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
             return;
         }
         for (XmpModifier xmpModifier : xmpModifiers) {
-            xmpModifier.modifyXmp(sidecarFile, xmp);
+            if (xmpModifier.modifyXmp(sidecarFile, xmp)) {
+                XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
+            }
         }
     }
 
