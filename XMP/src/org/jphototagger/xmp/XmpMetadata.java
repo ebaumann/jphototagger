@@ -307,8 +307,18 @@ public final class XmpMetadata {
     private static XMPMeta getXmpMetaOfSidecarFile(File sidecarFile) throws XMPException, IOException {
         if (sidecarFile.exists()) {
             String xmp = FileUtil.getContentAsString(sidecarFile, "UTF-8");
-            if ((xmp != null) && !xmp.trim().isEmpty()) {
-                return XMPMetaFactory.parseFromString(xmp);
+            if (xmp != null && !xmp.trim().isEmpty()) {
+                if (xmp.startsWith("<")) {
+                    return XMPMetaFactory.parseFromString(xmp);
+                } else {
+                    int index = xmp.indexOf('<');
+                    if (index > 0) {
+                        xmp = xmp.substring(index);
+                        if (!xmp.isEmpty()) {
+                            return XMPMetaFactory.parseFromString(xmp);
+                        }
+                    }
+                }
             }
         }
         return XMPMetaFactory.create();
