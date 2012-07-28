@@ -86,11 +86,13 @@ public final class XmpSidecarFileResolverImpl implements XmpSidecarFileResolver 
         }
         String absolutePath = contentFile.getAbsolutePath();
         int indexExtension = absolutePath.lastIndexOf('.');
-        if (indexExtension > 0) {
-            return new File(absolutePath.substring(0, indexExtension + 1) + "xmp");
-        } else {
-            return new File(absolutePath + ".xmp");
-        }
+        File suggestedSidecarFile = indexExtension > 0
+                ? new File(absolutePath.substring(0, indexExtension + 1) + "xmp")
+                : new File(absolutePath + ".xmp");
+        File foundSidecarFile = findSidecarFile(suggestedSidecarFile);
+        return foundSidecarFile == null
+                ? suggestedSidecarFile
+                : foundSidecarFile;
     }
 
     @Override
@@ -98,7 +100,11 @@ public final class XmpSidecarFileResolverImpl implements XmpSidecarFileResolver 
         if (contentFile == null) {
             throw new NullPointerException("contentFile == null");
         }
-        return new File(contentFile.getAbsolutePath() + ".xmp");
+        File suggestedSidecarFile = new File(contentFile.getAbsolutePath() + ".xmp");
+        File foundSidecarFile = findSidecarFile(suggestedSidecarFile);
+        return foundSidecarFile == null
+                ? suggestedSidecarFile
+                : foundSidecarFile;
     }
 
     @Override
