@@ -48,14 +48,15 @@
         <p>Put into the installation directory, subdirectory <code>lib</code>, a JAR named
             <code>UserServices.jar</code> with
             one ore more implementations of <code>org.jphototagger.api.plugin.Plugin</code> or
-            <code>org.jphototagger.api.modules.Module</code> and publish them through the
+            <code>org.jphototagger.api.modules.Module</code> or other interfaces called e.g. for
+            thumbnails generation or reading/writing XMP sidecar files and publish them through the
             <a href="http://download.oracle.com/javase/6/docs/api/java/util/spi/package-summary.html">Java
                 Service Provider Interface (SPI)</a>.
         </p>
 
         <p>To avoid compiler errors, the minimum JAR file in the class path you need,
             is <code>API.jar</code>. If you do not want manually create the
-            <code>META-INF/services</code> folder and stay relaxed during
+            <code>META-INF/services</code> folder and keep relaxed during
             refactorings, you should include <code>org-openide-util-lookup.jar</code>
             and use the <code>@ServiceProvider</code> annotations. If you want
             receive messages, include <code>eventbus.jar</code>. To access domain objects,
@@ -63,6 +64,24 @@
             library is <code>jsl.jar</code>. All JARs located in the <code>lib</code> sub
             directory of <strong>JPhotoTagger's</strong> installation directory.
         </p>
+
+        <h2>User Services' project skeleton</h2>
+
+        <p>A project named <strong>JPhotoTagger: UserServices</strong> is located in the version control
+            repository. It has already dependencies to the most important projects/libraries and
+            builds the file <code>UserServices.jar</code>. You cann add/remove dependencies in NetBeans
+            through right clicking on the project and selecting <strong>Properties &gt; Libraries</strong>.
+        </p>
+
+        <p>After building <strong>JPhotoTagger: UserServices</strong> , you can add the generated
+            <code>UserServices.jar</code> to the installation directory as described obove. Every build
+            of <strong>JPhotoTagger: Program</strong> deletes <code>UserServices.jar</code> from it's
+            <code>dist/lib</code> directory through <code>build.xml</code>! So either use a separate
+            directory or always build <strong>JPhotoTagger: UserServices</strong> again after building
+            <strong>JPhotoTagger: Program</strong>.
+        </p>
+
+        <h2>Hints</h2>
 
         <p>The best way to find reference implementations, is browsing the
             <a href="http://code.google.com/p/jphototagger/source/browse/">source code</a>.
@@ -73,6 +92,8 @@
 
         <p>Minimum Example for a user defined <strong>Module</strong>
             (Displays a message as soon as the module is loaded):</p>
+
+        <p>Within the <code>UserServices.jar</code> you can implement as many Plugins/Modules as you need.</p>
 
 <pre>
 package org.myorg.jphototaggerplugin;
@@ -95,11 +116,9 @@ public final class MyModule implements Module {
 }
 </pre>
 
-        <p>Within the <code>UserServices.jar</code> you can implement as many Plugins/Modules as you need.</p>
-
         <p><strong>Author: Elmar</strong>
             <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20Discussion">Write e-Mail</a>
-            <br /><strong>Status of this document:</strong> 2011-10-10
+            <br /><strong>Status of this document:</strong> 2012-07-30
         </p>
 
     </div><!--content-->
