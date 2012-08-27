@@ -202,8 +202,12 @@ public final class ProgramPropertiesDialog extends Dialog {
     }
 
     private boolean inputsValid() {
-        return (file != null) && file.exists() &&!file.isDirectory()
-               &&!textFieldAlias.getText().trim().isEmpty();
+        return file != null && file.exists() && aliasDefined();
+    }
+
+    private boolean aliasDefined() {
+        String alias = textFieldAlias.getText().trim();
+        return !alias.isEmpty();
     }
 
     private void cancel() {
@@ -219,22 +223,17 @@ public final class ProgramPropertiesDialog extends Dialog {
     private void chooseProgram() {
         JFileChooser fileChooser = new JFileChooser(lastDir);
         fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File choosenFile = fileChooser.getSelectedFile();
-            storeLastDirOfFile(choosenFile);
-            if (choosenFile.isFile()) {
-                file = choosenFile;
-                labelFile.setText(file.getAbsolutePath());
-                showFileExists(true);
-                setProgramIcon();
-                if (!StringUtil.hasContent(textFieldAlias.getText())) {
-                    textFieldAlias.setText(file.getName());
-                }
-                textFieldAlias.requestFocusInWindow();
-            } else {
-                String message = Bundle.getString(ProgramPropertiesDialog.class, "ProgramPropertiesDialog.Error.ChooseFile");
-                MessageDisplayer.error(this, message);
+            file = fileChooser.getSelectedFile();
+            storeLastDirOfFile(file);
+            labelFile.setText(file.getAbsolutePath());
+            showFileExists(true);
+            setProgramIcon();
+            if (!StringUtil.hasContent(textFieldAlias.getText())) {
+                textFieldAlias.setText(file.getName());
             }
+            textFieldAlias.requestFocusInWindow();
         }
         setEnabledButtonOk();
     }
