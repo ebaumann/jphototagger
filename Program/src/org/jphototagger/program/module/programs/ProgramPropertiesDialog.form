@@ -365,7 +365,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="labelAlias" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textFieldAlias" pref="310" max="32767" attributes="0"/>
+                          <Component id="textFieldAlias" pref="325" max="32767" attributes="0"/>
                       </Group>
                       <Component id="labelFile" alignment="1" pref="427" max="32767" attributes="0"/>
                   </Group>
