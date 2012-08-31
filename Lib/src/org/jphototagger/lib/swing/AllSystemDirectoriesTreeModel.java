@@ -326,7 +326,8 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
                 @Override
                 public void run() {
                     for (File rootFile : rootFiles) {
-                        if (rootFile.isDirectory() && !childDirectories.contains(rootFile)) {
+                        boolean isExclude = excludeRootDirectories.contains(rootFile);
+                        if (!isExclude && rootFile.isDirectory() && !childDirectories.contains(rootFile)) {
                             addChildDirectory(rootNode, rootFile);
                         }
                     }

@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.26.1 2012-09-
+-----------------
+
+* Bugfix: Ausschließen eines Wurzelverzeichnisses zur Anzeige im Kartenreiter
+  "Ordner" funktioniert wieder
 
 0.26.0 2012-07-05
 -----------------

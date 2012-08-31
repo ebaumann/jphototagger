@@ -3,7 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.26.0 2012-07-05
+0.26.1 2012-09-
+-----------------
+
+* Bugfix: Excluding a root folder within the folders tab is possible
+
+  0.26.0 2012-07-05
 -----------------
 
 * Tab EXIF displays two new values:
