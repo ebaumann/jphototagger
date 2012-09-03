@@ -3,9 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.26.1 2012-09-
+0.26.1 2012-09-12
 -----------------
 
+* Programme zum Öffnen von Bildern berücksichtigen Mac OS X-Anwendungen
+  (Endung ".app")
 * Bugfix: Ausschließen eines Wurzelverzeichnisses zur Anzeige im Kartenreiter
   "Ordner" funktioniert wieder
 
