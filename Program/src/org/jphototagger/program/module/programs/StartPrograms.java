@@ -128,7 +128,7 @@ public final class StartPrograms {
         }
 
         private String getProcessPatternCommand(File file) {
-            return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
+            return getCommandPrefix() + getProgramPath() + RuntimeUtil.getDefaultCommandLineSeparator()
                     + RuntimeUtil.substitudePattern(file, getPattern());
         }
 
@@ -155,10 +155,12 @@ public final class StartPrograms {
         }
 
         private String getProcessAllCommand() {
-            return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
-                    + program.getCommandlineParameters(imageFiles,
-                    getAdditionalParameters(Bundle.getString(Execute.class, "StartPrograms.GetInput.Title"), 2),
-                    dlg.isParametersBeforeFilename());
+            String commandPrefix = getCommandPrefix();
+            String programPath = getProgramPath();
+            String separator = RuntimeUtil.getDefaultCommandLineSeparator();
+            String additionalParameters = getAdditionalParameters(Bundle.getString(Execute.class, "StartPrograms.GetInput.Title"), 2);
+            String commandlineParameters = program.getCommandlineParameters(imageFiles, additionalParameters, dlg.isParametersBeforeFilename());
+            return commandPrefix + programPath + separator + commandlineParameters;
         }
 
         private void processSingle() {
@@ -181,9 +183,29 @@ public final class StartPrograms {
         }
 
         private String getProcessSingleCommand(File file, int count) {
-            return RuntimeUtil.quoteForCommandLine(program.getFile()) + RuntimeUtil.getDefaultCommandLineSeparator()
-                    + program.getCommandlineParameters(Arrays.asList(file),
-                    getAdditionalParameters(file.getAbsolutePath(), count + 1), dlg.isParametersBeforeFilename());
+            String commandPrefix = getCommandPrefix();
+            String programPath = getProgramPath();
+            String separator = RuntimeUtil.getDefaultCommandLineSeparator();
+            List<File> files = Arrays.asList(file);
+            String additionalParameters = getAdditionalParameters(file.getAbsolutePath(), count + 1);
+            String commandlineParameters = program.getCommandlineParameters(files, additionalParameters, dlg.isParametersBeforeFilename());
+            return commandPrefix + programPath + separator + commandlineParameters;
+        }
+
+        private String getProgramPath() {
+            return RuntimeUtil.quoteForCommandLine(program.getFile());
+        }
+
+        private String getCommandPrefix() {
+            return isMacApplication()
+                    ? "open -a "
+                    : "";
+        }
+
+        private boolean isMacApplication() {
+            String filename = program.getFile().getName();
+            String filenameLowerCase = filename.toLowerCase();
+            return filenameLowerCase.endsWith(".app");
         }
 
         private String getAdditionalParameters(String filename, int count) {
