@@ -3,9 +3,7 @@ package org.jphototagger.program.module.imagecollections;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ListUtil;

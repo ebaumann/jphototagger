@@ -3,15 +3,12 @@ package org.jphototagger.program.module.keywords.list;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
-
 import javax.swing.ListModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
+import org.openide.util.Lookup;
 
 /**
  * Displays a selected keyword through selecting it in the selection list.

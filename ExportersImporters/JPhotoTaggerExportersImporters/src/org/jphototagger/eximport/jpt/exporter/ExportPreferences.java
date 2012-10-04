@@ -1,7 +1,6 @@
 package org.jphototagger.eximport.jpt.exporter;
 
 import javax.swing.ImageIcon;
-
 import org.jphototagger.lib.swing.IconUtil;
 
 /**

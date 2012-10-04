@@ -2,16 +2,14 @@ package org.jphototagger.repositoryfilebrowser;
 
 import java.util.Arrays;
 import java.util.Collection;
-
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
-
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  * @author Elmar Baumann

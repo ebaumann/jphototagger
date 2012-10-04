@@ -4,9 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.util.Collection;
 import java.util.Collections;
-
 import javax.swing.AbstractAction;
-
 import org.openide.util.Lookup;
 import org.openide.util.LookupEvent;
 import org.openide.util.LookupListener;

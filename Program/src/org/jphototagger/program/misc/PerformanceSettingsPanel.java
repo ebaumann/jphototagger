@@ -1,11 +1,7 @@
 package org.jphototagger.program.misc;
 
 import java.awt.Container;
-
 import javax.swing.SpinnerModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.api.storage.Persistence;
@@ -15,6 +11,7 @@ import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -9,19 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.domain.programs.Program;
@@ -41,6 +36,7 @@ import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.module.actions.ActionsUtil;
 import org.jphototagger.program.module.programs.AddProgramController;
 import org.jphototagger.program.plugins.PluginAction;
+import org.openide.util.Lookup;
 
 /**
  * Popup menu of the thumbnails panel.

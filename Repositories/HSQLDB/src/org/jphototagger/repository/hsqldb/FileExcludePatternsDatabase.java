@@ -9,11 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.RepositoryStatistics;
@@ -21,6 +17,7 @@ import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternDeletedEvent;
 import org.jphototagger.domain.repository.event.fileexcludepattern.FileExcludePatternInsertedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -2,7 +2,6 @@ package org.jphototagger.lib.swing;
 
 import java.awt.Component;
 import java.util.Properties;
-
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 

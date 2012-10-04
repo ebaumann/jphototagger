@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.event.MouseListener;
 import java.util.Collection;
 import java.util.List;
-
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.metadata.MetaDataValue;
 

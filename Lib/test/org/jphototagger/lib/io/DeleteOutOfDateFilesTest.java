@@ -2,7 +2,6 @@ package org.jphototagger.lib.io;
 
 import java.io.File;
 import java.util.Arrays;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 

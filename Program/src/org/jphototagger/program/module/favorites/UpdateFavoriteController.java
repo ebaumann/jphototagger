@@ -2,9 +2,7 @@ package org.jphototagger.program.module.favorites;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.swing.KeyEventUtil;
 

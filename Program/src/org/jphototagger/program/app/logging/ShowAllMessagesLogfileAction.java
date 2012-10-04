@@ -4,9 +4,7 @@ import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
-
 import javax.swing.AbstractAction;
-
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.logging.LogfileDialog;

@@ -3,9 +3,7 @@ package org.jphototagger.domain.metadata.exif;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import javax.xml.bind.annotation.XmlTransient;
-
 import org.jphototagger.lib.util.StringUtil;
 
 /**

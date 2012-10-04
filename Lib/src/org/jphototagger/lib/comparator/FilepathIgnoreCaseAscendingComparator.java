@@ -3,7 +3,6 @@ package org.jphototagger.lib.comparator;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
-
 import org.jphototagger.lib.util.ClassEquality;
 
 /**

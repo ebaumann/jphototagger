@@ -3,7 +3,6 @@ package org.jphototagger.program.module.thumbnails.cache;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 
 /**

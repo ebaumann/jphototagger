@@ -1,7 +1,6 @@
 package org.jphototagger.lib.xml.bind;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
-
 import org.jphototagger.lib.thirdparty.Base64;
 
 /**

@@ -1,14 +1,9 @@
 package org.jphototagger.program.module.imagecollections;
 
 import java.util.List;
-
 import javax.swing.DefaultListModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.imagecollections.ImageCollectionSortAscendingComparator;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
@@ -17,6 +12,7 @@ import org.jphototagger.domain.repository.event.imagecollections.ImageCollection
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionInsertedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionRenamedEvent;
 import org.jphototagger.lib.swing.util.ListUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann, Tobias Stening

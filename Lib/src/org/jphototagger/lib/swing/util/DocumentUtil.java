@@ -2,7 +2,6 @@ package org.jphototagger.lib.swing.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.event.DocumentEvent;
 import javax.swing.text.Document;
 

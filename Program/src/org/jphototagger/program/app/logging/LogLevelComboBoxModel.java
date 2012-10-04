@@ -2,7 +2,6 @@ package org.jphototagger.program.app.logging;
 
 import java.awt.Component;
 import java.util.logging.Level;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;

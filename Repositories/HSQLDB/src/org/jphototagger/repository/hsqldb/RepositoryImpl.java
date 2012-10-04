@@ -1,8 +1,7 @@
 package org.jphototagger.repository.hsqldb;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.repository.Repository;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -13,9 +12,6 @@ import javax.swing.JList;
 import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.api.preferences.Preferences;
@@ -27,6 +23,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.BusyPanel;
 import org.jphototagger.lib.swingx.ListTextFilter;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

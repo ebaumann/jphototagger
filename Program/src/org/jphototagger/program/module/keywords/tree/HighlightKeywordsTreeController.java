@@ -4,21 +4,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.JTree;
 import javax.swing.tree.TreeCellRenderer;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jdesktop.swingx.JXTree;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Listens to a {@code ThumbnailsPanel} and highlights in the tree of a  {@code KeywordsPanel} the keywords of the

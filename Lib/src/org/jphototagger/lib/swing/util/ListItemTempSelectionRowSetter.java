@@ -6,15 +6,12 @@ import java.awt.event.MouseListener;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.ListCellRenderer;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.lib.swing.MouseEventUtil;
 
 /**

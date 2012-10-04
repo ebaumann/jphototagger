@@ -2,13 +2,9 @@ package org.jphototagger.program.module.keywords.tree;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JMenuItem;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -16,6 +12,7 @@ import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Listens to the menu item

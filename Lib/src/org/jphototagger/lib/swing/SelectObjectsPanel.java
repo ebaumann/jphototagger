@@ -14,13 +14,10 @@ import java.util.StringTokenizer;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
+import org.openide.util.Lookup;
 
 /**
  * Panel to select objects from a collection of objects. <p> Contains {@code JCheckBox}es to select the objects. <p>

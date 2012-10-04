@@ -3,12 +3,10 @@ package org.jphototagger.exif.kmlexport;
 import java.awt.Component;
 import java.io.File;
 import java.util.Collection;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

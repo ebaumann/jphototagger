@@ -1,14 +1,12 @@
 package org.jphototagger.program.module.search;
 
 import javax.swing.DefaultListModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -5,10 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.EnumMap;
 import java.util.Map;
-
 import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
-
 import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.resource.GUI;

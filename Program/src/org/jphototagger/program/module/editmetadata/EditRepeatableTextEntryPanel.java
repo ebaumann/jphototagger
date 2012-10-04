@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
@@ -30,14 +29,9 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jdesktop.swingx.JXList;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.text.Suggest;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -60,6 +54,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.module.wordsets.WordsetsPanel;
 import org.jphototagger.program.module.wordsets.WordsetsPanelListener;
+import org.openide.util.Lookup;
 
 /**
  * Panel with an input text field an a list. The list contains multiple words, the input field one word.

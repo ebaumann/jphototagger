@@ -7,13 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.resource.GUI;

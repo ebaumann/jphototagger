@@ -1,14 +1,11 @@
 package org.jphototagger.maintainance;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.exif.ExifCacheProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

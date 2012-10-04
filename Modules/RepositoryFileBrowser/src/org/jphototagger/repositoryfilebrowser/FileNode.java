@@ -4,7 +4,6 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
-
 import org.jphototagger.lib.nodes.AbstractNode;
 
 /**

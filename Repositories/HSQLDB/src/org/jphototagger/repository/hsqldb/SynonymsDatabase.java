@@ -8,9 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
 import org.jphototagger.domain.repository.event.synonyms.SynonymInsertedEvent;
 import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordDeletedEvent;
 import org.jphototagger.domain.repository.event.synonyms.SynonymOfWordRenamedEvent;

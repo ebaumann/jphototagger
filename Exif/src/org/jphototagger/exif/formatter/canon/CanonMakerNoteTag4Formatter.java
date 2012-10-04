@@ -1,7 +1,6 @@
 package org.jphototagger.exif.formatter.canon;
 
 import java.text.DecimalFormat;
-
 import org.jphototagger.exif.ExifTags;
 
 //References:

@@ -4,9 +4,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.TransferHandler.TransferSupport;
-
 import org.jphototagger.lib.datatransfer.TransferUtil;
 
 /**

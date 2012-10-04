@@ -6,9 +6,6 @@ import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.image.ImageFile;
@@ -18,6 +15,7 @@ import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.timeline.Timeline;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

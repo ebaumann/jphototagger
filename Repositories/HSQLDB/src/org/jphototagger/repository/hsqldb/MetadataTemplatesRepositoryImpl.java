@@ -1,11 +1,9 @@
 package org.jphototagger.repository.hsqldb;
 
 import java.util.List;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

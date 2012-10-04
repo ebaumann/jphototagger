@@ -6,9 +6,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.xmp.Xmp;
@@ -18,6 +15,7 @@ import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.concurrent.HelperThread;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Refreshes the XMP metadata of all known imagesfiles whithout time stamp

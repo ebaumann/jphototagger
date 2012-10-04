@@ -2,7 +2,6 @@ package org.jphototagger.lib.swing.util;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.JComboBox;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**

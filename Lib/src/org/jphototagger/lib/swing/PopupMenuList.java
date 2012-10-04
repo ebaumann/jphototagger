@@ -12,12 +12,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
-
 import org.jphototagger.lib.swing.util.ListItemTempSelectionRowSetter;
 import org.jphototagger.lib.swing.util.ListUtil;
 

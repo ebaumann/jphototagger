@@ -1,7 +1,6 @@
 package org.jphototagger.domain;
 
 import java.util.Collection;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.progress.ProgressListener;

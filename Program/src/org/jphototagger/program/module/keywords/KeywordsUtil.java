@@ -10,19 +10,14 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeCellRenderer;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
-
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
@@ -50,6 +45,7 @@ import org.jphototagger.program.module.keywords.tree.KeywordsTreeCellRenderer;
 import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Helper for hierarchical keywords and Dublin Core subjects ("flat" keywords).

@@ -1,12 +1,10 @@
 package org.jphototagger.program.module.timeline;
 
 import java.awt.Component;
-
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;

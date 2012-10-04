@@ -3,7 +3,6 @@ package org.jphototagger.eximport.jpt.exporter;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -15,17 +14,14 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
-import org.w3c.dom.DOMImplementation;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * @author Elmar Baumann

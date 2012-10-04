@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.List;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.module.keywords.KeywordsUtil;

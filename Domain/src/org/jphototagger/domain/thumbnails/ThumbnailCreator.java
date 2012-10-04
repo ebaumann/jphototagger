@@ -4,7 +4,6 @@ import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.util.Set;
-
 import org.jphototagger.api.collections.PositionProvider;
 
 /**

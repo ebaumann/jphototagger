@@ -2,7 +2,6 @@ package org.jphototagger.domain.metadata.selections;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifLensMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;

@@ -8,16 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.jdesktop.swingx.JXList;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueData;
@@ -40,6 +35,7 @@ import org.jphototagger.program.module.keywords.KeywordsUtil;
 import org.jphototagger.program.module.miscmetadata.MiscMetadataUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.view.ViewUtil;
+import org.openide.util.Lookup;
 
 /**
  * Handler for <strong>copying</strong> or <strong>moving</strong> a list of

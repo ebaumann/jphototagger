@@ -2,18 +2,15 @@ package org.jphototagger.program.module.exportimport.exporter;
 
 import java.util.Arrays;
 import java.util.Collection;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

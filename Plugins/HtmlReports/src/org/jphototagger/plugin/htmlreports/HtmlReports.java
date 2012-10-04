@@ -10,14 +10,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
@@ -42,6 +36,8 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringEscapeUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.SystemProperties;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

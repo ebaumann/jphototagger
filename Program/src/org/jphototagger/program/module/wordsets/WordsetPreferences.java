@@ -1,10 +1,9 @@
 package org.jphototagger.program.module.wordsets;
 
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.InputVerifier;
 import javax.swing.text.DefaultFormatterFactory;
-
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.inputverifier.AlwaysTrueInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.DateInputVerifier;

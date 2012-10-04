@@ -1,5 +1,7 @@
 package org.jphototagger.xmpmodule;
 
+import com.adobe.xmp.XMPConst;
+import com.adobe.xmp.properties.XMPPropertyInfo;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,7 +16,6 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,12 +28,6 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
-
-import com.adobe.xmp.XMPConst;
-import com.adobe.xmp.properties.XMPPropertyInfo;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -44,6 +39,7 @@ import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.xmp.EmbeddedXmpCache;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

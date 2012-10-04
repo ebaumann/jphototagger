@@ -3,10 +3,8 @@ package org.jphototagger.importfiles;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.exif.ExifInfo;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

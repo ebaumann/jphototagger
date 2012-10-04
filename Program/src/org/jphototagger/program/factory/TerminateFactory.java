@@ -1,9 +1,6 @@
 package org.jphototagger.program.factory;
 
 import java.io.File;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.FileImportService;
@@ -13,6 +10,7 @@ import org.jphototagger.program.app.AppCommandLineOptions;
 import org.jphototagger.program.app.AppInit;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.jphototagger.program.tasks.ScheduledTasks;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -30,17 +30,12 @@ import java.util.Set;
 import java.util.TooManyListenersException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JPanel;
 import javax.swing.JViewport;
 import javax.swing.TransferHandler;
-
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.file.event.DirectoryRenamedEvent;
 import org.jphototagger.api.preferences.Preferences;
@@ -76,6 +71,7 @@ import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.types.ByteSizeUnit;
 import org.jphototagger.program.types.FileAction;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann, Tobias Stening

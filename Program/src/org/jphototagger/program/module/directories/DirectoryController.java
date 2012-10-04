@@ -3,10 +3,8 @@ package org.jphototagger.program.module.directories;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.resource.GUI;

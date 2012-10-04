@@ -4,12 +4,10 @@ import java.awt.Component;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JTree;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
-
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 

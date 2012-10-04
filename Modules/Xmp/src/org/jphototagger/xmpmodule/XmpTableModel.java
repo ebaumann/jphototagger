@@ -1,11 +1,9 @@
 package org.jphototagger.xmpmodule;
 
+import com.adobe.xmp.properties.XMPPropertyInfo;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.adobe.xmp.properties.XMPPropertyInfo;
-
 import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 

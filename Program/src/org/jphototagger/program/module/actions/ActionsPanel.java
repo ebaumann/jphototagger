@@ -3,9 +3,6 @@ package org.jphototagger.program.module.actions;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramExecutor;
@@ -22,6 +19,7 @@ import org.jphototagger.program.module.programs.ProgramPropertiesDialog;
 import org.jphototagger.program.module.programs.ProgramsListModel;
 import org.jphototagger.program.module.programs.ProgramsUtil;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

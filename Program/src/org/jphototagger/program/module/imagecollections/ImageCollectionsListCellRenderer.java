@@ -4,12 +4,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 

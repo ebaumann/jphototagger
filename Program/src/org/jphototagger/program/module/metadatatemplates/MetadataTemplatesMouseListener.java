@@ -1,9 +1,7 @@
 package org.jphototagger.program.module.metadatatemplates;
 
 import javax.swing.ListSelectionModel;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.program.event.listener.ListMouseListener;
 import org.jphototagger.program.resource.GUI;
 

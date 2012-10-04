@@ -1,7 +1,6 @@
 package org.jphototagger.api.windows;
 
 import javax.swing.JMenuItem;
-
 import org.jphototagger.api.collections.PositionProvider;
 
 /**

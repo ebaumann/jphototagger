@@ -1,11 +1,9 @@
 package org.jphototagger.lib.swing;
 
 import java.io.File;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
-
 import org.jphototagger.lib.util.Bundle;
 
 /**

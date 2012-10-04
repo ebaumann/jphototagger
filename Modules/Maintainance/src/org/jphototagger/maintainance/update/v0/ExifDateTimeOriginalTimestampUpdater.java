@@ -2,15 +2,13 @@ package org.jphototagger.maintainance.update.v0;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.applifecycle.AppUpdater;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.maintainance.RefreshExifOfKnownFilesInRepository;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

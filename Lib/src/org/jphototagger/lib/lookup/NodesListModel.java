@@ -3,9 +3,7 @@ package org.jphototagger.lib.lookup;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.AbstractListModel;
-
 import org.jphototagger.api.nodes.Node;
 
 /**

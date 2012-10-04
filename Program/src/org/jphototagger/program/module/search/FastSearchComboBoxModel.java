@@ -1,7 +1,6 @@
 package org.jphototagger.program.module.search;
 
 import javax.swing.DefaultComboBoxModel;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
 

@@ -4,12 +4,10 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.thumbnails.FileSortComparator;
 import org.jphototagger.domain.thumbnails.FileSortComparators;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

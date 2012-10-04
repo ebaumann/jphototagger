@@ -3,14 +3,11 @@ package org.jphototagger.program.module.keywords.list;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
-
 import javax.swing.JMenuItem;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -1,7 +1,6 @@
 package org.jphototagger.domain.event.listener;
 
 import java.awt.Component;
-
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;

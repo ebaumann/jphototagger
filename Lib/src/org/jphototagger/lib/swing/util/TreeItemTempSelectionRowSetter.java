@@ -5,15 +5,12 @@ import java.awt.event.MouseListener;
 import java.lang.reflect.Method;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import javax.swing.tree.TreeCellRenderer;
-
 import org.jdesktop.swingx.JXTree;
-
 import org.jphototagger.lib.swing.MouseEventUtil;
 
 /**

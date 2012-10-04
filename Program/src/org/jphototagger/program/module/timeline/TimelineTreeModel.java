@@ -2,12 +2,8 @@ package org.jphototagger.program.module.timeline;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
@@ -21,6 +17,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.domain.timeline.Timeline.Date;
 import org.jphototagger.lib.swing.UpdateInfoTreeModel;
+import org.openide.util.Lookup;
 
 /**
  *

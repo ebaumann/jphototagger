@@ -1,12 +1,11 @@
 package org.jphototagger.program.module.imagecollections;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.imagecollections.ImageCollectionService;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

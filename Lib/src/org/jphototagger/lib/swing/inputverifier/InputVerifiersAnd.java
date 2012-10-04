@@ -2,7 +2,6 @@ package org.jphototagger.lib.swing.inputverifier;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 

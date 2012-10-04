@@ -4,11 +4,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.api.preferences.Preferences;
+import org.openide.util.Lookup;
 
 /**
  * @param <T> Type of the plugin

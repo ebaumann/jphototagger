@@ -1,7 +1,6 @@
 package org.jphototagger.domain.repository;
 
 import java.util.List;
-
 import org.jphototagger.domain.templates.MetadataTemplate;
 
 /**

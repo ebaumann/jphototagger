@@ -3,9 +3,7 @@ package org.jphototagger.program.event.listener;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.lib.swing.MouseEventUtil;
 
 /**

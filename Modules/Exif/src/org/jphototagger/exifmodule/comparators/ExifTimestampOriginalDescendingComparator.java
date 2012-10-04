@@ -3,7 +3,6 @@ package org.jphototagger.exifmodule.comparators;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
-
 import org.jphototagger.lib.comparator.ReverseComparator;
 import org.jphototagger.lib.util.ClassEquality;
 

@@ -2,15 +2,12 @@ package org.jphototagger.program.module.metadatatemplates;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

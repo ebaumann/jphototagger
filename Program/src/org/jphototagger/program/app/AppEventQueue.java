@@ -3,10 +3,8 @@ package org.jphototagger.program.app;
 import java.awt.AWTEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.WaitDisplayer;
+import org.openide.util.Lookup;
 
 /**
  * JPhotoTagger's event queue.

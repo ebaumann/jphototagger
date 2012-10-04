@@ -1,9 +1,7 @@
 package org.jphototagger.lib.plugin;
 
 import java.awt.Component;
-
 import javax.swing.Icon;
-
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
 
 /**

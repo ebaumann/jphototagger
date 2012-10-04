@@ -1,7 +1,6 @@
 package org.jphototagger.lib.net;
 
 import org.jphototagger.lib.util.Version;
-
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;

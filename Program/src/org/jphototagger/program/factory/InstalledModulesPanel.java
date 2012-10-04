@@ -2,17 +2,14 @@ package org.jphototagger.program.factory;
 
 import java.awt.Component;
 import java.util.Collection;
-
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

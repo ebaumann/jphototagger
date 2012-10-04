@@ -3,7 +3,6 @@ package org.jphototagger.program.module.filesystem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jphototagger.domain.templates.RenameTemplate;
 
 /**

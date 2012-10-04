@@ -3,7 +3,6 @@ package org.jphototagger.domain.repository.event.repoupdates;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import org.jphototagger.domain.programs.Program;
 
 /**

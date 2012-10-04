@@ -1,5 +1,11 @@
 package org.jphototagger.image.thumbnail;
 
+import com.imagero.reader.IOParameterBlock;
+import com.imagero.reader.ImageProcOptions;
+import com.imagero.reader.ImageReader;
+import com.imagero.reader.Imagero;
+import com.imagero.reader.ReaderFactory;
+import com.imagero.reader.tiff.TiffReader;
 import java.awt.Container;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -11,20 +17,10 @@ import java.awt.image.ImageProducer;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.image.util.ImageTransform;
-
-import com.imagero.reader.IOParameterBlock;
-import com.imagero.reader.ImageProcOptions;
-import com.imagero.reader.ImageReader;
-import com.imagero.reader.Imagero;
-import com.imagero.reader.ReaderFactory;
-import com.imagero.reader.tiff.TiffReader;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann, Tobias Stening

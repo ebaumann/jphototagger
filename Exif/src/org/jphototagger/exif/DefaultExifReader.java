@@ -1,11 +1,9 @@
 package org.jphototagger.exif;
 
 import java.io.File;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.exif.ExifReader;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

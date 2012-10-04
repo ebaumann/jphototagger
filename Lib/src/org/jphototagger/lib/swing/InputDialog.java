@@ -1,9 +1,7 @@
 package org.jphototagger.lib.swing;
 
 import java.awt.event.KeyEvent;
-
 import javax.swing.JDialog;
-
 import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**

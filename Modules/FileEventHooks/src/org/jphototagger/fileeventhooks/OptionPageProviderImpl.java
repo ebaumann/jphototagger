@@ -1,13 +1,10 @@
 package org.jphototagger.fileeventhooks;
 
 import java.awt.Component;
-
 import javax.swing.Icon;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

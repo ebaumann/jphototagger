@@ -6,11 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
-
 import org.jphototagger.api.applifecycle.AppUpdater;
 import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.concurrent.Cancelable;
@@ -24,6 +19,9 @@ import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.update.tables.DatabaseUpdateTask;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  * @author Elmar Baumann

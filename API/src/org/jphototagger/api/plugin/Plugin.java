@@ -1,7 +1,6 @@
 package org.jphototagger.api.plugin;
 
 import java.awt.Component;
-
 import org.jphototagger.api.component.DescriptionProvider;
 import org.jphototagger.api.component.DisplayNameProvider;
 import org.jphototagger.api.component.IconProvider;

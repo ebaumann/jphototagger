@@ -1,7 +1,6 @@
 package org.jphototagger.program.module.programs;
 
 import java.awt.event.KeyEvent;
-
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.lib.swing.Dialog;

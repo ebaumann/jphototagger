@@ -1,7 +1,6 @@
 package org.jphototagger.domain.metadata.xmp;
 
 import javax.swing.InputVerifier;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValue.ValueType;
 import org.jphototagger.lib.swing.inputverifier.NumberRangeInputVerifier;

@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
@@ -16,6 +13,7 @@ import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpFileReader;
+import org.openide.util.Lookup;
 
 /**
  * Extracts in images embedded XMP metadata into sidecar files.

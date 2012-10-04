@@ -1,7 +1,6 @@
 package org.jphototagger.repository.hsqldb.update.tables;
 
 import java.util.Comparator;
-
 import org.jphototagger.lib.util.Version;
 
 /**

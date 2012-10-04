@@ -6,15 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.repository.hsqldb.Database;
+import org.openide.util.Lookup;
 
 /**
  * Removes invalid EXIF metadata (Bugfix).

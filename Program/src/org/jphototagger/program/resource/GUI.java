@@ -2,19 +2,15 @@ package org.jphototagger.program.resource;
 
 import java.io.File;
 import java.util.List;
-
 import javax.swing.JTree;
-
 import org.jdesktop.swingx.JXList;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanelProvider;
+import org.openide.util.Lookup;
 
 /**
  * Provides access to GUI elements.

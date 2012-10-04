@@ -9,13 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.SavedSearchesDatabase;
+import org.openide.util.Lookup;
 
 /**
  * Moves content of a table column into another table related 1:n (one to many)

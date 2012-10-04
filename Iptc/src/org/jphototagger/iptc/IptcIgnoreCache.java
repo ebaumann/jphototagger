@@ -3,17 +3,14 @@ package org.jphototagger.iptc;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileDeletedEvent;
 import org.jphototagger.domain.repository.event.imagefiles.ImageFileMovedEvent;
 import org.jphototagger.lib.io.FileUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

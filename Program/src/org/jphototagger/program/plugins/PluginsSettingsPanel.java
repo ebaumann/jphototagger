@@ -4,14 +4,10 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
@@ -20,6 +16,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.PluginManager;
+import org.openide.util.Lookup;
 
 /**
  * Dynamically adds panels of plugins ({@code AbstractFileProcessorPlugin#getSettingsComponent()}).

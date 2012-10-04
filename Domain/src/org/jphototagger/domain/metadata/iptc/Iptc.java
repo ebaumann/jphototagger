@@ -1,13 +1,11 @@
 package org.jphototagger.domain.metadata.iptc;
 
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jphototagger.domain.metadata.mapping.IptcRepeatableValues;
-
-import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * IPTC metadata of an image file.

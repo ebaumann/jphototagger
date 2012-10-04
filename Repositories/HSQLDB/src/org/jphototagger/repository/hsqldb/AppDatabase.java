@@ -4,9 +4,6 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.branding.AppProperties;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
@@ -15,6 +12,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.update.tables.DatabaseUpdate;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

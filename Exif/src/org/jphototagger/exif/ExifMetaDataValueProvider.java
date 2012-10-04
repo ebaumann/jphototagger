@@ -8,9 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.domain.metadata.MetaDataValueProvider;
@@ -20,6 +17,7 @@ import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifLensMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifRecordingEquipmentMetaDataValue;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

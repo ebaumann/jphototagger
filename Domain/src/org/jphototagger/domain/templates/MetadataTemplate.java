@@ -2,7 +2,6 @@ package org.jphototagger.domain.templates;
 
 import java.util.HashMap;
 import java.util.Set;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;

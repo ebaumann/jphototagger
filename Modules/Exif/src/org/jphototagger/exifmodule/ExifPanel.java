@@ -7,7 +7,6 @@ import java.awt.Insets;
 import java.io.File;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -20,9 +19,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.domain.metadata.exif.ExifTag;
 import org.jphototagger.lib.swing.TableButtonMouseListener;
@@ -32,6 +28,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.StringUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

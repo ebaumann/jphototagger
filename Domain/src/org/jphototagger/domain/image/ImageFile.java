@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.SaveOrUpdate;

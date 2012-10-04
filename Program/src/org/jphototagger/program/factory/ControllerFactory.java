@@ -1,7 +1,6 @@
 package org.jphototagger.program.factory;
 
 import java.util.List;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.logging.ErrorLogHandler;

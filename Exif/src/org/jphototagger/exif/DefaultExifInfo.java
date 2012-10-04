@@ -7,10 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.domain.metadata.exif.ExifMakerNoteTags;
 import org.jphototagger.exif.ExifTag.Id;
@@ -20,6 +16,8 @@ import org.jphototagger.exif.tag.ExifGpsLongitude;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.exif.tag.ExifGpsUtil;
 import org.jphototagger.lib.util.Translation;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

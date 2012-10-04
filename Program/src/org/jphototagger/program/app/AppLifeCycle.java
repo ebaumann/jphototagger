@@ -8,11 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.concurrent.ReplaceableTask;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
@@ -26,6 +22,7 @@ import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ScheduledTasks;
+import org.openide.util.Lookup;
 
 /**
  * Life cycle of the application.

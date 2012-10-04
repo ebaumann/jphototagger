@@ -2,7 +2,6 @@ package org.jphototagger.program.module.programs;
 
 import java.awt.Container;
 import java.awt.event.MouseEvent;
-
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.lib.swing.Dialog;

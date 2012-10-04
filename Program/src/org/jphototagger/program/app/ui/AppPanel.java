@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Icon;
@@ -27,14 +26,9 @@ import javax.swing.KeyStroke;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.tree.TreeSelectionModel;
-
 import org.bushe.swing.event.EventBus;
-
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.MainWindowComponent;
@@ -57,6 +51,7 @@ import org.jphototagger.lib.swingx.SearchInJxTreeAction;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann, Tobias Stening

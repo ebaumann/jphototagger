@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.exif.formatter.ExifFormatterAscii;
 import org.jphototagger.exif.tag.ExifGpsLatitude;

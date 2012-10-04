@@ -2,10 +2,8 @@ package org.jphototagger.importfiles;
 
 import java.io.File;
 import java.util.Comparator;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.exif.ExifInfo;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

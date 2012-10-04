@@ -2,7 +2,6 @@ package org.jphototagger.program.module.search;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import org.jphototagger.program.module.Controller;
 import org.jphototagger.program.resource.GUI;
 

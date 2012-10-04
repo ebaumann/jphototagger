@@ -1,7 +1,6 @@
 package org.jphototagger.lib.help;
 
 import java.util.List;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 

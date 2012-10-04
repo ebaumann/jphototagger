@@ -1,7 +1,6 @@
 package org.jphototagger.domain.repository;
 
 import org.jphototagger.api.event.PropertyEvent;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 

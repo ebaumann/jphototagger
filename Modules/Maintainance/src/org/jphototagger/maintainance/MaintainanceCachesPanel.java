@@ -4,13 +4,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ResourceBundle;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import org.jdesktop.swingx.JXLabel;
-
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**

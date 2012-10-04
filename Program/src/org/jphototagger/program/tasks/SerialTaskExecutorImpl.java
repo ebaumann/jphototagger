@@ -1,8 +1,7 @@
 package org.jphototagger.program.tasks;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

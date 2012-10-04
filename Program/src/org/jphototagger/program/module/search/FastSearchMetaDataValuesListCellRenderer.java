@@ -1,11 +1,9 @@
 package org.jphototagger.program.module.search;
 
 import java.awt.Component;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.util.Bundle;
 

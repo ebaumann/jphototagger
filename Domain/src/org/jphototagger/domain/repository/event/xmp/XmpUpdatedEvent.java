@@ -1,7 +1,6 @@
 package org.jphototagger.domain.repository.event.xmp;
 
 import java.io.File;
-
 import org.jphototagger.domain.metadata.xmp.Xmp;
 
 /**

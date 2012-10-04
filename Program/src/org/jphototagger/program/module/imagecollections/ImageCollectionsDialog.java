@@ -2,9 +2,7 @@ package org.jphototagger.program.module.imagecollections;
 
 import java.awt.Container;
 import java.awt.event.MouseEvent;
-
 import javax.swing.ListModel;
-
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;

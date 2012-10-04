@@ -2,7 +2,6 @@ package org.jphototagger.lib.api;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
 

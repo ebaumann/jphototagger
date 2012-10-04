@@ -3,9 +3,7 @@ package org.jphototagger.program.module.filesystem;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.bushe.swing.event.EventBus;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.file.event.FileMovedEvent;
 import org.jphototagger.api.progress.ProgressEvent;

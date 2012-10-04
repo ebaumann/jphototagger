@@ -7,10 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.metadata.MetaDataValueData;
 import org.jphototagger.lib.datatransfer.TransferUtil;

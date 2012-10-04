@@ -1,5 +1,9 @@
 package org.jphototagger.image.thumbnail;
 
+import com.imagero.reader.IOParameterBlock;
+import com.imagero.reader.ImageProcOptions;
+import com.imagero.reader.ImageReader;
+import com.imagero.reader.Imagero;
 import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
@@ -9,14 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.thumbnails.ExternalThumbnailCreationCommand;
@@ -28,11 +26,9 @@ import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ProcessResult;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemUtil;
-
-import com.imagero.reader.IOParameterBlock;
-import com.imagero.reader.ImageProcOptions;
-import com.imagero.reader.ImageReader;
-import com.imagero.reader.Imagero;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  * @author Elmar Baumann

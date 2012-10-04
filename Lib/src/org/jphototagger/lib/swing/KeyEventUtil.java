@@ -3,7 +3,6 @@ package org.jphototagger.lib.swing;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.KeyStroke;
 
 /**

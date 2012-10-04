@@ -1,9 +1,7 @@
 package org.jphototagger.userdefinedfilters;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
-
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 

@@ -1,7 +1,6 @@
 package org.jphototagger.lib.swing;
 
 import javax.swing.DefaultListModel;
-
 import org.jphototagger.lib.util.Bundle;
 
 /**

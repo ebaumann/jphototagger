@@ -1,9 +1,7 @@
 package org.jphototagger.maintainance;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
-
 import org.jphototagger.iptc.IptcIgnoreCache;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;

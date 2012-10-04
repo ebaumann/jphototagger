@@ -2,7 +2,6 @@ package org.jphototagger.domain.thumbnails;
 
 import java.io.File;
 import java.util.Comparator;
-
 import org.jphototagger.api.collections.PositionProvider;
 
 /**

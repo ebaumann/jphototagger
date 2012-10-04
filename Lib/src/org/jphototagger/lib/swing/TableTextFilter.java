@@ -2,7 +2,6 @@ package org.jphototagger.lib.swing;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.RowFilter.Entry;
@@ -14,7 +13,6 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.table.TableStringConverter;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-
 import org.jphototagger.lib.util.StringUtil;
 
 /**

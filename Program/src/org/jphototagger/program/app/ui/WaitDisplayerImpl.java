@@ -1,9 +1,8 @@
 package org.jphototagger.program.app.ui;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

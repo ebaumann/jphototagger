@@ -4,13 +4,11 @@ import java.awt.Component;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.filechooser.FileSystemView;
-
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 

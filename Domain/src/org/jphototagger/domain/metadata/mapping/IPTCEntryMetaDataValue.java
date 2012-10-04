@@ -1,9 +1,8 @@
 package org.jphototagger.domain.metadata.mapping;
 
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.util.ObjectUtil;
-
-import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * @author Elmar Baumann

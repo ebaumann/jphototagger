@@ -7,13 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JFileChooser;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
@@ -32,6 +27,7 @@ import org.jphototagger.lib.swing.FileChooserExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.PreferencesUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

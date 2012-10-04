@@ -5,11 +5,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.AppDatabase;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

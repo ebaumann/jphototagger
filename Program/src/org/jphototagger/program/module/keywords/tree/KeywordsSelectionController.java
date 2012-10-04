@@ -2,12 +2,10 @@ package org.jphototagger.program.module.keywords.tree;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.module.keywords.list.ShowThumbnailsContainingAllKeywords2;

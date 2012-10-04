@@ -1,8 +1,7 @@
 package org.jphototagger.exif.cache;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.metadata.exif.ExifCacheProvider;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

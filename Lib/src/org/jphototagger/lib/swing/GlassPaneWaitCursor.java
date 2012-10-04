@@ -3,9 +3,7 @@ package org.jphototagger.lib.swing;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
-
 import javax.swing.JFrame;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 
 /**

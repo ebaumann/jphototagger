@@ -9,19 +9,15 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.swing.JCheckBox;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.DisplayMessageInFuturePreferencesKeys;
 import org.jphototagger.api.preferences.DisplayMessageInFuturePreferencesKeys.KeyInfo;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

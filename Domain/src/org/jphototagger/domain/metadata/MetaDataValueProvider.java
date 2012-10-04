@@ -2,7 +2,6 @@ package org.jphototagger.domain.metadata;
 
 import java.io.File;
 import java.util.Collection;
-
 import org.jphototagger.api.collections.PositionProvider;
 
 /**

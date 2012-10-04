@@ -6,13 +6,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -20,6 +16,7 @@ import org.jphototagger.lib.swing.SortedChildrenTreeNode;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@code DefaultMutableTreeNode}s with the user objects listed

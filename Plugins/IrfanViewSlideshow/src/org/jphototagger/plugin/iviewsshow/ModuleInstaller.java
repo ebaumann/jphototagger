@@ -1,11 +1,10 @@
 package org.jphototagger.plugin.iviewsshow;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemUtil;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author  Elmar Baumann

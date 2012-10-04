@@ -2,7 +2,6 @@ package org.jphototagger.program.app.ui;
 
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.JComponent;
 
 /**

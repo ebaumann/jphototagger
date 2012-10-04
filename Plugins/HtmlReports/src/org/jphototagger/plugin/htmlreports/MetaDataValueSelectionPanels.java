@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 

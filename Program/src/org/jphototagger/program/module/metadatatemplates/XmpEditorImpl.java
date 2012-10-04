@@ -1,9 +1,8 @@
 package org.jphototagger.program.module.metadatatemplates;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpEditor;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

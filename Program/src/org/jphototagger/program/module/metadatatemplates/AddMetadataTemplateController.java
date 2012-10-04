@@ -2,9 +2,7 @@ package org.jphototagger.program.module.metadatatemplates;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
-
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;

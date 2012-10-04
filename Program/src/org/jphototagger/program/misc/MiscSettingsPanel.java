@@ -7,15 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
-
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.file.FilenameTokens;
@@ -40,6 +35,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesDefaults;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.xmp.XmpPreferences;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

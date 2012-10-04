@@ -3,7 +3,6 @@ package org.jphototagger.lib.swing.util;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
 import org.jphototagger.lib.util.SystemUtil;
 
 /**

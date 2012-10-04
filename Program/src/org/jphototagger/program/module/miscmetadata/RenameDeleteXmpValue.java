@@ -6,9 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -25,6 +22,7 @@ import org.jphototagger.lib.util.ProgressBarUpdater;
 import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Renames or deletes values in XMP sidecar files.

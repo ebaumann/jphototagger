@@ -1,5 +1,14 @@
 package org.jphototagger.xmp;
 
+import com.adobe.xmp.XMPException;
+import com.adobe.xmp.XMPIterator;
+import com.adobe.xmp.XMPMeta;
+import com.adobe.xmp.XMPMetaFactory;
+import com.adobe.xmp.options.IteratorOptions;
+import com.adobe.xmp.options.PropertyOptions;
+import com.adobe.xmp.options.SerializeOptions;
+import com.adobe.xmp.properties.XMPPropertyInfo;
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,18 +20,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.adobe.xmp.XMPException;
-import com.adobe.xmp.XMPIterator;
-import com.adobe.xmp.XMPMeta;
-import com.adobe.xmp.XMPMetaFactory;
-import com.adobe.xmp.options.IteratorOptions;
-import com.adobe.xmp.options.PropertyOptions;
-import com.adobe.xmp.options.SerializeOptions;
-import com.adobe.xmp.properties.XMPPropertyInfo;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.mapping.IptcEntryXmpPathStartMapping;
 import org.jphototagger.domain.metadata.mapping.XmpMetaDataValueXmpArrayNameMapping;
@@ -35,8 +32,7 @@ import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.xmp.XmpToSaveInRepository;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
-
-import com.imagero.reader.iptc.IPTCEntryMeta;
+import org.openide.util.Lookup;
 
 /**
  * Gets and sets XMP metadata from image files and XMP sidecar files and to XMP sidecar files.

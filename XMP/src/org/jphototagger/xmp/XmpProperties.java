@@ -1,5 +1,12 @@
 package org.jphototagger.xmp;
 
+import com.adobe.xmp.XMPConst;
+import com.adobe.xmp.XMPException;
+import com.adobe.xmp.XMPIterator;
+import com.adobe.xmp.XMPMeta;
+import com.adobe.xmp.XMPMetaFactory;
+import com.adobe.xmp.options.PropertyOptions;
+import com.adobe.xmp.properties.XMPPropertyInfo;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,14 +15,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.adobe.xmp.XMPConst;
-import com.adobe.xmp.XMPException;
-import com.adobe.xmp.XMPIterator;
-import com.adobe.xmp.XMPMeta;
-import com.adobe.xmp.XMPMetaFactory;
-import com.adobe.xmp.options.PropertyOptions;
-import com.adobe.xmp.properties.XMPPropertyInfo;
 
 /**
  * Methods for accessing XMP (Extensible Metadata Platform).

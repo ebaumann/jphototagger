@@ -1,7 +1,6 @@
 package org.jphototagger.lib.swing;
 
 import java.util.Vector;
-
 import javax.swing.table.DefaultTableModel;
 
 /**

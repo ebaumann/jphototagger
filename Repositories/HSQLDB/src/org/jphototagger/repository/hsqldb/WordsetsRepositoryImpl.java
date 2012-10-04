@@ -1,11 +1,9 @@
 package org.jphototagger.repository.hsqldb;
 
 import java.util.List;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.repository.WordsetsRepository;
 import org.jphototagger.domain.wordsets.Wordset;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

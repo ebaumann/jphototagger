@@ -1,13 +1,11 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.Component;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

@@ -2,7 +2,6 @@ package org.jphototagger.exif.tag;
 
 import java.nio.ByteOrder;
 import java.util.Arrays;
-
 import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.datatype.ExifRational;
 

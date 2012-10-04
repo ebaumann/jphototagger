@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.jphototagger.domain.metadata.exif.ExifMetaDataValues;
 import org.jphototagger.domain.metadata.file.FilesMetaDataValues;
 import org.jphototagger.domain.metadata.thumbnails.ThumbnailsThumbnailMetaDataValue;

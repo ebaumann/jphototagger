@@ -2,7 +2,6 @@ package org.jphototagger.domain.metadata.search;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jphototagger.lib.util.StringUtil;
 
 /**

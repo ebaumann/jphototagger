@@ -11,11 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.programs.DefaultProgram;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
@@ -26,6 +22,7 @@ import org.jphototagger.domain.repository.event.programs.DefaultProgramUpdatedEv
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
+import org.openide.util.Lookup;
 
 /**
  * Contains external Programs to start within the application. The primary key of a program is it's <strong>ID</strong>

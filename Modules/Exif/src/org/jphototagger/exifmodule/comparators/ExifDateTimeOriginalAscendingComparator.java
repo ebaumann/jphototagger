@@ -3,12 +3,10 @@ package org.jphototagger.exifmodule.comparators;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Comparator;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.ClassEquality;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

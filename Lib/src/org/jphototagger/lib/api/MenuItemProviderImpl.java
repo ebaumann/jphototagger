@@ -3,7 +3,6 @@ package org.jphototagger.lib.api;
 import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
-
 import org.jphototagger.api.component.Selectable;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.swing.util.MenuUtil;

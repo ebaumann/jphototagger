@@ -2,15 +2,12 @@ package org.jphototagger.xmpmodule;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.AbstractAction;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.filefilter.AppFileFilterProvider;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

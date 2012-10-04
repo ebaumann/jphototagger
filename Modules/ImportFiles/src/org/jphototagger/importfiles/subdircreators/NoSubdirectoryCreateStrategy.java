@@ -1,11 +1,9 @@
 package org.jphototagger.importfiles.subdircreators;
 
 import java.io.File;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann
