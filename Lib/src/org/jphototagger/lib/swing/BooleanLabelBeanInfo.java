@@ -11,6 +11,7 @@ import java.beans.SimpleBeanInfo;
 /**
  * @author Elmar Baumann
  */
+@SuppressWarnings("rawtypes")
 public class BooleanLabelBeanInfo extends SimpleBeanInfo {
 
     // Bean descriptor//GEN-FIRST:BeanDescriptor

@@ -14,9 +14,9 @@ import java.beans.SimpleBeanInfo;
 
 
 /**
- *
  * @author Elmar Baumann
  */
+@SuppressWarnings("rawtypes")
 public class TextComponentSearchPanelBeanInfo extends SimpleBeanInfo {
 
     // Bean descriptor//GEN-FIRST:BeanDescriptor
