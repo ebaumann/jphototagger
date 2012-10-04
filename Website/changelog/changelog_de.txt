@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.26.2 2012-10-04
+-----------------
+
+* Bugfix: Beim Verschieben von Bilddateien werden wieder deren
+  XMP-Filialdateien mit verschoben
+
 0.26.1 2012-09-12
 -----------------
 

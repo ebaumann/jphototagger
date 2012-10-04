@@ -3,7 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.26.1 2012-09-
+0.26.2 2012-10-04
+-----------------
+
+* Bugfix: When moving image files, their XMP sidecar files will be moved too
+  again
+
+0.26.1 2012-09-12
 -----------------
 
 * Programs for opening images recognizing Mac OS X applicatins (Suffix ".app")
