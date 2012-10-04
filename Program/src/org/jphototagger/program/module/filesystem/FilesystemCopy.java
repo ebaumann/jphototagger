@@ -7,12 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -28,6 +23,8 @@ import org.jphototagger.lib.io.SourceTargetFile;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

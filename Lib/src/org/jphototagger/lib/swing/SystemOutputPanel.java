@@ -6,9 +6,7 @@ import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import javax.swing.JPanel;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 

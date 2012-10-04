@@ -3,9 +3,7 @@ package org.jphototagger.lib.swing;
 import java.awt.Component;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JOptionPane;
-
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ExceptionUtil;

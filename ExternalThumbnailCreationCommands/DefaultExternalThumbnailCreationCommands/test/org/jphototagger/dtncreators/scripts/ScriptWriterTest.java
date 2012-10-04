@@ -1,7 +1,6 @@
 package org.jphototagger.dtncreators.scripts;
 
 import org.jphototagger.tcc.def.scripts.ScriptWriter;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 

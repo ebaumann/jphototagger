@@ -1,13 +1,10 @@
 package org.jphototagger.lib.swingx;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.ActionMap;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.lib.util.Bundle;
 
 /**

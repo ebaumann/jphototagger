@@ -7,17 +7,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
-
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-
 import org.jdesktop.swingx.JXList;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.SynonymsRepository;
@@ -26,6 +21,7 @@ import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

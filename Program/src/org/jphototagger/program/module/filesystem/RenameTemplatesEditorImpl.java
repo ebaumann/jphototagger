@@ -2,11 +2,9 @@ package org.jphototagger.program.module.filesystem;
 
 import java.awt.Component;
 import java.awt.Frame;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.editors.RenameTemplatesEditor;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

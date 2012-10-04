@@ -1,12 +1,10 @@
 package org.jphototagger.program.module.thumbnails.cache;
 
 import java.io.File;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

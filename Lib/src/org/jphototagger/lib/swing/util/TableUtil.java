@@ -2,13 +2,11 @@ package org.jphototagger.lib.swing.util;
 
 import java.awt.Component;
 import java.util.List;
-
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-
 import org.jphototagger.lib.util.StringUtil;
 
 /**

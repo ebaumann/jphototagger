@@ -2,7 +2,6 @@ package org.jphototagger.domain.metadata.mapping;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;

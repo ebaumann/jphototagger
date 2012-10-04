@@ -2,7 +2,6 @@ package org.jphototagger.program.app.logging;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.lib.util.SystemProperties;
 import org.jphototagger.program.app.AppInfo;
 

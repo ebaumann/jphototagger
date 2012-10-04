@@ -12,11 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.ImageIcon;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
@@ -27,6 +23,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -26,18 +26,13 @@ import java.util.Stack;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
@@ -70,6 +65,7 @@ import org.jphototagger.program.view.ViewUtil;
 import org.jphototagger.xmp.EditHints;
 import org.jphototagger.xmp.EditableMetaDataValues;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann, Tobias Stening

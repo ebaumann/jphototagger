@@ -4,9 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.JTree;
-
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.datatransfer.TransferUtil.FilenameDelimiter;
 import org.jphototagger.lib.swing.KeyEventUtil;

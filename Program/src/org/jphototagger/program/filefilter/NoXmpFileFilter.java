@@ -2,12 +2,10 @@ package org.jphototagger.program.filefilter;
 
 import java.io.File;
 import java.io.FileFilter;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.component.DisplayNameProvider;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Accepts files with no sidecar files

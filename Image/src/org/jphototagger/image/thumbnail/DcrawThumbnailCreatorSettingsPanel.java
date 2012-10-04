@@ -1,11 +1,7 @@
 package org.jphototagger.image.thumbnail;
 
 import java.io.File;
-
 import javax.swing.JFileChooser;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.lib.swing.FileChooserHelper;
@@ -14,6 +10,7 @@ import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

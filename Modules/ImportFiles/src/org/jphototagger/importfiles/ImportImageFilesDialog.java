@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.AbstractAction;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -20,9 +19,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.api.preferences.Preferences;
@@ -45,6 +41,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

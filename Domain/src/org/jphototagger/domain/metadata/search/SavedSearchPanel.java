@@ -3,7 +3,6 @@ package org.jphototagger.domain.metadata.search;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueIds;
 

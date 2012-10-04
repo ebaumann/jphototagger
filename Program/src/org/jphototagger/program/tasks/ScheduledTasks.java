@@ -8,15 +8,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.JButton;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
@@ -27,6 +22,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.settings.SettingsDialog;
+import org.openide.util.Lookup;
 
 /**
  * Runs scheduled tasks after

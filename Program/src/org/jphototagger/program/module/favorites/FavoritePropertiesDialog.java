@@ -4,9 +4,6 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.favorites.Favorite;
@@ -19,6 +16,7 @@ import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 
 /**

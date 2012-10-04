@@ -2,7 +2,6 @@ package org.jphototagger.program.app.ui;
 
 import java.awt.event.MouseListener;
 import java.util.Set;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressHandle;

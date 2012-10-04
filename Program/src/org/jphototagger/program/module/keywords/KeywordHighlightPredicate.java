@@ -6,22 +6,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jdesktop.swingx.decorator.ColorHighlighter;
 import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.Highlighter;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.keywords.list.KeywordsListCellRenderer;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

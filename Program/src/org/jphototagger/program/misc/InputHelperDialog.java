@@ -1,9 +1,6 @@
 package org.jphototagger.program.misc;
 
 import javax.swing.ListModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.TabbedPaneUtil;
@@ -11,6 +8,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Dialog for input assistance.

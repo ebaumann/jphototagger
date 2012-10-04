@@ -1,7 +1,6 @@
 package org.jphototagger.api.file;
 
 import java.io.File;
-
 import org.jphototagger.api.collections.PositionProvider;
 import org.jphototagger.api.component.DisplayNameProvider;
 

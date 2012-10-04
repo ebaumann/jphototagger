@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.openide.util.Lookup;
 
 /**
@@ -47,7 +46,7 @@ public final class MetaDataValueProviderSupport {
             for (MetaDataValueProvider provider : valueProviders) {
                 for (MetaDataValueData valueData : provider.getMetaDataForImageFile(file)) {
                     if (forValue.equals(valueData.getMetaDataValue())) {
-                       metaData.add(valueData); 
+                       metaData.add(valueData);
                     }
                 }
             }

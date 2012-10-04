@@ -5,16 +5,11 @@ import java.text.MessageFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Set;
-
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.RepositoryInfoCountOfMetaDataValues;
@@ -32,6 +27,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

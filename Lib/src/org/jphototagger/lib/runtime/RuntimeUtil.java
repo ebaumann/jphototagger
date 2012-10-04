@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.logging.Logger;
-
 import org.jphototagger.lib.io.FileUtil;
 
 /**

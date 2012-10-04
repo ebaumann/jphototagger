@@ -1,18 +1,15 @@
 package org.jphototagger.userdefinedfilters;
 
 import javax.swing.DefaultListModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterDeletedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterInsertedEvent;
 import org.jphototagger.domain.repository.event.userdefinedfilefilters.UserDefinedFileFilterUpdatedEvent;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

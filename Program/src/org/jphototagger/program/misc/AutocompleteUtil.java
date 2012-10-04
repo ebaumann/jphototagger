@@ -3,9 +3,6 @@ package org.jphototagger.program.misc;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
@@ -14,6 +11,7 @@ import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataVal
 import org.jphototagger.domain.metadata.selections.FastSearchMetaDataValues;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.lib.swing.util.Autocomplete;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

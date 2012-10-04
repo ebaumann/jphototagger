@@ -1,12 +1,10 @@
 package org.jphototagger.lib.lookup;
 
 import java.awt.Component;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
 import org.jphototagger.api.component.HtmlDisplayNameProvider;
 import org.jphototagger.api.nodes.Node;
 

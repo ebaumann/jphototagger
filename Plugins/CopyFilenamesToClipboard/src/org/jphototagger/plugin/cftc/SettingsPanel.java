@@ -3,18 +3,15 @@ package org.jphototagger.plugin.cftc;
 import java.awt.Component;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Settings for {@code CopyFilenamesToClipboard}.

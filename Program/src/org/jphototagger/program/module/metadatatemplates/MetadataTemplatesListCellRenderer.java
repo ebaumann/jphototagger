@@ -1,11 +1,9 @@
 package org.jphototagger.program.module.metadatatemplates;
 
 import java.awt.Component;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
-
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.ListCellRendererExt;

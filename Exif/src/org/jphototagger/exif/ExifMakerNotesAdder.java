@@ -3,7 +3,6 @@ package org.jphototagger.exif;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jphototagger.exif.formatter.canon.CanonMakerNotes;
 import org.jphototagger.exif.formatter.nikon.NikonMakerNotes;
 

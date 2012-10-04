@@ -4,24 +4,20 @@ import java.awt.Component;
 import java.awt.Window;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.Settings;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

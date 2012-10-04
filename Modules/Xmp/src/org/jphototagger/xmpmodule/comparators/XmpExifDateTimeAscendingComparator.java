@@ -5,11 +5,9 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.ClassEquality;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

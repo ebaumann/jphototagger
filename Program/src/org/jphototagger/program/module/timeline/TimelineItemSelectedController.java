@@ -9,17 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -30,6 +25,7 @@ import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

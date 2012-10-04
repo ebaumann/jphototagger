@@ -7,9 +7,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
-
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.jphototagger.program.resource.GUI;
 

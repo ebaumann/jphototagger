@@ -8,9 +8,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -23,6 +20,7 @@ import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

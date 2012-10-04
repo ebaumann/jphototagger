@@ -5,12 +5,10 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
-
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 

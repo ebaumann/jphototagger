@@ -1,7 +1,6 @@
 package org.jphototagger.program.module.thumbnails.cache;
 
 import java.io.File;
-
 import org.jphototagger.domain.metadata.xmp.Xmp;
 
 /**

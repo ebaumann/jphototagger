@@ -6,14 +6,9 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
-
 import javax.swing.DefaultListModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -24,6 +19,7 @@ import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEven
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

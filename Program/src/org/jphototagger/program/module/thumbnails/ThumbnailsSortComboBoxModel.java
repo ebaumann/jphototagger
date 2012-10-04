@@ -6,11 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.thumbnails.FileSortComparator;
 import org.jphototagger.domain.thumbnails.FileSortComparators;
@@ -18,6 +14,7 @@ import org.jphototagger.lib.api.LayerUtil;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@link FileSorter}s.

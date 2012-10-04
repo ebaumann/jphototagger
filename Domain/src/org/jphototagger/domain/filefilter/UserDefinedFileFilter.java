@@ -5,11 +5,9 @@ import java.io.FileFilter;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.jphototagger.lib.util.Bundle;
 
 /**

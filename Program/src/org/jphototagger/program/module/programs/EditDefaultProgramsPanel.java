@@ -7,13 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
@@ -25,6 +21,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.iptc.IptcEntry;
 import org.jphototagger.iptc.IptcEntryComparator;
@@ -15,6 +12,7 @@ import org.jphototagger.iptc.IptcMetadata;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * All elements are {@code IptcEntry}s of <em>one</em>.

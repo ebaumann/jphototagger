@@ -2,9 +2,6 @@ package org.jphototagger.program.module.thumbnails;
 
 import java.io.File;
 import java.util.Arrays;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.io.FileUtil;
@@ -12,6 +9,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.ProgramsUtil;
 import org.jphototagger.program.module.programs.StartPrograms;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

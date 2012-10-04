@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.JMenuItem;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;

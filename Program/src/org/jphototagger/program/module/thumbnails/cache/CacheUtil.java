@@ -1,10 +1,9 @@
 package org.jphototagger.program.module.thumbnails.cache;
 
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.exif.ExifCacheProvider;
 import org.jphototagger.iptc.IptcIgnoreCache;
 import org.jphototagger.xmp.EmbeddedXmpCache;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

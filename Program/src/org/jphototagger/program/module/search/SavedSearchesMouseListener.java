@@ -2,9 +2,7 @@ package org.jphototagger.program.module.search;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ListUtil;

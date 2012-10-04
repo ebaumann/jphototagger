@@ -6,11 +6,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.JButton;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.lib.help.HelpPageProvider;
@@ -19,6 +15,7 @@ import org.jphototagger.lib.swing.util.TabbedPaneUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Modaler Dialog für Anwendungseinstellungen.

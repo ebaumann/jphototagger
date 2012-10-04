@@ -3,7 +3,6 @@ package org.jphototagger.exif.formatter.canon;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.exif.ExifIfdType;
 import org.jphototagger.exif.ExifMakerNotes;
 import org.jphototagger.exif.ExifTag;

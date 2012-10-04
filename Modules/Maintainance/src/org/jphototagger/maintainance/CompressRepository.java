@@ -3,9 +3,6 @@ package org.jphototagger.maintainance;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -13,6 +10,7 @@ import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

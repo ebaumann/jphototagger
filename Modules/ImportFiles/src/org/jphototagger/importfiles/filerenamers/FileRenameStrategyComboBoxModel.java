@@ -4,14 +4,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.FileRenameStrategyProvider;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -3,17 +3,12 @@ package org.jphototagger.program.factory;
 import java.awt.Cursor;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.JList;
 import javax.swing.JTree;
 import javax.swing.SortOrder;
 import javax.swing.tree.TreeModel;
-
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.sort.ListSortController;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -37,6 +32,7 @@ import org.jphototagger.program.module.miscmetadata.MiscMetadataTreeModel;
 import org.jphototagger.program.module.search.SavedSearchesListModel;
 import org.jphototagger.program.module.timeline.TimelineTreeModel;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Erzeugt die Models und verbindet sie mit den GUI-Elementen.

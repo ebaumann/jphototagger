@@ -3,7 +3,6 @@ package org.jphototagger.domain.metadata.selections;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**

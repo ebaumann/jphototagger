@@ -1,10 +1,8 @@
 package org.jphototagger.program.plugins;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-
 import org.jphototagger.api.plugin.Plugin;
 
 /**

@@ -4,13 +4,11 @@ import java.awt.Component;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;

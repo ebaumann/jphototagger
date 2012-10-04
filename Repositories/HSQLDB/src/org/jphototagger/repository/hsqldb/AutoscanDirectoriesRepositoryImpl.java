@@ -2,10 +2,8 @@ package org.jphototagger.repository.hsqldb;
 
 import java.io.File;
 import java.util.List;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.repository.AutoscanDirectoriesRepository;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

@@ -2,7 +2,6 @@ package org.jphototagger.exif.tag;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
-
 import org.jphototagger.lib.util.NumberRange;
 
 /**

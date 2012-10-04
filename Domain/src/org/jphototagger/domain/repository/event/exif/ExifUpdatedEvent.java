@@ -1,7 +1,6 @@
 package org.jphototagger.domain.repository.event.exif;
 
 import java.io.File;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 
 /**

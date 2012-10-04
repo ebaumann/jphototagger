@@ -1,7 +1,6 @@
 package org.jphototagger.lib.resource;
 
 import org.jphototagger.lib.util.MutualExcludedResource;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 

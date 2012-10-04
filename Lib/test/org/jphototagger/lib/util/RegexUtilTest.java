@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;

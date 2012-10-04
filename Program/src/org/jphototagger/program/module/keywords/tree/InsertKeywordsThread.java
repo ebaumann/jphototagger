@@ -2,17 +2,14 @@ package org.jphototagger.program.module.keywords.tree;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Inserts a list of Strings into the keywords root.

@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -17,6 +14,7 @@ import org.jphototagger.lib.swing.ProgressDialog;
 import org.jphototagger.lib.swing.SizeAndLocationController;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

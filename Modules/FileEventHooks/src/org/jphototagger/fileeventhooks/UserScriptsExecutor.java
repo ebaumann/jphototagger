@@ -4,12 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.file.event.FileCopiedEvent;
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.file.event.FileMovedEvent;
@@ -17,6 +13,7 @@ import org.jphototagger.api.file.event.FileRenamedEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.util.StringUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

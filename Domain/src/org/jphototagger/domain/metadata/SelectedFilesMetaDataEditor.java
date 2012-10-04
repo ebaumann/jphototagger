@@ -1,7 +1,6 @@
 package org.jphototagger.domain.metadata;
 
 import javax.swing.JPanel;
-
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.templates.MetadataTemplate;
 

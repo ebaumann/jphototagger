@@ -4,13 +4,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
-
 import javax.swing.JDialog;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -22,6 +18,7 @@ import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -2,7 +2,6 @@ package org.jphototagger.domain.repository;
 
 import java.io.File;
 import java.util.Collection;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressListener;
 

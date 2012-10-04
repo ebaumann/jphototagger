@@ -1,8 +1,7 @@
 package org.jphototagger.plugin.iviewsshow;
 
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
+import org.openide.util.Lookup;
 
 /**
  *

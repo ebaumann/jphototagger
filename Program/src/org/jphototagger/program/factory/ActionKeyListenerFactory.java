@@ -3,9 +3,7 @@ package org.jphototagger.program.factory;
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-
 import javax.swing.JMenuItem;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.keywords.tree.AddKeywordToTreeController;

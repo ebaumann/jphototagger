@@ -3,14 +3,10 @@ package org.jphototagger.synonyms;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
@@ -21,6 +17,7 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

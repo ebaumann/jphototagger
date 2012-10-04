@@ -3,7 +3,6 @@ package org.jphototagger.lib.util;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;

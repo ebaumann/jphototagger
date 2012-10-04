@@ -7,9 +7,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;

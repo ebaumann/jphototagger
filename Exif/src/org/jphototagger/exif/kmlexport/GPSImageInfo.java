@@ -2,7 +2,6 @@ package org.jphototagger.exif.kmlexport;
 
 import java.io.File;
 import java.text.MessageFormat;
-
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 
 /**

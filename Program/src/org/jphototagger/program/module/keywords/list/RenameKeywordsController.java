@@ -3,9 +3,7 @@ package org.jphototagger.program.module.keywords.list;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
-
 import javax.swing.JDialog;
-
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;

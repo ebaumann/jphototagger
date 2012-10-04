@@ -4,15 +4,10 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.programs.Program;
@@ -30,6 +25,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.SelectProgramDialog;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

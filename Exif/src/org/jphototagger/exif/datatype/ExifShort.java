@@ -1,7 +1,6 @@
 package org.jphototagger.exif.datatype;
 
 import java.nio.ByteOrder;
-
 import org.jphototagger.exif.Ensure;
 
 /**

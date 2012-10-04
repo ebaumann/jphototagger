@@ -1,13 +1,11 @@
 package org.jphototagger.repository.hsqldb;
 
 import java.util.List;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.programs.DefaultProgram;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

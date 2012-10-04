@@ -1,20 +1,16 @@
 package org.jphototagger.program.module.wordsets;
 
 import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.WordsetsRepository;
 import org.jphototagger.domain.repository.event.wordsets.WordsetInsertedEvent;
 import org.jphototagger.domain.repository.event.wordsets.WordsetRemovedEvent;
 import org.jphototagger.domain.repository.event.wordsets.WordsetRenamedEvent;
 import org.jphototagger.domain.repository.event.wordsets.WordsetUpdatedEvent;
 import org.jphototagger.lib.util.ObjectUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

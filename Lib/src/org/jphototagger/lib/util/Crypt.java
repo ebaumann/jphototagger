@@ -2,10 +2,8 @@ package org.jphototagger.lib.util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
-
 import org.jphototagger.lib.thirdparty.Base64;
 
 //Code based on: http://www.exampledepot.com/egs/javax.crypto/desstring.html

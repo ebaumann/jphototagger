@@ -1,12 +1,10 @@
 package org.jphototagger.lib.swing.inputverifier;
 
 import java.io.Serializable;
-
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.text.JTextComponent;
-
 import org.jphototagger.lib.util.Bundle;
 
 /**

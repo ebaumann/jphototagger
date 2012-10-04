@@ -1,5 +1,11 @@
 package org.jphototagger.exif;
 
+import com.imagero.reader.ImageReader;
+import com.imagero.reader.MetadataUtils;
+import com.imagero.reader.jpeg.JpegReader;
+import com.imagero.reader.tiff.IFDEntry;
+import com.imagero.reader.tiff.ImageFileDirectory;
+import com.imagero.reader.tiff.TiffReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -7,18 +13,10 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.image.ImageFileType;
 import org.jphototagger.lib.util.NumberUtil;
-
-import com.imagero.reader.ImageReader;
-import com.imagero.reader.MetadataUtils;
-import com.imagero.reader.jpeg.JpegReader;
-import com.imagero.reader.tiff.IFDEntry;
-import com.imagero.reader.tiff.ImageFileDirectory;
-import com.imagero.reader.tiff.TiffReader;
 
 /**
  * Extracts EXIF metadata from images as {@code ExifTag} and

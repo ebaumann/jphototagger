@@ -1,7 +1,6 @@
 package org.jphototagger.domain.favorites;
 
 import java.io.File;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -3,12 +3,10 @@ package org.jphototagger.domain.metadata;
 import java.text.NumberFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.text.DefaultFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.NumberFormatter;
-
 import org.jphototagger.domain.metadata.MetaDataValue.ValueType;
 
 /**

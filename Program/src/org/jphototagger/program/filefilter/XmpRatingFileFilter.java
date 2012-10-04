@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.api.component.DisplayNameProvider;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;

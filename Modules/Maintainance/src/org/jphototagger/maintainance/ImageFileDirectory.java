@@ -3,7 +3,6 @@ package org.jphototagger.maintainance;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
-
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 
 /**

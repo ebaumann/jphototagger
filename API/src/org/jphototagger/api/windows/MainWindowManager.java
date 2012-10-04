@@ -1,7 +1,6 @@
 package org.jphototagger.api.windows;
 
 import java.awt.Component;
-
 import org.jphototagger.api.messages.MessageType;
 
 /**

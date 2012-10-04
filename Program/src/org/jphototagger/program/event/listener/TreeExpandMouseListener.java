@@ -1,12 +1,10 @@
 package org.jphototagger.program.event.listener;
 
 import java.awt.event.ActionListener;
-
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
-
 import org.jphototagger.lib.util.Bundle;
 
 /**

@@ -2,10 +2,8 @@ package org.jphototagger.program.help;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
-
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 

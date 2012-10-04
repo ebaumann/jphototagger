@@ -1,9 +1,7 @@
 package org.jphototagger.program.module.miscmetadata;
 
 import java.awt.event.KeyEvent;
-
 import javax.swing.JMenuItem;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**

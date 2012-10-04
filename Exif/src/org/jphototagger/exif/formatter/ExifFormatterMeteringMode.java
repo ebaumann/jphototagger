@@ -2,7 +2,6 @@ package org.jphototagger.exif.formatter;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifIfdType;
 import org.jphototagger.exif.ExifTag;

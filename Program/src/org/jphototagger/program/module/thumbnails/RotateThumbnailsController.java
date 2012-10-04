@@ -7,16 +7,13 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.JMenuItem;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.image.util.ImageTransform;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktion: Rotiere ein Thumbnail,

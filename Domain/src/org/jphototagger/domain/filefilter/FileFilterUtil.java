@@ -5,14 +5,12 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.RegexUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

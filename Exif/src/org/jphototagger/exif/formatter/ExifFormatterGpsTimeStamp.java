@@ -4,7 +4,6 @@ import java.nio.ByteOrder;
 import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
-
 import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifDatatypeUtil;

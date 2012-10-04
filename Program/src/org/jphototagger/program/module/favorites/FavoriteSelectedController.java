@@ -2,10 +2,8 @@ package org.jphototagger.program.module.favorites;
 
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.program.resource.GUI;

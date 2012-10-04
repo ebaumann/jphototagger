@@ -2,10 +2,8 @@ package org.jphototagger.lib.nodes;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import javax.swing.Action;
 import javax.swing.Icon;
-
 import org.jphototagger.api.component.HtmlDisplayNameProvider;
 import org.jphototagger.api.nodes.Node;
 import org.jphototagger.lib.util.StringEscapeUtil;

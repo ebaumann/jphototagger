@@ -8,12 +8,8 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.branding.AppProperties;
 import org.jphototagger.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.exif.tag.ExifGpsAltitude;
@@ -27,6 +23,7 @@ import org.jphototagger.kml.KMLDocument;
 import org.jphototagger.kml.KMLPlacemark;
 import org.jphototagger.kml.KMLPoint;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Exports GPS metadata into an {@code KMLDocument}.

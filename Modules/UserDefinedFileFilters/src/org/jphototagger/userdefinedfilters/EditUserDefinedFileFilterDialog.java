@@ -1,11 +1,7 @@
 package org.jphototagger.userdefinedfilters;
 
 import java.awt.Container;
-
 import javax.swing.DefaultComboBoxModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.beansbinding.MaxLengthValidator;
@@ -14,6 +10,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.List;
-
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
 

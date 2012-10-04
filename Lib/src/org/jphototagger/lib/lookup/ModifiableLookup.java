@@ -1,7 +1,6 @@
 package org.jphototagger.lib.lookup;
 
 import java.util.Collection;
-
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;

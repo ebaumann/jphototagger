@@ -1,14 +1,12 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.Component;
-
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.windows.StatusLineElementProvider;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  * @author Elmar Baumann

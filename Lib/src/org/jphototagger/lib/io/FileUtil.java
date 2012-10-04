@@ -25,7 +25,6 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.util.CollectionUtil;

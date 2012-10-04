@@ -3,7 +3,6 @@ package org.jphototagger.exif.formatter;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-
 import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifShort;

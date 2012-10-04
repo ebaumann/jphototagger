@@ -3,7 +3,6 @@ package org.jphototagger.lib.io.filefilter;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.Serializable;
-
 import org.jphototagger.lib.util.Bundle;
 
 /**

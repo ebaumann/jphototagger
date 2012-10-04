@@ -8,16 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
@@ -30,6 +24,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

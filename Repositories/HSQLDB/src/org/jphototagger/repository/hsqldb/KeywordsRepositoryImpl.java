@@ -2,12 +2,10 @@ package org.jphototagger.repository.hsqldb;
 
 import java.util.Collection;
 import java.util.List;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.metadata.keywords.KeywordType;
 import org.jphototagger.domain.repository.KeywordsRepository;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

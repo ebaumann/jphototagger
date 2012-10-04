@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;

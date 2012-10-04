@@ -2,7 +2,6 @@ package org.jphototagger.domain.metadata.xmp;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**

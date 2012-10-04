@@ -2,7 +2,6 @@ package org.jphototagger.exif.formatter;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
-
 import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
 

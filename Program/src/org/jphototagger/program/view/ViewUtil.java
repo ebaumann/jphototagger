@@ -7,16 +7,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JTree;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.favorites.Favorite;
@@ -26,6 +22,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

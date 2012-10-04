@@ -3,7 +3,6 @@ package org.jphototagger.domain.metadata.exif;
 import java.io.File;
 import java.util.Collection;
 import java.util.LinkedList;
-
 import org.openide.util.Lookup;
 
 /**

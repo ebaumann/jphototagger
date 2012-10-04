@@ -4,17 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.JMenuItem;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ProgressBarUpdater;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktion: Metadaten erzeugen für ausgewählte Bilder,

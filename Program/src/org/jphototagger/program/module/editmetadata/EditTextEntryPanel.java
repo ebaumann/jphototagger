@@ -8,19 +8,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -40,6 +35,7 @@ import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.settings.AppPreferencesDefaults;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.openide.util.Lookup;
 
 /**
  * Panel zum Eingeben einzeiliger Texte.

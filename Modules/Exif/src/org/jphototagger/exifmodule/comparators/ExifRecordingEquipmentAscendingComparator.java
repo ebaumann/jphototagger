@@ -4,12 +4,10 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.Collator;
 import java.util.Comparator;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.util.ClassEquality;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

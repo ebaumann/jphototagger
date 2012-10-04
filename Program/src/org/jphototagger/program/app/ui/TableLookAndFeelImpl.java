@@ -1,10 +1,8 @@
 package org.jphototagger.program.app.ui;
 
 import javax.swing.JComponent;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.branding.TableLookAndFeel;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

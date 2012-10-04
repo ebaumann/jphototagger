@@ -3,11 +3,9 @@ package org.jphototagger.plugin.iviewsshow;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.lib.io.FileUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author  Elmar Baumann

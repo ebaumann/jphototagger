@@ -7,9 +7,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.image.ImageFile;
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.exif.ExifUtil;
@@ -24,6 +21,7 @@ import org.jphototagger.lib.concurrent.HelperThread;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Sets EXIF metadata to XMP whithout time stamp check, currently only the date created.

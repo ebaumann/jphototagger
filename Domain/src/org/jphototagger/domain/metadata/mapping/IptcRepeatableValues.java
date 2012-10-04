@@ -1,9 +1,8 @@
 package org.jphototagger.domain.metadata.mapping;
 
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * Returns whether an {@code com.imagero.reader.iptc.IPTCEntryMeta} contains

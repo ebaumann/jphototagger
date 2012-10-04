@@ -1,5 +1,7 @@
 package org.jphototagger.exif.formatter.nikon;
 
+import com.imagero.reader.tiff.ImageFileDirectory;
+import com.imagero.reader.tiff.TiffReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,14 +9,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.exif.ExifIfdType;
 import org.jphototagger.exif.ExifMakerNotes;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
-
-import com.imagero.reader.tiff.ImageFileDirectory;
-import com.imagero.reader.tiff.TiffReader;
 
 /**
  * @author Elmar Baumann

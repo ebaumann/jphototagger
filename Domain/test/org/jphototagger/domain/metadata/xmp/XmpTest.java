@@ -1,15 +1,13 @@
 package org.jphototagger.domain.metadata.xmp;
 
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.Arrays;
 import java.util.Collection;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.iptc.Iptc;
 import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.domain.metadata.xmp.Xmp.SetIptc;
 import org.jphototagger.domain.templates.MetadataTemplate;
-
-import com.imagero.reader.iptc.IPTCEntryMeta;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

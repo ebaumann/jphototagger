@@ -1,13 +1,10 @@
 package org.jphototagger.program.app;
 
+import com.imagero.reader.AbstractImageReader;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.applifecycle.AppWillInitEvent;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -25,8 +22,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.SplashScreen;
 import org.jphototagger.program.module.thumbnails.cache.CacheUtil;
 import org.jphototagger.program.resource.ImageProperties;
-
-import com.imagero.reader.AbstractImageReader;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

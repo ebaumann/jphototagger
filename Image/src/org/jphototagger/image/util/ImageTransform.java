@@ -12,7 +12,6 @@ import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.ImageIcon;
 
 /**

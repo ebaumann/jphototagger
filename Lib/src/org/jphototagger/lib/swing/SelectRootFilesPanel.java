@@ -11,13 +11,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JCheckBox;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

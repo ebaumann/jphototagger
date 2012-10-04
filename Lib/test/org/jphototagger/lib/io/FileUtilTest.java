@@ -7,9 +7,7 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.jphototagger.lib.util.SystemProperties;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
 

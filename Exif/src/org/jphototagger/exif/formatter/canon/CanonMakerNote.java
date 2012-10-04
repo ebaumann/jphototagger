@@ -6,7 +6,6 @@ import java.io.RandomAccessFile;
 import java.nio.ByteOrder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.exif.datatype.ExifDatatypeUtil;
 import org.jphototagger.image.ImageFileType;
 import org.jphototagger.lib.thirdparty.KMPMatch;

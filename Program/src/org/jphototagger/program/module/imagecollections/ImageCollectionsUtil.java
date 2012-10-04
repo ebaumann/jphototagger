@@ -4,11 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jdesktop.swingx.JXList;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -16,6 +12,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

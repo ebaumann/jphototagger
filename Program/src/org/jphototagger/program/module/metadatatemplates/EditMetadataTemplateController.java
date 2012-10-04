@@ -4,9 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
-
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;

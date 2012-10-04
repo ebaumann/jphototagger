@@ -1,13 +1,11 @@
 package org.jphototagger.program.module.favorites;
 
 import java.awt.event.KeyEvent;
-
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.tree.TreePath;
-
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;

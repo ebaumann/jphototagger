@@ -1,10 +1,8 @@
 package org.jphototagger.domain.repository;
 
 import java.io.File;
-
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
-
 import org.jphototagger.api.collections.PositionProvider;
 
 /**

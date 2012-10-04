@@ -1,7 +1,6 @@
 package org.jphototagger.domain.repository;
 
 import java.util.Set;
-
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 
 /**

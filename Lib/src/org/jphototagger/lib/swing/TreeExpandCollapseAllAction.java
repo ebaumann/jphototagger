@@ -1,11 +1,9 @@
 package org.jphototagger.lib.swing;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
-
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 

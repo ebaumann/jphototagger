@@ -3,17 +3,14 @@ package org.jphototagger.xmp;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.io.filefilter.FilenameIgnoreCaseFileFilter;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

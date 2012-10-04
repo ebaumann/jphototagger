@@ -18,11 +18,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -71,6 +67,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

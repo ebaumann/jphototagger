@@ -7,12 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
-
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.LookAndFeelUtil;
 import org.jphototagger.lib.util.Bundle;

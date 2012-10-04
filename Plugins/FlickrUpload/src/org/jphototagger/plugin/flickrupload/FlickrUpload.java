@@ -1,5 +1,8 @@
 package org.jphototagger.plugin.flickrupload;
 
+import com.adobe.xmp.properties.XMPPropertyInfo;
+import com.aetrion.flickr.uploader.UploadMetaData;
+import com.aetrion.flickr.uploader.Uploader;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -12,20 +15,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
-
-import com.adobe.xmp.properties.XMPPropertyInfo;
-
-import com.aetrion.flickr.uploader.UploadMetaData;
-import com.aetrion.flickr.uploader.Uploader;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
@@ -43,6 +35,8 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.xmp.XmpProperties;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.datatype.ExifLong;

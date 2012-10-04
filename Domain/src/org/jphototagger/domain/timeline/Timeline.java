@@ -8,9 +8,7 @@ import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.tree.DefaultMutableTreeNode;
-
 import org.jphototagger.lib.swing.SortedChildrenTreeNode;
 import org.jphototagger.lib.swing.UpdateInfoTreeModel;
 import org.jphototagger.lib.util.Bundle;

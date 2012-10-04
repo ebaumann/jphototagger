@@ -1,5 +1,6 @@
 package org.jphototagger.domain.metadata.xmp;
 
+import com.imagero.reader.iptc.IPTCEntryMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.iptc.Iptc;
@@ -17,8 +17,6 @@ import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.domain.metadata.mapping.XmpRepeatableValues;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
-
-import com.imagero.reader.iptc.IPTCEntryMeta;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method

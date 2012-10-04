@@ -1,7 +1,6 @@
 package org.jphototagger.api.file.event;
 
 import java.io.File;
-
 import org.jphototagger.api.event.PropertyEvent;
 
 /**

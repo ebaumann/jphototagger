@@ -3,7 +3,6 @@ package org.jphototagger.exif.formatter.canon;
 import java.nio.ByteOrder;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.jphototagger.exif.datatype.ExifDataType;
 import org.jphototagger.exif.datatype.ExifDatatypeUtil;
 

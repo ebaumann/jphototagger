@@ -8,18 +8,15 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileFilter;
-
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.filefilter.AppFileFilterProvider;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
 /**

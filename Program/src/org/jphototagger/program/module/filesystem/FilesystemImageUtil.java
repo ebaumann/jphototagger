@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.preferences.Preferences;
@@ -23,6 +20,7 @@ import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

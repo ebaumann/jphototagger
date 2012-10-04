@@ -4,17 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.Action;
 import javax.swing.JList;
 import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
-import org.openide.util.lookup.InstanceContent;
-
 import org.jphototagger.api.nodes.Node;
+import org.openide.util.lookup.InstanceContent;
 
 /**
  * @author Elmar Baumann

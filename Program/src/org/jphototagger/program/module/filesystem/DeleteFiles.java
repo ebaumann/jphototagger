@@ -6,9 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;

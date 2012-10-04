@@ -1,10 +1,9 @@
 package org.jphototagger.synonyms;
 
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

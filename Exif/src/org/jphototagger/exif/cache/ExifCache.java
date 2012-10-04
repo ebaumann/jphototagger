@@ -3,13 +3,9 @@ package org.jphototagger.exif.cache;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheClearedEvent;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheFileDeletedEvent;
@@ -19,6 +15,7 @@ import org.jphototagger.exif.ExifTags;
 import org.jphototagger.lib.io.DeleteOutOfDateFilesInDirectoryThread;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.AcceptAllFilesFilter;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

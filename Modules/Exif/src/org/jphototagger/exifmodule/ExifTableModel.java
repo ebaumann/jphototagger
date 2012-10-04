@@ -3,13 +3,10 @@ package org.jphototagger.exifmodule;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Collection;
-
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jphototagger.domain.metadata.exif.ExifTag;
 import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheClearedEvent;

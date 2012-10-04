@@ -14,7 +14,6 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
@@ -30,7 +29,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 import javax.swing.tree.TreePath;
-
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;

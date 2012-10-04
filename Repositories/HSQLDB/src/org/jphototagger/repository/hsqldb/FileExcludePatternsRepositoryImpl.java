@@ -1,11 +1,9 @@
 package org.jphototagger.repository.hsqldb;
 
 import java.util.List;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

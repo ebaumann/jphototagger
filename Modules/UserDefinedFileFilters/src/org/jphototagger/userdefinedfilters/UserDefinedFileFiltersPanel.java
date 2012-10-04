@@ -5,18 +5,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

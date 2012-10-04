@@ -1,16 +1,13 @@
 package org.jphototagger.program.module.programs;
 
 import java.awt.event.ActionEvent;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -2,9 +2,7 @@ package org.jphototagger.program.module.search;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.Icon;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;

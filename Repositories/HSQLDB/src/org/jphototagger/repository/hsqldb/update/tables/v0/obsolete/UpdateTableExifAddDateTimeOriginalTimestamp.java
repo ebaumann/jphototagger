@@ -3,13 +3,11 @@ package org.jphototagger.repository.hsqldb.update.tables.v0.obsolete;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Logger;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.repository.hsqldb.Database;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;
 import org.jphototagger.repository.hsqldb.update.tables.DatabaseUpdateTask;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

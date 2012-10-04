@@ -1,12 +1,11 @@
 package org.jphototagger.lib.util;
 
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.progress.ProgressListener;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

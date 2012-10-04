@@ -2,16 +2,11 @@ package org.jphototagger.program.module.directories;
 
 import java.io.File;
 import java.util.List;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
@@ -21,6 +16,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Listens for selections of items in the directory tree view. A tree item

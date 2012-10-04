@@ -2,14 +2,9 @@ package org.jphototagger.program.module.actions;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.DefaultListModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.Repository;
@@ -18,6 +13,7 @@ import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateDeletedEvent;
 import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateInsertedEvent;
 import org.jphototagger.domain.repository.event.repoupdates.ActionsAfterRepoUpdateReorderedEvent;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

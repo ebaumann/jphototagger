@@ -2,17 +2,14 @@ package org.jphototagger.program.module.directories;
 
 import java.awt.Component;
 import java.io.File;
-
 import javax.swing.JTabbedPane;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.DirectorySelectService;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.AllSystemDirectoriesTreeModel;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

@@ -1,9 +1,7 @@
 package org.jphototagger.api.windows;
 
 import java.awt.Component;
-
 import javax.swing.Icon;
-
 import org.jphototagger.api.collections.PositionProvider;
 
 /**

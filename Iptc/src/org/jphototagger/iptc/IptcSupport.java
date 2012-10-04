@@ -3,7 +3,6 @@ package org.jphototagger.iptc;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-
 import org.jphototagger.lib.io.FileUtil;
 
 /**

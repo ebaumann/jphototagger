@@ -1,11 +1,9 @@
 package org.jphototagger.program.settings;
 
 import java.io.File;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

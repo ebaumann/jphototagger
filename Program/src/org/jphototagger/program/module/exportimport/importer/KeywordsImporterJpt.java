@@ -10,17 +10,13 @@ import java.util.List;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.program.module.exportimport.exporter.KeywordsExporterJpt;
-
+import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;

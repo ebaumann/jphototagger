@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.repository.hsqldb.DatabaseMetadata;

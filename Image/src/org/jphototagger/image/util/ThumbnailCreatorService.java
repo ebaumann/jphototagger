@@ -3,12 +3,10 @@ package org.jphototagger.image.util;
 import java.awt.Image;
 import java.io.File;
 import java.util.List;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.domain.thumbnails.ThumbnailCreatorPriorityComparator;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

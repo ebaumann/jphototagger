@@ -7,12 +7,10 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
-
 import org.jdesktop.swingx.JXList;
 
 /**

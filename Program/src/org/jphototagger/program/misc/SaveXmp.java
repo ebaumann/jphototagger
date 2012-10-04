@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -20,6 +17,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * Writes {@code Xmp} objects to XMP files and inserts or updates them into the

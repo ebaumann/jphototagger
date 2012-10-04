@@ -11,9 +11,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
 import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcDescriptionMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;

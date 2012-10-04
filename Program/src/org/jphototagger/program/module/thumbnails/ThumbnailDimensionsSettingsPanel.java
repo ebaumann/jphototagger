@@ -1,17 +1,14 @@
 package org.jphototagger.program.module.thumbnails;
 
 import javax.swing.SpinnerNumberModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

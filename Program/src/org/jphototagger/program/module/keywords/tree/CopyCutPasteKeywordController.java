@@ -6,13 +6,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-
 import javax.swing.JMenuItem;
 import javax.swing.JTree;
 import javax.swing.TransferHandler.TransferSupport;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.datatransfer.TransferableObject;
 import org.jphototagger.lib.swing.KeyEventUtil;

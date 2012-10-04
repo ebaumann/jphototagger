@@ -6,14 +6,8 @@ import java.awt.datatransfer.StringSelection;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Collection;
-
 import javax.swing.Icon;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
@@ -23,6 +17,8 @@ import org.jphototagger.lib.help.HelpContentProvider;
 import org.jphototagger.lib.plugin.AbstractFileProcessorPlugin;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Copies into the system clipboard names of files.

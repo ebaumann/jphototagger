@@ -1,12 +1,8 @@
 package org.jphototagger.program.module.thumbnails;
 
 import javax.swing.DefaultComboBoxModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.Repository;
@@ -20,6 +16,7 @@ import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefined
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.program.filefilter.AppFileFilters;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

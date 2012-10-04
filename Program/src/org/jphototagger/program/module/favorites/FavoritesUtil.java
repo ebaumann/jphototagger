@@ -3,13 +3,9 @@ package org.jphototagger.program.module.favorites;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.favorites.Favorite;
@@ -23,6 +19,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

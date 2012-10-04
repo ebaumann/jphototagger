@@ -7,12 +7,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
-
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 

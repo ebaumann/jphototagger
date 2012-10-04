@@ -5,9 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.XMLFormatter;
-
 import javax.swing.AbstractAction;
-
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;

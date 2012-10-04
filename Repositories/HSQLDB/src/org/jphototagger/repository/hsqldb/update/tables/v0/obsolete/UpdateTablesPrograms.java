@@ -6,14 +6,12 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.repository.hsqldb.Database;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -12,12 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -47,6 +42,8 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

@@ -1,10 +1,9 @@
 package org.jphototagger.image.thumbnail;
 
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.image.ImagePreferencesKeys;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

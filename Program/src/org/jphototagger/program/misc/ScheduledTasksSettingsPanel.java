@@ -4,12 +4,8 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.SpinnerNumberModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -25,6 +21,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.tasks.ScheduledTasks;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

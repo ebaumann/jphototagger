@@ -1,7 +1,6 @@
 package org.jphototagger.program.module.filesystem;
 
 import java.awt.Frame;
-
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;

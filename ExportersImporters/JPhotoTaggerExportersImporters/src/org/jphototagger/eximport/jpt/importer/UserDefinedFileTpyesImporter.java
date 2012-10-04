@@ -3,19 +3,16 @@ package org.jphototagger.eximport.jpt.importer;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.eximport.jpt.exporter.UserDefinedFileTypesExporter;
 import org.jphototagger.eximport.jpt.exporter.UserDefinedFileTypesExporter.CollectionWrapper;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

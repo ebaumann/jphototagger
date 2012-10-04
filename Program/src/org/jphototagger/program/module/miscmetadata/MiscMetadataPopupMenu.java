@@ -2,7 +2,6 @@ package org.jphototagger.program.module.miscmetadata;
 
 import java.awt.event.KeyEvent;
 import java.util.List;
-
 import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
@@ -11,9 +10,6 @@ import javax.swing.JPopupMenu.Separator;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
@@ -22,6 +18,7 @@ import org.jphototagger.lib.swing.PopupMenuTree;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Do not use this class as template for implemention! Instead extend

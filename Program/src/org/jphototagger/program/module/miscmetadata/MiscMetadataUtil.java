@@ -9,13 +9,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.MetaDataStringValue;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueData;
@@ -28,6 +24,7 @@ import org.jphototagger.program.misc.SaveXmp;
 import org.jphototagger.program.module.filesystem.FilesystemImageUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.xmp.XmpMetadata;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -3,13 +3,10 @@ package org.jphototagger.importfiles.subdircreators;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

@@ -4,18 +4,15 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.ReplaceableTask;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ProgressBarUpdater;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
+import org.openide.util.Lookup;
 
 /**
  * Listens to the {@code ThumbnailsPanel} and when the displayed

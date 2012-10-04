@@ -3,9 +3,6 @@ package org.jphototagger.program.module.metadatatemplates;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.Collections;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
@@ -15,6 +12,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.view.ViewUtil;
+import org.openide.util.Lookup;
 
 /**
  * You <strong>have to call</strong>

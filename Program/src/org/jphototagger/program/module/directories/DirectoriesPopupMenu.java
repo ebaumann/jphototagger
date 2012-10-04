@@ -2,13 +2,11 @@ package org.jphototagger.program.module.directories;
 
 import java.awt.event.KeyEvent;
 import java.io.File;
-
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.tree.TreePath;
-
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;

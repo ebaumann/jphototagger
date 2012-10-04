@@ -3,10 +3,8 @@ package org.jphototagger.program.module.favorites;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;

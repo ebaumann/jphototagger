@@ -6,20 +6,16 @@ import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.Action;
 import javax.swing.JPopupMenu;
 import javax.swing.tree.TreePath;
-
 import org.jdesktop.swingx.JXTree;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.AbstractLookup;
-import org.openide.util.lookup.InstanceContent;
-
 import org.jphototagger.api.nodes.Node;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.AbstractLookup;
+import org.openide.util.lookup.InstanceContent;
 
 /**
  * Tree which puts selected tree items into it's a Lookup.

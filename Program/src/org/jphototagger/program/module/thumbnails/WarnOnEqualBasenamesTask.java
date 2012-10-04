@@ -8,12 +8,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.comparator.FilepathIgnoreCaseAscendingComparator;
 import org.jphototagger.lib.io.FileUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

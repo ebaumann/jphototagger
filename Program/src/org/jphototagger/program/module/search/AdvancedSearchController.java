@@ -4,11 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.JButton;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.metadata.search.ParamStatement;
@@ -19,6 +15,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Kontrolliert die Aktionen: Erweiterter Suchdialog soll angezeigt werden sowie

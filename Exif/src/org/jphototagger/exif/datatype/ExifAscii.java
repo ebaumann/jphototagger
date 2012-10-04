@@ -1,7 +1,6 @@
 package org.jphototagger.exif.datatype;
 
 import java.nio.charset.Charset;
-
 import org.jphototagger.lib.util.ByteUtil;
 
 /**

@@ -2,17 +2,12 @@ package org.jphototagger.program.module.keywords;
 
 import java.awt.CardLayout;
 import java.awt.Container;
-
 import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.SortOrder;
 import javax.swing.tree.TreeSelectionModel;
-
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
@@ -20,6 +15,7 @@ import org.jphototagger.lib.swingx.ListTextFilter;
 import org.jphototagger.lib.swingx.SearchInJxListAction;
 import org.jphototagger.lib.swingx.SearchInJxTreeAction;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

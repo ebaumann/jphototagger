@@ -10,16 +10,12 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -27,6 +23,7 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

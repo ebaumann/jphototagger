@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -16,6 +13,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Displays in the {@code ThumbnailsPanel} thumbnails with specific keywords.

@@ -1,11 +1,9 @@
 package org.jphototagger.program.module.keywords.list;
 
 import org.jdesktop.swingx.JXList;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.program.event.listener.ListMouseListener;
+import org.openide.util.Lookup;
 
 /**
  * Do not use this class as a template for other implementations! Instead extend

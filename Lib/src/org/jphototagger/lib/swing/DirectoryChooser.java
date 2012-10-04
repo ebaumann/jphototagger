@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
 import javax.swing.JOptionPane;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -17,9 +16,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -27,6 +23,7 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Folder to choose one or multiple directories. Can create new directories, delete and rename existing.

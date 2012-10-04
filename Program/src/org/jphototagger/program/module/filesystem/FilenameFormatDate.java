@@ -3,7 +3,6 @@ package org.jphototagger.program.module.filesystem;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.exif.ExifUtil;
 import org.jphototagger.lib.util.Bundle;

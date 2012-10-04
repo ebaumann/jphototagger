@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
@@ -15,9 +14,6 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -26,6 +22,7 @@ import org.jphototagger.lib.swing.util.DocumentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

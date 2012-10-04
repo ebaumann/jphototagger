@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -14,7 +13,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
-
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**

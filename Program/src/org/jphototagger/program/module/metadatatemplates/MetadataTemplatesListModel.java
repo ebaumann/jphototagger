@@ -1,12 +1,8 @@
 package org.jphototagger.program.module.metadatatemplates;
 
 import javax.swing.DefaultListModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateDeletedEvent;
@@ -14,6 +10,7 @@ import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTempla
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateRenamedEvent;
 import org.jphototagger.domain.repository.event.metadatatemplates.MetadataTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.MetadataTemplate;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@code MetadataTemplate}s.

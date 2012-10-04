@@ -22,7 +22,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -30,7 +29,6 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 

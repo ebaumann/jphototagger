@@ -13,19 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.MainWindowManager;
@@ -60,6 +54,8 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

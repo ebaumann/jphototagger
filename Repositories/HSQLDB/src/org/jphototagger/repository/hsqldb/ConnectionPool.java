@@ -7,11 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
+import org.openide.util.Lookup;
 
 /**
  * A class for preallocating, recycling, and managing

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.AbstractButton;
 import javax.swing.ListModel;
 import javax.swing.RowFilter;
@@ -13,7 +12,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-
 import org.jdesktop.swingx.JXList;
 
 /**

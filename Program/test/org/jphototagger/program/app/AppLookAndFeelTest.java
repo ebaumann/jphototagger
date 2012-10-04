@@ -1,9 +1,7 @@
 package org.jphototagger.program.app;
 
 import java.util.Locale;
-
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-
 import org.junit.AfterClass;
 import static org.junit.Assert.*;
 import org.junit.BeforeClass;

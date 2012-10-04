@@ -22,7 +22,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.XMLFormatter;
-
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,7 +29,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.html.HTMLDocument;
-
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;

@@ -4,9 +4,7 @@ import java.awt.Component;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.TransferHandler.TransferSupport;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.text.TextEntry;

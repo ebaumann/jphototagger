@@ -4,13 +4,8 @@ import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
@@ -23,6 +18,8 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter.CollectionWrapper;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

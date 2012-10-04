@@ -4,15 +4,13 @@ import java.awt.Component;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
-
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
-
 import org.jphototagger.domain.thumbnails.MainWindowThumbnailsComponent;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  * @author Elmar Baumann

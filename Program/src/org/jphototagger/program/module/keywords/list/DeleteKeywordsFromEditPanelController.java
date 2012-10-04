@@ -3,14 +3,11 @@ package org.jphototagger.program.module.keywords.list;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
-
 import javax.swing.JMenuItem;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.module.keywords.tree.DeleteKeywordFromEditPanelController;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

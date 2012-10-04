@@ -6,19 +6,15 @@ import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-
 import javax.swing.Action;
 import javax.swing.JPopupMenu;
-
 import org.jdesktop.swingx.JXList;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.AbstractLookup;
-import org.openide.util.lookup.InstanceContent;
-
 import org.jphototagger.api.nodes.Node;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.AbstractLookup;
+import org.openide.util.lookup.InstanceContent;
 
 /**
  * List which puts selected list items into it's a Lookup.

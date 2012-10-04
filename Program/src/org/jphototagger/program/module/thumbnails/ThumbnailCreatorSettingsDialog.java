@@ -4,13 +4,11 @@ import java.awt.Component;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

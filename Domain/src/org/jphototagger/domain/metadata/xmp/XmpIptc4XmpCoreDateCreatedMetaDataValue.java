@@ -3,7 +3,6 @@ package org.jphototagger.domain.metadata.xmp;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.swing.inputverifier.EmptyInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.InputVerifiersOr;

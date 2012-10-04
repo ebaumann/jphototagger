@@ -3,13 +3,11 @@ package org.jphototagger.program.module.directories;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.JComponent;
 import javax.swing.JTree;
 import javax.swing.TransferHandler;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
-
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.lib.datatransfer.TransferUtil;

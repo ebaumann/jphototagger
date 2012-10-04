@@ -1,10 +1,8 @@
 package org.jphototagger.program.settings;
 
 import java.io.File;
-
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

@@ -2,7 +2,6 @@ package org.jphototagger.domain.metadata.search;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifDateTimeOriginalMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;

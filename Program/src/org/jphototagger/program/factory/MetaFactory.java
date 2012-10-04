@@ -4,11 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.applifecycle.AppUpdater;
 import org.jphototagger.api.branding.AppProperties;
 import org.jphototagger.api.modules.Module;
@@ -19,6 +15,7 @@ import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.ui.AppWindowPersistence;
 import org.jphototagger.program.app.update.UpdateDownload;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.openide.util.Lookup;
 
 /**
  * Initalizes all other factories in the right order and sets the persistent

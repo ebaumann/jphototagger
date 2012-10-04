@@ -3,7 +3,6 @@ package org.jphototagger.domain.metadata;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
 import org.jphototagger.domain.metadata.exif.ExifDateTimeOriginalMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifIsoSpeedRatingsMetaDataValue;

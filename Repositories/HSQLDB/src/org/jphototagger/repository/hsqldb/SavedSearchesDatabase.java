@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import org.bushe.swing.event.EventBus;
-
 import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.metadata.search.SavedSearchPanel;

@@ -4,12 +4,8 @@ import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.storage.Persistence;
@@ -20,6 +16,7 @@ import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

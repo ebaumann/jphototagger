@@ -7,14 +7,12 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.repository.MetaDataValuesRepository;
 import org.jphototagger.lib.util.CollectionUtil;
+import org.openide.util.Lookup;
 
 /**
  * Contains autocomplete data (words, terms).

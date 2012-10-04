@@ -9,12 +9,7 @@ import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
-
 import javax.swing.JLabel;
-
-import org.openide.util.Lookup;
-import org.openide.util.lookup.ServiceProvider;
-
 import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.StatusLineElementProvider;
@@ -22,6 +17,8 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann

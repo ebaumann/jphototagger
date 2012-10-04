@@ -7,12 +7,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.TransferHandler;
-
 import org.jphototagger.lib.datatransfer.TransferableObject;
 
 /**

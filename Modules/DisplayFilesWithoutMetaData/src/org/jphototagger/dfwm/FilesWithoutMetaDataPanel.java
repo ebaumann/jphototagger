@@ -2,25 +2,21 @@ package org.jphototagger.dfwm;
 
 import java.awt.Component;
 import java.util.Arrays;
-
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.SelectionItemSelectedEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.NoMetadataValues;
 import org.jphototagger.lib.lookup.SelectedListItemsLookup;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

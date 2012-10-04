@@ -1,7 +1,6 @@
 package org.jphototagger.lib.io;
 
 import java.io.File;
-
 import org.jphototagger.lib.util.ObjectUtil;
 
 /**

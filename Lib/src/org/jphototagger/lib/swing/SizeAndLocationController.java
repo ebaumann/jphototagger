@@ -3,10 +3,8 @@ package org.jphototagger.lib.swing;
 import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
+import org.openide.util.Lookup;
 
 /**
  * Listens to <code>windowOpend()</code> and <code>windowClosing()</code> and

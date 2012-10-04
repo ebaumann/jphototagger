@@ -1,17 +1,13 @@
 package org.jphototagger.program.module.metadatatemplates;
 
 import java.awt.Container;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jdesktop.swingx.JXList;
-
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;

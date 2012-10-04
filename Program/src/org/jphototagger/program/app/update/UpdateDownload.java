@@ -7,9 +7,6 @@ import java.io.FileOutputStream;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
@@ -28,6 +25,7 @@ import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.misc.FinalExecutable;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.openide.util.Lookup;
 
 /**
  * Checks for newer versions of JPhotoTagger and downloads them depending.

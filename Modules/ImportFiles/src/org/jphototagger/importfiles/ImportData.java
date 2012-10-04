@@ -3,7 +3,6 @@ package org.jphototagger.importfiles;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.domain.metadata.xmp.Xmp;

@@ -1,7 +1,6 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.Color;
-
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 /**

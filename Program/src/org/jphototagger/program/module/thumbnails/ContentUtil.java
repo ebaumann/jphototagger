@@ -2,7 +2,6 @@ package org.jphototagger.program.module.thumbnails;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 
 /**

@@ -3,15 +3,13 @@ package org.jphototagger.iptcmodule;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-
-import org.openide.util.lookup.ServiceProvider;
-import org.openide.util.lookup.ServiceProviders;
-
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.domain.thumbnails.ThumbnailsPopupMenuItemProvider;
 import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.api.MenuItemProviderImpl;
+import org.openide.util.lookup.ServiceProvider;
+import org.openide.util.lookup.ServiceProviders;
 
 /**
  * @author Elmar Baumann

@@ -4,13 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
-
 import javax.swing.Action;
 import javax.swing.JMenuItem;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
 import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;

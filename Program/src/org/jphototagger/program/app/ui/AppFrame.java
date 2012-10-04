@@ -9,16 +9,12 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.KeyStroke;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.api.LayerUtil;
@@ -30,6 +26,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

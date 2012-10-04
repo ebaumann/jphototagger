@@ -1,19 +1,14 @@
 package org.jphototagger.program.module.filesystem;
 
 import java.io.File;
-
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.repository.Repository;
@@ -26,6 +21,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann

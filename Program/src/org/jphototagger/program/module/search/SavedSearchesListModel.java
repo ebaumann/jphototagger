@@ -1,14 +1,9 @@
 package org.jphototagger.program.module.search;
 
 import java.util.List;
-
 import javax.swing.DefaultListModel;
-
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-
-import org.openide.util.Lookup;
-
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
@@ -16,6 +11,7 @@ import org.jphototagger.domain.repository.event.search.SavedSearchDeletedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchInsertedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchRenamedEvent;
 import org.jphototagger.domain.repository.event.search.SavedSearchUpdatedEvent;
+import org.openide.util.Lookup;
 
 /**
  * Elements are {@code SavedSearch}es.
