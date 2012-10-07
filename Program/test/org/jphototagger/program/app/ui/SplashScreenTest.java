@@ -1,4 +1,4 @@
-package org.jphototagger.program.app;
+package org.jphototagger.program.app.ui;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
