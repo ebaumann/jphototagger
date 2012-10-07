@@ -51,13 +51,13 @@ EXIT_VALUE=0
 
 if ! [ -x $EXIFTOOL ]
 then
-    echo "${THIS}: Das Program ${EXIFTOOL} existiert nicht (in diesem Verzeichnis) oder ist nicht ausführbar!" 1>&2
+    echo "${THIS}: Das Program ${EXIFTOOL} existiert nicht (in diesem Verzeichnis) oder ist nicht ausführbar!" 1>&amp;2
     exit 1
 fi
 
 if [ -z $1 ]
 then
-    echo "${THIS}: Bilddateiname fehlt (Parameter 1)!" 1>&2
+    echo "${THIS}: Bilddateiname fehlt (Parameter 1)!" 1>&amp;2
     exit 1
 fi
 
@@ -65,14 +65,14 @@ IMAGE_FILE=$1
 
 if ! [ -f $IMAGE_FILE ]
 then
-    echo "${THIS}: Bilddatei '${IMAGE_FILE}' existiert nicht!" 1>&2
+    echo "${THIS}: Bilddatei '${IMAGE_FILE}' existiert nicht!" 1>&amp;2
     exit 1
 fi
 
 touch $TIMESTAMP_FILE
 if [ $? -ne 0 ]
 then
-    echo "${THIS}: Temporäre Datei '${TIMESTAMP_FILE}' kann nicht erzeugt werden!" 1>&2
+    echo "${THIS}: Temporäre Datei '${TIMESTAMP_FILE}' kann nicht erzeugt werden!" 1>&amp;2
     exit 1
 fi
 
@@ -80,7 +80,7 @@ SIDECAR_FILE=${IMAGE_FILE%*.*}.xmp
 
 if ! [ -f $SIDECAR_FILE ]
 then
-    echo "${THIS}: XMP-Filialdatei '${SIDECAR_FILE}' existiert nicht!" 1>&2
+    echo "${THIS}: XMP-Filialdatei '${SIDECAR_FILE}' existiert nicht!" 1>&amp;2
     exit 1
 fi
 
