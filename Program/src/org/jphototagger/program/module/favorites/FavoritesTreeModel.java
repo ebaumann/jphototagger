@@ -654,7 +654,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         }
     }
 
-    // FIXME Use the WatchService API when switching to Java 7
+    // Java 7 WatchService API does not work, see comment in org.jphototagger.lib.swing.AllSystemDirectoriesTreeModel
     private final Runnable updater = new Runnable() {
 
         private AtomicInteger taskCount = new AtomicInteger(0);

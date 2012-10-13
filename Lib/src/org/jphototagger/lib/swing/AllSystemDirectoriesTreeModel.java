@@ -283,7 +283,6 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
         }
     }
 
-    // FIXME Use the WatchService API when switching to Java 7
     private final Runnable updater = new Runnable() {
 
         private AtomicInteger taskCount = new AtomicInteger(0);
@@ -375,4 +374,133 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
             return thread;
         }
     };
+
+    // JDK WatchService does not work under Windows 7 and UAC. Code without TreeModelListener for Updates:
+//    private class TreeNodeUpdater implements Runnable {
+//
+//        private final WatchService watchService = createWatchService();
+//        private volatile boolean stop;
+//
+//        private WatchService createWatchService() {
+//            try {
+//                return FileSystems.getDefault().newWatchService();
+//            } catch (IOException ex) {
+//                Logger.getLogger(AllSystemDirectoriesTreeModel.class.getName()).log(Level.SEVERE, null, ex);
+//                return null;
+//            }
+//        }
+//
+//        private void init() {
+//            SwingUtilities.invokeLater(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    registerAllModelPathsWithWatchService();
+//                }
+//            });
+//        }
+//
+//        private void registerAllModelPathsWithWatchService() {
+//            for (DefaultMutableTreeNode node : getTreeRowNodes()) {
+//                Object userObject = node.getUserObject();
+//                if (userObject instanceof File) {
+//                    registerPathWithWatchService(((File) userObject).toPath());
+//                }
+//            }
+//        }
+//
+//        private void registerPathWithWatchService(Path path) {
+//            try {
+//                path.register(watchService,
+//                        StandardWatchEventKinds.ENTRY_CREATE,
+//                        StandardWatchEventKinds.ENTRY_DELETE);
+//            } catch (Throwable t) {
+//                Logger.getLogger(AllSystemDirectoriesTreeModel.class.getName()).log(Level.SEVERE, null, t);
+//            }
+//        }
+//
+//        @Override
+//        public void run() {
+//            if (watchService == null) {
+//                Logger.getLogger(AllSystemDirectoriesTreeModel.class.getName()).log(Level.WARNING, "Can't auto update dircetorie's view: WatchService is null");
+//                return;
+//            }
+//            try {
+//                init();
+//                while (!stop) {
+//                    try {
+//                        WatchKey watchKey = watchService.take();
+//                        for (WatchEvent<?> watchEvent : watchKey.pollEvents()) {
+//                            Kind<?> kind = watchEvent.kind();
+//                            if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+//                                WatchEvent<Path> watchEventPath = (WatchEvent<Path>)watchEvent;
+//                                Path path = watchEventPath.context();
+//                                addNode(path.toFile());
+//                            } else if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+//                                WatchEvent<Path> watchEventPath = (WatchEvent<Path>)watchEvent;
+//                                Path path = watchEventPath.context();
+//                                removeNode(path.toFile());
+//                            }
+//
+//                        }
+//                    } catch (InterruptedException ex) {
+//                        Logger.getLogger(AllSystemDirectoriesTreeModel.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//            } finally {
+//                closeWatchService();
+//            }
+//        }
+//
+//        private void addNode(final File file) {
+//            SwingUtilities.invokeLater(new Runnable() {
+//
+//                @Override
+//                public void run() {
+//                    File parentDir = file.getParentFile();
+//                    if (parentDir != null) {
+//                        DefaultMutableTreeNode parentNode = TreeUtil.findNodeContainingUserObjectRecursive(rootNode, parentDir);
+//                        if (parentNode == null) {
+//                            Logger.getLogger(TreeNodeUpdater.class.getName()).log(Level.WARNING, "Parent directory node not found: {0}", parentDir);
+//                            return;
+//                        }
+//                        boolean dirNodeAlreadyExists = TreeUtil.findNodeWithUserObject(parentNode, parentDir) != null;
+//                        if (!dirNodeAlreadyExists) {
+//                            addChildDirectory(parentNode, file);
+//                            registerPathWithWatchService(file.toPath());
+//                        }
+//                    }
+//                }
+//            });
+//        }
+//
+//        private void removeNode(final File file) {
+//            SwingUtilities.invokeLater(new Runnable() {
+//                @Override
+//                public void run() {
+//                    DefaultMutableTreeNode node = TreeUtil.findNodeContainingUserObjectRecursive(rootNode, file);
+//                    if (node == null) {
+//                        Logger.getLogger(TreeNodeUpdater.class.getName()).log(Level.WARNING, "Directory node not found: {0}", file);
+//                        return;
+//                    }
+//                    removeNodeFromParent(node);
+//                }
+//            });
+//        }
+//
+//        private void closeWatchService() {
+//            if (watchService != null) {
+//                try {
+//                    watchService.close();
+//                } catch (IOException ex) {
+//                    Logger.getLogger(AllSystemDirectoriesTreeModel.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
+//
+//        private void stop() {
+//            stop = true;
+//        }
+//    }
+
 }
