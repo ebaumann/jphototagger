@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 import java.util.StringTokenizer;
 import javax.swing.JTree;
@@ -21,7 +22,36 @@ import javax.swing.tree.TreeSelectionModel;
  */
 public final class TreeUtil {
 
-    private TreeUtil() {
+    /**
+     * @param parentNode Only nodes of the type DefaultMutableTreeNode will be recognized
+     * @param searchUserObject may be null, if not null, compared with their equals method
+     * @return First found instance or null if not found
+     */
+    public static DefaultMutableTreeNode findNodeContainingUserObjectRecursive(TreeNode parentNode, Object searchUserObject) {
+        if (parentNode == null) {
+            throw new NullPointerException("parentNode == null");
+        }
+        if (containsObject(parentNode, searchUserObject)) {
+            return (DefaultMutableTreeNode) parentNode;
+        }
+        int childCount = parentNode.getChildCount();
+        for (int childIndex = 0; childIndex < childCount; childIndex++) {
+            final TreeNode childNode = parentNode.getChildAt(childIndex);
+            DefaultMutableTreeNode foundNode = findNodeContainingUserObjectRecursive(childNode, searchUserObject); // Recursive
+            if (foundNode != null) {
+                return foundNode;
+            }
+        }
+        return null;
+    }
+
+    private static boolean containsObject(TreeNode treeNode, Object userObject) {
+        if (treeNode instanceof DefaultMutableTreeNode) {
+            Object nodeUserObject = ((DefaultMutableTreeNode) treeNode).getUserObject();
+            return Objects.equals(nodeUserObject, userObject);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -38,17 +68,13 @@ public final class TreeUtil {
         if (parent == null) {
             throw new NullPointerException("parent == null");
         }
-
         if (userObject == null) {
             return null;
         }
-
         for (Enumeration<Object> nodes = parent.preorderEnumeration(); nodes.hasMoreElements();) {
             Object node = nodes.nextElement();
-
             if (node instanceof DefaultMutableTreeNode) {
                 Object userObjectNode = ((DefaultMutableTreeNode) node).getUserObject();
-
                 if ((userObjectNode != null) && userObject.equals(userObjectNode)) {
                     return (DefaultMutableTreeNode) node;
                 }
@@ -68,21 +94,17 @@ public final class TreeUtil {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
-
         if (evt.getSource() instanceof JTree) {
             JTree tree = (JTree) evt.getSource();
             TreePath mousePath = tree.getPathForLocation(evt.getX(), evt.getY());
-
             if (mousePath != null) {
                 Object root = tree.getModel().getRoot();
                 Object mouseItem = mousePath.getLastPathComponent();
-
                 if ((root != null) && (mouseItem != null)) {
                     return root.equals(mouseItem);
                 }
             }
         }
-
         return false;
     }
 
@@ -95,7 +117,6 @@ public final class TreeUtil {
         if (trees == null) {
             throw new NullPointerException("trees == null");
         }
-
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
                 tree.clearSelection();
@@ -116,15 +137,12 @@ public final class TreeUtil {
         if (treeModel == null) {
             throw new NullPointerException("treeModel == null");
         }
-
         if (pathString == null) {
             throw new NullPointerException("pathString == null");
         }
-
         if (pathSeparator == null) {
             throw new NullPointerException("pathSeparator == null");
         }
-
         StringTokenizer tokenizer = new StringTokenizer(pathString, pathSeparator);
         int tokenCount = tokenizer.countTokens();
         int tokenNumber = 1;
@@ -132,26 +150,19 @@ public final class TreeUtil {
         Object[] path = new Object[(tokenCount > 0)
                 ? tokenCount
                 : 1];
-
         if (tokenCount > 0) {
             path[0] = treeModel.getRoot();
             tokenizer.nextToken();
-
             Object currentElement = treeModel.getRoot();
-            Object childElement = null;
             boolean appended = true;
-
             while (appended && (tokenNumber < tokenCount)) {
                 int childCount = treeModel.getChildCount(currentElement);
                 String pathToken = tokenizer.nextToken();
                 boolean found = false;
-
                 appended = false;
-
                 for (int index = 0; (index < childCount) && !found; index++) {
-                    childElement = treeModel.getChild(currentElement, index);
+                    Object childElement = treeModel.getChild(currentElement, index);
                     found = childElement.toString().equals(pathToken);
-
                     if (found) {
                         path[tokenNumber] = childElement;
                         currentElement = childElement;
@@ -159,7 +170,6 @@ public final class TreeUtil {
                         tokenFoundCount++;
                     }
                 }
-
                 tokenNumber++;
             }
         }
@@ -179,17 +189,13 @@ public final class TreeUtil {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         if (path == null) {
             throw new NullPointerException("path == null");
         }
-
         TreePath expandPath = path;
-
         if (tree.getModel().isLeaf(path.getLastPathComponent())) {
             expandPath = path.getParentPath();
         }
-
         tree.expandPath(expandPath);
     }
 
@@ -205,19 +211,15 @@ public final class TreeUtil {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         if (path == null) {
             throw new NullPointerException("path == null");
         }
-
         Stack<TreePath> stack = new Stack<>();
         TreePath parent = path;
-
         while (parent != null) {
             stack.push(parent);
             parent = parent.getParentPath();
         }
-
         while (!stack.isEmpty()) {
             tree.expandPath(stack.pop());
         }
@@ -239,28 +241,21 @@ public final class TreeUtil {
      * @param ignoreCase true if the strings shall be compared case insensitive
      * @return           true if the path was found
      */
-    public static boolean existsPathBelow(DefaultMutableTreeNode parentNode, List<String> toStrings,
-            boolean ignoreCase) {
+    public static boolean existsPathBelow(DefaultMutableTreeNode parentNode, List<String> toStrings, boolean ignoreCase) {
         if (parentNode == null) {
             throw new NullPointerException("parentNode == null");
         }
-
         if (toStrings == null) {
             throw new NullPointerException("toStrings == null");
         }
-
         int size = toStrings.size();
         DefaultMutableTreeNode node = parentNode;
-
         for (int i = 0; i < size; i++) {
             String string = toStrings.get(i);
-
             if (string == null) {
                 throw new NullPointerException("string == null. Element index: " + i);
             }
-
             node = getChild(node, string, ignoreCase);
-
             if (node == null) {
                 return false;
             }
@@ -269,59 +264,45 @@ public final class TreeUtil {
         return true;
     }
 
-    public static DefaultMutableTreeNode getBestMatchingNodeBelow(DefaultMutableTreeNode parentNode,
-            List<String> toStrings, boolean ignoreCase) {
+    public static DefaultMutableTreeNode getBestMatchingNodeBelow(DefaultMutableTreeNode parentNode, List<String> toStrings, boolean ignoreCase) {
         if (parentNode == null) {
             throw new NullPointerException("parentNode == null");
         }
-
         if (toStrings == null) {
             throw new NullPointerException("toStrings == null");
         }
-
         int size = toStrings.size();
         DefaultMutableTreeNode node = parentNode;
         DefaultMutableTreeNode latest = parentNode;
-
         for (int i = 0; (i < size) && (node != null); i++) {
             String string = toStrings.get(i);
-
             if (string == null) {
                 throw new NullPointerException("string == null. Element index: " + i);
             }
-
             node = getChild(node, string, ignoreCase);
-
             if (node != null) {
                 latest = node;
             }
         }
-
         return latest;
     }
 
-    private static DefaultMutableTreeNode getChild(DefaultMutableTreeNode parentNode, String toString,
-            boolean ignoreCase) {
+    private static DefaultMutableTreeNode getChild(DefaultMutableTreeNode parentNode, String toString, boolean ignoreCase) {
         assert toString != null;
-
         for (Enumeration<?> e = parentNode.children(); e.hasMoreElements();) {
             Object child = e.nextElement();
-
             if (child instanceof DefaultMutableTreeNode) {
                 if (child.toString() == null) {
                     return null;
                 }
-
                 boolean exists = ignoreCase
                         ? child.toString().equalsIgnoreCase(toString)
                         : child.toString().equals(toString);
-
                 if (exists) {
                     return (DefaultMutableTreeNode) child;
                 }
             }
         }
-
         return null;
     }
 
@@ -336,16 +317,12 @@ public final class TreeUtil {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
-
         Object source = evt.getSource();
-
         if (source instanceof JTree) {
             int mousePosX = evt.getX();
             int mousePosY = evt.getY();
-
             return ((JTree) source).getPathForLocation(mousePosX, mousePosY);
         }
-
         return null;
     }
 
@@ -364,27 +341,20 @@ public final class TreeUtil {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (model == null) {
             throw new NullPointerException("model == null");
         }
-
         Stack<DefaultMutableTreeNode> stack = new Stack<>();
         File parentFile = file;
-
         while (parentFile != null) {
             stack.push(new DefaultMutableTreeNode(parentFile));
             parentFile = parentFile.getParentFile();
         }
-
         List<DefaultMutableTreeNode> nodes = new ArrayList<>(stack.size() + 1);
-
         nodes.add((DefaultMutableTreeNode) model.getRoot());
-
         while (!stack.isEmpty()) {
             nodes.add(stack.pop());
         }
-
         return new TreePath(nodes.toArray());
     }
 
@@ -402,29 +372,22 @@ public final class TreeUtil {
         if (foundNodes == null) {
             throw new NullPointerException("foundNodes == null");
         }
-
         if (rootNode == null) {
             throw new NullPointerException("rootNode == null");
         }
-
         if (userObject == null) {
             throw new NullPointerException("userObject == null");
         }
-
         if (maxCount < 0) {
             throw new IllegalArgumentException("Negative max count: " + maxCount);
         }
-
         int foundNodeCount = foundNodes.size();
-
         for (Enumeration<DefaultMutableTreeNode> children = rootNode.children();
                 children.hasMoreElements() && (foundNodeCount <= maxCount);) {
             DefaultMutableTreeNode child = children.nextElement();
-
             if (userObject.equals(child.getUserObject())) {
                 foundNodes.add(child);
             } else {
-
                 // recursive
                 addNodesUserWithObject(foundNodes, child, userObject, maxCount);
             }
@@ -444,23 +407,17 @@ public final class TreeUtil {
         if (parentNode == null) {
             throw new NullPointerException("parentNode == null");
         }
-
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         int childCount = parentNode.getChildCount();
-
         for (int i = 0; i < childCount; i++) {
             TreeNode childNode = parentNode.getChildAt(i);
-
             if (childNode instanceof DefaultMutableTreeNode) {
                 DefaultMutableTreeNode node = (DefaultMutableTreeNode) childNode;
                 Object userObject = node.getUserObject();
-
                 if (userObject instanceof File) {
                     File f = (File) userObject;
-
                     if (f.equals(file)) {
                         return node;
                     }
@@ -483,9 +440,7 @@ public final class TreeUtil {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         TreeNode root = (TreeNode) tree.getModel().getRoot();
-
         // Traverse tree from root
         expandAll(tree, new TreePath(root), expand);
     }
@@ -503,11 +458,9 @@ public final class TreeUtil {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         if (parent == null) {
             throw new NullPointerException("parent == null");
         }
-
         // Traverse children
         TreeNode node = (TreeNode) parent.getLastPathComponent();
 
@@ -515,11 +468,9 @@ public final class TreeUtil {
             for (Enumeration<TreeNode> e = node.children(); e.hasMoreElements();) {
                 TreeNode n = e.nextElement();
                 TreePath path = parent.pathByAddingChild(n);
-
                 expandAll(tree, path, expand);
             }
         }
-
         // Expansion or collapse must be done bottom-up
         if (expand) {
             tree.expandPath(parent);
@@ -540,11 +491,9 @@ public final class TreeUtil {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         if (parentPaths == null) {
             throw new NullPointerException("parentPaths == null");
         }
-
         for (TreePath treePath : parentPaths) {
             expandAll(tree, treePath, expand);
         }
@@ -554,11 +503,7 @@ public final class TreeUtil {
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         TreeSelectionModel m = tree.getSelectionModel();
-
-        assert m != null;
-
         if (m != null) {
             m.clearSelection();
         }
@@ -585,17 +530,13 @@ public final class TreeUtil {
         if (below == null) {
             throw new NullPointerException("below == null");
         }
-
         TreeNode parent = below.getParent();
-
         while (parent != null) {
             if (parent == above) {
                 return true;
             }
-
             parent = parent.getParent();
         }
-
         return false;
     }
 
@@ -603,11 +544,9 @@ public final class TreeUtil {
         if (evt == null) {
             throw new NullPointerException("evt == null");
         }
-
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         return tree.getRowForLocation(evt.getX(), evt.getY()) > 0;
     }
 
@@ -622,21 +561,17 @@ public final class TreeUtil {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
-
         if (node == null) {
             throw new NullPointerException("node == null");
         }
-
         synchronized (model) {
             int count = node.getChildCount();
             List<TreeNode> children = new ArrayList<>(count);
             int[] indices = new int[count];
-
             for (int i = 0; i < count; i++) {
                 children.add(node.getChildAt(i));
                 indices[i] = i;
             }
-
             node.removeAllChildren();
             model.nodesWereRemoved(node, indices, children.toArray());
         }
@@ -646,17 +581,13 @@ public final class TreeUtil {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
-
         List<TreeNode> children = new ArrayList<>(node.getChildCount());
-
         for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements();) {
             Object nextElement = enumeration.nextElement();
-
             if (nextElement instanceof TreeNode) {
                 children.add((DefaultMutableTreeNode) nextElement);
             }
         }
-
         return children;
     }
 
@@ -664,9 +595,7 @@ public final class TreeUtil {
         if (node == null) {
             throw new NullPointerException("node == null");
         }
-
         List<DefaultMutableTreeNode> children = new ArrayList<>(node.getChildCount());
-
         for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements();) {
             Object nextElement = enumeration.nextElement();
 
@@ -674,7 +603,9 @@ public final class TreeUtil {
                 children.add((DefaultMutableTreeNode) nextElement);
             }
         }
-
         return children;
+    }
+
+    private TreeUtil() {
     }
 }
