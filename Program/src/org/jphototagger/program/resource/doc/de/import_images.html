@@ -77,8 +77,25 @@
         <p>Hier können Sie eine Skript-/Batch-Datei auswählen, die nach dem Import
             aufgerufen wird mit der importierten Datei als Parameter. Diese Option
             könnte Sie interessieren, falls Sie nach dem Import die Bilder beispielsweise
-            automatisiert bearbeiten wollen.
-        </p>
+            automatisiert bearbeiten wollen. Beispiel für eine Batch-Datei, die Bilder
+            zusätzlich nach DNG konvertiert (danke an Matthias, da dies sich nur
+            an erfahrene Computernutzer richtet, stehen hier keine weiteren
+            Erläuterungen):<br/>&nbsp;
+        </p>  <!-- Fix wegen der schlechten Auswertung von Styles durch die aktuelle JDK-Implementierung: br und extra div für pre -->
+        <div  style="padding: 12px; border: 1px solid black;">
+<pre>
+@echo off
+
+set IMAGE=%1
+for %%i in (%IMAGE%) DO set IMAGE_NEW=%%~dpni
+
+"C:\Program Files (x86)\Adobe\Adobe DNG Converter.exe" -p1 -cr6.6 %IMAGE%
+"C:\exiv2\exiv2.exe" -q -F -r %%Y-%%m-%%d-%%H%%M-%%S "%IMAGE_NEW%.dng"
+del %IMAGE%
+
+:END
+</pre>
+        </div>
 
         <h2>Was geschieht nach dem Import?</h2>
 
