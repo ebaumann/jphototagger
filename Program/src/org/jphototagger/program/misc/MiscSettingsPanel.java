@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
@@ -29,7 +28,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.module.wordsets.WordsetPreferences;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesDefaults;
@@ -207,7 +205,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         restoreUseLongXmpSidecarFileNames();
         restoreTabbedPaneSettings();
         restoreMetaDataTextAreasColumns();
-        restoreLogLevel();
     }
 
     private void restoreTabbedPaneSettings() {
@@ -257,15 +254,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         return prefs.containsKey(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES)
                 ? CopyMoveFilesOptions.parseInteger(prefs.getInt(AppPreferencesKeys.KEY_FILE_SYSTEM_OPERATIONS_OPTIONS_COPY_MOVE_FILES))
                 : CopyMoveFilesOptions.CONFIRM_OVERWRITE;
-    }
-
-    private void restoreLogLevel() {
-        comboBoxLogLevel.setSelectedItem(AppLoggingSystem.getLogLevel());
-    }
-
-    private void persistLogLevel() {
-        Level logLevel = (Level) comboBoxLogLevel.getSelectedItem();
-        prefs.setString(Preferences.KEY_LOG_LEVEL, logLevel.getName());
     }
 
     @Override
@@ -319,9 +307,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxCheckForUpdates = new javax.swing.JCheckBox();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
         checkBoxUseLongXmpSidecarFileNames = new javax.swing.JCheckBox();
-        panelLogLevel = new javax.swing.JPanel();
-        labelLogLevel = new javax.swing.JLabel();
-        comboBoxLogLevel = new javax.swing.JComboBox<>();
         panelEditMetadata = new javax.swing.JPanel();
         panelMdTextAreasColumns = new javax.swing.JPanel();
         labelMdTextAreasColumnsPropmpt = new javax.swing.JLabel();
@@ -404,34 +389,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
         panelDefault.add(checkBoxUseLongXmpSidecarFileNames, gridBagConstraints);
-
-        panelLogLevel.setLayout(new java.awt.GridBagLayout());
-
-        labelLogLevel.setLabelFor(comboBoxLogLevel);
-        labelLogLevel.setText(bundle.getString("MiscSettingsPanel.labelLogLevel.text")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        panelLogLevel.add(labelLogLevel, gridBagConstraints);
-
-        comboBoxLogLevel.setModel(new org.jphototagger.program.app.logging.LogLevelComboBoxModel());
-        comboBoxLogLevel.setRenderer(org.jphototagger.program.app.logging.LogLevelComboBoxModel.createRenderer());
-        comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxLogLevelActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelLogLevel.add(comboBoxLogLevel, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        panelDefault.add(panelLogLevel, gridBagConstraints);
 
         panelEditMetadata.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelEditMetadata.border.title"))); // NOI18N
         panelEditMetadata.setLayout(new java.awt.GridBagLayout());
@@ -616,14 +573,14 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addComponent(tabbedPane)
                 .addContainerGap())
         );
     }//GEN-END:initComponents
@@ -669,9 +626,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         persistMdTextAreasColumns();
     }//GEN-LAST:event_spinnerMdTextAreasColumnsStateChanged
 
-    private void comboBoxLogLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLogLevelActionPerformed
-        persistLogLevel();
-    }//GEN-LAST:event_comboBoxLogLevelActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseRepositoryDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
@@ -681,9 +635,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxDisplayWordsetsEditPanel;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JCheckBox checkBoxUseLongXmpSidecarFileNames;
-    private javax.swing.JComboBox<Object> comboBoxLogLevel;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
-    private javax.swing.JLabel labelLogLevel;
     private javax.swing.JLabel labelMdTextAreasColumnsInfo;
     private javax.swing.JLabel labelMdTextAreasColumnsPropmpt;
     private javax.swing.JLabel labelRepositoryDirectory;
@@ -693,7 +645,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JPanel panelDefault;
     private javax.swing.JPanel panelEditMetadata;
     private javax.swing.JPanel panelFill;
-    private javax.swing.JPanel panelLogLevel;
     private javax.swing.JPanel panelMdTextAreasColumns;
     private javax.swing.JPanel panelRepositoryDirectory;
     private javax.swing.JRadioButton radioButtonCopyMoveFileConfirmOverwrite;

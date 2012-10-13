@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.26.3 2012-10-13
+-----------------
+
+* Error message icon in program window bottom can be disabled for specific
+  messages: Edit > Settings > Miscellaneous > Logging > Exclude
+
 0.26.2 2012-10-04
 -----------------
 

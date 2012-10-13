@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.26.3 2012-10-13
+-----------------
+
+* Anzeige des Fehlernachrichten-Icons im Programmfenster unten kann für
+  ausgewählte Nachrichten deaktiviert werden: Bearbeiten > Einstellungen >
+  Sonstiges > Protokoll > Ausschließen
+
 0.26.2 2012-10-04
 -----------------
 
