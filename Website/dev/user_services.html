@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>How can I write my own plugins/modules?</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="../usr/index.html">Users</a></li>
+            <li><a href="index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="https://groups.google.com/group/jphototagger-users-english">Users English Language</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>How can I write my own plugins/modules?</h1>
+
+        <p>Put into the installation directory, subdirectory <code>lib</code>, a JAR named
+            <code>UserServices.jar</code> with
+            one ore more implementations of <code>org.jphototagger.api.plugin.Plugin</code> or
+            <code>org.jphototagger.api.modules.Module</code> or other interfaces called e.g. for
+            thumbnails generation or reading/writing XMP sidecar files and publish them through the
+            <a href="http://download.oracle.com/javase/6/docs/api/java/util/spi/package-summary.html">Java
+                Service Provider Interface (SPI)</a>.
+        </p>
+
+        <p>To avoid compiler errors, the minimum JAR file in the class path you need,
+            is <code>API.jar</code>. If you do not want manually create the
+            <code>META-INF/services</code> folder and keep relaxed during
+            refactorings, you should include <code>org-openide-util-lookup.jar</code>
+            and use the <code>@ServiceProvider</code> annotations. If you want
+            receive messages, include <code>eventbus.jar</code>. To access domain objects,
+            such as stored metadata info, include <code>Domain.jar</code>. Some other common used
+            library is <code>jsl.jar</code>. All JARs located in the <code>lib</code> sub
+            directory of <strong>JPhotoTagger's</strong> installation directory.
+        </p>
+
+        <h2>User Services' project skeleton</h2>
+
+        <p>A project named <strong>JPhotoTagger: UserServices</strong> is located in the version control
+            repository. It has already dependencies to the most important projects/libraries and
+            builds the file <code>UserServices.jar</code>. You cann add/remove dependencies in NetBeans
+            through right clicking on the project and selecting <strong>Properties &gt; Libraries</strong>.
+        </p>
+
+        <p>After building <strong>JPhotoTagger: UserServices</strong> , you can add the generated
+            <code>UserServices.jar</code> to the installation directory as described obove. Every build
+            of <strong>JPhotoTagger: Program</strong> deletes <code>UserServices.jar</code> from it's
+            <code>dist/lib</code> directory through <code>build.xml</code>! So either use a separate
+            directory or always re-copy it from <strong>JPhotoTagger: UserServices</strong> after building
+            <strong>JPhotoTagger: Program</strong> or modify <code>build.xml</code>.
+        </p>
+
+        <h2>Hints</h2>
+
+        <p>The best way to find reference implementations, is browsing the
+            <a href="http://code.google.com/p/jphototagger/source/browse/">source code</a>.
+            Even better is, <a href="http://code.google.com/p/jphototagger/source/checkout">clone</a>
+            it and open in in the <a href="http://netbeans.org">NetBeans</a> IDE. The clone
+            contains all source code and libraries.
+        </p>
+
+        <p>Minimum Example for a user defined <strong>Module</strong>
+            (Displays a message as soon as the module is loaded):</p>
+
+        <p>Within the <code>UserServices.jar</code> you can implement as many Plugins/Modules as you need.</p>
+
+<pre>
+package org.myorg.jphototaggerplugin;
+
+import javax.swing.JOptionPane;
+import org.openide.util.lookup.ServiceProvider;
+import org.jphototagger.api.modules.Module;
+
+@ServiceProvider(service = Module.class)
+public final class MyModule implements Module {
+
+    @Override
+    public void init() {
+        JOptionPane.showMessageDialog(null, "My module");
+    }
+
+    @Override
+    public void remove() {
+    }
+}
+</pre>
+
+        <p><strong>Author: Elmar</strong>
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20Discussion">Write e-Mail</a>
+            <br /><strong>Status of this document:</strong> 2012-07-30
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>

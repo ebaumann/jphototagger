@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JPhotoTagger" default="default" basedir=".">
+    <description>Helper scripts for developers</description>
+    <property file="scripts.properties"/>
+    <property environment="env"/>
+    <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode.jar"/>
+    <target name="dist-upload" description="Uploading Distribution to Google Code">
+        <!--${googlecode.username}, ${googlecode.password} and ${jptversion}
+        will be read from scripts.properties within this directory
+        -->
+        <gcupload
+            projectname="jphototagger"
+            username="${googlecode.username}"
+            password="${googlecode.password}"
+            filename="${env.PROJECTDIR}/JPhotoTagger/dist_files/upload/JPhotoTagger.zip"
+            targetfilename="JPhotoTagger-${jptversion}.zip"
+            summary="JPhotoTagger Version ${jptversion} - System independent ZIP archive"
+            verbose="true"
+            labels="photomanager, tagging, xmp, java"
+        />
+        <gcupload
+            projectname="jphototagger"
+            username="${googlecode.username}"
+            password="${googlecode.password}"
+            filename="${env.PROJECTDIR}/JPhotoTagger/dist_files/upload/JPhotoTagger-setup.exe"
+            targetfilename="JPhotoTagger-setup-${jptversion}.exe"
+            summary="JPhotoTagger Version ${jptversion} - Windows Installer"
+            verbose="true"
+            labels="photomanager, tagging, xmp, java"
+        />
+        <exec executable="${env.HOME}/website/bin/update.sh"/>
+    </target>
+    <target name="dist-create-zip" description="Create ZIP distribution">
+        <exec executable="bash">
+            <arg value="dist_create_zip.sh" />
+        </exec>
+    </target>
+    <target name="dist-set-version-info" description="Set Version Info to Dist">
+        <exec executable="bash">
+            <arg value="dist_set_version_info.sh" />
+        </exec>
+    </target>
+    <target name="switch-settingsdir-pristine" description="Switching to pristine settings">
+        <exec executable="bash">
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-p"/>
+        </exec>
+    </target>
+    <target name="switch-settingsdir-test" description="Switching to test settings">
+        <exec executable="bash">
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-t"/>
+        </exec>
+    </target>
+    <target name="switch-settingsdir-work" description="Switching to working settings">
+        <exec executable="bash">
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-w"/>
+        </exec>
+    </target>
+    <target name="create-pdf-manual" description="Creating PDF manual">
+        <exec executable="bash">
+            <arg value="create_html_index_manual.sh" />
+            <arg value="de"/>
+            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
+        </exec>
+        <exec executable="bash">
+            <arg value="create_pdf_manual.sh" />
+            <arg value="de" />
+            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
+        </exec>
+    </target>
+    <target name="bundles-find-missing-strings" description="Finding missing Bundle strings">
+        <exec executable="bash">
+            <arg value="find_missing_bundle_strings.sh"/>
+        </exec>
+    </target>
+    <target name="copy-test-images" description="Copying test images">
+        <exec executable="bash">
+            <arg value="copy_test_images.sh"/>
+        </exec>
+    </target>
+</project>

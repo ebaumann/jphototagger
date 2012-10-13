@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Datenbankinformationen und -Wartung</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Datenbankinformationen und -Wartung</h1>
+
+        <p>Den Dialog <strong>Datenbankinformationen und -Wartung</strong> öffnen
+            Sie über das Menü <strong>Datei &gt; Datenbank</strong>, Tastenkürzel
+            <kbd>Strg</kbd>+<kbd>Umschalt</kbd>+<kbd>D</kbd>.
+        </p>
+
+        <h2>Kartenreiter &quot;Info&quot;</h2>
+
+        <p>Auf dem <strong>Info</strong>-Kartenreiter sehen Sie, welche Daten
+            enthalten sind in wie vielen Datensätzen.</p>
+
+        <p>Wollen Sie wissen, wie viele Bilder in der Datenbank erfasst sind,
+            schauen Sie in die Zeile mit dem Dateinamen.
+        </p>
+
+        <h2>Kartenreiter &quot;Wartung&quot;</h2>
+
+        <h3>Datensätze mit nicht mehr existierenden Dateien entfernen, XMP für
+            nicht mehr existierende Filialdateien entfernen</h3>
+
+        <p>Entfernt Datensätze, für die es keine Bilder mehr gibt. Sind Bilder
+            in der Datenbank, aber existieren nicht mehr als Datei, werden bei
+            Suchen nicht mehr existierende Bilder berücksichtigt.
+        </p>
+
+        <p>Sind Ihre Bilder auf austauschbaren Wechsellaufwerken, die nicht
+            immer angeschlossen sind, sollten Sie diesen Befehl <em>nicht</em>
+            ausführen.
+        </p>
+
+        <h3>Datenbank komprimieren</h3>
+
+        <p>Das <strong>Komprimieren</strong> der Datenbank verkleinert ihre
+            Dateigröße. Dies ist in der Regel nicht nötig, kann aber sinnvoll
+            sein nach Programmupdates, bei denen die Datenbank modifiziert wurde
+            oder nachdem Sie sehr viele Metadaten verändert oder gelöscht
+            haben.
+        </p>
+
+        <h3>Verwaiste Vorschaubilder löschen</h3>
+
+        <p><strong>Verwaiste Vorschaubilder löschen</strong> entfernt
+            Vorschaubilder, für die keine Bilddateien in der Datenbank
+            existieren. Das kann der Fall sein, falls Sie außerhalb
+            <strong>JPhotoTagger</strong> Bilder verschoben oder löschten. So
+            geben Sie auf der Festplatte nicht benötigten Speicherplatz frei.
+        </p>
+
+        <h3>Nicht benutzte Stichwörter löschen</h3>
+
+        <p>Löscht Stichwörter, die keinem Bild mehr zugeordnet sind. Das wirkt
+           sich nur auf die Listenansicht aus, die die &quot;echten&quot;
+           Stichwörter anzeigt, <em>nicht</em> auf die Baumansicht, die eine
+           Eingabehilfe ist.
+        </p>
+
+        <h3>Nicht referenzierte Daten löschen (EXIF, XMP)</h3>
+
+        <p>Löscht Kameras, Objektive, Aufnahmeorte etc. aus der Datenbank, falls
+           kein Bild in der Datenbank damit (dort) fotografiert wurde.
+           <em>Die Ansicht wird erst aktualisiert nach einem Neustart von
+           JPhotoTagger!</em> Z.B. zeigt der Kartenreiter
+           <strong>Verschiedenes</strong> anschließend noch z.B. Objektive an,
+           mit denen kein Bild fotografiert wurde.
+        </p>
+
+        <h2>Kartenreiter &quot;Aktualisieren&quot;</h2>
+
+        <h3>EXIF neu einlesen aus allen bekannten Dateien</h3>
+
+        <p>Dieser Befehl aktualisiert <em>in der Datenbank</em> die EXIF-Daten
+            aller bekannten Bilder. Dazu liest <strong>JPhotoTagger</strong>
+            erneut alle EXIF-Daten der Bilder und überschreibt mit diesen die
+            alten Datenbankwerte. Hatte ein Bild mit EXIF früher keine
+            EXIF-Daten, werden diese nun in die Datenbank geschrieben.
+        </p>
+
+        <p>Das ist auch sinnvoll, falls (erst) in einer späteren Version von
+            <strong>JPhotoTagger</strong> neue kamera-spezifische Eigenschaften
+            in der Datenbank gespeichert werden, denn automatisch werden die
+            EXIF-Daten erst aktualisiert, falls das Datum der letzten Änderung
+            der Bilddatei sich ändert und <strong>JPhotoTagger</strong> dies
+            bemerkt.
+        </p>
+
+        <h3>EXIF neu einlesen aus allen bekannten Dateien</h3>
+
+        <p>Dieser Befehl aktualisiert <em>in der Datenbank</em> die XMP-Daten
+            aller bekannten Bilder. Dazu liest <strong>JPhotoTagger</strong>
+            erneut alle XMP-Daten der Bilder und überschreibt mit diesen die
+            alten Datenbankwerte. Hatte ein Bild mit XMP früher keine
+            XMP-Daten, werden diese nun in die Datenbank geschrieben.
+        </p>
+
+        <h3>Alle Vorschaubilder neu berechnen</h3>
+
+        <p>Berechnet <em>alle</em> Vorschaubilder neu. Dies ist z.B. sinnvoll,
+            falls Sie ein externes Programm zum Erzeugen der Vorschaubilder
+            benutzen und eine neue Programmversion bessere Ergebnisse erzielt.
+            So können Sie bereits erzeugte Vorschaubilder schlechterer Qualität
+            ersetzen lassen durch Vorschaubilder mit besserer Quailtät.
+        </p>
+
+        <h3>Dateien in der Datenbank umbenennen</h3>
+
+        <p>Öffnet den Dialog &quot;<a href="rename_images_in_database.html">In
+           der Datenbank Dateipfade umbenennen</a>&quot;.
+        </p>
+    </body>
+</html>

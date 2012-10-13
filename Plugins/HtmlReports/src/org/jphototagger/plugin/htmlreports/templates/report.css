@@ -1,0 +1,47 @@
+table {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+tr {
+    border: 1px solid black;
+}
+th {
+    background: #ddd;
+}
+th, td {
+    border: 1px solid black;
+    padding: 0.25em;
+}
+.authorsposition  {}
+.captionwriter {}
+.city {}
+.country {}
+.creator {}
+.credit {}
+.dc_description {}
+.dc_title {}
+.equipment {}
+.exif_date_time_original {}
+.exif_focal_length {}
+.exif_iso_speed_ratings {}
+.filename  {}
+.iptc4xmpcore_datecreated {}
+.lastmodified {}
+.lens {}
+.location {}
+.photoshop_headline {}
+.photoshop_instructions {}
+.photoshop_transmissionReference {}
+.rating {}
+.rights {}
+.source {}
+.state {}
+.subject {}
+.thumbnail {}
+.thumbnail a {
+    text-decoration: none;
+}
+.thumbnail img {
+    max-width: 150px;
+    max-height: 150px;
+}

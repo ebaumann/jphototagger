@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/metadatatemplates.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE templates SYSTEM "metadatatemplates.dtd">
+
+    <templates>
+    ...
+    </templates>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT templates (template)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT template (entry)*>
+<!ATTLIST template
+    name CDATA #REQUIRED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT entry EMPTY>
+<!ATTLIST entry
+    value CDATA #REQUIRED
+    valuetype CDATA #REQUIRED
+    column CDATA #REQUIRED
+  >
