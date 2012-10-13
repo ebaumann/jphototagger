@@ -38,7 +38,7 @@ final class KeywordsDatabase extends Database {
      * @return all keywords
      */
     Collection<Keyword> getAllKeywords() {
-        List<Keyword> keywords = new ArrayList<Keyword>();
+        List<Keyword> keywords = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -259,7 +259,7 @@ final class KeywordsDatabase extends Database {
         if (keyword == null) {
             throw new NullPointerException("keyword == null");
         }
-        List<Keyword> parents = new ArrayList<Keyword>();
+        List<Keyword> parents = new ArrayList<>();
         Connection con = null;
         try {
             con = getConnection();
@@ -285,7 +285,7 @@ final class KeywordsDatabase extends Database {
      *                  children
      */
     Collection<Keyword> getChildKeywords(long idParent) {
-        Collection<Keyword> children = new ArrayList<Keyword>();
+        Collection<Keyword> children = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -320,7 +320,7 @@ final class KeywordsDatabase extends Database {
      * @return keyword with no parents ordered ascending by their keyword
      */
     Collection<Keyword> getRootKeywords() {
-        Collection<Keyword> children = new ArrayList<Keyword>();
+        Collection<Keyword> children = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -529,7 +529,7 @@ final class KeywordsDatabase extends Database {
         if (select == null) {
             throw new NullPointerException("select == null");
         }
-        List<Collection<Keyword>> paths = new ArrayList<Collection<Keyword>>();
+        List<Collection<Keyword>> paths = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -543,7 +543,7 @@ final class KeywordsDatabase extends Database {
             while (rs.next()) {
                 long idParent = rs.getLong(1);
                 if (!rs.wasNull()) {
-                    List<Keyword> path = new ArrayList<Keyword>();
+                    List<Keyword> path = new ArrayList<>();
                     addPathToRoot(path, idParent, select, con);
                     Collections.reverse(path);
                     paths.add(path);

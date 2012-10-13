@@ -48,7 +48,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
     }
 
     List<Character> getButtonsMnemonicChars() {
-        List<Character> mnemonicChars = new ArrayList<Character>();
+        List<Character> mnemonicChars = new ArrayList<>();
 
         mnemonicChars.add((char) buttonEmptyMetadata.getMnemonic());
         mnemonicChars.add((char) buttonMetadataTemplateCreate.getMnemonic());
@@ -221,7 +221,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         panelGroupMetadataTemplates = new javax.swing.JPanel();
         panelComboBox = new javax.swing.JPanel();
         labelPromptCurrentTemplate = new javax.swing.JLabel();
-        comboBoxMetadataTemplates = new javax.swing.JComboBox();
+        comboBoxMetadataTemplates = new javax.swing.JComboBox<>();
         panelTemplateButtons = new javax.swing.JPanel();
         buttonMetadataTemplateRename = new javax.swing.JButton();
         buttonMetadataTemplateUpdate = new javax.swing.JButton();
@@ -494,7 +494,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonMetadataTemplateInsert;
     private javax.swing.JButton buttonMetadataTemplateRename;
     private javax.swing.JButton buttonMetadataTemplateUpdate;
-    private javax.swing.JComboBox comboBoxMetadataTemplates;
+    private javax.swing.JComboBox<Object> comboBoxMetadataTemplates;
     private javax.swing.JLabel labelPromptCurrentTemplate;
     private javax.swing.JLabel labelPromptInfoCurrentTemplate;
     private javax.swing.JLabel labelTemplateName;

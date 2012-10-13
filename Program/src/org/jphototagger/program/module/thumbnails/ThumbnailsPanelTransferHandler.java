@@ -184,7 +184,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
     }
 
     private void insertHierarchicalKeywords(Transferable t, boolean dropOverSelectedThumbnail, File imageFile) {
-        List<String> keywords = new ArrayList<String>();
+        List<String> keywords = new ArrayList<>();
 
         for (DefaultMutableTreeNode node : DataTransferSupport.getKeywordNodes(t)) {
             if (dropOverSelectedThumbnail) {
@@ -221,7 +221,7 @@ public final class ThumbnailsPanelTransferHandler extends TransferHandler {
             return;
         }
 
-        List<String> keywords = new ArrayList<String>(strings.length);
+        List<String> keywords = new ArrayList<>(strings.length);
 
         for (Object o : strings) {
             keywords.add(o.toString());

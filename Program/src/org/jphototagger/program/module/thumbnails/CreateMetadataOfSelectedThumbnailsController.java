@@ -24,7 +24,7 @@ import org.openide.util.Lookup;
  */
 public final class CreateMetadataOfSelectedThumbnailsController implements ActionListener {
 
-    private final Map<JMenuItem, SaveOrUpdate[]> insertIntoRepositoryOfMenuItem = new HashMap<JMenuItem, SaveOrUpdate[]>();
+    private final Map<JMenuItem, SaveOrUpdate[]> insertIntoRepositoryOfMenuItem = new HashMap<>();
     private final SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
 
     /**

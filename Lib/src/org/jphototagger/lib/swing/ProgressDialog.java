@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public final class ProgressDialog extends javax.swing.JDialog {
     private static final long serialVersionUID = 1L;
-    private final Set<ActionListener> actionListeners = new CopyOnWriteArraySet<ActionListener>();
+    private final Set<ActionListener> actionListeners = new CopyOnWriteArraySet<>();
     private boolean closeEnabled = true;
 
     /**

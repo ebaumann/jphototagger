@@ -11,10 +11,10 @@ import org.jphototagger.lib.util.StringUtil;
  */
 public final class Join {
 
-    private static final Map<String, String> JOIN_FROM_FILES = new HashMap<String, String>();
-    private static final Map<String, String> NULL_SQL_OF = new HashMap<String, String>();
-    private static final Map<String, String> NOT_NULL_SQL_OF = new HashMap<String, String>();
-    private static final Map<String, String> DELETE_SQL_OF = new HashMap<String, String>();
+    private static final Map<String, String> JOIN_FROM_FILES = new HashMap<>();
+    private static final Map<String, String> NULL_SQL_OF = new HashMap<>();
+    private static final Map<String, String> NOT_NULL_SQL_OF = new HashMap<>();
+    private static final Map<String, String> DELETE_SQL_OF = new HashMap<>();
 
     static {
         JOIN_FROM_FILES.put("files",

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class Content<T> {
 
     private T content;
-    private final Set<Listener<T>> listeners = new CopyOnWriteArraySet<Listener<T>>();
+    private final Set<Listener<T>> listeners = new CopyOnWriteArraySet<>();
 
     private enum Type {
 

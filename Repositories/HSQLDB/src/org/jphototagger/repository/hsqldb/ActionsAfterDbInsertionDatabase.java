@@ -110,7 +110,7 @@ final class ActionsAfterDbInsertionDatabase extends Database {
      * @return programs sorted ascending by their order
      */
     List<Program> getAllActions() {
-        List<Program> programs = new LinkedList<Program>();
+        List<Program> programs = new LinkedList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

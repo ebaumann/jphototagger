@@ -48,7 +48,7 @@ public final class ThumbnailsPanelRefreshEvent {
             throw new NullPointerException("selectedThumbnailIndices == null");
         }
 
-        this.selectedThumbnailIndices = new ArrayList<Integer>(selectedThumbnailIndices);
+        this.selectedThumbnailIndices = new ArrayList<>(selectedThumbnailIndices);
     }
 
     public boolean hasSelectedThumbnails() {

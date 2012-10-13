@@ -89,7 +89,7 @@ public final class MiscMetadataTreeTransferHandler extends TransferHandler {
         TreePath[] selPaths = t.getSelectionPaths();
 
         if (selPaths != null) {
-            List<MetaDataValueData> colData = new ArrayList<MetaDataValueData>(selPaths.length);
+            List<MetaDataValueData> colData = new ArrayList<>(selPaths.length);
 
             for (TreePath selPath : selPaths) {
                 Object lpc = selPath.getLastPathComponent();

@@ -12,8 +12,8 @@ import org.jphototagger.exif.ExifTag;
  */
 public final class ExifFormatterFactory {
 
-    private static final Map<Integer, ExifFormatter> FORMATTER_OF_EXIF_IFD_TAG_ID = new HashMap<Integer, ExifFormatter>();
-    private static final Map<Integer, ExifFormatter> FORMATTER_OF_EXIF_GPS_IFD_TAG_ID = new HashMap<Integer, ExifFormatter>();
+    private static final Map<Integer, ExifFormatter> FORMATTER_OF_EXIF_IFD_TAG_ID = new HashMap<>();
+    private static final Map<Integer, ExifFormatter> FORMATTER_OF_EXIF_GPS_IFD_TAG_ID = new HashMap<>();
 
     static {
 

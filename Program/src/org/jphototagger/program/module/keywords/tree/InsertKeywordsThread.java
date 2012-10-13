@@ -28,7 +28,7 @@ public final class InsertKeywordsThread extends Thread {
             throw new NullPointerException("keywords == null");
         }
 
-        this.keywords = new ArrayList<String>(keywords);
+        this.keywords = new ArrayList<>(keywords);
     }
 
     @Override

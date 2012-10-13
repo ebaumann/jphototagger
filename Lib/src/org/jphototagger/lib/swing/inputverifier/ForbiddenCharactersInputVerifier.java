@@ -14,7 +14,7 @@ import javax.swing.text.JTextComponent;
 public final class ForbiddenCharactersInputVerifier extends InputVerifier implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final List<Character> forbiddenCharacters = new ArrayList<Character>();
+    private final List<Character> forbiddenCharacters = new ArrayList<>();
 
     public ForbiddenCharactersInputVerifier(Character... forbidden) {
         forbiddenCharacters.addAll(Arrays.asList(forbidden));

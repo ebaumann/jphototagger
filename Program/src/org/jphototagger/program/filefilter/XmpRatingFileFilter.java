@@ -20,7 +20,7 @@ public final class XmpRatingFileFilter implements FileFilter, DisplayNameProvide
 
     private final int rating;
     private static final String DISPLAY_NAME_UNDEFINED = Bundle.getString(XmpRatingFileFilter.class, "XmpRatingFileFilter.DisplayName.Undefined");
-    private static final Map<Integer, String> DISPLAY_NAME_OF_RATING = new HashMap<Integer, String>();
+    private static final Map<Integer, String> DISPLAY_NAME_OF_RATING = new HashMap<>();
 
     static {
         DISPLAY_NAME_OF_RATING.put(1, Bundle.getString(XmpRatingFileFilter.class, "XmpRatingFileFilter.DisplayName.1Star"));

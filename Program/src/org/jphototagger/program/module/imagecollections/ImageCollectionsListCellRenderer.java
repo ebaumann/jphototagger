@@ -18,7 +18,7 @@ public final class ImageCollectionsListCellRenderer extends DefaultListCellRende
 
     private static final Icon ICON_DEFAULT = AppLookAndFeel.getIcon("icon_imagecollection.png");
     private static final Color SPECIAL_COLLECTION_FOREGROUND = Color.BLUE;
-    private static final Map<Object, Icon> ICON_OF_VALUE = new HashMap<Object, Icon>();
+    private static final Map<Object, Icon> ICON_OF_VALUE = new HashMap<>();
     private static final long serialVersionUID = 1L;
     private int tempSelRow = -1;
 
@@ -33,12 +33,11 @@ public final class ImageCollectionsListCellRenderer extends DefaultListCellRende
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         boolean specialCollection = ImageCollection.isSpecialCollection(value.toString());
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow = index == tempSelRow;
-
         label.setForeground((isTempSelRow || (isSelected && !tempSelExists))
                 ? AppLookAndFeel.getListSelectionForeground()
                 : specialCollection
@@ -48,7 +47,6 @@ public final class ImageCollectionsListCellRenderer extends DefaultListCellRende
                 ? AppLookAndFeel.getListSelectionBackground()
                 : AppLookAndFeel.getListBackground());
         label.setIcon(getIconOfValue(value));
-
         return label;
     }
 

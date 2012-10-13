@@ -234,7 +234,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
             throw new NullPointerException("keywordNode == null");
         }
 
-        List<Keyword> delKeywords = new ArrayList<Keyword>();
+        List<Keyword> delKeywords = new ArrayList<>();
 
         for (Enumeration<?> e = keywordNode.preorderEnumeration(); e.hasMoreElements();) {
             Object el = e.nextElement();

@@ -19,7 +19,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = MetaDataValueProvider.class)
 public final class ThumbnailMetaDataValueProvider implements MetaDataValueProvider {
 
-    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<MetaDataValue>();
+    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<>();
 
     static {
         PROVIDED_META_DATA_VALUES.add(ThumbnailsThumbnailMetaDataValue.INSTANCE);
@@ -27,12 +27,12 @@ public final class ThumbnailMetaDataValueProvider implements MetaDataValueProvid
 
     @Override
     public Collection<MetaDataValue> getProvidedValues() {
-        return new ArrayList<MetaDataValue>(PROVIDED_META_DATA_VALUES);
+        return new ArrayList<>(PROVIDED_META_DATA_VALUES);
     }
 
     @Override
     public Collection<MetaDataValueData> getMetaDataForImageFile(File file) {
-        List<MetaDataValueData> metaData = new ArrayList<MetaDataValueData>();
+        List<MetaDataValueData> metaData = new ArrayList<>();
         ThumbnailProvider provider = Lookup.getDefault().lookup(ThumbnailProvider.class);
         Image thumbnail = provider.getThumbnail(file);
         if (thumbnail != null) {

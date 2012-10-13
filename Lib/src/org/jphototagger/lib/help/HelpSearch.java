@@ -103,7 +103,7 @@ final class HelpSearch {
             TopScoreDocCollector collector = TopScoreDocCollector.create(100000, true);
             indexSearcher.search(query, collector);
             ScoreDoc[] scoreDocs = collector.topDocs().scoreDocs;
-            matchingHelpPageUrls = new ArrayList<HelpPage>(scoreDocs.length);
+            matchingHelpPageUrls = new ArrayList<>(scoreDocs.length);
             for (int i = 0; i < scoreDocs.length; i++) {
                 int docId = scoreDocs[i].doc;
                 Document document = indexSearcher.doc(docId);

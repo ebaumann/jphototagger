@@ -29,7 +29,7 @@ final class IrfanViewSlideshowCommand {
     private String irfanViewExecutablePath;
     private static final String PROGRAM_FILES_DIRECTORY_PATH = System.getenv("ProgramFiles");
     private boolean isReloadOnLoop;
-    private static final Set<String> VALID_IRFAN_VIEW_EXECUTABLE_NAMES = new HashSet<String>();
+    private static final Set<String> VALID_IRFAN_VIEW_EXECUTABLE_NAMES = new HashSet<>();
 
     static {
         VALID_IRFAN_VIEW_EXECUTABLE_NAMES.add("i_view32.exe");

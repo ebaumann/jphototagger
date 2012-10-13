@@ -12,7 +12,7 @@ import org.jphototagger.lib.util.ClassEquality;
 public final class XmpRatingDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final ReverseComparator<File> delegate = new ReverseComparator<File>(new XmpRatingAscendingComparator());
+    private final ReverseComparator<File> delegate = new ReverseComparator<>(new XmpRatingAscendingComparator());
 
     @Override
     public int compare(File fileLeft, File fileRight) {

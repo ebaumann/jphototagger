@@ -17,7 +17,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = MetaDataValueProvider.class)
 public final class FileMetaDataValueProvider implements MetaDataValueProvider {
 
-    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<MetaDataValue>();
+    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<>();
 
     static {
         PROVIDED_META_DATA_VALUES.add(FilesFilenameMetaDataValue.INSTANCE);
@@ -26,12 +26,12 @@ public final class FileMetaDataValueProvider implements MetaDataValueProvider {
 
     @Override
     public Collection<MetaDataValue> getProvidedValues() {
-        return new ArrayList<MetaDataValue>(PROVIDED_META_DATA_VALUES);
+        return new ArrayList<>(PROVIDED_META_DATA_VALUES);
     }
 
     @Override
     public Collection<MetaDataValueData> getMetaDataForImageFile(File file) {
-        List<MetaDataValueData> metaData = new ArrayList<MetaDataValueData>();
+        List<MetaDataValueData> metaData = new ArrayList<>();
 
         metaData.add(new MetaDataValueData(FilesFilenameMetaDataValue.INSTANCE, file.getAbsolutePath()));
         metaData.add(new MetaDataValueData(FilesLastModifiedMetaDataValue.INSTANCE, new Date(file.lastModified())));

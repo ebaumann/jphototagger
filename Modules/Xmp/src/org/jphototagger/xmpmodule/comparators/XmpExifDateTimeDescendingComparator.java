@@ -13,7 +13,7 @@ import org.jphototagger.lib.util.ClassEquality;
 public final class XmpExifDateTimeDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final Comparator<File> delegate = new ReverseComparator<File>(new XmpExifDateTimeAscendingComparator());
+    private final Comparator<File> delegate = new ReverseComparator<>(new XmpExifDateTimeAscendingComparator());
 
     @Override
     public int compare(File fileLeft, File fileRight) {

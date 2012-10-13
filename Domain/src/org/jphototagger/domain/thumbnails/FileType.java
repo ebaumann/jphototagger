@@ -37,7 +37,7 @@ public final class FileType {
         if (filenameSuffixes.size() < 1) {
             throw new IllegalStateException("At least one suffix has to be defined");
         }
-        this.filenameSuffixes = new HashSet<String>(filenameSuffixes.size());
+        this.filenameSuffixes = new HashSet<>(filenameSuffixes.size());
         for (String filenameSuffix : filenameSuffixes) {
             this.filenameSuffixes.add(filenameSuffix.toLowerCase());
         }

@@ -19,7 +19,7 @@ public final class ActionsAfterRepoUpdateReorderedEvent {
         }
 
         this.source = source;
-        this.actions = new ArrayList<Program>(actions);
+        this.actions = new ArrayList<>(actions);
     }
 
     public List<Program> getActions() {

@@ -15,7 +15,7 @@ import org.jphototagger.exif.datatype.ExifShort;
 public final class ExifFormatterSharpness extends ExifFormatter {
 
     public static final ExifFormatterSharpness INSTANCE = new ExifFormatterSharpness();
-    private static final Map<Integer, String> EXIF_KEY_OF_SHARPNESS = new HashMap<Integer, String>();
+    private static final Map<Integer, String> EXIF_KEY_OF_SHARPNESS = new HashMap<>();
 
     static {
         EXIF_KEY_OF_SHARPNESS.put(0, "SharpnessNormal");

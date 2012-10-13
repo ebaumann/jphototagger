@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public final class ImageCollectionSortAscendingComparator implements Comparator<String> {
 
-    public static final Map<String, Integer> SORT_ORDER_OF_SPECIAL_COLLECTION = new LinkedHashMap<String, Integer>();
+    public static final Map<String, Integer> SORT_ORDER_OF_SPECIAL_COLLECTION = new LinkedHashMap<>();
 
     static {
 

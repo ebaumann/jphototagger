@@ -77,7 +77,7 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
 
         @XmlElementWrapper(name = "SavedSearches")
         @XmlElement(type = SavedSearch.class)
-        private final ArrayList<SavedSearch> collection = new ArrayList<SavedSearch>();
+        private final ArrayList<SavedSearch> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -87,7 +87,7 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
         }
 
         public List<SavedSearch> getCollection() {
-            return new ArrayList<SavedSearch>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

@@ -137,7 +137,7 @@ public final class ExifTag {
         }
     }
     @XmlTransient
-    private static final Map<Integer, ExifDataType> DATA_TYPE_OF_TAG_ID = new HashMap<Integer, ExifDataType>();
+    private static final Map<Integer, ExifDataType> DATA_TYPE_OF_TAG_ID = new HashMap<>();
 
     static {
         for (ExifDataType type : ExifDataType.values()) {

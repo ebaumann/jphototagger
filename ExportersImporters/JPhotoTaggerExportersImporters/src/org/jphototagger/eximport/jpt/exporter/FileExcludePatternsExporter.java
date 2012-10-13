@@ -77,7 +77,7 @@ public final class FileExcludePatternsExporter implements RepositoryDataExporter
 
         @XmlElementWrapper(name = "FileExludePatterns")
         @XmlElement(type = StringWrapper.class)
-        private final ArrayList<StringWrapper> collection = new ArrayList<StringWrapper>();
+        private final ArrayList<StringWrapper> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -87,7 +87,7 @@ public final class FileExcludePatternsExporter implements RepositoryDataExporter
         }
 
         public List<StringWrapper> getCollection() {
-            return new ArrayList<StringWrapper>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

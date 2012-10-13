@@ -25,7 +25,7 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
 
     private static final Color SEL_BACKGROUND_COLOR = new Color(251, 225, 146);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(Bundle.getString(LogfileDialogTableCellRenderer.class, "LogfileDialogTableCellRenderer.DateFormat"));
-    private static final Map<Level, ImageIcon> ICON_OF_LEVEL = new HashMap<Level, ImageIcon>();
+    private static final Map<Level, ImageIcon> ICON_OF_LEVEL = new HashMap<>();
     private final JLabel cellLabel = new JLabel();
 
     static {

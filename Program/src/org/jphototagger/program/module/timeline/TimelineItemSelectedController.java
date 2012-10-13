@@ -115,7 +115,7 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
                 setTitle(isYear, date.year, isMonth, month, date);
 
-                List<File> files = new ArrayList<File>(repo.findImageFilesOfDateTaken(date.year, month, day));
+                List<File> files = new ArrayList<>(repo.findImageFilesOfDateTaken(date.year, month, day));
 
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
             }

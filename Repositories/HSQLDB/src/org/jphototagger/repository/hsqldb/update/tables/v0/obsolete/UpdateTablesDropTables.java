@@ -15,7 +15,7 @@ import org.jphototagger.repository.hsqldb.DatabaseMetadata;
  */
 public final class UpdateTablesDropTables {
 
-    private static final List<String> TABLES = new ArrayList<String>();
+    private static final List<String> TABLES = new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesDropTables.class.getName());
 
     static {

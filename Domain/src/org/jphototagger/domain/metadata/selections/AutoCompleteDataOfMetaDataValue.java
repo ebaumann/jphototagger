@@ -14,7 +14,7 @@ public final class AutoCompleteDataOfMetaDataValue {
 
     public static final AutoCompleteDataOfMetaDataValue INSTANCE = new AutoCompleteDataOfMetaDataValue();
     private static final AutoCompleteData FAST_SEARCH_DATA = new AutoCompleteData(FastSearchMetaDataValues.get());
-    private static final Map<MetaDataValue, AutoCompleteData> DATA_OF_META_DATA_VALUE = new HashMap<MetaDataValue, AutoCompleteData>();
+    private static final Map<MetaDataValue, AutoCompleteData> DATA_OF_META_DATA_VALUE = new HashMap<>();
 
     private AutoCompleteDataOfMetaDataValue() {
     }

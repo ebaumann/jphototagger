@@ -47,7 +47,7 @@ public final class KeywordsTreeTransferHandler extends TransferHandler {
         TreePath[] selPaths = tree.getSelectionPaths();
 
         if (selPaths != null) {
-            List<DefaultMutableTreeNode> selNodes = new ArrayList<DefaultMutableTreeNode>();
+            List<DefaultMutableTreeNode> selNodes = new ArrayList<>();
 
             for (TreePath selPath : selPaths) {
                 Object node = selPath.getLastPathComponent();
@@ -130,7 +130,7 @@ public final class KeywordsTreeTransferHandler extends TransferHandler {
             return false;
         }
 
-        List<MetaDataValueData> cd = new ArrayList<MetaDataValueData>(keywords.size());
+        List<MetaDataValueData> cd = new ArrayList<>(keywords.size());
 
         for (Keyword keyword : keywords) {
             cd.add(new MetaDataValueData(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword.getName()));

@@ -57,7 +57,7 @@ public final class ExifUtil {
      */
     public static Collection<ExifTag> getExifTags(File file) {
         Collection<? extends ExifInfo> exifInfos = Lookup.getDefault().lookupAll(ExifInfo.class);
-        Collection<ExifTag> exifTags = new LinkedList<ExifTag>();
+        Collection<ExifTag> exifTags = new LinkedList<>();
 
         for (ExifInfo exifInfo : exifInfos) {
             exifTags.addAll(exifInfo.getExifTags(file));
@@ -73,7 +73,7 @@ public final class ExifUtil {
      */
     public static Collection<ExifTag> getExifTagsPreferCached(File file) {
         Collection<? extends ExifInfo> exifInfos = Lookup.getDefault().lookupAll(ExifInfo.class);
-        Collection<ExifTag> exifTags = new LinkedList<ExifTag>();
+        Collection<ExifTag> exifTags = new LinkedList<>();
 
         for (ExifInfo exifInfo : exifInfos) {
             exifTags.addAll(exifInfo.getExifTagsPreferCached(file));

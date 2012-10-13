@@ -23,7 +23,7 @@ public final class UpdateAllThumbnails implements Runnable, ProgressListener, Ac
 
     private ProgressDialog progressDialog;
     private boolean cancel;
-    private final Set<ActionListener> actionListeners = new HashSet<ActionListener>();
+    private final Set<ActionListener> actionListeners = new HashSet<>();
     private static final Logger LOGGER = Logger.getLogger(UpdateAllThumbnails.class.getName());
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 

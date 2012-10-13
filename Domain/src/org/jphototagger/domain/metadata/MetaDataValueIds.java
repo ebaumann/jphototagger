@@ -35,8 +35,8 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
  */
 public final class MetaDataValueIds {
 
-    private static final Map<Integer, MetaDataValue> META_DATA_VALUE_OF_ID = new HashMap<Integer, MetaDataValue>();
-    private static final Map<MetaDataValue, Integer> ID_OF_META_DATA_VALUE = new HashMap<MetaDataValue, Integer>();
+    private static final Map<Integer, MetaDataValue> META_DATA_VALUE_OF_ID = new HashMap<>();
+    private static final Map<MetaDataValue, Integer> ID_OF_META_DATA_VALUE = new HashMap<>();
 
     static {
 

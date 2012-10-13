@@ -19,6 +19,7 @@ import org.jdesktop.swingx.JXList;
  *
  * @author Elmar Baumann
  */
+@SuppressWarnings("rawtypes")
 public final class ListTextFilter {
 
     private final JXList list;

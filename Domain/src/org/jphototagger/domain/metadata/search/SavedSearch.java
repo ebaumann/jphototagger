@@ -28,13 +28,13 @@ public final class SavedSearch {
      */
     @XmlElementWrapper(name = "Keywords")
     @XmlElement(type = String.class)
-    private List<String> keywords = new ArrayList<String>();
+    private List<String> keywords = new ArrayList<>();
     /**
      * MetaDataValue panels if type equals KEYWORDS_AND_PANELS
      */
     @XmlElementWrapper(name = "Panels")
     @XmlElement(type = SavedSearchPanel.class)
-    private List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
+    private List<SavedSearchPanel> panels = new ArrayList<>();
     /**
      * Custom SQL if type equals CUSTOM_SQL
      */
@@ -150,7 +150,7 @@ public final class SavedSearch {
      * @return keywords or empty list
      */
     public List<String> getKeywords() {
-        return new ArrayList<String>(keywords);
+        return new ArrayList<>(keywords);
     }
 
     public void setKeywords(List<String> keywords) {
@@ -218,7 +218,7 @@ public final class SavedSearch {
     }
 
     private List<SavedSearchPanel> getDeepCopyPanels() {
-        List<SavedSearchPanel> copy = new ArrayList<SavedSearchPanel>(panels.size());
+        List<SavedSearchPanel> copy = new ArrayList<>(panels.size());
         for (SavedSearchPanel panel : panels) {
             copy.add(new SavedSearchPanel(panel));
         }
@@ -227,10 +227,10 @@ public final class SavedSearch {
 
     private void setNotEmptyKeywords(List<String> keywords) {
         if (keywords == null) {
-            this.keywords = new ArrayList<String>();
+            this.keywords = new ArrayList<>();
             return;
         }
-        this.keywords = new ArrayList<String>(keywords.size());
+        this.keywords = new ArrayList<>(keywords.size());
         for (String keyword : keywords) {
             String trimmedKeyword = keyword.trim();
             if (!trimmedKeyword.isEmpty()) {
@@ -241,10 +241,10 @@ public final class SavedSearch {
 
     private void setDeepCopyPanels(List<SavedSearchPanel> panels) {
         if (panels == null) {
-            this.panels = new ArrayList<SavedSearchPanel>();
+            this.panels = new ArrayList<>();
             return;
         }
-        this.panels = new ArrayList<SavedSearchPanel>(panels.size());
+        this.panels = new ArrayList<>(panels.size());
         for (SavedSearchPanel panel : panels) {
             if (panel.hasValue()) {
                 this.panels.add(new SavedSearchPanel(panel));
@@ -290,7 +290,7 @@ public final class SavedSearch {
         if (columns == null) {
             throw new NullPointerException("columns == null");
     }
-        Set<String> tablenames = new HashSet<String>();
+        Set<String> tablenames = new HashSet<>();
         for (MetaDataValue column : columns) {
             tablenames.add(column.getCategory());
         }
@@ -331,7 +331,7 @@ public final class SavedSearch {
         }
 
     private void setValues(ParamStatement stmt) {
-        List<String> values = new ArrayList<String>(panels.size() + keywords.size());
+        List<String> values = new ArrayList<>(panels.size() + keywords.size());
         for (SavedSearchPanel panel : panels) {
             values.add(panel.getValue());
         }
@@ -340,7 +340,7 @@ public final class SavedSearch {
         }
 
     private List<MetaDataValue> getColumns() {
-        List<MetaDataValue> columns = new ArrayList<MetaDataValue>();
+        List<MetaDataValue> columns = new ArrayList<>();
         int index = 0;
         if (panels != null) {
             for (SavedSearchPanel panel : panels) {

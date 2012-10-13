@@ -14,7 +14,7 @@ import org.jphototagger.api.concurrent.Cancelable;
  */
 public final class SerialExecutor implements Executor {
 
-    private final Queue<Exec> runnables = new ArrayDeque<Exec>();
+    private final Queue<Exec> runnables = new ArrayDeque<>();
     private final Executor executor;
     private Exec active;
 

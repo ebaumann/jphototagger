@@ -75,7 +75,7 @@ public class ViewUtil {
             throw new NullPointerException("exclude == null");
         }
         List<JLabel> labels = ComponentUtil.getAllOfExclude(container, JLabel.class, excludeComponents);
-        List<Character> mnemonics = new ArrayList<Character>(labels.size());
+        List<Character> mnemonics = new ArrayList<>(labels.size());
         final char invalidMn = '\0';
         Collections.addAll(mnemonics, exclude);
 

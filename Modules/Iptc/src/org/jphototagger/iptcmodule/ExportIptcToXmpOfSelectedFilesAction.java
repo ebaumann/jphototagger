@@ -17,7 +17,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class ExportIptcToXmpOfSelectedFilesAction extends AbstractAction {
 
     private static final long serialVersionUID = 1L;
-    private final List<File> selectedFiles = new ArrayList<File>();
+    private final List<File> selectedFiles = new ArrayList<>();
 
     public ExportIptcToXmpOfSelectedFilesAction() {
         super(Bundle.getString(ExportIptcToXmpOfSelectedFilesAction.class, "ExportIptcToXmpOfSelectedFilesAction.Name"));

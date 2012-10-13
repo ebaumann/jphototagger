@@ -135,7 +135,7 @@ public final class FlickrImageInfoPanel extends javax.swing.JPanel {
     }
 
     public List<String> getTags() {
-        List<String> tags = new ArrayList<String>();
+        List<String> tags = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(textAreaTags.getText().trim(), TAGS_DELIM);
 
         while (st.hasMoreTokens()) {

@@ -28,8 +28,8 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
     private static final Color TEXTFIELD_FOREGROUND = getTextFieldForeground();
     private static final String LAST_CHOOSEN_DIR_KEY = "Module.FileEventHooks.LastChoosenDir";
-    private final Map<JTextField, String> keyOfTextField = new HashMap<JTextField, String>(4);
-    private final Map<JButton, JTextField> textFieldOfRemoveButton = new HashMap<JButton, JTextField>(4);
+    private final Map<JTextField, String> keyOfTextField = new HashMap<>(4);
+    private final Map<JButton, JTextField> textFieldOfRemoveButton = new HashMap<>(4);
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private String lastChoosenDirectory;
 

@@ -25,7 +25,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = MetaDataValueProvider.class)
 public final class ExifMetaDataValueProvider implements MetaDataValueProvider {
 
-    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<MetaDataValue>();
+    private static final List<MetaDataValue> PROVIDED_META_DATA_VALUES = new LinkedList<>();
 
     static {
         PROVIDED_META_DATA_VALUES.add(ExifDateTimeOriginalMetaDataValue.INSTANCE);
@@ -37,7 +37,7 @@ public final class ExifMetaDataValueProvider implements MetaDataValueProvider {
 
     @Override
     public Collection<MetaDataValue> getProvidedValues() {
-        return new ArrayList<MetaDataValue>(PROVIDED_META_DATA_VALUES);
+        return new ArrayList<>(PROVIDED_META_DATA_VALUES);
     }
 
     @Override
@@ -47,7 +47,7 @@ public final class ExifMetaDataValueProvider implements MetaDataValueProvider {
             if (exif == null) {
                 return Collections.emptyList();
             }
-            List<MetaDataValueData> metaDataValueData = new ArrayList<MetaDataValueData>(PROVIDED_META_DATA_VALUES.size());
+            List<MetaDataValueData> metaDataValueData = new ArrayList<>(PROVIDED_META_DATA_VALUES.size());
             addMetaDataValueDataIfNotNull(ExifDateTimeOriginalMetaDataValue.INSTANCE, exif.getDateTimeOriginal(), metaDataValueData);
             addMetaDataValueDataIfNotNull(ExifFocalLengthMetaDataValue.INSTANCE, exif.getFocalLengthGreaterZeroOrNull(), metaDataValueData);
             addMetaDataValueDataIfNotNull(ExifIsoSpeedRatingsMetaDataValue.INSTANCE, exif.getIsoSpeedRatings(), metaDataValueData);

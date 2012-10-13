@@ -17,7 +17,7 @@ import org.jphototagger.repository.hsqldb.DatabaseMetadata;
  */
 final class UpdateTablesAddColumns {
 
-    private static final List<ColumnInfo> COLUMNS = new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo> COLUMNS = new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesAddColumns.class.getName());
 
     static {
@@ -40,7 +40,7 @@ final class UpdateTablesAddColumns {
                 new IndexOfColumn("exif", "exif_lens", "idx_exif_lens", false)));
         COLUMNS.add(new ColumnInfo("saved_searches", "search_type", "SMALLINT", null));
     }
-    private final List<ColumnInfo> missingColumns = new ArrayList<ColumnInfo>();
+    private final List<ColumnInfo> missingColumns = new ArrayList<>();
 
     void update(Connection con) throws SQLException {
         LOGGER.log(Level.INFO, "Inserting columns");

@@ -37,7 +37,7 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
             throw new NullPointerException("keywords == null");
         }
 
-        this.keywords = new ArrayList<String>(keywords);
+        this.keywords = new ArrayList<>(keywords);
         tnPanelSettings = settings;
     }
 
@@ -56,7 +56,7 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
     }
 
     private void setFilesToThumbnailsPanel() {
-        List<File> imageFiles = new ArrayList<File>(getImageFilesOfKeywords());
+        List<File> imageFiles = new ArrayList<>(getImageFilesOfKeywords());
 
         if (imageFiles != null) {
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();

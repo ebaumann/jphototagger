@@ -182,7 +182,7 @@ final class MetadataTemplatesDatabase extends Database {
     }
 
     private List<String> toRepeatable(String string) {
-        List<String> strings = new ArrayList<String>();
+        List<String> strings = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(string, DELIM_REPEATABLE_STRINGS);
         while (tokenizer.hasMoreTokens()) {
             strings.add(tokenizer.nextToken());
@@ -230,7 +230,7 @@ final class MetadataTemplatesDatabase extends Database {
      * @return Templates
      */
     List<MetadataTemplate> getAllMetadataTemplates() {
-        List<MetadataTemplate> templates = new ArrayList<MetadataTemplate>();
+        List<MetadataTemplate> templates = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

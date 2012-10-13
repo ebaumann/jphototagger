@@ -40,7 +40,7 @@ public final class FileChooserHelper {
      * @return              selected files or empty list
      */
     public static List<File> chooseFiles(FileChooserProperties fcProperties) {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         FileChooserExt fc = getFileChooser(fcProperties);
 
         applySize(fc, fcProperties);

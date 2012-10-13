@@ -81,36 +81,31 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     }
 
     private void handleButtonSelectNothingActionPerformed() {
-        selPaths = new ArrayList<Collection<String>>();
+        selPaths = new ArrayList<>();
         accepted = false;
         setVisible(false);
     }
 
     private void handleButtonSelectAllActionPerformed() {
         accepted = true;
-        selPaths = new ArrayList<Collection<String>>(paths);
+        selPaths = new ArrayList<>(paths);
         setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
     private void handleButtonSelectSelectedActionPerformed() {
         accepted = true;
-
-        List<Collection<String>> sel = new ArrayList<Collection<String>>();
+        List<Collection<String>> sel = new ArrayList<>();
         Object[] selValues = list.getSelectedValues();
-
         for (Object selValue : selValues) {
             if (selValue instanceof Collection<?>) {
                 Collection<String> collection = (Collection<String>) selValue;
-
                 sel.add(collection);
             } else if (selValue instanceof String) {
                 Collection<String> collection = Collections.singletonList((String) selValue);
-
                 sel.add(collection);
             }
         }
-
         selPaths = sel;
         setVisible(false);
     }
@@ -126,7 +121,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         }
     }
 
-    private class Model extends DefaultListModel {
+    private class Model extends DefaultListModel<Object> {
         private static final long serialVersionUID = 1L;
 
         Model() {
@@ -158,7 +153,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         private final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof Collection<?>) {

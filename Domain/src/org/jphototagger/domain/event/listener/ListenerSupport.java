@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  */
 public class ListenerSupport<T> {
 
-    protected final Set<T> listeners = new CopyOnWriteArraySet<T>();
+    protected final Set<T> listeners = new CopyOnWriteArraySet<>();
 
     public void add(T listener) {
         if (listener == null) {

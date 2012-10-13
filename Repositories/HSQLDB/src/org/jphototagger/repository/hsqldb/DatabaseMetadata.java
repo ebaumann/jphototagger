@@ -141,7 +141,7 @@ public final class DatabaseMetadata extends Database {
         }
 
         ResultSet rs = null;
-        List<ColumnInfo> infos = new ArrayList<ColumnInfo>();
+        List<ColumnInfo> infos = new ArrayList<>();
 
         try {
             DatabaseMetaData meta = con.getMetaData();

@@ -27,8 +27,8 @@ public final class ExifGpsLongitude {
             return this.equals(EAST);
         }
     }
-    private static final Map<String, Ref> REF_OF_STRING = new HashMap<String, Ref>();
-    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new EnumMap<Ref, String>(Ref.class);
+    private static final Map<String, Ref> REF_OF_STRING = new HashMap<>();
+    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new EnumMap<>(Ref.class);
 
     static {
         REF_OF_STRING.put("E", Ref.EAST);

@@ -31,9 +31,9 @@ public final class AppFileFilters {
     public static final FileFilter XMP_RATING_3_STARS = new XmpRatingFileFilter(3);
     public static final FileFilter XMP_RATING_4_STARS = new XmpRatingFileFilter(4);
     public static final FileFilter XMP_RATING_5_STARS = new XmpRatingFileFilter(5);
-    private final Set<String> allAcceptedSuffixes = new HashSet<String>();
-    private final Set<String> acceptedRawSuffixes = new HashSet<String>();
-    private final Set<String> userDefinedFileTypesSuffixes = new HashSet<String>();
+    private final Set<String> allAcceptedSuffixes = new HashSet<>();
+    private final Set<String> acceptedRawSuffixes = new HashSet<>();
+    private final Set<String> userDefinedFileTypesSuffixes = new HashSet<>();
     private RegexFileFilter allAcceptedImageFilesFilter;
     private final RegexFileFilter acceptedRawFilesFilter;
     private final RegexFileFilter acceptedDngFilesFilter;

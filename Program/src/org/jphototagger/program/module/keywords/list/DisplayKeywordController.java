@@ -47,7 +47,7 @@ public final class DisplayKeywordController extends KeywordsListController {
 
         WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
         waitDisplayer.show();
-        ListModel model = ModelFactory.INSTANCE.getModel(KeywordsListModel.class);
+        ListModel<?> model = ModelFactory.INSTANCE.getModel(KeywordsListModel.class);
         List<Integer> modelIndices = ListUtil.getModelIndicesOfItems(model, keywords);
 
         if (!modelIndices.isEmpty()) {

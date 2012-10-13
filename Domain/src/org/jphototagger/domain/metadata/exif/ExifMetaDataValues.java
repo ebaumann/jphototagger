@@ -11,7 +11,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  */
 public final class ExifMetaDataValues {
 
-    private static final Set<MetaDataValue> VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final Set<MetaDataValue> VALUES = new LinkedHashSet<>();
 
     static {
         VALUES.add(ExifIsoSpeedRatingsMetaDataValue.INSTANCE);
@@ -22,7 +22,7 @@ public final class ExifMetaDataValues {
     }
 
     public static Collection<? extends MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(VALUES);
+        return new ArrayList<>(VALUES);
     }
 
     private ExifMetaDataValues() {

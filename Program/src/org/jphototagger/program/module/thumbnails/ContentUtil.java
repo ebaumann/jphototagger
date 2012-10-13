@@ -11,7 +11,7 @@ import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
  */
 public final class ContentUtil {
 
-    private static final List<OriginOfDisplayedThumbnails> CONTENT_IS_A_FILESYSTEM_DIRECTORY = new ArrayList<OriginOfDisplayedThumbnails>();
+    private static final List<OriginOfDisplayedThumbnails> CONTENT_IS_A_FILESYSTEM_DIRECTORY = new ArrayList<>();
 
     static {
         CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);

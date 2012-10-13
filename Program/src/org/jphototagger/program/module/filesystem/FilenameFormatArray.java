@@ -10,7 +10,7 @@ import org.jphototagger.domain.templates.RenameTemplate;
  */
 public final class FilenameFormatArray {
 
-    private final List<FilenameFormat> formats = new ArrayList<FilenameFormat>();
+    private final List<FilenameFormat> formats = new ArrayList<>();
 
     /**
      * Adds a format. {@code #format()} returns the filename built in the same order of the calls to this function.

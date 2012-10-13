@@ -31,9 +31,9 @@ import org.openide.util.lookup.ServiceProvider;
 public final class DefaultThumbnailCreator implements ThumbnailCreator {
 
     private static final Logger LOGGER = Logger.getLogger(DefaultThumbnailCreator.class.getName());
-    private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<String>();
-    private static final Set<String> RGB_IMAGE_SUFFIXES_LOWERCASE = new HashSet<String>();
-    private static final Set<String> RAW_FORMAT_SUFFIXES_LOWERCASE = new HashSet<String>();
+    private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<>();
+    private static final Set<String> RGB_IMAGE_SUFFIXES_LOWERCASE = new HashSet<>();
+    private static final Set<String> RAW_FORMAT_SUFFIXES_LOWERCASE = new HashSet<>();
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private final UserDefinedFileTypesRepository userDefinedFileTypesRepository = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
     private final ThumbnailCreationStrategyProvider thumbnailCreationStrategyProvider = Lookup.getDefault().lookup(ThumbnailCreationStrategyProvider.class);

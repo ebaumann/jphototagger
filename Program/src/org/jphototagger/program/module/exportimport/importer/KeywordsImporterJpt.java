@@ -59,12 +59,12 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Repos
     }
 
     private List<List<KeywordString>> getPaths(Node rootNode) {
-        List<List<KeywordString>> paths = new ArrayList<List<KeywordString>>();
+        List<List<KeywordString>> paths = new ArrayList<>();
         List<Node> leafs = getAllLeafs(rootNode);
-        List<Stack<Node>> pathStacks = new ArrayList<Stack<Node>>();
+        List<Stack<Node>> pathStacks = new ArrayList<>();
 
         for (Node leaf : leafs) {
-            Stack<Node> stack = new Stack<Node>();
+            Stack<Node> stack = new Stack<>();
 
             stack.push(leaf);
             pushParents(stack, leaf);
@@ -72,7 +72,7 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Repos
         }
 
         for (Stack<Node> stack : pathStacks) {
-            List<KeywordString> path = new ArrayList<KeywordString>(stack.size());
+            List<KeywordString> path = new ArrayList<>(stack.size());
 
             while (!stack.isEmpty()) {
                 path.add(getKeyword(stack.pop()));
@@ -102,7 +102,7 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Repos
     }
 
     private List<Node> getAllLeafs(Node rootNode) {
-        List<Node> leafs = new ArrayList<Node>();
+        List<Node> leafs = new ArrayList<>();
         NodeList nl = rootNode.getChildNodes();
         int length = nl.getLength();
 

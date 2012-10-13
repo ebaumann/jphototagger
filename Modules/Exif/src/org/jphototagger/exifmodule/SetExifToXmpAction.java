@@ -17,7 +17,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class SetExifToXmpAction extends AbstractAction {
 
     private static final long serialVersionUID = 1L;
-    private final Collection<File> selectedFiles = new ArrayList<File>();
+    private final Collection<File> selectedFiles = new ArrayList<>();
 
     public SetExifToXmpAction() {
         super(Bundle.getString(SetExifToXmpAction.class, "SetExifToXmpAction.Name"));

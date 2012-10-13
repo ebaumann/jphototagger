@@ -204,7 +204,7 @@ public final class XmpProperties {
                 throw new NullPointerException("xmpString == null");
             }
 
-            List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
+            List<XMPPropertyInfo> propertyInfos = new ArrayList<>();
             XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmpString);
 
             if (xmpMeta == null) {
@@ -242,7 +242,7 @@ public final class XmpProperties {
             return null;
         }
 
-        List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> propertyInfos = new ArrayList<>();
         FileInputStream fis = null;
 
         try {
@@ -302,7 +302,7 @@ public final class XmpProperties {
             throw new NullPointerException("propertyValue == null");
         }
 
-        List<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<>();
 
         for (XMPPropertyInfo xmpPropertyInfo : xmpPropertyInfos) {
             Object value = xmpPropertyInfo.getValue();

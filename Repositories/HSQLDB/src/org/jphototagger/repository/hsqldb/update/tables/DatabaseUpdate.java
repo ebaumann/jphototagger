@@ -14,7 +14,7 @@ import org.openide.util.Lookup;
  */
 public final class DatabaseUpdate {
 
-    private final List<DatabaseUpdateTask> requiredUpdateTasks = new LinkedList<DatabaseUpdateTask>();
+    private final List<DatabaseUpdateTask> requiredUpdateTasks = new LinkedList<>();
 
     public DatabaseUpdate() {
         lookupUpdaters();

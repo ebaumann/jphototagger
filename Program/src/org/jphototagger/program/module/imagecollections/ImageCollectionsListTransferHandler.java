@@ -99,7 +99,7 @@ public final class ImageCollectionsListTransferHandler extends TransferHandler {
     }
 
     private List<File> getImageFiles(List<File> list) {
-        List<File> imageFiles = new ArrayList<File>(list.size() / 2);
+        List<File> imageFiles = new ArrayList<>(list.size() / 2);
 
         for (File file : list) {
             if (FileFilterUtil.isImageFile(file)) {

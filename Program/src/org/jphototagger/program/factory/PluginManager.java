@@ -16,8 +16,8 @@ public class PluginManager<T extends Plugin> {
 
     private static final String PROPERTY_STRING_VALUE_FALSE = "0";
     private static final String PROPERTY_STRING_VALUE_TRUE = "1";
-    private final Set<T> ALL_PLUGINS = new LinkedHashSet<T>();
-    private final Set<T> ENABLED_PLUGINS = new LinkedHashSet<T>();
+    private final Set<T> ALL_PLUGINS = new LinkedHashSet<>();
+    private final Set<T> ENABLED_PLUGINS = new LinkedHashSet<>();
     private final Class<T> pluginClass;
 
     protected PluginManager(Class<T> pluginClass) {

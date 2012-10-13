@@ -97,14 +97,12 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
 
     private List<UserDefinedFileFilter> getSelectedFilters() {
         Object[] selValues = list.getSelectedValues();
-        List<UserDefinedFileFilter> filter = new ArrayList<UserDefinedFileFilter>(selValues.length);
-
+        List<UserDefinedFileFilter> filter = new ArrayList<>(selValues.length);
         for (Object selValue : selValues) {
             if (selValue instanceof UserDefinedFileFilter) {
                 filter.add((UserDefinedFileFilter) selValue);
             }
         }
-
         return filter;
     }
 

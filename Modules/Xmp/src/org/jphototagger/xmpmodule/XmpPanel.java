@@ -56,8 +56,8 @@ public class XmpPanel extends javax.swing.JPanel {
     private final XmpTableModel modelXmpTiff = new XmpTableModel();
     private final XmpTableModel modelXmpXap = new XmpTableModel();
     private final XmpTableCellRenderer xmpTableCellRenderer = new XmpTableCellRenderer();
-    private final Map<JTable, XmpTableModel> modelOfTable = new HashMap<JTable, XmpTableModel>();
-    private final Map<XmpTableModel, String[]> namespacesOfXmpTableModel = new HashMap<XmpTableModel, String[]>();
+    private final Map<JTable, XmpTableModel> modelOfTable = new HashMap<>();
+    private final Map<XmpTableModel, String[]> namespacesOfXmpTableModel = new HashMap<>();
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     public XmpPanel() {
@@ -192,7 +192,7 @@ public class XmpPanel extends javax.swing.JPanel {
     }
 
     private void setPropertyInfosToXmpTableModel(File imageFile, XmpTableModel model, List<XMPPropertyInfo> allInfos, String[] namespaces) {
-        List<XMPPropertyInfo> infos = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> infos = new ArrayList<>();
 
         for (int index = 0; index < namespaces.length; index++) {
             infos.addAll(XmpMetadata.filterPropertyInfosOfNamespace(allInfos, namespaces[index]));
@@ -253,7 +253,7 @@ public class XmpPanel extends javax.swing.JPanel {
         }
 
         private static List<String> getPathComponents(String path) {
-            List<String> components = new ArrayList<String>();
+            List<String> components = new ArrayList<>();
             StringTokenizer tokenizer = new StringTokenizer(path, DELIMITER_PATH);
 
             while (tokenizer.hasMoreTokens()) {

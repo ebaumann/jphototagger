@@ -55,7 +55,7 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
         prefs.setSelectedIndices(PREFERENCES_KEY, list);
     }
 
-    private class FilesWithoutMetaDataMetadataListModel extends DefaultListModel {
+    private class FilesWithoutMetaDataMetadataListModel extends DefaultListModel<Object> {
 
         private static final long serialVersionUID = 1L;
 
@@ -95,7 +95,7 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof MetaDataValue) {

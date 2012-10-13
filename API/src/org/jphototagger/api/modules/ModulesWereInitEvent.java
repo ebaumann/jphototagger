@@ -24,7 +24,7 @@ public final class ModulesWereInitEvent {
         }
 
         this.source = source;
-        this.loadedModules = new ArrayList<Module>(loadedModules);
+        this.loadedModules = new ArrayList<>(loadedModules);
     }
 
     public Collection<? extends Module> getLoadedModules() {

@@ -18,7 +18,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class SynonymsListModel extends DefaultListModel {
+public final class SynonymsListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private boolean listen = true;

@@ -30,8 +30,8 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
 
     private static final long serialVersionUID = 1L;
     private JPopupMenu createExternalThumbnailCreatorPopupMenu;
-    private final Map<JRadioButton, ThumbnailCreationStrategy> thumbnailCreatorOfRadioButton = new HashMap<JRadioButton, ThumbnailCreationStrategy>();
-    private final EnumMap<ThumbnailCreationStrategy, JRadioButton> radioButtonOfThumbnailCreator = new EnumMap<ThumbnailCreationStrategy, JRadioButton>(ThumbnailCreationStrategy.class);
+    private final Map<JRadioButton, ThumbnailCreationStrategy> thumbnailCreatorOfRadioButton = new HashMap<>();
+    private final EnumMap<ThumbnailCreationStrategy, JRadioButton> radioButtonOfThumbnailCreator = new EnumMap<>(ThumbnailCreationStrategy.class);
 
     public ThumbnailsSettingsPanel() {
         initComponents();

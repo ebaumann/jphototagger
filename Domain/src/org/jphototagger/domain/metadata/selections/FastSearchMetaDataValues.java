@@ -21,7 +21,7 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopHeadlineMetaDataValue;
  */
 public final class FastSearchMetaDataValues {
 
-    private static final List<MetaDataValue> VALUES = new ArrayList<MetaDataValue>();
+    private static final List<MetaDataValue> VALUES = new ArrayList<>();
 
     static {
 
@@ -43,7 +43,7 @@ public final class FastSearchMetaDataValues {
     }
 
     public static List<MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(VALUES);
+        return new ArrayList<>(VALUES);
     }
 
     private FastSearchMetaDataValues() {

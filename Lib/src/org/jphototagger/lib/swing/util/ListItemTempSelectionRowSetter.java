@@ -28,7 +28,7 @@ import org.jphototagger.lib.swing.MouseEventUtil;
  */
 public final class ListItemTempSelectionRowSetter implements MouseListener, PopupMenuListener {
 
-    private final JList list;
+    private final JList<?> list;
     private static final String TEMP_SEL_ROW_METHOD_NAME = "setTempSelectionRow";
 
     /**
@@ -37,20 +37,18 @@ public final class ListItemTempSelectionRowSetter implements MouseListener, Popu
      * @param list      list
      * @param popupMenu the list's popup menu
      */
-    public ListItemTempSelectionRowSetter(JList list, JPopupMenu popupMenu) {
+    public ListItemTempSelectionRowSetter(JList<?> list, JPopupMenu popupMenu) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }
-
         if (popupMenu == null) {
             throw new NullPointerException("popupMenu == null");
         }
-
         this.list = list;
         listen(list, popupMenu);
     }
 
-    private void listen(JList list, JPopupMenu popupMenu) {
+    private void listen(JList<?> list, JPopupMenu popupMenu) {
         list.addMouseListener(this);
         popupMenu.addPopupMenuListener(this);
     }
@@ -64,26 +62,21 @@ public final class ListItemTempSelectionRowSetter implements MouseListener, Popu
     public void mousePressed(MouseEvent evt) {
         if (MouseEventUtil.isPopupTrigger(evt)) {
             int index = list.locationToIndex(new Point(evt.getX(), evt.getY()));
-
             if (index < 0) {
                 return;
             }
-
             setRowIndex(index);
         }
     }
 
     private void setRowIndex(int index) {
-        ListCellRenderer renderer = list.getCellRenderer();
-
+        ListCellRenderer<?> renderer = list.getCellRenderer();
         if (renderer instanceof JXList.DelegatingRenderer) {
             renderer = ((JXList.DelegatingRenderer) renderer).getDelegateRenderer();
         }
-
         if (hasMethod(renderer)) {
             try {
                 Method m = renderer.getClass().getMethod(TEMP_SEL_ROW_METHOD_NAME, int.class);
-
                 m.invoke(renderer, index);
                 list.repaint();
             } catch (Exception ex) {
@@ -92,11 +85,10 @@ public final class ListItemTempSelectionRowSetter implements MouseListener, Popu
         }
     }
 
-    private boolean hasMethod(ListCellRenderer renderer) {
+    private boolean hasMethod(ListCellRenderer<?> renderer) {
         for (Method method : renderer.getClass().getDeclaredMethods()) {
             if (method.getName().equals(TEMP_SEL_ROW_METHOD_NAME)) {
                 Class<?>[] parameterTypes = method.getParameterTypes();
-
                 if ((parameterTypes.length == 1) && parameterTypes[0].equals(int.class)) {
                     return true;
                 }

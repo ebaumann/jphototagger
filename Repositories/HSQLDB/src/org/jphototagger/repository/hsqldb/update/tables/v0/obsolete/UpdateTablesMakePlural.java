@@ -17,8 +17,8 @@ import org.jphototagger.repository.hsqldb.DatabaseMetadata;
  */
 final class UpdateTablesMakePlural {
 
-    private static final Map<String, String> TO_TABLE_NAME_OF = new HashMap<String, String>();
-    private static final List<IndexRenameInfo> INDICES_TO_RENAME = new ArrayList<IndexRenameInfo>();
+    private static final Map<String, String> TO_TABLE_NAME_OF = new HashMap<>();
+    private static final List<IndexRenameInfo> INDICES_TO_RENAME = new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesMakePlural.class.getName());
 
     private static class IndexRenameInfo {

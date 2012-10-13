@@ -21,8 +21,8 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 public class ProgressBarPanelArray extends javax.swing.JPanel implements ProgressBarPanelListener {
 
     private static final long serialVersionUID = 1L;
-    private final List<ProgressBarPanel> inactiveProgressBarPanels = new ArrayList<ProgressBarPanel>();
-    private final List<ProgressBarPanel> activeProgressBarPanels = new ArrayList<ProgressBarPanel>();
+    private final List<ProgressBarPanel> inactiveProgressBarPanels = new ArrayList<>();
+    private final List<ProgressBarPanel> activeProgressBarPanels = new ArrayList<>();
     private static final Icon DOWN_ARROW_ICON = IconUtil.getImageIcon(ProgressBarPanelArray.class, "arrow_down.png");
     private static final Icon UP_ARROW_ICON = IconUtil.getImageIcon(ProgressBarPanelArray.class, "arrow_up.png");
     private final ToggleVisibilityOfHiddenProgressBars toggleVisibilityOfHiddenProgressBars = new ToggleVisibilityOfHiddenProgressBars();

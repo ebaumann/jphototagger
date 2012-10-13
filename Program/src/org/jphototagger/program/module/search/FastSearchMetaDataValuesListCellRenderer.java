@@ -17,19 +17,16 @@ public final class FastSearchMetaDataValuesListCellRenderer extends DefaultListC
     private static final long serialVersionUID = 1L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
         if (value instanceof MetaDataValue) {
             MetaDataValue mdValue = (MetaDataValue) value;
-
             label.setText(mdValue.getDescription());
             label.setIcon(MetaDataValueIcons.getIcon(mdValue));
         } else if ((value != null) && value.equals(FastSearchComboBoxModel.ALL_DEFINED_META_DATA_VALUES)) {
             label.setText(Bundle.getString(FastSearchMetaDataValuesListCellRenderer.class, "FastSearchMetaDataValuesListCellRenderer.Text.AllDefinedValues"));
             label.setIcon(null);
         }
-
         return label;
     }
 }

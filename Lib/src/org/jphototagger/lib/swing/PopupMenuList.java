@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -39,20 +38,19 @@ import org.jphototagger.lib.swing.util.ListUtil;
 public abstract class PopupMenuList extends JPopupMenu implements ActionListener, MouseListener {
 
     private static final long serialVersionUID = 1L;
-    private final Map<JMenuItem, Collection<Listener>> listenersOfItem = new HashMap<JMenuItem, Collection<Listener>>();
+    private final Map<JMenuItem, Collection<Listener>> listenersOfItem = new HashMap<>();
     private List<Object> lastSelValues;
-    private final JList list;
+    private final JList<?> list;
 
     /**
      * Creates a new instance.
      *
      * @param list list where the popup menu will be shown
      */
-    protected PopupMenuList(JList list) {
+    protected PopupMenuList(JList<?> list) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }
-
         this.list = list;
         addMenuItems();
         listenToMenuItems(this);
@@ -98,7 +96,7 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
             Collection<Listener> listeners = listenersOfItem.get(menuItem);
 
             if (listeners == null) {
-                listeners = new HashSet<Listener>();
+                listeners = new HashSet<>();
                 listenersOfItem.put(menuItem, listeners);
             }
 
@@ -137,7 +135,7 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
 
     private void notifyListeners(JMenuItem menuItem) {
         synchronized (listenersOfItem) {
-            List<Object> paths = new ArrayList<Object>(lastSelValues);
+            List<Object> paths = new ArrayList<>(lastSelValues);
 
             for (Listener listener : listenersOfItem.get(menuItem)) {
                 listener.action(list, paths);
@@ -147,7 +145,7 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
 
     private void showPopupMenu(MouseEvent evt) {
         if (setLastSelValues(evt)) {
-            setMenuItemsEnabled(new ArrayList<Object>(lastSelValues));
+            setMenuItemsEnabled(new ArrayList<>(lastSelValues));
             show(list, evt.getX(), evt.getY());
         }
     }
@@ -168,8 +166,9 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     private void setAllSelectedListItems() {
-        lastSelValues = Arrays.asList(list.getSelectedValues());
+        lastSelValues = new ArrayList<>(list.getSelectedValuesList());
     }
 
     @Override
@@ -236,6 +235,6 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
          * @param list           list
          * @param selectedValues selected list values
          */
-        void action(JList list, List<Object> selectedValues);
+        void action(JList<?> list, List<Object> selectedValues);
     }
 }

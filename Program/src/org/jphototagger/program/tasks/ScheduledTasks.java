@@ -35,8 +35,8 @@ import org.openide.util.Lookup;
 public final class ScheduledTasks implements ActionListener {
 
     private static final int DEFAULT_MINUTES_TO_START_SCHEDULED_TASKS = 5;
-    private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE = new EnumMap<ButtonState, Icon>(ButtonState.class);
-    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE = new EnumMap<ButtonState, String>(ButtonState.class);
+    private static final Map<ButtonState, Icon> ICON_OF_BUTTON_STATE = new EnumMap<>(ButtonState.class);
+    private static final Map<ButtonState, String> TOOLTIP_TEXT_OF_BUTTON_STATE = new EnumMap<>(ButtonState.class);
     public static final ScheduledTasks INSTANCE = new ScheduledTasks();
     private final SerialExecutor executor = new SerialExecutor(Executors.newCachedThreadPool());
     private final JButton button = SettingsDialog.INSTANCE.getButtonScheduledTasks();

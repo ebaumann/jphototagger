@@ -171,7 +171,7 @@ final class FavoritesDatabase extends Database {
     }
 
     List<Favorite> getAllFavorites() {
-        List<Favorite> favorites = new ArrayList<Favorite>();
+        List<Favorite> favorites = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

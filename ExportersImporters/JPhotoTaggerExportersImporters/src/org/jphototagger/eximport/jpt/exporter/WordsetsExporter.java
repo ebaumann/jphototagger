@@ -74,7 +74,7 @@ public final class WordsetsExporter implements RepositoryDataExporter {
 
         @XmlElementWrapper(name = "Wordsets")
         @XmlElement(type = Wordset.class)
-        private final ArrayList<Wordset> collection = new ArrayList<Wordset>();
+        private final ArrayList<Wordset> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -84,7 +84,7 @@ public final class WordsetsExporter implements RepositoryDataExporter {
         }
 
         public List<Wordset> getCollection() {
-            return new ArrayList<Wordset>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

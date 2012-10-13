@@ -17,7 +17,7 @@ import org.jphototagger.lib.util.SystemProperties;
  */
 public final class ScriptWriter {
 
-    private final Map<String, String> replacementOf = new HashMap<String, String>();
+    private final Map<String, String> replacementOf = new HashMap<>();
     private static final String NEWLINE = SystemProperties.getLineSeparator();
 
     /**

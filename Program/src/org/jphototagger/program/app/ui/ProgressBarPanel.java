@@ -14,7 +14,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHandle {
 
     private static final long serialVersionUID = 1L;
-    private final ListenerSupport<ProgressBarPanelListener> ls = new ListenerSupport<ProgressBarPanelListener>();
+    private final ListenerSupport<ProgressBarPanelListener> ls = new ListenerSupport<>();
     private final Cancelable cancelable;
 
     public ProgressBarPanel() {

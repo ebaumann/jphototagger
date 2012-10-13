@@ -18,7 +18,7 @@ import org.jphototagger.repository.hsqldb.Database;
  */
 final class UpdateTablesPrimaryKeys {
 
-    private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP = new ArrayList<String>();
+    private static final List<String> TABLES_PRIMARY_KEYS_TO_DROP = new ArrayList<>();
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesPrimaryKeys.class.getName());
 
     void update(Connection con) throws SQLException {

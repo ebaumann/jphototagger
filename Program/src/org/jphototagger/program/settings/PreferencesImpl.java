@@ -56,7 +56,6 @@ public final class PreferencesImpl implements Preferences {
     public void setBoolean(String key, boolean value) {
         boolean oldValue = settings.getBoolean(key);
         boolean containsKey = settings.containsKey(key);
-
         if (!containsKey || value != oldValue) {
             settings.set(key, value);
             writeToFile();
@@ -73,7 +72,6 @@ public final class PreferencesImpl implements Preferences {
     public void setInt(String key, int value) {
         int oldValue = settings.getInt(key);
         boolean containsKey = settings.containsKey(key);
-
         if (!containsKey || value != oldValue) {
             settings.set(key, value);
             writeToFile();
@@ -101,7 +99,6 @@ public final class PreferencesImpl implements Preferences {
     @Override
     public void applyLocation(String key, Component component) {
         boolean applied = settings.applyLocation(key, component);
-
         if (!applied && component instanceof Window) {
             ComponentUtil.centerScreen((Window) component);
         }
@@ -126,13 +123,10 @@ public final class PreferencesImpl implements Preferences {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (stringCollection == null) {
             throw new NullPointerException("stringCollection == null");
         }
-
         List<String> oldValue = settings.getStringCollection(key);
-
         settings.setStringCollection(key, stringCollection);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, key, oldValue, stringCollection));
@@ -143,7 +137,6 @@ public final class PreferencesImpl implements Preferences {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         return settings.getStringCollection(key);
     }
 
@@ -152,11 +145,9 @@ public final class PreferencesImpl implements Preferences {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         settings.set(key, tree);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, key, null, tree));
@@ -167,11 +158,9 @@ public final class PreferencesImpl implements Preferences {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (tree == null) {
             throw new NullPointerException("tree == null");
         }
-
         settings.applySettings(key, tree);
     }
 
@@ -180,11 +169,9 @@ public final class PreferencesImpl implements Preferences {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (scrollPane == null) {
             throw new NullPointerException("scrollPane == null");
         }
-
         settings.set(key, scrollPane);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, key, null, scrollPane));
@@ -195,11 +182,9 @@ public final class PreferencesImpl implements Preferences {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (scrollPane == null) {
             throw new NullPointerException("scrollPane == null");
         }
-
         settings.applySettings(key, scrollPane);
     }
 
@@ -208,11 +193,9 @@ public final class PreferencesImpl implements Preferences {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (button == null) {
             throw new NullPointerException("button == null");
         }
-
         settings.set(key, button);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, key, null, button));
@@ -256,7 +239,6 @@ public final class PreferencesImpl implements Preferences {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
-
         settings.set(component, hints);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, component.getClass().getName(), null, component));
@@ -267,31 +249,27 @@ public final class PreferencesImpl implements Preferences {
         if (component == null) {
             throw new NullPointerException("component == null");
         }
-
         settings.applySettings(component, hints);
     }
 
     @Override
-    public void setSelectedIndex(String key, JComboBox comboBox) {
+    public void setSelectedIndex(String key, JComboBox<?> comboBox) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (comboBox == null) {
             throw new NullPointerException("comboBox == null");
         }
-
         settings.setSelectedIndex(key, comboBox);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, key, null, comboBox));
     }
 
     @Override
-    public void applySelectedIndex(String key, JComboBox comboBox) {
+    public void applySelectedIndex(String key, JComboBox<?> comboBox) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (comboBox == null) {
             throw new NullPointerException("comboBox == null");
         }
@@ -300,30 +278,26 @@ public final class PreferencesImpl implements Preferences {
     }
 
     @Override
-    public void setSelectedIndices(String key, JList list) {
+    public void setSelectedIndices(String key, JList<?> list) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (list == null) {
             throw new NullPointerException("list == null");
         }
-
         settings.setSelectedIndices(key, list);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, key, null, list));
     }
 
     @Override
-    public void applySelectedIndices(String key, JList list) {
+    public void applySelectedIndices(String key, JList<?> list) {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         if (list == null) {
             throw new NullPointerException("list == null");
         }
-
         settings.applySelectedIndices(key, list);
     }
 
@@ -332,7 +306,6 @@ public final class PreferencesImpl implements Preferences {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         settings.removeStringCollection(key);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, key, null, null));

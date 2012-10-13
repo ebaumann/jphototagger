@@ -302,12 +302,12 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
             || selItem.equals(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE));
     }
 
-    private final ListCellRenderer columnRenderer = new DefaultListCellRenderer() {
+    private final ListCellRenderer<Object> columnRenderer = new DefaultListCellRenderer() {
 
         private static final long serialVersionUID = 1L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             MetaDataValue metaDataValue = (MetaDataValue) value;
@@ -331,10 +331,10 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         toggleButtonBracketLeft1 = new javax.swing.JToggleButton();
-        comboBoxOperators = new javax.swing.JComboBox();
+        comboBoxOperators = new javax.swing.JComboBox<>();
         toggleButtonBracketLeft2 = new javax.swing.JToggleButton();
-        comboBoxColumns = new javax.swing.JComboBox();
-        comboBoxComparators = new javax.swing.JComboBox();
+        comboBoxColumns = new javax.swing.JComboBox<>();
+        comboBoxComparators = new javax.swing.JComboBox<>();
         textFieldValue = new javax.swing.JFormattedTextField();
         textFieldValue.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         toggleButtonBracketRight = new javax.swing.JToggleButton();
@@ -357,7 +357,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         add(toggleButtonBracketLeft1, gridBagConstraints);
 
-        comboBoxOperators.setModel(new DefaultComboBoxModel(Operator.values()));
+        comboBoxOperators.setModel(new DefaultComboBoxModel<Object>(Operator.values()));
         comboBoxOperators.setName("comboBoxOperators"); // NOI18N
         comboBoxOperators.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -384,7 +384,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketLeft2, gridBagConstraints);
 
-        comboBoxColumns.setModel(new DefaultComboBoxModel(org.jphototagger.domain.metadata.search.AdvancedSearchMetaDataValues.get().toArray()));
+        comboBoxColumns.setModel(new DefaultComboBoxModel<>(org.jphototagger.domain.metadata.search.AdvancedSearchMetaDataValues.get().toArray()));
         comboBoxColumns.setName("comboBoxColumns"); // NOI18N
         comboBoxColumns.setRenderer(columnRenderer);
         comboBoxColumns.addActionListener(new java.awt.event.ActionListener() {
@@ -398,7 +398,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(comboBoxColumns, gridBagConstraints);
 
-        comboBoxComparators.setModel(new DefaultComboBoxModel(Comparator.values()));
+        comboBoxComparators.setModel(new DefaultComboBoxModel<Object>(Comparator.values()));
         comboBoxComparators.setName("comboBoxComparators"); // NOI18N
         comboBoxComparators.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -509,9 +509,9 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCalendar;
     public javax.swing.JButton buttonRemoveColumn;
-    private javax.swing.JComboBox comboBoxColumns;
-    private javax.swing.JComboBox comboBoxComparators;
-    private javax.swing.JComboBox comboBoxOperators;
+    private javax.swing.JComboBox<Object> comboBoxColumns;
+    private javax.swing.JComboBox<Object> comboBoxComparators;
+    private javax.swing.JComboBox<Object> comboBoxOperators;
     private javax.swing.JFormattedTextField textFieldValue;
     private javax.swing.JToggleButton toggleButtonBracketLeft1;
     private javax.swing.JToggleButton toggleButtonBracketLeft2;

@@ -153,7 +153,7 @@ public final class FavoritesUtil {
             }
         }
 
-        return new ArrayList<File>();
+        return new ArrayList<>();
     }
 
     /**

@@ -78,7 +78,7 @@ public final class UserDefinedFileFilterExporter implements RepositoryDataExport
 
         @XmlElementWrapper(name = "FileFilter")
         @XmlElement(type = UserDefinedFileFilter.class)
-        private final ArrayList<UserDefinedFileFilter> collection = new ArrayList<UserDefinedFileFilter>();
+        private final ArrayList<UserDefinedFileFilter> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -88,7 +88,7 @@ public final class UserDefinedFileFilterExporter implements RepositoryDataExport
         }
 
         public List<UserDefinedFileFilter> getCollection() {
-            return new ArrayList<UserDefinedFileFilter>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

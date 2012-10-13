@@ -11,7 +11,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  */
 public final class FilesMetaDataValues {
 
-    private static final Set<MetaDataValue> VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final Set<MetaDataValue> VALUES = new LinkedHashSet<>();
 
     static {
         VALUES.add(FilesFilenameMetaDataValue.INSTANCE);
@@ -19,7 +19,7 @@ public final class FilesMetaDataValues {
     }
 
     public static Collection<MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(VALUES);
+        return new ArrayList<>(VALUES);
     }
 
     private FilesMetaDataValues() {

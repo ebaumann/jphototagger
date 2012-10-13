@@ -11,9 +11,9 @@ import java.util.List;
  */
 public final class ExifTagsToDisplay {
 
-    private static final List<Integer> ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY = new ArrayList<Integer>();
-    private static final List<Integer> ID_VALUES_OF_GPS_TAGS_TO_DISPLAY = new ArrayList<Integer>();
-    private static final List<Integer> ID_VALUES_OF_INTEROPARABILITY_TAGS_TO_DISPLAY = new ArrayList<Integer>();
+    private static final List<Integer> ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY = new ArrayList<>();
+    private static final List<Integer> ID_VALUES_OF_GPS_TAGS_TO_DISPLAY = new ArrayList<>();
+    private static final List<Integer> ID_VALUES_OF_INTEROPARABILITY_TAGS_TO_DISPLAY = new ArrayList<>();
 
     static {
 
@@ -55,7 +55,7 @@ public final class ExifTagsToDisplay {
             throw new NullPointerException("exifTags == null");
         }
 
-        List<ExifTag> displayableExifTags = new ArrayList<ExifTag>(exifTags.size());
+        List<ExifTag> displayableExifTags = new ArrayList<>(exifTags.size());
 
         for (ExifTag exifTag : exifTags) {
             if (isDisplayableExifTag(exifTag) && !containsCollectionTag(displayableExifTags, exifTag)) {

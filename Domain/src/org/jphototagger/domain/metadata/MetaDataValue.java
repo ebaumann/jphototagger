@@ -24,7 +24,7 @@ public class MetaDataValue {
     private static final Icon CATEGORY_ICON_FILE = IconUtil.getImageIcon(MetaDataValue.class, "meata_data_value_category_file.png");
     private static final Icon CATEGORY_ICON_XMP = IconUtil.getImageIcon(MetaDataValue.class, "meata_data_value_category_xmp.png");
     private static final Icon CATEGORY_ICON_UNDEFINED = IconUtil.getImageIcon(MetaDataValue.class, "meata_data_value_category_undefined.png");
-    private static final Map<String, Icon> ICON_OF_CATEGORY = new HashMap<String, Icon>();
+    private static final Map<String, Icon> ICON_OF_CATEGORY = new HashMap<>();
     private final ValueType valueType;
     private String description;
     private int valueLength;

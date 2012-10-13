@@ -64,8 +64,8 @@ public final class AppPanel extends javax.swing.JPanel {
     private static final int DEFAULT_DIVIDER_LOCATION_MAIN = 100;
     private static final int DEFAULT_DIVIDER_LOCATION_THUMBNAILS = 200;
     private transient MessageLabel messageLabel;
-    private final List<JTree> selectionTrees = new ArrayList<JTree>();
-    private final List<JXList> selectionLists = new ArrayList<JXList>();
+    private final List<JTree> selectionTrees = new ArrayList<>();
+    private final List<JXList> selectionLists = new ArrayList<>();
     private ListTextFilter listSelKeywordsTextFilter;
     private ListTextFilter listImageCollectionsTextFilter;
     private ListTextFilter listSavedSearchesTextFilter;
@@ -334,8 +334,8 @@ public final class AppPanel extends javax.swing.JPanel {
                 lookupSearchComponent();
                 lookupMainWindowThumbnailsComponent();
                 Collection<? extends MainWindowComponentProvider> providers = Lookup.getDefault().lookupAll(MainWindowComponentProvider.class);
-                List<MainWindowComponent> selectionsComponents = new ArrayList<MainWindowComponent>();
-                List<MainWindowComponent> editComponents = new ArrayList<MainWindowComponent>();
+                List<MainWindowComponent> selectionsComponents = new ArrayList<>();
+                List<MainWindowComponent> editComponents = new ArrayList<>();
                 for (MainWindowComponentProvider provider : providers) {
                     editComponents.addAll(provider.getMainWindowEditComponents());
                     selectionsComponents.addAll(provider.getMainWindowSelectionComponents());
@@ -463,7 +463,7 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private void lookupStatusLineElements() {
-        List<StatusLineElementProvider> providers = new ArrayList<StatusLineElementProvider>(
+        List<StatusLineElementProvider> providers = new ArrayList<>(
                 Lookup.getDefault().lookupAll(StatusLineElementProvider.class));
         Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         boolean isFirst = true;

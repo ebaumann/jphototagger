@@ -14,7 +14,7 @@ import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 public final class MetadataTemplate {
 
     private String name;
-    private final HashMap<MetaDataValue, Object> fieldOfMetaDataValue = new HashMap<MetaDataValue, Object>();
+    private final HashMap<MetaDataValue, Object> fieldOfMetaDataValue = new HashMap<>();
 
     /**
      * Returns the template's name.

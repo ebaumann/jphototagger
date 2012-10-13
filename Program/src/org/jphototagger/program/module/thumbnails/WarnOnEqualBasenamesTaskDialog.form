@@ -43,7 +43,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="labelInfo" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="scrollPanlFiles" pref="165" max="32767" attributes="0"/>
+              <Component id="scrollPanlFiles" pref="137" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               <Component id="checkBoxDisplayInFuture" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>

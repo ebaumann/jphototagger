@@ -28,7 +28,7 @@ public final class StartPrograms {
 
     private static final long MAX_MILLISECONDS_UNTIL_TERMINATE = 300 * 1000;
     private static final Logger LOGGER = Logger.getLogger(StartPrograms.class.getName());
-    private final Queue<Execute> queue = new ConcurrentLinkedQueue<Execute>();
+    private final Queue<Execute> queue = new ConcurrentLinkedQueue<>();
     private ProgressHandle progressHandle;
 
     /**
@@ -75,7 +75,7 @@ public final class StartPrograms {
             if (imageFiles == null) {
                 throw new NullPointerException("imageFiles == null");
             }
-            this.imageFiles = new ArrayList<File>(imageFiles);
+            this.imageFiles = new ArrayList<>(imageFiles);
             this.program = program;
             this.waitForTermination = waitForTermination;
         }

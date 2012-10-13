@@ -15,7 +15,7 @@ import org.jphototagger.exif.datatype.ExifShort;
 public final class ExifFormatterMeteringMode extends ExifFormatter {
 
     public static final ExifFormatterMeteringMode INSTANCE = new ExifFormatterMeteringMode();
-    private static final Map<Integer, String> EXIF_KEY_OF_METERING_MODE = new HashMap<Integer, String>();
+    private static final Map<Integer, String> EXIF_KEY_OF_METERING_MODE = new HashMap<>();
 
     static {
         EXIF_KEY_OF_METERING_MODE.put(0, "MeteringModeUnknown");

@@ -107,7 +107,7 @@ final class AutoscanDirectoriesDatabase extends Database {
     }
 
     List<File> getAllDirectories() {
-        List<File> directories = new ArrayList<File>();
+        List<File> directories = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

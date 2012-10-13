@@ -56,7 +56,7 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     }
 
     private List<File> getImageFilesOfKeywords() {
-        List<File> imageFiles = new ArrayList<File>();
+        List<File> imageFiles = new ArrayList<>();
 
         for (List<String> keywords : keywordLists) {
 
@@ -90,10 +90,10 @@ public final class ShowThumbnailsContainingAllKeywords2 implements Runnable {
     }
 
     private List<List<String>> deepCopy(List<List<String>> kwLists) {
-        List<List<String>> copy = new ArrayList<List<String>>(kwLists.size());
+        List<List<String>> copy = new ArrayList<>(kwLists.size());
 
         for (List<String> kwList : kwLists) {
-            copy.add(new ArrayList<String>(kwList));
+            copy.add(new ArrayList<>(kwList));
         }
 
         return copy;

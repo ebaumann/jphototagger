@@ -44,9 +44,8 @@ public final class ImageCollectionsDialog extends Dialog {
     private void checkDoubleClick(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
             int index = listImageCollectionNames.locationToIndex(evt.getPoint());
-            ListModel model = listImageCollectionNames.getModel();
+            ListModel<?> model = listImageCollectionNames.getModel();
             Object item  = model.getElementAt(index);
-
             if (item != null) {
                 ok = true;
                 setVisible(true);

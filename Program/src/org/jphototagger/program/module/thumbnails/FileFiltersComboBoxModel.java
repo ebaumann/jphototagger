@@ -21,7 +21,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class FileFiltersComboBoxModel extends DefaultComboBoxModel {
+public final class FileFiltersComboBoxModel extends DefaultComboBoxModel<Object> {
 
     private static final long serialVersionUID = 1L;
     static final String PERSISTED_SELECTED_ITEM_KEY = "ComboBoxModelFileFilters.SelIndex";

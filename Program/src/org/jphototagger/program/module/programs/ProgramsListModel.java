@@ -21,7 +21,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class ProgramsListModel extends DefaultListModel {
+public final class ProgramsListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private boolean listen = true;

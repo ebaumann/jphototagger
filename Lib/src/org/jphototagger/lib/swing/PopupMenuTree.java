@@ -40,7 +40,7 @@ import org.jphototagger.lib.swing.util.TreeUtil;
 public abstract class PopupMenuTree extends JPopupMenu implements ActionListener, MouseListener {
 
     private static final long serialVersionUID = 1L;
-    private final Map<JMenuItem, Collection<Listener>> listenersOfItem = new HashMap<JMenuItem, Collection<Listener>>();
+    private final Map<JMenuItem, Collection<Listener>> listenersOfItem = new HashMap<>();
     private JMenuItem itemCollapseExpandAllSubItems;
     private JMenuItem itemExpandAllSubItems;
     private List<TreePath> lastSelTreePaths;
@@ -101,7 +101,7 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
             Collection<Listener> listeners = listenersOfItem.get(menuItem);
 
             if (listeners == null) {
-                listeners = new HashSet<Listener>();
+                listeners = new HashSet<>();
                 listenersOfItem.put(menuItem, listeners);
             }
 
@@ -140,7 +140,7 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
 
     private void notifyListeners(JMenuItem menuItem) {
         synchronized (listenersOfItem) {
-            List<TreePath> paths = new ArrayList<TreePath>(lastSelTreePaths);
+            List<TreePath> paths = new ArrayList<>(lastSelTreePaths);
 
             for (Listener listener : listenersOfItem.get(menuItem)) {
                 listener.action(tree, paths);
@@ -180,7 +180,7 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
 
     private void showPopupMenu(MouseEvent evt) {
         if (setLastSelTreePaths(evt)) {
-            setMenuItemsEnabled(new ArrayList<TreePath>(lastSelTreePaths));
+            setMenuItemsEnabled(new ArrayList<>(lastSelTreePaths));
             show(tree, evt.getX(), evt.getY());
         }
     }

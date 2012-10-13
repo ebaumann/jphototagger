@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.CollectionUtil;
 public final class LogfilesTableModel extends TableModelExt {
 
     private static final long serialVersionUID = 1L;
-    private final List<LogfileRecord> records = new ArrayList<LogfileRecord>();
+    private final List<LogfileRecord> records = new ArrayList<>();
     private final List<Level> visibleLevels;
     private final String filter;
 
@@ -39,7 +39,7 @@ public final class LogfilesTableModel extends TableModelExt {
 
         if ((visibleLevels.contains(Level.ALL) || visibleLevels.contains(record.getLevel()))
                 && (filter.isEmpty() || record.contains(filter))) {
-            List<Object> row = new ArrayList<Object>();
+            List<Object> row = new ArrayList<>();
 
             row.add(record.getLevel());
             row.add(new Date(record.getMillis()));

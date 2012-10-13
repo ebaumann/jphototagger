@@ -38,7 +38,7 @@ import org.xml.sax.SAXException;
 public final class MetadataTemplatesImporter implements RepositoryDataImporter, EntityResolver {
 
     private static final long serialVersionUID = 1L;
-    private static final Map<String, MetaDataValue> META_DATA_VALUE_OF_CLASSNAME = new HashMap<String, MetaDataValue>();
+    private static final Map<String, MetaDataValue> META_DATA_VALUE_OF_CLASSNAME = new HashMap<>();
     private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     static {
@@ -121,7 +121,7 @@ public final class MetadataTemplatesImporter implements RepositoryDataImporter, 
             return valueStr;
         } else if (valueType.equals("java.util.Collection")) {
             StringTokenizer st = new StringTokenizer(valueStr, MetadataTemplatesExporter.COLLECTION_DELIM);
-            List<String> collection = new ArrayList<String>(st.countTokens());
+            List<String> collection = new ArrayList<>(st.countTokens());
 
             while (st.hasMoreTokens()) {
                 collection.add(st.nextToken());

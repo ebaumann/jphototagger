@@ -41,14 +41,14 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
     private static final String KEY_SELECTED_TAB_INDEX = "AdvancedSearchPanel.SelectedTabIndex";
     private static final long serialVersionUID = 1L;
-    private final List<SearchMetaDataValuePanel> searchColumnPanels = new LinkedList<SearchMetaDataValuePanel>();
-    private final Map<Component, Component> defaultInputOfComponent = new HashMap<Component, Component>();
-    private final Map<JButton, SearchMetaDataValuePanel> searchPanelOfRemoveButton = new HashMap<JButton, SearchMetaDataValuePanel>();
+    private final List<SearchMetaDataValuePanel> searchColumnPanels = new LinkedList<>();
+    private final Map<Component, Component> defaultInputOfComponent = new HashMap<>();
+    private final Map<JButton, SearchMetaDataValuePanel> searchPanelOfRemoveButton = new HashMap<>();
     private String searchName;
     private boolean isSavedSearch;
     private boolean columnRemoved;
     private boolean customSqlChanged;
-    private final transient ListenerSupport<NameListener> ls = new ListenerSupport<NameListener>();
+    private final transient ListenerSupport<NameListener> ls = new ListenerSupport<>();
     private final JPanel panelPadding = new JPanel();
 
     public AdvancedSearchPanel() {
@@ -120,7 +120,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private void emptyKeywordsPanel() {
-        ListModel model = panelKeywordsInput.getList().getModel();
+        ListModel<?> model = panelKeywordsInput.getList().getModel();
         if (model instanceof DefaultListModel) {
             ((DefaultListModel) model).clear();
         }
@@ -485,7 +485,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     }
 
     private void setSavedSearchPanels(SavedSearch search) {
-        List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
+        List<SavedSearchPanel> panels = new ArrayList<>();
         int size = searchColumnPanels.size();
         int pIndex = 0;
         for (int index = 0; index < size; index++) {
@@ -532,7 +532,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private List<String> getKeywords() {
         String textFieldText = panelKeywordsInput.getText();
         Collection<String> listText = panelKeywordsInput.getRepeatableText();
-        List<String> keywords = new ArrayList<String>(listText);
+        List<String> keywords = new ArrayList<>(listText);
         if (!textFieldText.isEmpty()) {
             keywords.add(textFieldText);
         }

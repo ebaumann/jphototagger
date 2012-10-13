@@ -47,9 +47,9 @@ public class SettingsPanel extends javax.swing.JPanel {
         HelpUtil.showHelp("/org/jphototagger/plugin/cftc/help/index.html");
     }
 
-    private static class DelimiterModel extends DefaultComboBoxModel {
+    private static class DelimiterModel extends DefaultComboBoxModel<Object> {
         private static final long serialVersionUID = 1L;
-        private final Map<String, String> descriptionOfDelimiter = new LinkedHashMap<String, String>();
+        private final Map<String, String> descriptionOfDelimiter = new LinkedHashMap<>();
 
         DelimiterModel() {
             addElements();
@@ -83,7 +83,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof String) {
@@ -115,7 +115,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         panelDelimiter = new javax.swing.JPanel();
         label = new javax.swing.JLabel();
-        comboBoxDelimiter = new javax.swing.JComboBox();
+        comboBoxDelimiter = new javax.swing.JComboBox<>();
         panelFill = new javax.swing.JPanel();
         panelVersion = new javax.swing.JPanel();
         labelVersion = new javax.swing.JLabel();
@@ -166,7 +166,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         );
         panelFillLayout.setVerticalGroup(
             panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 156, Short.MAX_VALUE)
+            .addGap(0, 162, Short.MAX_VALUE)
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -216,7 +216,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonHelpActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonHelp;
-    private javax.swing.JComboBox comboBoxDelimiter;
+    private javax.swing.JComboBox<Object> comboBoxDelimiter;
     private javax.swing.JLabel label;
     private javax.swing.JLabel labelVersion;
     private javax.swing.JPanel panelDelimiter;

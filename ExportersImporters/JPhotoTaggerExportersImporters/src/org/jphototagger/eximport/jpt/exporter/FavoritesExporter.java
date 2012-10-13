@@ -77,7 +77,7 @@ public final class FavoritesExporter implements RepositoryDataExporter {
 
         @XmlElementWrapper(name = "Favorites")
         @XmlElement(type = Favorite.class)
-        private final ArrayList<Favorite> collection = new ArrayList<Favorite>();
+        private final ArrayList<Favorite> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -87,7 +87,7 @@ public final class FavoritesExporter implements RepositoryDataExporter {
         }
 
         public List<Favorite> getCollection() {
-            return new ArrayList<Favorite>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

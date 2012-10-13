@@ -14,12 +14,12 @@ public abstract class Cache<CI extends CacheIndirection> {
 
     static int currentAge = 0;
     private static final int MAX_ENTRIES = 1500;
-    final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
-    protected WorkQueue<CI> workQueue = new WorkQueue<CI>();
+    final Set<ThumbnailUpdateListener> updateListeners = new HashSet<>();
+    protected WorkQueue<CI> workQueue = new WorkQueue<>();
     /**
      * Mapping from file to all kinds of cached data
      */
-    protected final SoftCacheMap<CI> fileCache = new SoftCacheMap<CI>(MAX_ENTRIES, workQueue);
+    protected final SoftCacheMap<CI> fileCache = new SoftCacheMap<>(MAX_ENTRIES, workQueue);
 
     Cache() {
     }

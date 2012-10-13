@@ -30,7 +30,7 @@ final class MetaDataValuesDatabase extends Database {
         if (metaDataValue == null) {
             throw new NullPointerException("column == null");
         }
-        Set<String> content = new LinkedHashSet<String>();
+        Set<String> content = new LinkedHashSet<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -68,7 +68,7 @@ final class MetaDataValuesDatabase extends Database {
         if (metaDataValues == null) {
             throw new NullPointerException("columns == null");
         }
-        Set<String> content = new LinkedHashSet<String>();
+        Set<String> content = new LinkedHashSet<>();
         for (MetaDataValue column : metaDataValues) {
             content.addAll(getDistinctMetaDataValues(column));
         }

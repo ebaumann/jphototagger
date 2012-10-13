@@ -86,8 +86,8 @@ public class ThumbnailsPanel extends JPanel
     public static final Color COLOR_FOREGROUND_PANEL = Color.WHITE;
     public static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
     private int isClickInSelection = -1;
-    private final Map<Integer, ThumbnailFlag> flagOfThumbnailIndex = new HashMap<Integer, ThumbnailFlag>();
-    private final List<Integer> selectedThumbnailIndices = new ArrayList<Integer>();
+    private final Map<Integer, ThumbnailFlag> flagOfThumbnailIndex = new HashMap<>();
+    private final List<Integer> selectedThumbnailIndices = new ArrayList<>();
     private int thumbnailCountPerRow = 0;
     private boolean dragThumbnailsEnabled = false;
     private boolean isDisplayThumbnailTooltip = getPersistedDisplayThumbnailTooltip();
@@ -180,7 +180,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized void convertSelection(List<File> oldFiles, List<File> newFiles) {
-        List<Integer> newSelection = new ArrayList<Integer>();
+        List<Integer> newSelection = new ArrayList<>();
         for (int i : selectedThumbnailIndices) {
             File file;
             if (oldFiles.size() >= i) {
@@ -198,7 +198,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public synchronized void clearSelection() {
-        clearSelectionAtIndices(new ArrayList<Integer>(selectedThumbnailIndices));
+        clearSelectionAtIndices(new ArrayList<>(selectedThumbnailIndices));
     }
 
     public synchronized void selectAll() {
@@ -272,7 +272,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized List<Integer> getSelectedIndices() {
-        return new ArrayList<Integer>(selectedThumbnailIndices);
+        return new ArrayList<>(selectedThumbnailIndices);
     }
 
     private synchronized void repaintAtIndex(int index) {
@@ -519,7 +519,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void setSelectedAll(boolean select) {
         synchronized (this) {
-            Set<Integer> currentSelection = new HashSet<Integer>(selectedThumbnailIndices);
+            Set<Integer> currentSelection = new HashSet<>(selectedThumbnailIndices);
             selectedThumbnailIndices.clear();
             if (select) {
                 for (int index = 0; index < files.size(); index++) {
@@ -540,7 +540,7 @@ public class ThumbnailsPanel extends JPanel
         synchronized (this) {
             isEnhance = isAFileSelected();
             if (isEnhance) {
-                Set<Integer> rerenderTargets = new HashSet<Integer>(selectedThumbnailIndices);
+                Set<Integer> rerenderTargets = new HashSet<>(selectedThumbnailIndices);
                 int firstSelected = getFirstSelectedIndex();
                 selectedThumbnailIndices.clear();
                 int startIndex = (index > firstSelected)
@@ -582,7 +582,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized Set<Integer> getValidIndicesOf(Collection<Integer> indices) {
-        Set<Integer> validIndices = new HashSet<Integer>(indices.size());
+        Set<Integer> validIndices = new HashSet<>(indices.size());
         if (indices.isEmpty() || files.isEmpty()) {
             return validIndices;
         }
@@ -602,7 +602,7 @@ public class ThumbnailsPanel extends JPanel
 
                 return;
             }
-            Set<Integer> rerenderTargets = new HashSet<Integer>(selectedThumbnailIndices);
+            Set<Integer> rerenderTargets = new HashSet<>(selectedThumbnailIndices);
             selectedThumbnailIndices.clear();
             selectedThumbnailIndices.add(index);
             rerenderTargets.add(index);
@@ -785,7 +785,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized List<File> getFilesAtIndices(List<Integer> indices) {
-        List<File> f = new ArrayList<File>();
+        List<File> f = new ArrayList<>();
         for (Integer index : indices) {
             if (isIndex(index)) {
                 f.add(files.get(index));
@@ -795,7 +795,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized List<Integer> getIndicesOfFiles(List<File> files, boolean onlyIfExists) {
-        List<Integer> indices = new ArrayList<Integer>(files.size());
+        List<Integer> indices = new ArrayList<>(files.size());
         for (File file : files) {
             int index = files.indexOf(file);
             if (!onlyIfExists || (onlyIfExists && (index >= 0))) {
@@ -826,10 +826,10 @@ public class ThumbnailsPanel extends JPanel
             return;
         }
         List<File> selFiles = getFilesAtIndices(selectedIndices);
-        List<File> filesWithoutMoved = new ArrayList<File>(files);
+        List<File> filesWithoutMoved = new ArrayList<>(files);
         int fileCount = filesWithoutMoved.size();
         filesWithoutMoved.removeAll(selFiles);
-        List<File> newOrderedFiles = new ArrayList<File>(fileCount);
+        List<File> newOrderedFiles = new ArrayList<>(fileCount);
         newOrderedFiles.addAll(filesWithoutMoved.subList(0, index));
         newOrderedFiles.addAll(selFiles);
         newOrderedFiles.addAll(filesWithoutMoved.subList(index, filesWithoutMoved.size()));
@@ -866,7 +866,7 @@ public class ThumbnailsPanel extends JPanel
             viewportPosition = vp.getViewPosition();
         }
         ThumbnailsPanelRefreshEvent evt = new ThumbnailsPanelRefreshEvent(this, originOfOfDisplayedThumbnails, viewportPosition);
-        evt.setSelectedThumbnailIndices(new ArrayList<Integer>(selectedThumbnailIndices));
+        evt.setSelectedThumbnailIndices(new ArrayList<>(selectedThumbnailIndices));
         notifyRefreshListeners(evt);
         // viewport position has to be setTree by the refresh listeners because they
         // usually setTree new files in a *thread* so that setting the viewport has
@@ -918,7 +918,7 @@ public class ThumbnailsPanel extends JPanel
         if (filesToRemove == null) {
             throw new NullPointerException("filesToRemove == null");
         }
-        List<File> oldFiles = new ArrayList<File>(files);
+        List<File> oldFiles = new ArrayList<>(files);
         List<Integer> selIndicesToRemove = getSelectedIndicesOfFiles(filesToRemove);
         if (files.removeAll(filesToRemove)) {
             selectedThumbnailIndices.removeAll(selIndicesToRemove);
@@ -932,7 +932,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized List<Integer> getSelectedIndicesOfFiles(Collection<? extends File> files) {
-        List<Integer> selIndices = new ArrayList<Integer>(files.size());
+        List<Integer> selIndices = new ArrayList<>(files.size());
         for (File file : files) {
             int index = getIndexOf(file);
             if (selectedThumbnailIndices.contains(index)) {
@@ -993,7 +993,7 @@ public class ThumbnailsPanel extends JPanel
             this.originOfOfDisplayedThumbnails = originOfOfDisplayedThumbnails;
             List<File> filteredFiles = originOfOfDisplayedThumbnails.isFilterable()
                     ? FileUtil.filterFiles(files, fileFilter)
-                    : new ArrayList<File>(files);
+                    : new ArrayList<>(files);
             if (originOfOfDisplayedThumbnails.isSortable()) {
                 Collections.sort(filteredFiles, fileSortComparator);
             }
@@ -1054,7 +1054,7 @@ public class ThumbnailsPanel extends JPanel
         if (originOfOfDisplayedThumbnails.isSortable()) {
             List<File> selFiles = getSelectedFiles();
 
-            setFiles(new ArrayList<File>(files), originOfOfDisplayedThumbnails);
+            setFiles(new ArrayList<>(files), originOfOfDisplayedThumbnails);
             setSelectedIndices(getIndicesOfFiles(selFiles, true));
         }
     }
@@ -1479,7 +1479,7 @@ public class ThumbnailsPanel extends JPanel
                 if (!ObjectUtil.equals(thisDirectory, oldDirectory) || newDirectory == null) {
                     return;
                 }
-                List<File> newFiles = new ArrayList<File>(files.size());
+                List<File> newFiles = new ArrayList<>(files.size());
                 String newDirectoryPath = newDirectory.getAbsolutePath();
                 for (File file : files) {
                     File newFile = new File(newDirectoryPath + File.separator + file.getName());

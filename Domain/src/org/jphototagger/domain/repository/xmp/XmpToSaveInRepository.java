@@ -7,7 +7,7 @@ import java.util.Set;
  * @author Elmar Baumann
  */
 public final class XmpToSaveInRepository {
-    private static final Set<String> STORED_PATHS_PREFIXES = new HashSet<String>();
+    private static final Set<String> STORED_PATHS_PREFIXES = new HashSet<>();
 
     static {
         STORED_PATHS_PREFIXES.add("dc:creator");
@@ -59,7 +59,7 @@ public final class XmpToSaveInRepository {
      * @return path prefixes
      */
     public static Set<String> getPathPrefixes() {
-        return new HashSet<String>(STORED_PATHS_PREFIXES);
+        return new HashSet<>(STORED_PATHS_PREFIXES);
     }
 
     private XmpToSaveInRepository() {}

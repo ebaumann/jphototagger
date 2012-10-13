@@ -31,7 +31,7 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
     private static final String STATUSBAR_INFO_TEXT = Bundle.getString(ErrorLogHandler.class, "ErrorLogHandler.StatusbBar.InfoText");
     private static final int MIN_LOG_LEVEL_VALUE = Level.WARNING.intValue();
     private final JLabel errorLabel = new JLabel();
-    private static final Set<String> IGNORE_MESSAGES = new HashSet<String>();
+    private static final Set<String> IGNORE_MESSAGES = new HashSet<>();
 
     static {
         IGNORE_MESSAGES.add("java.lang.IllegalStateException: no splash screen available");

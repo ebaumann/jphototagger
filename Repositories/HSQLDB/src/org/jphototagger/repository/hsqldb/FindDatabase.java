@@ -35,7 +35,7 @@ final class FindDatabase extends Database {
         if (paramStatement == null) {
             throw new NullPointerException("paramStatement == null");
         }
-        List<File> imageFiles = new ArrayList<File>();
+        List<File> imageFiles = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -79,7 +79,7 @@ final class FindDatabase extends Database {
         if (searchString == null) {
             throw new NullPointerException("searchString == null");
         }
-        List<File> imageFiles = new ArrayList<File>();
+        List<File> imageFiles = new ArrayList<>();
         Map<String, List<MetaDataValue>> columnsOfTable = getColumnsSeparatedByTables(searchColumns);
         for (String tablename : columnsOfTable.keySet()) {
             addImageFilesSearchImageFilesLikeOr(columnsOfTable.get(tablename), searchString, imageFiles, tablename);
@@ -91,12 +91,12 @@ final class FindDatabase extends Database {
         if (columns == null) {
             throw new NullPointerException("columns == null");
         }
-        Map<String, List<MetaDataValue>> columnsOfTable = new HashMap<String, List<MetaDataValue>>();
+        Map<String, List<MetaDataValue>> columnsOfTable = new HashMap<>();
         for (MetaDataValue col : columns) {
             String tablename = col.getCategory();
             List<MetaDataValue> cols = columnsOfTable.get(tablename);
             if (cols == null) {
-                cols = new ArrayList<MetaDataValue>();
+                cols = new ArrayList<>();
             }
             cols.add(col);
             columnsOfTable.put(tablename, cols);

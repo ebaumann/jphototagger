@@ -22,8 +22,8 @@ import org.jphototagger.program.resource.GUI;
  */
 public final class MenuItemEnablerController implements PopupMenuListener {
 
-    private final Map<JMenuItem, List<OriginOfDisplayedThumbnails>> originsOfItemsRequiresSelImages = new HashMap<JMenuItem, List<OriginOfDisplayedThumbnails>>();
-    private final List<JMenuItem> itemsRequiresSelImages = new ArrayList<JMenuItem>();
+    private final Map<JMenuItem, List<OriginOfDisplayedThumbnails>> originsOfItemsRequiresSelImages = new HashMap<>();
+    private final List<JMenuItem> itemsRequiresSelImages = new ArrayList<>();
 
     public MenuItemEnablerController() {
         init();
@@ -36,13 +36,13 @@ public final class MenuItemEnablerController implements PopupMenuListener {
     }
 
     private void init() {
-        List<OriginOfDisplayedThumbnails> contents = new ArrayList<OriginOfDisplayedThumbnails>();
+        List<OriginOfDisplayedThumbnails> contents = new ArrayList<>();
         ThumbnailsPopupMenu popupThumbnails = ThumbnailsPopupMenu.INSTANCE;
 
         contents.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
         contents.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
         originsOfItemsRequiresSelImages.put(ThumbnailsPopupMenu.INSTANCE.getItemFileSystemMoveFiles(), contents);
-        contents = new ArrayList<OriginOfDisplayedThumbnails>();
+        contents = new ArrayList<>();
         contents.add(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);
         originsOfItemsRequiresSelImages.put(popupThumbnails.getItemDeleteFromImageCollection(), contents);
         itemsRequiresSelImages.add(popupThumbnails.getItemUpdateThumbnail());

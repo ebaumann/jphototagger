@@ -11,7 +11,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class SubdirectoryCreateStrategyComboBoxModel extends DefaultComboBoxModel {
+public final class SubdirectoryCreateStrategyComboBoxModel extends DefaultComboBoxModel<Object> {
 
     private static final long serialVersionUID = 1L;
 
@@ -20,7 +20,7 @@ public final class SubdirectoryCreateStrategyComboBoxModel extends DefaultComboB
     }
 
     private void addElements() {
-        List<SubdirectoryCreateStrategy> strategies = new LinkedList<SubdirectoryCreateStrategy>(
+        List<SubdirectoryCreateStrategy> strategies = new LinkedList<>(
                 Lookup.getDefault().lookupAll(SubdirectoryCreateStrategy.class));
         Collections.sort(strategies, PositionProviderAscendingComparator.INSTANCE);
         for (SubdirectoryCreateStrategy strategy : strategies) {

@@ -31,8 +31,8 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     public static final RenderedThumbnailCache INSTANCE = new RenderedThumbnailCache();
     private final int MAX_ENTRIES = 1500;
     private static int currentAge = 0;
-    private final Set<ThumbnailUpdateListener> updateListeners = new HashSet<ThumbnailUpdateListener>();
-    private WorkQueue<RenderedThumbnailCacheIndirection> workQueue = new WorkQueue<RenderedThumbnailCacheIndirection>();
+    private final Set<ThumbnailUpdateListener> updateListeners = new HashSet<>();
+    private WorkQueue<RenderedThumbnailCacheIndirection> workQueue = new WorkQueue<>();
     private ThumbnailCache thumbCache = ThumbnailCache.INSTANCE;
     private XmpCache xmpCache = XmpCache.INSTANCE;
     private Image scaledDummyThumbnail = null;
@@ -40,7 +40,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     /**
      * Mapping from file to all kinds of cached data
      */
-    private final SoftCacheMap<RenderedThumbnailCacheIndirection> fileCache = new SoftCacheMap<RenderedThumbnailCacheIndirection>(MAX_ENTRIES, workQueue);
+    private final SoftCacheMap<RenderedThumbnailCacheIndirection> fileCache = new SoftCacheMap<>(MAX_ENTRIES, workQueue);
     private ThumbnailPanelRenderer renderer = null;
 
     private RenderedThumbnailCache() {

@@ -11,7 +11,7 @@ import java.util.Deque;
 public class WorkQueue<E> {
 
     // fixme: maybe use better data structure here with efficient contains()
-    Deque<E> queue = new ArrayDeque<E>();
+    Deque<E> queue = new ArrayDeque<>();
 
     /**
      * Add a new import work item to head of list

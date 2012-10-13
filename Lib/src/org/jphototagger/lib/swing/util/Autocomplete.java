@@ -35,7 +35,7 @@ public final class Autocomplete implements DocumentListener, Serializable {
     private static final String FOCUS_FORWARD_ACTION = "focus_forward";
     private static final int MIN_CHARS = 2;
     private static final long serialVersionUID = 1L;
-    private final LinkedList<String> words = new LinkedList<String>();
+    private final LinkedList<String> words = new LinkedList<>();
     private volatile boolean transferFocusForwardOnEnter = true;
     private Mode mode = Mode.INSERT;
     private JTextArea textArea;

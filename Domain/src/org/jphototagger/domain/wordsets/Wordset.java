@@ -27,7 +27,7 @@ public final class Wordset {
     private String name;
     @XmlElementWrapper(name = "words")
     @XmlElement(type = String.class, name="word")
-    private List<String> words = new ArrayList<String>();
+    private List<String> words = new ArrayList<>();
     @XmlTransient
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
@@ -74,7 +74,7 @@ public final class Wordset {
     }
 
     public List<String> getWords() {
-        List<String> sortedWords = new LinkedList<String>(words);
+        List<String> sortedWords = new LinkedList<>(words);
         Collections.sort(sortedWords);
         return sortedWords;
     }

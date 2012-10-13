@@ -67,7 +67,7 @@ public final class RenameTemplateFileRenameStrategyProvider implements FileRenam
     @Override
     public Collection<FileRenameStrategy> getFileRenameStrategies() {
         Set<RenameTemplate> renameTemplates = renameTemplatesRepository.findAllRenameTemplates();
-        List<FileRenameStrategy> strategies = new ArrayList<FileRenameStrategy>(renameTemplates.size());
+        List<FileRenameStrategy> strategies = new ArrayList<>(renameTemplates.size());
         int pos = 10000;
         try {
             for (RenameTemplate template : renameTemplates) {

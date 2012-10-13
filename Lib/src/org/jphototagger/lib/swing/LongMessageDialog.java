@@ -22,7 +22,7 @@ public class LongMessageDialog extends Dialog {
     private static final long serialVersionUID = 1L;
     private String mailTo;
     private String mailSubject;
-    private static final Map<Integer, String> ICON_KEY = new HashMap<Integer, String>();
+    private static final Map<Integer, String> ICON_KEY = new HashMap<>();
 
     static {
         ICON_KEY.put(JOptionPane.ERROR_MESSAGE, "OptionPane.errorIcon");

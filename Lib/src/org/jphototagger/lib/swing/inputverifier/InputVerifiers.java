@@ -15,7 +15,7 @@ import javax.swing.JComponent;
 public class InputVerifiers extends InputVerifier implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final List<InputVerifier> verifiers = new ArrayList<InputVerifier>();
+    private final List<InputVerifier> verifiers = new ArrayList<>();
 
     public void addVerifier(InputVerifier verifier) {
         synchronized (verifiers) {

@@ -81,7 +81,7 @@ public final class ExifCopyright {
 
     private static NumberRange<Integer> findPhotographerOffsetsOfRawValue(byte[] rawValue) {
         if (rawValue.length < 2) {
-            return new NumberRange<Integer>(-1, -1);
+            return new NumberRange<>(-1, -1);
         }
 
         boolean end = false;
@@ -91,20 +91,20 @@ public final class ExifCopyright {
             end = rawValue[i++] == 0x0;
         }
 
-        return new NumberRange<Integer>(0, i - 1);
+        return new NumberRange<>(0, i - 1);
     }
 
     private static NumberRange<Integer> findEditorOffsetsOfRawValue(byte[] rawValue) {
         if (rawValue.length < 3) {
-            return new NumberRange<Integer>(-1, -1);
+            return new NumberRange<>(-1, -1);
         }
 
         NumberRange<Integer> photographerOffsets = findPhotographerOffsetsOfRawValue(rawValue);
 
         if ((photographerOffsets.getBegin() == -1) || (photographerOffsets.getEnd() == rawValue.length)) {
-            return new NumberRange<Integer>(-1, -1);
+            return new NumberRange<>(-1, -1);
         }
 
-        return new NumberRange<Integer>(photographerOffsets.getEnd() + 1, rawValue.length - 1);
+        return new NumberRange<>(photographerOffsets.getEnd() + 1, rawValue.length - 1);
     }
 }

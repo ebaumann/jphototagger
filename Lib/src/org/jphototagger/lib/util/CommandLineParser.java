@@ -14,7 +14,7 @@ import java.util.StringTokenizer;
  */
 public final class CommandLineParser {
 
-    private final Set<Option> options = new HashSet<Option>();
+    private final Set<Option> options = new HashSet<>();
     private final String[] args;
     private final String optionsDelimiter;
     private final String optionsValuesDelimiter;
@@ -143,7 +143,7 @@ public final class CommandLineParser {
 
     public static class Option {
 
-        private final List<String> values = new ArrayList<String>();
+        private final List<String> values = new ArrayList<>();
         ;
         private final String name;
 

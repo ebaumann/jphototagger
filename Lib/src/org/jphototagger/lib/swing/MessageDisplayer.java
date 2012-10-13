@@ -13,7 +13,7 @@ import org.jphototagger.lib.util.ExceptionUtil;
  */
 public final class MessageDisplayer {
 
-    private static final Map<Integer, String> TITLE_OF_MESSAGE_TYPE = new HashMap<Integer, String>(4);
+    private static final Map<Integer, String> TITLE_OF_MESSAGE_TYPE = new HashMap<>(4);
 
     static {
         TITLE_OF_MESSAGE_TYPE.put(JOptionPane.ERROR_MESSAGE, Bundle.getString(MessageDisplayer.class, "MessageDisplayer.DefaultTitle.ErrorMessage"));

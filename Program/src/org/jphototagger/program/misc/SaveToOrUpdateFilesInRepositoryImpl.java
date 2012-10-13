@@ -65,7 +65,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     public SaveToOrUpdateFilesInRepositoryImpl() {
         super("JPhotoTagger: Inserting image files into repository");
-        files = new ArrayList<File>();
+        files = new ArrayList<>();
     }
 
     public SaveToOrUpdateFilesInRepositoryImpl(Collection<? extends File> files, SaveOrUpdate... saveOrUpdate) {
@@ -76,7 +76,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         if (saveOrUpdate == null) {
             throw new NullPointerException("saveOrUpdate == null");
         }
-        this.files = new ArrayList<File>(files);
+        this.files = new ArrayList<>(files);
         this.saveOrUpdate.addAll(Arrays.asList(saveOrUpdate));
     }
 

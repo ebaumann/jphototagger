@@ -67,7 +67,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
     private static final long serialVersionUID = 1L;
     private String bundleKeyPosRenameDialog;
-    private final DefaultListModel model = new DefaultListModel();
+    private final DefaultListModel<Object> model = new DefaultListModel<>();
     private transient MetaDataValue metaDataValue = XmpDcSubjectsSubjectMetaDataValue.INSTANCE;
     private boolean editable = true;
     private boolean dirty = false;
@@ -200,7 +200,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
      * @return list item texts
      */
     public Collection<String> getRepeatableText() {
-        List<String> texts = new ArrayList<String>(model.size());
+        List<String> texts = new ArrayList<>(model.size());
         int size = model.getSize();
         for (int i = 0; i < size; i++) {
             texts.add(model.get(i).toString());
@@ -370,7 +370,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
      */
     private void removeSelectedElements() {
         if (isElementSelected() && confirmRemoveSelectedItems()) {
-            Object[] values = list.getSelectedValues();
+            List<?> values = list.getSelectedValuesList();
             for (Object value : values) {
                 model.removeElement(value);
                 notifyTextRemoved(metaDataValue, value.toString());

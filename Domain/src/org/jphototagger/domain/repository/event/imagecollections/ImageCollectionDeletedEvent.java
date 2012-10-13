@@ -25,7 +25,7 @@ public final class ImageCollectionDeletedEvent {
 
         this.source = source;
         this.collectionName = collectionName;
-        this.deletedImageFiles = new ArrayList<File>(deletedImageFiles);
+        this.deletedImageFiles = new ArrayList<>(deletedImageFiles);
     }
 
     public String getCollectionName() {

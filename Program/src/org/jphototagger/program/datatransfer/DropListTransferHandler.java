@@ -39,7 +39,8 @@ public final class DropListTransferHandler extends TransferHandler {
         }
 
         JXList list = (JXList) support.getComponent();
-        DefaultListModel listModel = (DefaultListModel) list.getModel();
+        @SuppressWarnings("unchecked")
+        DefaultListModel<Object> listModel = (DefaultListModel<Object>) list.getModel();
         Transferable transferable = support.getTransferable();
 
         if (Flavor.hasKeywordsFromList(support)) {
@@ -57,7 +58,7 @@ public final class DropListTransferHandler extends TransferHandler {
         return false;
     }
 
-    private boolean importMetaDataValue(DefaultListModel listModel, Transferable transferable) {
+    private boolean importMetaDataValue(DefaultListModel<Object> listModel, Transferable transferable) {
         Collection<? extends MetaDataValueData> metaDataValues = DataTransferSupport.getMetaDataValueData(transferable);
 
         if (metaDataValues != null) {
@@ -69,7 +70,7 @@ public final class DropListTransferHandler extends TransferHandler {
         return false;
     }
 
-    private boolean importKeywords(Transferable transferable, DefaultListModel listModel) {
+    private boolean importKeywords(Transferable transferable, DefaultListModel<Object> listModel) {
         Object[] keywords = DataTransferSupport.getKeywords(transferable);
 
         if (keywords == null) {
@@ -79,7 +80,7 @@ public final class DropListTransferHandler extends TransferHandler {
         return importStringArray(listModel, keywords);
     }
 
-    private boolean importStringArray(DefaultListModel listModel, Object[] array) {
+    private boolean importStringArray(DefaultListModel<Object> listModel, Object[] array) {
         for (Object o : array) {
             listModel.addElement(o);
         }
@@ -87,7 +88,7 @@ public final class DropListTransferHandler extends TransferHandler {
         return true;
     }
 
-    private boolean importKeywords(DefaultListModel listModel, Transferable transferable) {
+    private boolean importKeywords(DefaultListModel<Object> listModel, Transferable transferable) {
         List<DefaultMutableTreeNode> nodes = DataTransferSupport.getKeywordNodes(transferable);
 
         for (DefaultMutableTreeNode node : nodes) {
@@ -97,7 +98,7 @@ public final class DropListTransferHandler extends TransferHandler {
         return true;
     }
 
-    private void importKeywords(DefaultMutableTreeNode node, DefaultListModel listModel) {
+    private void importKeywords(DefaultMutableTreeNode node, DefaultListModel<Object> listModel) {
         for (String keyword : KeywordsUtil.getKeywordStrings(node, true)) {
             if (!listModel.contains(keyword)) {
                 listModel.addElement(keyword);

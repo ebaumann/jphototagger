@@ -13,7 +13,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class FileRenameStrategyComboBoxModel extends DefaultComboBoxModel {
+public final class FileRenameStrategyComboBoxModel extends DefaultComboBoxModel<Object> {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,7 +23,7 @@ public final class FileRenameStrategyComboBoxModel extends DefaultComboBoxModel 
 
     private void addElements() {
         Collection<? extends FileRenameStrategy> lookup = Lookup.getDefault().lookupAll(FileRenameStrategy.class);
-        List<FileRenameStrategy> strategies = new LinkedList<FileRenameStrategy>(lookup);
+        List<FileRenameStrategy> strategies = new LinkedList<>(lookup);
         addProvidedStrategies(strategies);
         Collections.sort(strategies, PositionProviderAscendingComparator.INSTANCE);
         for (FileRenameStrategy strategy : strategies) {

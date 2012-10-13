@@ -32,13 +32,12 @@ public final class ProgramsUtil {
         if (listPrograms == null) {
             throw new NullPointerException("listPrograms == null");
         }
-
         int selectedIndex = listPrograms.getSelectedIndex();
         int modelIndex = listPrograms.convertIndexToModel(selectedIndex);
         int upIndex = modelIndex - 1;
         boolean programIsSelected = selectedIndex >= 0;
-        DefaultListModel model = (DefaultListModel) listPrograms.getModel();
-
+        @SuppressWarnings("unchecked")
+        DefaultListModel<Object> model = (DefaultListModel) listPrograms.getModel();
         if (programIsSelected && (upIndex >= 0)) {
             ListUtil.swapModelElements(model, upIndex, modelIndex);
             reorderPrograms(model);
@@ -60,14 +59,13 @@ public final class ProgramsUtil {
         if (listPrograms == null) {
             throw new NullPointerException("listPrograms == null");
         }
-
-        DefaultListModel model = (DefaultListModel) listPrograms.getModel();
+        @SuppressWarnings("unchecked")
+        DefaultListModel<Object> model = (DefaultListModel) listPrograms.getModel();
         int size = model.getSize();
         int selectedIndex = listPrograms.getSelectedIndex();
         int modelIndex = listPrograms.convertIndexToModel(selectedIndex);
         int downIndex = modelIndex + 1;
         boolean programIsSelected = selectedIndex >= 0;
-
         if (programIsSelected && (downIndex < size)) {
             ListUtil.swapModelElements(model, downIndex, modelIndex);
             reorderPrograms(model);
@@ -81,23 +79,18 @@ public final class ProgramsUtil {
      *
      * @param model model with {@code Program}s as elements
      */
-    public static void reorderPrograms(DefaultListModel model) {
+    public static void reorderPrograms(DefaultListModel<?> model) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
-
         int size = model.getSize();
-        List<Program> programs = new ArrayList<Program>(size);
-
+        List<Program> programs = new ArrayList<>(size);
         for (int sequenceNo = 0; sequenceNo < size; sequenceNo++) {
             Program program = (Program) model.get(sequenceNo);
-
             program.setSequenceNumber(sequenceNo);
             programs.add(program);
         }
-
         ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
-
         for (Program program : programs) {
             repo.updateProgram(program);
         }
@@ -106,13 +99,12 @@ public final class ProgramsUtil {
     public static class ReorderListener implements ListDataListener {
 
         private volatile boolean listenToModel = true;
-        private final DefaultListModel model;
+        private final DefaultListModel<?> model;
 
-        public ReorderListener(DefaultListModel model) {
+        public ReorderListener(DefaultListModel<?> model) {
             if (model == null) {
                 throw new NullPointerException("model == null");
             }
-
             this.model = model;
             model.addListDataListener(this);
         }

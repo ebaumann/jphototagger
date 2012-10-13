@@ -99,7 +99,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     }
 
     private List<SourceTargetFile> getFiles(boolean addXmp) {
-        List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>();
+        List<SourceTargetFile> sourceTargetFiles = new ArrayList<>();
         for (File sourceFile : sourceFiles) {
             File targetFile = new File(targetDirectory + File.separator + sourceFile.getName());
             // XMP first to avoid dynamically creating sidecar files before copied
@@ -175,7 +175,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
-        this.sourceFiles = new ArrayList<File>(sourceFiles);
+        this.sourceFiles = new ArrayList<>(sourceFiles);
     }
 
     public void setTargetDirectory(File directory) {

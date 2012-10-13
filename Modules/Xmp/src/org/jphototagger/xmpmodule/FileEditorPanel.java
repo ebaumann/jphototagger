@@ -35,8 +35,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.FileEditorDialog.panels.Directory";
     private static final String KEY_INCLUDE_SUBDIRS = "FileEditorPanel.IncludeSubdirs";
     private static final String KEY_REPLACE_EXISTING_FILES = "FileEditorPanel.ReplaceExistingFiles";
-    private List<File> selectedFiles = new ArrayList<File>();
-    private List<File> selectedDirectories = new ArrayList<File>();
+    private List<File> selectedFiles = new ArrayList<>();
+    private List<File> selectedDirectories = new ArrayList<>();
     private File prevSelectedDirectory = new File("");
     private FileEditor fileEditor = new FileEditor();
     private FileFilter fileChooserFileFilter = createFileChooserFilter();
@@ -177,7 +177,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private List<File> getFilesOfDirectories(List<File> selectedDirectories) {
-        List<File> selFiles = new ArrayList<File>();
+        List<File> selFiles = new ArrayList<>();
         List<File> selDirs = includeSubdirectories(selectedDirectories);
 
         for (File dir : selDirs) {
@@ -192,7 +192,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     }
 
     private List<File> includeSubdirectories(List<File> dirs) {
-        List<File> allDirs = new ArrayList<File>();
+        List<File> allDirs = new ArrayList<>();
         boolean includeSubDirs = checkBoxIncludeSubdirectories.isSelected();
 
         for (File dir : dirs) {
@@ -342,7 +342,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
 
 
     private void setFilesToList(final List<File> fileList) {
-        listFiles.setModel(new javax.swing.AbstractListModel() {
+        listFiles.setModel(new javax.swing.AbstractListModel<File>() {
+
             private static final long serialVersionUID = 1L;
             private final List<File> files = fileList;
 
@@ -352,7 +353,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             }
 
             @Override
-            public Object getElementAt(int i) {
+            public File getElementAt(int i) {
                 return files.get(i);
             }
         });

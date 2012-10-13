@@ -11,7 +11,7 @@ import org.jphototagger.lib.io.FileUtil;
 public final class DefaultExifSupport {
 
     public static final DefaultExifSupport INSTANCE = new DefaultExifSupport();
-    private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<String>();
+    private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<>();
 
     static {
         SUPPORTED_SUFFIXES_LOWERCASE.add("arw");

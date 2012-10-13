@@ -143,7 +143,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
      * @return Verzeichnisse
      */
     public List<File> getSelectedDirectories() {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         TreePath[] paths = tree.getSelectionPaths();
         if (paths != null) {
             for (int index = 0; index < paths.length; index++) {

@@ -26,10 +26,10 @@ public final class SettingsDialog extends Dialog {
 
     private static final String KEY_INDEX_TABBED_PANE = "UserSettingsDialog.TabbedPaneIndex";
     private static final long serialVersionUID = 1L;
-    private final Map<Tab, Integer> indexOfTab = new EnumMap<Tab, Integer>(Tab.class);
-    private final Map<Integer, Tab> tabOfIndex = new HashMap<Integer, Tab>();
-    private final Map<Component, String> helpUrlOfComponent = new HashMap<Component, String>();
-    private final List<Persistence> persistentPanels = new ArrayList<Persistence>();
+    private final Map<Tab, Integer> indexOfTab = new EnumMap<>(Tab.class);
+    private final Map<Integer, Tab> tabOfIndex = new HashMap<>();
+    private final Map<Component, String> helpUrlOfComponent = new HashMap<>();
+    private final List<Persistence> persistentPanels = new ArrayList<>();
     public static final SettingsDialog INSTANCE = new SettingsDialog();
 
     public enum Tab {

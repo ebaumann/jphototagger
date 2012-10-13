@@ -33,7 +33,7 @@ import org.openide.util.lookup.ServiceProvider;
 public final class FilesystemCopy implements Runnable, FileCopyService {
 
     private final ProgressListenerSupport progressListeners = new ProgressListenerSupport();
-    private final List<File> errorFiles = new ArrayList<File>();
+    private final List<File> errorFiles = new ArrayList<>();
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final CopyMoveFilesOptions options;
     private final List<SourceTargetFile> sourceTargetFiles;
@@ -53,7 +53,7 @@ public final class FilesystemCopy implements Runnable, FileCopyService {
         if (options == null) {
             throw new NullPointerException("options == null");
         }
-        this.sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceTargetFiles);
+        this.sourceTargetFiles = new ArrayList<>(sourceTargetFiles);
         this.options = options;
     }
 

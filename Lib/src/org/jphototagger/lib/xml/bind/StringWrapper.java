@@ -36,7 +36,7 @@ public final class StringWrapper {
             throw new NullPointerException("strings == null");
         }
 
-        List<StringWrapper> wrapped = new ArrayList<StringWrapper>(strings.size());
+        List<StringWrapper> wrapped = new ArrayList<>(strings.size());
 
         for (String string : strings) {
             wrapped.add(new StringWrapper(string));

@@ -53,11 +53,10 @@ public class KeywordsPanel extends javax.swing.JPanel {
         return list;
     }
 
-    public void setListModel(ListModel model) {
+    public void setListModel(ListModel<?> model) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
-
         list.setModel(model);
         decorateList();
     }
@@ -66,7 +65,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         keyCard = key;
     }
 
@@ -74,7 +72,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
         if (key == null) {
             throw new NullPointerException("key == null");
         }
-
         keyTree = key;
     }
 
@@ -83,7 +80,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
      */
     public void readProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.applyTreeSettings(keyTree, tree);
         readCardProperties();
     }
@@ -91,22 +87,18 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private void readCardProperties() {
         String name = "Tree";
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         if (prefs.containsKey(keyCard)) {
             String s = prefs.getString(keyCard);
-
             if (s.equals("Tree") || s.equals("List")) {
                 name = s;
             }
         }
-
         displayCard(name);
     }
 
     private void displayCard(String name) {
         CardLayout cl = (CardLayout) (getLayout());
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         cl.show(this, name);
         prefs.setString(keyCard, name);
     }
@@ -116,7 +108,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
      */
     public void writeProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setTree(keyTree, tree);
     }
 
@@ -128,7 +119,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
      */
     public void expandAll(boolean expand) {
         boolean buttonPressed = buttonToggleExpandAllNodes.isSelected();
-
         if (buttonPressed != expand) {
             buttonToggleExpandAllNodes.doClick();
         }
@@ -145,7 +135,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     private void handleButtonToggleExpandAllNodesActionPerformed() {
         boolean selected = buttonToggleExpandAllNodes.isSelected();
-
         TreeUtil.expandAll(tree, selected);
         buttonToggleExpandAllNodes.setText(selected
                                            ? Bundle.getString(KeywordsPanel.class, "KeywordsPanel.ButtonToggleExpandAllNodes.Selected")

@@ -33,8 +33,8 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
  */
 public final class IptcXmpMapping {
 
-    private static final Map<IPTCEntryMeta, MetaDataValue> XMP_META_DATA_VALUE_OF_IPTC_ENTRY_META = new HashMap<IPTCEntryMeta, MetaDataValue>();
-    private static final Map<MetaDataValue, IPTCEntryMeta> IPTC_ENTRY_META_OF_XMP_META_DATA_VALUE = new HashMap<MetaDataValue, IPTCEntryMeta>();
+    private static final Map<IPTCEntryMeta, MetaDataValue> XMP_META_DATA_VALUE_OF_IPTC_ENTRY_META = new HashMap<>();
+    private static final Map<MetaDataValue, IPTCEntryMeta> IPTC_ENTRY_META_OF_XMP_META_DATA_VALUE = new HashMap<>();
 
     static {
         XMP_META_DATA_VALUE_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.COPYRIGHT_NOTICE, XmpDcRightsMetaDataValue.INSTANCE);
@@ -78,7 +78,7 @@ public final class IptcXmpMapping {
     }
 
     public static List<IPTCEntryMetaDataValue> getAllMappings() {
-        List<IPTCEntryMetaDataValue> iptcEntryMetaMetaDataValues = new ArrayList<IPTCEntryMetaDataValue>();
+        List<IPTCEntryMetaDataValue> iptcEntryMetaMetaDataValues = new ArrayList<>();
         Set<IPTCEntryMeta> iptcEntryMetas = XMP_META_DATA_VALUE_OF_IPTC_ENTRY_META.keySet();
 
         for (IPTCEntryMeta iptcEntryMeta : iptcEntryMetas) {

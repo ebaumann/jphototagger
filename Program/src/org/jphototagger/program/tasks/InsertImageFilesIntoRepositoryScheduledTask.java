@@ -21,7 +21,7 @@ import org.openide.util.Lookup;
  */
 public final class InsertImageFilesIntoRepositoryScheduledTask {
 
-    private static final List<String> SYSTEM_DIRECTORIES_SUBSTRINGS = new ArrayList<String>();
+    private static final List<String> SYSTEM_DIRECTORIES_SUBSTRINGS = new ArrayList<>();
 
     static {
         SYSTEM_DIRECTORIES_SUBSTRINGS.add("System Volume Information");
@@ -39,7 +39,7 @@ public final class InsertImageFilesIntoRepositoryScheduledTask {
      */
     static SaveToOrUpdateFilesInRepositoryImpl getThread() {
         List<File> directories = getDirectories();
-        List<File> imageFiles = new ArrayList<File>(directories.size());
+        List<File> imageFiles = new ArrayList<>(directories.size());
 
         if (!directories.isEmpty()) {
             for (File directory : directories) {
@@ -73,7 +73,7 @@ public final class InsertImageFilesIntoRepositoryScheduledTask {
     }
 
     private static void addSubdirectories(List<File> directories) {
-        List<File> subdirectories = new ArrayList<File>();
+        List<File> subdirectories = new ArrayList<>();
 
         if (isAutoscanIncludeSubdirectories()) {
             for (File directory : directories) {

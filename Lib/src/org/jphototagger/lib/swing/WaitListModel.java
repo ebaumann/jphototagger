@@ -9,7 +9,7 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public final class WaitListModel extends DefaultListModel {
+public final class WaitListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     public static final WaitListModel INSTANCE = new WaitListModel();

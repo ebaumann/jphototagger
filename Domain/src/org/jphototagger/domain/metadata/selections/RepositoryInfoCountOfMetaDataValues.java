@@ -23,7 +23,7 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
  */
 public final class RepositoryInfoCountOfMetaDataValues {
 
-    private static final List<MetaDataValue> META_DATA_VALUES = new ArrayList<MetaDataValue>();
+    private static final List<MetaDataValue> META_DATA_VALUES = new ArrayList<>();
 
     static {
         META_DATA_VALUES.add(FilesFilenameMetaDataValue.INSTANCE);
@@ -43,7 +43,7 @@ public final class RepositoryInfoCountOfMetaDataValues {
     }
 
     public static List<MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(META_DATA_VALUES);
+        return new ArrayList<>(META_DATA_VALUES);
     }
 
     private RepositoryInfoCountOfMetaDataValues() {

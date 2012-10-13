@@ -125,18 +125,15 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
     }
 
     private void removeSelectedAutoscanDirectories() {
-        Object[] values = listAutoscanDirectories.getSelectedValues();
-
-        for (int i = 0; i < values.length; i++) {
-            File   directory     = (File) values[i];
-
+        List<?> values = listAutoscanDirectories.getSelectedValuesList();
+        for (int i = 0; i < values.size(); i++) {
+            File   directory     = (File) values.get(i);
             if (repo.existsAutoscanDirectory(directory)) {
                 if (!repo.deleteAutoscanDirectory(directory)) {
                     errorMessageDeleteAutoscanDirectory(directory);
                 }
             }
         }
-
         setEnabled();
     }
 

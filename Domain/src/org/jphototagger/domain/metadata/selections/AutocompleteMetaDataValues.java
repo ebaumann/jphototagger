@@ -22,7 +22,7 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
  */
 public final class AutocompleteMetaDataValues {
 
-    private static final List<MetaDataValue> VALUES = new ArrayList<MetaDataValue>();
+    private static final List<MetaDataValue> VALUES = new ArrayList<>();
 
     static {
         VALUES.add(XmpDcCreatorMetaDataValue.INSTANCE);
@@ -50,6 +50,6 @@ public final class AutocompleteMetaDataValues {
     }
 
     public static List<MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(VALUES);
+        return new ArrayList<>(VALUES);
     }
 }

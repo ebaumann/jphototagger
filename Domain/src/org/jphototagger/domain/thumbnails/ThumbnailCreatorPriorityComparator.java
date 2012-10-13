@@ -16,7 +16,7 @@ public final class ThumbnailCreatorPriorityComparator implements Comparator<Thum
     public static final ThumbnailCreatorPriorityComparator INSTANCE = new ThumbnailCreatorPriorityComparator();
 
     public static List<ThumbnailCreator> lookupSorted() {
-        List<ThumbnailCreator> thumbnailCreators = new LinkedList<ThumbnailCreator>(
+        List<ThumbnailCreator> thumbnailCreators = new LinkedList<>(
                 Lookup.getDefault().lookupAll(ThumbnailCreator.class));
         Collections.sort(thumbnailCreators, INSTANCE);
         return thumbnailCreators;

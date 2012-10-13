@@ -32,7 +32,7 @@ public final class XmpTableModel extends TableModelExt {
         }
 
         this.file = file;
-        this.propertyInfos = new ArrayList<XMPPropertyInfo>(propertyInfos);
+        this.propertyInfos = new ArrayList<>(propertyInfos);
         removeAllRows();
         addRows();
     }
@@ -55,7 +55,7 @@ public final class XmpTableModel extends TableModelExt {
         Object value = xmpPropertyInfo.getValue();
 
         if ((path != null) && (value != null) && !path.contains("Digest")) {
-            List<XMPPropertyInfo> newRow = new ArrayList<XMPPropertyInfo>();
+            List<XMPPropertyInfo> newRow = new ArrayList<>();
 
             newRow.add(xmpPropertyInfo);
             newRow.add(xmpPropertyInfo);

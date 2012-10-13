@@ -18,7 +18,7 @@ import org.openide.util.Lookup;
 public final class SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction extends AbstractAction {
 
     private static final long serialVersionUID = 1L;
-    private static final Collection<UserDefinedFileType> VIDEO_FILES = new ArrayList<UserDefinedFileType>(10);
+    private static final Collection<UserDefinedFileType> VIDEO_FILES = new ArrayList<>(10);
     public static final SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction INSTANCE = new SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction();
 
     {

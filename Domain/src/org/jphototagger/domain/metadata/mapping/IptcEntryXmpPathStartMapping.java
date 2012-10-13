@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public final class IptcEntryXmpPathStartMapping {
 
-    private static final Map<IPTCEntryMeta, String> XMP_PATH_START_OF_IPTC_ENTRY_META = new HashMap<IPTCEntryMeta, String>();
+    private static final Map<IPTCEntryMeta, String> XMP_PATH_START_OF_IPTC_ENTRY_META = new HashMap<>();
 
     static {
         XMP_PATH_START_OF_IPTC_ENTRY_META.put(IPTCEntryMeta.BYLINE, "dc:creator");

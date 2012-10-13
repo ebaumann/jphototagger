@@ -16,7 +16,7 @@ public class TableModelExt extends DefaultTableModel {
         super(data, columnNames);
     }
 
-    public TableModelExt(Vector data, Vector columnNames) {
+    public TableModelExt(Vector<?> data, Vector<?> columnNames) {
         super(data, columnNames);
     }
 
@@ -24,7 +24,7 @@ public class TableModelExt extends DefaultTableModel {
         super(columnNames, rowCount);
     }
 
-    public TableModelExt(Vector columnNames, int rowCount) {
+    public TableModelExt(Vector<?> columnNames, int rowCount) {
         super(columnNames, rowCount);
     }
 
@@ -36,9 +36,8 @@ public class TableModelExt extends DefaultTableModel {
     }
 
     public void removeAllRows() {
-        Vector rows = getDataVector();
+        Vector<?> rows = getDataVector();
         int size = rows.size();
-
         if (size > 0) {
             rows.clear();
             fireTableRowsDeleted(0, size - 1);

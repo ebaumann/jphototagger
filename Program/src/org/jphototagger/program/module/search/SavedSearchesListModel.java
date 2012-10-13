@@ -18,7 +18,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class SavedSearchesListModel extends DefaultListModel {
+public final class SavedSearchesListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private final SavedSearchesRepository savedSearchRepo = Lookup.getDefault().lookup(SavedSearchesRepository.class);

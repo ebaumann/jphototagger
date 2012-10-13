@@ -131,7 +131,7 @@ final class UserDefinedFileTypesDatabase extends Database {
     }
 
     List<UserDefinedFileType> getAll() {
-        List<UserDefinedFileType> fileTypes = new ArrayList<UserDefinedFileType>();
+        List<UserDefinedFileType> fileTypes = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

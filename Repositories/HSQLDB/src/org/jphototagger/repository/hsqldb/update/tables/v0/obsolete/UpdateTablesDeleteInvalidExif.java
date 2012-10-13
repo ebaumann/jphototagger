@@ -22,7 +22,7 @@ import org.openide.util.Lookup;
 final class UpdateTablesDeleteInvalidExif {
 
     private static final String KEY_REMOVED_INVALID_EXIF = "Removed_Invalid_EXIF_1";    // Never change this!
-    private static final Set<MetaDataValue> META_DATA_VALUES_NOT_POSITIVE = new HashSet<MetaDataValue>();
+    private static final Set<MetaDataValue> META_DATA_VALUES_NOT_POSITIVE = new HashSet<>();
     private final ApplicationPropertiesRepository appPropertiesRepo = Lookup.getDefault().lookup(ApplicationPropertiesRepository.class);
 
     static {

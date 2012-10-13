@@ -79,7 +79,7 @@ public final class ProgramsExporter implements RepositoryDataExporter {
 
         @XmlElementWrapper(name = "Programs")
         @XmlElement(type = Program.class)
-        private final ArrayList<Program> collection = new ArrayList<Program>();
+        private final ArrayList<Program> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -89,7 +89,7 @@ public final class ProgramsExporter implements RepositoryDataExporter {
         }
 
         public List<Program> getCollection() {
-            return new ArrayList<Program>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

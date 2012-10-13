@@ -49,15 +49,14 @@ import org.jphototagger.lib.util.StringUtil;
  *
  * @author Elmar Baumann
  */
-public class TabbedPaneSearchPanel extends javax.swing.JPanel
-        implements ComponentListener, DocumentListener {
+public class TabbedPaneSearchPanel extends javax.swing.JPanel implements ComponentListener, DocumentListener {
     private static final long serialVersionUID = 1L;
-    private final Map<String, Collection<Component>> tabsOfWord = new HashMap<String, Collection<Component>>();
-    private final Collection<Component> tabsCache = new ArrayList<Component>();
-    private final Map<Object, String> originalTextOf = new HashMap<Object, String>();
-    private final Map<Component, JTabbedPane> paneOfTab = new HashMap<Component, JTabbedPane>();
-    private final Map<Component, String> titleOfTab = new LinkedHashMap<Component, String>();
-    private final DefaultListModel listModel = new DefaultListModel();
+    private final Map<String, Collection<Component>> tabsOfWord = new HashMap<>();
+    private final Collection<Component> tabsCache = new ArrayList<>();
+    private final Map<Object, String> originalTextOf = new HashMap<>();
+    private final Map<Component, JTabbedPane> paneOfTab = new HashMap<>();
+    private final Map<Component, String> titleOfTab = new LinkedHashMap<>();
+    private final DefaultListModel<Object> listModel = new DefaultListModel<>();
     private Component visibleComponent;
     private static final String HL_SPAN_START = "<span style=\"color:#000000; background:#ffff000;\">";
     private static final String HL_SPAN_END = "</span>";
@@ -208,7 +207,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         Collection<Component> parentTabs = tabsOfWord.get(word);
 
         if (parentTabs == null) {
-            parentTabs = new ArrayList<Component>();
+            parentTabs = new ArrayList<>();
         }
 
         if (!parentTabs.contains(parentTab)) {
@@ -260,7 +259,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }
 
     private Collection<Component> findTabs(String word) {
-        Collection<Component> tabs = new HashSet<Component>();
+        Collection<Component> tabs = new HashSet<>();
 
         for (String wd : tabsOfWord.keySet()) {
             if (wd.contains(word)) {
@@ -485,7 +484,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         String wLower = word.toLowerCase();
         int sLen = sLower.length();
         int wLen = word.length();
-        List<Integer> indices = new ArrayList<Integer>();
+        List<Integer> indices = new ArrayList<>();
         int index = sLower.indexOf(wLower, 0);
 
         while (index >= 0) {
@@ -512,10 +511,10 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     private String getHighlightedHtml(String s, String word) {
         StringBuilder sb = new StringBuilder();
         List<BeginEndIndex> validRanges = getValidRangesInHtml(s);
-        int bIndexText = 0;
+        int bIndexText;
         int eIndexText = 0;
         int bIndexHtml = 0;
-        int eIndexHtml = 0;
+        int eIndexHtml;
 
         if (validRanges.isEmpty()) {
             return s;
@@ -545,7 +544,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }
 
     private List<BeginEndIndex> getValidRangesInHtml(String s) {
-        List<BeginEndIndex> ranges = new ArrayList<BeginEndIndex>();
+        List<BeginEndIndex> ranges = new ArrayList<>();
         int len  = s.length();
         int start = 0;
 
@@ -566,7 +565,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         private static final long serialVersionUID = 1L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof Component) {
@@ -595,7 +594,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
         labelSearch = new javax.swing.JLabel();
         textFieldSearch = new javax.swing.JTextField();
         scrollPane = new javax.swing.JScrollPane();
-        list = new javax.swing.JList();
+        list = new javax.swing.JList<>();
 
         setName("Form"); // NOI18N
 
@@ -648,7 +647,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel
     }//GEN-LAST:event_listValueChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelSearch;
-    private javax.swing.JList list;
+    private javax.swing.JList<Object> list;
     private javax.swing.JScrollPane scrollPane;
     private javax.swing.JTextField textFieldSearch;
     // End of variables declaration//GEN-END:variables

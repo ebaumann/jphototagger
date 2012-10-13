@@ -39,7 +39,7 @@ import org.openide.util.lookup.ServiceProviders;
 })
 public final class DcrawThumbnailCreator implements ThumbnailCreator, ExternalThumbnailCreationCommand {
 
-    private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<String>();
+    private static final Set<String> SUPPORTED_SUFFIXES_LOWERCASE = new HashSet<>();
     private static final Logger LOGGER = Logger.getLogger(DcrawThumbnailCreator.class.getName());
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private boolean dcrawResolved;

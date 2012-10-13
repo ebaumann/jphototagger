@@ -16,7 +16,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann, Tobias Stening
  */
-public final class MetadataTemplatesComboBoxModel extends DefaultComboBoxModel {
+public final class MetadataTemplatesComboBoxModel extends DefaultComboBoxModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private final MetadataTemplatesRepository templateRepo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);

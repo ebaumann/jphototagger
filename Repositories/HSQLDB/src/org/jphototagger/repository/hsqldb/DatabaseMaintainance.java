@@ -91,7 +91,7 @@ final class DatabaseMaintainance extends Database {
             return table;
         }
     }
-    private static final List<Ref1nInfo> REF_1_N_INFOS = new ArrayList<Ref1nInfo>();
+    private static final List<Ref1nInfo> REF_1_N_INFOS = new ArrayList<>();
 
     static {
         REF_1_N_INFOS.add(new Ref1nInfo("dc_creators", "xmp", "id_dc_creator"));

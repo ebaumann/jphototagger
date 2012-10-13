@@ -59,7 +59,7 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
         String convertFileDescription = getConvertFileDescription();
         String fileChooserTitle = Bundle.getString(ImageMagickThumbnailCreator.class, "ImageMagickThumbnailCreator.ChooseFile.Dialogtitle");
 
-        return new FileChooser.Builder(new HashSet<String>(Arrays.asList(convertFileName)))
+        return new FileChooser.Builder(new HashSet<>(Arrays.asList(convertFileName)))
                 .fileChooserTitle(fileChooserTitle)
                 .fileDescription(convertFileDescription)
                 .build();

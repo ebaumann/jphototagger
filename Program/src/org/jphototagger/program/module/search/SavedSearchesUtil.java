@@ -29,29 +29,23 @@ public final class SavedSearchesUtil {
      * @return       index or -1 if that model has no saved search with that
      *               name
      */
-    public static int getIndexOfSavedSearch(DefaultListModel model, String name) {
+    public static int getIndexOfSavedSearch(DefaultListModel<?> model, String name) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
-
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         int size = model.size();
-
         for (int i = 0; i < size; i++) {
             Object element = model.get(i);
-
             if (element instanceof SavedSearch) {
                 SavedSearch savedSearch = (SavedSearch) element;
-
                 if (savedSearch.getName().equals(name)) {
                     return i;
                 }
             }
         }
-
         return -1;
     }
 

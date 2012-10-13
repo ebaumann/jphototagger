@@ -22,8 +22,8 @@ public final class ExifGpsAltitude {
 
         OBOVE_SEA_LEVEL, BELOW_SEA_LEVEL
     }
-    private static final Map<Integer, Ref> REF_OF_INTEGER = new HashMap<Integer, Ref>();
-    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new EnumMap<Ref, String>(Ref.class);
+    private static final Map<Integer, Ref> REF_OF_INTEGER = new HashMap<>();
+    private static final Map<Ref, String> LOCALIZED_STRING_OF_REF = new EnumMap<>(Ref.class);
 
     static {
         REF_OF_INTEGER.put(0, Ref.OBOVE_SEA_LEVEL);

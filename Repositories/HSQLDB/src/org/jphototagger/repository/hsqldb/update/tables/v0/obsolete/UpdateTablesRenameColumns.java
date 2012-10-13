@@ -14,7 +14,7 @@ import org.jphototagger.repository.hsqldb.DatabaseMetadata;
  */
 final class UpdateTablesRenameColumns {
 
-    private static final Collection<ColumnRenameInfo> COLUMN_RENAME_INFOS = new ArrayList<ColumnRenameInfo>();
+    private static final Collection<ColumnRenameInfo> COLUMN_RENAME_INFOS = new ArrayList<>();
 
     static {
         COLUMN_RENAME_INFOS.add(new ColumnRenameInfo(
@@ -45,7 +45,7 @@ final class UpdateTablesRenameColumns {
                 new ColumnInfo("saved_searches", "sql_string", null, null),
                 new ColumnInfo(null, "custom_sql", null, null)));
     }
-    private final Collection<ColumnRenameInfo> columnToRenameInfos = new ArrayList<ColumnRenameInfo>();
+    private final Collection<ColumnRenameInfo> columnToRenameInfos = new ArrayList<>();
 
     void update(Connection con) throws SQLException {
         Logger.getLogger(UpdateTablesRenameColumns.class.getName()).log(Level.INFO, "Renaming Columns");

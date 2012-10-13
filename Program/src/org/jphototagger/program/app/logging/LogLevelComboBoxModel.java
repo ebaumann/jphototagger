@@ -11,7 +11,7 @@ import javax.swing.ListCellRenderer;
 /**
  * @author Elmar Baumann
  */
-public final class LogLevelComboBoxModel extends DefaultComboBoxModel {
+public final class LogLevelComboBoxModel extends DefaultComboBoxModel<Object> {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,7 @@ public final class LogLevelComboBoxModel extends DefaultComboBoxModel {
         addElement(Level.ALL);
     }
 
-    public static ListCellRenderer createRenderer() {
+    public static ListCellRenderer<Object> createRenderer() {
         return new DefaultListCellRenderer() {
 
             private static final long serialVersionUID = 1L;

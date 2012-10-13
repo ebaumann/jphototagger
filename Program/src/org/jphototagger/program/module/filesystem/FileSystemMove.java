@@ -23,8 +23,8 @@ import org.jphototagger.lib.util.Bundle;
  */
 public final class FileSystemMove extends FileSystem implements Runnable, Cancelable {
 
-    private final List<File> sourceFiles = new ArrayList<File>();
-    private final List<File> targetFiles = new ArrayList<File>();
+    private final List<File> sourceFiles = new ArrayList<>();
+    private final List<File> targetFiles = new ArrayList<>();
     private final boolean renameIfTargetFileExists;
     private volatile boolean moveListenerShallUpdateRepository = true;
     private volatile boolean cancel;

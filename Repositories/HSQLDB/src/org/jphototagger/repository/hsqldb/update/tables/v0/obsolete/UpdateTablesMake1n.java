@@ -25,7 +25,7 @@ import org.openide.util.Lookup;
  */
 public final class UpdateTablesMake1n {
 
-    private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF = new HashMap<ColumnInfo, ColumnInfo>();
+    private static final Map<ColumnInfo, ColumnInfo> TARGET_COL_OF = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesMake1n.class.getName());
 
     static {

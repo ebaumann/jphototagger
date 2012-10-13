@@ -32,8 +32,8 @@ import org.openide.util.Lookup;
 public final class AppLifeCycle {
 
     public static final AppLifeCycle INSTANCE = new AppLifeCycle();
-    private final Set<Object> saveObjects = new HashSet<Object>();
-    private final Set<FinalTask> finalTasks = new LinkedHashSet<FinalTask>();
+    private final Set<Object> saveObjects = new HashSet<>();
+    private final Set<FinalTask> finalTasks = new LinkedHashSet<>();
     private AppFrame appFrame;
     private boolean started;
     private static final Logger LOGGER = Logger.getLogger(AppLifeCycle.class.getName());
@@ -203,7 +203,7 @@ public final class AppLifeCycle {
         };
 
         synchronized (finalTasks) {
-            Set<FinalTask> tasks = new HashSet<FinalTask>(finalTasks);
+            Set<FinalTask> tasks = new HashSet<>(finalTasks);
 
             GUI.getAppFrame().setEnabled(false);
 
@@ -277,7 +277,7 @@ public final class AppLifeCycle {
 
     public static abstract class FinalTask {
 
-        private final ListenerSupport<FinalTaskListener> ls = new ListenerSupport<FinalTaskListener>();
+        private final ListenerSupport<FinalTaskListener> ls = new ListenerSupport<>();
 
         public void addListener(FinalTaskListener listener) {
             if (listener == null) {

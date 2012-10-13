@@ -42,22 +42,18 @@ public class InputHelperDialog extends Dialog {
         setHelpPageUrl(Bundle.getString(InputHelperDialog.class, "InputHelperDialog.HelpPage"));
     }
 
-    public void setModelKeywords(ListModel model) {
+    public void setModelKeywords(ListModel<?> model) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
-
         panelKeywords.setListModel(model);
     }
 
     private void readProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         panelKeywords.readProperties();
         prefs.applyTreeSettings(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
-
         int selIndexTabbedPane = prefs.getInt(KEY_SEL_INDEX_TABBED_PANE);
-
         if ((selIndexTabbedPane >= 0) && (selIndexTabbedPane < tabbedPane.getTabCount())) {
             tabbedPane.setSelectedIndex(selIndexTabbedPane);
         }
@@ -65,7 +61,6 @@ public class InputHelperDialog extends Dialog {
 
     private void writeProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setInt(KEY_SEL_INDEX_TABBED_PANE, tabbedPane.getSelectedIndex());
         prefs.setTree(KEY_TREE_MISC_XMP, panelMiscXmpMetadata.getTree());
         panelKeywords.writeProperties();
@@ -95,7 +90,6 @@ public class InputHelperDialog extends Dialog {
         } else {
             writeProperties();
         }
-
         super.setVisible(visible);
     }
 

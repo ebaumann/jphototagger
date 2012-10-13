@@ -95,7 +95,7 @@ public class EditXmpDialog extends Dialog {
         panelContent = new javax.swing.JPanel();
         panelTemplates = new javax.swing.JPanel();
         labelTemplates = new javax.swing.JLabel();
-        comboBoxTemplates = new javax.swing.JComboBox();
+        comboBoxTemplates = new javax.swing.JComboBox<>();
         buttonEditMetadataTemplates = new javax.swing.JButton();
         buttonInsertTemplate = new javax.swing.JButton();
         scrollPanePanelEditXmp = new javax.swing.JScrollPane();
@@ -259,7 +259,7 @@ public class EditXmpDialog extends Dialog {
     private javax.swing.JButton buttonEditMetadataTemplates;
     private javax.swing.JButton buttonInsertTemplate;
     private javax.swing.JButton buttonOk;
-    private javax.swing.JComboBox comboBoxTemplates;
+    private javax.swing.JComboBox<Object> comboBoxTemplates;
     private javax.swing.JLabel labelTemplates;
     private javax.swing.JPanel panelContent;
     private org.jphototagger.program.module.metadatatemplates.EditXmpPanel panelEditXmp;

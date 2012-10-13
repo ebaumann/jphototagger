@@ -30,7 +30,7 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
  */
 public final class XmpRepeatableValues {
 
-    private static final Map<MetaDataValue, Boolean> IS_REPEATABLE = new HashMap<MetaDataValue, Boolean>();
+    private static final Map<MetaDataValue, Boolean> IS_REPEATABLE = new HashMap<>();
 
     static {
         IS_REPEATABLE.put(XmpDcCreatorMetaDataValue.INSTANCE, false);

@@ -13,7 +13,7 @@ import org.openide.util.Lookup;
  */
 public final class MetaDataValueProviderSupport {
 
-    private final Map<MetaDataValue, List<MetaDataValueProvider>> providersOfValue = new HashMap<MetaDataValue, List<MetaDataValueProvider>>();
+    private final Map<MetaDataValue, List<MetaDataValueProvider>> providersOfValue = new HashMap<>();
 
     public MetaDataValueProviderSupport() {
         lookupProviders();
@@ -25,7 +25,7 @@ public final class MetaDataValueProviderSupport {
             for (MetaDataValue value : provider.getProvidedValues()) {
                 List<MetaDataValueProvider> valueProviders = providersOfValue.get(value);
                 if (valueProviders == null) {
-                    valueProviders = new ArrayList<MetaDataValueProvider>();
+                    valueProviders = new ArrayList<>();
                     providersOfValue.put(value, valueProviders);
                 }
                 valueProviders.add(provider);
@@ -40,7 +40,7 @@ public final class MetaDataValueProviderSupport {
         if (forValue == null) {
             throw new NullPointerException("forValue == null");
         }
-        List<MetaDataValueData> metaData = new ArrayList<MetaDataValueData>();
+        List<MetaDataValueData> metaData = new ArrayList<>();
         List<MetaDataValueProvider> valueProviders = providersOfValue.get(forValue);
         if (valueProviders != null) {
             for (MetaDataValueProvider provider : valueProviders) {

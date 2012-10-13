@@ -17,7 +17,7 @@ import org.jphototagger.repository.hsqldb.DatabaseMetadata;
  */
 final class UpdateTablesIndexes {
 
-    private static final Map<IndexOfTable, IndexInfo[]> INDEX_TO_REPLACE = new HashMap<IndexOfTable, IndexInfo[]>();
+    private static final Map<IndexOfTable, IndexInfo[]> INDEX_TO_REPLACE = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(UpdateTablesIndexes.class.getName());
 
     static {

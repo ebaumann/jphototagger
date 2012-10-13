@@ -50,7 +50,6 @@ public final class ModelFactory {
             if (!Support.checkInit(getClass(), init)) {
                 return;
             }
-
             init = true;
         }
 
@@ -59,7 +58,6 @@ public final class ModelFactory {
             @Override
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
-
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Init.Start");
                 Support.setStatusbarInfo(message);
                 setListModels(appPanel);
@@ -83,11 +81,9 @@ public final class ModelFactory {
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelSavedSearches");
                 Support.setStatusbarInfo(message);
-
                 final JXList list = appPanel.getListSavedSearches();
                 final Cursor listCursor = setWaitCursor(list);
                 final SavedSearchesListModel model = new SavedSearchesListModel();
-
                 support.add(model);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -124,7 +120,7 @@ public final class ModelFactory {
                     @Override
                     public void run() {
                         list.setModel(model);
-                        ListSortController<ImageCollectionsListModel> sorter = new ListSortController<ImageCollectionsListModel>(model);
+                        ListSortController<ImageCollectionsListModel> sorter = new ListSortController<>(model);
                         sorter.setComparator(0, new ImageCollectionSortAscendingComparator());
                         list.setRowSorter(sorter);
                         list.setSortOrder(SortOrder.ASCENDING);
@@ -145,12 +141,10 @@ public final class ModelFactory {
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.ListModelKeywords");
                 Support.setStatusbarInfo(message);
-
                 final JXList listSelectedKeywords = appPanel.getListSelKeywords();
                 final KeywordsPanel panelEditKeywords = appPanel.getPanelEditKeywords();
                 final Cursor listCursor = setWaitCursor(listSelectedKeywords);
                 final KeywordsListModel modelKeywords = new KeywordsListModel();
-
                 support.add(modelKeywords);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
@@ -187,10 +181,8 @@ public final class ModelFactory {
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelKeywords");
                 Support.setStatusbarInfo(message);
-
                 final TreeModel treeModelKeywords = new KeywordsTreeModel();
                 final MetadataTemplatesListModel listModelTemplates = new MetadataTemplatesListModel();
-
                 support.add(treeModelKeywords);
                 support.add(listModelTemplates);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -198,12 +190,9 @@ public final class ModelFactory {
                     @Override
                     public void run() {
                         JTree treeSelKeywords = appPanel.getTreeSelKeywords();
-
                         treeSelKeywords.setModel(treeModelKeywords);
                         AppWindowPersistence.readTreeSelKeywords();
-
                         JTree treeEditKeywords = appPanel.getTreeEditKeywords();
-
                         treeEditKeywords.setModel(treeModelKeywords);
                         AppWindowPersistence.readTreeEditKeywords();
                         InputHelperDialog.INSTANCE.getPanelKeywords().getTree().setModel(treeModelKeywords);
@@ -223,12 +212,10 @@ public final class ModelFactory {
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelMiscMetadata");
                 Support.setStatusbarInfo(message);
-
                 final JTree tree = appPanel.getTreeMiscMetadata();
                 final Cursor treeCursor = setWaitCursor(tree);
                 final TreeModel modelApp = new MiscMetadataTreeModel(false);
                 final TreeModel modelInputHelper = new MiscMetadataTreeModel(true);
-
                 support.add(modelApp);
                 support.add(modelInputHelper);
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {
@@ -282,7 +269,6 @@ public final class ModelFactory {
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelFavorites");
                 Support.setStatusbarInfo(message);
-
                 final JTree tree = appPanel.getTreeFavorites();
                 final Cursor treeCursor = setWaitCursor(tree);
                 final FavoritesTreeModel model = new FavoritesTreeModel(tree);
@@ -313,7 +299,6 @@ public final class ModelFactory {
             public void run() {
                 String message = Bundle.getString(ModelFactory.class, "ModelFactory.Starting.TreeModelDirectories");
                 Support.setStatusbarInfo(message);
-
                 final JTree tree = appPanel.getTreeDirectories();
                 final Cursor treeCursor = setWaitCursor(tree);
                 List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
@@ -345,7 +330,6 @@ public final class ModelFactory {
 
     private boolean isAcceptHiddenDirectories() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
@@ -383,21 +367,17 @@ public final class ModelFactory {
         return support.getFirst(modelClass);
     }
 
-    private Cursor setWaitCursor(JList list) {
+    private Cursor setWaitCursor(JList<?> list) {
         Cursor listCursor = list.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
-
         list.setCursor(waitCursor);
-
         return listCursor;
     }
 
     private synchronized Cursor setWaitCursor(JTree tree) {
         Cursor treeCursor = tree.getCursor();
         Cursor waitCursor = Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR);
-
         tree.setCursor(waitCursor);
-
         return treeCursor;
     }
 
