@@ -32,7 +32,7 @@ public final class LogfileParser implements EntityResolver {
             throw new NullPointerException("filename == null");
         }
 
-        List<LogfileRecord> records = new ArrayList<LogfileRecord>();
+        List<LogfileRecord> records = new ArrayList<>();
 
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

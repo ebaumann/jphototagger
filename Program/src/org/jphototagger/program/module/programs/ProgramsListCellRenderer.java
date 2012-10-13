@@ -22,15 +22,11 @@ public final class ProgramsListCellRenderer extends DefaultListCellRenderer {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-            boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         Program program = (Program) value;
-
         label.setText(program.getAlias());
-
         File file = program.getFile();
-
         if (file.exists()) {
             if (file.exists()) {
                 synchronized (FILE_SYSTEM_VIEW) {
@@ -44,7 +40,6 @@ public final class ProgramsListCellRenderer extends DefaultListCellRenderer {
         } else {
             label.setIcon(ICON_ERROR);
         }
-
         return label;
     }
 }

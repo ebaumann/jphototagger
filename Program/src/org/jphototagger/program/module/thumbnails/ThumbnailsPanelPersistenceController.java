@@ -24,7 +24,7 @@ public final class ThumbnailsPanelPersistenceController {
 
     private static final String KEY_SELECTED_FILES = "org.jphototagger.program.view.controller.ControllerThumbnailsPanelPersistence.SelectedFiles";
     private volatile boolean propertiesRead;
-    private List<File> persistentSelectedFiles = new ArrayList<File>();
+    private List<File> persistentSelectedFiles = new ArrayList<>();
 
     public ThumbnailsPanelPersistenceController() {
         listen();
@@ -73,7 +73,7 @@ public final class ThumbnailsPanelPersistenceController {
 
     private void readSelectedFilesFromProperties() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-        List<Integer> indices = new ArrayList<Integer>();
+        List<Integer> indices = new ArrayList<>();
 
         for (File file : persistentSelectedFiles) {
             int index = tnPanel.getIndexOf(file);

@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.ObjectUtil;
 public final class HelpNode {
 
     private String title;
-    private List<Object> children = new ArrayList<Object>();
+    private List<Object> children = new ArrayList<>();
     private HelpNode parent;
 
     public String getTitle() {
@@ -105,7 +105,7 @@ public final class HelpNode {
             throw new NullPointerException("url == null");
         }
 
-        List<Object> found = new ArrayList<Object>();
+        List<Object> found = new ArrayList<>();
 
         findPath(url, found);
 
@@ -145,7 +145,7 @@ public final class HelpNode {
             throw new NullPointerException("helpPage == null");
         }
 
-        Stack<Object> path = new Stack<Object>();
+        Stack<Object> path = new Stack<>();
 
         path.push(helpPage);
 

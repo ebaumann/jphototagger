@@ -249,7 +249,7 @@ final class ProgramsDatabase extends Database {
         if (type == null) {
             throw new NullPointerException("type == null");
         }
-        List<Program> programs = new LinkedList<Program>();
+        List<Program> programs = new LinkedList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -541,7 +541,7 @@ final class ProgramsDatabase extends Database {
     List<DefaultProgram> findAllDefaultPrograms() {
         Connection con = null;
         PreparedStatement stmt = null;
-        List<DefaultProgram> defaultPrograms = new LinkedList<DefaultProgram>();
+        List<DefaultProgram> defaultPrograms = new LinkedList<>();
         try {
             con = getConnection();
             String sql = "SELECT d.id_program, d.filename_suffix, p.alias"

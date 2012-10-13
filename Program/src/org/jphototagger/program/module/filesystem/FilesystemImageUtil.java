@@ -83,7 +83,7 @@ public final class FilesystemImageUtil {
     }
 
     private static List<SourceTargetFile> getFiles(Collection<? extends File> sourceFiles, File targetDirectory) {
-        List<SourceTargetFile> sourceTargetFiles = new ArrayList<SourceTargetFile>();
+        List<SourceTargetFile> sourceTargetFiles = new ArrayList<>();
         for (File sourceFile : sourceFiles) {
             File targetFile = new File(targetDirectory + File.separator + sourceFile.getName());
             addXmp(sourceFile, targetDirectory, sourceTargetFiles);
@@ -168,7 +168,7 @@ public final class FilesystemImageUtil {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-        List<File> files = new ArrayList<File>(imageFiles.size() * 2);
+        List<File> files = new ArrayList<>(imageFiles.size() * 2);
         for (File imageFile : imageFiles) {
             if ((imageFile != null) && FileFilterUtil.isImageFile(imageFile)) {
                 files.add(imageFile);

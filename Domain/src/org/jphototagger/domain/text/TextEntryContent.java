@@ -115,7 +115,7 @@ public final class TextEntryContent implements TextEntry {
 
     @Override
     public List<Component> getInputComponents() {
-        return new ArrayList<Component>();
+        return new ArrayList<>();
     }
 
     @Override

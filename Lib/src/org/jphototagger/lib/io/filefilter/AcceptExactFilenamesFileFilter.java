@@ -21,7 +21,7 @@ public final class AcceptExactFilenamesFileFilter implements FileFilter, Seriali
             throw new NullPointerException("filenames == null");
         }
 
-        this.filenames = new ArrayList<String>(filenames);
+        this.filenames = new ArrayList<>(filenames);
     }
 
     /**

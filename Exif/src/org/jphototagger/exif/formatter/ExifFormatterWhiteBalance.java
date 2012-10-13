@@ -15,7 +15,7 @@ import org.jphototagger.exif.datatype.ExifShort;
 public final class ExifFormatterWhiteBalance extends ExifFormatter {
 
     public static final ExifFormatterWhiteBalance INSTANCE = new ExifFormatterWhiteBalance();
-    private static final Map<Integer, String> EXIF_KEY_OF_WHITE_BALANCE = new HashMap<Integer, String>();
+    private static final Map<Integer, String> EXIF_KEY_OF_WHITE_BALANCE = new HashMap<>();
 
     static {
         EXIF_KEY_OF_WHITE_BALANCE.put(0, "WhiteBalanceAutomatic");

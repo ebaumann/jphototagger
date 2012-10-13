@@ -40,8 +40,8 @@ public final class NikonMakerNote {
     private final ResourceBundle bundle;
     private final int byteOffsetToTiffHeader;
     private final byte[][] magicBytePatterns;
-    private final List<MakerNoteTagInfo> makerNoteTagInfos = new ArrayList<MakerNoteTagInfo>();
-    private final List<NikonMakerNoteTagIdExifTagId> equalTagIdsInExifIfd = new ArrayList<NikonMakerNoteTagIdExifTagId>();
+    private final List<MakerNoteTagInfo> makerNoteTagInfos = new ArrayList<>();
+    private final List<NikonMakerNoteTagIdExifTagId> equalTagIdsInExifIfd = new ArrayList<>();
 
     /**
      *
@@ -155,7 +155,7 @@ public final class NikonMakerNote {
     List<ExifTag> getDisplayableMakerNotesOf(List<ExifTag> makerNoteTags)
             throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
-        List<ExifTag> displayableTags = new ArrayList<ExifTag>();
+        List<ExifTag> displayableTags = new ArrayList<>();
 
         for (ExifTag exifTag : makerNoteTags) {
             int pos = indexOf(exifTag.getTagId(), makerNoteTagInfos);
@@ -198,7 +198,7 @@ public final class NikonMakerNote {
     }
 
     private List<String> bundleKeys() {
-        List<String> keys = new ArrayList<String>();
+        List<String> keys = new ArrayList<>();
 
         for (Enumeration<String> e = bundle.getKeys(); e.hasMoreElements();) {
             keys.add(e.nextElement());
@@ -243,7 +243,7 @@ public final class NikonMakerNote {
             }
         }
     }
-    private static final Collection<Class<?>> BYTE_ORDER_CLASSES = new HashSet<Class<?>>();
+    private static final Collection<Class<?>> BYTE_ORDER_CLASSES = new HashSet<>();
 
     static {
         BYTE_ORDER_CLASSES.add(ExifShort.class);

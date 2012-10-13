@@ -149,7 +149,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     @SuppressWarnings("unchecked")
     private void removeAllChildren(DefaultMutableTreeNode node) {
-        List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>(node.getChildCount());
+        List<DefaultMutableTreeNode> children = new ArrayList<>(node.getChildCount());
         for (Enumeration<DefaultMutableTreeNode> e = node.children(); e.hasMoreElements();) {
             children.add(e.nextElement());
         }
@@ -266,7 +266,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     private static List<File> getChildDirectories(DefaultMutableTreeNode node) {
         int childCount = node.getChildCount();
-        List<File> childFiles = new ArrayList<File>(childCount);
+        List<File> childFiles = new ArrayList<>(childCount);
         for (int i = 0; i < childCount; i++) {
             DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
             Object childNodeUserObject = childNode.getUserObject();
@@ -313,7 +313,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
      */
     private int removeChildrenWithNotExistingFiles(DefaultMutableTreeNode parentNode) {
         int childCount = parentNode.getChildCount();
-        List<DefaultMutableTreeNode> nodesToRemove = new ArrayList<DefaultMutableTreeNode>();
+        List<DefaultMutableTreeNode> nodesToRemove = new ArrayList<>();
         for (int i = 0; i < childCount; i++) {
             DefaultMutableTreeNode child = (DefaultMutableTreeNode) parentNode.getChildAt(i);
             Object userObject = child.getUserObject();
@@ -585,7 +585,7 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     private List<DefaultMutableTreeNode> getTreeRowNodes() {
         int rows = tree.getRowCount();
-        List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(rows);
+        List<DefaultMutableTreeNode> nodes = new ArrayList<>(rows);
         for (int i = 0; i < rows; i++) {
             nodes.add((DefaultMutableTreeNode) tree.getPathForRow(i).getLastPathComponent());
         }

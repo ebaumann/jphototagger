@@ -73,10 +73,10 @@ import org.openide.util.Lookup;
 final class EditMetaDataPanels implements FocusListener {
 
     private static final Logger LOGGER = Logger.getLogger(EditMetaDataPanels.class.getName());
-    private final List<TextEntry> textEntries = new ArrayList<TextEntry>();
-    private final List<FileXmp> filesXmp = new CopyOnWriteArrayList<FileXmp>();
-    private final Set<MetaDataValue> repeatableMetaDataValuesOfTextEntries = new HashSet<MetaDataValue>();
-    private final Set<MetaDataValue> notRepeatableMetaDataValuesOfTextEntries = new HashSet<MetaDataValue>();
+    private final List<TextEntry> textEntries = new ArrayList<>();
+    private final List<FileXmp> filesXmp = new CopyOnWriteArrayList<>();
+    private final Set<MetaDataValue> repeatableMetaDataValuesOfTextEntries = new HashSet<>();
+    private final Set<MetaDataValue> notRepeatableMetaDataValuesOfTextEntries = new HashSet<>();
     private volatile boolean editable = true;
     private final WatchDifferentValues watchDifferentValues = new WatchDifferentValues();
     private SetFilesThread currentSetFilesThread;
@@ -209,7 +209,7 @@ final class EditMetaDataPanels implements FocusListener {
     }
 
     private List<Xmp> getXmpOfFilesXmp(Collection<? extends FileXmp> filesXmp) {
-        List<Xmp> xmps = new ArrayList<Xmp>(filesXmp.size());
+        List<Xmp> xmps = new ArrayList<>(filesXmp.size());
         for (FileXmp fileXmp : filesXmp) {
             Xmp xmp = fileXmp.getXmp();
 
@@ -226,8 +226,8 @@ final class EditMetaDataPanels implements FocusListener {
 
         private SetFilesThread(Collection<File> files) {
             super("JPhotoTagger: Set File's XMP to Edit Panel");
-            threadFiles = new ArrayList<File>(files);
-            threadFilesXmp = new ArrayList<FileXmp>(files.size());
+            threadFiles = new ArrayList<>(files);
+            threadFilesXmp = new ArrayList<>(files.size());
             LOGGER.log(Level.INFO, "Setting XMP to edit panel from that files: {0}", files);
         }
 
@@ -293,7 +293,7 @@ final class EditMetaDataPanels implements FocusListener {
 
             @Override
             public void run() {
-                List<TextEntry> textEntriesWithDifferentValues = new ArrayList<TextEntry>();
+                List<TextEntry> textEntriesWithDifferentValues = new ArrayList<>();
                 boolean containsMultipleFilesForEdit = xmps.size() > 1;
                 for (TextEntry textEntry : textEntries) {
                     MetaDataValue metaDataValue = textEntry.getMetaDataValue();
@@ -319,7 +319,7 @@ final class EditMetaDataPanels implements FocusListener {
     }
 
     private Map<MetaDataValue, Collection<String>> getCommonXmpOfRepeatableMetaDataValues(List<? extends Xmp> xmps) {
-        Map<MetaDataValue, Collection<String>> commonXmp = new HashMap<MetaDataValue, Collection<String>>();
+        Map<MetaDataValue, Collection<String>> commonXmp = new HashMap<>();
         for (MetaDataValue metaDataValue : repeatableMetaDataValuesOfTextEntries) {
             Collection<String> commonXmpAsStrings = getCommonXmpValuesAsStrings(xmps, metaDataValue);
             commonXmp.put(metaDataValue, commonXmpAsStrings);
@@ -328,7 +328,7 @@ final class EditMetaDataPanels implements FocusListener {
     }
 
     private Map<MetaDataValue, String> getCommonXmpOfNotRepeatableMetaDataValues(List<? extends Xmp> xmps) {
-        Map<MetaDataValue, String> commonXmp = new HashMap<MetaDataValue, String>();
+        Map<MetaDataValue, String> commonXmp = new HashMap<>();
         for (MetaDataValue metaDataValue : notRepeatableMetaDataValuesOfTextEntries) {
             String commonXmpAsString = getCommonXmpString(xmps, metaDataValue);
             commonXmp.put(metaDataValue, commonXmpAsString);
@@ -344,11 +344,11 @@ final class EditMetaDataPanels implements FocusListener {
             if (currentXmpValue instanceof List<?>) {
                 return (List<String>) currentXmpValue;
             } else {
-                return new ArrayList<String>(1);
+                return new ArrayList<>(1);
             }
         }
         // more then 1 file
-        Stack<List<String>> lists = new Stack<List<String>>();
+        Stack<List<String>> lists = new Stack<>();
         for (Xmp xmp : xmps) {
             Object xmpValue = xmp.getValue(metaDataValue);
             if (xmpValue instanceof List<?>) {
@@ -357,7 +357,7 @@ final class EditMetaDataPanels implements FocusListener {
         }
         if (lists.size() != xmps.size()) {
             // 1 ore more files without metadata
-            return new ArrayList<String>(1);
+            return new ArrayList<>(1);
         }
         List<String> coll = lists.pop();
         while (!lists.isEmpty() && (coll.size() > 0)) {
@@ -376,7 +376,7 @@ final class EditMetaDataPanels implements FocusListener {
                     : currentXmpValueAsString.trim();
         }
         // more then 1 file
-        Stack<String> strings = new Stack<String>();
+        Stack<String> strings = new Stack<>();
         for (Xmp xmp : xmps) {
             Object xmpValue = xmp.getValue(metaDataValue);
             String xmpValueAsString = valueToString(xmpValue);
@@ -740,7 +740,7 @@ final class EditMetaDataPanels implements FocusListener {
             public void run() {
                 parentContainer.removeAll();
                 parentContainer.setLayout(new GridBagLayout());
-                List<Component> excludeFromAutoMnemonicComponents = new LinkedList<Component>();
+                List<Component> excludeFromAutoMnemonicComponents = new LinkedList<>();
                 int size = textEntries.size();
                 for (int i = 0; i < size; i++) {
                     GridBagConstraints constraints = createGridBagConstraints();
@@ -1017,8 +1017,8 @@ final class EditMetaDataPanels implements FocusListener {
 
     private class WatchDifferentValues extends MouseAdapter {
 
-        private final List<TextEntry> entries = new ArrayList<TextEntry>();
-        private final Set<TextEntry> releasedEntries = new HashSet<TextEntry>();
+        private final List<TextEntry> entries = new ArrayList<>();
+        private final Set<TextEntry> releasedEntries = new HashSet<>();
         private volatile boolean listen;
         public synchronized void setListen(boolean listen) {
             if (listen) {

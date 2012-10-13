@@ -27,7 +27,7 @@ public final class DeleteOutOfDateFiles {
             throw new IllegalArgumentException("Negative millisecond difference: " + deleteIfNMillisecondsOlderThanNow);
         }
 
-        this.files = new ArrayList<File>(files);
+        this.files = new ArrayList<>(files);
         this.deleteIfNMillisecondsOlderThanNow = deleteIfNMillisecondsOlderThanNow;
     }
 

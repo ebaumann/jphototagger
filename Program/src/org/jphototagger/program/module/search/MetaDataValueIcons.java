@@ -28,7 +28,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 public final class MetaDataValueIcons {
 
     private static final Icon ICON_UNDEFINED = AppLookAndFeel.getIcon("icon_table_undefined.png");
-    private static final Map<MetaDataValue, Icon> ICON_OF_META_DATA_VALUE = new HashMap<MetaDataValue, Icon>();
+    private static final Map<MetaDataValue, Icon> ICON_OF_META_DATA_VALUE = new HashMap<>();
 
     static {
         ICON_OF_META_DATA_VALUE.put(XmpRatingMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_rating_set.png"));

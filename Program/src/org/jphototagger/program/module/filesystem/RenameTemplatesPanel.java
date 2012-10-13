@@ -65,8 +65,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         comboBoxAtEnd.setModel(getComboBoxModel());
     }
 
-    private ComboBoxModel getComboBoxModel() {
-        DefaultComboBoxModel model = new DefaultComboBoxModel();
+    private ComboBoxModel<Object> getComboBoxModel() {
+        DefaultComboBoxModel<Object> model = new DefaultComboBoxModel<>();
         model.addElement(new FilenameFormatConstantString(""));
         model.addElement(new FilenameFormatNumberSequence(1, 1, 4));
         model.addElement(new FilenameFormatFileName());
@@ -175,8 +175,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         listen = true;
     }
 
-    private void select(Class<?> formatClass, JComboBox comboBox) {
-        ComboBoxModel model = comboBox.getModel();
+    private void select(Class<?> formatClass, JComboBox<?> comboBox) {
+        ComboBoxModel<?> model = comboBox.getModel();
         int size = model.getSize();
         boolean selected = false;
         int index = 0;
@@ -231,8 +231,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         setFilenameFormatToSelectedItem(comboBoxAtEnd, file, textFieldAtEnd.getText().trim());
     }
 
-    private void setFilenameFormatToSelectedItem(JComboBox comboBox, File file, String fmt) {
-        ComboBoxModel model = comboBox.getModel();
+    private void setFilenameFormatToSelectedItem(JComboBox<?> comboBox, File file, String fmt) {
+        ComboBoxModel<?> model = comboBox.getModel();
         FilenameFormat format = (FilenameFormat) model.getSelectedItem();
         format.setFile(file);
         format.setFormat(fmt);
@@ -385,7 +385,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         }
     }
 
-    private static class RenameTemplatesComboBoxModel extends DefaultComboBoxModel {
+    private static class RenameTemplatesComboBoxModel extends DefaultComboBoxModel<Object> {
 
         private static final long serialVersionUID = 1L;
         private final RenameTemplatesRepository renameTemplatesRepo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
@@ -466,7 +466,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         spinnerNumberCount = new javax.swing.JSpinner();
         panelDateDelimiter = new javax.swing.JPanel();
         labelDateDelim = new javax.swing.JLabel();
-        comboBoxDateDelimiter = new javax.swing.JComboBox();
+        comboBoxDateDelimiter = new javax.swing.JComboBox<>();
         panelDefineName = new javax.swing.JPanel();
         panelDefineNameContents = new javax.swing.JPanel();
         labelAtBegin = new javax.swing.JLabel();
@@ -474,11 +474,11 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         labelInTheMid = new javax.swing.JLabel();
         labelDelim2 = new javax.swing.JLabel();
         labelAtEnd = new javax.swing.JLabel();
-        comboBoxAtBegin = new javax.swing.JComboBox();
+        comboBoxAtBegin = new javax.swing.JComboBox<>();
         textFieldDelim1 = new javax.swing.JTextField();
-        comboBoxInTheMiddle = new javax.swing.JComboBox();
+        comboBoxInTheMiddle = new javax.swing.JComboBox<>();
         textFieldDelim2 = new javax.swing.JTextField();
-        comboBoxAtEnd = new javax.swing.JComboBox();
+        comboBoxAtEnd = new javax.swing.JComboBox<>();
         textFieldAtBegin = new javax.swing.JTextField();
         textFieldInTheMiddle = new javax.swing.JTextField();
         textFieldAtEnd = new javax.swing.JTextField();
@@ -490,7 +490,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         labelAfterFilename = new javax.swing.JLabel();
         panelRenameTemplates = new javax.swing.JPanel();
         panelRenameTemplatesContents = new javax.swing.JPanel();
-        comboBoxRenameTemplates = new javax.swing.JComboBox();
+        comboBoxRenameTemplates = new javax.swing.JComboBox<>();
         panelButtonsRenameTemplates = new javax.swing.JPanel();
         buttonSaveRenameTemplate = new javax.swing.JButton();
         buttonRenameRenameTemplate = new javax.swing.JButton();
@@ -641,7 +641,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         panelDateDelimiter.add(labelDateDelim, gridBagConstraints);
 
-        comboBoxDateDelimiter.setModel(new DefaultComboBoxModel(new Object[] {"", "-", ".", "/"}));
+        comboBoxDateDelimiter.setModel(new DefaultComboBoxModel<>(new Object[] {"", "-", ".", "/"}));
         comboBoxDateDelimiter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxDateDelimiterActionPerformed(evt);
@@ -1073,11 +1073,11 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private javax.swing.JButton buttonSaveRenameTemplate;
     private javax.swing.JButton buttonUpdateRenameTemplate;
     private javax.swing.JDialog checkDirtyDialog;
-    private javax.swing.JComboBox comboBoxAtBegin;
-    private javax.swing.JComboBox comboBoxAtEnd;
-    private javax.swing.JComboBox comboBoxDateDelimiter;
-    private javax.swing.JComboBox comboBoxInTheMiddle;
-    private javax.swing.JComboBox comboBoxRenameTemplates;
+    private javax.swing.JComboBox<Object> comboBoxAtBegin;
+    private javax.swing.JComboBox<Object> comboBoxAtEnd;
+    private javax.swing.JComboBox<Object> comboBoxDateDelimiter;
+    private javax.swing.JComboBox<Object> comboBoxInTheMiddle;
+    private javax.swing.JComboBox<Object> comboBoxRenameTemplates;
     private javax.swing.JLabel labelAfter;
     private javax.swing.JLabel labelAfterFilename;
     private javax.swing.JLabel labelAtBegin;

@@ -111,7 +111,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     private boolean getPersistedAutocomplete() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 ? prefs.getBoolean(DomainPreferencesKeys.KEY_ENABLE_AUTOCOMPLETE)
                 : true;
@@ -137,9 +136,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         if (autocomplete == null) {
             return;
         }
-
         isAutocomplete = ac;
-
         if (ac) {
             decorateTextFieldSearch();
         }
@@ -187,14 +184,11 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
             @Override
             public void run() {
                 String userInput = searchText.trim();
-
                 if (!userInput.isEmpty()) {
                     WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
                     waitDisplayer.show();
                     clearSelection();
-
                     List<File> imageFiles = searchFiles(userInput);
-
                     if (imageFiles != null) {
                         setTitle(userInput);
                         ThumbnailsDisplayer tDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
@@ -216,24 +210,21 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
                 } else {
                     List<String> searchWords = getSearchWords(userInput);
                     MetaDataValue searchValue = getSearchMetaDataValue();
-
                     if (searchValue == null) {
                         return null;
                     }
-
                     boolean isKeywordSearch = searchValue.equals(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
-
                     if (searchWords.size() == 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(imageFileRepo.findImageFilesContainingDcSubject(searchWords.get(0), true));
+                            return new ArrayList<>(imageFileRepo.findImageFilesContainingDcSubject(searchWords.get(0), true));
                         } else {
                             return findRepo.findImageFilesLikeOr(Arrays.asList(searchValue), userInput);
                         }
                     } else if (searchWords.size() > 1) {
                         if (isKeywordSearch) {
-                            return new ArrayList<File>(imageFileRepo.findImageFilesContainingAllDcSubjects(searchWords));
+                            return new ArrayList<>(imageFileRepo.findImageFilesContainingAllDcSubjects(searchWords));
                         } else {
-                            return new ArrayList<File>(imageFileRepo.findImageFilesContainingAllWordsInMetaDataValue(searchWords, searchValue));
+                            return new ArrayList<>(imageFileRepo.findImageFilesContainingAllWordsInMetaDataValue(searchWords, searchValue));
                         }
                     } else {
                         return null;
@@ -244,23 +235,19 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     }
 
     private List<String> getSearchWords(String userInput) {
-        List<String> words = new ArrayList<String>();
+        List<String> words = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(userInput, DELIMITER_SEARCH_WORDS);
-
         while (st.hasMoreTokens()) {
             words.add(st.nextToken().trim());
         }
-
         return words;
     }
 
     private MetaDataValue getSearchMetaDataValue() {
         assert !isSearchAllDefinedMetaDataValues() : "More than one search value!";
-
         if (isSearchAllDefinedMetaDataValues()) {
             return null;
         }
-
         return (MetaDataValue) fastSearchComboBox.getSelectedItem();
     }
 
@@ -285,7 +272,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     private boolean isSearchAllDefinedMetaDataValues() {
         Object selItem = fastSearchComboBox.getSelectedItem();
-
         return (selItem != null) && selItem.equals(FastSearchComboBoxModel.ALL_DEFINED_META_DATA_VALUES);
     }
 
@@ -293,7 +279,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         if (!getPersistedAutocomplete()) {
             return;
         }
-
         if (isSearchAllDefinedMetaDataValues()) {
             AutocompleteUtil.addFastSearchAutocompleteData(autocomplete, xmp);
         } else {
@@ -322,7 +307,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     private boolean isDisplaySearchButton() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
                 ? prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON)
                 : true;
@@ -331,7 +315,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
     public void userPropertyChanged(PreferencesChangedEvent evt) {
         String key = evt.getKey();
-
         if (AppPreferencesKeys.KEY_UI_DISPLAY_SEARCH_BUTTON.equals(key)) {
             toggleDisplaySearchButton();
         }
@@ -342,11 +325,9 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         boolean containsButton = zOrder >= 0;
         boolean displaySearchButton = isDisplaySearchButton();
         boolean toDo = containsButton && !displaySearchButton || !containsButton && displaySearchButton;
-
         if (!toDo) {
             return;
         }
-
         if (displaySearchButton) {
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.gridx = 1;
@@ -358,7 +339,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         } else {
             remove(searchButton);
         }
-
         ComponentUtil.forceRepaint(this);
     }
 
@@ -397,7 +377,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        fastSearchComboBox = new javax.swing.JComboBox();
+        fastSearchComboBox = new javax.swing.JComboBox<>();
         searchButton = new javax.swing.JButton();
         textAreaSearch = new ImageTextArea();
         ((ImageTextArea) textAreaSearch).setImage(
@@ -446,7 +426,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         add(textAreaSearch, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox fastSearchComboBox;
+    private javax.swing.JComboBox<Object> fastSearchComboBox;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextArea textAreaSearch;
     // End of variables declaration//GEN-END:variables

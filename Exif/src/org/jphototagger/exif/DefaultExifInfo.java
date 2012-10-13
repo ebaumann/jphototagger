@@ -60,7 +60,7 @@ public final class DefaultExifInfo implements ExifInfo {
     }
 
     private Collection<org.jphototagger.domain.metadata.exif.ExifTag> convertTags(ExifTags exifTags) {
-        List<org.jphototagger.domain.metadata.exif.ExifTag> tags = new ArrayList<org.jphototagger.domain.metadata.exif.ExifTag>();
+        List<org.jphototagger.domain.metadata.exif.ExifTag> tags = new ArrayList<>();
         addExifTags(exifTags.getExifTags(), tags);
         addExifTags(exifTags.getInteroperabilityTags(), tags);
         addGpsTags(exifTags, tags);

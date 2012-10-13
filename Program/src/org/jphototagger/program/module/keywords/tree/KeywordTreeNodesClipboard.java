@@ -16,7 +16,7 @@ public final class KeywordTreeNodesClipboard {
     }
     public static final KeywordTreeNodesClipboard INSTANCE = new KeywordTreeNodesClipboard();
     private Action action = Action.UNKNOWN;
-    private final List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>();
+    private final List<DefaultMutableTreeNode> nodes = new ArrayList<>();
 
     public boolean isEmpty() {
         return nodes.size() <= 0;

@@ -16,7 +16,7 @@ import org.jphototagger.repository.hsqldb.DatabaseMetadata;
  */
 final class UpdateTablesDropColumns {
 
-    private static final List<ColumnInfo> COLUMNS = new ArrayList<ColumnInfo>();
+    private static final List<ColumnInfo> COLUMNS = new ArrayList<>();
 
     static {
         COLUMNS.add(new ColumnInfo("autoscan_directories", "id", null, null));
@@ -27,7 +27,7 @@ final class UpdateTablesDropColumns {
         COLUMNS.add(new ColumnInfo("metadata_edit_templates", "iptc4xmpcoreCountrycode", null, null));
         COLUMNS.add(new ColumnInfo("saved_searches", "is_query", null, null));
     }
-    private final List<ColumnInfo> dropColumns = new ArrayList<ColumnInfo>();
+    private final List<ColumnInfo> dropColumns = new ArrayList<>();
 
     void update(Connection con) throws SQLException {
         Logger.getLogger(UpdateTablesDropColumns.class.getName()).log(Level.INFO, "Dropping columns");

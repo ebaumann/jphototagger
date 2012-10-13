@@ -37,10 +37,10 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private static final String KEY_DEL_ORPHANED_THUMBS = "RepositoryMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
     private String KEY_DEL_UNUSED_KEYWORDS = "RepositoryMaintainancePanel.CheckBox.DeleteUnusedKeywords";
     private static final String KEY_DEL_NOT_REF_1_N = "RepositoryMaintainancePanel.CheckBox.DeleteNotRef1n";
-    private final Stack<Runnable> runnables = new Stack<Runnable>();
-    private final Map<Class<?>, JLabel> finishedLabelOfRunnable = new HashMap<Class<?>, JLabel>();
-    private final Set<JCheckBox> checkBoxes = new HashSet<JCheckBox>();
-    private final Map<JCheckBox, JLabel> labelOfCheckBox = new HashMap<JCheckBox, JLabel>();
+    private final Stack<Runnable> runnables = new Stack<>();
+    private final Map<Class<?>, JLabel> finishedLabelOfRunnable = new HashMap<>();
+    private final Set<JCheckBox> checkBoxes = new HashSet<>();
+    private final Map<JCheckBox, JLabel> labelOfCheckBox = new HashMap<>();
     private final HTMLDocument messagesDocument = new HTMLDocument();
     private final HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
     private volatile Runnable currentRunnable;

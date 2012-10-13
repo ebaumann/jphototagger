@@ -34,8 +34,8 @@ import org.openide.util.Lookup;
 public final class AppFrame extends javax.swing.JFrame {
 
     private static final long serialVersionUID = 1L;
-    private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<GoTo, JMenuItem>(GoTo.class);
-    private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<JMenuItem, GoTo>();
+    private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<>(GoTo.class);
+    private final Map<JMenuItem, GoTo> gotoOfMenuItem = new HashMap<>();
     private AppPanel appPanel;
     private int lastGotoSelectionItemIndex = 8;
     private int lastGotoEditItemIndex = 13;
@@ -115,13 +115,13 @@ public final class AppFrame extends javax.swing.JFrame {
             @Override
             public void run() {
                 Collection<? extends MainWindowMenuProvider> providers = Lookup.getDefault().lookupAll(MainWindowMenuProvider.class);
-                List<MenuItemProvider> editMenuItems = new ArrayList<MenuItemProvider>();
-                List<MenuItemProvider> fileMenuItems = new ArrayList<MenuItemProvider>();
-                List<MenuItemProvider> gotoMenuItems = new ArrayList<MenuItemProvider>();
-                List<MenuItemProvider> toolsMenuItems = new ArrayList<MenuItemProvider>();
-                List<MenuItemProvider> viewMenuItems = new ArrayList<MenuItemProvider>();
-                List<MenuItemProvider> helpMenuItems = new ArrayList<MenuItemProvider>();
-                List<MenuItemProvider> windowMenuItems = new ArrayList<MenuItemProvider>();
+                List<MenuItemProvider> editMenuItems = new ArrayList<>();
+                List<MenuItemProvider> fileMenuItems = new ArrayList<>();
+                List<MenuItemProvider> gotoMenuItems = new ArrayList<>();
+                List<MenuItemProvider> toolsMenuItems = new ArrayList<>();
+                List<MenuItemProvider> viewMenuItems = new ArrayList<>();
+                List<MenuItemProvider> helpMenuItems = new ArrayList<>();
+                List<MenuItemProvider> windowMenuItems = new ArrayList<>();
                 for (MainWindowMenuProvider provider : providers) {
                     editMenuItems.addAll(provider.getEditMenuItems());
                     fileMenuItems.addAll(provider.getFileMenuItems());

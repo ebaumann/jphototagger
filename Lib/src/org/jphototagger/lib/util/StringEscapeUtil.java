@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public final class StringEscapeUtil {
 
-    private static final Map<Character, String> ESCAPED_HTML_CHAR_OF = new HashMap<Character, String>();
+    private static final Map<Character, String> ESCAPED_HTML_CHAR_OF = new HashMap<>();
 
     static {
         ESCAPED_HTML_CHAR_OF.put('<', "&lt;");

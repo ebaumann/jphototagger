@@ -22,7 +22,7 @@ import org.openide.util.Lookup;
 public class SelectRootFilesPanel extends javax.swing.JPanel implements Persistence {
 
     private static final long serialVersionUID = 1L;
-    private final Map<JCheckBox, File> ROOT_FILE_OF_CHECKBOX = new HashMap<JCheckBox, File>();
+    private final Map<JCheckBox, File> ROOT_FILE_OF_CHECKBOX = new HashMap<>();
     private String persistenceKey = "SelectRootFilesPanel";
     private boolean listenToCheckBoxSelection = true;
     private final CheckBoxSelectionListener checkBoxSelectionListener = new CheckBoxSelectionListener();
@@ -66,7 +66,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
     }
 
     public List<File> getSelectedRootFiles() {
-        List<File> selectedRootFiles = new ArrayList<File>();
+        List<File> selectedRootFiles = new ArrayList<>();
         Set<JCheckBox> checkBoxes = ROOT_FILE_OF_CHECKBOX.keySet();
 
         for (JCheckBox checkBox : checkBoxes) {
@@ -87,7 +87,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
     }
 
     public static List<File> readPersistentRootFiles(String key) {
-        List<File> rootFiles = new ArrayList<File>();
+        List<File> rootFiles = new ArrayList<>();
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         List<String> rootFilePaths = prefs.getStringCollection(key);
 
@@ -122,7 +122,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
     public void persist() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         List<File> selectedRootFiles = getSelectedRootFiles();
-        List<String> selectedRootFilePaths = new ArrayList<String>(selectedRootFiles.size());
+        List<String> selectedRootFilePaths = new ArrayList<>(selectedRootFiles.size());
 
         prefs.removeKey(persistenceKey);
 

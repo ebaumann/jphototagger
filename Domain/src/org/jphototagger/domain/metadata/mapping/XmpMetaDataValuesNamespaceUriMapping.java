@@ -28,7 +28,7 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
  */
 public final class XmpMetaDataValuesNamespaceUriMapping {
 
-    private static final Map<MetaDataValue, String> NAMESPACE_URI_OF_XMP_METADATA_VALUE = new HashMap<MetaDataValue, String>();
+    private static final Map<MetaDataValue, String> NAMESPACE_URI_OF_XMP_METADATA_VALUE = new HashMap<>();
 
     static {
         NAMESPACE_URI_OF_XMP_METADATA_VALUE.put(XmpDcCreatorMetaDataValue.INSTANCE, XMPConst.NS_DC);

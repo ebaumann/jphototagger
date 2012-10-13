@@ -51,8 +51,8 @@ public final class AppLookAndFeel {
     public static final Icon ICON_START = getIcon("icon_start.png");
     public static final Icon ICON_CANCEL = getIcon("icon_cancel.png");
     public static final Image ERROR_THUMBNAIL = IconUtil.getIconImage(Bundle.getString(AppLookAndFeel.class, "ErrorThumbnailPath"));
-    private static final List<Image> APP_ICONS = new ArrayList<Image>();
-    private static final List<String> APP_ICON_PATHS = new ArrayList<String>();
+    private static final List<Image> APP_ICONS = new ArrayList<>();
+    private static final List<String> APP_ICON_PATHS = new ArrayList<>();
     private static Color listBackground;
     private static Color listForeground;
     private static Color listSelectionBackground;

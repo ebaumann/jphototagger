@@ -71,7 +71,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
 
         @Override
         public void run() {
-            Collection<File> imageFiles = new HashSet<File>();
+            Collection<File> imageFiles = new HashSet<>();
             File imageFile = null;
 
             while (true) {

@@ -15,7 +15,7 @@ import org.jphototagger.exif.datatype.ExifShort;
 public final class ExifFormatterSaturation extends ExifFormatter {
 
     public static final ExifFormatterSaturation INSTANCE = new ExifFormatterSaturation();
-    private static final Map<Integer, String> exifKeyOfSaturation = new HashMap<Integer, String>();
+    private static final Map<Integer, String> exifKeyOfSaturation = new HashMap<>();
 
     static {
         exifKeyOfSaturation.put(0, "SaturationNormal");

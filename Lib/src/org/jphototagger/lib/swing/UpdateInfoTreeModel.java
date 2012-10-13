@@ -22,7 +22,7 @@ public final class UpdateInfoTreeModel {
     public static class NodeAndChildIndices {
 
         private TreeNode node;
-        private List<Integer> childIndices = new ArrayList<Integer>();
+        private List<Integer> childIndices = new ArrayList<>();
 
         public NodeAndChildIndices() {
         }
@@ -137,7 +137,7 @@ public final class UpdateInfoTreeModel {
      */
     public static class NodesAndChildIndices {
 
-        private List<NodeAndChildIndices> info = new ArrayList<UpdateInfoTreeModel.NodeAndChildIndices>();
+        private List<NodeAndChildIndices> info = new ArrayList<>();
 
         /**
          * Adds as last element a new node when more than one children were

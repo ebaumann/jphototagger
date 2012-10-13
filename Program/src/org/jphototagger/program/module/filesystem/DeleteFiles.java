@@ -39,7 +39,7 @@ public final class DeleteFiles {
             throw new NullPointerException("options == null");
         }
 
-        List<File> deletedImageFiles = new ArrayList<File>(imageFiles.size());
+        List<File> deletedImageFiles = new ArrayList<>(imageFiles.size());
         List<DeleteOption> optionList = Arrays.asList(options);
 
         if (confirmDelete(optionList)) {

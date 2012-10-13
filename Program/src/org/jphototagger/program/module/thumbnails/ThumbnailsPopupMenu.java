@@ -102,11 +102,11 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemCopyMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCopyMetadata"), AppLookAndFeel.ICON_COPY);
     private final JMenuItem itemAddToImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.AddToImageCollection"), ICON_IMAGE_COLLECTION_ADD_TO);
     // End menu items
-    private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<ActionListener>();
-    private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<JMenuItem, Program>();
-    private final Map<JMenuItem, Long> RATING_OF_ITEM = new HashMap<JMenuItem, Long>();
-    private final Map<JMenuItem, FileProcessorPlugin> FILE_PROCESSOR_PLUGIN_OF_ITEM = new HashMap<JMenuItem, FileProcessorPlugin>();
-    private final Map<JMenuItem, Action> ACTION_OF_ITEM = new HashMap<JMenuItem, Action>();
+    private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<>();
+    private final Map<JMenuItem, Program> programOfMenuItem = new HashMap<>();
+    private final Map<JMenuItem, Long> RATING_OF_ITEM = new HashMap<>();
+    private final Map<JMenuItem, FileProcessorPlugin> FILE_PROCESSOR_PLUGIN_OF_ITEM = new HashMap<>();
+    private final Map<JMenuItem, Action> ACTION_OF_ITEM = new HashMap<>();
     public static final ThumbnailsPopupMenu INSTANCE = new ThumbnailsPopupMenu();
 
     private ThumbnailsPopupMenu() {
@@ -176,10 +176,10 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         Collection<? extends ThumbnailsPopupMenuItemProvider> providers =
                 Lookup.getDefault().lookupAll(ThumbnailsPopupMenuItemProvider.class);
 
-        List<MenuItemProvider> rootItemProviders = new ArrayList<MenuItemProvider>();
-        List<MenuItemProvider> refreshItemProviders = new ArrayList<MenuItemProvider>();
-        List<MenuItemProvider> fileOperationItemProviders = new ArrayList<MenuItemProvider>();
-        List<MenuItemProvider> metaDataItemProviders = new ArrayList<MenuItemProvider>();
+        List<MenuItemProvider> rootItemProviders = new ArrayList<>();
+        List<MenuItemProvider> refreshItemProviders = new ArrayList<>();
+        List<MenuItemProvider> fileOperationItemProviders = new ArrayList<>();
+        List<MenuItemProvider> metaDataItemProviders = new ArrayList<>();
         for (ThumbnailsPopupMenuItemProvider provider : providers) {
             rootItemProviders.addAll(provider.getRootMenuItems());
             refreshItemProviders.addAll(provider.getRefreshMenuItems());
@@ -231,7 +231,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     }
 
     private void addItemsOf(FileProcessorPlugin plugin) {
-        PluginAction<FileProcessorPlugin> pluginAction = new PluginAction<FileProcessorPlugin>(plugin);
+        PluginAction<FileProcessorPlugin> pluginAction = new PluginAction<>(plugin);
         JMenuItem pluginItem = new JMenuItem(pluginAction);
 
         ACTION_OF_ITEM.put(pluginItem, pluginAction);

@@ -23,8 +23,8 @@ public final class ImageCollection {
     public static final transient String PREVIOUS_IMPORT_NAME = Bundle.getString(ImageCollection.class, "ImageCollection.Name.PrevImport");
     public static final transient String PICKED_NAME = Bundle.getString(ImageCollection.class, "ImageCollection.Name.Picked");
     public static final transient String REJECTED_NAME = Bundle.getString(ImageCollection.class, "ImageCollection.Name.Rejected");
-    private static final transient Set<String> SPECIAL_COLLECTION_NAMES = new HashSet<String>(3);
-    private static final transient Set<String> SPECIAL_COLLECTION_NAMES_LOWER_CASE = new HashSet<String>(3);
+    private static final transient Set<String> SPECIAL_COLLECTION_NAMES = new HashSet<>(3);
+    private static final transient Set<String> SPECIAL_COLLECTION_NAMES_LOWER_CASE = new HashSet<>(3);
 
     static {
         SPECIAL_COLLECTION_NAMES.add(PICKED_NAME);
@@ -54,13 +54,13 @@ public final class ImageCollection {
         }
 
         this.name = name;
-        this.imageFiles = new ArrayList<File>(imageFiles);
+        this.imageFiles = new ArrayList<>(imageFiles);
     }
 
     public List<File> getFiles() {
         return (imageFiles == null)
                 ? null
-                : new ArrayList<File>(imageFiles);
+                : new ArrayList<>(imageFiles);
     }
 
     public String getName() {

@@ -72,7 +72,7 @@ public final class ArrayUtil {
             throw new NullPointerException("array == null");
         }
 
-        List<Integer> list = new ArrayList<Integer>(array.length);
+        List<Integer> list = new ArrayList<>(array.length);
 
         for (int el : array) {
             list.add(el);

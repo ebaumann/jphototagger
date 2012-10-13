@@ -18,8 +18,8 @@ import org.jphototagger.program.resource.GUI;
  */
 public final class GoToController implements ActionListener {
 
-    private final Map<AppFrame.GoTo, Component> componentOfGoTo = new EnumMap<AppFrame.GoTo, Component>(AppFrame.GoTo.class);
-    private final Map<AppFrame.GoTo, JTabbedPane> tabbedPaneOfGoTo = new EnumMap<AppFrame.GoTo, JTabbedPane>(AppFrame.GoTo.class);
+    private final Map<AppFrame.GoTo, Component> componentOfGoTo = new EnumMap<>(AppFrame.GoTo.class);
+    private final Map<AppFrame.GoTo, JTabbedPane> tabbedPaneOfGoTo = new EnumMap<>(AppFrame.GoTo.class);
 
     // Not static (timing)
     private void initMaps() {

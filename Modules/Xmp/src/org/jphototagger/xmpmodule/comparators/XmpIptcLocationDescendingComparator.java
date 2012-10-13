@@ -12,7 +12,7 @@ import org.jphototagger.lib.util.ClassEquality;
 public final class XmpIptcLocationDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final ReverseComparator<File> delegate = new ReverseComparator<File>(new XmpIptcLocationAscendingComparator());
+    private final ReverseComparator<File> delegate = new ReverseComparator<>(new XmpIptcLocationAscendingComparator());
 
     @Override
     public int compare(File fileLeft, File fileRight) {

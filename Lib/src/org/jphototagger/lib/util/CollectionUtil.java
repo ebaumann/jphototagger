@@ -86,7 +86,7 @@ public final class CollectionUtil {
             throw new NullPointerException("coll == null");
         }
 
-        List<String> list = new ArrayList<String>(coll.size());
+        List<String> list = new ArrayList<>(coll.size());
 
         for (Object o : coll) {
             if (o == null) {
@@ -124,7 +124,7 @@ public final class CollectionUtil {
         }
 
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
-        List<String> list = new ArrayList<String>(tokenizer.countTokens());
+        List<String> list = new ArrayList<>(tokenizer.countTokens());
 
         while (tokenizer.hasMoreTokens()) {
             list.add(tokenizer.nextToken());
@@ -162,7 +162,7 @@ public final class CollectionUtil {
             throw new NullPointerException("delimiter == null");
         }
 
-        List<Integer> integerList = new ArrayList<Integer>();
+        List<Integer> integerList = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(string, delimiter);
 
         while (tokenizer.hasMoreTokens()) {

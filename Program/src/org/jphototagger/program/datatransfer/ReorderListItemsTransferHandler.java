@@ -23,7 +23,7 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
 
     private static final long serialVersionUID = 1L;
     private static final DataFlavor INDICES_FLAVOR = new DataFlavor(LIST.class, null);
-    private final JList list;
+    private final JList<?> list;
 
     /**
      * Usage in DataFlavor in order that importData() will be called
@@ -34,16 +34,16 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
 
     private final class IndexInfo {
 
-        private final JList source;
+        private final JList<?> source;
         private final int[] selIndices;
 
-        IndexInfo(JList source, int[] selIndices) {
+        IndexInfo(JList<?> source, int[] selIndices) {
             this.source = source;
             this.selIndices = selIndices;
         }
     }
 
-    public ReorderListItemsTransferHandler(JList list) {
+    public ReorderListItemsTransferHandler(JList<?> list) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }
@@ -59,14 +59,14 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport support) {
-        JList sourceList = getSourceList(support);
+        JList<?> sourceList = getSourceList(support);
 
         return support.isDrop() && (list == sourceList) && support.isDataFlavorSupported(INDICES_FLAVOR);
     }
 
     @Override
     protected Transferable createTransferable(JComponent c) {
-        JList sourceList = (JList) c;
+        JList<?> sourceList = (JList) c;
         int[] selIndices = sourceList.getSelectedIndices();
 
         if (selIndices.length < 1) {
@@ -108,12 +108,10 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
         if (selIndices.length < 1) {
             return;
         }
-
         Arrays.sort(selIndices);
-
-        DefaultListModel model = (DefaultListModel) list.getModel();
-        List<Object> selValues = new ArrayList<Object>(selIndices.length);
-
+        @SuppressWarnings("unchecked")
+        DefaultListModel<Object> model = (DefaultListModel<Object>) list.getModel();
+        List<Object> selValues = new ArrayList<>(selIndices.length);
         for (int index : selIndices) {
             try {
                 selValues.add(model.get(index));
@@ -121,15 +119,12 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
                 Logger.getLogger(ReorderListItemsTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
         for (Object selValue : selValues) {
             model.removeElement(selValue);
         }
-
         int insertIndex = (dropIndex >= list.getModel().getSize())
                 ? list.getModel().getSize()
                 : dropIndex;
-
         for (Object selValue : selValues) {
             model.insertElementAt(selValue, insertIndex);
             insertIndex++;
@@ -143,7 +138,7 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
                 : TransferHandler.NONE;
     }
 
-    private JList getSourceList(TransferSupport support) {
+    private JList<?> getSourceList(TransferSupport support) {
         try {
             Object td = support.getTransferable().getTransferData(INDICES_FLAVOR);
 

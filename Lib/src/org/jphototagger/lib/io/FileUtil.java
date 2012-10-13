@@ -232,9 +232,9 @@ public final class FileUtil {
             throw new NullPointerException("file == null");
         }
         if (file.getParent() == null) {
-            return new Stack<File>();
+            return new Stack<>();
         }
-        Stack<File> path = new Stack<File>();
+        Stack<File> path = new Stack<>();
         File parent = file;
         do {
             parent = path.push(parent).getParentFile();
@@ -257,7 +257,7 @@ public final class FileUtil {
         if (options == null) {
             throw new NullPointerException("options == null");
         }
-        List<File> allSubDirs = new ArrayList<File>();
+        List<File> allSubDirs = new ArrayList<>();
         boolean isCancel = cancelRequest != null && cancelRequest.isCancel();
         if (isCancel) {
             return allSubDirs;
@@ -290,7 +290,7 @@ public final class FileUtil {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-        List<String> pathnames = new ArrayList<String>(files.size());
+        List<String> pathnames = new ArrayList<>(files.size());
         for (File file : files) {
             pathnames.add(file.getAbsolutePath());
         }
@@ -307,7 +307,7 @@ public final class FileUtil {
         if (pathnames == null) {
             throw new NullPointerException("pathnames == null");
         }
-        List<File> files = new ArrayList<File>(pathnames.size());
+        List<File> files = new ArrayList<>(pathnames.size());
         for (String pathname : pathnames) {
             files.add(new File(pathname));
         }
@@ -321,7 +321,7 @@ public final class FileUtil {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
-        List<File> filteredFiles = new ArrayList<File>(files.size());
+        List<File> filteredFiles = new ArrayList<>(files.size());
         for (File file : files) {
             if (filter.accept(file)) {
                 filteredFiles.add(file);
@@ -467,12 +467,12 @@ public final class FileUtil {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-        Map<String, List<File>> filesOfSuffix = new HashMap<String, List<File>>();
+        Map<String, List<File>> filesOfSuffix = new HashMap<>();
         for (File file : files) {
             String suffixLowerCase = getSuffix(file).toLowerCase();
             List<File> fos = filesOfSuffix.get(suffixLowerCase);
             if (fos == null) {
-                fos = new LinkedList<File>();
+                fos = new LinkedList<>();
                 filesOfSuffix.put(suffixLowerCase, fos);
             }
             fos.add(file);
@@ -528,7 +528,7 @@ public final class FileUtil {
         if (excludeSuffix == null) {
             throw new NullPointerException("excludeSuffix == null");
         }
-        Map<String, List<File>> filesWithEqualPrefix = new HashMap<String, List<File>>();
+        Map<String, List<File>> filesWithEqualPrefix = new HashMap<>();
         String excludeSuffixLowercase = excludeSuffix.toLowerCase();
         for (File file : files) {
             String filePathLowercase = file.getAbsolutePath();
@@ -538,13 +538,13 @@ public final class FileUtil {
                 String filePathPrefixLowercase = filePathPrefix.toLowerCase();
                 List<File> fWithEqualPrefix = filesWithEqualPrefix.get(filePathPrefixLowercase);
                 if (fWithEqualPrefix == null) {
-                    fWithEqualPrefix = new ArrayList<File>(3);
+                    fWithEqualPrefix = new ArrayList<>(3);
                     filesWithEqualPrefix.put(filePathPrefixLowercase, fWithEqualPrefix);
                 }
                 fWithEqualPrefix.add(file);
             }
         }
-        List<File> filesWithEqualBasenames = new ArrayList<File>();
+        List<File> filesWithEqualBasenames = new ArrayList<>();
         for (List<File> fWithEqualBasenames : filesWithEqualPrefix.values()) {
             int size = fWithEqualBasenames.size();
             if (size > 1) {

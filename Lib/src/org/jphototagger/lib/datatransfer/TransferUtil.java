@@ -77,29 +77,24 @@ public final class TransferUtil {
      * @return            {@code StringSelection}: selected items as strings
      *                    separated by <code>delimiter</code>
      */
-    public static Transferable getSelectedItemStringsTransferable(JList objects, String delimiter) {
+    public static Transferable getSelectedItemStringsTransferable(JList<Object> objects, String delimiter) {
         if (objects == null) {
             throw new NullPointerException("list == null");
         }
-
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
         }
-
-        Object[] values = objects.getSelectedValues();
+        List<Object> values = objects.getSelectedValuesList();
         StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < values.length; i++) {
-            Object val = values[i];
-
+        for (int i = 0; i < values.size(); i++) {
+            Object val = values.get(i);
             sb.append((val == null)
                     ? ""
                     : val.toString());
-            sb.append((i != values.length - 1)
+            sb.append((i != values.size() - 1)
                     ? delimiter
                     : "");
         }
-
         return new StringSelection(sb.toString());
     }
 
@@ -118,23 +113,18 @@ public final class TransferUtil {
         if (integers == null) {
             throw new NullPointerException("list == null");
         }
-
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
         }
-
         StringBuilder sb = new StringBuilder();
         int size = integers.size();
-
         for (int i = 0; i < size; i++) {
             Integer integer = integers.get(i);
-
             sb.append(integer.toString());
             sb.append((i < size - 1)
                     ? delimiter
                     : "");
         }
-
         return new StringSelection(sb.toString());
     }
 
@@ -153,17 +143,13 @@ public final class TransferUtil {
         if (strings == null) {
             throw new NullPointerException("list == null");
         }
-
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
         }
-
         StringBuilder sb = new StringBuilder();
         int size = strings.size();
-
         for (int i = 0; i < size; i++) {
             String string = strings.get(i);
-
             sb.append(string);
             sb.append((i < size - 1)
                     ? delimiter
@@ -195,15 +181,11 @@ public final class TransferUtil {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
-
-        List<File> files = new ArrayList<File>();
-
+        List<File> files = new ArrayList<>();
         try {
             String data = (String) transferable.getTransferData(URI_LIST_FLAVOR);
-
             for (StringTokenizer st = new StringTokenizer(data, "\r\n"); st.hasMoreTokens();) {
                 String token = st.nextToken().trim();
-
                 if (token.startsWith("file:")) {
                     files.add(new File(new URI(token)));
                 }
@@ -211,7 +193,6 @@ public final class TransferUtil {
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return files;
     }
 
@@ -227,16 +208,12 @@ public final class TransferUtil {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
-
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
         }
-
-        List<File> files = new ArrayList<File>();
-
+        List<File> files = new ArrayList<>();
         try {
             Object o = transferable.getTransferData(STRING_FLAVOR);
-
             if (o instanceof String) {
                 String data = (String) o;
 
@@ -247,7 +224,6 @@ public final class TransferUtil {
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return files;
     }
 
@@ -262,21 +238,17 @@ public final class TransferUtil {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
-
-        List<File> list = new ArrayList<File>();
-
+        List<File> list = new ArrayList<>();
         try {
             @SuppressWarnings("unchecked") List<File> files =
                     (List<File>) transferable.getTransferData(FILE_LIST_FLAVOR);
             Iterator<File> it = files.iterator();
-
             while (it.hasNext()) {
                 list.add(it.next());
             }
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return list;
     }
 
@@ -293,14 +265,11 @@ public final class TransferUtil {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
-
         if (delimiter == null) {
             throw new NullPointerException("delimiter == null");
         }
-
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         DataFlavor[] flavors = transferable.getTransferDataFlavors();
-
         if (isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
             return getFilesFromJavaFileList(transferable);
         } else if (isDataFlavorSupported(flavors, URI_LIST_FLAVOR)) {
@@ -308,7 +277,6 @@ public final class TransferUtil {
         } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
             return getFilesFromTokenString(transferable, delimiter);
         }
-
         return files;
     }
 
@@ -322,17 +290,14 @@ public final class TransferUtil {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
-
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
-
         return containsFiles(transferable);
     }
 
     private static boolean containsFiles(Transferable transferable) {
         final DataFlavor[] flavors = transferable.getTransferDataFlavors();
-
         try {
             if (isDataFlavorSupported(flavors, FILE_LIST_FLAVOR)) {
                 return ((java.util.List<?>) transferable.getTransferData(FILE_LIST_FLAVOR)).size() > 0;
@@ -344,7 +309,6 @@ public final class TransferUtil {
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return false;
     }
 
@@ -360,7 +324,6 @@ public final class TransferUtil {
         } catch (Exception ex) {
             Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, "", ex);
         }
-
         return false;
     }
 
@@ -375,17 +338,14 @@ public final class TransferUtil {
         if (flavors == null) {
             throw new NullPointerException("flavors == null");
         }
-
         if (flavor == null) {
             throw new NullPointerException("flavor == null");
         }
-
         for (DataFlavor f : flavors) {
             if (f.equals(flavor)) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -401,17 +361,14 @@ public final class TransferUtil {
         if (transferable == null) {
             throw new NullPointerException("transferable == null");
         }
-
         if (flavors == null) {
             throw new NullPointerException("flavors == null");
         }
-
         for (DataFlavor flavor : flavors) {
             if (transferable.isDataFlavorSupported(flavor)) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -427,11 +384,9 @@ public final class TransferUtil {
         if (support == null) {
             throw new NullPointerException("support == null");
         }
-
         if (!support.isDrop()) {
             throw new IllegalStateException("No drop!");
         }
-
         return (support.getSourceDropActions() & TransferHandler.COPY) == TransferHandler.COPY;
     }
 
@@ -447,11 +402,9 @@ public final class TransferUtil {
         if (support == null) {
             throw new NullPointerException("support == null");
         }
-
         if (!support.isDrop()) {
             throw new IllegalStateException("No drop!");
         }
-
         return (support.getSourceDropActions() & TransferHandler.MOVE) == TransferHandler.MOVE;
     }
 
@@ -467,11 +420,9 @@ public final class TransferUtil {
         if (support == null) {
             throw new NullPointerException("support == null");
         }
-
         if (!support.isDrop()) {
             throw new IllegalStateException("No drop!");
         }
-
         return (support.getSourceDropActions() & TransferHandler.LINK) == TransferHandler.LINK;
     }
 
@@ -487,19 +438,14 @@ public final class TransferUtil {
         if (support == null) {
             throw new NullPointerException("support == null");
         }
-
         boolean isList = support.getComponent() instanceof JList;
-
         if (!isList) {
             throw new IllegalArgumentException("Component is not a JList: " + support.getComponent());
         }
-
         if (!support.isDrop()) {
             return -1;
         }
-
         JList.DropLocation dl = (JList.DropLocation) support.getDropLocation();
-
         return dl.getIndex();
     }
 
@@ -516,33 +462,25 @@ public final class TransferUtil {
         if (support == null) {
             throw new NullPointerException("support == null");
         }
-
         boolean isTree = support.getComponent() instanceof JTree;
-
         if (!isTree) {
             throw new IllegalArgumentException("Component is not a JTree: " + support.getComponent());
         }
-
         if (support.isDrop()) {
             JTree.DropLocation dropLocation = (JTree.DropLocation) support.getDropLocation();
             Object dropObject = dropLocation.getPath().getLastPathComponent();
-
             return (dropObject instanceof DefaultMutableTreeNode)
                     ? (DefaultMutableTreeNode) dropObject
                     : null;
         }
-
         JTree tree = (JTree) support.getComponent();
         TreePath selPath = tree.getSelectionPath();
-
         if (selPath != null) {
             Object o = selPath.getLastPathComponent();
-
             if (o instanceof DefaultMutableTreeNode) {
                 return (DefaultMutableTreeNode) o;
             }
         }
-
         return null;
     }
 

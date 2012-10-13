@@ -65,7 +65,7 @@ public final class SynonymsImporter implements RepositoryDataImporter, EntityRes
             assert eltCount >= 2 : eltCount;
 
             if (eltCount >= 2) {
-                List<String> synonyms = new ArrayList<String>();
+                List<String> synonyms = new ArrayList<>();
                 String word = "";
 
                 for (int j = 0; j < eltCount; j++) {

@@ -70,7 +70,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             throw new NullPointerException("files == null");
         }
 
-        this.files = new ArrayList<File>(files);
+        this.files = new ArrayList<>(files);
     }
 
     private void checkClose() {
@@ -238,7 +238,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private List<File> getFiles() {
         if (files == null) {
-            List<File> directories = new ArrayList<File>();
+            List<File> directories = new ArrayList<>();
 
             directories.add(directory);
 
@@ -343,7 +343,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         labelDirectoryName = new javax.swing.JLabel();
         checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
         labelIptcCharset = new javax.swing.JLabel();
-        comboBoxIptcCharset = new javax.swing.JComboBox();
+        comboBoxIptcCharset = new javax.swing.JComboBox<>();
         progressBar = new javax.swing.JProgressBar();
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
@@ -427,21 +427,21 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                             .addComponent(labelDirectoryName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkBoxIncludeSubdirectories)
-                        .addContainerGap(605, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelIptcCharset)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(buttonCancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonStart))
                             .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
-                        .addGap(16, 16, 16))))
+                        .addGap(16, 16, 16))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkBoxIncludeSubdirectories)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelIptcCharset)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -518,7 +518,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private javax.swing.JButton buttonChooseDirectory;
     private javax.swing.JButton buttonStart;
     private javax.swing.JCheckBox checkBoxIncludeSubdirectories;
-    private javax.swing.JComboBox comboBoxIptcCharset;
+    private javax.swing.JComboBox<Object> comboBoxIptcCharset;
     private javax.swing.JLabel labelDirectoryName;
     private javax.swing.JLabel labelDirectoryPrompt;
     private javax.swing.JLabel labelInfo;

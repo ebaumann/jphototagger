@@ -25,7 +25,7 @@ public final class ImageCollectionInsertedEvent {
 
         this.source = source;
         this.collectionName = collectionName;
-        this.insertedImageFiles = new ArrayList<File>(insertedImageFiles);
+        this.insertedImageFiles = new ArrayList<>(insertedImageFiles);
     }
 
     public String getCollectionName() {

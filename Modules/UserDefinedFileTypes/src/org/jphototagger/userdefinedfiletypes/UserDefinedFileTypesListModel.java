@@ -14,7 +14,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class UserDefinedFileTypesListModel extends DefaultListModel {
+public final class UserDefinedFileTypesListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private final UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);

@@ -10,7 +10,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  */
 public final class XmpMetaDataValues {
 
-    private static final List<MetaDataValue> VALUES = new ArrayList<MetaDataValue>();
+    private static final List<MetaDataValue> VALUES = new ArrayList<>();
 
     static {
         VALUES.add(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
@@ -37,6 +37,6 @@ public final class XmpMetaDataValues {
     }
 
     public static List<MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(VALUES);
+        return new ArrayList<>(VALUES);
     }
 }

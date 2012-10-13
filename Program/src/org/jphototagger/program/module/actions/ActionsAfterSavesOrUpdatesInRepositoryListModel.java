@@ -18,7 +18,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class ActionsAfterSavesOrUpdatesInRepositoryListModel extends DefaultListModel {
+public final class ActionsAfterSavesOrUpdatesInRepositoryListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private final ActionsAfterRepoUpdatesRepository actionsRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
@@ -66,7 +66,7 @@ public final class ActionsAfterSavesOrUpdatesInRepositoryListModel extends Defau
 
     public List<Program> getActions() {
         Object[] array = toArray();
-        List<Program> actions = new ArrayList<Program>(array.length);
+        List<Program> actions = new ArrayList<>(array.length);
 
         for (Object o : array) {
             actions.add((Program) o);

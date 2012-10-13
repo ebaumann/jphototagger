@@ -162,7 +162,7 @@ public final class KeywordsUtil {
                 xmp.setValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, keyword);
             }
         }
-        List<FileXmp> saveList = new ArrayList<FileXmp>();
+        List<FileXmp> saveList = new ArrayList<>();
         saveList.add(new FileXmp(imageFile, xmp));
         SaveXmp.save(saveList);
     }
@@ -177,7 +177,7 @@ public final class KeywordsUtil {
      * @return     all keywords or empty list
      */
     public static List<Keyword> getKeywords(DefaultMutableTreeNode node, boolean real) {
-        List<Keyword> list = new ArrayList<Keyword>();
+        List<Keyword> list = new ArrayList<>();
         DefaultMutableTreeNode n = node;
         while (n != null) {
             Object userObject = n.getUserObject();
@@ -205,7 +205,7 @@ public final class KeywordsUtil {
      * @return     all keywords as strings
      */
     public static List<String> getKeywordStrings(DefaultMutableTreeNode node, boolean real) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (Keyword keyword : getKeywords(node, real)) {
             list.add(keyword.getName());
         }
@@ -266,7 +266,7 @@ public final class KeywordsUtil {
      * @return         parent names
      */
     public static List<String> getParentKeywordNames(Keyword keyword, boolean real) {
-        List<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<>();
         KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
         List<Keyword> parents = repo.findParentKeywords(keyword);
         for (Keyword parent : parents) {
@@ -308,7 +308,7 @@ public final class KeywordsUtil {
     }
 
     private static List<KeywordsTreeCellRenderer> getCellRenderer() {
-        List<KeywordsTreeCellRenderer> renderer = new ArrayList<KeywordsTreeCellRenderer>();
+        List<KeywordsTreeCellRenderer> renderer = new ArrayList<>();
         for (JTree tree : getKeywordTrees()) {
             TreeCellRenderer treeCellRenderer = tree.getCellRenderer();
             if (treeCellRenderer instanceof JXTree.DelegatingRenderer) {
@@ -351,8 +351,8 @@ public final class KeywordsUtil {
         if (keywordsList == null) {
             throw new NullPointerException("keywordsList == null");
         }
-        List<String> selectedKeywords = new ArrayList<String>();
-        ListModel listModel = keywordsList.getModel();
+        List<String> selectedKeywords = new ArrayList<>();
+        ListModel<?> listModel = keywordsList.getModel();
         int[] selectedIndices = keywordsList.getSelectedIndices();
         for (int selectedIndex : selectedIndices) {
             int modelIndex = keywordsList.convertIndexToModel(selectedIndex);
@@ -443,7 +443,7 @@ public final class KeywordsUtil {
 
         @Override
         public void run() {
-            List<File> imageFiles = new ArrayList<File>(imageFileRepo.findImageFilesContainingDcSubject(dcSubject, false));
+            List<File> imageFiles = new ArrayList<>(imageFileRepo.findImageFilesContainingDcSubject(dcSubject, false));
             logStartDelete(dcSubject);
             progressStarted(0, 0, imageFiles.size(), null);
             int size = imageFiles.size();
@@ -497,7 +497,7 @@ public final class KeywordsUtil {
 
         @Override
         public void run() {
-            List<File> imageFiles = new ArrayList<File>(imageFileRepo.findImageFilesContainingDcSubject(fromName, false));
+            List<File> imageFiles = new ArrayList<>(imageFileRepo.findImageFilesContainingDcSubject(fromName, false));
             logStartRename(fromName, toName);
             progressStarted(0, 0, imageFiles.size(), null);
             int size = imageFiles.size();

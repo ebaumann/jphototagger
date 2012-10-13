@@ -48,10 +48,10 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     public static final long  DEFAULT_MAX_BYTES = 10 * 1024 * 1024;
     private static final float MEGABYTE_IN_BYTES = 1024 * 1024;
     private long maxBytes = DEFAULT_MAX_BYTES;
-    private final Map<JCheckBox, Level> levelOfCheckBox = new HashMap<JCheckBox, Level>();
-    private final Map<JCheckBox, JLabel> iconLabelOfCheckBox = new HashMap<JCheckBox, JLabel>();
-    private final Map<Class<?>, Integer> paneIndexOfFormatterClass = new HashMap<Class<?>, Integer>();
-    private final List<Level> visibleLevels = new ArrayList<Level>();
+    private final Map<JCheckBox, Level> levelOfCheckBox = new HashMap<>();
+    private final Map<JCheckBox, JLabel> iconLabelOfCheckBox = new HashMap<>();
+    private final Map<Class<?>, Integer> paneIndexOfFormatterClass = new HashMap<>();
+    private final List<Level> visibleLevels = new ArrayList<>();
     private String filterString;
     private List<LogfileRecord> logfileRecords;
     private Class<?> formatterClass;

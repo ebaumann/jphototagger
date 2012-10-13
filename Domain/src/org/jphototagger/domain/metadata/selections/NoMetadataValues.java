@@ -34,7 +34,7 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
  */
 public final class NoMetadataValues {
 
-    private static final List<MetaDataValue> VALUES = new ArrayList<MetaDataValue>();
+    private static final List<MetaDataValue> VALUES = new ArrayList<>();
 
     static {
         VALUES.add(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
@@ -68,7 +68,7 @@ public final class NoMetadataValues {
      * @return Suchspalten
      */
     public static List<MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(VALUES);
+        return new ArrayList<>(VALUES);
     }
 
     private NoMetadataValues() {

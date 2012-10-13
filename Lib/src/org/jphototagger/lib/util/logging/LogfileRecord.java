@@ -261,7 +261,7 @@ public final class LogfileRecord {
      * @param params Parameter
      */
     public void setParams(List<String> params) {
-        this.params = new ArrayList<String>(params);
+        this.params = new ArrayList<>(params);
     }
 
     /**
@@ -277,7 +277,7 @@ public final class LogfileRecord {
         }
 
         if (params == null) {
-            params = new ArrayList<String>();
+            params = new ArrayList<>();
         }
 
         params.add(param);

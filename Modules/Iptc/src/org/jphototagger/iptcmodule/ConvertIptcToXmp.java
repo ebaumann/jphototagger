@@ -27,7 +27,7 @@ import org.openide.util.Lookup;
  */
 public final class ConvertIptcToXmp implements Runnable, Cancelable {
 
-    private final List<ProgressListener> progressListeners = new ArrayList<ProgressListener>();
+    private final List<ProgressListener> progressListeners = new ArrayList<>();
     private final List<File> files;
     private boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(ConvertIptcToXmp.class.getName());
@@ -38,7 +38,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
             throw new NullPointerException("imageFiles == null");
         }
 
-        this.files = new ArrayList<File>(imageFiles);
+        this.files = new ArrayList<>(imageFiles);
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {

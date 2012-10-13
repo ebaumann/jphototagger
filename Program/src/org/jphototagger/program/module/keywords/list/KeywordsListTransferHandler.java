@@ -99,7 +99,6 @@ public final class KeywordsListTransferHandler extends TransferHandler {
     protected Transferable createTransferable(JComponent c) {
         JXList list = (JXList) c;
         Object[] selValues = list.getSelectedValues();
-
         return new TransferableObject(selValues, Flavor.KEYWORDS_LIST);
     }
 

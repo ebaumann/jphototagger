@@ -334,7 +334,7 @@ public final class SavedSearchesDatabase extends Database {
      * @return Gespeicherte Suchen
      */
     public List<SavedSearch> getAll() {
-        List<SavedSearch> searches = new ArrayList<SavedSearch>();
+        List<SavedSearch> searches = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -406,7 +406,7 @@ public final class SavedSearchesDatabase extends Database {
             stmt.setString(1, savedSearch.getName());
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-            List<SavedSearchPanel> panels = new ArrayList<SavedSearchPanel>();
+            List<SavedSearchPanel> panels = new ArrayList<>();
             while (rs.next()) {
                 SavedSearchPanel panel = new SavedSearchPanel();
                 panel.setPanelIndex(rs.getInt(1));
@@ -441,7 +441,7 @@ public final class SavedSearchesDatabase extends Database {
             stmt.setString(1, savedSearch.getName());
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
-            List<String> keywords = new ArrayList<String>();
+            List<String> keywords = new ArrayList<>();
             while (rs.next()) {
                 keywords.add(rs.getString(1));
             }

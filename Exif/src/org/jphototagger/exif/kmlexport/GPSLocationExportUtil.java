@@ -72,7 +72,7 @@ public final class GPSLocationExportUtil {
         Exporter(GPSLocationExporter exporter, Collection<? extends File> imageFiles) {
             super("JPhotoTagger: Exporting GPS locations");
             this.exporter = exporter;
-            this.imageFiles = new ArrayList<File>(imageFiles);
+            this.imageFiles = new ArrayList<>(imageFiles);
         }
 
         @Override
@@ -86,7 +86,7 @@ public final class GPSLocationExportUtil {
             EventBus.publish(new FileProcessingStartedEvent(this));
             progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this);
             progressHandle.progressStarted(createStartProgressEvent(fileCount));
-            List<GPSImageInfo> imageInfos = new ArrayList<GPSImageInfo>(fileCount);
+            List<GPSImageInfo> imageInfos = new ArrayList<>(fileCount);
             for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
                 File imageFile = imageFiles.get(i);
                 ExifTags et = ExifMetadata.getExifTagsPreferCached(imageFile);

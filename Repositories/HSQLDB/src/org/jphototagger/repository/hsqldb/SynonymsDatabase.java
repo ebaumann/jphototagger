@@ -309,7 +309,7 @@ final class SynonymsDatabase extends Database {
         if (word == null) {
             throw new NullPointerException("word == null");
         }
-        Set<String> synonyms = new LinkedHashSet<String>();
+        Set<String> synonyms = new LinkedHashSet<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -333,7 +333,7 @@ final class SynonymsDatabase extends Database {
     }
 
     Set<String> getAllWords() {
-        Set<String> words = new LinkedHashSet<String>();
+        Set<String> words = new LinkedHashSet<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

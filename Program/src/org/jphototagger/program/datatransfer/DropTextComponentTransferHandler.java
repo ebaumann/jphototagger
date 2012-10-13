@@ -107,7 +107,7 @@ public final class DropTextComponentTransferHandler extends TransferHandler {
             return null;
         }
 
-        List<String> keywords = new ArrayList<String>();
+        List<String> keywords = new ArrayList<>();
 
         for (DefaultMutableTreeNode node : nodes) {
             keywords.addAll(KeywordsUtil.getKeywordStrings(node, true));

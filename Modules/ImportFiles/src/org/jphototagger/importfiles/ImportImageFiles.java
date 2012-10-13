@@ -61,8 +61,8 @@ public final class ImportImageFiles implements FileImportService {
         private static final Logger LOGGER = Logger.getLogger(ImportThread.class.getName());
         private static final int MAX_WAIT_FOR_SCRIPT_EXEC_IN_MILLIS = 240000;
         private final ProgressHandle progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
-        private final List<File> copiedTargetFiles = new ArrayList<File>();
-        private final List<File> copiedSourceFiles = new ArrayList<File>();
+        private final List<File> copiedTargetFiles = new ArrayList<>();
+        private final List<File> copiedSourceFiles = new ArrayList<>();
         private final File sourceDirectory;
         private File targetDirectory;
         private List<SourceTargetFile> sourceTargetFiles;
@@ -116,7 +116,7 @@ public final class ImportImageFiles implements FileImportService {
         private void createSourceTargetFiles(ImportData importData) {
             progressHandle.progressStarted(createIndeterminateProgressEvent(this));
             try {
-                sourceTargetFiles = new ArrayList<SourceTargetFile>(importData.getSourceFileCount());
+                sourceTargetFiles = new ArrayList<>(importData.getSourceFileCount());
                 List<File> sourceFiles = importData.getSourceFiles();
                 Collections.sort(sourceFiles, ExifDateTimeOriginalAscendingComparator.INSTANCE);
                 for (File sourceFile : sourceFiles) {

@@ -25,7 +25,7 @@ public final class JPhotoTaggerActionsExecutor {
 
     private static final Logger LOGGER = Logger.getLogger(JPhotoTaggerActionsExecutor.class.getName());
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-    private final Set<String> filenameSuffixes = new HashSet<String>();
+    private final Set<String> filenameSuffixes = new HashSet<>();
 
     public JPhotoTaggerActionsExecutor() {
         filenameSuffixes.addAll(prefs.getStringCollection(PreferencesKeys.FILENAME_SUFFIXES_KEY));
@@ -121,7 +121,7 @@ public final class JPhotoTaggerActionsExecutor {
     private List<File> createFilesWithSuffixes(File file) {
         List<File> filesWithSuffixes;
         synchronized (filenameSuffixes) {
-            filesWithSuffixes = new ArrayList<File>(filenameSuffixes.size());
+            filesWithSuffixes = new ArrayList<>(filenameSuffixes.size());
             for (String suffix : filenameSuffixes) {
                 File fileWithSuffix = createFileWithSuffix(file, suffix);
                 if (fileWithSuffix != null) {

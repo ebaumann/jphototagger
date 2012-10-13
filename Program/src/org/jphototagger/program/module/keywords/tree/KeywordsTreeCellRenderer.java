@@ -25,7 +25,7 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
     private static final Color TREE_SELECTION_BACKGROUND = AppLookAndFeel.getTreeSelectionBackground();
     private static final long serialVersionUID = 1L;
     private int tempSelectionRow = -1;
-    private final List<String> highLightKeywords = new ArrayList<String>();
+    private final List<String> highLightKeywords = new ArrayList<>();
 
     public KeywordsTreeCellRenderer() {
         setOpaque(true);

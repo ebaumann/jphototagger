@@ -18,7 +18,7 @@ public final class KMLDocument {
     private static final String CHARSET = "UTF-8";
     private static final String NEWLINE = System.getProperty("line.separator");
     private String generator;
-    private final List<KMLElement> elements = new ArrayList<KMLElement>();
+    private final List<KMLElement> elements = new ArrayList<>();
 
     /**
      * Sets the generator of this document. Appears as Comment in the head.

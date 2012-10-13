@@ -86,7 +86,7 @@ public abstract class KeywordsController implements ActionListener, KeyListener 
             return null;
         }
 
-        List<DefaultMutableTreeNode> selectedNodes = new ArrayList<DefaultMutableTreeNode>();
+        List<DefaultMutableTreeNode> selectedNodes = new ArrayList<>();
 
         for (TreePath selectedTreePath : selectedTreePaths) {
             Object node = selectedTreePath.getLastPathComponent();
@@ -111,7 +111,7 @@ public abstract class KeywordsController implements ActionListener, KeyListener 
                 return null;
             }
 
-            List<DefaultMutableTreeNode> selNodes = new ArrayList<DefaultMutableTreeNode>();
+            List<DefaultMutableTreeNode> selNodes = new ArrayList<>();
 
             for (TreePath selPath : tree.getSelectionPaths()) {
                 Object node = selPath.getLastPathComponent();

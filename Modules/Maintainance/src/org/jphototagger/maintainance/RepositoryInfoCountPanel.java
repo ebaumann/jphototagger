@@ -115,7 +115,7 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
     private static class RepositoryInfoCountTableModel extends TableModelExt {
 
         private static final long serialVersionUID = 1L;
-        private final LinkedHashMap<MetaDataValue, StringBuffer> bufferOfMetaDataValue = new LinkedHashMap<MetaDataValue, StringBuffer>();
+        private final LinkedHashMap<MetaDataValue, StringBuffer> bufferOfMetaDataValue = new LinkedHashMap<>();
         private boolean listenToRepository;
         private final RepositoryStatistics repo = Lookup.getDefault().lookup(RepositoryStatistics.class);
 

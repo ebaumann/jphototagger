@@ -24,7 +24,7 @@ import org.openide.util.Lookup;
  */
 public final class SetRatingController implements ActionListener, KeyListener {
 
-    private static final Map<Integer, Long> RATING_OF_KEY_CODE = new HashMap<Integer, Long>();
+    private static final Map<Integer, Long> RATING_OF_KEY_CODE = new HashMap<>();
 
     static {
         RATING_OF_KEY_CODE.put(KeyEvent.VK_0, Long.valueOf(0));

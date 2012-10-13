@@ -122,7 +122,7 @@ public class CopyCutPasteKeywordController implements ActionListener, KeyListene
 
     private void move(DefaultMutableTreeNode node) {
         Transferable trans = new TransferableObject(
-                new ArrayList<DefaultMutableTreeNode>(
+                new ArrayList<>(
                 KeywordTreeNodesClipboard.INSTANCE.getContent()), Flavor.KEYWORDS_TREE);
 
         KeywordsTreeTransferHandler.moveKeywords(new TransferSupport(panel, trans),

@@ -20,7 +20,7 @@ import org.jphototagger.exif.ExifTags;
 public final class NikonMakerNotes implements ExifMakerNotes {
 
     private static final String PROPERTY_FILE_PREFIX = "org/jphototagger/exif/formatter/nikon/NikonExifMakerNote_";
-    private static final Collection<NikonMakerNote> MAKER_NOTES = new ArrayList<NikonMakerNote>();
+    private static final Collection<NikonMakerNote> MAKER_NOTES = new ArrayList<>();
 
     static {
         int index = 0;
@@ -81,7 +81,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
             return;
         }
 
-        List<ExifTag> allMakerNoteTags = new ArrayList<ExifTag>();
+        List<ExifTag> allMakerNoteTags = new ArrayList<>();
         int offset = nikonMakerNote.getByteOffsetToIfd();
 
         try {

@@ -34,7 +34,7 @@ public final class TransferableFileCollection implements Transferable {
             throw new NullPointerException("files == null");
         }
 
-        this.files = new ArrayList<File>(files);
+        this.files = new ArrayList<>(files);
         createUriList();
     }
 
@@ -95,7 +95,7 @@ public final class TransferableFileCollection implements Transferable {
         }
 
         if (flavor.equals(FILE_LIST_FLAVOR)) {
-            return new ArrayList<File>(files);
+            return new ArrayList<>(files);
         } else if (flavor.equals(URI_LIST_FLAVOR)) {
             return fileUris;
         } else {

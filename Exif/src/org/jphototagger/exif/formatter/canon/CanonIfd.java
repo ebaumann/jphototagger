@@ -15,7 +15,7 @@ public final class CanonIfd {
     private final ByteOrder byteOrder;
     private final int entryCount;
     private final Entry[] entries;
-    private final Map<Integer, Entry> entryOfTag = new HashMap<Integer, Entry>();
+    private final Map<Integer, Entry> entryOfTag = new HashMap<>();
 
     public static class Entry {
 

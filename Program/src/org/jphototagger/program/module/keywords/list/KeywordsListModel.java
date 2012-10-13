@@ -24,7 +24,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class KeywordsListModel extends DefaultListModel {
+public final class KeywordsListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
@@ -88,7 +88,7 @@ public final class KeywordsListModel extends DefaultListModel {
 
     @SuppressWarnings("unchecked")
     private List<String> getKeywords(Xmp xmp) {
-        List<String> keywords = new ArrayList<String>();
+        List<String> keywords = new ArrayList<>();
 
         if (xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
             keywords.addAll((List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE));

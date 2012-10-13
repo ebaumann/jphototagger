@@ -14,7 +14,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class UserDefinedFileFiltersListModel extends DefaultListModel {
+public final class UserDefinedFileFiltersListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private final UserDefinedFileFiltersRepository udffRepo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);

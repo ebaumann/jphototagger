@@ -21,18 +21,18 @@ import org.openide.util.Lookup;
  */
 public final class AutoCompleteData {
 
-    private final LinkedList<String> words = new LinkedList<String>();
+    private final LinkedList<String> words = new LinkedList<>();
     private final Set<MetaDataValue> metaDataValues;
     private final MetaDataValuesRepository repo = Lookup.getDefault().lookup(MetaDataValuesRepository.class);
 
     AutoCompleteData(Collection<? extends MetaDataValue> values) {
-        this.metaDataValues = new LinkedHashSet<MetaDataValue>(getAutocompleteMetaDataValuesOf(values));
+        this.metaDataValues = new LinkedHashSet<>(getAutocompleteMetaDataValuesOf(values));
         words.addAll(repo.findDistinctMetaDataValues(this.metaDataValues));
         Collections.sort(words);
     }
 
     AutoCompleteData(MetaDataValue value) {
-        this.metaDataValues = new LinkedHashSet<MetaDataValue>(getAutocompleteMetaDataValuesOf(Collections.singleton(value)));
+        this.metaDataValues = new LinkedHashSet<>(getAutocompleteMetaDataValuesOf(Collections.singleton(value)));
         words.addAll(repo.findDistinctMetaDataValues(value));    // already sorted
     }
 
@@ -43,7 +43,7 @@ public final class AutoCompleteData {
      * @return         autocomplete values or empty set
      */
     private Set<MetaDataValue> getAutocompleteMetaDataValuesOf(Collection<? extends MetaDataValue> values) {
-        Set<MetaDataValue> cols = new HashSet<MetaDataValue>(values.size());
+        Set<MetaDataValue> cols = new HashSet<>(values.size());
 
         for (MetaDataValue value : values) {
             if (AutocompleteMetaDataValues.contains(value)) {

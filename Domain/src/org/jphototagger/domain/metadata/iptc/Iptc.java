@@ -14,7 +14,7 @@ import org.jphototagger.domain.metadata.mapping.IptcRepeatableValues;
  */
 public final class Iptc {
 
-    private final Map<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<IPTCEntryMeta, Object>();
+    private final Map<IPTCEntryMeta, Object> valueOfEntryMeta = new HashMap<>();
 
     public Object getValue(IPTCEntryMeta iptcEntry) {
         if (iptcEntry == null) {
@@ -26,7 +26,7 @@ public final class Iptc {
         return (value == null)
                 ? null
                 : (value instanceof Collection<?>)
-                ? new ArrayList<Object>((Collection<?>) value) // Returning a copy
+                ? new ArrayList<>((Collection<?>) value) // Returning a copy
                 : value;
     }
 
@@ -69,7 +69,7 @@ public final class Iptc {
         Collection<? super Object> collection = collectionReference(meta);
 
         if (collection == null) {
-            collection = new ArrayList<Object>();
+            collection = new ArrayList<>();
             valueOfEntryMeta.put(meta, collection);
         }
 

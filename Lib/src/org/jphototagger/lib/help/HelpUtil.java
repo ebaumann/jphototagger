@@ -39,7 +39,7 @@ public final class HelpUtil {
      */
     public static HelpNode createNodeFromHelpContentProviders() {
         HelpNode rootNode = null;
-        List<HelpContentProvider> providers = new ArrayList<HelpContentProvider>(Lookup.getDefault().lookupAll(HelpContentProvider.class));
+        List<HelpContentProvider> providers = new ArrayList<>(Lookup.getDefault().lookupAll(HelpContentProvider.class));
         Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         for (HelpContentProvider provider : providers) {
             String helpContentsUrl = provider.getHelpContentUrl();
@@ -72,7 +72,7 @@ public final class HelpUtil {
         if (helpNode == null) {
             throw new NullPointerException("helpNode == null");
         }
-        List<HelpPage> helpPages = new LinkedList<HelpPage>();
+        List<HelpPage> helpPages = new LinkedList<>();
         addHelpPagesRecursive(helpNode, helpPages);
         return helpPages;
     }

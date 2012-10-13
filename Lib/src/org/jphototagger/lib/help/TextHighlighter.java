@@ -20,7 +20,7 @@ public final class TextHighlighter {
     private final Highlighter highlighter = new DefaultHighlighter();
     private Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
     private final JTextComponent tc;
-    private final Set<String> hlWords = new HashSet<String>();
+    private final Set<String> hlWords = new HashSet<>();
     private boolean inWord;
     private int wordStartIndex = -1;
 

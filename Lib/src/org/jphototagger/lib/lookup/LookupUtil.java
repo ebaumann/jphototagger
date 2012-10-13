@@ -18,9 +18,9 @@ import org.openide.util.lookup.InstanceContent;
  */
 final class LookupUtil {
 
-    static Collection<?> createContentOfSelectedValues(JList list) {
-        Object[] selectedValues = list.getSelectedValues();
-        Collection<Object> selectedContent = new ArrayList<Object>(selectedValues.length);
+    static Collection<?> createContentOfSelectedValues(JList<?> list) {
+        List<?> selectedValues = list.getSelectedValuesList();
+        Collection<Object> selectedContent = new ArrayList<>(selectedValues.size());
         for (Object selectedValue : selectedValues) {
             if (selectedValue instanceof Node) {
                 Node node = (Node) selectedValue;
@@ -37,7 +37,7 @@ final class LookupUtil {
         if (selectionPaths == null) {
             return Collections.emptyList();
         }
-        Collection<Object> selectedContent = new ArrayList<Object>(selectionPaths.length);
+        Collection<Object> selectedContent = new ArrayList<>(selectionPaths.length);
         for (TreePath treePath : selectionPaths) {
             Object lastPathComponent = treePath.getLastPathComponent();
             if (lastPathComponent instanceof DefaultMutableTreeNode) {
@@ -69,7 +69,7 @@ final class LookupUtil {
     }
 
     static JPopupMenu createPopupMenuFromNodeActions(Collection<?> selectedContent, boolean temporarySelected) {
-        List<Action> actions = new ArrayList<Action>(selectedContent.size());
+        List<Action> actions = new ArrayList<>(selectedContent.size());
         for (Object selectedObject : selectedContent) {
             if (selectedObject instanceof Node) {
                 Node node = (Node) selectedObject;

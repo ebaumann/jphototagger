@@ -38,7 +38,7 @@ public final class DeleteUnusedKeywordsFromRepository implements Runnable, Cance
 
     @Override
     public void run() {
-        List<String> keywords = new ArrayList<String>(repo.findNotReferencedDcSubjects());
+        List<String> keywords = new ArrayList<>(repo.findNotReferencedDcSubjects());
         int size = keywords.size();
         notifyProgressStarted(size);
         for (int i = 0; !cancel && (i < size); i++) {

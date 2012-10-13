@@ -79,7 +79,7 @@ public final class ImageCollectionsExporter implements RepositoryDataExporter {
 
         @XmlElementWrapper(name = "ImageCollections")
         @XmlElement(type = ImageCollection.class)
-        private final ArrayList<ImageCollection> collection = new ArrayList<ImageCollection>();
+        private final ArrayList<ImageCollection> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -89,7 +89,7 @@ public final class ImageCollectionsExporter implements RepositoryDataExporter {
         }
 
         public List<ImageCollection> getCollection() {
-            return new ArrayList<ImageCollection>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

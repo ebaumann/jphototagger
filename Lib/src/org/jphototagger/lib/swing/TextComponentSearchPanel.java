@@ -28,7 +28,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
     private final Color searchTextFieldBackground;
     private final transient Highlighter highlighter = new DefaultHighlighter();
     private final transient Highlighter.HighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
-    private final List<Integer> foundIndices = new ArrayList<Integer>();
+    private final List<Integer> foundIndices = new ArrayList<>();
     private int currentFoundIndex = -1;
 
     public TextComponentSearchPanel() {

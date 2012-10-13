@@ -19,7 +19,7 @@ public class CollectionUtilTest {
      */
     @Test
     public void testBinaryInsert() {
-        LinkedList<String> list = new LinkedList<String>();
+        LinkedList<String> list = new LinkedList<>();
         String el2 = "Birne";
 
         CollectionUtil.binaryInsert(list, el2);
@@ -62,7 +62,7 @@ public class CollectionUtilTest {
     public void testIntegerTokenToList() {
         String string = "1,125,7";
         String delimiter = ",";
-        List<Integer> expResult = new ArrayList<Integer>();
+        List<Integer> expResult = new ArrayList<>();
 
         expResult.add(1);
         expResult.add(125);
@@ -74,7 +74,7 @@ public class CollectionUtilTest {
         assertEquals(expResult, result);
         string = "-1,42,29:33,72";
         delimiter = ":,";
-        expResult = new ArrayList<Integer>();
+        expResult = new ArrayList<>();
         expResult.add(-1);
         expResult.add(42);
         expResult.add(29);
@@ -84,20 +84,20 @@ public class CollectionUtilTest {
         assertEquals(expResult, result);
         string = "-1";
         delimiter = ",";
-        expResult = new ArrayList<Integer>();
+        expResult = new ArrayList<>();
         expResult.add(-1);
         result = CollectionUtil.integerTokenToList(string, delimiter);
         assertEquals(expResult, result);
         string = "";
         delimiter = ",";
-        expResult = new ArrayList<Integer>();
+        expResult = new ArrayList<>();
         result = CollectionUtil.integerTokenToList(string, delimiter);
         assertEquals(expResult, result);
 
         try {
             string = "12,Peter";
             delimiter = ",";
-            expResult = new ArrayList<Integer>();
+            expResult = new ArrayList<>();
             result = CollectionUtil.integerTokenToList(string, delimiter);
             fail("no NumberFormatException");
         } catch (NumberFormatException ex) {
@@ -126,7 +126,7 @@ public class CollectionUtilTest {
     public void testStringTokenToList() {
         String string = "anton,berta,cäsar,wilhelm";
         String delimiter = ",:";
-        List<String> expResult = new ArrayList<String>();
+        List<String> expResult = new ArrayList<>();
 
         expResult.add("anton");
         expResult.add("berta");
@@ -138,7 +138,7 @@ public class CollectionUtilTest {
         assertEquals(expResult, result);
         string = "anton,berta,cäsar:wilhelm";
         delimiter = ",:";
-        expResult = new ArrayList<String>();
+        expResult = new ArrayList<>();
         expResult.add("anton");
         expResult.add("berta");
         expResult.add("cäsar");
@@ -147,7 +147,7 @@ public class CollectionUtilTest {
         assertEquals(expResult, result);
         string = "anton:berta::cäsar:wilhelm";
         delimiter = ",:";
-        expResult = new ArrayList<String>();
+        expResult = new ArrayList<>();
         expResult.add("anton");
         expResult.add("berta");
         expResult.add("cäsar");
@@ -156,19 +156,19 @@ public class CollectionUtilTest {
         assertEquals(expResult, result);
         string = "anton";
         delimiter = ",";
-        expResult = new ArrayList<String>();
+        expResult = new ArrayList<>();
         expResult.add(string);
         result = CollectionUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
         string = "anton,berta,cäsar,:wilhelm";
         delimiter = "";
-        expResult = new ArrayList<String>();
+        expResult = new ArrayList<>();
         expResult.add(string);
         result = CollectionUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
         string = "";
         delimiter = ",";
-        expResult = new ArrayList<String>();
+        expResult = new ArrayList<>();
         result = CollectionUtil.stringTokenToList(string, delimiter);
         assertEquals(expResult, result);
 

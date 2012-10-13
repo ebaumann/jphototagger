@@ -20,7 +20,7 @@ import org.openide.util.Lookup;
  * Elements are {@link FileSorter}s.
  * @author Elmar Baumann
  */
-public final class ThumbnailsSortComboBoxModel extends DefaultComboBoxModel {
+public final class ThumbnailsSortComboBoxModel extends DefaultComboBoxModel<Object> {
 
     private static final long serialVersionUID = 1L;
     static final String PERSISTED_SELECTED_ITEM_KEY = "ThumbnailsSortComboBoxModel.SelIndex";
@@ -80,7 +80,7 @@ public final class ThumbnailsSortComboBoxModel extends DefaultComboBoxModel {
                 Bundle.getString(ThumbnailsSortComboBoxModel.class, "ThumbnailsSortComboBoxModel.DisplayName.ComparatorFileTypeDescending")));
 
         Collection<? extends FileSortComparators> sortComparators = Lookup.getDefault().lookupAll(FileSortComparators.class);
-        List<FileSortComparator> sortedSortComparators = new ArrayList<FileSortComparator>();
+        List<FileSortComparator> sortedSortComparators = new ArrayList<>();
 
         for (FileSortComparators fscs : sortComparators) {
             sortedSortComparators.addAll(fscs.getFileSortComparators());

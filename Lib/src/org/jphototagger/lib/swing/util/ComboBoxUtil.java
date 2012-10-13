@@ -17,7 +17,7 @@ public final class ComboBoxUtil {
      * @param string   Gesuchter String
      * @return         true, wenn die Combobox das Element enthält
      */
-    public static boolean hasItem(ComboBoxModel comboBox, String string) {
+    public static boolean hasItem(ComboBoxModel<?> comboBox, String string) {
         if (comboBox == null) {
             throw new NullPointerException("comboBox == null");
         }
@@ -45,7 +45,7 @@ public final class ComboBoxUtil {
      * @param string        Gesuchter String
      * @return              Element oder null, falls keines gefunden wurde
      */
-    public static Object getItem(ComboBoxModel comboBoxModel, String string) {
+    public static Object getItem(ComboBoxModel<?> comboBoxModel, String string) {
         if (comboBoxModel == null) {
             throw new NullPointerException("comboBoxModel == null");
         }
@@ -74,7 +74,7 @@ public final class ComboBoxUtil {
      * @param model  model
      * @param string string to select
      */
-    public static void selectString(final ComboBoxModel model, final String string) {
+    public static void selectString(final ComboBoxModel<?> model, final String string) {
         if (model == null) {
             throw new NullPointerException("model == null");
         }
@@ -105,7 +105,7 @@ public final class ComboBoxUtil {
         });
     }
 
-    public static boolean isValidIndex(JComboBox comboBox, int index) {
+    public static boolean isValidIndex(JComboBox<?> comboBox, int index) {
         if (comboBox == null) {
             throw new NullPointerException("comboBox == null");
         }

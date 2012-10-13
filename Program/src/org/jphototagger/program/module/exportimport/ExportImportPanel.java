@@ -42,7 +42,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private static final String KEY_LAST_DIR = "ExportImportPanel.LastDirectory";
     private ExportImportContext context = ExportImportContext.EXPORT;
     private File dir;
-    private final transient ListenerSupport<ExportImportListener> ls = new ListenerSupport<ExportImportListener>();
+    private final transient ListenerSupport<ExportImportListener> ls = new ListenerSupport<>();
 
     public ExportImportPanel() {
         initComponents();
@@ -121,7 +121,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private List<RepositoryDataExporter> getJptExporters() {
         Collection<? extends RepositoryDataExporter> allExporters = Lookup.getDefault().lookupAll(RepositoryDataExporter.class);
-        List<RepositoryDataExporter> jptExporters = new ArrayList<RepositoryDataExporter>(allExporters.size());
+        List<RepositoryDataExporter> jptExporters = new ArrayList<>(allExporters.size());
         for (RepositoryDataExporter exporter : allExporters) {
             if (exporter.isJPhotoTaggerData()) {
                 jptExporters.add(exporter);
@@ -144,7 +144,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private List<RepositoryDataImporter> getJptImporters() {
         Collection<? extends RepositoryDataImporter> allImporters = Lookup.getDefault().lookupAll(RepositoryDataImporter.class);
-        List<RepositoryDataImporter> jptImporters = new ArrayList<RepositoryDataImporter>(allImporters.size());
+        List<RepositoryDataImporter> jptImporters = new ArrayList<>(allImporters.size());
         for (RepositoryDataImporter importer : allImporters) {
             if (importer.isJPhotoTaggerData()) {
                 jptImporters.add(importer);
@@ -213,7 +213,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
     private void exportFiles() {
         List<Object> selectedObjects = panelSelectObjects.getSelectedObjects();
-        List<File> exportedFiles = new ArrayList<File>(selectedObjects.size());
+        List<File> exportedFiles = new ArrayList<>(selectedObjects.size());
         for (Object o : selectedObjects) {
             if (o instanceof RepositoryDataExporter) {
                 RepositoryDataExporter exporter = (RepositoryDataExporter) o;
@@ -243,8 +243,8 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     }
 
     private void importFiles() {
-        List<File> importedFiles = new ArrayList<File>();
-        List<File> missingFiles = new ArrayList<File>();
+        List<File> importedFiles = new ArrayList<>();
+        List<File> missingFiles = new ArrayList<>();
         List<Object> selectedObjects = panelSelectObjects.getSelectedObjects();
         for (Object o : selectedObjects) {
             if (o instanceof RepositoryDataImporter) {

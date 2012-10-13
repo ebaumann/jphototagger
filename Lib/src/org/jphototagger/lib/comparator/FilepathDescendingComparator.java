@@ -13,7 +13,7 @@ import org.jphototagger.lib.util.ClassEquality;
 public final class FilepathDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final ReverseComparator<File> delegate = new ReverseComparator<File>(new FilepathAscendingComparator());
+    private final ReverseComparator<File> delegate = new ReverseComparator<>(new FilepathAscendingComparator());
 
     @Override
     public int compare(File leftFile, File rightFile) {

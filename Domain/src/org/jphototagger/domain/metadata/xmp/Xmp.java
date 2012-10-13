@@ -26,7 +26,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
  */
 public final class Xmp implements TextEntryListener {
 
-    private final Map<MetaDataValue, Object> metaDataValue = new HashMap<MetaDataValue, Object>();
+    private final Map<MetaDataValue, Object> metaDataValue = new HashMap<>();
 
     public Xmp() {
     }
@@ -93,7 +93,7 @@ public final class Xmp implements TextEntryListener {
             Object o = metaDataValue.get(mdValue);
 
             if (o == null) {
-                Collection<Object> collection = new ArrayList<Object>();
+                Collection<Object> collection = new ArrayList<>();
 
                 collection.add(newText);
                 metaDataValue.put(mdValue, collection);
@@ -236,7 +236,7 @@ public final class Xmp implements TextEntryListener {
         Object o = metaDataValue.get(xmpMetaDataValue);
 
         return (o instanceof Collection<?>)
-                ? new ArrayList<Object>((Collection<?>) o)
+                ? new ArrayList<>((Collection<?>) o)
                 : o;
     }
 
@@ -332,7 +332,7 @@ public final class Xmp implements TextEntryListener {
         Collection<? super Object> collection = collectionReferenceOf(mdValue);
 
         if (collection == null) {
-            collection = new ArrayList<Object>();
+            collection = new ArrayList<>();
             metaDataValue.put(mdValue, collection);
         }
 
@@ -366,7 +366,7 @@ public final class Xmp implements TextEntryListener {
             Object o = xmp.metaDataValue.get(value);
 
             if (o instanceof Collection<?>) {
-                metaDataValue.put(value, new ArrayList<Object>((List<?>) o));
+                metaDataValue.put(value, new ArrayList<>((List<?>) o));
             } else if (o != null) {
                 metaDataValue.put(value, o);
             }

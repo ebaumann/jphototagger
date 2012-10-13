@@ -18,7 +18,7 @@ import org.openide.util.Lookup;
  */
 public abstract class HelperThread extends Thread implements Cancelable {
 
-    private final Set<ProgressListener> progressListeners = new HashSet<ProgressListener>();
+    private final Set<ProgressListener> progressListeners = new HashSet<>();
     private volatile Object info;
     private volatile int value;
     private volatile int minimum;

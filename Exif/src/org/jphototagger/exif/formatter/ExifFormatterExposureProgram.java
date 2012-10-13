@@ -15,7 +15,7 @@ import org.jphototagger.exif.datatype.ExifShort;
 public final class ExifFormatterExposureProgram extends ExifFormatter {
 
     public static final ExifFormatterExposureProgram INSTANCE = new ExifFormatterExposureProgram();
-    private static final Map<Integer, String> EXIF_KEY_OF_EXPOSURE_PROGRAM = new HashMap<Integer, String>();
+    private static final Map<Integer, String> EXIF_KEY_OF_EXPOSURE_PROGRAM = new HashMap<>();
 
     static {
         EXIF_KEY_OF_EXPOSURE_PROGRAM.put(0, "ExposureProgramUnkonwn");

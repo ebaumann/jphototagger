@@ -14,7 +14,7 @@ import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
  */
 public final class MetaDataValues {
 
-    private static final Set<MetaDataValue> VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final Set<MetaDataValue> VALUES = new LinkedHashSet<>();
 
     static {
         for (MetaDataValue metaDataValue : FilesMetaDataValues.get()) {
@@ -30,7 +30,7 @@ public final class MetaDataValues {
     }
 
     public static Collection<? extends MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(VALUES);
+        return new ArrayList<>(VALUES);
     }
 
     private MetaDataValues() {

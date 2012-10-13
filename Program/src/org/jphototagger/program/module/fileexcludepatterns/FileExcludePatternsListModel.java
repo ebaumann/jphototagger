@@ -21,7 +21,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class FileExcludePatternsListModel extends DefaultListModel {
+public final class FileExcludePatternsListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private volatile transient boolean listenToDb = true;
@@ -38,7 +38,7 @@ public final class FileExcludePatternsListModel extends DefaultListModel {
     }
 
     public List<String> getPatterns() {
-        return new ArrayList<String>(patterns);
+        return new ArrayList<>(patterns);
     }
 
     public void insert(final String pattern) {

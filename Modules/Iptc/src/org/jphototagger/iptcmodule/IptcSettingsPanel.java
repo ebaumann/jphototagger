@@ -116,7 +116,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        comboBoxIptcCharset = new JComboBox();
+        comboBoxIptcCharset = new JComboBox<>();
         labelIptcCharset = new JLabel();
         checkBoxDisplayIptc = new JCheckBox();
 
@@ -180,7 +180,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     }//GEN-LAST:event_checkBoxDisplayIptcActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JCheckBox checkBoxDisplayIptc;
-    private JComboBox comboBoxIptcCharset;
+    private JComboBox<Object> comboBoxIptcCharset;
     private JLabel labelIptcCharset;
     // End of variables declaration//GEN-END:variables
 }

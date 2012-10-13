@@ -34,7 +34,7 @@ public final class Flavor {
     /**
      * All metadata data flavors such as keywords or metadata value data
      */
-    private static final List<DataFlavor> METADATA_FLAVORS = new ArrayList<DataFlavor>();
+    private static final List<DataFlavor> METADATA_FLAVORS = new ArrayList<>();
     /**
      * A {@code java.util.Collection} of
      * {@code javax.swing.tree.DefaultMutableTreeNode}s: The selected tree nodes

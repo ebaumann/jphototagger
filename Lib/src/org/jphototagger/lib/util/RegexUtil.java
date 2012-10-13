@@ -26,7 +26,7 @@ public final class RegexUtil {
             throw new NullPointerException("pattern == null");
         }
 
-        List<String> stringsMatches = new ArrayList<String>();
+        List<String> stringsMatches = new ArrayList<>();
 
         for (String string : strings) {
             if (string.matches(pattern)) {

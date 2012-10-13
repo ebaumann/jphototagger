@@ -80,7 +80,7 @@ public final class AutocompleteUtil {
             return;
         }
 
-        List<String> words = new ArrayList<String>();
+        List<String> words = new ArrayList<>();
 
         if (xmpValue instanceof String) {
             words.add((String) xmpValue);

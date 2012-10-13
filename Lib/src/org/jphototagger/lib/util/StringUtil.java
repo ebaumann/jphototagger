@@ -70,7 +70,7 @@ public final class StringUtil {
             throw new IllegalArgumentException("Empty word delimiter string!");
         }
 
-        List<String> lines = new ArrayList<String>();
+        List<String> lines = new ArrayList<>();
         int textLength = text.length();
         int lineBeginIndex = 0;
         int lineEndIndex;
@@ -127,7 +127,7 @@ public final class StringUtil {
             throw new NullPointerException("strings == null");
         }
 
-        List<String> trimmedStrings = new ArrayList<String>(strings.size());
+        List<String> trimmedStrings = new ArrayList<>(strings.size());
 
         for (String string : strings) {
             trimmedStrings.add(string.trim());
@@ -141,7 +141,7 @@ public final class StringUtil {
             throw new NullPointerException("string == null");
         }
 
-        List<String> words = new ArrayList<String>();
+        List<String> words = new ArrayList<>();
         StringTokenizer st = new StringTokenizer(string, WORD_DELIMITER);
 
         while (st.hasMoreTokens()) {
@@ -301,7 +301,7 @@ public final class StringUtil {
         if (strings == null) {
             return Collections.emptyList();
         }
-        List<String> stringsWithContent = new ArrayList<String>(strings.length);
+        List<String> stringsWithContent = new ArrayList<>(strings.length);
         for (String string : strings) {
             if (hasContent(string)) {
                 stringsWithContent.add(string);

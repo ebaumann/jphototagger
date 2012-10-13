@@ -42,7 +42,7 @@ public final class MiscMetadataUtil {
             throw new NullPointerException("imageFile == null");
         }
 
-        List<FileXmp> saveList = new ArrayList<FileXmp>();
+        List<FileXmp> saveList = new ArrayList<>();
 
         for (File imageFile : imageFiles) {
             if (imageFile.exists() && FilesystemImageUtil.checkImageEditable(imageFile)) {
@@ -294,7 +294,7 @@ public final class MiscMetadataUtil {
             throw new NullPointerException("paths == null");
         }
 
-        List<MetaDataStringValue> values = new ArrayList<MetaDataStringValue>(paths.size());
+        List<MetaDataStringValue> values = new ArrayList<>(paths.size());
 
         for (TreePath path : paths) {
             MetaDataStringValue value = getColValueFrom(path);

@@ -68,7 +68,7 @@ public final class EditKeywordSynonymsController extends KeywordsListController 
     }
 
     private void editInEditList() {
-        List<String> keywords = new ArrayList<String>();
+        List<String> keywords = new ArrayList<>();
 
         for (Object selValue : getKeywordsList().getSelectedValues()) {
             keywords.add(selValue.toString());
@@ -169,7 +169,7 @@ public final class EditKeywordSynonymsController extends KeywordsListController 
     }
 
     private Set<String> splitSynonyms(String synonymString) {
-        Set<String> synonyms = new HashSet<String>();
+        Set<String> synonyms = new HashSet<>();
         StringTokenizer st = new StringTokenizer(synonymString, DELIM);
 
         while (st.hasMoreTokens()) {

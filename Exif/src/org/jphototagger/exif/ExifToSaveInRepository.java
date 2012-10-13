@@ -8,7 +8,7 @@ import java.util.List;
  */
 public final class ExifToSaveInRepository {
 
-    private static final List<ExifTag.Id> EXIF_TAG_IDS_TO_SAVE = new ArrayList<ExifTag.Id>();
+    private static final List<ExifTag.Id> EXIF_TAG_IDS_TO_SAVE = new ArrayList<>();
 
     static {
         EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.DATE_TIME_ORIGINAL);

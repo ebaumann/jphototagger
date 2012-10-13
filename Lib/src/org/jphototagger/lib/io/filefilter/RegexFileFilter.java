@@ -13,7 +13,7 @@ import org.jphototagger.api.component.DisplayNameProvider;
 public final class RegexFileFilter implements java.io.FileFilter, Serializable, DisplayNameProvider {
 
     private static final long serialVersionUID = 1L;
-    private final Set<String> acceptedPatterns = new HashSet<String>();
+    private final Set<String> acceptedPatterns = new HashSet<>();
     private String displayname;
 
     public RegexFileFilter(RegexFileFilter other) {

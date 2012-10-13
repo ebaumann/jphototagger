@@ -90,7 +90,7 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
         private final Object pBarOwner = this;
 
         Upload(Collection<? extends File> files) {
-            this.files = new ArrayList<File>(files);
+            this.files = new ArrayList<>(files);
             setName("Uploading images to Flickr  @ " + FlickrUpload.class.getSimpleName());
         }
 

@@ -53,7 +53,7 @@ public class AddKeywordsToEditPanelController extends KeywordsController impleme
     @Override
     protected void localAction(List<DefaultMutableTreeNode> nodes) {
         final DefaultMutableTreeNode node = nodes.get(0);
-        final List<String> keywordNames = new ArrayList<String>();
+        final List<String> keywordNames = new ArrayList<>();
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 

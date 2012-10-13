@@ -27,7 +27,7 @@ import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
  */
 public final class XmpMetaDataValueXmpArrayNameMapping {
 
-    private static final Map<MetaDataValue, String> XMP_ARRAY_NAME_OF_XMP_META_DATA_VALUE = new HashMap<MetaDataValue, String>();
+    private static final Map<MetaDataValue, String> XMP_ARRAY_NAME_OF_XMP_META_DATA_VALUE = new HashMap<>();
 
     static {
         XMP_ARRAY_NAME_OF_XMP_META_DATA_VALUE.put(XmpDcCreatorMetaDataValue.INSTANCE, "dc:creator");

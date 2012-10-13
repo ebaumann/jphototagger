@@ -12,11 +12,12 @@ import org.jphototagger.lib.swing.IconUtil;
  * @author Elmar Baumann
  */
 class UserDefinedFileFiltersListCellRenderer extends DefaultListCellRenderer {
+
     private static final long serialVersionUID = 1L;
     private static final Icon ICON = IconUtil.getImageIcon(UserDefinedFileFiltersListCellRenderer.class, "filter.png");
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         if (value instanceof UserDefinedFileFilter.Type) {
             UserDefinedFileFilter.Type type = (UserDefinedFileFilter.Type) value;

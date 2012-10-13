@@ -30,7 +30,7 @@ public final class IptcMetadata {
      *                   metadata or when errors occur
      */
     public static List<IptcEntry> getIptcEntries(File imageFile) {
-        List<IptcEntry> metadata = new ArrayList<IptcEntry>();
+        List<IptcEntry> metadata = new ArrayList<>();
 
         if ((imageFile != null) && imageFile.exists() && IptcSupport.INSTANCE.canReadIptc(imageFile)) {
             try {
@@ -97,7 +97,7 @@ public final class IptcMetadata {
             throw new NullPointerException("filter == null");
         }
 
-        List<IptcEntry> filteredEntries = new ArrayList<IptcEntry>();
+        List<IptcEntry> filteredEntries = new ArrayList<>();
 
         for (IptcEntry entry : entries) {
             if (entry.getEntryMeta().equals(filter)) {

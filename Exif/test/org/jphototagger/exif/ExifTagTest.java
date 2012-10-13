@@ -25,7 +25,7 @@ public class ExifTagTest {
             exifTags.writeToFile(file);
 
             ExifTags exifTagsRead = ExifTags.readFromFile(file);
-            List<ExifTag> exifTags1 = new ArrayList<ExifTag>(exifTagsRead.getExifTags());
+            List<ExifTag> exifTags1 = new ArrayList<>(exifTagsRead.getExifTags());
 
             assertEquals(2, exifTags1.size());
 

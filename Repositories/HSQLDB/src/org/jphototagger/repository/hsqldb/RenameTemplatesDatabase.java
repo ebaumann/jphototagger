@@ -204,7 +204,7 @@ final class RenameTemplatesDatabase extends Database {
     }
 
     Set<RenameTemplate> getAllRenameTemplates() {
-        Set<RenameTemplate> templates = new LinkedHashSet<RenameTemplate>();
+        Set<RenameTemplate> templates = new LinkedHashSet<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

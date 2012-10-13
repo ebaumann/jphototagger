@@ -12,7 +12,7 @@ import java.util.List;
  */
 public final class ExceptionLogfileRecord {
 
-    private final List<FrameLogfileRecord> logfileRecordFrames = new ArrayList<FrameLogfileRecord>();
+    private final List<FrameLogfileRecord> logfileRecordFrames = new ArrayList<>();
     private String message;
 
     /**

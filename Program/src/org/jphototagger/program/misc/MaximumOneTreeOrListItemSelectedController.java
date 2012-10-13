@@ -90,7 +90,7 @@ public final class MaximumOneTreeOrListItemSelectedController implements TreeSel
     }
 
     private void handleListSelected(JXList currentSelectedList) {
-        EventBus.publish(new SelectionItemSelectedEvent(currentSelectedList, Arrays.asList(currentSelectedList.getSelectedValues())));
+        EventBus.publish(new SelectionItemSelectedEvent(currentSelectedList, currentSelectedList.getSelectedValuesList()));
         clearSelectionAllTrees();
         clearSelectionOtherLists(currentSelectedList);
     }

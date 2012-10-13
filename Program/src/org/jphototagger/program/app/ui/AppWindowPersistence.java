@@ -38,8 +38,8 @@ public final class AppWindowPersistence implements ComponentListener {
     private static final String APP_PANEL_LIST_SEL_KEYWORDS = "org.jphototagger.program.app.ui.AppPanel.listSelKeywords";
     private final Component cardSelKeywordsList = GUI.getAppPanel().getCardSelKeywordsList();
     private final Component cardSelKeywordsTree = GUI.getAppPanel().getCardSelKeywordsTree();
-    private final Map<Component, String> NAME_OF_CARD = new HashMap<Component, String>(2);
-    private final Map<String, Component> CARD_OF_NAME = new HashMap<String, Component>(2);
+    private final Map<Component, String> NAME_OF_CARD = new HashMap<>(2);
+    private final Map<String, Component> CARD_OF_NAME = new HashMap<>(2);
 
     // Not a singleton: init() gets cards of AppPanel that is not static
     public AppWindowPersistence() {
@@ -70,12 +70,8 @@ public final class AppWindowPersistence implements ComponentListener {
         Component c = evt.getComponent();
         boolean isSelKeywordsCard = isSelKeywordsCard(c);
         boolean knownCardName = NAME_OF_CARD.containsKey(c);
-
-        assert isSelKeywordsCard && knownCardName : c;
-
         if (isSelKeywordsCard && knownCardName) {
             Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
             prefs.setString(KEY_KEYWORDS_VIEW, NAME_OF_CARD.get(c));
         }
     }
@@ -88,7 +84,6 @@ public final class AppWindowPersistence implements ComponentListener {
         final AppFrame appFrame = GUI.getAppFrame();
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = appFrame.getClass().getName();
-
         prefs.applySize(key, appFrame);
         prefs.applyLocation(key, appFrame);
 
@@ -137,7 +132,6 @@ public final class AppWindowPersistence implements ComponentListener {
 
     private void setInitKeywordsView(AppPanel appPanel) {
         KeywordsPanel panelEditKeywords = appPanel.getPanelEditKeywords();
-
         panelEditKeywords.setKeyCard("AppPanel.Keywords.Card");
         panelEditKeywords.setKeyTree("AppPanel.Keywords.Tree");
         panelEditKeywords.readProperties();
@@ -149,14 +143,12 @@ public final class AppWindowPersistence implements ComponentListener {
 
         if (prefs.containsKey(KEY_KEYWORDS_VIEW)) {
             String s = prefs.getString(KEY_KEYWORDS_VIEW);
-
             if (s.equals("flatKeywords") || s.equals("keywordsTree")) {
                 name = s;
             }
         }
 
         Component c = CARD_OF_NAME.get(name);
-
         if (c == cardSelKeywordsList) {
             appPanel.displaySelKeywordsList(AppPanel.SelectAlso.NOTHING_ELSE);
         } else if (c == cardSelKeywordsTree) {
@@ -174,12 +166,10 @@ public final class AppWindowPersistence implements ComponentListener {
     private void writeAppProperties() {
         AppPanel appPanel = GUI.getAppPanel();
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setComponent(appPanel, getAppPanelSettingsHints());
         prefs.setInt(KEY_DIVIDER_LOCATION_MAIN, appPanel.getSplitPaneMain().getDividerLocation());
         prefs.setInt(KEY_DIVIDER_LOCATION_THUMBNAILS, appPanel.getSplitPaneThumbnailsMetadata().getDividerLocation());
         appPanel.getPanelEditKeywords().writeProperties();
-
         // Later than settings.setTree(appPanel, null)!
         writeTreeProperties(appPanel);
         writeListProperties(appPanel);
@@ -247,9 +237,8 @@ public final class AppWindowPersistence implements ComponentListener {
         prefs.applyTreeSettings(key, tree);
     }
 
-    private static void read(JList list, String key) {
+    private static void read(JList<?> list, String key) {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.applySelectedIndices(key, list);
     }
 
@@ -276,9 +265,8 @@ public final class AppWindowPersistence implements ComponentListener {
         prefs.setTree(key, tree);
     }
 
-    private void write(JList list, String key) {
+    private void write(JList<?> list, String key) {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setSelectedIndices(key, list);
     }
 

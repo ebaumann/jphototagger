@@ -14,7 +14,7 @@ public class IndexInfo {
     private final String tableName;
     private final String indexName;
     private final boolean unique;
-    private final List<String> columnNames = new ArrayList<String>();
+    private final List<String> columnNames = new ArrayList<>();
 
     public IndexInfo(boolean unique, String indexName, String tableName, String columnName, String... columnNames) {
         this.unique = unique;

@@ -32,7 +32,7 @@ import org.jphototagger.xmp.EditHints.SizeEditField;
  */
 public final class EditableMetaDataValues {
 
-    private static final Map<MetaDataValue, EditHints> EDIT_HINT_OF_META_DATA_VALUE = new LinkedHashMap<MetaDataValue, EditHints>();
+    private static final Map<MetaDataValue, EditHints> EDIT_HINT_OF_META_DATA_VALUE = new LinkedHashMap<>();
 
     static {
         EditHints notRepeatableHintSmall = new EditHints(false, SizeEditField.SMALL);
@@ -61,7 +61,7 @@ public final class EditableMetaDataValues {
     }
 
     public static List<MetaDataValue> get() {
-        return new ArrayList<MetaDataValue>(EDIT_HINT_OF_META_DATA_VALUE.keySet());
+        return new ArrayList<>(EDIT_HINT_OF_META_DATA_VALUE.keySet());
     }
 
     public static EditHints getEditHints(MetaDataValue value) {

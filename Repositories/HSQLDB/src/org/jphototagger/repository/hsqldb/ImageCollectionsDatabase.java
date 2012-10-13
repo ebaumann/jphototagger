@@ -31,7 +31,7 @@ final class ImageCollectionsDatabase extends Database {
     }
 
     List<String> getAllImageCollectionNames() {
-        List<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -56,7 +56,7 @@ final class ImageCollectionsDatabase extends Database {
 
     List<ImageCollection> getAllImageCollections() {
         List<String> names = getAllImageCollectionNames();
-        List<ImageCollection> collections = new ArrayList<ImageCollection>(names.size());
+        List<ImageCollection> collections = new ArrayList<>(names.size());
         for (String name : names) {
             collections.add(new ImageCollection(name, getImageFilesOfImageCollection(name)));
         }
@@ -107,7 +107,7 @@ final class ImageCollectionsDatabase extends Database {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-        List<File> imageFiles = new ArrayList<File>();
+        List<File> imageFiles = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -259,7 +259,7 @@ final class ImageCollectionsDatabase extends Database {
             con = getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement("DELETE FROM collections WHERE id_collectionnname = ? AND id_file = ?");
-            List<File> deletedFiles = new ArrayList<File>(imageFiles.size());
+            List<File> deletedFiles = new ArrayList<>(imageFiles.size());
             for (File imageFile : imageFiles) {
                 int prevDelCount = delCount;
                 long idCollectionName = findId(con, collectionName);
@@ -313,7 +313,7 @@ final class ImageCollectionsDatabase extends Database {
                         + " VALUES (?, ?, ?)");
                 long idCollectionNames = findId(con, collectionName);
                 int sequence_number = getMaxSequenceNumber(con, collectionName) + 1;
-                List<File> insertedFiles = new ArrayList<File>(imageFiles.size());
+                List<File> insertedFiles = new ArrayList<>(imageFiles.size());
                 for (File imageFile : imageFiles) {
                     if (!isImageIn(con, collectionName, imageFile)) {
                         long idFiles = repo.findIdImageFile(con, imageFile);
@@ -373,7 +373,7 @@ final class ImageCollectionsDatabase extends Database {
                     + " ORDER BY collections.sequence_number ASC");
             stmtIdFiles.setLong(1, idCollectionName);
             rs = stmtIdFiles.executeQuery();
-            List<Long> idFiles = new ArrayList<Long>();
+            List<Long> idFiles = new ArrayList<>();
             while (rs.next()) {
                 idFiles.add(rs.getLong(1));
             }

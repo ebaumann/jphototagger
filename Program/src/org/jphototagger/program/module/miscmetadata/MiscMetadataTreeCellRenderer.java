@@ -26,7 +26,7 @@ public final class MiscMetadataTreeCellRenderer extends TreeCellRendererExt {
     private static final ImageIcon ICON_EXIF = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_exif.png");
     private static final ImageIcon ICON_XMP = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_xmp.png");
     private static final ImageIcon ICON_DETAIL = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata_detail.png");
-    private static final Map<MetaDataValue, ImageIcon> ICON_OF_META_DATA_VALUE = new HashMap<MetaDataValue, ImageIcon>();
+    private static final Map<MetaDataValue, ImageIcon> ICON_OF_META_DATA_VALUE = new HashMap<>();
     private static final long serialVersionUID = 1L;
 
     static {

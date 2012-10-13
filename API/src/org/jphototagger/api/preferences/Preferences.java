@@ -43,9 +43,9 @@ public interface Preferences {
 
     void setComponent(Component component, PreferencesHints hints);
 
-    void setSelectedIndex(String key, JComboBox comboBox);
+    void setSelectedIndex(String key, JComboBox<?> comboBox);
 
-    void setSelectedIndices(String key, JList list);
+    void setSelectedIndices(String key, JList<?> list);
 
     boolean containsKey(String key);
 
@@ -67,9 +67,9 @@ public interface Preferences {
 
     void applyComponentSettings(Component component, PreferencesHints hints);
 
-    void applySelectedIndex(String key, JComboBox comboBox);
+    void applySelectedIndex(String key, JComboBox<?> comboBox);
 
-    void applySelectedIndices(String key, JList list);
+    void applySelectedIndices(String key, JList<?> list);
 
     void setLocation(String key, Component component);
 

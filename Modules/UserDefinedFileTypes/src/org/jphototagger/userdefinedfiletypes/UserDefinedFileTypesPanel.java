@@ -68,7 +68,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
     }
 
     private List<UserDefinedFileType> getSelectedUserDefinedFileTypes() {
-        List<UserDefinedFileType> fileTypes = new ArrayList<UserDefinedFileType>();
+        List<UserDefinedFileType> fileTypes = new ArrayList<>();
 
         for (Object selectedValue : list.getSelectedValues()) {
             if (selectedValue instanceof UserDefinedFileType) {

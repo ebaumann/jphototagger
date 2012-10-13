@@ -15,7 +15,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class WordsetNamesComboBoxModel extends DefaultComboBoxModel {
+public final class WordsetNamesComboBoxModel extends DefaultComboBoxModel<Object> {
 
     private static final long serialVersionUID = 1L;
 

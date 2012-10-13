@@ -22,7 +22,7 @@ public final class SelectionItemSelectedEvent {
         }
 
         this.source = source;
-        this.selectedItems = new ArrayList<Object>(selectedItems);
+        this.selectedItems = new ArrayList<>(selectedItems);
     }
 
     public Collection<?> getSelectedItems() {

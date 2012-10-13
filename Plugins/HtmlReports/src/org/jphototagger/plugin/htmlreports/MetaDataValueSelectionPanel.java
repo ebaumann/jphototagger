@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -23,8 +24,8 @@ import org.openide.util.Lookup;
 public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private final ComboBoxModel comboBoxModel = new MetaDataValuesComboBoxModel();
-    private final ListCellRenderer listCellRenderer = new MetaDataValuesListCellRenderer();
+    private final ComboBoxModel<Object> comboBoxModel = new MetaDataValuesComboBoxModel();
+    private final ListCellRenderer<Object> listCellRenderer = new MetaDataValuesListCellRenderer();
 
     public MetaDataValueSelectionPanel() {
         initComponents();
@@ -70,7 +71,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         private static final long serialVersionUID = 1L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
             if (value instanceof MetaDataValue) {
@@ -83,7 +84,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         }
     }
 
-    private static class MetaDataValuesComboBoxModel extends DefaultComboBoxModel {
+    private static class MetaDataValuesComboBoxModel extends DefaultComboBoxModel<Object> {
 
         private static final long serialVersionUID = 1L;
         private static final Collection<? extends MetaDataValueProvider> META_DATA_VALUE_PROVIDERS;
@@ -91,7 +92,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
 
         static {
             List<MetaDataValueProvider> sortedMetaDataValueProviders =
-                    new ArrayList<MetaDataValueProvider>(Lookup.getDefault().lookupAll(MetaDataValueProvider.class));
+                    new ArrayList<>(Lookup.getDefault().lookupAll(MetaDataValueProvider.class));
             Collections.sort(sortedMetaDataValueProviders, PositionProviderAscendingComparator.INSTANCE);
             META_DATA_VALUE_PROVIDERS = sortedMetaDataValueProviders;
         }
@@ -120,7 +121,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        metaDataValuesComboBox = new javax.swing.JComboBox();
+        metaDataValuesComboBox = new javax.swing.JComboBox<>();
         buttonAdd = new javax.swing.JButton();
         buttonRemove = new javax.swing.JButton();
 
@@ -184,6 +185,6 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdd;
     private javax.swing.JButton buttonRemove;
-    private javax.swing.JComboBox metaDataValuesComboBox;
+    private javax.swing.JComboBox<Object> metaDataValuesComboBox;
     // End of variables declaration//GEN-END:variables
 }

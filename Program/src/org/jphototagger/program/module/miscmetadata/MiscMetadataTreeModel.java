@@ -54,8 +54,8 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
     private static final Object EXIF_USER_OBJECT = Bundle.getString(MiscMetadataTreeModel.class, "MiscMetadataTreeModel.ExifNode.DisplayName");
     private static final long serialVersionUID = 1L;
     private static final Object XMP_USER_OBJECT = Bundle.getString(MiscMetadataTreeModel.class, "MiscMetadataTreeModel.XmpNode.DisplayName");
-    private static final Set<MetaDataValue> XMP_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
-    private static final Set<MetaDataValue> EXIF_META_DATA_VALUES = new LinkedHashSet<MetaDataValue>();
+    private static final Set<MetaDataValue> XMP_META_DATA_VALUES = new LinkedHashSet<>();
+    private static final Set<MetaDataValue> EXIF_META_DATA_VALUES = new LinkedHashSet<>();
 
     static {
         EXIF_META_DATA_VALUES.add(ExifRecordingEquipmentMetaDataValue.INSTANCE);
@@ -94,11 +94,11 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
     }
 
     public static Set<MetaDataValue> getExifMetaDataValues() {
-        return new LinkedHashSet<MetaDataValue>(EXIF_META_DATA_VALUES);
+        return new LinkedHashSet<>(EXIF_META_DATA_VALUES);
     }
 
     public static Set<MetaDataValue> getXmpMetaDataValues() {
-        return new LinkedHashSet<MetaDataValue>(XMP_META_DATA_VALUES);
+        return new LinkedHashSet<>(XMP_META_DATA_VALUES);
     }
 
     private void addMetaDataValueNodes(Object userObject, Set<MetaDataValue> metaDataValues) {
@@ -135,7 +135,7 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
     }
 
     private Collection<String> getTrimmedStrigns(Collection<? extends String> strings) {
-        Set<String> trimmedStrings = new LinkedHashSet<String>();
+        Set<String> trimmedStrings = new LinkedHashSet<>();
         for (String string : strings) {
             trimmedStrings.add(string.trim());
         }
@@ -245,7 +245,7 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
     }
 
     private DefaultMutableTreeNode findNodeWithUserObject(DefaultMutableTreeNode rootNode, Object userObject) {
-        List<DefaultMutableTreeNode> foundNodes = new ArrayList<DefaultMutableTreeNode>(1);
+        List<DefaultMutableTreeNode> foundNodes = new ArrayList<>(1);
 
         TreeUtil.addNodesUserWithObject(foundNodes, rootNode, userObject, 1);
 

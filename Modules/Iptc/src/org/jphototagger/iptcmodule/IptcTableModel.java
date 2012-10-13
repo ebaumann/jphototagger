@@ -23,7 +23,7 @@ public final class IptcTableModel extends TableModelExt {
 
     private static final long serialVersionUID = 1L;
     private File file;
-    private List<IptcEntry> iptcEntries = new ArrayList<IptcEntry>();
+    private List<IptcEntry> iptcEntries = new ArrayList<>();
 
     public IptcTableModel() {
         addColumnHeaders();

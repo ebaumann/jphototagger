@@ -42,7 +42,7 @@ import org.openide.util.Lookup;
 public final class XmpMetadata {
 
     private static final Logger LOGGER = Logger.getLogger(XmpMetadata.class.getName());
-    private static final List<String> KNOWN_NAMESPACES = new ArrayList<String>();
+    private static final List<String> KNOWN_NAMESPACES = new ArrayList<>();
     private static final XmpSidecarFileResolver XMP_SIDECAR_FILE_RESOLVER = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     static {
@@ -92,7 +92,7 @@ public final class XmpMetadata {
         if (namespace == null) {
             throw new NullPointerException("namespace == null");
         }
-        List<XMPPropertyInfo> propertyInfosNs = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> propertyInfosNs = new ArrayList<>();
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
             if (propertyInfo.getNamespace().equals(namespace)) {
                 propertyInfosNs.add(propertyInfo);
@@ -146,7 +146,7 @@ public final class XmpMetadata {
      * @return l
      */
     public static List<XMPPropertyInfo> getPropertyInfosOfXmpString(String xmpAsString) {
-        List<XMPPropertyInfo> propertyInfos = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> propertyInfos = new ArrayList<>();
         try {
             if ((xmpAsString != null) && (xmpAsString.length() > 0)) {
                 XMPMeta xmpMeta = XMPMetaFactory.parseFromString(xmpAsString);
@@ -236,7 +236,7 @@ public final class XmpMetadata {
         if (matchingIptcEntryMeta == null) {
             throw new NullPointerException("matchingIptcEntryMeta == null");
         }
-        List<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<XMPPropertyInfo>();
+        List<XMPPropertyInfo> filteredPropertyInfos = new ArrayList<>();
         String startsWith = IptcEntryXmpPathStartMapping.getXmpPathStartOfIptcEntryMeta(matchingIptcEntryMeta);
 
         for (XMPPropertyInfo propertyInfo : propertyInfos) {
@@ -488,14 +488,14 @@ public final class XmpMetadata {
         if (xmpPropertyInfos == null) {
             throw new NullPointerException("xmpPropertyInfos == null");
         }
-        Map<String, List<XMPPropertyInfo>> propertyInfoWithPathStart = new HashMap<String, List<XMPPropertyInfo>>();
+        Map<String, List<XMPPropertyInfo>> propertyInfoWithPathStart = new HashMap<>();
         Set<String> pathPrefixes = XmpToSaveInRepository.getPathPrefixes();
         for (String pathPrefix : pathPrefixes) {
             for (XMPPropertyInfo propertyInfo : xmpPropertyInfos) {
                 if (propertyInfo.getPath().startsWith(pathPrefix)) {
                     List<XMPPropertyInfo> infos = propertyInfoWithPathStart.get(pathPrefix);
                     if (infos == null) {
-                        infos = new ArrayList<XMPPropertyInfo>();
+                        infos = new ArrayList<>();
                         infos.add(propertyInfo);
                         propertyInfoWithPathStart.put(pathPrefix, infos);
                     } else {
@@ -550,7 +550,7 @@ public final class XmpMetadata {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-        List<ImageFileSidecarFile> imageFilesSidecarFiles = new ArrayList<ImageFileSidecarFile>();
+        List<ImageFileSidecarFile> imageFilesSidecarFiles = new ArrayList<>();
         for (File imageFile : imageFiles) {
             File sidecarFile = XMP_SIDECAR_FILE_RESOLVER.getXmpSidecarFileOrNullIfNotExists(imageFile);
             imageFilesSidecarFiles.add(new ImageFileSidecarFile(imageFile, (sidecarFile == null)

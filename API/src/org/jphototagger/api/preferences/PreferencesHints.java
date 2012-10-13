@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public final class PreferencesHints {
 
-    private final List<String> excludedKeys = new ArrayList<String>();
+    private final List<String> excludedKeys = new ArrayList<>();
     private final Set<Option> options;
 
     public enum Option {

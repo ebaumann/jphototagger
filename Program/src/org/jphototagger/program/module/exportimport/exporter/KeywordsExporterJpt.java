@@ -63,7 +63,7 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
      * <code>true</code> for a real keyword and <code>false</code> for a helper
      * keyword
      */
-    public static final Map<Boolean, String> VALUE_OF_ATTRIBUTE_TYPE = new HashMap<Boolean, String>();
+    public static final Map<Boolean, String> VALUE_OF_ATTRIBUTE_TYPE = new HashMap<>();
     /**
      * Name of the attribute containing the keyword name within the keyword tag
      */

@@ -189,7 +189,7 @@ final class UserDefinedFileFiltersDatabase extends Database {
     }
 
     Set<UserDefinedFileFilter> getAllUserDefinedFileFilters() {
-        Set<UserDefinedFileFilter> filter = new LinkedHashSet<UserDefinedFileFilter>();
+        Set<UserDefinedFileFilter> filter = new LinkedHashSet<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

@@ -19,12 +19,12 @@ public final class LayerUtil {
             throw new NullPointerException("positionProviders == null");
         }
         Logger logger = Logger.getLogger(LayerUtil.class.getName());
-        Map<Integer, List<PositionProvider>> providersOfPosition = new HashMap<Integer, List<PositionProvider>>();
+        Map<Integer, List<PositionProvider>> providersOfPosition = new HashMap<>();
         for (PositionProvider positionProvider : positionProviders) {
             int positionOfProvider = positionProvider.getPosition();
             List<PositionProvider> pop = providersOfPosition.get(positionOfProvider);
             if (pop == null) {
-                pop = new ArrayList<PositionProvider>();
+                pop = new ArrayList<>();
                 providersOfPosition.put(positionOfProvider, pop);
             }
             pop.add(positionProvider);

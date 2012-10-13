@@ -13,7 +13,7 @@ import org.jphototagger.lib.util.ClassEquality;
 public final class ExifTimestampOriginalDescendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private final Comparator<File> delegate = new ReverseComparator<File>(new ExifTimestampOriginalAscendingComparator());
+    private final Comparator<File> delegate = new ReverseComparator<>(new ExifTimestampOriginalAscendingComparator());
 
     @Override
     public int compare(File fileLeft, File fileRight) {

@@ -49,7 +49,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     private static final String KEY_FORCE = "org.jphototagger.program.view.ScanDirectoriesDialog.force";
     private static final String KEY_SUBDIRECTORIES = "org.jphototagger.program.view.ScanDirectoriesDialog.subdirectories";
     private static final long serialVersionUID = 1L;
-    private final DefaultListModel listModelDirectories = new DefaultListModel();
+    private final DefaultListModel<Object> listModelDirectories = new DefaultListModel<>();
     private File lastDirectory = new File("");
     private static final transient Logger LOGGER = Logger.getLogger(UpdateMetadataOfDirectoriesPanel.class.getName());
     private transient SaveToOrUpdateFilesInRepository repositoryUpdater = Lookup.getDefault().lookup(SaveToOrUpdateFilesInRepository.class);
@@ -80,12 +80,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
     private void removeSelectedDirectories() {
         final int selectedIndex = list.getSelectedIndex();
-
         if (selectedIndex >= 0) {
             for (Object selectedValue : list.getSelectedValues()) {
                 listModelDirectories.removeElement(selectedValue);
             }
-
             buttonStart.setEnabled(!listModelDirectories.isEmpty());
             labelFilecount.setText(Integer.toString(getFileCount()));
             ListUtil.selectNearestIndex(list, selectedIndex);
@@ -125,7 +123,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private List<File> getSelectedImageFiles() {
-        List<File> imageFiles = new ArrayList<File>();
+        List<File> imageFiles = new ArrayList<>();
 
         for (Object element : listModelDirectories.toArray()) {
             imageFiles.addAll(((ImageFileDirectory) element).getImageFiles());
@@ -326,7 +324,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
         AddNotContainedDirectories(List<File> directories) {
             super("JPhotoTagger: Adding directories for updating metadata");
-            this.directories = new ArrayList<File>(directories);
+            this.directories = new ArrayList<>(directories);
         }
 
         @Override
@@ -357,7 +355,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private List<File> getDirectoriesNotInListModelFrom(List<File> directories) {
-        List<File> newDirectories = new ArrayList<File>();
+        List<File> newDirectories = new ArrayList<>();
 
         LOGGER.log(Level.INFO, "Searching directories not previously added from {0}", directories);
         for (File directory : directories) {
@@ -382,10 +380,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
             if (cancelChooseDirectories) {
                 return;
             }
-
             LOGGER.log(Level.INFO, "Searching image files in directory {0}", directory);
             ImageFileDirectory imageFileDir = new ImageFileDirectory(directory);
-
             if (imageFileDir.hasImageFiles() &&!listModelDirectories.contains(imageFileDir)) {
                 listModelDirectories.addElement(imageFileDir);
             }
@@ -393,7 +389,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     }
 
     private void addSubdirectories(List<File> directories) {
-        List<File> subdirectories = new ArrayList<File>();
+        List<File> subdirectories = new ArrayList<>();
         Option showHiddenFiles = getDirFilterOptionShowHiddenFiles();
 
         for (File dir : directories) {
@@ -431,7 +427,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         private static final long serialVersionUID = 1L;
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             ImageFileDirectory directoryInfo = (ImageFileDirectory) value;
             File dir = directoryInfo.getDirectory();

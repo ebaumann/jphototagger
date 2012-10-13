@@ -17,7 +17,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann, Tobias Stening
  */
-public final class ImageCollectionsListModel extends DefaultListModel {
+public final class ImageCollectionsListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private final ImageCollectionsRepository imageCollectionsRepo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);

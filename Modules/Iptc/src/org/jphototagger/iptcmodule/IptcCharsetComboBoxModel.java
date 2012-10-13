@@ -7,7 +7,7 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author Elmar Baumann
  */
-public final class IptcCharsetComboBoxModel extends DefaultComboBoxModel {
+public final class IptcCharsetComboBoxModel extends DefaultComboBoxModel<Object> {
     private static final long serialVersionUID = 1L;
 
     public IptcCharsetComboBoxModel() {

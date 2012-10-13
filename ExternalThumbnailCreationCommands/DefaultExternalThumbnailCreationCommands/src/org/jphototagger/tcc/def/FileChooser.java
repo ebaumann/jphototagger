@@ -62,7 +62,7 @@ public final class FileChooser {
                 throw new NullPointerException("fixedFileNames == null");
             }
 
-            this.fixedFileNames = new HashSet<String>(fixedFileNames);
+            this.fixedFileNames = new HashSet<>(fixedFileNames);
         }
 
         public Builder fileChooserDirPath(String fileChooserDirPath) {

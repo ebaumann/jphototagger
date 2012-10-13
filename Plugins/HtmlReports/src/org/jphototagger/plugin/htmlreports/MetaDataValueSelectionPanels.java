@@ -86,7 +86,7 @@ public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements 
     }
 
     public Collection<MetaDataValue> getSelectedValues() {
-        List<MetaDataValue> selectedValues = new LinkedList<MetaDataValue>();
+        List<MetaDataValue> selectedValues = new LinkedList<>();
         for (Component component : panels.getComponents()) {
             if (component instanceof MetaDataValueSelectionPanel) {
                 MetaDataValueSelectionPanel selectionPanel = (MetaDataValueSelectionPanel) component;
@@ -119,7 +119,7 @@ public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements 
 
     private void removeAllPanels() {
         Component[] components = getComponents();
-        List<MetaDataValueSelectionPanel> panelsToRemove = new ArrayList<MetaDataValueSelectionPanel>(components.length);
+        List<MetaDataValueSelectionPanel> panelsToRemove = new ArrayList<>(components.length);
         for (Component component : components) {
             if (component instanceof MetaDataValueSelectionPanel) {
                 MetaDataValueSelectionPanel panel = (MetaDataValueSelectionPanel) component;

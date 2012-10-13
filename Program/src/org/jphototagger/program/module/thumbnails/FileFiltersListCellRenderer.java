@@ -17,18 +17,14 @@ public final class FileFiltersListCellRenderer extends DefaultListCellRenderer {
     private static final Icon ICON = AppLookAndFeel.ICON_FILTER;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
         if (value instanceof DisplayNameProvider) {
             DisplayNameProvider displayNameProvider = (DisplayNameProvider) value;
             String displayName = displayNameProvider.getDisplayName();
-
             label.setText(displayName);
         }
-
         label.setIcon(ICON);
-
         return label;
     }
 }

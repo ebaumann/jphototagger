@@ -30,7 +30,7 @@ public final class WarnOnEqualBasenamesTask extends Thread {
         if (excludeSuffix == null) {
             throw new NullPointerException("excludeSuffix == null");
         }
-        this.files = new ArrayList<File>(files);
+        this.files = new ArrayList<>(files);
     }
 
     @Override

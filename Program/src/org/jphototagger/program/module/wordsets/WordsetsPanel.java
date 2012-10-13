@@ -41,8 +41,8 @@ public class WordsetsPanel extends javax.swing.JPanel {
     private static final Border LABEL_BORDER = BorderFactory.createLineBorder(Color.BLACK);
     private static final int AUTOMATIC_WORDSET_MAX_WORDCOUNT = 9;
     private final String[] automaticAddedWordsRingbuffer = new String[AUTOMATIC_WORDSET_MAX_WORDCOUNT];
-    private final List<JLabel> wordLabels = new ArrayList<JLabel>();
-    private final ListenerSupport<WordsetsPanelListener> listenerSupport = new ListenerSupport<WordsetsPanelListener>();
+    private final List<JLabel> wordLabels = new ArrayList<>();
+    private final ListenerSupport<WordsetsPanelListener> listenerSupport = new ListenerSupport<>();
     private final Wordset automaticWordset = createAutomaticWordset();
     private Wordset selectedWordset;
     private String persistenceKeyPrefix;
@@ -325,7 +325,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         }
     };
 
-    private final ListCellRenderer wordsetNamesComboBoxRenderer = new DefaultListCellRenderer() {
+    private final ListCellRenderer<Object> wordsetNamesComboBoxRenderer = new DefaultListCellRenderer() {
 
         private static final long serialVersionUID = 1L;
         private final String AUTOMATIC_WORDSET_NAME = Bundle.getString(WordsetsPanel.class, "WordsetsPanel.ListCellRenderer.AutomaticWordsetName");
@@ -357,7 +357,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelWordsets = new javax.swing.JPanel();
-        comboBoxWordsetNames = new javax.swing.JComboBox();
+        comboBoxWordsetNames = new javax.swing.JComboBox<>();
         buttonRemoveWordset = new javax.swing.JButton();
         buttonEditWordset = new javax.swing.JButton();
         buttonAddWordset = new javax.swing.JButton();
@@ -482,7 +482,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonEditWordset;
     private javax.swing.JButton buttonEraseAutomaticWords;
     private javax.swing.JButton buttonRemoveWordset;
-    private javax.swing.JComboBox comboBoxWordsetNames;
+    private javax.swing.JComboBox<Object> comboBoxWordsetNames;
     private javax.swing.JPanel panelWords;
     private javax.swing.JPanel panelWordsets;
     // End of variables declaration//GEN-END:variables

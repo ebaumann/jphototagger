@@ -13,9 +13,9 @@ import java.util.Map;
  */
 public final class ExifTagDisplayComparator implements Comparator<ExifTag> {
 
-    private static final Map<Integer, Integer> ORDER_OF_TAG_ID_VALUE = new HashMap<Integer, Integer>();
-    private static final List<Integer> EXIF_IFD_TAG_ID_VALUES = new ArrayList<Integer>(30);
-    private static final List<Integer> GPS_IFD_TAG_ID_VALUES = new ArrayList<Integer>(30);
+    private static final Map<Integer, Integer> ORDER_OF_TAG_ID_VALUE = new HashMap<>();
+    private static final List<Integer> EXIF_IFD_TAG_ID_VALUES = new ArrayList<>(30);
+    private static final List<Integer> GPS_IFD_TAG_ID_VALUES = new ArrayList<>(30);
     public static final ExifTagDisplayComparator INSTANCE = new ExifTagDisplayComparator();
 
     static {

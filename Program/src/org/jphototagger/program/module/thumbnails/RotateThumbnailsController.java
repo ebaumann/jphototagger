@@ -24,7 +24,7 @@ import org.openide.util.Lookup;
  */
 public final class RotateThumbnailsController implements ActionListener {
 
-    private final Map<JMenuItem, Float> angleOfItem = new HashMap<JMenuItem, Float>();
+    private final Map<JMenuItem, Float> angleOfItem = new HashMap<>();
     private final ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
 
     public RotateThumbnailsController() {

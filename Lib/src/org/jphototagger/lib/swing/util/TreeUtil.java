@@ -210,7 +210,7 @@ public final class TreeUtil {
             throw new NullPointerException("path == null");
         }
 
-        Stack<TreePath> stack = new Stack<TreePath>();
+        Stack<TreePath> stack = new Stack<>();
         TreePath parent = path;
 
         while (parent != null) {
@@ -369,7 +369,7 @@ public final class TreeUtil {
             throw new NullPointerException("model == null");
         }
 
-        Stack<DefaultMutableTreeNode> stack = new Stack<DefaultMutableTreeNode>();
+        Stack<DefaultMutableTreeNode> stack = new Stack<>();
         File parentFile = file;
 
         while (parentFile != null) {
@@ -377,7 +377,7 @@ public final class TreeUtil {
             parentFile = parentFile.getParentFile();
         }
 
-        List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(stack.size() + 1);
+        List<DefaultMutableTreeNode> nodes = new ArrayList<>(stack.size() + 1);
 
         nodes.add((DefaultMutableTreeNode) model.getRoot());
 
@@ -629,7 +629,7 @@ public final class TreeUtil {
 
         synchronized (model) {
             int count = node.getChildCount();
-            List<TreeNode> children = new ArrayList<TreeNode>(count);
+            List<TreeNode> children = new ArrayList<>(count);
             int[] indices = new int[count];
 
             for (int i = 0; i < count; i++) {
@@ -647,7 +647,7 @@ public final class TreeUtil {
             throw new NullPointerException("node == null");
         }
 
-        List<TreeNode> children = new ArrayList<TreeNode>(node.getChildCount());
+        List<TreeNode> children = new ArrayList<>(node.getChildCount());
 
         for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements();) {
             Object nextElement = enumeration.nextElement();
@@ -665,7 +665,7 @@ public final class TreeUtil {
             throw new NullPointerException("node == null");
         }
 
-        List<DefaultMutableTreeNode> children = new ArrayList<DefaultMutableTreeNode>(node.getChildCount());
+        List<DefaultMutableTreeNode> children = new ArrayList<>(node.getChildCount());
 
         for (Enumeration<?> enumeration = node.children(); enumeration.hasMoreElements();) {
             Object nextElement = enumeration.nextElement();

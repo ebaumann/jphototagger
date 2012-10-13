@@ -18,7 +18,7 @@ import javax.swing.JTabbedPane;
  */
 public final class MnemonicUtil {
 
-    private static final Map<Character, Integer> MNEMONIC_OF_CHAR = new HashMap<Character, Integer>();
+    private static final Map<Character, Integer> MNEMONIC_OF_CHAR = new HashMap<>();
 
     static {
         MNEMONIC_OF_CHAR.put('0', KeyEvent.VK_0);
@@ -288,7 +288,7 @@ public final class MnemonicUtil {
             throw new NullPointerException("components == null");
         }
 
-        List<Character> mnemonics = new ArrayList<Character>(components.size());
+        List<Character> mnemonics = new ArrayList<>(components.size());
 
         for (Component component : components) {
             setMnemonics(component);

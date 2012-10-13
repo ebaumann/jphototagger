@@ -17,15 +17,13 @@ public final class MetadataTemplatesListCellRenderer extends ListCellRendererExt
     private static final long serialVersionUID = 1L;
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         String name = ((MetadataTemplate) value).getName();
         boolean tempSelRowIsSelected = getTempSelectionRow() < 0 ? false : list.isSelectedIndex(getTempSelectionRow());
-
         label.setText(name);
         label.setIcon(ICON);
         setColors(index, isSelected, tempSelRowIsSelected, label);
-
         return label;
     }
 

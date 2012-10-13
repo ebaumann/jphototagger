@@ -18,7 +18,7 @@ import org.openide.util.Lookup;
 public class FlickrImageInfoDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
-    private final List<ImageInfo> imageInfos = new ArrayList<ImageInfo>();
+    private final List<ImageInfo> imageInfos = new ArrayList<>();
     private boolean upload;
 
     public FlickrImageInfoDialog() {
@@ -110,7 +110,7 @@ public class FlickrImageInfoDialog extends Dialog {
     }
 
     public List<ImageInfo> getUploadImages() {
-        List<ImageInfo> infos = new ArrayList<ImageInfo>();
+        List<ImageInfo> infos = new ArrayList<>();
 
         if (upload) {
             int count = panelImageInfos.getComponentCount();

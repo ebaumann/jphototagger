@@ -56,7 +56,7 @@ public final class DeleteThumbnailsFromRepositoryController implements ActionLis
     }
 
     private void repaint(final List<File> files) {
-        List<File> deleted = new ArrayList<File>(files.size());
+        List<File> deleted = new ArrayList<>(files.size());
 
         for (File file : files) {
             if (!repo.existsImageFile(file)) {

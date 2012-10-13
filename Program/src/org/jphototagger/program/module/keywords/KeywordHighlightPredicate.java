@@ -24,7 +24,7 @@ import org.openide.util.Lookup;
  */
 public final class KeywordHighlightPredicate implements HighlightPredicate {
 
-    private List<String> keywordsOfSelectedImage = new ArrayList<String>();
+    private List<String> keywordsOfSelectedImage = new ArrayList<>();
     private static final Highlighter HIGHLIGHTER = createHighlighter();
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 

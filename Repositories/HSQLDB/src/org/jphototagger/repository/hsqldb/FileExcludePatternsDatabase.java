@@ -138,7 +138,7 @@ final class FileExcludePatternsDatabase extends Database {
      * @return patterns
      */
     List<String> getAllFileExcludePatterns() {
-        List<String> patterns = new LinkedList<String>();
+        List<String> patterns = new LinkedList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -179,7 +179,7 @@ final class FileExcludePatternsDatabase extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            List<String> deletedFiles = new LinkedList<String>();
+            List<String> deletedFiles = new LinkedList<>();
             String sqlUpdate = "DELETE FROM files WHERE filename = ?";
             String sqlQuery = "SELECT filename FROM files";
             stmtQuery = con.createStatement();

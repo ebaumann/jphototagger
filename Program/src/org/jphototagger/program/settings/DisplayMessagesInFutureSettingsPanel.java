@@ -25,8 +25,8 @@ import org.openide.util.Lookup;
 public class DisplayMessagesInFutureSettingsPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private final Map<JCheckBox, String> keyOfCheckBox = new HashMap<JCheckBox, String>();
-    private final Map<String, JCheckBox> checkBoxOfKey = new HashMap<String, JCheckBox>();
+    private final Map<JCheckBox, String> keyOfCheckBox = new HashMap<>();
+    private final Map<String, JCheckBox> checkBoxOfKey = new HashMap<>();
     private boolean listenToCheckBox;
 
     public DisplayMessagesInFutureSettingsPanel() {
@@ -59,7 +59,7 @@ public class DisplayMessagesInFutureSettingsPanel extends javax.swing.JPanel {
     }
 
     private Collection<KeyInfo> lookupKeyInfos() {
-        Set<KeyInfo> keyInfos = new LinkedHashSet<KeyInfo>();
+        Set<KeyInfo> keyInfos = new LinkedHashSet<>();
         Collection<? extends DisplayMessageInFuturePreferencesKeys> allKeys =
                 Lookup.getDefault().lookupAll(DisplayMessageInFuturePreferencesKeys.class);
 

@@ -62,7 +62,7 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements Persiste
     }
 
     private <T extends Plugin> void addPluginEnableCheckBox(PluginManager<T> pluginManager, T plugin) {
-        ActionExcludePlugin<T> actionExcludePlugin = new ActionExcludePlugin<T>(pluginManager, plugin);
+        ActionExcludePlugin<T> actionExcludePlugin = new ActionExcludePlugin<>(pluginManager, plugin);
         JCheckBox checkBox = new JCheckBox(actionExcludePlugin);
 
         checkBox.setSelected(pluginManager.isEnabled(plugin));

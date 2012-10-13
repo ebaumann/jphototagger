@@ -275,7 +275,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void lookupMiscOptionPages() {
         List<OptionPageProvider> providers =
-                new ArrayList<OptionPageProvider>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
+                new ArrayList<>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
         Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         LayerUtil.logWarningIfNotUniquePositions(providers);
         for (OptionPageProvider provider : providers) {
@@ -321,7 +321,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxUseLongXmpSidecarFileNames = new javax.swing.JCheckBox();
         panelLogLevel = new javax.swing.JPanel();
         labelLogLevel = new javax.swing.JLabel();
-        comboBoxLogLevel = new javax.swing.JComboBox();
+        comboBoxLogLevel = new javax.swing.JComboBox<>();
         panelEditMetadata = new javax.swing.JPanel();
         panelMdTextAreasColumns = new javax.swing.JPanel();
         labelMdTextAreasColumnsPropmpt = new javax.swing.JLabel();
@@ -681,7 +681,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxDisplayWordsetsEditPanel;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JCheckBox checkBoxUseLongXmpSidecarFileNames;
-    private javax.swing.JComboBox comboBoxLogLevel;
+    private javax.swing.JComboBox<Object> comboBoxLogLevel;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
     private javax.swing.JLabel labelLogLevel;
     private javax.swing.JLabel labelMdTextAreasColumnsInfo;

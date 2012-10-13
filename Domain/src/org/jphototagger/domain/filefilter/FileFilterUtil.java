@@ -26,7 +26,7 @@ public final class FileFilterUtil {
         File[] filteredFiles = directory.listFiles(provider.getAcceptedImageFilesFileFilter());
         FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
         List<String> excludePatterns = repo.findAllFileExcludePatterns();
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
 
         if (filteredFiles != null) {
             for (int index = 0; index < filteredFiles.length; index++) {
@@ -46,7 +46,7 @@ public final class FileFilterUtil {
             throw new NullPointerException("directories == null");
         }
 
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
 
         for (File directory : directories) {
             files.addAll(getImageFilesOfDirectory(directory));
@@ -86,7 +86,7 @@ public final class FileFilterUtil {
             throw new NullPointerException("arbitraryFiles == null");
         }
 
-        List<File> imageFiles = new ArrayList<File>();
+        List<File> imageFiles = new ArrayList<>();
         AppFileFilterProvider provider = Lookup.getDefault().lookup(AppFileFilterProvider.class);
         FileFilter filter = provider.getAcceptedImageFilesFileFilter();
 
@@ -112,7 +112,7 @@ public final class FileFilterUtil {
             throw new NullPointerException("files == null");
         }
 
-        List<File> imageFiles = new ArrayList<File>(files.size());
+        List<File> imageFiles = new ArrayList<>(files.size());
 
         for (File file : files) {
             if (isImageFile(file)) {

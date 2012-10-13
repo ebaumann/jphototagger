@@ -39,11 +39,11 @@ public final class KeywordsSelectionController implements TreeSelectionListener 
     }
 
     private List<List<String>> getKeywordStringPaths() {
-        List<List<String>> keywordPaths = new ArrayList<List<String>>();
+        List<List<String>> keywordPaths = new ArrayList<>();
         List<List<Keyword>> hkwp = getKeywordPaths();
 
         for (List<Keyword> kws : hkwp) {
-            List<String> stringKeywords = new ArrayList<String>();
+            List<String> stringKeywords = new ArrayList<>();
 
             for (Keyword kw : kws) {
                 stringKeywords.add(kw.getName());
@@ -57,11 +57,11 @@ public final class KeywordsSelectionController implements TreeSelectionListener 
 
     private List<List<Keyword>> getKeywordPaths() {
         TreePath[] selPaths = GUI.getSelKeywordsTree().getSelectionPaths();
-        List<List<Keyword>> paths = new ArrayList<List<Keyword>>();
+        List<List<Keyword>> paths = new ArrayList<>();
 
         for (TreePath selPath : selPaths) {
             DefaultMutableTreeNode selNode = (DefaultMutableTreeNode) selPath.getLastPathComponent();
-            List<Keyword> kwPath = new ArrayList<Keyword>();
+            List<Keyword> kwPath = new ArrayList<>();
 
             for (Object userObject : selNode.getUserObjectPath()) {
                 if (userObject instanceof Keyword) {

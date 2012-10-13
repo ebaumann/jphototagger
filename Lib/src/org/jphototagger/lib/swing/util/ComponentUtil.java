@@ -55,7 +55,7 @@ public final class ComponentUtil {
      * @return frames with an icon or an empty list
      */
     public static List<Frame> findFramesWithIcons() {
-        List<Frame> frames = new ArrayList<Frame>();
+        List<Frame> frames = new ArrayList<>();
         Frame[] allFrames = Frame.getFrames();
 
         for (Frame frame : allFrames) {
@@ -101,7 +101,7 @@ public final class ComponentUtil {
             throw new NullPointerException("clazz == null");
         }
 
-        List<T> components = new ArrayList<T>();
+        List<T> components = new ArrayList<>();
 
         addAllOf(container, clazz, components);
 
@@ -137,7 +137,7 @@ public final class ComponentUtil {
         if (exclude == null) {
             throw new NullPointerException("exclude == null");
         }
-        List<T> components = new ArrayList<T>();
+        List<T> components = new ArrayList<>();
         addAllOfExclude(container, clazz, components, exclude);
         return components;
     }

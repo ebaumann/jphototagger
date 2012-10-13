@@ -43,7 +43,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
     private final DirectoryFilter directoryFilter;
     private final DefaultMutableTreeNode rootNode;
     private final JTree tree;
-    private final List<File> excludeRootDirectories = new ArrayList<File>();
+    private final List<File> excludeRootDirectories = new ArrayList<>();
     private final ScheduledExecutorService updateScheduler;
     private volatile boolean autoupdate;
 
@@ -107,7 +107,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
     private static List<File> getChildDirectories(DefaultMutableTreeNode node) {
         int childCount = node.getChildCount();
-        List<File> childFiles = new ArrayList<File>(childCount);
+        List<File> childFiles = new ArrayList<>(childCount);
         for (int i = 0; i < childCount; i++) {
             DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
             Object childNodeUserObject = childNode.getUserObject();
@@ -131,7 +131,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
     private int removeChildrenWithNotExistingFiles(DefaultMutableTreeNode parentNode) {
         int childCount = parentNode.getChildCount();
-        List<DefaultMutableTreeNode> nodesToRemove = new ArrayList<DefaultMutableTreeNode>();
+        List<DefaultMutableTreeNode> nodesToRemove = new ArrayList<>();
         for (int i = 0; i < childCount; i++) {
             DefaultMutableTreeNode child = (DefaultMutableTreeNode) parentNode.getChildAt(i);
             Object userObject = child.getUserObject();
@@ -228,7 +228,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
     private List<DefaultMutableTreeNode> getTreeRowNodes() {
         int rowCount = tree.getRowCount();
-        List<DefaultMutableTreeNode> nodes = new ArrayList<DefaultMutableTreeNode>(rowCount);
+        List<DefaultMutableTreeNode> nodes = new ArrayList<>(rowCount);
         for (int i = 0; i < rowCount; i++) {
             nodes.add((DefaultMutableTreeNode) tree.getPathForRow(i).getLastPathComponent());
         }

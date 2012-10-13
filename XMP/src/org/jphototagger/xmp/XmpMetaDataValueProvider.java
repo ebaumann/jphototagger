@@ -23,12 +23,12 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = MetaDataValueProvider.class)
 public final class XmpMetaDataValueProvider implements MetaDataValueProvider {
 
-    private static final List<MetaDataValue> XMP_META_DATA_VALUES = new LinkedList<MetaDataValue>(XmpMetaDataValues.get());
+    private static final List<MetaDataValue> XMP_META_DATA_VALUES = new LinkedList<>(XmpMetaDataValues.get());
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     @Override
     public Collection<MetaDataValue> getProvidedValues() {
-        return new ArrayList<MetaDataValue>(XMP_META_DATA_VALUES);
+        return new ArrayList<>(XMP_META_DATA_VALUES);
     }
 
     @Override
@@ -40,7 +40,7 @@ public final class XmpMetaDataValueProvider implements MetaDataValueProvider {
             if (xmp == null) {
                 return Collections.emptyList();
             }
-            List<MetaDataValueData> metaDataValueData = new ArrayList<MetaDataValueData>(XMP_META_DATA_VALUES.size());
+            List<MetaDataValueData> metaDataValueData = new ArrayList<>(XMP_META_DATA_VALUES.size());
             for (MetaDataValue metaDataValue : XMP_META_DATA_VALUES) {
                 Object value = xmp.getValue(metaDataValue);
                 if (value != null) {

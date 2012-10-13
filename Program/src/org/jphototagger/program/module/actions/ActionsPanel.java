@@ -27,7 +27,7 @@ import org.openide.util.Lookup;
 public final class ActionsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
     private final ProgramsListModel model = new ProgramsListModel(ProgramType.ACTION);
-    private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<ProgramExecutor>();
+    private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<>();
     private final ReorderListener reorderListener = new ProgramsUtil.ReorderListener(model);
     private final ActionsAfterRepoUpdatesRepository actionsAfterRepoUpdatesRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);

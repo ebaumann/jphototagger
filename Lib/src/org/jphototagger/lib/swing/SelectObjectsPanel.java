@@ -30,9 +30,9 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
 
     private static final long serialVersionUID = 1L;
     private static final String DELIM_SEL_INDICES = ",";
-    private final List<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
-    private final Map<JCheckBox, Object> objectOfCheckBox = new LinkedHashMap<JCheckBox, Object>();
-    private final Set<SelectionListener> listeners = new CopyOnWriteArraySet<SelectionListener>();
+    private final List<JCheckBox> checkBoxes = new ArrayList<>();
+    private final Map<JCheckBox, Object> objectOfCheckBox = new LinkedHashMap<>();
+    private final Set<SelectionListener> listeners = new CopyOnWriteArraySet<>();
     private String preferencesKeyForSelectedIndices;
     private int componentCount;
 
@@ -194,7 +194,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     public List<Object> getSelectedObjects() {
-        List<Object> selectedObjects = new ArrayList<Object>(objectOfCheckBox.size());
+        List<Object> selectedObjects = new ArrayList<>(objectOfCheckBox.size());
         for (JCheckBox checkBox : objectOfCheckBox.keySet()) {
             if (checkBox.isSelected()) {
                 selectedObjects.add(objectOfCheckBox.get(checkBox));

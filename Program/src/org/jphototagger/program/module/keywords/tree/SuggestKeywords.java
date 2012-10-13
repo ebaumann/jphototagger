@@ -24,19 +24,19 @@ public class SuggestKeywords implements Suggest {
         if (keywordName == null) {
             throw new NullPointerException("keywordName == null");
         }
-        List<String> parentKeywordNames = new ArrayList<String>();
+        List<String> parentKeywordNames = new ArrayList<>();
         Collection<Collection<Keyword>> parentKeywords = repo.findParentKeywords(keywordName, KeywordType.REAL_KEYWORD);
 
         parentKeywordNames.addAll(chooseParentKeywords(keywordName, toStringCollection(parentKeywords)));
 
-        return new HashSet<String>(parentKeywordNames);    // make them unique
+        return new HashSet<>(parentKeywordNames);    // make them unique
     }
 
     private Collection<Collection<String>> toStringCollection(Collection<Collection<Keyword>> keywordCollection) {
-        List<Collection<String>> strings = new ArrayList<Collection<String>>();
+        List<Collection<String>> strings = new ArrayList<>();
 
         for (Collection<Keyword> keywords : keywordCollection) {
-            List<String> keywordStrings = new ArrayList<String>(keywords.size());
+            List<String> keywordStrings = new ArrayList<>(keywords.size());
 
             for (Keyword keyword : keywords) {
                 keywordStrings.add(keyword.getName());
@@ -49,7 +49,7 @@ public class SuggestKeywords implements Suggest {
     }
 
     private Collection<String> chooseParentKeywords(String keywordName, Collection<Collection<String>> allParentKeywords) {
-        List<String> choosenParentKeywords = new ArrayList<String>();
+        List<String> choosenParentKeywords = new ArrayList<>();
         accepted = true;
         if (allParentKeywords.size() > 0) {
             PathSelectionDialog dlg = new PathSelectionDialog(allParentKeywords,

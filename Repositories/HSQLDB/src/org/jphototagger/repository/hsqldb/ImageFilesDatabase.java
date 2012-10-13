@@ -126,7 +126,7 @@ final class ImageFilesDatabase extends Database {
     }
 
     public List<File> getAllImageFiles() {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -1209,7 +1209,7 @@ final class ImageFilesDatabase extends Database {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-        List<FileXmp> list = new ArrayList<FileXmp>();
+        List<FileXmp> list = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -1382,7 +1382,7 @@ final class ImageFilesDatabase extends Database {
      * @return keywords or empty set
      */
     public Set<String> getNotReferencedDcSubjects() {
-        Set<String> dcSubjects = new LinkedHashSet<String>();
+        Set<String> dcSubjects = new LinkedHashSet<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -1433,7 +1433,7 @@ final class ImageFilesDatabase extends Database {
     }
 
     public Set<String> getAllDcSubjects() {
-        Set<String> dcSubjects = new LinkedHashSet<String>();
+        Set<String> dcSubjects = new LinkedHashSet<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -1459,7 +1459,7 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-        List<String> dcSubjects = new ArrayList<String>();
+        List<String> dcSubjects = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -1493,7 +1493,7 @@ final class ImageFilesDatabase extends Database {
         if (dcSubject == null) {
             throw new NullPointerException("dcSubject == null");
         }
-        Set<File> imageFiles = new LinkedHashSet<File>();
+        Set<File> imageFiles = new LinkedHashSet<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -1562,7 +1562,7 @@ final class ImageFilesDatabase extends Database {
         if (dcSubjects == null) {
             throw new NullPointerException("dcSubjects == null");
         }
-        Set<File> imageFiles = new LinkedHashSet<File>();
+        Set<File> imageFiles = new LinkedHashSet<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -1598,7 +1598,7 @@ final class ImageFilesDatabase extends Database {
         if (dcSubjects == null) {
             throw new NullPointerException("dcSubjects == null");
         }
-        Set<File> imageFiles = new LinkedHashSet<File>();
+        Set<File> imageFiles = new LinkedHashSet<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -1645,7 +1645,7 @@ final class ImageFilesDatabase extends Database {
         if (words == null) {
             throw new NullPointerException("words == null");
         }
-        Set<File> imageFiles = new LinkedHashSet<File>();
+        Set<File> imageFiles = new LinkedHashSet<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -1843,7 +1843,7 @@ final class ImageFilesDatabase extends Database {
      * @return image files taken on that date
      */
     public Set<File> getImageFilesOfDateTaken(int year, int month, int day) {
-        Set<File> files = new HashSet<File>();
+        Set<File> files = new HashSet<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -1931,7 +1931,7 @@ final class ImageFilesDatabase extends Database {
     }
 
     public List<File> getImageFilesOfUnknownDateTaken() {
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -1962,7 +1962,7 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-        Set<String> values = new LinkedHashSet<String>();
+        Set<String> values = new LinkedHashSet<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -2002,7 +2002,7 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -2043,7 +2043,7 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-        List<File> files = new ArrayList<File>();
+        List<File> files = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -2265,7 +2265,7 @@ final class ImageFilesDatabase extends Database {
         if (column == null) {
             throw new NullPointerException("column == null");
         }
-        List<File> imageFiles = new ArrayList<File>();
+        List<File> imageFiles = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -2318,7 +2318,7 @@ final class ImageFilesDatabase extends Database {
     }
 
     public Set<File> getAllThumbnailFiles() {
-        Set<File> tnFiles = new HashSet<File>();
+        Set<File> tnFiles = new HashSet<>();
         Connection con = null;
         Statement stmt = null;
         ResultSet rs = null;

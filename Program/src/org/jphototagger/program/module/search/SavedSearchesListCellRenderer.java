@@ -21,12 +21,10 @@ public final class SavedSearchesListCellRenderer extends DefaultListCellRenderer
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-            boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow = index == tempSelRow;
-
         label.setForeground((isTempSelRow || (isSelected && !tempSelExists))
                 ? AppLookAndFeel.getListSelectionForeground()
                 : AppLookAndFeel.getListForeground());
@@ -34,7 +32,6 @@ public final class SavedSearchesListCellRenderer extends DefaultListCellRenderer
                 ? AppLookAndFeel.getListSelectionBackground()
                 : AppLookAndFeel.getListBackground());
         label.setIcon(ICON);
-
         return label;
     }
 

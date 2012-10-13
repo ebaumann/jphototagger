@@ -9,10 +9,10 @@ import org.jphototagger.api.nodes.Node;
 /**
  * @author Elmar Baumann
  */
-public final class NodesListModel extends AbstractListModel {
+public final class NodesListModel extends AbstractListModel<Node> {
 
     private static final long serialVersionUID = 1L;
-    private final List<Node> nodes = new ArrayList<Node>();
+    private final List<Node> nodes = new ArrayList<>();
 
     public NodesListModel() {
     }
@@ -42,7 +42,7 @@ public final class NodesListModel extends AbstractListModel {
     }
 
     @Override
-    public Object getElementAt(int index) {
+    public Node getElementAt(int index) {
         return nodes.get(index);
     }
 }

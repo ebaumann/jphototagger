@@ -66,8 +66,8 @@ public class ImportImageFilesDialog extends Dialog {
     private File scriptFile;
     private Xmp xmp;
     private String lastChoosenScriptDir = "";
-    private final List<File> sourceFiles = new ArrayList<File>();
-    private Map<Integer, Component> panelOfSourceStrategyCbIndex = new HashMap<Integer, Component>();
+    private final List<File> sourceFiles = new ArrayList<>();
+    private Map<Integer, Component> panelOfSourceStrategyCbIndex = new HashMap<>();
     private Component currentPanelOfSourceStrategy;
     private boolean filesChoosed;
     private boolean accepted;
@@ -244,9 +244,9 @@ public class ImportImageFilesDialog extends Dialog {
 
     public List<File> getSourceFiles() {
         if (filesChoosed) {
-            return new ArrayList<File>(sourceFiles);
+            return new ArrayList<>(sourceFiles);
         } else {
-            List<File> sourceDirectoriesRecursive = new LinkedList<File>();
+            List<File> sourceDirectoriesRecursive = new LinkedList<>();
             sourceDirectoriesRecursive.add(sourceDirectory);
             sourceDirectoriesRecursive.addAll(FileUtil.getSubDirectoriesRecursive(sourceDirectory, null));
             return FileFilterUtil.getImageFilesOfDirectories(sourceDirectoriesRecursive);
@@ -520,7 +520,7 @@ public class ImportImageFilesDialog extends Dialog {
         }
     }
 
-    private static class ComboBoxModelSourceStrategy extends DefaultComboBoxModel {
+    private static class ComboBoxModelSourceStrategy extends DefaultComboBoxModel<Object> {
         private static final long serialVersionUID = 1L;
 
         private ComboBoxModelSourceStrategy() {
@@ -581,14 +581,14 @@ public class ImportImageFilesDialog extends Dialog {
         panelExpertSettingsFill = new javax.swing.JPanel();
         panelContent = new javax.swing.JPanel();
         panelSourceStrategy = new javax.swing.JPanel();
-        comboBoxSourceStrategy = new javax.swing.JComboBox();
+        comboBoxSourceStrategy = new javax.swing.JComboBox<>();
         checkBoxDeleteAfterCopy = new javax.swing.JCheckBox();
         panelTargetDir = new org.jdesktop.swingx.JXPanel();
         labelTargetDir = new javax.swing.JLabel();
         buttonChooseTargetDir = new javax.swing.JButton();
-        comboBoxSubdirectoryCreateStrategy = new javax.swing.JComboBox();
+        comboBoxSubdirectoryCreateStrategy = new javax.swing.JComboBox<>();
         panelFileRenameStrategy = new javax.swing.JPanel();
-        comboBoxFileRenameStrategy = new javax.swing.JComboBox();
+        comboBoxFileRenameStrategy = new javax.swing.JComboBox<>();
         buttonEditRenameTemplates = new javax.swing.JButton();
         panelDialogControlButtons = new org.jdesktop.swingx.JXPanel();
         buttonEditMetadata = new javax.swing.JButton();
@@ -1003,9 +1003,9 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JButton buttonOk;
     private javax.swing.JButton buttonRemoveScriptFile;
     private javax.swing.JCheckBox checkBoxDeleteAfterCopy;
-    private javax.swing.JComboBox comboBoxFileRenameStrategy;
-    private javax.swing.JComboBox comboBoxSourceStrategy;
-    private javax.swing.JComboBox comboBoxSubdirectoryCreateStrategy;
+    private javax.swing.JComboBox<Object> comboBoxFileRenameStrategy;
+    private javax.swing.JComboBox<Object> comboBoxSourceStrategy;
+    private javax.swing.JComboBox<Object> comboBoxSubdirectoryCreateStrategy;
     private javax.swing.JDialog dialogExpertSettings;
     private javax.swing.JLabel labelChoosenFiles;
     private javax.swing.JLabel labelScriptFileInfo;

@@ -24,7 +24,7 @@ public class ThumbnailCreatorSettingsDialog extends Dialog {
     }
 
     private void postInitComponents() {
-        List<ThumbnailCreator> creators = new ArrayList<ThumbnailCreator>(Lookup.getDefault().lookupAll(ThumbnailCreator.class));
+        List<ThumbnailCreator> creators = new ArrayList<>(Lookup.getDefault().lookupAll(ThumbnailCreator.class));
         Collections.sort(creators, PositionProviderAscendingComparator.INSTANCE);
         for (ThumbnailCreator creator : creators) {
             Component settingsComponent = creator.getSettingsComponent();

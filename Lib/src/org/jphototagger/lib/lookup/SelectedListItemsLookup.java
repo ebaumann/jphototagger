@@ -13,11 +13,10 @@ public final class SelectedListItemsLookup implements Lookup.Provider {
 
     private final ModifiableLookup lookup = new ModifiableLookup();
 
-    public SelectedListItemsLookup(JList list) {
+    public SelectedListItemsLookup(JList<?> list) {
         if (list == null) {
             throw new NullPointerException("list == null");
         }
-
         list.addListSelectionListener(listSelectionListener);
     }
     private final ListSelectionListener listSelectionListener = new ListSelectionListener() {

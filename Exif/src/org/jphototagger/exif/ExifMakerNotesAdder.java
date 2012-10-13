@@ -11,7 +11,7 @@ import org.jphototagger.exif.formatter.nikon.NikonMakerNotes;
  */
 public final class ExifMakerNotesAdder {
 
-    private static final Map<String, ExifMakerNotes> MAKER_NOTES_OF_MAKE = new HashMap<String, ExifMakerNotes>();
+    private static final Map<String, ExifMakerNotes> MAKER_NOTES_OF_MAKE = new HashMap<>();
 
     static {
         MAKER_NOTES_OF_MAKE.put("nikon", new NikonMakerNotes());

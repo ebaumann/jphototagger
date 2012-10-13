@@ -9,7 +9,7 @@ import java.util.List;
 public final class ParamStatement {
 
     private String sql;
-    private List<String> values = new ArrayList<String>();
+    private List<String> values = new ArrayList<>();
     private boolean query;
 
     public ParamStatement() {
@@ -29,7 +29,7 @@ public final class ParamStatement {
         }
 
         sql = stmt.sql;
-        values = new ArrayList<String>(stmt.values);
+        values = new ArrayList<>(stmt.values);
         query = stmt.query;
     }
 
@@ -46,7 +46,7 @@ public final class ParamStatement {
      * @return parameter values or empty list
      */
     public List<String> getValues() {
-        return new ArrayList<String>(values);
+        return new ArrayList<>(values);
     }
 
     /**
@@ -56,7 +56,7 @@ public final class ParamStatement {
     public void setValues(List<String> values) {
         this.values = (values == null)
                 ? new ArrayList<String>()
-                : new ArrayList<String>(values);
+                : new ArrayList<>(values);
     }
 
     public boolean hasValues() {

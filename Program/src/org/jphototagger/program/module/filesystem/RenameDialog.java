@@ -34,7 +34,7 @@ public final class RenameDialog extends Dialog {
     private final FilenameFormatArray filenameFormatArray;
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ThumbnailProvider thumbnailProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
-    private List<File> files = new ArrayList<File>();
+    private List<File> files = new ArrayList<>();
     private int fileIndex = 0;
     private boolean lockClose = false;
     private boolean cancel = false;
@@ -66,7 +66,7 @@ public final class RenameDialog extends Dialog {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-        this.files = new ArrayList<File>(imageFiles);
+        this.files = new ArrayList<>(imageFiles);
     }
 
     public synchronized void notifyFileSystemListeners(File fromImageFile, File toImageFile) {

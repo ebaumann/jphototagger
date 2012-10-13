@@ -74,7 +74,7 @@ public final class UserDefinedFileTypesExporter implements RepositoryDataExporte
 
         @XmlElementWrapper(name = "FileType")
         @XmlElement(type = UserDefinedFileType.class)
-        private final ArrayList<UserDefinedFileType> collection = new ArrayList<UserDefinedFileType>();
+        private final ArrayList<UserDefinedFileType> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -84,7 +84,7 @@ public final class UserDefinedFileTypesExporter implements RepositoryDataExporte
         }
 
         public List<UserDefinedFileType> getCollection() {
-            return new ArrayList<UserDefinedFileType>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

@@ -99,7 +99,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Title");
 
-        return createFileChooser(new HashSet<String>(filenames), fileDescription, fileChooserTitle);
+        return createFileChooser(new HashSet<>(filenames), fileDescription, fileChooserTitle);
     }
 
     private FileChooser createConvertFileChooser() {
@@ -107,7 +107,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
 
-        return createFileChooser(new HashSet<String>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
+        return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
     private FileChooser createMPlayerFileChooser() {
@@ -115,7 +115,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Title");
 
-        return createFileChooser(new HashSet<String>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
+        return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
     private FileChooser createFileChooser(Set<String> filenames, String fileDescription, String fileChooserTitle) {

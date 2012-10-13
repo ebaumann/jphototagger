@@ -17,7 +17,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann, Tobias Stening
  */
-public final class AutoscanDirectoriesListModel extends DefaultListModel {
+public final class AutoscanDirectoriesListModel extends DefaultListModel<Object> {
 
     private static final long serialVersionUID = 1L;
     private final AutoscanDirectoriesRepository autoscanDirsRepo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);

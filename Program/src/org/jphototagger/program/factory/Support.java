@@ -16,7 +16,7 @@ import org.openide.util.Lookup;
  */
 final class Support {
 
-    private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS = new HashMap<Class<?>, List<Object>>();
+    private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(Support.class.getName());
 
     @SuppressWarnings("unchecked")
@@ -37,7 +37,7 @@ final class Support {
         List<Object> instances = OBJECT_INSTANCES_OF_CLASS.get(instance.getClass());
 
         if (instances == null) {
-            instances = new ArrayList<Object>();
+            instances = new ArrayList<>();
             OBJECT_INSTANCES_OF_CLASS.put(instance.getClass(), instances);
         }
 

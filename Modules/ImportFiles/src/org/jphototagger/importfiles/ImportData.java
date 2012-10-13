@@ -31,7 +31,7 @@ public final class ImportData {
     }
 
     public List<File> getSourceFiles() {
-        return new LinkedList<File>(sourceFiles);
+        return new LinkedList<>(sourceFiles);
     }
 
     public File getTargetDirectory() {

@@ -31,7 +31,7 @@ import org.openide.util.Lookup;
 public class WarnOnEqualBasenamesTaskDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
-    private final DefaultListModel filesListModel;
+    private final DefaultListModel<Object> filesListModel;
     private boolean isDisplayInFuture;
     private boolean listenToDisplayInFutureCheckBox = false;
 
@@ -40,8 +40,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
-        filesListModel = new DefaultListModel();
+        filesListModel = new DefaultListModel<>();
         addFilesToListModel(files);
         initComponents();
         postInitComponents();

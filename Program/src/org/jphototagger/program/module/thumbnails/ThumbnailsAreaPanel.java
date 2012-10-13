@@ -256,9 +256,9 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         labelInfo = new javax.swing.JLabel();
         panelDisplayedThumbnailFilters = new javax.swing.JPanel();
         labelFileFilters = new javax.swing.JLabel();
-        fileFiltersComboBox = new javax.swing.JComboBox();
+        fileFiltersComboBox = new javax.swing.JComboBox<>();
         labelFileSort = new javax.swing.JLabel();
-        fileSortComboBox = new javax.swing.JComboBox();
+        fileSortComboBox = new javax.swing.JComboBox<>();
         thumbnailsPanelScrollPane = new javax.swing.JScrollPane();
         thumbnailsPanel = new org.jphototagger.program.module.thumbnails.ThumbnailsPanel();
 
@@ -327,11 +327,11 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         thumbnailsPanel.setLayout(thumbnailsPanelLayout);
         thumbnailsPanelLayout.setHorizontalGroup(
             thumbnailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 397, Short.MAX_VALUE)
+            .addGap(0, 398, Short.MAX_VALUE)
         );
         thumbnailsPanelLayout.setVerticalGroup(
             thumbnailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 263, Short.MAX_VALUE)
+            .addGap(0, 268, Short.MAX_VALUE)
         );
 
         thumbnailsPanelScrollPane.setViewportView(thumbnailsPanel);
@@ -345,8 +345,8 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         add(thumbnailsPanelScrollPane, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox fileFiltersComboBox;
-    private javax.swing.JComboBox fileSortComboBox;
+    private javax.swing.JComboBox<Object> fileFiltersComboBox;
+    private javax.swing.JComboBox<Object> fileSortComboBox;
     private javax.swing.JLabel labelFileFilters;
     private javax.swing.JLabel labelFileSort;
     private javax.swing.JLabel labelInfo;

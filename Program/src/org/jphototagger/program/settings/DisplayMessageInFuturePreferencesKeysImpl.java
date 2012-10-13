@@ -14,7 +14,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = DisplayMessageInFuturePreferencesKeys.class)
 public final class DisplayMessageInFuturePreferencesKeysImpl implements DisplayMessageInFuturePreferencesKeys {
 
-    private static final List<KeyInfo> KEY_INFOS = new ArrayList<KeyInfo>();
+    private static final List<KeyInfo> KEY_INFOS = new ArrayList<>();
 
     static {
         KEY_INFOS.add(new KeyInfo(AppPreferencesKeys.KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES,

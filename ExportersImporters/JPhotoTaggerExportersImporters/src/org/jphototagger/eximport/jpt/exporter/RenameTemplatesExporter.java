@@ -78,7 +78,7 @@ public final class RenameTemplatesExporter implements RepositoryDataExporter {
 
         @XmlElementWrapper(name = "RenameTemplates")
         @XmlElement(type = RenameTemplate.class)
-        private final ArrayList<RenameTemplate> collection = new ArrayList<RenameTemplate>();
+        private final ArrayList<RenameTemplate> collection = new ArrayList<>();
 
         public CollectionWrapper() {
         }
@@ -88,7 +88,7 @@ public final class RenameTemplatesExporter implements RepositoryDataExporter {
         }
 
         public List<RenameTemplate> getCollection() {
-            return new ArrayList<RenameTemplate>(collection);
+            return new ArrayList<>(collection);
         }
     }
 

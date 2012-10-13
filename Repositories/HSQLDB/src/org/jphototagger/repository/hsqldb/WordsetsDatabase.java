@@ -28,7 +28,7 @@ final class WordsetsDatabase extends Database {
     private static final Logger LOGGER = Logger.getLogger(WordsetsDatabase.class.getName());
 
     List<Wordset> findAll() {
-        List<Wordset> wordsets = new LinkedList<Wordset>();
+        List<Wordset> wordsets = new LinkedList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         try {
@@ -122,7 +122,7 @@ final class WordsetsDatabase extends Database {
     }
 
     List<String> findAllWordsetNames() {
-        List<String> wordsetNames = new LinkedList<String>();
+        List<String> wordsetNames = new LinkedList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         try {
@@ -146,7 +146,7 @@ final class WordsetsDatabase extends Database {
 
     private List<String> findWordsOfWordset(Connection con, long wordsetsId) throws SQLException {
         PreparedStatement stmt = null;
-        List<String> words = new ArrayList<String>();
+        List<String> words = new ArrayList<>();
         try {
             String sql = "SELECT word FROM wordsets_words WHERE id_wordsets = ? ORDER BY word_order ASC";
             stmt = con.prepareStatement(sql);

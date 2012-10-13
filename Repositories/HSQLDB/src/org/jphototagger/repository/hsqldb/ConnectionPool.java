@@ -99,8 +99,8 @@ public final class ConnectionPool implements Runnable {
         username = "sa";
         password = "";
         waitIfBusy = true;
-        busyConnections = new LinkedList<Connection>();
-        availableConnections = new LinkedList<Connection>();
+        busyConnections = new LinkedList<>();
+        availableConnections = new LinkedList<>();
 
         for (int i = 0; i < INITIAL_CONNECTIONS; i++) {
             availableConnections.add(makeNewConnection());
@@ -277,9 +277,9 @@ public final class ConnectionPool implements Runnable {
         assert init;
 
         closeConnections(availableConnections);
-        availableConnections = new LinkedList<Connection>();
+        availableConnections = new LinkedList<>();
         closeConnections(busyConnections);
-        busyConnections = new LinkedList<Connection>();
+        busyConnections = new LinkedList<>();
     }
 
     /**

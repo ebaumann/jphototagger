@@ -36,7 +36,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_TARGET_DIRECTORY = "org.jphototagger.program.view.dialogs.MoveFilesToDirectoryDialog.TargetDirectory";
-    private final List<File> movedFiles = new ArrayList<File>();
+    private final List<File> movedFiles = new ArrayList<>();
     private final transient ProgressListenerSupport pListenerSupport = new ProgressListenerSupport();
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private transient FileSystemMove fileSystemMove;
@@ -80,7 +80,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
     }
 
     private void addXmpFiles() {
-        List<File> xmpFiles = new ArrayList<File>();
+        List<File> xmpFiles = new ArrayList<>();
         for (File sourceFile : sourceFiles) {
             File xmpFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(sourceFile);
             if (xmpFile != null) {
@@ -173,7 +173,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         if (sourceFiles == null) {
             throw new NullPointerException("sourceFiles == null");
         }
-        this.sourceFiles = new ArrayList<File>(sourceFiles);
+        this.sourceFiles = new ArrayList<>(sourceFiles);
         addXmpFiles();
         Collections.sort(this.sourceFiles);
     }
