@@ -6,6 +6,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.26.3 2012-10-13
 -----------------
 
+* Java 7 (1.7) ist nun Voraussetzung für JPhotoTagger
+* Skripte, die ImageMagick nutzen, akzeptieren zusätzlich DNG-Dateien und
+  TIFF-Dateien mit der Endung ".tiff"
 * Anzeige des Fehlernachrichten-Icons im Programmfenster unten kann für
   ausgewählte Nachrichten deaktiviert werden: Bearbeiten > Einstellungen >
   Sonstiges > Protokoll > Ausschließen

@@ -36,7 +36,8 @@ temp_video_filename="$temp_dir/00000001.jpg"
 MIN_LENGTH=50
 
 # File name suffixes of non RAW files
-not_raw_filename_suffixes="gif
+not_raw_filename_suffixes="dng
+gif
 jpeg
 jpg
 png

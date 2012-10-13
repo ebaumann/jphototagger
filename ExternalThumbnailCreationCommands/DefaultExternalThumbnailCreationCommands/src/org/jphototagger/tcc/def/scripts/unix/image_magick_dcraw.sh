@@ -31,7 +31,8 @@ temp_filename=$temp_dir/$(basename $0).$$.ppm
 MIN_LENGTH=50
 
 # Endungen aller Dateinamen, die keine RAW-Datei benennen
-not_raw_filename_suffixes="gif
+not_raw_filename_suffixes="dng
+gif
 jpeg
 jpg
 png
