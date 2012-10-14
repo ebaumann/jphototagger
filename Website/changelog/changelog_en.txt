@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.26.4 2012-10-14
+-----------------
+
+* Reading of EXIF metadata can be suppressed for files with specific suffixes:
+  Edit > Settigns > Miscellaneous > EXIF > Exclude
+
 0.26.3 2012-10-13
 -----------------
 

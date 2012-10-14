@@ -1,6 +1,7 @@
 package org.jphototagger.exif;
 
 import java.io.File;
+import java.util.Collection;
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.exif.ExifReader;
 import org.openide.util.lookup.ServiceProvider;
@@ -30,5 +31,10 @@ public final class DefaultExifReader implements ExifReader {
     @Override
     public boolean canReadExif(File file) {
         return DefaultExifSupport.INSTANCE.canReadExif(file);
+    }
+
+    @Override
+    public Collection<? extends String> getExludeFilenameSuffixes() {
+        return DefaultExifSupport.getExludeFilenameSuffixes();
     }
 }
