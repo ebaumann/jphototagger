@@ -29,7 +29,7 @@ public final class OptionPageProviderImpl implements OptionPageProvider {
 
     @Override
     public int getPosition() {
-        return 10;
+        return 5000;
     }
 
     @Override
