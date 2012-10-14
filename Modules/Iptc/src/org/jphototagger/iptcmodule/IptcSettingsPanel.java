@@ -43,14 +43,12 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     private void setSelectedIptcCharsetToPreferences() {
         String charset = comboBoxIptcCharset.getSelectedItem().toString();
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
         preferences.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
     }
 
     private void setIptcCharsetFromPreferences() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String charset = prefs.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
-
         String iptcCharSet = charset.isEmpty()
                 ? "ISO-8859-1"
                 : charset;
@@ -69,17 +67,14 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     private void setDisplayIptcToPreferences() {
         boolean display = checkBoxDisplayIptc.isSelected();
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
         preferences.setBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC, display);
     }
 
     private void setDisplayIptcFromPreferences() {
         Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
         boolean isPreferred = preferences.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
                 ? preferences.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
                 : false;
-
         checkBoxDisplayIptc.setSelected(isPreferred);
     }
 
@@ -105,7 +100,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
 
     @Override
     public int getPosition() {
-        return 1;
+        return 100;
     }
 
     /** This method is called from within the constructor to
