@@ -604,6 +604,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
         labelSearch.setText(bundle.getString("TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
 
+        textFieldSearch.setColumns(10);
         textFieldSearch.setName("textFieldSearch"); // NOI18N
 
         scrollPane.setName("scrollPane"); // NOI18N
