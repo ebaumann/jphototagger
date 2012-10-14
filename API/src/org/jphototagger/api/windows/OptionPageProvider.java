@@ -13,6 +13,9 @@ public interface OptionPageProvider extends PositionProvider {
 
     String getTitle();
 
+    /**
+     * @return Icon or null
+     */
     Icon getIcon();
 
     boolean isMiscOptionPage();
