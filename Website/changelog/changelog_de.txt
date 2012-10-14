@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.26.4 2012-10-14
+-----------------
+
+* Das Lesen von EXIF-Metadaten kann unterbunden werden für bestimmte
+  Datei-Endungen: Bearbeiten > Einstellungen > Sonstiges > EXIF > Ausschließen
+
 0.26.3 2012-10-13
 -----------------
 
