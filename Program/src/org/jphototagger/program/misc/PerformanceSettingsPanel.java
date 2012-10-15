@@ -140,7 +140,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         return prefs.containsKey(PreferencesKeys.KEY_AUTOSCAN_DIRECTORIES)
                 ? prefs.getBoolean(PreferencesKeys.KEY_AUTOSCAN_DIRECTORIES)
-                : true;
+                : false;
     }
 
     /**
