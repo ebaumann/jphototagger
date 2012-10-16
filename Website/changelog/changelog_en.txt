@@ -3,6 +3,17 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+.. 2012--
+-----------------
+
+* The filesystem will be watched only if set:
+  Edit > Settings > 4. Performance: Watch file system.
+  If not watched, added or renamed folders will not
+  appear or deleted not disappear if the changes
+  did occur outside JPhotoTagger. Affected are the
+  tabs Folders and Favorites and the directory (folder)
+  chooser.
+
 0.26.4 2012-10-14
 -----------------
 
