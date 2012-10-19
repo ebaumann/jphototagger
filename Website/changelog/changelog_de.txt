@@ -6,6 +6,9 @@ Changelog JPhotoTagger http://jphototagger.org/
 .. 2012--
 -----------------
 
+* Bugfix: Export/Import von Fotoalben: Fehler beim Import. Bislang
+  exportierte Fotoalben erzeugen einen Fehler, deshalb erneut
+  exportieren.
 * Das Dateisystem wirden nur noch überwacht, falls eingestellt:
   Bearbeiten > Einstellungen > 4. Leistung: Dateisystem überwachen.
   Wird das Dateisystem nicht überwacht, ist F5 zu drücken, damit
