@@ -37,7 +37,7 @@ public final class ImageCollection {
     }
 
     @XmlElementWrapper(name = "Filenames")
-    @XmlElement(type = String.class)
+    @XmlElement(type = File.class)
     private List<File> imageFiles;
     private String name;
 

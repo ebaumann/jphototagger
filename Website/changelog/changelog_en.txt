@@ -6,6 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 .. 2012--
 -----------------
 
+* Bugfix: Export/Import of photo albums. Previous exported
+  albums can't be imported, please export them again.
 * The filesystem will be watched only if set:
   Edit > Settings > 4. Performance: Watch file system.
   If not watched, added or renamed folders will not
