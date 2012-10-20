@@ -3,9 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-.. 2012--
+0.26.5 2012-10-20
 -----------------
 
+* New Setting: Edit > Preferences > Miscellaneous > Miscellaneous:
+  Enable deleting folders
 * Bugfix: Export/Import of photo albums. Previous exported
   albums can't be imported, please export them again.
 * The filesystem will be watched only if set:
@@ -43,7 +45,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Programs for opening images recognizing Mac OS X applicatins (Suffix ".app")
 * Bugfix: Excluding a root folder within the folders tab is possible
 
-  0.26.0 2012-07-05
+0.26.0 2012-07-05
 -----------------
 
 * Tab EXIF displays two new values:

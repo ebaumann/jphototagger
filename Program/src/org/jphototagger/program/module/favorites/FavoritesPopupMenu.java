@@ -6,10 +6,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.tree.TreePath;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.openide.util.Lookup;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -117,6 +123,8 @@ public final class FavoritesPopupMenu extends JPopupMenu {
     private void init() {
         addItems();
         setAccelerators();
+        setItemsEnabled();
+        listen();
     }
 
     private void addItems() {
@@ -148,5 +156,28 @@ public final class FavoritesPopupMenu extends JPopupMenu {
         itemDeleteFilesystemFolder.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_DELETE));
         itemRenameFilesystemFolder.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F2));
         itemRefresh.setAccelerator(KeyEventUtil.getKeyStroke(KeyEvent.VK_F5));
+    }
+
+    private void setItemsEnabled() {
+        setDeleteDirectoryEnabled();
+    }
+
+    private void listen() {
+        AnnotationProcessor.process(this);
+    }
+
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void preferencesChanged(PreferencesChangedEvent e) {
+        if (PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES.equals(e.getKey())) {
+            setDeleteDirectoryEnabled();
+        }
+    }
+
+    private void setDeleteDirectoryEnabled() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        boolean enabled = prefs != null && prefs.containsKey(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES)
+                ? prefs.getBoolean(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES)
+                : true;
+        itemDeleteFilesystemFolder.setEnabled(enabled);
     }
 }

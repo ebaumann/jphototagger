@@ -7,11 +7,15 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreePath;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.filesystem.FileSystemDirectories;
 import org.jphototagger.program.resource.GUI;
+import org.openide.util.Lookup;
 
 /**
  * Listens to {@code FavoritesPopupMenu#getItemDeleteFilesystemFolder()} and
@@ -36,10 +40,8 @@ public final class DeleteFilesystemFolderFromFavoritesController implements Acti
     @Override
     public void keyPressed(KeyEvent evt) {
         JTree tree = GUI.getFavoritesTree();
-
         if ((evt.getKeyCode() == KeyEvent.VK_DELETE) && !tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
-
             if (node instanceof DefaultMutableTreeNode) {
                 deleteDirectory((DefaultMutableTreeNode) node);
             }
@@ -52,23 +54,32 @@ public final class DeleteFilesystemFolderFromFavoritesController implements Acti
 
             @Override
             public void run() {
-                deleteDirectory(
-                        TreeFileSystemDirectories.getNodeOfLastPathComponent(FavoritesPopupMenu.INSTANCE.getTreePath()));
+                TreePath treePath = FavoritesPopupMenu.INSTANCE.getTreePath();
+                deleteDirectory(TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath));
             }
         });
     }
 
     private void deleteDirectory(DefaultMutableTreeNode node) {
+        if (!isDeleteDirectoriesEnabled()) {
+            return;
+        }
         File dir = (node == null)
                 ? null
                 : TreeFileSystemDirectories.getFile(node);
-
         if (dir != null) {
             if (FileSystemDirectories.delete(dir)) {
-                TreeFileSystemDirectories.removeFromTreeModel(ModelFactory.INSTANCE.getModel(FavoritesTreeModel.class),
-                        node);
+                FavoritesTreeModel model = ModelFactory.INSTANCE.getModel(FavoritesTreeModel.class);
+                TreeFileSystemDirectories.removeFromTreeModel(model, node);
             }
         }
+    }
+
+    static boolean isDeleteDirectoriesEnabled() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs.containsKey(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES)
+                ? prefs.getBoolean(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES)
+                : true;
     }
 
     @Override

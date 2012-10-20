@@ -63,7 +63,7 @@ public final class FavoritesMouseListener extends TreeMouseListener {
             popupMenu.getItemOpenInFolders().setEnabled(isFavorite || isDirectory);
             popupMenu.getItemAddFilesystemFolder().setEnabled(isFavorite || isDirectory);
             popupMenu.getItemRenameFilesystemFolder().setEnabled(isDirectory);
-            popupMenu.getItemDeleteFilesystemFolder().setEnabled(isDirectory);
+            popupMenu.getItemDeleteFilesystemFolder().setEnabled(isDirectory && DeleteFilesystemFolderFromFavoritesController.isDeleteDirectoriesEnabled());
             popupMenu.show((JTree) evt.getSource(), evt.getX(), evt.getY());
         }
     }
