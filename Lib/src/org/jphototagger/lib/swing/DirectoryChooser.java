@@ -253,10 +253,17 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     @Override
     public void popupMenuWillBecomeVisible(PopupMenuEvent evt) {
         Object node = tree.getLastSelectedPathComponent();
-        boolean allDirOptions = allDirActionsPossible();
+        boolean allDirOptionsPossible = allDirActionsPossible();
         menuItemAdd.setEnabled(!isWorkspace(node));
-        menuItemDelete.setEnabled(allDirOptions);
-        menuItemRename.setEnabled(allDirOptions);
+        menuItemDelete.setEnabled(allDirOptionsPossible && isDeleteDirectoriesEnabled());
+        menuItemRename.setEnabled(allDirOptionsPossible);
+    }
+
+    private boolean isDeleteDirectoriesEnabled() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return prefs != null && prefs.containsKey(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES)
+                ? prefs.getBoolean(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES)
+                : true;
     }
 
     @Override
@@ -272,12 +279,12 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
         Object node = tree.getLastSelectedPathComponent();
-        boolean allDirActions = allDirActionsPossible();
+        boolean allDirActionsPossible = allDirActionsPossible();
         boolean isWorkspace = isWorkspace(node);
         buttonAdd.setEnabled(!isWorkspace);
         buttonChoose.setEnabled(!isWorkspace);
-        buttonDelete.setEnabled(allDirActions);
-        buttonRename.setEnabled(allDirActions);
+        buttonDelete.setEnabled(allDirActionsPossible && isDeleteDirectoriesEnabled());
+        buttonRename.setEnabled(allDirActionsPossible);
     }
 
     private boolean allDirActionsPossible() {

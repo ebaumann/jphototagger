@@ -3,9 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-.. 2012--
+0.26.5 2012-10-20
 -----------------
 
+* Neue Einstellung: Bearbeiten > Einstellungen > 6. Sonstiges > Verschiedenes:
+  Löschen von Ordnern ermöglichen
 * Bugfix: Export/Import von Fotoalben: Fehler beim Import. Bislang
   exportierte Fotoalben erzeugen einen Fehler, deshalb erneut
   exportieren.

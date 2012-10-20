@@ -15,6 +15,7 @@ import org.jphototagger.api.file.CopyMoveFilesOptions;
 import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
@@ -88,6 +89,16 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void setAcceptHiddenDirectories(boolean accept) {
         prefs.setBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES, accept);
+    }
+
+    private boolean isDeleteDirectoriesEnabled() {
+        return prefs.containsKey(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES)
+                ? prefs.getBoolean(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES)
+                : true;
+    }
+
+    private void setDeleteDirectoriesEnabled() {
+        prefs.setBoolean(PreferencesKeys.KEY_ENABLE_DELETE_DIRECTORIES, checkBoxEnableDeleteDirectories.isSelected());
     }
 
     private void chooseRepositoryDirectory() {
@@ -197,6 +208,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxCheckForUpdates.setSelected(isCheckForUpdates());
         checkBoxDisplaySearchButton.setSelected(isDisplaySearchButton());
         checkBoxIsAcceptHiddenDirectories.setSelected(isAcceptHiddenDirectories());
+        checkBoxEnableDeleteDirectories.setSelected(isDeleteDirectoriesEnabled());
         checkBoxDisplayWordsetsEditPanel.setSelected(WordsetPreferences.isDisplayWordsetsEditPanel());
         labelRepositoryDirectory.setText(provider.getFileRepositoryDirectory().getAbsolutePath());
         radioButtonCopyMoveFileConfirmOverwrite.setSelected(getCopyMoveFilesOptions().equals(CopyMoveFilesOptions.CONFIRM_OVERWRITE));
@@ -303,6 +315,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         tabbedPane = new javax.swing.JTabbedPane();
         panelDefault = new javax.swing.JPanel();
         checkBoxIsAcceptHiddenDirectories = new javax.swing.JCheckBox();
+        checkBoxEnableDeleteDirectories = new javax.swing.JCheckBox();
         panelCheckForUpdates = new javax.swing.JPanel();
         checkBoxCheckForUpdates = new javax.swing.JCheckBox();
         checkBoxDisplaySearchButton = new javax.swing.JCheckBox();
@@ -340,6 +353,18 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         panelDefault.add(checkBoxIsAcceptHiddenDirectories, gridBagConstraints);
+
+        checkBoxEnableDeleteDirectories.setText(bundle.getString("MiscSettingsPanel.checkBoxEnableDeleteDirectories.text")); // NOI18N
+        checkBoxEnableDeleteDirectories.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxEnableDeleteDirectoriesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        panelDefault.add(checkBoxEnableDeleteDirectories, gridBagConstraints);
 
         panelCheckForUpdates.setLayout(new java.awt.GridBagLayout());
 
@@ -573,14 +598,14 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                .addComponent(tabbedPane)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }//GEN-END:initComponents
@@ -626,6 +651,10 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         persistMdTextAreasColumns();
     }//GEN-LAST:event_spinnerMdTextAreasColumnsStateChanged
 
+    private void checkBoxEnableDeleteDirectoriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxEnableDeleteDirectoriesActionPerformed
+        setDeleteDirectoriesEnabled();
+    }//GEN-LAST:event_checkBoxEnableDeleteDirectoriesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseRepositoryDirectory;
     private javax.swing.ButtonGroup buttonGroupCopyMoveFiles;
@@ -633,6 +662,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private javax.swing.JCheckBox checkBoxCheckForUpdates;
     private javax.swing.JCheckBox checkBoxDisplaySearchButton;
     private javax.swing.JCheckBox checkBoxDisplayWordsetsEditPanel;
+    private javax.swing.JCheckBox checkBoxEnableDeleteDirectories;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JCheckBox checkBoxUseLongXmpSidecarFileNames;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
