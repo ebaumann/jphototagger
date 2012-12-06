@@ -1,0 +1,1 @@
+JPhotoTagger requires Java (JRE) 7 (1.7) or higher. If Java is not installed on your Computer, you can download it (for free) at http://www.java.com
