@@ -2,6 +2,7 @@ package org.jphototagger.lib.io;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,8 +17,7 @@ import org.jphototagger.lib.util.SystemProperties;
 public final class IoUtil {
 
     /**
-     * Catches IOException.
-     *
+     * Catches IOExceptions thrown while closing.
      * @param closable maybe null
      */
     public static void close(Closeable closable) {
@@ -36,9 +36,11 @@ public final class IoUtil {
      * @throws IOException
      */
     public static String getTextResource(String path) throws IOException {
+        if (path == null) {
+            throw new NullPointerException("path == null");
+        }
         BufferedReader br = null;
         String newline = SystemProperties.getLineSeparator();
-
         try {
             InputStream is = IoUtil.class.getResourceAsStream(path);
             InputStreamReader isr = new InputStreamReader(is);
@@ -75,6 +77,42 @@ public final class IoUtil {
             if (Thread.interrupted()) {
                 throw new InterruptedException();
             }
+        }
+    }
+
+    /**
+     * @param is1 will be closed
+     * @param is2 will be closed
+     * @return true if all bytes equals
+     * @throws IOException
+     */
+    public static boolean contentEquals(InputStream is1, InputStream is2) throws IOException {
+        // Original from http://stackoverflow.com/questions/4245863/fast-way-to-compare-inputstreams, partly modified
+        // Alternative: org.apache.commons.io.IOUtils#contentEquals(): http://svn.apache.org/repos/asf/commons/proper/io/trunk/src/main/java/org/apache/commons/io/IOUtils.java
+        if (is1 == null) {
+            throw new NullPointerException("is1 == null");
+        }
+        if (is2 == null) {
+            throw new NullPointerException("is2 == null");
+        }
+        int bufSize = 64 * 1024;
+        byte[] buf1 = new byte[bufSize];
+        byte[] buf2 = new byte[bufSize];
+        try {
+            DataInputStream d2 = new DataInputStream(is2);
+            int len;
+            while ((len = is1.read(buf1)) > 0) {
+                d2.readFully(buf2, 0, len);
+                for (int i = 0; i < len; i++) {
+                    if (buf1[i] != buf2[i]) {
+                        return false;
+                    }
+                }
+            }
+            return d2.read() < 0; // is the end of the second file also.
+        } finally {
+            is1.close();
+            is2.close();
         }
     }
 
