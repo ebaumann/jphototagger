@@ -165,7 +165,9 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
             }
             for (ThumbnailCreator tnCreator : tnCreators) {
                 for (String filenameSuffix : tnCreator.getAllSupportedFileTypeSuffixes()) {
-                    filenameSuffixes.add(filenameSuffix);
+                    if (!filenameSuffixes.contains(filenameSuffix)) {
+                        filenameSuffixes.add(filenameSuffix);
+                    }
                 }
             }
             Collections.sort(filenameSuffixes);
