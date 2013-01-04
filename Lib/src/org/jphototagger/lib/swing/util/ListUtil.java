@@ -4,7 +4,9 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
@@ -394,5 +396,31 @@ public final class ListUtil {
             listIndices.add(listIndex);
         }
         return listIndices;
+    }
+
+    public static <E> List<E> getElements(DefaultListModel<E> model) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+        List<E> elements = new ArrayList<>(model.size());
+        for (Enumeration<E> e = model.elements(); e.hasMoreElements();) {
+            elements.add(e.nextElement());
+        }
+        return elements;
+    }
+
+    public static <E> void sort(DefaultListModel<E> model, Comparator<E> comp) {
+        if (model == null) {
+            throw new NullPointerException("model == null");
+        }
+        if (comp == null) {
+            throw new NullPointerException("comp == null");
+        }
+        List<E> elements = getElements(model);
+        Collections.sort(elements, comp);
+        model.clear();
+        for (E element : elements) {
+            model.addElement(element);
+        }
     }
 }
