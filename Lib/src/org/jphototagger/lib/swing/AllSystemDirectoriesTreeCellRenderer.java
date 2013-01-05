@@ -22,7 +22,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellRenderer {
 
     private static final long serialVersionUID = 1L;
-    private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
     private Icon rootIcon = IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_workspace.png");
     private static final String DISPLAY_NAME_ROOT = Bundle.getString(AllSystemDirectoriesTreeCellRenderer.class, "AllSystemDirectoriesTreeCellRenderer.DisplayName.Root");
     private int tempSelRow = -1;
@@ -51,9 +51,9 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
             }
 
             if ((file != null) && file.exists()) {
-                synchronized (fileSystemView) {
+                synchronized (FILE_SYSTEM_VIEW) {
                     try {
-                        setIcon(fileSystemView.getSystemIcon(file));
+                        setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                     } catch (Exception ex) {
                         Logger.getLogger(AllSystemDirectoriesTreeCellRenderer.class.getName()).log(Level.WARNING, null,
                                 ex);
