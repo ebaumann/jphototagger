@@ -15,7 +15,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public class FileSystemViewListCellRenderer implements ListCellRenderer<File> {
 
-    private static final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
+    private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
     private final DefaultListCellRenderer delegate = new DefaultListCellRenderer();
     private final boolean onlyFilename;
 
@@ -40,9 +40,9 @@ public class FileSystemViewListCellRenderer implements ListCellRenderer<File> {
                 ? file.getName()
                 : file.getAbsolutePath());
         if (file != null && file.exists()) {
-            synchronized (fileSystemView) {
+            synchronized (FILE_SYSTEM_VIEW) {
                 try {
-                    label.setIcon(fileSystemView.getSystemIcon(file));
+                    label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                 } catch (Exception ex) {
                     Logger.getLogger(FileSystemViewListCellRenderer.class.getName()).log(Level.WARNING, null, ex);
                 }
