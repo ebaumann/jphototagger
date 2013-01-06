@@ -127,7 +127,7 @@ public class FindDuplicatesDialog extends Dialog {
         private void add(File dir) {
             if (dir.isDirectory() && !delegate.contains(dir)) {
                 delegate.addElement(dir);
-                ListUtil.sort(delegate, dirSortComparator);
+                ListUtil.sort(delegate, DIR_SORT_COMPARATOR);
             }
         }
 
@@ -149,15 +149,15 @@ public class FindDuplicatesDialog extends Dialog {
         }
     }
 
-    private static final Comparator<File> dirSortComparator = new Comparator<File>() {
+    private static final Comparator<File> DIR_SORT_COMPARATOR = new Comparator<File>() {
 
         private final Comparator<String> delegate = String.CASE_INSENSITIVE_ORDER;
 
         @Override
         public int compare(File o1, File o2) {
-            String name1 = o1.getName();
-            String name2 = o2.getName();
-            return delegate.compare(name1, name2);
+            String pathname1 = o1.getAbsolutePath();
+            String pathname2 = o2.getAbsolutePath();
+            return delegate.compare(pathname1, pathname2);
         }
     };
 
