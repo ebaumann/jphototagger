@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.27.0 2013-01-07
+-----------------
+
+* Neu im Programmfenster-Menü: Werkzeuge > Doppelte Bilder finden
+
 0.26.5 2012-10-20
 -----------------
 

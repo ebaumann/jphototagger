@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.27.0 2013-01-07
+-----------------
+
+* New in program window menu: Tools > Find duplicate images
+
 0.26.5 2012-10-20
 -----------------
 
