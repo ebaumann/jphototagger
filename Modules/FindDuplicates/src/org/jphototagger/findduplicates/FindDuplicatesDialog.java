@@ -1,25 +1,38 @@
 package org.jphototagger.findduplicates;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultListModel;
+import javax.swing.JPanel;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.FileSystemViewListCellRenderer;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -37,8 +50,11 @@ public class FindDuplicatesDialog extends Dialog {
     private static final String KEY_COMPARE_ONLY_EQUAL_FILENAMES = "FindDuplicatesDialog.CompareOnlyEqualFilenames";
     private static final String KEY_COMPARE_ONLY_EQUAL_DATES = "FindDuplicatesDialog.CompareOnlyEqualDates";
     private static final String KEY_DIR_CHOOSER_START_DIRECTORY = "FindDuplicatesDialog.DirChooserStartDir";
+    private static final Logger LOGGER = Logger.getLogger(FindDuplicatesDialog.class.getName());
+    private static final long serialVersionUID = 1L;
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private final SourceDirectoriesListModel sourceDirectoriesListModel = new SourceDirectoriesListModel();
+    private final FileDuplicatesPanel panelFileDuplicates = new FileDuplicatesPanel();
 
     FindDuplicatesDialog() {
         super(ComponentUtil.findFrameWithIcon(), false);
@@ -49,7 +65,24 @@ public class FindDuplicatesDialog extends Dialog {
     private void postInitComponents() {
         buttonRemoveSourceDirectories.setAction(new RemoveSelectedSourceDirsAction());
         buttonSearch.setAction(new SearchAction());
+        buttonDeleteSelectedFiles.setAction(new DeleteSelectedFilesAction());
+        addFileDuplicatesPanel();
         MnemonicUtil.setMnemonics(this);
+    }
+
+    private void addFileDuplicatesPanel() {
+        JPanel panel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.NORTHWEST;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.weightx = 1.0;
+        panel.add(panelFileDuplicates, gbc);
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.weighty = 1.0;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.gridheight = GridBagConstraints.REMAINDER;
+        panel.add(new JPanel(), gbc); // Fill panel
+        scrollPaneResult.setViewportView(panel);
     }
 
     @Override
@@ -187,7 +220,9 @@ public class FindDuplicatesDialog extends Dialog {
 
     private class RemoveSelectedSourceDirsAction extends AbstractAction implements ListSelectionListener, KeyListener {
 
-        public RemoveSelectedSourceDirsAction() {
+        private static final long serialVersionUID = 1L;
+
+        private RemoveSelectedSourceDirsAction() {
             init();
         }
 
@@ -235,34 +270,60 @@ public class FindDuplicatesDialog extends Dialog {
         }
     }
 
-    private class SearchAction extends AbstractAction implements ListDataListener {
+    private class SearchAction extends AbstractAction implements FileDuplicatesListener, ListDataListener {
 
+        private static final long serialVersionUID = 1L;
+        private boolean listen = true;
         private final String START_SEARCH_NAME = Bundle.getString(FindDuplicatesAction.class, "FindDuplicatesDialog.SearchAction.Name.StartSearch");
         private final String CANCEL_SEARCH_NAME = Bundle.getString(FindDuplicatesAction.class, "FindDuplicatesDialog.SearchAction.Name.CancelSearch");
+        private FileDuplicatesFinder duplicatesFinder;
 
-        public SearchAction() {
+        private SearchAction() {
             init();
         }
 
         private void init() {
-            setName();
+            setName(false);
             setEnabled();
             sourceDirectoriesListModel.addListDataListener(this);
         }
 
-        private void setName() {
-            putValue(Action.NAME, buttonSearch.isSelected()
+        private void setName(boolean started) {
+            putValue(Action.NAME, started
                     ? CANCEL_SEARCH_NAME
                     : START_SEARCH_NAME);
-        }
-
-        private boolean isCancel() {
-            return buttonSearch.isSelected();
+            MnemonicUtil.setMnemonics(buttonSearch);
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            throw new UnsupportedOperationException("Not supported yet.");
+            if (!listen) {
+                return;
+        }
+            if (buttonSearch.isSelected()) {
+                startSearch();
+            } else {
+                stopSearch();
+            }
+        }
+
+        private void startSearch() {
+            progressBarSearch.setIndeterminate(true);
+            duplicatesFinder = new FileDuplicatesFinder(sourceDirectoriesListModel.getDirs(), checkBoxSourceDirsRecursive.isSelected());
+            duplicatesFinder.setCompareOnlyEqualDates(checkBoxCompareOnlyEqualDates.isSelected());
+            duplicatesFinder.setCompareOnlyEqualFilenames(checkBoxCompareOnlyEqualFilenames.isSelected());
+            duplicatesFinder.addFileDuplicateListener(this);
+            panelFileDuplicates.clear();
+            buttonDeleteSelectedFiles.setEnabled(false);
+            Thread searchThread = new Thread(duplicatesFinder);
+            searchThread.setName("JPhotoTagger: Searching duplicates");
+            searchThread.start();
+        }
+
+        private void stopSearch() {
+            if (duplicatesFinder != null) {
+                duplicatesFinder.stop();
+            }
         }
 
         @Override
@@ -284,6 +345,91 @@ public class FindDuplicatesDialog extends Dialog {
             boolean srcDirsExisting = sourceDirectoriesListModel.getSize() > 0;
             setEnabled(srcDirsExisting);
         }
+
+        @Override
+        public void duplicatesFound(final Collection<? extends File> duplicates) {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+                @Override
+                public void run() {
+                    panelFileDuplicates.addDuplicates(duplicates);
+                    ComponentUtil.forceRepaint(FindDuplicatesDialog.this.panelFileDuplicates);
+    }
+            });
+        }
+
+        @Override
+        public void searchStarted() {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    setName(true);
+                }
+            });
+        }
+
+        @Override
+        public void searchFinished(boolean wasCancelled) {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    listen = false;
+                    buttonSearch.setSelected(false);
+                    listen = true;
+                    setName(false);
+                    progressBarSearch.setIndeterminate(false);
+                }
+            });
+        }
+    }
+
+    private final class DeleteSelectedFilesAction extends AbstractAction implements PropertyChangeListener {
+
+        private static final long serialVersionUID = 1L;
+        private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
+
+        private DeleteSelectedFilesAction() {
+            super(Bundle.getString(FindDuplicatesDialog.class, "FindDuplicatesDialog.DeleteSelectedFilesAction.Name"));
+            init();
+        }
+
+        private void init() {
+            panelFileDuplicates.addPropertyChangeListener(FileDuplicatesPanel.PROPERTY_FILE_SELECTED, this);
+            setEnabled();
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String message = Bundle.getString(FindDuplicatesDialog.class, "FindDuplicatesDialog.DeleteSelectedFilesAction.ConfirmDelete");
+            if (MessageDisplayer.confirmYesNo(FindDuplicatesDialog.this, message)) {
+                for (File file : panelFileDuplicates.getSelectedFiles()) {
+                    if (file.delete()) {
+                        EventBus.publish(new FileDeletedEvent(this, file));
+                        File xmp = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(file);
+                        if (xmp != null) {
+                            if (xmp.delete()) {
+                                EventBus.publish(new FileDeletedEvent(this, xmp));
+                            } else {
+                                LOGGER.log(Level.WARNING, "Sidecar file ''{0}'' couldn''t be deleted", xmp);
+                            }
+                        }
+                        panelFileDuplicates.removeFile(file);
+                    } else {
+                        LOGGER.log(Level.WARNING, "File ''{0}'' couldn''t be deleted", file);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            setEnabled();
+        }
+
+        private void setEnabled() {
+            setEnabled(panelFileDuplicates.isFileSelected());
+        }
     }
 
     /** This method is called from within the constructor to
@@ -292,8 +438,7 @@ public class FindDuplicatesDialog extends Dialog {
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
@@ -309,7 +454,7 @@ public class FindDuplicatesDialog extends Dialog {
         checkBoxCompareOnlyEqualFilenames = new javax.swing.JCheckBox();
         checkBoxCompareOnlyEqualDates = new javax.swing.JCheckBox();
         panelSearchActions = new javax.swing.JPanel();
-        labelCloseInfo = new javax.swing.JLabel();
+        progressBarSearch = new javax.swing.JProgressBar();
         buttonSearch = new javax.swing.JToggleButton();
         panelResult = new javax.swing.JPanel();
         scrollPaneResult = new javax.swing.JScrollPane();
@@ -411,18 +556,16 @@ public class FindDuplicatesDialog extends Dialog {
         panelContent.add(panelOptions, gridBagConstraints);
 
         panelSearchActions.setLayout(new java.awt.GridBagLayout());
-
-        labelCloseInfo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        labelCloseInfo.setText(bundle.getString("FindDuplicatesDialog.labelCloseInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelSearchActions.add(labelCloseInfo, gridBagConstraints);
+        panelSearchActions.add(progressBarSearch, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelSearchActions.add(buttonSearch, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -445,7 +588,6 @@ public class FindDuplicatesDialog extends Dialog {
 
         panelResultActions.setLayout(new java.awt.GridBagLayout());
 
-        buttonDeleteSelectedFiles.setText(bundle.getString("FindDuplicatesDialog.buttonDeleteSelectedFiles.text")); // NOI18N
         buttonDeleteSelectedFiles.setEnabled(false);
         panelResultActions.add(buttonDeleteSelectedFiles, new java.awt.GridBagConstraints());
 
@@ -471,7 +613,7 @@ public class FindDuplicatesDialog extends Dialog {
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }//GEN-END:initComponents
 
     private void buttonAddSourceDirectoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddSourceDirectoryActionPerformed
         addSourceDirectories();
@@ -501,7 +643,6 @@ public class FindDuplicatesDialog extends Dialog {
     private javax.swing.JCheckBox checkBoxCompareOnlyEqualDates;
     private javax.swing.JCheckBox checkBoxCompareOnlyEqualFilenames;
     private javax.swing.JCheckBox checkBoxSourceDirsRecursive;
-    private javax.swing.JLabel labelCloseInfo;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JList<File> listSourceDirectories;
     private javax.swing.JPanel panelContent;
@@ -511,6 +652,7 @@ public class FindDuplicatesDialog extends Dialog {
     private javax.swing.JPanel panelSearchActions;
     private javax.swing.JPanel panelSourceDirectories;
     private javax.swing.JPanel panelSourceDirectoriesActions;
+    private javax.swing.JProgressBar progressBarSearch;
     private javax.swing.JScrollPane scrollPaneResult;
     private javax.swing.JScrollPane scrollPaneSourceDirectories;
     // End of variables declaration//GEN-END:variables
