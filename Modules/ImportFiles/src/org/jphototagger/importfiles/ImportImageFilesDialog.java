@@ -58,6 +58,7 @@ public class ImportImageFilesDialog extends Dialog {
     private static final String KEY_SCRIPT_FILE = "ImportImageFiles.LastScriptFile";
     private static final String KEY_SUBDIRECTORY_CREATE_STRATEGY = "ImportImageFiles.SubdirectoryCreateStrategy";
     private static final String KEY_FILE_RENAME_STRATEGY = "ImportImageFiles.RenameStrategy";
+    private static final String KEY_SKIP_DUPLICATES = "ImportImageFiles.SkipDuplicates";
     private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private static final Color LABEL_FOREGROUND = getLabelForeground();
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
@@ -92,6 +93,7 @@ public class ImportImageFilesDialog extends Dialog {
         lookupPersistedLastChoosenScriptDir();
         lookupSubdirectoryCreateStrategy();
         lookupFileRenameStrategy();
+        lookupSkipDuplicates();
     }
 
     private void initDirectories() {
@@ -260,6 +262,7 @@ public class ImportImageFilesDialog extends Dialog {
                 .subdirectoryCreateStrategy(getSubdirectoryCreateStrategy())
                 .scriptFile(scriptFile)
                 .xmp(xmp)
+                .skipDuplicates(checkBoxSkipDuplicates.isSelected())
                 .build();
     }
 
@@ -381,6 +384,15 @@ public class ImportImageFilesDialog extends Dialog {
         prefs.setInt(KEY_FILE_RENAME_STRATEGY, selectedIndex);
     }
 
+    private void lookupSkipDuplicates() {
+        checkBoxSkipDuplicates.setSelected(prefs.containsKey(KEY_SKIP_DUPLICATES)
+                ? prefs.getBoolean(KEY_SKIP_DUPLICATES)
+                : true);
+    }
+
+    private void persistSkipDuplicates() {
+        prefs.setBoolean(KEY_SKIP_DUPLICATES, checkBoxSkipDuplicates.isSelected());
+    }
     private void removeScriptFile() {
         scriptFile = null;
         scriptFileLabel.setText("");
@@ -583,6 +595,7 @@ public class ImportImageFilesDialog extends Dialog {
         panelSourceStrategy = new javax.swing.JPanel();
         comboBoxSourceStrategy = new javax.swing.JComboBox<>();
         checkBoxDeleteAfterCopy = new javax.swing.JCheckBox();
+        checkBoxSkipDuplicates = new javax.swing.JCheckBox();
         panelTargetDir = new org.jdesktop.swingx.JXPanel();
         labelTargetDir = new javax.swing.JLabel();
         buttonChooseTargetDir = new javax.swing.JButton();
@@ -756,8 +769,20 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         panelSourceStrategy.add(checkBoxDeleteAfterCopy, gridBagConstraints);
+
+        checkBoxSkipDuplicates.setText(bundle.getString("ImportImageFilesDialog.checkBoxSkipDuplicates.text")); // NOI18N
+        checkBoxSkipDuplicates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxSkipDuplicatesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelSourceStrategy.add(checkBoxSkipDuplicates, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -970,6 +995,10 @@ public class ImportImageFilesDialog extends Dialog {
         editRenameTemplates();
     }//GEN-LAST:event_buttonEditRenameTemplatesActionPerformed
 
+    private void checkBoxSkipDuplicatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSkipDuplicatesActionPerformed
+        persistSkipDuplicates();
+    }//GEN-LAST:event_checkBoxSkipDuplicatesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1003,6 +1032,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JButton buttonOk;
     private javax.swing.JButton buttonRemoveScriptFile;
     private javax.swing.JCheckBox checkBoxDeleteAfterCopy;
+    private javax.swing.JCheckBox checkBoxSkipDuplicates;
     private javax.swing.JComboBox<Object> comboBoxFileRenameStrategy;
     private javax.swing.JComboBox<Object> comboBoxSourceStrategy;
     private javax.swing.JComboBox<Object> comboBoxSubdirectoryCreateStrategy;

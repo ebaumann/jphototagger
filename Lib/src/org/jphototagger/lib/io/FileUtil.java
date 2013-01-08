@@ -742,6 +742,21 @@ public final class FileUtil {
                 : Arrays.asList(files);
     }
 
+    public static boolean contentEquals(File file1, File file2) throws IOException {
+        if (file1 == null) {
+            throw new NullPointerException("file1 == null");
+        }
+        if (file2 == null) {
+            throw new NullPointerException("file2 == null");
+        }
+        if (file1.length() != file2.length()) {
+            return false;
+        }
+        try (InputStream is1 = new FileInputStream(file1); InputStream is2 = new FileInputStream(file2)) {
+            return IoUtil.contentEquals(is1, is2);
+        }
+    }
+
     private FileUtil() {
     }
 }
