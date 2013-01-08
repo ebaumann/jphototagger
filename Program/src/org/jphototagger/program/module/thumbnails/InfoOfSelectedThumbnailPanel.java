@@ -1,22 +1,29 @@
 package org.jphototagger.program.module.thumbnails;
 
 import java.awt.Component;
+import java.awt.GridBagConstraints;
 import java.io.File;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.domain.metadata.thumbnails.ThumbnailInfoProvider;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelBottomComponentProvider;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
+import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.program.module.thumbnails.info.SidecarSuffixInfoAddedEvent;
+import org.jphototagger.program.module.thumbnails.info.SidecarSuffixInfoRemovedEvent;
 import org.jphototagger.program.types.ByteSizeUnit;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
@@ -39,7 +46,19 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
     }
 
     private void postInitComponents() {
+        lookupThumbnailInfoProviders();
         AnnotationProcessor.process(this);
+    }
+
+    private void lookupThumbnailInfoProviders() {
+        List<ThumbnailInfoProvider> providers = new ArrayList<>(Lookup.getDefault().lookupAll(ThumbnailInfoProvider.class));
+        Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
+        for (ThumbnailInfoProvider provider : providers) {
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.anchor = GridBagConstraints.WEST;
+            gbc.gridwidth = GridBagConstraints.REMAINDER;
+            panelThumbnailInfoProviders.add(provider.getComponent(), gbc);
+        }
     }
 
     @Override
@@ -117,6 +136,16 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         }
     }
 
+    @EventSubscriber(eventClass=SidecarSuffixInfoAddedEvent.class)
+    public void suffixInfoAdded(SidecarSuffixInfoAddedEvent evt) {
+        ComponentUtil.forceRepaint(this);
+    }
+
+    @EventSubscriber(eventClass=SidecarSuffixInfoRemovedEvent.class)
+    public void suffixInfoRemoved(SidecarSuffixInfoRemovedEvent evt) {
+        ComponentUtil.forceRepaint(this);
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -140,6 +169,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         labelSelectedFileSizePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileSizePrompt.getFont()));
         labelSelectedFileSize = new javax.swing.JLabel();
         checkBoxSelectedFileHasSidecarFile = new javax.swing.JCheckBox();
+        panelThumbnailInfoProviders = new javax.swing.JPanel();
         panelPadding = new javax.swing.JPanel();
 
         setLayout(new java.awt.GridBagLayout());
@@ -221,6 +251,13 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         panelContent.add(panelSelectedFileDateSizeXmpExists, gridBagConstraints);
 
+        panelThumbnailInfoProviders.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(panelThumbnailInfoProviders, gridBagConstraints);
+
         javax.swing.GroupLayout panelPaddingLayout = new javax.swing.GroupLayout(panelPadding);
         panelPadding.setLayout(panelPaddingLayout);
         panelPaddingLayout.setHorizontalGroup(
@@ -264,5 +301,6 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
     private javax.swing.JPanel panelPadding;
     private javax.swing.JPanel panelSelectedFileDateSizeXmpExists;
     private javax.swing.JPanel panelSelectedFilePath;
+    private javax.swing.JPanel panelThumbnailInfoProviders;
     // End of variables declaration//GEN-END:variables
 }
