@@ -9,6 +9,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Neue Option beim Import von Bildern (Datei > Bilder importieren):
   Duplikate vermeiden. Identische Bilder im Zielordner werden so nicht
   (von der Speicherkarte) erneut eingelesen.
+* Beim Herunterladen neuer Versionen kann der Zielordner ausgewählt
+  werden
 
 0.27.0 2013-01-07
 -----------------

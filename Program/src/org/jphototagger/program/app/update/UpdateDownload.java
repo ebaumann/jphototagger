@@ -17,7 +17,9 @@ import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.lib.net.HttpUtil;
 import org.jphototagger.lib.net.NetVersion;
+import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Version;
@@ -40,6 +42,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     private static final String URL_WIN_INSTALLER = "http://www.jphototagger.org/dist/JPhotoTagger-setup.exe";
     private static final String URL_ZIP = "http://www.jphototagger.org/dist/JPhotoTagger.zip";
     private static final String VERSION_DELIMITER = ".";
+    private static final String KEY_PREV_DOWNLOAD_DIR = "UpdateDownload.PrevDownloadDir";
+    private static final Preferences PREFS = Lookup.getDefault().lookup(Preferences.class);
     private final Version currentVersion = Version.parseVersion(AppInfo.APP_VERSION, VERSION_DELIMITER);
     private Version netVersion = currentVersion;
     private volatile boolean cancel;
@@ -106,9 +110,7 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
     }
 
     private static void setCheckForUpdates(boolean auto) {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
-        prefs.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
+        PREFS.setBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES, auto);
     }
 
     @Override
@@ -119,8 +121,11 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
             String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.Download", currentVersion.toString3(), netVersion.toString3());
             if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, message)) {
                 progressBarDownloadInfo();
-                download();
-                File downloadFile = getDownloadFile();
+                File downloadFile = chooseDownloadFile();
+                if (downloadFile == null) {
+                    return;
+                }
+                download(downloadFile);
                 if (cancel && downloadFile.exists()) {
                     if (!downloadFile.delete()) {
                         LOGGER.log(Level.WARNING, "Uncomplete downloaded file ''{0}'' couldn''t be deleted!", downloadFile);
@@ -130,25 +135,24 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, "The most recent version of JPhotoTagger couldn''t be retrieved: {0}", ex.getLocalizedMessage());
         } finally {
-            progressHandle.progressEnded();
             synchronized (UpdateDownload.class) {
+                progressHandle.progressEnded();
                 checkPending = false;
             }
         }
     }
 
-    private void download() {
+    private void download(File targetFile) {
         try {
-            File downloadFile = getDownloadFile();
-            BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(downloadFile));
+            BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(targetFile));
             HttpUtil.write(new URL(getDownloadUrl()), os, this);
             if (cancel) {
                 return;
             }
             if (SystemUtil.isWindows()) {
-                setFinalExecutable(downloadFile);
+                setFinalExecutable(targetFile);
             } else {
-                String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.Success", downloadFile);
+                String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.Success", targetFile);
                 MessageDisplayer.information(null, message);
             }
         } catch (Exception ex) {
@@ -170,15 +174,41 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 : URL_ZIP;
     }
 
-    private File getDownloadFile() {
-        PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
-        String userDirectory = provider.getUserPreferencesDirectory().getAbsolutePath();
-        String dirname = userDirectory;
+    private File chooseDownloadFile() {
+        String dirname = chooseDownloadDirectory();
+        if (dirname == null) {
+            return null;
+        }
         String filename = SystemUtil.isWindows()
                 ? FILENAME_WINDOWS
                 : FILENAME_ZIP;
-
         return new File(dirname + File.separator + filename);
+    }
+
+    private String chooseDownloadDirectory() {
+        String downloadDirectory = suggestDownloadDirectory();
+        DirectoryChooser dirChooser = new DirectoryChooser(ComponentUtil.findFrameWithIcon(),
+                new File(downloadDirectory), DirectoryChooser.Option.NO_OPTION);
+        dirChooser.setTitle(Bundle.getString(UpdateDownload.class, "UpdateDownload.ChooseDownloadDirectory.Title"));
+        dirChooser.setVisible(true);
+        if (dirChooser.isAccepted()) {
+            downloadDirectory = dirChooser.getSelectedDirectories().get(0).getAbsolutePath();
+            PREFS.setString(KEY_PREV_DOWNLOAD_DIR, downloadDirectory);
+            return downloadDirectory;
+        }
+        return null;
+    }
+
+    private String suggestDownloadDirectory() {
+        String dir = null;
+        if (PREFS.containsKey(KEY_PREV_DOWNLOAD_DIR)) {
+            dir = PREFS.getString(KEY_PREV_DOWNLOAD_DIR);
+        }
+        if (dir == null || !new File(dir).isDirectory()) {
+            PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+            dir = provider.getUserPreferencesDirectory().getAbsolutePath();
+        }
+        return dir;
     }
 
     private void startProgressHandle() {
@@ -188,8 +218,10 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 .stringPainted(true)
                 .stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBar"))
                 .build();
+        synchronized (UpdateDownload.class) {
         progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle(this);
         progressHandle.progressStarted(evt);
+    }
     }
 
     private void progressBarDownloadInfo() {
@@ -199,7 +231,9 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 .stringPainted(true)
                 .stringToPaint(Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.ProgressBarDownload"))
                 .build();
-        progressHandle.progressStarted(evt);
+        synchronized (UpdateDownload.class) {
+            progressHandle.progressPerformed(evt);
+    }
     }
 
     private boolean hasNewerVersion() throws Exception {
