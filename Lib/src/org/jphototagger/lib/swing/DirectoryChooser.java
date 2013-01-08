@@ -35,8 +35,9 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     private static final long serialVersionUID = 1L;
     private final File startDirectory;
     private final List<Option> options;
-    private boolean accepted;
     private final AllSystemDirectoriesTreeModel model;
+    private boolean accepted;
+    private boolean titleSet;
 
     public enum Option {
 
@@ -92,7 +93,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
                 options.contains(Option.MULTI_SELECTION)
                 ? TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION
                 : TreeSelectionModel.SINGLE_TREE_SELECTION);
-        setTitle();
+        setDefaultTitle();
         setUsageText();
     }
 
@@ -102,8 +103,17 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
                 : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.LabelUsage.SingleSelection"));
     }
 
-    private void setTitle() {
-        setTitle(options.contains(Option.MULTI_SELECTION)
+    @Override
+    public void setTitle(String title) {
+        super.setTitle(title);
+        titleSet = true;
+    }
+
+    private void setDefaultTitle() {
+        if (titleSet) {
+            return;
+        }
+        super.setTitle(options.contains(Option.MULTI_SELECTION)
                 ? Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.MultipleSelection")
                 : Bundle.getString(DirectoryChooser.class, "DirectoryChooser.Title.SingleSelection"));
     }

@@ -9,6 +9,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 * New Option when importing Images (File > Import images):
   Skip duplicates. Identical images in targed folder will
   not be copied again (from a memory card).
+* When dowloading newer versions the target folder can be choosed
 
 0.27.0 2013-01-07
 -----------------
