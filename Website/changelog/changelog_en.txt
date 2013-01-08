@@ -10,6 +10,9 @@ Changelog JPhotoTagger http://jphototagger.org/
   Skip duplicates. Identical images in targed folder will
   not be copied again (from a memory card).
 * When dowloading newer versions the target folder can be choosed
+* In the program window can be displayed, whether selected
+  thumbnails having sidecar files other than .XMP:
+  Edit > Settings > 6. Miscellaneous: Additional file info
 
 0.27.0 2013-01-07
 -----------------
