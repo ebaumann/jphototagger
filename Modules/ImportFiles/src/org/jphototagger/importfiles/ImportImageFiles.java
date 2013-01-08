@@ -121,17 +121,27 @@ public final class ImportImageFiles implements FileImportService {
                 Collections.sort(sourceFiles, ExifDateTimeOriginalAscendingComparator.INSTANCE);
                 for (File sourceFile : sourceFiles) {
                     File targetFile = createTargetFile(sourceFile, importData);
+                    if (targetFile != null) {
                     ensureTargetDirExists(targetFile);
                     SourceTargetFile sourceTargetFile = new SourceTargetFile(sourceFile, targetFile);
                     sourceTargetFile.setUserObject(importData.getXmp());
                     sourceTargetFiles.add(sourceTargetFile);
+                }
                 }
             } finally {
                 progressHandle.progressEnded();
             }
         }
 
+        /**
+         * @param sourceFile
+         * @param importData
+         * @return null if source file shall not be copied
+         */
         private File createTargetFile(File sourceFile, ImportData importData) {
+            if (importData.isSkipDuplicates() && isDuplicate(sourceFile, importData.getTargetDirectory())) {
+                return null;
+            }
             String targetSubdirPathname = importData.hasSubdirectoryCreateStrategy()
                     ? importData.getSubdirectoryCreateStrategy().suggestSubdirectoryName(sourceFile)
                     : "";
@@ -145,6 +155,26 @@ public final class ImportImageFiles implements FileImportService {
                 String sourceFilename = sourceFile.getName();
                 return new File(targetDirPathname + File.separator + sourceFilename);
             }
+        }
+
+        private boolean isDuplicate(File sourceFile, File targetDir) {
+            if (!targetDir.isDirectory()) {
+                return false;
+            }
+            File[] files = targetDir.listFiles();
+            if (files == null) {
+                return false;
+            }
+            for (File file : files) {
+                try {
+                    if (FileUtil.contentEquals(sourceFile, file)) {
+                        return true;
+                    }
+                } catch (Throwable t) {
+                    Logger.getLogger(ImportThread.class.getName()).log(Level.SEVERE, null, t);
+                }
+            }
+            return false;
         }
 
         private void ensureTargetDirExists(File targetFile) {

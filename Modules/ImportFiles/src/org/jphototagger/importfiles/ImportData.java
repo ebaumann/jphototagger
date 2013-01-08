@@ -19,6 +19,7 @@ public final class ImportData {
     private final File scriptFile;
     private final Xmp xmp;
     private final boolean deleteSourceFilesAfterCopying;
+    private final boolean skipDuplicates;
 
     private ImportData(Builder builder) {
         this.sourceFiles = builder.sourceFiles;
@@ -28,6 +29,7 @@ public final class ImportData {
         this.scriptFile = builder.scriptFile;
         this.deleteSourceFilesAfterCopying = builder.deleteSourceFilesAfterCopying;
         this.xmp = builder.xmp;
+        this.skipDuplicates = builder.skipDuplicates;
     }
 
     public List<File> getSourceFiles() {
@@ -82,6 +84,10 @@ public final class ImportData {
         return xmp != null && !xmp.isEmpty();
     }
 
+    public boolean isSkipDuplicates() {
+        return skipDuplicates;
+    }
+
     public static class Builder {
 
         private final List<File> sourceFiles;
@@ -91,6 +97,7 @@ public final class ImportData {
         private File scriptFile;
         private Xmp xmp;
         private boolean deleteSourceFilesAfterCopying;
+        private boolean skipDuplicates;
 
         public Builder(List<File> sourceFiles, File targetDirectory) {
             if (sourceFiles == null) {
@@ -125,6 +132,11 @@ public final class ImportData {
 
         public Builder xmp(Xmp xmp) {
             this.xmp = xmp;
+            return this;
+        }
+
+        public Builder skipDuplicates(boolean skip) {
+            this.skipDuplicates = skip;
             return this;
         }
 
