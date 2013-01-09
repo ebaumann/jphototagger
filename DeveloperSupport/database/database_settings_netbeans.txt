@@ -1,0 +1,11 @@
+* Select Services-Tab (Strg+5)
+* Select item "Databases"
+* Open context menu, choose "New Connection..."
+** Name: HSQLDB (Embedded)
+** Username: sa
+** Password: (none)
+** JDBC URL: jdbc:hsqldb:file:<home>\.de.elmar_baumann\ImageMetaDataViewer\database;shutdown=true
+
+* Select new created connection
+* Open context menu, select "Properties"
+* Set Schema to "PUBLIC"

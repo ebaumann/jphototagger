@@ -1,0 +1,1 @@
+dcraw -> dcraw.c 9.12, compiled on OpenSUSE 12.1 32 Bit, eb@emar-baumann.de (http://cybercom.net/~dcoffin/dcraw/)

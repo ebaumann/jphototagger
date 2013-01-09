@@ -1,0 +1,25 @@
+[Beleuchtung]
+[Belichtungskorrektur]
+[Belichtungsmesser]
+Belichtungsreihe
+Berg
+Bergstraße
+[Feldweg]
+[Fels]
+Jökulsárlón
+[Kappadokien]
+[Keine Schärfung]
+[Landschaft]
+	Baum
+Teststichwort
+	{Synonymteststichwort}
+	Teststichwortsub
+		{TeststichwortsubSynonym}
+		Teststichwortsubsub
+			{TeststichwortsubsubSynonym}
+	Teststichwortsub2
+		{TeststichwortsubSynonym2}
+		Teststichwortsubsubsub2
+			{Teststichwortsubsub2Synonym}
+[Wald]
+Wasser

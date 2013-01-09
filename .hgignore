@@ -8,7 +8,7 @@
 .*desktop.ini
 .*\.directory
 .*/dist/.*
-dist_files/.*
+dist_files/upload/.*
 \.fuse.*
 \.htaccess
 \.orig$

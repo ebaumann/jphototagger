@@ -7,7 +7,7 @@
 #
 ################################################################################
 
-. $PROJECTDIR/JPhotoTagger/Support/script/functions.sh || exit 1
+. $PROJECTDIR/JPhotoTagger/main-repository/DeveloperSupport/script/functions.sh || exit 1
 
 IFS="
 "
@@ -15,7 +15,7 @@ IFS="
 PROJECT=JPhotoTagger
 PROJECT_DIR=${PROJECTDIR}/${PROJECT}
 PROGRAM_DIR=${PROJECT_DIR}/main-repository/Program
-DIST_FILES_DIR=${PROJECT_DIR}/dist_files
+DIST_FILES_DIR=${PROJECT_DIR}/main-repository/dist_files
 SCRIPT_SRC_DIR=${DIST_FILES_DIR}/script
 DCRAW_DIR=${DIST_FILES_DIR}/dcraw/bin
 MANUAL_SRC_DIR=${DIST_FILES_DIR}/manual
