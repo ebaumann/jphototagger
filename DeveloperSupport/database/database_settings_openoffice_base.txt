@@ -1,0 +1,5 @@
+Datenbanktyp      : JDBC
+Datenquellen-URL  : jdbc:hsqldb:file:/home/elmar/.de.elmar_baumann/ImageMetaDataViewer/database;shutdown=true 
+Benutzername      : sa
+Kennwort          : Nein
+JDBC-Treiberklasse: org.hsqldb.jdbcDriver

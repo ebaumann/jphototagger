@@ -18,7 +18,7 @@
 # Validating input
 ################################################################################
 
-. $PROJECTDIR/JPhotoTagger/Support/script/functions.sh || exit 1
+. $PROJECTDIR/JPhotoTagger/main-repository/DeveloperSupport/script/functions.sh || exit 1
 
 LANG="$1"
 TITLE="$2"
@@ -49,10 +49,10 @@ DOC_DIR="${PROJECT_DIR}/main-repository/Program/src/org/jphototagger/program/res
 
 # Target directory of the generate PDF user manual used by mkdist.sh for the ZIP
 # archive and InnoSetup script JPhotoTagger.iss
-PDF_DOC="${PROJECT_DIR}/dist_files/manual/Manual_${LANG}.pdf"
+PDF_DOC="${PROJECT_DIR}/main-repository/dist_files/manual/Manual_${LANG}.pdf"
 
 # Language specific configuration file for html2ps
-HTML2PS_CONF="${PROJECT_DIR}/Support/conf/html2ps_userdoc_${LANG}.conf"
+HTML2PS_CONF="${PROJECT_DIR}/main-repository/DeveloperSupport/conf/html2ps_userdoc_${LANG}.conf"
 
 # Temporary directory, if not exists please create it under Your home directory
 TMP_DIR="${HOME}/tmp"

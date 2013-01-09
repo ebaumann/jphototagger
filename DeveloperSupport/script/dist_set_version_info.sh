@@ -7,7 +7,7 @@
 #
 ################################################################################
 
-. $PROJECTDIR/JPhotoTagger/Support/script/functions.sh || exit 1
+. $PROJECTDIR/JPhotoTagger/main-repository/DeveloperSupport/script/functions.sh || exit 1
 
 IFS="
 "
@@ -16,9 +16,7 @@ PROJECT=JPhotoTagger
 PROJECT_DIR=${PROJECTDIR}/${PROJECT}
 PROGRAM_DIR=${PROJECT_DIR}/main-repository/Program
 WEBSITE_DIR=${PROJECT_DIR}/main-repository/Website
-SUPPORT_DIR=${PROJECT_DIR}/Support
-SUPPORT_SCRIPTS_DIR=${SUPPORT_DIR}/script
-SUPPORT_SCRIPTS_PROPERTIES=${SUPPORT_SCRIPTS_DIR}/scripts.properties
+SUPPORT_SCRIPTS_PROPERTIES=${PROJECT_DIR}/Support/conf/scripts.properties
 HTML_DOWNLOAD_DOC=${WEBSITE_DIR}/download.html
 HTACCESS=${WEBSITE_DIR}/.htaccess
 VERSION_FILE=${WEBSITE_DIR}/jphototagger-version.txt

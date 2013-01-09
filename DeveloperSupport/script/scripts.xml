@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="JPhotoTagger" default="default" basedir=".">
     <description>Helper scripts for developers</description>
-    <property file="scripts.properties"/>
     <property environment="env"/>
+    <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.properties"/><!-- Template see in ../conf -->
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode.jar"/>
     <target name="dist-upload" description="Uploading Distribution to Google Code">
         <!--${googlecode.username}, ${googlecode.password} and ${jptversion}
@@ -12,7 +12,7 @@
             projectname="jphototagger"
             username="${googlecode.username}"
             password="${googlecode.password}"
-            filename="${env.PROJECTDIR}/JPhotoTagger/dist_files/upload/JPhotoTagger.zip"
+            filename="${env.PROJECTDIR}/JPhotoTagger/main-repository/dist_files/upload/JPhotoTagger.zip"
             targetfilename="JPhotoTagger-${jptversion}.zip"
             summary="JPhotoTagger Version ${jptversion} - System independent ZIP archive"
             verbose="true"
@@ -22,7 +22,7 @@
             projectname="jphototagger"
             username="${googlecode.username}"
             password="${googlecode.password}"
-            filename="${env.PROJECTDIR}/JPhotoTagger/dist_files/upload/JPhotoTagger-setup.exe"
+            filename="${env.PROJECTDIR}/JPhotoTagger/main-repository/dist_files/upload/JPhotoTagger-setup.exe"
             targetfilename="JPhotoTagger-setup-${jptversion}.exe"
             summary="JPhotoTagger Version ${jptversion} - Windows Installer"
             verbose="true"

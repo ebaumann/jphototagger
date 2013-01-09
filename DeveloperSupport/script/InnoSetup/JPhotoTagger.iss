@@ -1,7 +1,7 @@
 [Setup]
 AppName=JPhotoTagger
-AppVerName=JPhotoTagger 0.26.5
-AppVersion=0.26.5
+AppVerName=JPhotoTagger 0.28.0
+AppVersion=0.28.0
 AppPublisher=Elmar Baumann <eb@elmar-baumann.de>
 AppPublisherURL=http://www.jphototagger.org/
 AppSupportURL=mailto:support@jphototagger.org
@@ -10,10 +10,10 @@ AppComments=Photo Manager
 DefaultDirName={pf}\JPhotoTagger
 DefaultGroupName=JPhotoTagger
 AllowNoIcons=yes
-OutputDir={#SourcePath}\..\..\..\main-repository\dist_files\upload
+OutputDir={#SourcePath}\..\..\..\dist_files\upload
 OutputBaseFilename=JPhotoTagger-setup
-SetupIconFile={#SourcePath}\..\..\res\app-icon-exports\JPhotoTagger.ico
-;WizardImageFile={#SourcePath}\..\..\res\app-icon-exports\WizardImageFile.bmp
+SetupIconFile={#SourcePath}\..\..\img\JPhotoTagger.ico
+WizardImageFile={#SourcePath}\..\..\img\WizardImageFile.bmp
 Compression=lzma
 SolidCompression=yes
 UninstallDisplayIcon={app}\unins000.exe
@@ -34,14 +34,14 @@ Name: "desktopicon"; \
   Flags: unchecked
 
 [Files]
-Source: "{#SourcePath}\..\..\..\main-repository\Program\dist\JPhotoTagger.jar"; \
+Source: "{#SourcePath}\..\..\..\Program\dist\JPhotoTagger.jar"; \
   DestDir: "{app}"; \
   AfterInstall: CreateBatchFile; \
   Flags: ignoreversion
-Source: "{#SourcePath}\..\..\..\main-repository\Program\dist\lib\*"; \
+Source: "{#SourcePath}\..\..\..\Program\dist\lib\*"; \
   DestDir: "{app}\lib"; \
   Flags: ignoreversion
-Source: "{#SourcePath}\..\..\res\app-icon-exports\JPhotoTagger.ico"; \
+Source: "{#SourcePath}\..\..\img\JPhotoTagger.ico"; \
   DestDir: "{app}"; \
   Flags: ignoreversion
 Source: "{#SourcePath}\..\..\..\dist_files\manual\Manual_de.pdf"; \

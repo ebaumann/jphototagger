@@ -12,7 +12,7 @@
 # Validating input
 ################################################################################
 
-. $PROJECTDIR/JPhotoTagger/Support/script/functions.sh || exit 1
+. $PROJECTDIR/JPhotoTagger/main-repository/DeveloperSupport/script/functions.sh || exit 1
 
 LANG="$1"
 TITLE="$2"
