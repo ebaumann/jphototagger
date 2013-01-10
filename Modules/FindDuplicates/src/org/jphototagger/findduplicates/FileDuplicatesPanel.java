@@ -44,7 +44,7 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
     public static final String PROPERTY_FILE_SELECTED = "fileSelected";
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(FileDuplicatesPanel.class.getName());
-    private static final Image ERROR_THUMBNAIL = IconUtil.getIconImage("/org/jphototagger/findduplicates/thumbnail_not_rendered.jpg");
+    private static final Image ERROR_THUMBNAIL = IconUtil.getIconImage("/org/jphototagger/findduplicates/thumbnail_not_rendered.png");
     private int fileSelectionCount;
     private int rowCount;
 
