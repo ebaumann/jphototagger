@@ -32,12 +32,13 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListener, ListDataListener {
+public class ThumbnailsAreaPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
     private final FileFiltersComboBoxModel fileFiltersComboBoxModel = new FileFiltersComboBoxModel();
     private final ThumbnailsSortComboBoxModel thumbnailsSortComboBoxModel = new ThumbnailsSortComboBoxModel();
+    private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);;
     private ExpandCollapseComponentPanel expandCollapseBottomComponentsPanel;
     private boolean bottomComponentsPanelAdded;
 
@@ -49,20 +50,21 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
     private void postInitComponents() {
         createBottomPanel();
         thumbnailsPanelScrollPane.getVerticalScrollBar().setUnitIncrement(30);
-        fileSortComboBox.addItemListener(this);
-        fileFiltersComboBox.addItemListener(this);
-        fileFiltersComboBoxModel.addListDataListener(this);
+        comboBoxFileSort.addItemListener(fileSortChangedListener);
+        comboBoxFileFilters.addItemListener(fileFilterChangedListener);
+        fileFiltersComboBoxModel.addListDataListener(fileFilterListDataListener);
         thumbnailsPanel.setViewport(thumbnailsPanelScrollPane.getViewport());
         MnemonicUtil.setMnemonics(this);
         fileFiltersComboBoxModel.selectPersistedItem();
         thumbnailsSortComboBoxModel.selectPersistedItem();
+        thumbnailsPanel.setFileSortComparator(getFileSortComparator());
+        thumbnailsPanel.setFileFilter((FileFilter) comboBoxFileFilters.getSelectedItem());
         AnnotationProcessor.process(this);
     }
 
     private void createBottomPanel() {
         lookupAndAddBottomComponents();
         createExpandCollapseBottomComponentsPanel();
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         boolean isAdd = prefs == null || !prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL)
                 || (prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL)
                 && prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAILS_BOTTOM_PANEL));
@@ -71,26 +73,37 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         }
     }
 
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        Object item = e.getItem();
-        if (item instanceof ThumbnailsSortComboBoxModel.FileSorter) {
-            ThumbnailsSortComboBoxModel.FileSorter fileSorter = (ThumbnailsSortComboBoxModel.FileSorter) item;
-            Comparator<File> comparator = fileSorter.getComparator();
-            sortThumbnails(comparator);
-        } else {
-            setFileFilter(e.getItem());
+    private final ItemListener fileSortChangedListener = new ItemListener() {
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                persistSortOrder();
+                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
+                waitDisplayer.show();
+                thumbnailsPanel.setFileSortComparator(getFileSortComparator());
+                waitDisplayer.hide();
+            }
         }
+
+        private void persistSortOrder() {
+            prefs.setInt(ThumbnailsSortComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, comboBoxFileSort.getSelectedIndex());
+        }
+    };
+
+    private Comparator<File> getFileSortComparator() {
+        ThumbnailsSortComboBoxModel.FileSorter fileSorter = (ThumbnailsSortComboBoxModel.FileSorter) comboBoxFileSort.getSelectedItem();
+        return fileSorter.getComparator();
     }
 
-    private void sortThumbnails(final Comparator<File> fileSortComparator) {
-        WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
-        waitDisplayer.show();
-        thumbnailsPanel.setFileSortComparator(fileSortComparator);
-        thumbnailsPanel.sort();
-        persistSortOrder();
-        waitDisplayer.hide();
-    }
+    private final ItemListener fileFilterChangedListener = new ItemListener() {
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                setFileFilter(e.getItem());
+            }
+        }
+    };
 
     private void setFileFilter(Object item) {
         WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
@@ -100,59 +113,49 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         } else if (item instanceof UserDefinedFileFilter) {
             thumbnailsPanel.setFileFilter(((UserDefinedFileFilter) item).getFileFilter());
         }
-
         persistFileFilter();
         waitDisplayer.hide();
     }
 
     private void persistFileFilter() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
-        prefs.setInt(FileFiltersComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, fileFiltersComboBox.getSelectedIndex());
+        prefs.setInt(FileFiltersComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, comboBoxFileFilters.getSelectedIndex());
     }
 
-    private void persistSortOrder() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+    private final ListDataListener fileFilterListDataListener = new ListDataListener() {
 
-        prefs.setInt(ThumbnailsSortComboBoxModel.PERSISTED_SELECTED_ITEM_KEY, fileSortComboBox.getSelectedIndex());
-    }
 
-    @Override
-    public void contentsChanged(ListDataEvent e) {
-        int index0 = e.getIndex0();
-        int index1 = e.getIndex1();
-
-        if (index0 != index1 || index0 < 0) {
-            return;
-        }
-
-        int selectedIndex = fileFiltersComboBox.getSelectedIndex();
-
-        if (selectedIndex == index0) {
-            Object selectedItem = fileFiltersComboBox.getSelectedItem();
-            if (selectedItem != null) {
-                setFileFilter(selectedItem);
+        @Override
+        public void contentsChanged(ListDataEvent e) {
+            int index0 = e.getIndex0();
+            int index1 = e.getIndex1();
+            if (index0 != index1 || index0 < 0) {
+                return;
+            }
+            int selectedIndex = comboBoxFileFilters.getSelectedIndex();
+            if (selectedIndex == index0) {
+                Object selectedItem = comboBoxFileFilters.getSelectedItem();
+                if (selectedItem != null) {
+                    setFileFilter(selectedItem);
+                }
             }
         }
-    }
 
-    @Override
-    public void intervalAdded(ListDataEvent e) {
-        // ignore
-    }
+        @Override
+        public void intervalAdded(ListDataEvent e) {
+            // ignore
+        }
 
-    @Override
-    public void intervalRemoved(ListDataEvent e) {
-        // ignore
-    }
+        @Override
+        public void intervalRemoved(ListDataEvent e) {
+            // ignore
+        }
+    };
 
     ThumbnailsPanel getThumbnailsPanel() {
         return thumbnailsPanel;
     }
 
     void persistViewportPosition() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setScrollPane(KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION, thumbnailsPanelScrollPane);
     }
 
@@ -249,16 +252,17 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-    private void initComponents() {//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelBottomComponents = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
         panelDisplayedThumbnailFilters = new javax.swing.JPanel();
         labelFileFilters = new javax.swing.JLabel();
-        fileFiltersComboBox = new javax.swing.JComboBox<>();
+        comboBoxFileFilters = new javax.swing.JComboBox<>();
         labelFileSort = new javax.swing.JLabel();
-        fileSortComboBox = new javax.swing.JComboBox<>();
+        comboBoxFileSort = new javax.swing.JComboBox<>();
         thumbnailsPanelScrollPane = new javax.swing.JScrollPane();
         thumbnailsPanel = new org.jphototagger.program.module.thumbnails.ThumbnailsPanel();
 
@@ -287,13 +291,13 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelDisplayedThumbnailFilters.add(labelFileFilters, gridBagConstraints);
 
-        fileFiltersComboBox.setModel(fileFiltersComboBoxModel);
-        fileFiltersComboBox.setName("fileFiltersComboBox"); // NOI18N
-        fileFiltersComboBox.setRenderer(new org.jphototagger.program.module.thumbnails.FileFiltersListCellRenderer());
+        comboBoxFileFilters.setModel(fileFiltersComboBoxModel);
+        comboBoxFileFilters.setName("comboBoxFileFilters"); // NOI18N
+        comboBoxFileFilters.setRenderer(new org.jphototagger.program.module.thumbnails.FileFiltersListCellRenderer());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDisplayedThumbnailFilters.add(fileFiltersComboBox, gridBagConstraints);
+        panelDisplayedThumbnailFilters.add(comboBoxFileFilters, gridBagConstraints);
 
         labelFileSort.setText(bundle.getString("ThumbnailsAreaPanel.labelFileSort.text")); // NOI18N
         labelFileSort.setName("labelFileSort"); // NOI18N
@@ -302,14 +306,14 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
         panelDisplayedThumbnailFilters.add(labelFileSort, gridBagConstraints);
 
-        fileSortComboBox.setModel(thumbnailsSortComboBoxModel);
-        fileSortComboBox.setName("fileSortComboBox"); // NOI18N
+        comboBoxFileSort.setModel(thumbnailsSortComboBoxModel);
+        comboBoxFileSort.setName("comboBoxFileSort"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDisplayedThumbnailFilters.add(fileSortComboBox, gridBagConstraints);
+        panelDisplayedThumbnailFilters.add(comboBoxFileSort, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -327,7 +331,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         thumbnailsPanel.setLayout(thumbnailsPanelLayout);
         thumbnailsPanelLayout.setHorizontalGroup(
             thumbnailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 398, Short.MAX_VALUE)
+            .addGap(0, 538, Short.MAX_VALUE)
         );
         thumbnailsPanelLayout.setVerticalGroup(
             thumbnailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,10 +347,10 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel implements ItemListe
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(thumbnailsPanelScrollPane, gridBagConstraints);
-    }//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<Object> fileFiltersComboBox;
-    private javax.swing.JComboBox<Object> fileSortComboBox;
+    private javax.swing.JComboBox<Object> comboBoxFileFilters;
+    private javax.swing.JComboBox<Object> comboBoxFileSort;
     private javax.swing.JLabel labelFileFilters;
     private javax.swing.JLabel labelFileSort;
     private javax.swing.JLabel labelInfo;

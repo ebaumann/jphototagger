@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.28.1 2013-01-11
+-----------------
+
+* Bugfix: File types and file sort filter were not applied
+  correctly at startup
+
 0.28.0 2013-01-08
 -----------------
 
