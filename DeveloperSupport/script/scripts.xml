@@ -4,7 +4,7 @@
     <property environment="env"/>
     <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.properties"/><!-- Template see in ../conf -->
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode.jar"/>
-    <target name="dist-upload" description="Uploading Distribution to Google Code">
+    <target name="4 dist-upload" description="Uploading Distribution to Google Code">
         <!--${googlecode.username}, ${googlecode.password} and ${jptversion}
         will be read from scripts.properties within this directory
         -->
@@ -30,12 +30,12 @@
         />
         <exec executable="${env.HOME}/website/bin/update.sh"/>
     </target>
-    <target name="dist-create-zip" description="Create ZIP distribution">
+    <target name="2 dist-create-zip" description="Create ZIP distribution">
         <exec executable="bash">
             <arg value="dist_create_zip.sh" />
         </exec>
     </target>
-    <target name="dist-set-version-info" description="Set Version Info to Dist">
+    <target name="0 dist-set-version-info" description="Set Version Info to Dist">
         <exec executable="bash">
             <arg value="dist_set_version_info.sh" />
         </exec>
@@ -58,7 +58,7 @@
             <arg value="-w"/>
         </exec>
     </target>
-    <target name="create-pdf-manual" description="Creating PDF manual">
+    <target name="1 create-pdf-manual" description="Creating PDF manual">
         <exec executable="bash">
             <arg value="create_html_index_manual.sh" />
             <arg value="de"/>
