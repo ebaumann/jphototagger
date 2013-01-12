@@ -23,6 +23,9 @@ import org.jphototagger.domain.filefilter.AppFileFilterProvider;
 import org.jphototagger.lib.io.IoUtil;
 import org.openide.util.Lookup;
 
+// Optimizing hints:
+// * Optional separate same sized files by suffixes (Don't comapare files with different suffixes)
+// * "Bubble sort like comparison": Don't compare "later" files equals to previous twice with others
 /**
  * For each found duplicates a {@link FileDuplicatesListener} will be notified by calling
  * {@link FileDuplicatesListener#duplicatesFound(java.util.Collection)}.
