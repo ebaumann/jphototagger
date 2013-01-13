@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.28.2 2013-01-13
+-----------------
+
+* Individuelle JPhotoTagger-Daten werden beim Beenden automatisch
+  gesichert, siehe Hilfe: "Tipps > Wiederherstellen automatisch gesicherter
+  JPhotoTagger-Daten"
+
 0.28.1 2013-01-11
 -----------------
 

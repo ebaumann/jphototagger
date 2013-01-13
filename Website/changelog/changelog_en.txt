@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.28.2 2013-01-13
+-----------------
+
+* Individual JPhotoTagger-Data will be backed up automatically,
+  see German help for directory paths: "Tipps > Wiederherstellen
+  automatisch gesicherter JPhotoTagger-Daten"
+
 0.28.1 2013-01-11
 -----------------
 

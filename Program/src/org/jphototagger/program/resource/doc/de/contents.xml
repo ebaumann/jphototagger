@@ -353,6 +353,10 @@
             <url>tipp_export_jpt.html</url>
             <title>Exportieren Sie regelmäßig JPhotoTagger-Daten</title>
         </page>
+        <page>
+            <url>tip_restore_jpt_autobackup.html</url>
+            <title>Wiederherstellen automatisch gesicherter JPhotoTagger-Daten</title>
+        </page>
     </node>
     <node>
         <title>Wichtige Fakten</title>
