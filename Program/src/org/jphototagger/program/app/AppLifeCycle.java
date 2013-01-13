@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bushe.swing.event.EventBus;
+import org.jphototagger.api.applifecycle.AppExitTask;
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.concurrent.ReplaceableTask;
 import org.jphototagger.api.concurrent.SerialTaskExecutor;
@@ -53,18 +54,13 @@ public final class AppLifeCycle {
 
         synchronized (this) {
             assert !started;
-
             if (started) {
                 return;
             }
-
             started = true;
         }
-
         this.appFrame = appFrame;
-
         Thread thread = new Thread(MetaFactory.INSTANCE, "JPhotoTagger: Initializing meta factory");
-
         thread.start();
         listenForQuit();
     }
@@ -80,7 +76,6 @@ public final class AppLifeCycle {
         if (task == null) {
             throw new NullPointerException("task == null");
         }
-
         synchronized (finalTasks) {
             finalTasks.add(task);
         }
@@ -90,7 +85,6 @@ public final class AppLifeCycle {
         if (task == null) {
             throw new NullPointerException("task == null");
         }
-
         synchronized (finalTasks) {
             finalTasks.remove(task);
         }
@@ -109,7 +103,6 @@ public final class AppLifeCycle {
         if (saveObject == null) {
             throw new NullPointerException("saveObject == null");
         }
-
         synchronized (saveObjects) {
             saveObjects.add(saveObject);
         }
@@ -124,7 +117,6 @@ public final class AppLifeCycle {
         if (saveObject == null) {
             throw new NullPointerException("saveObject == null");
         }
-
         synchronized (saveObjects) {
             saveObjects.remove(saveObject);
         }
@@ -154,11 +146,7 @@ public final class AppLifeCycle {
             notifyModulesForClose();
             writeProperties();
             checkDataToSave();
-            Cleanup.shutdown();
-            Repository repo = Lookup.getDefault().lookup(Repository.class);
-
-            repo.shutdown();
-
+            executeExitTasks();
             synchronized (finalTasks) {
                 if (finalTasks.isEmpty()) {
                     quitVm();
@@ -171,7 +159,6 @@ public final class AppLifeCycle {
 
     private void notifyModulesForClose() {
         Collection<? extends Module> modules = Lookup.getDefault().lookupAll(Module.class);
-
         for (Module module : modules) {
             module.remove();
         }
@@ -185,8 +172,16 @@ public final class AppLifeCycle {
 
     private void quitVm() {
         appFrame.dispose();
+        Cleanup.shutdown();
+        shutdownRepo();
         AppStartupLock.unlock();
         System.exit(0);
+    }
+
+    private void executeExitTasks() {
+        for (AppExitTask task : Lookup.getDefault().lookupAll(AppExitTask.class)) {
+            task.execute();
+        }
     }
 
     private void executeFinalTasksAndQuit() {
@@ -204,9 +199,7 @@ public final class AppLifeCycle {
 
         synchronized (finalTasks) {
             Set<FinalTask> tasks = new HashSet<>(finalTasks);
-
             GUI.getAppFrame().setEnabled(false);
-
             for (FinalTask task : tasks) {
                 task.addListener(listener);
                 finalTasks.remove(task);
@@ -218,13 +211,10 @@ public final class AppLifeCycle {
     private boolean ensureTasksFinished() {
         SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
         boolean finished = executor.getTaskCount() <= 0;
-
         if (finished) {
             return true;
         }
-
         String message = Bundle.getString(AppLifeCycle.class, "AppLifeCycle.Confirm.QuitOnUserTasks");
-
         return MessageDisplayer.confirmYesNo(appFrame, message);
     }
 
@@ -232,10 +222,8 @@ public final class AppLifeCycle {
         long elapsedMilliseconds = 0;
         long timeoutMilliSeconds = 120 * 1000;
         long checkIntervalMilliSeconds = 2 * 1000;
-
         if (hasSaveObjects()) {
             LOGGER.log(Level.INFO, "Application waits until those objects have saved data: {0}", saveObjects);
-
             while (hasSaveObjects() && (elapsedMilliseconds < timeoutMilliSeconds)) {
                 try {
                     elapsedMilliseconds += checkIntervalMilliSeconds;
@@ -243,7 +231,6 @@ public final class AppLifeCycle {
                 } catch (Exception ex) {
                     Logger.getLogger(AppLifeCycle.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
                     String message = Bundle.getString(AppLifeCycle.class, "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
                             timeoutMilliSeconds / 1000);
@@ -262,9 +249,13 @@ public final class AppLifeCycle {
     private void writeProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = appFrame.getClass().getName();
-
         prefs.setSize(key, appFrame);
         prefs.setLocation(key, appFrame);
+    }
+
+    private void shutdownRepo() {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+        repo.shutdown();
     }
 
     public interface FinalTaskListener {
@@ -283,7 +274,6 @@ public final class AppLifeCycle {
             if (listener == null) {
                 throw new NullPointerException("listener == null");
             }
-
             ls.add(listener);
         }
 
@@ -291,7 +281,6 @@ public final class AppLifeCycle {
             if (listener == null) {
                 throw new NullPointerException("listener == null");
             }
-
             ls.remove(listener);
         }
 
@@ -318,14 +307,11 @@ public final class AppLifeCycle {
         public static void shutdown() {
             SerialTaskExecutor serialTaskExecutor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
             ReplaceableTask replaceableTask = Lookup.getDefault().lookup(ReplaceableTask.class);
-
             ScheduledTasks.INSTANCE.cancelCurrentTasks();
             replaceableTask.cancelRunningTask();
             serialTaskExecutor.cancelAllTasks();
-
             boolean serialTasksRunning = serialTaskExecutor.getTaskCount() > 0;
             boolean sleep = (ScheduledTasks.INSTANCE.getCount() > 0) || serialTasksRunning;
-
             if (sleep) {
                 sleep();
             }
@@ -333,7 +319,6 @@ public final class AppLifeCycle {
 
         private static void sleep() {
             try {
-
                 // Let the tasks a little bit time to complete until they can interrupt
                 Thread.sleep(MILLISECONDS_SLEEP);
             } catch (Exception ex) {

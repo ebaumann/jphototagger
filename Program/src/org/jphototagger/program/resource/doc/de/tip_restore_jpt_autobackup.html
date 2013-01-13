@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Tipp: Wiederherstellen automatisch gesicherter JPhotoTagger-Daten</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Tipp: Wiederherstellen automatisch gesicherter JPhotoTagger-Daten</h1>
+
+        <p><strong>JPhotoTagger</strong>-Daten, die Sie <a href="export_jpt.html">exportieren</a> können,
+            werden beim Beenden von <strong>JPhotoTagger</strong> automatisch gesichert in den Benutzerordner,
+            Unterordner <code>.de.elmar_baumann/ImageMetaDataViewer</code>.
+            Wo der Benutzerordner ist, können Sie lesen in
+            &quot;<a href="facts_database_location.html">Wo ist die Datenbank?</a>&quot;.
+            Die gesicherten Dateien sind 2 Ebenen tiefer im Unterordner <code>pluginsettings &gt;
+                Autobackup</code>.
+        </p>
+
+        <p>Ist die Datenbank beschädigt, können Sie zwar alle Bild-Metadaten automatisch wieder einlesen
+            lassen aus den XMP-Filialdateien, aber etliche individuelle Einstellungen sind dann verloren, beispielsweise
+            <a href="settings_programs.html">Programme zum Betrachten von Bildern</a> oder
+            <a href="filefilter.html">Dateifilter</a>. Falls Sie Daten diese nicht ohnehin selbst regelmäßig exportieren,
+            können Sie auf die automatischen Sicherungen zurückgreifen: Wird <strong>JPhotoTagger</strong> beendet,
+            sichert es automatisch bis zu 5 Versionen dieser Daten, bei jedem Beenden eine. Gibt es bereits 5 Versionen,
+            wird die älteste Version überschrieben. Jede Version endet mit Bindestrich-Ziffer.xml, beispielsweise
+            <code>JptFileFilters-1.xml</code> für die Dateifilter. Die Ziffer (1) ist die Versionsnummer, die
+            niedrigste Version ist 0 (Null).
+        </p>
+
+        <p>Zum Wiederherstellen lassen Sie sich die Dateien nach Datum absteigend sortieren, so dass die neuensten
+            mit der gleichen Versionsnummer oben stehen. Alle Dateien mit der gleichen Versionsnummer kopieren Sie
+            in ein Temporärverzeichnis und importieren diese, wie beschrieben unter
+            <a href="import_jpt.html">JPhotoTagger-Daten importieren</a>. Vorher entfernen Sie in den Dateinamen
+            die Bindestriche und Ziffern, aus <code>JptFileFilters-1.xml</code> wird so <code>JptFileFilters.xml</code>.
+        </p>
+
+        <p>Beispiel für alle Dateien der Versionsnummer 1 (Stand <strong>JPhotoTagger 0.28.2</strong>):</p>
+
+<pre>
+JptAutoscanDirectories-1.xml
+JptFavorites-1.xml
+JptFileExludePatterns-1.xml
+JptFileFilters-1.xml
+JptImageCollections-1.xml
+JptKeywords-1.xml
+JptMetadataTemplates-1.xml
+JptPrograms-1.xml
+JptRenameTemplates-1.xml
+JptSavedSearches-1.xml
+JptSynonyms-1.xml
+JptUserDefinedFileTypes-1.xml
+JptWordsets-1.xml
+</pre>
+
+</body>
+</html>
