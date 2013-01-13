@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Open JPhotoTagger's database with LibreOffice/OpenOffice Base</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2013-01-13T15:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="index.html">Users</a></li>
+            <li><a href="../dev/index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="https://groups.google.com/group/jphototagger-users-english">Users English Language</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>Open JPhotoTagger's database with LibreOffice/OpenOffice Base</h1>
+
+        <p>You can open <strong>JPhotoTagger</strong>'s database with <a href="http://libreoffice.org">LibreOffice</a>
+            Base or with <a href="http://openoffice.org">OpenOffice</a> Base. If you do this, ensure that
+            <strong>JPhotoTagger</strong> does not run and that the database is opened only once per time,
+            i.e. <em>do not start JPhotoTagger, if the database is opened in Base</em> or do not open it
+            twice with Base!
+        </p>
+
+        <h2>Add HSQL DB driver</h2>
+
+        <p>Base also uses HSQL DB (like <strong>JPhotoTagger</strong>), but I had always to add it and
+            it may use a different incompatible version.
+            I translated the menu items/labels from German into English, so the names may not be correct;
+            if you are using OpenOffice, replace LibreOffice with OpenOffice:</p>
+
+        <ol>
+            <li>Menu <strong>Extras &gt; Options &gt; LibreOffice &gt; Java</strong></li>
+            <li>Class Path &gt; Add Archives</li>
+            <li>Select from <strong>JPhotoTagger</strong>'s installation directory, subdirectory <code>lib</code>
+                the file <code>hsqldb.jar</code>
+            </li>
+        </ol>
+
+        <h2>Locate JPhotoTagger's database</h2>
+
+        <p>In <strong>JPhotoTagger</strong> select <strong>File &gt; Database &gt; Info</strong>.
+            At the bottom of the dialog, the location of the database will be displayed. The directory
+            of the location is is part of the <strong>JDBC URL</strong>, see below.
+        </p>
+
+        <h2>Create new Database within LibreOffice/OpenOffice</h2>
+
+        <ol>
+            <li>Start LibreOffice Base</li>
+            <li>In <strong>Choose Database</strong> select <strong>Connect with existing database</strong></li>
+            <li>Type: <strong>JDBC</strong></li>
+            <li><strong>Dabase URL</strong> is <code>jdbc:hsqldb:file:directory_of_database/database;shutdown=true</code>,
+                e.g. <code>jdbc:hsqldb:file:/home/elmar/.de.elmar_baumann/ImageMetaDataViewer/database;shutdown=true</code>
+                under Linux or <code>jdbc:hsqldb:file:C:\users\elmar\.de.elmar_baumann\ImageMetaDataViewer\database;shutdown=true</code>
+                under Windows
+            </li>
+            <li><strong>JDBC Driver Class</strong>: <code>org.hsqldb.jdbcDriver</code> (Apply Test Button, it should
+                not display an error message)
+            </li>
+            <li>The save dialog creates a file for opening via double click</li>
+        </ol>
+
+        <p><strong>Author:</strong>
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20">Write e-Mail</a>
+            <br /><strong>Status of this document:</strong> 2013-01-13
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>
