@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.28.2 2013-01-14
+-----------------
+
+* Bugfix in "Skip duplicates" while importing images
+
 0.28.2 2013-01-13
 -----------------
 

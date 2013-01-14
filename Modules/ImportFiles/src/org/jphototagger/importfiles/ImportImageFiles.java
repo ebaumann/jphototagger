@@ -121,11 +121,11 @@ public final class ImportImageFiles implements FileImportService {
                 Collections.sort(sourceFiles, ExifDateTimeOriginalAscendingComparator.INSTANCE);
                 for (File sourceFile : sourceFiles) {
                     File targetFile = createTargetFile(sourceFile, importData);
-                    if (targetFile != null) {
-                    ensureTargetDirExists(targetFile);
-                    SourceTargetFile sourceTargetFile = new SourceTargetFile(sourceFile, targetFile);
-                    sourceTargetFile.setUserObject(importData.getXmp());
-                    sourceTargetFiles.add(sourceTargetFile);
+                    if (!importData.isSkipDuplicates() || !isDuplicate(sourceFile, targetFile.getParentFile())) {
+                        ensureTargetDirExists(targetFile);
+                        SourceTargetFile sourceTargetFile = new SourceTargetFile(sourceFile, targetFile);
+                        sourceTargetFile.setUserObject(importData.getXmp());
+                        sourceTargetFiles.add(sourceTargetFile);
                 }
                 }
             } finally {
@@ -139,9 +139,6 @@ public final class ImportImageFiles implements FileImportService {
          * @return null if source file shall not be copied
          */
         private File createTargetFile(File sourceFile, ImportData importData) {
-            if (importData.isSkipDuplicates() && isDuplicate(sourceFile, importData.getTargetDirectory())) {
-                return null;
-            }
             String targetSubdirPathname = importData.hasSubdirectoryCreateStrategy()
                     ? importData.getSubdirectoryCreateStrategy().suggestSubdirectoryName(sourceFile)
                     : "";
@@ -158,14 +155,14 @@ public final class ImportImageFiles implements FileImportService {
         }
 
         private boolean isDuplicate(File sourceFile, File targetDir) {
-            if (!targetDir.isDirectory()) {
+            if (targetDir == null || !targetDir.isDirectory()) {
                 return false;
             }
-            File[] files = targetDir.listFiles();
-            if (files == null) {
+            File[] filesInTargetDir = targetDir.listFiles();
+            if (filesInTargetDir == null) {
                 return false;
             }
-            for (File file : files) {
+            for (File file : filesInTargetDir) {
                 try {
                     if (FileUtil.contentEquals(sourceFile, file)) {
                         return true;
