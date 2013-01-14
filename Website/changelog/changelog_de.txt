@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.28.2 2013-01-14
+-----------------
+
+* Bugfix in "Duplicate vermeiden" während des Importierens von Bildern
+
 0.28.2 2013-01-13
 -----------------
 
