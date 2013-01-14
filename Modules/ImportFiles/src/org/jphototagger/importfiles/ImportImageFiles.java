@@ -133,11 +133,6 @@ public final class ImportImageFiles implements FileImportService {
             }
         }
 
-        /**
-         * @param sourceFile
-         * @param importData
-         * @return null if source file shall not be copied
-         */
         private File createTargetFile(File sourceFile, ImportData importData) {
             String targetSubdirPathname = importData.hasSubdirectoryCreateStrategy()
                     ? importData.getSubdirectoryCreateStrategy().suggestSubdirectoryName(sourceFile)
