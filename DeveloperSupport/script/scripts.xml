@@ -2,6 +2,7 @@
 <project name="JPhotoTagger" default="default" basedir=".">
     <description>Helper scripts for developers</description>
     <property environment="env"/>
+    <property name="repo.root" value="../.."/>
     <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.properties"/><!-- Template see in ../conf -->
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="ant-googlecode.jar"/>
     <target name="4 dist-upload" description="Uploading Distribution to Google Code">
@@ -79,5 +80,42 @@
         <exec executable="bash">
             <arg value="copy_test_images.sh"/>
         </exec>
+    </target>
+    <target name="translate_create_omegat_sources">
+        <echo message="Creating source files for OmegaT translation"/>
+        <antcall target="_translate_create_omegat_sources"><!-- TODO using array and iteration -->
+            <param name="src.locale" value="en"/>
+            <param name="target.locale" value="pt_BR"/>
+        </antcall>
+    </target>
+    <target name="_translate_create_omegat_sources">
+        <echo message="Copying files to translate from ${src.locale} to ${target.locale}" />
+        <property name="translation.dir" value="${repo.root}/OmegaT/${src.locale}-${target.locale}/source" />
+        <delete dir="${translation.dir}" failonerror="false"/>
+        <mkdir dir="${translation.dir}"/>
+        <copy todir="${translation.dir}">
+            <fileset dir="${repo.root}">
+                <include name="**/*${src.locale}.properties"/>
+                <exclude name="**/build/**"/>
+                <exclude name="**/nbproject/**"/>
+                <exclude name="DeveloperSupport/*"/>
+                <exclude name="dist_files/**"/>
+                <exclude name="Libraries/**"/>
+                <exclude name="OmegaT/**"/>
+                <exclude name="Website/**"/>
+            </fileset>
+            <globmapper from="*_${src.locale}.properties" to="*.properties"/>
+        </copy>
+    </target>
+    <target name="translate_copy_omegat_translations">
+        <property name="translation.dir" value="${repo.root}/OmegaT" />
+        <property name="target.dir" value="${repo.root}/Localization/src" />
+        <echo message="Copy OmegaT translations to Localization project in ${target.dir}"/>
+        <copy todir="${target.dir}">
+            <fileset dir="${translation.dir}">
+                <include name="**/target/**"/>
+            </fileset>
+            <regexpmapper from="^.*/target/.*/src/(.*)" to="\1" handledirsep="yes"/>
+        </copy>
     </target>
 </project>
