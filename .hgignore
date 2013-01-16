@@ -19,3 +19,9 @@ dist_files/upload/.*
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc_iso.*\.html
 \.rej$
 ^Website/manual/.*
+^OmegaT/.*/dictionary/.*
+^OmegaT/.*/glossary/.*
+^OmegaT/.*/source/.*
+^OmegaT/.*/target/.*
+^OmegaT/.*/tm/.*
+^Localization/src/.*
