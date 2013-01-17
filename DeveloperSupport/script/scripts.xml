@@ -83,28 +83,61 @@
     </target>
     <target name="translate_create_omegat_sources">
         <echo message="Creating source files for OmegaT translation"/>
-        <antcall target="_translate_create_omegat_sources"><!-- TODO using array and iteration -->
-            <param name="src.locale" value="en"/>
+        <!-- TODO using array and iteration -->
+        <antcall target="_translate_copy_omegat_sources_from_en">
             <param name="target.locale" value="pt_BR"/>
         </antcall>
     </target>
-    <target name="_translate_create_omegat_sources">
+    <target name="_translate_copy_omegat_sources_from_localized">
         <echo message="Copying files to translate from ${src.locale} to ${target.locale}" />
         <property name="translation.dir" value="${repo.root}/OmegaT/${src.locale}-${target.locale}/source" />
         <delete dir="${translation.dir}" failonerror="false"/>
         <mkdir dir="${translation.dir}"/>
         <copy todir="${translation.dir}">
             <fileset dir="${repo.root}">
-                <include name="**/*${src.locale}.properties"/>
+                <include name="Localization/src/**/*${src.locale}.properties"/>
+            </fileset>
+            <globmapper from="*_${src.locale}.properties" to="*.properties"/>
+        </copy>
+    </target>
+    <target name="_translate_copy_omegat_sources_from_de">
+        <echo message="Copying files to translate from de to ${target.locale}" />
+        <property name="translation.dir" value="${repo.root}/OmegaT/de-${target.locale}/source" />
+        <delete dir="${translation.dir}" failonerror="false"/>
+        <mkdir dir="${translation.dir}"/>
+        <copy todir="${translation.dir}">
+            <fileset dir="${repo.root}">
+                <include name="**/*.properties"/>
+                <exclude name="**/*_en.properties"/>
                 <exclude name="**/build/**"/>
                 <exclude name="**/nbproject/**"/>
-                <exclude name="DeveloperSupport/*"/>
+                <exclude name="DeveloperSupport/**"/>
                 <exclude name="dist_files/**"/>
                 <exclude name="Libraries/**"/>
+                <exclude name="Localization/**"/>
                 <exclude name="OmegaT/**"/>
                 <exclude name="Website/**"/>
             </fileset>
-            <globmapper from="*_${src.locale}.properties" to="*.properties"/>
+        </copy>
+    </target>
+    <target name="_translate_copy_omegat_sources_from_en">
+        <echo message="Copying files to translate from en to ${target.locale}" />
+        <property name="translation.dir" value="${repo.root}/OmegaT/en-${target.locale}/source" />
+        <delete dir="${translation.dir}" failonerror="false"/>
+        <mkdir dir="${translation.dir}"/>
+        <copy todir="${translation.dir}">
+            <fileset dir="${repo.root}">
+                <include name="**/*_en.properties"/>
+                <exclude name="**/build/**"/>
+                <exclude name="**/nbproject/**"/>
+                <exclude name="DeveloperSupport/**"/>
+                <exclude name="dist_files/**"/>
+                <exclude name="Libraries/**"/>
+                <exclude name="Localization/**"/>
+                <exclude name="OmegaT/**"/>
+                <exclude name="Website/**"/>
+            </fileset>
+            <globmapper from="*_en.properties" to="*.properties"/>
         </copy>
     </target>
     <target name="translate_copy_omegat_translations">

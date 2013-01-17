@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Translate JPhotoTagger into another language</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2013-01-17T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="../usr/index.html">Users</a></li>
+            <li><a href="index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="https://groups.google.com/group/jphototagger-users-english">Users English Language</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>Translate JPhotoTagger into another language</h1>
+
+        <p><strong>JPhotoTagger's</strong> GUI texts are stored in plain text files
+            (Java properties files). Traditionally for German and English,
+            these files are maintained by the developers.
+            For other languages, users can add translations, which
+            will be delivered with <strong>JPhotoTagger</strong>. The application
+            Build creates a separate JAR file containing them (<code>Localization.jar</code>).
+        </p>
+
+        <p>For the translation task, <strong>JPhotoTagger</strong> uses <a href="http://omegat.org">OmegaT</a>.
+            Even non computer affine persons should be able, to translate the texts in the <strong>OmegaT</strong> GUI.
+        </p>
+
+        <h2>Developers: Creating sources for OmegaT</h2>
+
+        <p>If not already done, start <strong>OmegaT</strong> and create a project
+            for a specific translation in the directory <code>Repository Root/OmegaT</code>.
+            The project name contains the locale of the source language and separated through a dash the locale of
+            the target language, e.g. <code>en-pt_BR</code>, where the source language is English and
+            the target language Brazilian Portuguese. <strong>OmegaT</strong> crates a directory of
+            that name (<code>en-pt_BR</code>) within the <code>OmegatT</code> directory and there some
+            other directories and project files. Save the project and quit <strong>OmegaT</strong>.
+        </p>
+
+        <p>In the <a href="http://ant.apache.org">Ant</a> script
+            <code>Repository Root/DeveloperSupport/script/scripts.xml</code>,
+            the target <code>translate_create_omegat_sources</code> creates up to date
+            <strong>OmegaT</strong> sources for all languages.
+        </p>
+
+        <p>A translator gets one of these <strong>OmegaT</strong> project subdirectories. Either the translator
+            checks it out from the repository via Mercurial or gets it as a zipped folder from a developer.
+        </p>
+
+        <h2>Translators: How to translate</h2>
+
+        <p>Check out the language specific <code>OmegaT</code> folder (see obove) or unzip it,
+            if a developer sent it to you as a ZIP file. Open it with <strong>OmegaT</strong>,
+            which is available for free at <a href="http://www.omegat.org">omegat.org</a>.
+            You can read the 5 Minute manual; in short: Either go with <kbd>ENTER</kbd>
+            from one text to the next (first translation) or with <kbd>Cmd+U</kbd> to
+            the next untranslated. Replace the not highlighted source text with
+            the correct translation. If done, save your work (<kbd>Cmd+S</kbd> or via the
+            <strong>Project</strong> menu).
+        </p>
+
+        <p>Rules:</p>
+
+        <ul>
+            <li>Ampersands (&amp;): Following characters are accelerators e.g. in menus or buttons.
+                You should use an appropriate position for your language. E.g. in a menu item, a
+                text may be &quot;<code>&amp;File</code>&quot;, where <kbd>Alt+F</kbd> will invoke
+                the <code>File</code> menu. A german translation of that is &quot;<code>&amp;Datei</code>&quot;,
+                but the ampersand could be at another position, e.g. &quot;<code>Da&amp;tei</code> &quot;,
+                where <kbd>Alt+T</kbd> invokes the file menu. <em>In the same translation window, do not use a
+                character twice</em>, an accelarator invokes a unique command in the same program
+                window or dialog.
+            </li>
+            <li>Do not replace or modify HTML-Code within tags, translate only text outside the &lt;&gt; braces,
+                left the braces and their content.
+                E.g. a translation of &quot;<code>This is &lt;strong&gt;important&lt;/strong&gt;</code>&quot;
+                may be &quot;<code>Dies ist &lt;strong&gt;wichtig&lt;/strong&gt;</code>&quot;.
+            </li>
+            <li>Do not replace text with &quot;special meaning&quot; &ndash; usually such text looks strange
+                to you. Very common are curly brackets with
+                numbers or other content, e.g. <code>{0}</code>. Leave the brackets and their contents
+                as they are. These are markes and will be filled dynamically with e.g. numbers.
+                The numbers may have different positions in different languages.
+                Example: <code>Deleted {0} files</code> &ndash; the <code>{0}</code> will be replaced by
+                the number of deleted files. An appropriate German translation is <code>{0} Dateien gelöscht</code>
+                &ndash; the number is at the beginning of the message.
+            </li>
+        </ul>
+
+        <p>If all texts are translated, zip the folder and send it back to a <strong>JPhotoTagger</strong>
+            deveoloper.
+        </p>
+
+        <h2>Developers: Integrate translated texts</h2>
+
+        <p>After extracting the ZIP contents to their original place, let <strong>OmegaT</strong>
+            create the target files (<strong>Project &gt; Create target documents</strong>).
+            Then run the Ant target <code>translate_copy_omegat_translations</code>. This
+            copies all translated files from the <strong>OmegaT</strong> target folders into the
+            <strong>Localization</strong> project's source folder. Then rebuild
+            <strong>JPhotoTagger</strong>.
+        </p>
+
+        <p><strong>Author:</strong>
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20Discussion">Write e-Mail</a>
+            <br /><strong>Status of this document:</strong> 2013-01-17
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>
