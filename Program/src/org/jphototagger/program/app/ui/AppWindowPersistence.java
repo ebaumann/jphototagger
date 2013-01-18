@@ -1,6 +1,8 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.HashMap;
@@ -82,16 +84,21 @@ public final class AppWindowPersistence implements ComponentListener {
 
     public void readAppFrameFromProperties() {
         final AppFrame appFrame = GUI.getAppFrame();
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        String key = appFrame.getClass().getName();
-        prefs.applySize(key, appFrame);
-        prefs.applyLocation(key, appFrame);
-
+        final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        final String key = appFrame.getClass().getName();
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
-                appFrame.pack();
+                if (prefs.containsKey(key)) {
+                    prefs.applySize(key, appFrame);
+                    prefs.applyLocation(key, appFrame);
+                } else {
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    double width = (double) screenSize.width * 0.8;
+                    double height = (double) screenSize.height * 0.8;
+                    appFrame.setSize((int) width, (int) height);
+                    appFrame.setLocationRelativeTo(null);
+                }
             }
         });
     }
