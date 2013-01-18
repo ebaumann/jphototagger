@@ -21,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.domain.filefilter.AppFileFilterProvider;
 import org.jphototagger.lib.io.IoUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 // Optimizing hints:
@@ -105,6 +106,7 @@ public final class FileDuplicatesFinder implements Runnable {
         filecount = 0;
         int dirCount = sourceDirectories.size();
         LOGGER.log(Level.INFO, "Searching {0}{1} directories for files of same size", new Object[]{recursive ? "recursively " : "", dirCount});
+        messageFindFilesOfSameSize();
         for (int dirIndex = 0; dirIndex < dirCount && !stop; dirIndex++) {
             File dir = sourceDirectories.get(dirIndex);
             if (!dir.isDirectory()) {
@@ -131,13 +133,17 @@ public final class FileDuplicatesFinder implements Runnable {
 
     private void findDuplicates() {
         LOGGER.log(Level.INFO, "Comparing files with same size to find duplicates. Total file count is {0}.", filecount);
-        for (long size : filesOfSameSize.keySet()) {
+        messageFindDuplicates();
+        List<Long> filesizes = new ArrayList<>(filesOfSameSize.keySet());
+        int fcount = filesizes.size();
+        for (int fileIndex = 0; !stop && fileIndex < fcount; fileIndex++) {
+            long filesize = filesizes.get(fileIndex);
             Set<File> duplicates = new HashSet<>();
-            List<File> sameSizedFiles = new ArrayList<>(filesOfSameSize.get(size));
-            int count = sameSizedFiles.size();
-            for (int i = 0; i < count - 1; i++) {
+            List<File> sameSizedFiles = new ArrayList<>(filesOfSameSize.get(filesize));
+            int sameSizedCount = sameSizedFiles.size();
+            for (int i = 0; !stop && i < sameSizedCount - 1; i++) {
                 File select = sameSizedFiles.get(i);
-                for (int j = i + 1; j < count; j++) {
+                for (int j = i + 1; !stop && j < sameSizedCount; j++) {
                     File candidate = sameSizedFiles.get(j);
                     if (isCompare(select, candidate)) {
                         LOGGER.log(Level.FINEST, "Comparing file ''{0}'' with ''{1}''", new Object[]{select, candidate});
@@ -190,6 +196,18 @@ public final class FileDuplicatesFinder implements Runnable {
     private void notifyDuplicatesFound(Collection<? extends File> duplicates) {
         for (FileDuplicatesListener listener : fileDuplicatesListeners) {
             listener.duplicatesFound(duplicates);
+        }
+    }
+
+    private void messageFindFilesOfSameSize() {
+        for (FileDuplicatesListener listener : fileDuplicatesListeners) {
+            listener.setMessage(Bundle.getString(FileDuplicatesFinder.class, "FileDuplicatesFinder.MessageFindFilesOfSameSize"));
+        }
+    }
+
+    private void messageFindDuplicates() {
+        for (FileDuplicatesListener listener : fileDuplicatesListeners) {
+            listener.setMessage(Bundle.getString(FileDuplicatesFinder.class, "FileDuplicatesFinder.MessageFindDuplicates", filecount));
         }
     }
 

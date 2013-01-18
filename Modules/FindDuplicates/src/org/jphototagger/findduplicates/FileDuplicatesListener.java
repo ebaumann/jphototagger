@@ -16,4 +16,6 @@ public interface FileDuplicatesListener {
      * @param duplicates minimum size: 2 files
      */
     void duplicatesFound(Collection<? extends File> duplicates);
+
+    void setMessage(String message);
 }
