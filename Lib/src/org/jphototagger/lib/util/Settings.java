@@ -115,8 +115,8 @@ public final class Settings {
                     } else if (fieldType.equals(JList.class)) {
                         applySelectedIndices(key, (JList) field.get(component));
                     }
-                } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }
@@ -848,6 +848,12 @@ public final class Settings {
         }
     }
 
+    public boolean containsSizeKey(String key) {
+        String keyWidth = getKeyWidth(key);
+        String keyHeight = getKeyHeight(key);
+        return properties.containsKey(keyWidth) && properties.containsKey(keyHeight);
+    }
+
     /**
      * Sets to a component the location. Uses the class name
      * as key. If the key does not exist, nothing will be done.
@@ -889,6 +895,12 @@ public final class Settings {
             }
         }
         return false;
+    }
+
+    public boolean containsLocationKey(String key) {
+        String keyLocationX = getKeyLocationX(key);
+        String keyLocationY = getKeyLocationY(key);
+        return properties.containsKey(keyLocationX) && properties.containsKey(keyLocationY);
     }
 
     /**
