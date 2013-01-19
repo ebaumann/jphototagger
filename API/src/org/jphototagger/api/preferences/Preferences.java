@@ -49,6 +49,10 @@ public interface Preferences {
 
     boolean containsKey(String key);
 
+    boolean containsLocationKey(String key);
+
+    boolean containsSizeKey(String key);
+
     void removeKey(String key);
 
     void removeStringCollection(String key);
