@@ -89,7 +89,7 @@ public final class AppWindowPersistence implements ComponentListener {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                if (prefs.containsKey(key)) {
+                if (prefs.containsLocationKey(key) && prefs.containsSizeKey(key)) {
                     prefs.applySize(key, appFrame);
                     prefs.applyLocation(key, appFrame);
                 } else {
@@ -98,6 +98,8 @@ public final class AppWindowPersistence implements ComponentListener {
                     double height = (double) screenSize.height * 0.8;
                     appFrame.setSize((int) width, (int) height);
                     appFrame.setLocationRelativeTo(null);
+                    GUI.getAppPanel().getSplitPaneMain().setDividerLocation((int) (width * 0.2));
+                    GUI.getAppPanel().getSplitPaneThumbnailsMetadata().setDividerLocation((int) (width * 0.6));
                 }
             }
         });
@@ -110,7 +112,6 @@ public final class AppWindowPersistence implements ComponentListener {
             public void run() {
                 AppPanel appPanel = GUI.getAppPanel();
                 Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
                 prefs.applyComponentSettings(appPanel, getAppPanelSettingsHints());
                 setInitKeywordsView(appPanel);
             }
