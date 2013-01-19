@@ -38,9 +38,10 @@ public final class MenuItemEnablerController implements PopupMenuListener {
     private void init() {
         List<OriginOfDisplayedThumbnails> contents = new ArrayList<>();
         ThumbnailsPopupMenu popupThumbnails = ThumbnailsPopupMenu.INSTANCE;
-
         contents.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
+        contents.add(OriginOfDisplayedThumbnails.FILES_IN_DIRECTORY_RECURSIVE);
         contents.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
+        contents.add(OriginOfDisplayedThumbnails.FILES_IN_FAVORITE_DIRECTORY_RECURSIVE);
         originsOfItemsRequiresSelImages.put(ThumbnailsPopupMenu.INSTANCE.getItemFileSystemMoveFiles(), contents);
         contents = new ArrayList<>();
         contents.add(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION);

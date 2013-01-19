@@ -36,7 +36,6 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
 
     private void listen() {
         ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-
         getPasteItem().addActionListener(this);
         tnPanel.addKeyListener(this);
         AnnotationProcessor.process(this);
@@ -51,7 +50,6 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
         if (!getPasteItem().isEnabled()) {
             return;
         }
-
         if (KeyEventUtil.isMenuShortcut(evt, KeyEvent.VK_V) && canPasteFiles()) {
             Object source = evt.getSource();
 
@@ -67,7 +65,6 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
         if (source instanceof JTree) {
             return ((JTree) source).getSelectionCount() > 0;
         }
-
         return false;
     }
 
@@ -81,13 +78,11 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
 
     private File getDirectory() {
         OriginOfDisplayedThumbnails content = GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails();
-
-        if (content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY)) {
+        if (content == OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY || content == OriginOfDisplayedThumbnails.FILES_IN_DIRECTORY_RECURSIVE) {
             return ViewUtil.getSelectedFile(GUI.getDirectoriesTree());
-        } else if (content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY)) {
+        } else if (content == OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY || content == OriginOfDisplayedThumbnails.FILES_IN_FAVORITE_DIRECTORY_RECURSIVE) {
             return ViewUtil.getSelectedFile(GUI.getFavoritesTree());
         }
-
         return null;
     }
 
@@ -101,14 +96,12 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
             @Override
             public void run() {
                 List<File> files = ClipboardUtil.getFilesFromSystemClipboard(FilenameDelimiter.NEWLINE);
-
                 DirectoryTreeTransferHandler.handleDroppedFiles(getEstimatedTransferHandlerAction(), files, file);
                 emptyClipboard();
             }
 
             public int getEstimatedTransferHandlerAction() {
                 Integer action = GUI.getThumbnailsPanel().getFileAction().getTransferHandlerAction();
-
                 return (action == null)
                         ? TransferHandler.COPY
                         : action;

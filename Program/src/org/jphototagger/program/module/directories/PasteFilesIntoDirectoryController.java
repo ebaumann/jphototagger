@@ -75,7 +75,10 @@ public final class PasteFilesIntoDirectoryController implements KeyListener {
     }
 
     private boolean isSingleDirectory(OriginOfDisplayedThumbnails content) {
-        return content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY) || content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
+        return content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY)
+                || content.equals(OriginOfDisplayedThumbnails.FILES_IN_DIRECTORY_RECURSIVE)
+                || content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY)
+                || content.equals(OriginOfDisplayedThumbnails.FILES_IN_FAVORITE_DIRECTORY_RECURSIVE);
     }
 
     @Override
