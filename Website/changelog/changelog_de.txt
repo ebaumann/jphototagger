@@ -3,9 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.29.0 2013-01-
+0.29.0 2013-01-19
 -----------------
 
+* Kartenreiter "Ordner" und "Favoriten": Checkbox zum Ankreuzen, ob
+  zusätzlich die Bilder in allen Unterordnern angezeigt werden sollen
 * "Duplikate vermeiden" zeigt in Fortschrittsbalken Text an
 
 0.28.2 2013-01-14

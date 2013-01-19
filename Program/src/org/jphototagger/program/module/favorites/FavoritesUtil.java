@@ -61,8 +61,6 @@ public final class FavoritesUtil {
                     } else {
                         String message = Bundle.getString(FavoritesUtil.class, "FavoritesHelper.Error.Update", favorite);
                         MessageDisplayer.error(null, message);
-
-                        return;
                     }
                 }
             });
@@ -185,13 +183,13 @@ public final class FavoritesUtil {
      *
      * @param files
      * @param settings can be null
+     * @param origin
      */
-    public static void setFilesToThumbnailPanel(List<File> files, ThumbnailsPanelSettings settings) {
+    public static void setFilesToThumbnailPanel(List<File> files, ThumbnailsPanelSettings settings, OriginOfDisplayedThumbnails origin) {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
-        EventQueueUtil.invokeInDispatchThread(new SetFiles(files, settings));
+        EventQueueUtil.invokeInDispatchThread(new SetFiles(files, settings, origin));
     }
 
     private static class SetFiles implements Runnable {
@@ -199,14 +197,12 @@ public final class FavoritesUtil {
         private final ThumbnailsDisplayer thumbnailsDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
         private final List<File> files;
         private final ThumbnailsPanelSettings tnPanelSettings;
+        private final OriginOfDisplayedThumbnails origin;
 
-        SetFiles(List<File> files, ThumbnailsPanelSettings settings) {
-            if (files == null) {
-                throw new NullPointerException("files == null");
-            }
-
+        private SetFiles(List<File> files, ThumbnailsPanelSettings settings, OriginOfDisplayedThumbnails origin) {
             this.files = files;    // No copy due performance
             this.tnPanelSettings = settings;
+            this.origin = origin;
         }
 
         @Override
@@ -214,7 +210,7 @@ public final class FavoritesUtil {
             WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
             waitDisplayer.show();
             setTitle();
-            thumbnailsDisplayer.displayFiles(files, OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
+            thumbnailsDisplayer.displayFiles(files, origin);
             thumbnailsDisplayer.applyThumbnailsPanelSettings(tnPanelSettings);
             waitDisplayer.hide();
         }
