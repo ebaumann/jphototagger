@@ -114,6 +114,16 @@ public final class PreferencesImpl implements Preferences {
         return settings.containsKey(key);
     }
 
+    @Override
+    public boolean containsLocationKey(String key) {
+        return settings.containsLocationKey(key);
+    }
+
+    @Override
+    public boolean containsSizeKey(String key) {
+        return settings.containsSizeKey(key);
+    }
+
     private void writeToFile() {
         UserPreferences.INSTANCE.writeToFile();
     }
