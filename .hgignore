@@ -16,7 +16,6 @@ dist_files/upload/.*
 \.orig\..*$
 \.rej$
 ^Localization/src/.*
-^OmegaT/.*/source/.*
 ^OmegaT/.*/target/.*
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc\.html
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc_iso.*\.html
