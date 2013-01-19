@@ -2,6 +2,7 @@ package org.jphototagger.program.resource;
 
 import java.io.File;
 import java.util.List;
+import javax.swing.JCheckBox;
 import javax.swing.JTree;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -115,6 +116,14 @@ public final class GUI {
 
     public static JTree getTimelineTree() {
         return appPanel.getTreeTimeline();
+    }
+
+    public static JCheckBox getCheckBoxDirectoriesRecursive() {
+        return appPanel.getCheckBoxDirectoriesRecursive();
+    }
+
+    public static JCheckBox getCheckBoxFavoritesRecursive() {
+        return appPanel.getCheckBoxFavoritesRecursive();
     }
 
     private GUI() {

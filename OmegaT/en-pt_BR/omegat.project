@@ -11,5 +11,6 @@
         <target_lang>PT-BR</target_lang>
         <sentence_seg>true</sentence_seg>
         <support_default_translations>true</support_default_translations>
+        <remove_tags>false</remove_tags>
     </project>
 </omegat>

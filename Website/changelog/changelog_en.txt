@@ -3,9 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.29.0 2013-01-
+0.29.0 2013-01-19
 -----------------
 
+* Tabs "Folders" and "Favorites": Checkbox to check, whether
+  images in all subfolders should be displayed too
 * Find duplicates displays text in progress bar
 
 0.28.2 2013-01-14
