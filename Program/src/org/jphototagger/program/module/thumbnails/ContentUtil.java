@@ -15,7 +15,9 @@ public final class ContentUtil {
 
     static {
         CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY);
+        CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(OriginOfDisplayedThumbnails.FILES_IN_DIRECTORY_RECURSIVE);
         CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY);
+        CONTENT_IS_A_FILESYSTEM_DIRECTORY.add(OriginOfDisplayedThumbnails.FILES_IN_FAVORITE_DIRECTORY_RECURSIVE);
     }
 
     /**
@@ -28,7 +30,6 @@ public final class ContentUtil {
         if (content == null) {
             throw new NullPointerException("content == null");
         }
-
         return CONTENT_IS_A_FILESYSTEM_DIRECTORY.contains(content);
     }
 
