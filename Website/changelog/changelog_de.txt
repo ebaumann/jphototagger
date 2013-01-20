@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.29.1 2013-01-20
+-----------------
+
+* Drag & Drop im Ordern- und Favoriten-Kartenreiter
+  wählt nicht mehr Ordner unter dem Mauszeiger aus:
+  Falls alle Bilder in Unterordner angezeit werden,
+  kann sehr viel Zeit vergehen und es sieht aus, als
+  ob JPhotoTagger "hängt"
+
 0.29.0 2013-01-19
 -----------------
 
