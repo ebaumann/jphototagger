@@ -3,9 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.29.1 2013-01-20
+0.30.0 2013-01-20
 -----------------
 
+* Neue Schaltfläche rechts neben Schnellsuchfeld: Vorherige
+  Auswahl wiederherstellen
 * Drag & Drop im Ordern- und Favoriten-Kartenreiter
   wählt nicht mehr Ordner unter dem Mauszeiger aus:
   Falls alle Bilder in Unterordner angezeit werden,

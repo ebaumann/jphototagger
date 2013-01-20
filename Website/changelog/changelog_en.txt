@@ -3,9 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.29.1 2013-01-20
+0.30.0 2013-01-20
 -----------------
 
+* New button right to fast search textfield: Restore previous
+  selection
 * Drag & Drop in Folders and Favorites Tab doesn't select
   folders below the mouse pointer: If images in subfolders
   are displayed this can lead to very long supends and

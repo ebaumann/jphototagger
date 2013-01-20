@@ -80,13 +80,13 @@ public final class AppPanel extends javax.swing.JPanel {
     private void init() {
         initComponents();
         messageLabel = new MessageLabel(labelStatusbarText);
+        setTreesSingleSelection();
+        initCollections();
+        initListTextFilters();
+        setMnemonics();
         GUI.setAppPanel(this);
         lookupWindows();
         lookupStatusLineElements();
-        setTreesSingleSelection();
-        initCollections();
-        setMnemonics();
-        initListTextFilters();
         tabbedPaneMetadata.addChangeListener(tabbedPaneEditChangeListener);
         tabbedPaneSelection.addChangeListener(tabbedPaneSelectionChangeListener);
     }
