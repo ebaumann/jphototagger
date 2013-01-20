@@ -7,13 +7,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import org.jdesktop.swingx.JXList;
+import org.jphototagger.lib.util.ArrayUtil;
 
 /**
  * @author Elmar Baumann
@@ -27,17 +30,70 @@ public final class ListUtil {
      * Clears alls selected items in all lists.
      *
      * @param lists  lists
+     * @return Previous selected values of lists with selections
      */
     @SuppressWarnings("rawtypes")
-    public static void clearSelection(List<? extends JList> lists) {
+    public static Map<JList<?>, List<?>> clearSelection(List<? extends JList> lists) {
         if (lists == null) {
             throw new NullPointerException("lists == null");
         }
+        Map<JList<?>, List<?>> selectedIndices = new HashMap<>();
         for (JList<?> list : lists) {
             if (!list.isSelectionEmpty()) {
+                List<?> selValues = list.getSelectedValuesList();
+                if (!selValues.isEmpty()) { // should not be necessary, "safety belt"
+                    selectedIndices.put(list, selValues);
+                }
                 list.clearSelection();
             }
         }
+        return selectedIndices;
+    }
+
+    public static void setSelectedValues(JList<?> list, List<?> values) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+        if (values == null) {
+            throw new NullPointerException("values == null");
+        }
+        List<Integer> indices = getIndicesOfValues(list, values);
+        list.setSelectedIndices(ArrayUtil.toIntArray(indices));
+    }
+
+    public static List<Integer> getIndicesOfValues(JList<?> list, List<?> values) {
+        if (list == null) {
+            throw new NullPointerException("list == null");
+        }
+        if (values == null) {
+            throw new NullPointerException("values == null");
+        }
+        List<Integer> indices = new ArrayList<>();
+        ListModel<?> model = list.getModel();
+        boolean isJXList = list instanceof JXList;
+        boolean isDefaultListModel = model instanceof DefaultListModel<?>;
+        for (Object value : values) {
+            if (value == null) {
+                continue;
+            }
+            int index = -1;
+            if (isDefaultListModel) {
+                index = ((DefaultListModel<?>) model).indexOf(value);
+                if (index >= 0 && isJXList) {
+                    index = ((JXList) list).convertIndexToView(index);
+                }
+            } else {
+                for (int i = 0; index < 0 && i < model.getSize(); i++) {
+                    if (value.equals(model.getElementAt(i))) {
+                        index = i;
+                    }
+                }
+            }
+            if (index >= 0) {
+                indices.add(index);
+            }
+        }
+        return indices;
     }
 
     /**
