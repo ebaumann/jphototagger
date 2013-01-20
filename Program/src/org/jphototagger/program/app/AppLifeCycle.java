@@ -165,6 +165,7 @@ public final class AppLifeCycle {
     }
 
     public static void quitBeforeGuiWasCreated() {
+        LOGGER.info("Quitting before GUI was created.");
         Lookup.getDefault().lookup(Repository.class).shutdown();
         AppStartupLock.unlock();
         System.exit(1);
@@ -228,7 +229,7 @@ public final class AppLifeCycle {
                 try {
                     elapsedMilliseconds += checkIntervalMilliSeconds;
                     Thread.sleep(checkIntervalMilliSeconds);
-                } catch (Exception ex) {
+                } catch (Throwable ex) {
                     Logger.getLogger(AppLifeCycle.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (elapsedMilliseconds >= timeoutMilliSeconds) {
