@@ -3,9 +3,12 @@ package org.jphototagger.lib.swing.util;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Stack;
 import java.util.StringTokenizer;
@@ -112,16 +115,23 @@ public final class TreeUtil {
      * Deselektiert alle Treeitems von mehreren Trees.
      *
      * @param trees Trees
+     * @return Previous selected paths of trees with selected items
      */
-    public static void clearSelection(List<JTree> trees) {
+    public static Map<JTree, List<TreePath>> clearSelection(List<JTree> trees) {
         if (trees == null) {
             throw new NullPointerException("trees == null");
         }
+        Map<JTree, List<TreePath>> selectionPaths = new HashMap<>();
         for (JTree tree : trees) {
             if (tree.getSelectionCount() > 0) {
+                TreePath[] paths = tree.getSelectionPaths();
+                if (paths != null && paths.length > 0) { // should not be necessary, "safety belt"
+                    selectionPaths.put(tree, Arrays.asList(paths));
+                }
                 tree.clearSelection();
             }
         }
+        return selectionPaths;
     }
 
     /**
