@@ -11,13 +11,23 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.BorderFactory;
+import javax.swing.JList;
+import javax.swing.JTree;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.TreePath;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.preferences.Preferences;
@@ -65,10 +75,13 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     private static final long serialVersionUID = 1L;
     private static final String DELIMITER_SEARCH_WORDS = ";";
-    private final Autocomplete autocomplete;
-    private boolean isAutocomplete;
+    private final Map<JTree, List<TreePath>> selectedTreePaths = new HashMap<>();
+    private final Map<JList<?>, List<?>> selectedListValues = new HashMap<>();
+    private final ButtonRestoreDisabler buttonRestoreDisabler;
     private final FindRepository findRepo = Lookup.getDefault().lookup(FindRepository.class);
     private final SelectSearchTextAreaAction selectSearchTextAreaAction = new SelectSearchTextAreaAction();
+    private final Autocomplete autocomplete;
+    private boolean isAutocomplete;
 
     public FastSearchPanel() {
         initComponents();
@@ -79,6 +92,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
             autocomplete = null;
             isAutocomplete = false;
         }
+        buttonRestoreDisabler = new ButtonRestoreDisabler();
         postInitComponents();
     }
 
@@ -168,8 +182,51 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     }
 
     private void clearSelection() {
-        TreeUtil.clearSelection(GUI.getAppPanel().getSelectionTrees());
-        ListUtil.clearSelection(GUI.getAppPanel().getSelectionLists());
+        setSelectedTreePaths(TreeUtil.clearSelection(GUI.getAppPanel().getSelectionTrees()));
+        setSelectedListValues(ListUtil.clearSelection(GUI.getAppPanel().getSelectionLists()));
+        buttonRestoreSelection.setEnabled(itemsWereSelected());
+    }
+
+    private boolean itemsWereSelected() {
+        synchronized (selectedTreePaths) {
+            if (!selectedTreePaths.isEmpty()) {
+                return true;
+            }
+        }
+        synchronized(selectedListValues) {
+            if (!selectedListValues.isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void setSelectedTreePaths(Map<JTree, List<TreePath>> selectedTreePaths) {
+        synchronized (this.selectedTreePaths) {
+            this.selectedTreePaths.clear();
+            this.selectedTreePaths.putAll(selectedTreePaths);
+        }
+    }
+
+    private void setSelectedListValues(Map<JList<?>, List<?>> selectedListIndices) {
+        synchronized(this.selectedListValues) {
+            this.selectedListValues.clear();
+            this.selectedListValues.putAll(selectedListIndices);
+        }
+    }
+
+    private void restoreSelection() {
+        synchronized (selectedTreePaths) {
+            for (JTree tree : selectedTreePaths.keySet()) {
+                List<TreePath> paths = selectedTreePaths.get(tree);
+                tree.setSelectionPaths(paths.toArray(new TreePath[paths.size()]));
+            }
+        }
+        synchronized(selectedListValues) {
+            for (JList<?> list : selectedListValues.keySet()) {
+                ListUtil.setSelectedValues(list, selectedListValues.get(list));
+            }
+        }
     }
 
     private void search() {
@@ -368,6 +425,33 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         }
     }
 
+    private final class ButtonRestoreDisabler implements ListSelectionListener, TreeSelectionListener {
+
+        private ButtonRestoreDisabler() {
+            for (JList<?> list : GUI.getAppPanel().getSelectionLists()) {
+                list.addListSelectionListener(this);
+            }
+            for (JTree tree : GUI.getAppPanel().getSelectionTrees()) {
+                tree.addTreeSelectionListener(this);
+            }
+        }
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting() && e.getFirstIndex() >= 0) {
+                buttonRestoreSelection.setEnabled(false);
+            }
+        }
+
+        @Override
+        public void valueChanged(TreeSelectionEvent e) {
+            if (e.isAddedPath()) {
+                buttonRestoreSelection.setEnabled(false);
+            }
+        }
+
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -378,12 +462,13 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         java.awt.GridBagConstraints gridBagConstraints;
 
         fastSearchComboBox = new javax.swing.JComboBox<>();
-        searchButton = new javax.swing.JButton();
         textAreaSearch = new ImageTextArea();
         ((ImageTextArea) textAreaSearch).setImage(
             AppLookAndFeel.getLocalizedImage(
                 "/org/jphototagger/program/resource/images/textfield_search.png"));
         ((ImageTextArea) textAreaSearch).setConsumeEnter(true);
+        searchButton = new javax.swing.JButton();
+        buttonRestoreSelection = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -394,23 +479,10 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
         add(fastSearchComboBox, gridBagConstraints);
-
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
-        searchButton.setText(bundle.getString("FastSearchPanel.searchButton.text")); // NOI18N
-        searchButton.setMargin(new java.awt.Insets(1, 1, 1, 1));
-        searchButton.setName("searchButton"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
-        add(searchButton, gridBagConstraints);
 
         textAreaSearch.setRows(1);
         textAreaSearch.setMinimumSize(new java.awt.Dimension(0, 18));
@@ -424,8 +496,47 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         gridBagConstraints.weighty = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         add(textAreaSearch, gridBagConstraints);
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
+        searchButton.setText(bundle.getString("FastSearchPanel.searchButton.text")); // NOI18N
+        searchButton.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        searchButton.setName("searchButton"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        add(searchButton, gridBagConstraints);
+
+        buttonRestoreSelection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_restore_selection.png"))); // NOI18N
+        buttonRestoreSelection.setToolTipText(bundle.getString("FastSearchPanel.buttonRestoreSelection.toolTipText")); // NOI18N
+        buttonRestoreSelection.setEnabled(false);
+        buttonRestoreSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonRestoreSelection.setName("buttonRestoreSelection"); // NOI18N
+        buttonRestoreSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRestoreSelectionActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        add(buttonRestoreSelection, gridBagConstraints);
     }//GEN-END:initComponents
+
+    private void buttonRestoreSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRestoreSelectionActionPerformed
+        restoreSelection();
+        setSelectedTreePaths(Collections.<JTree, List<TreePath>>emptyMap());
+        setSelectedListValues(Collections.<JList<?>, List<?>>emptyMap());
+    }//GEN-LAST:event_buttonRestoreSelectionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonRestoreSelection;
     private javax.swing.JComboBox<Object> fastSearchComboBox;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextArea textAreaSearch;
