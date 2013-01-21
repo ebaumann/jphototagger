@@ -64,24 +64,46 @@
             The project name contains the locale of the source language and separated through a dash the locale of
             the target language, e.g. <code>en-pt_BR</code>, where the source language is English and
             the target language Brazilian Portuguese. <strong>OmegaT</strong> crates a directory of
-            that name (<code>en-pt_BR</code>) within the <code>OmegatT</code> directory and there some
-            other directories and project files. Save the project and quit <strong>OmegaT</strong>.
+            that name (<code>en-pt_BR</code>) within the <code>OmegatT</code> directory and some
+            other subdirectories and project files. Save the project and quit <strong>OmegaT</strong>.
         </p>
 
         <p>In the <a href="http://ant.apache.org">Ant</a> script
             <code>Repository Root/DeveloperSupport/script/scripts.xml</code>,
             the target <code>translate_create_omegat_sources</code> creates up to date
-            <strong>OmegaT</strong> sources for all languages.
+            <strong>OmegaT</strong> sources for all languages. This target will be called
+            automatically on each JPhotoTagger Build.
         </p>
 
-        <p>A translator gets one of these <strong>OmegaT</strong> project subdirectories. Either the translator
-            checks it out from the repository via Mercurial or gets it as a zipped folder from a developer.
+        <p>If you added a translation directory, update the <strong>Ant</strong> script
+            <code>scripts.xml</code> through adding an <code>antcall</code> to the target
+            <code>translate_create_omegat_sources</code>, e.g.
+        </p>
+
+<pre>
+&lt;antcall target="_translate_copy_omegat_sources_from_en"&gt;
+    &lt;param name="target.locale" value="pt_BR"/&gt;
+&lt;/antcall&gt;
+</pre>
+
+        <p>The <code>_translate_copy_omegat_sources_from_en</code> target treats English
+            as source language and an arbitrary language as target language. For an arbitrary
+            language different from English and German as source language and an arbitrary
+            language as target language different from English and German, use the target
+            <code>_translate_copy_omegat_sources_from_localized</code>.
+        </p>
+
+        <p>A translator gets one of these <strong>OmegaT</strong> project subdirectories packed
+            into a ZIP file (if a developer has the complete JPhotoTagger's repository, this is
+            not required). JPhotoTagger's Build script creates ZIP files for each translation
+            in the <code>OmegaT</code> directory named equal to the translation directory,
+            e.g. <code>en-pt_BR.zip</code>.
         </p>
 
         <h2>Translators: How to translate</h2>
 
-        <p>Check out the language specific <code>OmegaT</code> folder (see obove) or unzip it,
-            if a developer sent it to you as a ZIP file. Open it with <strong>OmegaT</strong>,
+        <p>Unzip the language specific <code>OmegaT</code> folder's ZIP file a developer
+            sent to you (see obove). Open it with <strong>OmegaT</strong>,
             which is available for free at <a href="http://www.omegat.org">omegat.org</a>.
             You can read the 5 Minute manual; in short: Either go with <kbd>ENTER</kbd>
             from one text to the next (first translation) or with <kbd>Cmd+U</kbd> to
@@ -119,14 +141,14 @@
         </ul>
 
         <p>If all texts are translated, zip the folder and send it back to a <strong>JPhotoTagger</strong>
-            deveoloper.
+            developer.
         </p>
 
         <h2>Developers: Integrate translated texts</h2>
 
         <p>After extracting the ZIP contents to their original place, let <strong>OmegaT</strong>
             create the target files (<strong>Project &gt; Create target documents</strong>).
-            Then run the Ant target <code>translate_copy_omegat_translations</code>. This
+            Then run the Ant target <code>translate_copy_omegat_translations</code>. This target
             copies all translated files from the <strong>OmegaT</strong> target folders into the
             <strong>Localization</strong> project's source folder. Then rebuild
             <strong>JPhotoTagger</strong>.
