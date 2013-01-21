@@ -172,8 +172,8 @@ public final class AppLifeCycle {
     }
 
     private void quitVm() {
-        appFrame.dispose();
         Cleanup.shutdown();
+        appFrame.dispose();
         shutdownRepo();
         AppStartupLock.unlock();
         System.exit(0);
