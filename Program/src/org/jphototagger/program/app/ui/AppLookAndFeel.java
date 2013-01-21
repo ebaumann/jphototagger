@@ -34,7 +34,7 @@ public final class AppLookAndFeel {
     private static Color tableExifMakerNoteBackground = new Color(226, 226, 255);
     private static Color tableBackground = Color.WHITE;
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND = Color.BLACK;
-    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(205, 205, 205);
+    public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(255, 223, 181);
     public static final Color LIST_SEL_IMG_HAS_KEYWORD_FOREGROUND = TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND;
     public static final Color LIST_SEL_IMG_HAS_KEYWORD_BACKGROUND = TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND;
     public static final String SMALL_APP_ICON_PATH = ICONS_PATH + "/icon_app_small.png";

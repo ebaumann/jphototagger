@@ -4,8 +4,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.decorator.ColorHighlighter;
@@ -13,6 +14,7 @@ import org.jdesktop.swingx.decorator.ComponentAdapter;
 import org.jdesktop.swingx.decorator.HighlightPredicate;
 import org.jdesktop.swingx.decorator.Highlighter;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.keywords.list.KeywordsListCellRenderer;
@@ -24,9 +26,10 @@ import org.openide.util.Lookup;
  */
 public final class KeywordHighlightPredicate implements HighlightPredicate {
 
-    private List<String> keywordsOfSelectedImage = new ArrayList<>();
     private static final Highlighter HIGHLIGHTER = createHighlighter();
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+    private final Set<String> keywordsOfSelectedImages = new HashSet<>();
+    private final List<File> selectedFiles = new ArrayList<>();
 
     public KeywordHighlightPredicate() {
         listen();
@@ -55,15 +58,14 @@ public final class KeywordHighlightPredicate implements HighlightPredicate {
             return false;
         }
         Object value = adapter.getValue();
-        return (value == null)
+        return value == null
                 ? false
                 : containsKeyword(value.toString());
     }
 
     private boolean containsKeyword(String keyword) {
-        for (String keywordOfSelectedImage : keywordsOfSelectedImage) {
-            if (keywordOfSelectedImage != null
-                    && keywordOfSelectedImage.equalsIgnoreCase(keyword)) {
+        for (String kw : keywordsOfSelectedImages) {
+            if (kw != null && kw.equalsIgnoreCase(keyword)) {
                 return true;
             }
         }
@@ -80,11 +82,20 @@ public final class KeywordHighlightPredicate implements HighlightPredicate {
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        keywordsOfSelectedImage.clear();
-        if (evt.getSelectionCount() == 1) {
-            List<File> selectedFiles = evt.getSelectedFiles();
-            Collection<String> keywordsOfSelectedFile = repo.findDcSubjectsOfImageFile(selectedFiles.get(0));
-            keywordsOfSelectedImage.addAll(keywordsOfSelectedFile);
+        selectedFiles.clear();
+        selectedFiles.addAll(evt.getSelectedFiles());
+        setKeywords();
+        }
+
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        setKeywords();
+    }
+
+    private void setKeywords() {
+        keywordsOfSelectedImages.clear();
+        for (File file : selectedFiles) {
+            keywordsOfSelectedImages.addAll(repo.findDcSubjectsOfImageFile(file));
         }
         repaintLists();
     }
