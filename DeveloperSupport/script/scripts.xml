@@ -6,7 +6,29 @@
     <property name="translation.root" value="${repo.root}/OmegaT"/>
     <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.properties"/><!-- Template see in ../conf -->
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${repo.root}/DeveloperSupport/script/ant-googlecode.jar"/>
-    <target name="4 dist-upload" description="Uploading Distribution to Google Code">
+    <target name="dist_1_set_version_info" description="Set Version Info to Dist">
+        <exec executable="bash">
+            <arg value="dist_set_version_info.sh" />
+        </exec>
+    </target>
+    <target name="dist_2_create_pdf_manual" description="Creating PDF manual">
+        <exec executable="bash">
+            <arg value="create_html_index_manual.sh" />
+            <arg value="de"/>
+            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
+        </exec>
+        <exec executable="bash">
+            <arg value="create_pdf_manual.sh" />
+            <arg value="de" />
+            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
+        </exec>
+    </target>
+    <target name="dist_3_create_zip" description="Create ZIP distribution">
+        <exec executable="bash">
+            <arg value="dist_create_zip.sh" />
+        </exec>
+    </target>
+    <target name="dist_4_upload" description="Uploading Distribution to Google Code">
         <!--${googlecode.username}, ${googlecode.password} and ${jptversion}
         will be read from scripts.properties within this directory
         -->
@@ -32,52 +54,30 @@
         />
         <exec executable="${env.HOME}/website/bin/update.sh"/>
     </target>
-    <target name="2 dist-create-zip" description="Create ZIP distribution">
+    <target name="check_bundles_find_missing_strings" description="Finding missing Bundle strings">
         <exec executable="bash">
-            <arg value="dist_create_zip.sh" />
+            <arg value="find_missing_bundle_strings.sh"/>
         </exec>
     </target>
-    <target name="0 dist-set-version-info" description="Set Version Info to Dist">
-        <exec executable="bash">
-            <arg value="dist_set_version_info.sh" />
-        </exec>
-    </target>
-    <target name="switch-settingsdir-pristine" description="Switching to pristine settings">
+    <target name="test_switch_settingsdir_pristine" description="Switching to pristine settings">
         <exec executable="bash">
             <arg value="switch_settingsdir.sh"/>
             <arg value="-p"/>
         </exec>
     </target>
-    <target name="switch-settingsdir-test" description="Switching to test settings">
+    <target name="test_switch_settingsdir_test" description="Switching to test settings">
         <exec executable="bash">
             <arg value="switch_settingsdir.sh"/>
             <arg value="-t"/>
         </exec>
     </target>
-    <target name="switch-settingsdir-work" description="Switching to working settings">
+    <target name="test_switch_settingsdir_work" description="Switching to working settings">
         <exec executable="bash">
             <arg value="switch_settingsdir.sh"/>
             <arg value="-w"/>
         </exec>
     </target>
-    <target name="1 create-pdf-manual" description="Creating PDF manual">
-        <exec executable="bash">
-            <arg value="create_html_index_manual.sh" />
-            <arg value="de"/>
-            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
-        </exec>
-        <exec executable="bash">
-            <arg value="create_pdf_manual.sh" />
-            <arg value="de" />
-            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
-        </exec>
-    </target>
-    <target name="bundles-find-missing-strings" description="Finding missing Bundle strings">
-        <exec executable="bash">
-            <arg value="find_missing_bundle_strings.sh"/>
-        </exec>
-    </target>
-    <target name="copy-test-images" description="Copying test images">
+    <target name="test_copy_images" description="Copying test images">
         <exec executable="bash">
             <arg value="copy_test_images.sh"/>
         </exec>
