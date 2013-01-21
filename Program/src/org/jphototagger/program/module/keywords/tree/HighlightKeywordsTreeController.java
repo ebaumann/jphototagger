@@ -9,8 +9,8 @@ import javax.swing.tree.TreeCellRenderer;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXTree;
-import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
@@ -23,8 +23,8 @@ import org.openide.util.Lookup;
  */
 public final class HighlightKeywordsTreeController {
 
-    private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+    private final List<File> selectedFiles = new ArrayList<>();
 
     public HighlightKeywordsTreeController() {
         listen();
@@ -36,21 +36,26 @@ public final class HighlightKeywordsTreeController {
 
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(final ThumbnailsSelectionChangedEvent evt) {
-        applyCurrentSelection(evt);
+        selectedFiles.clear();
+        selectedFiles.addAll(evt.getSelectedFiles());
+        setKeywords();
     }
 
-    private void applyCurrentSelection(ThumbnailsSelectionChangedEvent evt) {
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        setKeywords();
+    }
+
+    private void setKeywords() {
         removeKeywords();
-        if (evt.getSelectionCount() == 1) {
-            List<File> selFiles = evt.getSelectedFiles();
-            if ((selFiles.size() == 1) && hasSidecarFile(selFiles)) {
-                Collection<String> keywords = repo.findDcSubjectsOfImageFile(selFiles.get(0));
+        List<String> keywords = new ArrayList<>();
+        for (File file : selectedFiles) {
+            keywords.addAll(repo.findDcSubjectsOfImageFile(file));
+        }
                 setKeywords(GUI.getSelKeywordsTree(), keywords);
                 setKeywords(GUI.getEditKeywordsTree(), keywords);
                 setKeywords(GUI.getInputHelperKeywordsTree(), keywords);
             }
-        }
-    }
 
     private void setKeywords(JTree tree, Collection<String> keywords) {
         TreeCellRenderer treeCellRenderer = tree.getCellRenderer();
@@ -67,8 +72,4 @@ public final class HighlightKeywordsTreeController {
         setKeywords(GUI.getEditKeywordsTree(), new ArrayList<String>());
         setKeywords(GUI.getInputHelperKeywordsTree(), new ArrayList<String>());
     }
-
-    private boolean hasSidecarFile(List<File> selFile) {
-        return xmpSidecarFileResolver.hasXmpSidecarFile(selFile.get(0));
     }
-}
