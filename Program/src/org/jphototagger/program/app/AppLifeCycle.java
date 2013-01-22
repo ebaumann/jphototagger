@@ -33,14 +33,11 @@ import org.openide.util.Lookup;
 public final class AppLifeCycle {
 
     public static final AppLifeCycle INSTANCE = new AppLifeCycle();
+    private static final Logger LOGGER = Logger.getLogger(AppLifeCycle.class.getName());
     private final Set<Object> saveObjects = new HashSet<>();
     private final Set<FinalTask> finalTasks = new LinkedHashSet<>();
     private AppFrame appFrame;
     private boolean started;
-    private static final Logger LOGGER = Logger.getLogger(AppLifeCycle.class.getName());
-
-    private AppLifeCycle() {
-    }
 
     /**
      * Has be to called <em>once</em> after the {@code AppFrame} has been created.
@@ -51,9 +48,7 @@ public final class AppLifeCycle {
         if (appFrame == null) {
             throw new NullPointerException("appFrame == null");
         }
-
         synchronized (this) {
-            assert !started;
             if (started) {
                 return;
             }
@@ -65,10 +60,24 @@ public final class AppLifeCycle {
         listenForQuit();
     }
 
+    private void listenForQuit() {
+        appFrame.addWindowListener(new WindowAdapter() {
+
+            @Override
+            public void windowClosed(WindowEvent evt) {
+                quit();
+            }
+
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                quit();
+            }
+        });
+    }
+
     /**
      * Adds a thread that will be executed before the application window becomes invisible and the application exists
-     * the VM. <p> <em>At this time, the repository has been shutdown, so that repository operations are not
-     * possible!</em>
+     * the VM.
      *
      * @param task task
      */
@@ -90,178 +99,9 @@ public final class AppLifeCycle {
         }
     }
 
-    /**
-     * Adds an object which is currently or will soon saving data. As long as data is to save, the app does not exit.
-     *
-     * <em>Do not forget removing a save object via
-     * {@code #removeSaveObject(java.lang.Object)}, otherwise the app terminates after a timeout and does not know
-     * wheter data was saved!</em>
-     *
-     * @param saveObject object that saves data.
-     */
-    public void addSaveObject(Object saveObject) {
-        if (saveObject == null) {
-            throw new NullPointerException("saveObject == null");
-        }
-        synchronized (saveObjects) {
-            saveObjects.add(saveObject);
-        }
-    }
-
-    /**
-     * Removes a save object added via {@code #addSaveObject(java.lang.Object)}.
-     *
-     * @param saveObject save object to remove
-     */
-    public void removeSaveObject(Object saveObject) {
-        if (saveObject == null) {
-            throw new NullPointerException("saveObject == null");
-        }
-        synchronized (saveObjects) {
-            saveObjects.remove(saveObject);
-        }
-    }
-
-    private void listenForQuit() {
-        appFrame.addWindowListener(new WindowAdapter() {
-
-            @Override
-            public void windowClosed(WindowEvent evt) {
-                quit();
-            }
-
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                quit();
-            }
-        });
-    }
-
-    /**
-     * Exits the VM.
-     */
-    public void quit() {
-        if (ensureTasksFinished()) {
-            EventBus.publish(new AppWillExitEvent(this));
-            notifyModulesForClose();
-            writeProperties();
-            checkDataToSave();
-            executeExitTasks();
-            synchronized (finalTasks) {
-                if (finalTasks.isEmpty()) {
-                    quitVm();
-                } else {
-                    executeFinalTasksAndQuit();
-                }
-            }
-        }
-    }
-
-    private void notifyModulesForClose() {
-        Collection<? extends Module> modules = Lookup.getDefault().lookupAll(Module.class);
-        for (Module module : modules) {
-            module.remove();
-        }
-    }
-
-    public static void quitBeforeGuiWasCreated() {
-        LOGGER.info("Quitting before GUI was created.");
-        Lookup.getDefault().lookup(Repository.class).shutdown();
-        AppStartupLock.unlock();
-        System.exit(1);
-    }
-
-    private void quitVm() {
-        Cleanup.shutdown();
-        shutdownRepo();
-        appFrame.dispose();
-        AppStartupLock.unlock();
-        System.exit(0);
-    }
-
-    private void executeExitTasks() {
-        for (AppExitTask task : Lookup.getDefault().lookupAll(AppExitTask.class)) {
-            task.execute();
-        }
-    }
-
-    private void executeFinalTasksAndQuit() {
-        FinalTaskListener listener = new FinalTaskListener() {
-
-            @Override
-            public void finished() {
-                synchronized (finalTasks) {
-                    if (finalTasks.isEmpty()) {
-                        quitVm();
-                    }
-                }
-            }
-        };
-
-        synchronized (finalTasks) {
-            Set<FinalTask> tasks = new HashSet<>(finalTasks);
-            GUI.getAppFrame().setEnabled(false);
-            for (FinalTask task : tasks) {
-                task.addListener(listener);
-                finalTasks.remove(task);
-                task.execute();
-            }
-        }
-    }
-
-    private boolean ensureTasksFinished() {
-        SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
-        boolean finished = executor.getTaskCount() <= 0;
-        if (finished) {
-            return true;
-        }
-        String message = Bundle.getString(AppLifeCycle.class, "AppLifeCycle.Confirm.QuitOnUserTasks");
-        return MessageDisplayer.confirmYesNo(appFrame, message);
-    }
-
-    private void checkDataToSave() {
-        long elapsedMilliseconds = 0;
-        long timeoutMilliSeconds = 120 * 1000;
-        long checkIntervalMilliSeconds = 2 * 1000;
-        if (hasSaveObjects()) {
-            LOGGER.log(Level.INFO, "Application waits until those objects have saved data: {0}", saveObjects);
-            while (hasSaveObjects() && (elapsedMilliseconds < timeoutMilliSeconds)) {
-                try {
-                    elapsedMilliseconds += checkIntervalMilliSeconds;
-                    Thread.sleep(checkIntervalMilliSeconds);
-                } catch (Throwable ex) {
-                    Logger.getLogger(AppLifeCycle.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                if (elapsedMilliseconds >= timeoutMilliSeconds) {
-                    String message = Bundle.getString(AppLifeCycle.class, "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
-                            timeoutMilliSeconds / 1000);
-                    MessageDisplayer.error(null, message);
-                }
-            }
-        }
-    }
-
-    private boolean hasSaveObjects() {
-        synchronized (saveObjects) {
-            return saveObjects.size() > 0;
-        }
-    }
-
-    private void writeProperties() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        String key = appFrame.getClass().getName();
-        prefs.setSize(key, appFrame);
-        prefs.setLocation(key, appFrame);
-    }
-
-    private void shutdownRepo() {
-        Repository repo = Lookup.getDefault().lookup(Repository.class);
-        repo.shutdown();
-    }
-
     public interface FinalTaskListener {
 
-        /**
+    /**
          * Will be called after the task has been finished.
          */
         void finished();
@@ -294,7 +134,161 @@ public final class AppLifeCycle {
         public abstract void execute();
     }
 
-    private static class Cleanup {
+    private void executeFinalTasksAndQuit() {
+
+        final FinalTaskListener listenerForQuitVm = new FinalTaskListener() {
+
+            @Override
+            public void finished() {
+                synchronized (finalTasks) {
+                    if (finalTasks.isEmpty()) {
+                        quitVm();
+                    }
+                }
+            }
+        };
+
+        synchronized (finalTasks) {
+            Set<FinalTask> tasks = new HashSet<>(finalTasks);
+            GUI.getAppFrame().setEnabled(false);
+            for (FinalTask task : tasks) {
+                task.addListener(listenerForQuitVm);
+                finalTasks.remove(task);
+                task.execute();
+            }
+        }
+    }
+
+    /**
+     * Adds an object which is currently or will soon saving data. As long as data is to save, the app does not exit.
+     *
+     * <em>Do not forget removing a save object via {@code #removeSaveObject(java.lang.Object)}, otherwise the
+     * application terminates after a timeout and some data may not be saved!</em>
+     *
+     * @param saveObject object that saves data.
+     */
+    public void addSaveObject(Object saveObject) {
+        if (saveObject == null) {
+            throw new NullPointerException("saveObject == null");
+        }
+        synchronized (saveObjects) {
+            saveObjects.add(saveObject);
+        }
+    }
+
+    /**
+     * Removes a save object added via {@code #addSaveObject(java.lang.Object)}.
+     *
+     * @param saveObject save object to remove
+     */
+    public void removeSaveObject(Object saveObject) {
+        if (saveObject == null) {
+            throw new NullPointerException("saveObject == null");
+        }
+        synchronized (saveObjects) {
+            saveObjects.remove(saveObject);
+        }
+    }
+
+    /**
+     * Exits the VM.
+     */
+    public void quit() {
+        if (ensureSerialTasksFinished()) {
+            EventBus.publish(new AppWillExitEvent(this));
+            persistAppFrame();
+            waitUntilAllSaveObjectsSaved();
+            executeExitTasks();
+            removeModules();
+            synchronized (finalTasks) {
+                if (finalTasks.isEmpty()) {
+                    quitVm();
+                } else {
+                    executeFinalTasksAndQuit();
+                }
+            }
+        }
+    }
+
+    private void removeModules() {
+        Collection<? extends Module> modules = Lookup.getDefault().lookupAll(Module.class);
+        for (Module module : modules) {
+            module.remove();
+        }
+    }
+
+    public static void quitBeforeGuiWasCreated() {
+        LOGGER.info("Quitting before the GUI was created.");
+        shutdownRepository();
+        AppStartupLock.unlock();
+        System.exit(1);
+    }
+
+    private void quitVm() {
+        CancelOtherTasks.cancel();
+        shutdownRepository();
+        appFrame.dispose();
+        AppStartupLock.unlock();
+        System.exit(0);
+    }
+
+    private void executeExitTasks() {
+        for (AppExitTask task : Lookup.getDefault().lookupAll(AppExitTask.class)) {
+            task.execute();
+        }
+    }
+
+    private boolean ensureSerialTasksFinished() {
+        SerialTaskExecutor executor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
+        boolean finished = executor.getTaskCount() <= 0;
+        if (finished) {
+            return true;
+        }
+        String message = Bundle.getString(AppLifeCycle.class, "AppLifeCycle.Confirm.QuitOnUserTasks");
+        return MessageDisplayer.confirmYesNo(appFrame, message);
+    }
+
+    private void waitUntilAllSaveObjectsSaved() {
+        long elapsedMilliseconds = 0;
+        long terminationTimeoutMilliSeconds = 120 * 1000;
+        long checkIntervalMilliSeconds = 2 * 1000;
+        if (hasSaveObjects()) {
+            LOGGER.log(Level.INFO, "Application waits until those objects have saved data: {0}", saveObjects);
+            while (hasSaveObjects() && (elapsedMilliseconds < terminationTimeoutMilliSeconds)) {
+                try {
+                    elapsedMilliseconds += checkIntervalMilliSeconds;
+                    Thread.sleep(checkIntervalMilliSeconds);
+                } catch (Throwable t) {
+                    Logger.getLogger(AppLifeCycle.class.getName()).log(Level.SEVERE, null, t);
+                }
+                if (elapsedMilliseconds >= terminationTimeoutMilliSeconds) {
+                    String message = Bundle.getString(AppLifeCycle.class, "AppLifeCycle.Error.ExitDataNotSaved.MaxWaitTimeExceeded",
+                            terminationTimeoutMilliSeconds / 1000);
+                    MessageDisplayer.error(null, message);
+                }
+            }
+        }
+    }
+
+    private boolean hasSaveObjects() {
+        synchronized (saveObjects) {
+            return saveObjects.size() > 0;
+        }
+    }
+
+    private void persistAppFrame() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String key = appFrame.getClass().getName();
+        prefs.setSize(key, appFrame);
+        prefs.setLocation(key, appFrame);
+    }
+
+    private static void shutdownRepository() {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+        repo.shutdown();
+    }
+
+    private static class CancelOtherTasks {
 
         /**
          * Sleep time in milliseconds before giving control to the caller, so that the threads can complete their
@@ -302,10 +296,7 @@ public final class AppLifeCycle {
          */
         private static long MILLISECONDS_SLEEP = 2000;
 
-        /**
-         * Shuts down all Tasks.
-         */
-        public static void shutdown() {
+        public static void cancel() {
             SerialTaskExecutor serialTaskExecutor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
             ReplaceableTask replaceableTask = Lookup.getDefault().lookup(ReplaceableTask.class);
             ScheduledTasks.INSTANCE.cancelCurrentTasks();
@@ -323,11 +314,14 @@ public final class AppLifeCycle {
                 // Let the tasks a little bit time to complete until they can interrupt
                 Thread.sleep(MILLISECONDS_SLEEP);
             } catch (Exception ex) {
-                Logger.getLogger(Cleanup.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CancelOtherTasks.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        private Cleanup() {
+        private CancelOtherTasks() {
         }
     }
+
+    private AppLifeCycle() {
+}
 }
