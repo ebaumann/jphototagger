@@ -9,31 +9,36 @@
 
         <h1>Tipp: Wiederherstellen automatisch gesicherter JPhotoTagger-Daten</h1>
 
-        <p><strong>JPhotoTagger</strong>-Daten, die Sie <a href="export_jpt.html">exportieren</a> können,
-            werden beim Beenden von <strong>JPhotoTagger</strong> automatisch gesichert in den Benutzerordner,
-            Unterordner <code>.de.elmar_baumann/ImageMetaDataViewer</code>.
-            Wo der Benutzerordner ist, können Sie lesen in
-            &quot;<a href="facts_database_location.html">Wo ist die Datenbank?</a>&quot;.
-            Die gesicherten Dateien sind 2 Ebenen tiefer im Unterordner <code>pluginsettings &gt;
-                Autobackup</code>.
+        <p>Alle <strong>JPhotoTagger</strong>-Daten, die Sie <a href="export_jpt.html">exportieren</a> können,
+            sichert <strong>JPhotoTagger</strong> beim Beenden automatisch.
         </p>
 
-        <p>Ist die Datenbank beschädigt, können Sie zwar alle Bild-Metadaten automatisch wieder einlesen
-            lassen aus den XMP-Filialdateien, aber etliche individuelle Einstellungen sind dann verloren, beispielsweise
+        <p>Ist die Datenbank beschädigt, können Sie zwar alle Bild-Metadaten wie Stichwörter oder
+            Bildbeschreibungen automatisch wieder einlesen lassen aus den XMP-Filialdateien, aber
+            etliche individuelle Einstellungen sind dann verloren, beispielsweise
             <a href="settings_programs.html">Programme zum Betrachten von Bildern</a> oder
-            <a href="filefilter.html">Dateifilter</a>. Falls Sie diese Daten nicht ohnehin regelmäßig exportieren,
-            können Sie auf die automatischen Sicherungen zurückgreifen: Wird <strong>JPhotoTagger</strong> beendet,
-            sichert es automatisch bis zu 5 Versionen dieser Daten, bei jedem Beenden eine. Gibt es bereits 5 Versionen,
-            wird die älteste Version überschrieben. Jede Version endet mit Bindestrich-Ziffer.xml, beispielsweise
-            <code>JptFileFilters-1.xml</code> für die Dateifilter. Die Ziffer (1) ist die Versionsnummer, die
-            niedrigste Version ist 0 (Null).
+            <a href="filefilter.html">Dateifilter</a>. Falls Sie die <strong>JPhotoTagger</strong>-Daten
+            nicht ohnehin regelmäßig exportieren (Menü <strong>Datei &gt; Exportieren &gt; JPhotoTagger-Daten</strong>),
+            können Sie auf die automatischen Sicherungen zurückgreifen.
         </p>
 
-        <p>Zum Wiederherstellen lassen Sie sich die Dateien nach Datum absteigend sortieren, so dass die neuesten
-            mit der gleichen Versionsnummer oben stehen. Alle Dateien mit der gleichen Versionsnummer kopieren Sie
-            in ein Temporärverzeichnis und importieren diese, wie beschrieben unter
-            <a href="import_jpt.html">JPhotoTagger-Daten importieren</a>. Vorher entfernen Sie in den Dateinamen
-            die Bindestriche und Ziffern, aus <code>JptFileFilters-1.xml</code> wird so <code>JptFileFilters.xml</code>.
+        <p>Zum Wiederherstellen wählen Sie eine Sicherung aus dem Menü
+            <strong>Datei &gt; Importieren &gt; Automatisch gesicherte JPhotoTagger-Daten</strong>.
+            Die Sicherungen sind nach Aktualität absteigend sortiert, die neueste ist der erste Menüpunkt.
+        </p>
+
+        <h2>Interna: Wohin werden die Daten gesichert und wie?</h2>
+
+        <p>Wird <strong>JPhotoTagger</strong> beendet, sichert es automatisch bis zu 5 Versionen
+            aller Daten, die es exportieren kann, in den Benutzerordner, Unterordner
+            <code>.de.elmar_baumann/ImageMetaDataViewer</code>. Wo der Benutzerordner ist, können
+            Sie lesen in &quot;<a href="facts_database_location.html">Wo ist die Datenbank?</a>&quot;.
+            Die gesicherten Dateien sind 2 Ebenen tiefer im Unterordner <code>pluginsettings &gt; Autobackup</code>.
+        </p>
+
+        <p>Gibt es bereits 5 Versionen, wird die älteste Version überschrieben. Jede Version endet mit
+            Bindestrich-Ziffer.xml, beispielsweise <code>JptFileFilters-1.xml</code> für die Dateifilter.
+            Die Ziffer (1) ist die Versionsnummer, die niedrigste Version ist 0 (Null).
         </p>
 
         <p>Beispiel für alle Dateien der Versionsnummer 1 (Stand <strong>JPhotoTagger 0.28.2</strong>):</p>
