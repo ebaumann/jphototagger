@@ -108,7 +108,17 @@ public class SidecarSuffixesInfoPanel extends javax.swing.JPanel implements Thum
             return false;
         }
         String prefix = FileUtil.getPrefix(file);
-        File sidecarFile = new File(parent + File.separator + prefix + '.' + sidecarSuffix);
+        File sidecarFile = new File("---012345-JPhotoTagger-should-not-exist-543210---");
+        if (sidecarSuffix.contains("/")) {
+            int lasDirDelimIndex = sidecarSuffix.lastIndexOf('/');
+            if (lasDirDelimIndex < sidecarSuffix.length() - 1) {
+                String subdirs = sidecarSuffix.substring(0, lasDirDelimIndex).replace("/", File.separator);
+                String suffix = sidecarSuffix.substring(lasDirDelimIndex + 1);
+                sidecarFile = new File(parent + File.separator + subdirs + File.separator + prefix + '.' + suffix);
+            }
+        } else {
+            sidecarFile = new File(parent + File.separator + prefix + '.' + sidecarSuffix);
+        }
         return sidecarFile.isFile();
     }
 
