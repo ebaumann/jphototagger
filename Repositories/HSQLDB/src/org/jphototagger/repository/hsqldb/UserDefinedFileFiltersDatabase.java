@@ -174,6 +174,7 @@ final class UserDefinedFileFiltersDatabase extends Database {
             String sql = "SELECT COUNT (*) FROM user_defined_file_filters WHERE name = ?";
             con = getConnection();
             stmt = con.prepareStatement(sql);
+            stmt.setString(1, name);
             LOGGER.log(Level.FINEST, stmt.toString());
             rs = stmt.executeQuery();
             if (rs.next()) {
