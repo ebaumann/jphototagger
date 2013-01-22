@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.4 2013-01-22
+-----------------
+
+* Bugfix: Importing user defined file filters does not
+  try to import the same filter again (update instead).
+  This did lead to a database exception.
+
 0.30.3 2013-01-22
 -----------------
 
