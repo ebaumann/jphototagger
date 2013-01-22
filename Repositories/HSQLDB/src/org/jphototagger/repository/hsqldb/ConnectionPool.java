@@ -35,48 +35,17 @@ public final class ConnectionPool implements Runnable {
 
     public static final ConnectionPool INSTANCE = new ConnectionPool();
     private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class.getName());
-    private boolean connectionPending = false;
-    /**
-     * The list of available connections
-     */
-    private LinkedList<Connection> availableConnections;
-    /**
-     * The list of busy connections
-     */
-    private LinkedList<Connection> busyConnections;
-    /**
-     * The name of the JDBC-Driver.
-     */
-    private String driver;
-    private volatile boolean init;
-    /**
-     * The maximum number of connections.
-     */
-    private static final int MAX_CONNECTIONS = 15;
-    /**
-     * Number of initial connections.
-     */
     private static final int INITIAL_CONNECTIONS = 3;
-    /**
-     * The database password.
-     */
-    private String password;
-    /**
-     * The URL of the database.
-     */
+    private static final int MAX_CONNECTIONS = 15;
+    private final LinkedList<Connection> availableConnections = new LinkedList<>();
+    private final LinkedList<Connection> busyConnections = new LinkedList<>();
+    private final boolean waitForFreeConnectionIfBusy = true;
+    private boolean connectionPending = false;
+    private volatile boolean init;
+    private String driver;
     private String url;
-    /**
-     * The database username.
-     */
+    private String password;
     private String username;
-    /**
-     * Indicates, if the connection pool should wait for
-     * a free connection, if all connections are busy.
-     */
-    private boolean waitIfBusy;
-
-    private ConnectionPool() {
-    }
 
     synchronized boolean isInit() {
         return init;
@@ -84,27 +53,31 @@ public final class ConnectionPool implements Runnable {
 
     synchronized void init() throws SQLException {
         if (init) {
-            assert false;
-
             return;
         }
-
-        init = true;
-
-        FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
-        String file = provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH_NO_SUFFIX);
-
-        url = "jdbc:hsqldb:file:" + file + ";shutdown=true";
-        driver = "org.hsqldb.jdbcDriver";
-        username = "sa";
-        password = "";
-        waitIfBusy = true;
-        busyConnections = new LinkedList<>();
-        availableConnections = new LinkedList<>();
-
+        setConnectionUrlTokens();
+        try {
         for (int i = 0; i < INITIAL_CONNECTIONS; i++) {
             availableConnections.add(makeNewConnection());
         }
+        } catch (SQLException e) {
+            closeAllConnections();
+            throw e;
+        }
+        init = true;
+    }
+
+    private void setConnectionUrlTokens() {
+        driver = "org.hsqldb.jdbcDriver";
+        url = createUrl();
+        username = "sa";
+        password = "";
+    }
+
+    private String createUrl() {
+        FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
+        String file = provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH_NO_SUFFIX);
+        return "jdbc:hsqldb:file:" + file + ";shutdown=true";
     }
 
     /**
@@ -113,11 +86,9 @@ public final class ConnectionPool implements Runnable {
      * @throws SQLException
      */
     synchronized Connection getConnection() throws SQLException {
-        assert init;
-
+        ensureInit();
         if (!availableConnections.isEmpty()) {
             Connection existingConnection = availableConnections.pollLast();
-
             // If connection on available list is closed (e.g.,
             // it timed out), then remove it from available list
             // and repeat the process of obtaining a connection.
@@ -125,15 +96,12 @@ public final class ConnectionPool implements Runnable {
             // connection because maxConnection limit was reached.
             if (existingConnection.isClosed()) {
                 notifyAll();    // Freed up a spot for anybody waiting
-
                 return (getConnection());
             } else {
                 busyConnections.add(existingConnection);
-
                 return (existingConnection);
             }
         } else {
-
             // Three possible cases:
             // 1) You haven't reached maxConnections limit. So
             // establish one in the background if there isn't
@@ -147,10 +115,9 @@ public final class ConnectionPool implements Runnable {
             // part of step 1: wait for next available connection.
             if ((totalConnections() < MAX_CONNECTIONS) && !connectionPending) {
                 makeBackgroundConnection();
-            } else if (!waitIfBusy) {
+            } else if (!waitForFreeConnectionIfBusy) {
                 throw new SQLException("Connection limit reached");
             }
-
             // Wait for either a new connection to be established
             // (if you called makeBackgroundConnection) or for
             // an existing connection to be freed up.
@@ -161,9 +128,14 @@ public final class ConnectionPool implements Runnable {
                     LOGGER.log(Level.SEVERE, null, ex);
                 }
             }
-
             // Someone freed up a connection, so try again.
             return (getConnection());
+        }
+    }
+
+    private void ensureInit() {
+        if (!init) {
+            throw new IllegalStateException("Connection is not established (init == false)!");
         }
     }
 
@@ -184,7 +156,6 @@ public final class ConnectionPool implements Runnable {
      */
     private void makeBackgroundConnection() {
         connectionPending = true;
-
         try {
             Thread connectThread = new Thread(this, "JPhotoTagger: Making background JDBC connection");
 
@@ -202,14 +173,12 @@ public final class ConnectionPool implements Runnable {
     public void run() {
         try {
             Connection con = makeNewConnection();
-
             synchronized (this) {
                 availableConnections.add(con);
                 connectionPending = false;
                 notifyAll();
             }
         } catch (SQLException ex) {    // SQLException
-
             // Give up on new connection and wait for existing one
             // to free up.
             LOGGER.log(Level.SEVERE, null, ex);
@@ -223,13 +192,10 @@ public final class ConnectionPool implements Runnable {
      */
     private Connection makeNewConnection() throws SQLException {
         try {
-
             // Load database driver if not already loaded
             Class.forName(driver);
-
             // Establish network connection to database
             Connection con = DriverManager.getConnection(url, username, password);
-
             return (con);
         } catch (ClassNotFoundException cnfe) {
             throw new SQLException("Can't find class for driver: " + driver);
@@ -243,15 +209,12 @@ public final class ConnectionPool implements Runnable {
      * @param con The connection to be released.
      */
     synchronized void free(Connection con) {
+        ensureInit();
         if (con == null) {
             throw new NullPointerException("con == null");
         }
-
-        assert init;
-
         busyConnections.remove(con);
         availableConnections.add(con);
-
         // Wake up threads that are waiting for a connection
         notifyAll();
     }
@@ -274,12 +237,10 @@ public final class ConnectionPool implements Runnable {
      *  regarding when the connections are closed.
      */
     private synchronized void closeAllConnections() {
-        assert init;
-
         closeConnections(availableConnections);
-        availableConnections = new LinkedList<>();
+        availableConnections.clear();
         closeConnections(busyConnections);
-        busyConnections = new LinkedList<>();
+        busyConnections.clear();
     }
 
     /**
@@ -290,7 +251,6 @@ public final class ConnectionPool implements Runnable {
         try {
             for (int i = 0; i < connections.size(); i++) {
                 Connection con = connections.get(i);
-
                 if (!con.isClosed()) {
                     con.close();
                 }
@@ -300,17 +260,22 @@ public final class ConnectionPool implements Runnable {
         }
     }
 
-    /**
-     *
-     */
     @Override
     public synchronized String toString() {
         StringBuilder info = new StringBuilder();
-
-        info.append("ConnectionPool(").append(url).append(",").append(username).append(")").append(
-                ", available=").append(availableConnections.size()).append(", busy=").append(busyConnections.size()).append(
-                ", max=").append(MAX_CONNECTIONS);
-
+        info.append("ConnectionPool(")
+                .append(url)
+                .append(",")
+                .append(username)
+                .append(")")
+                .append(", available=")
+                .append(availableConnections.size())
+                .append(", busy=")
+                .append(busyConnections.size())
+                .append(", max=").append(MAX_CONNECTIONS);
         return info.toString();
     }
+
+    private ConnectionPool() {
+}
 }
