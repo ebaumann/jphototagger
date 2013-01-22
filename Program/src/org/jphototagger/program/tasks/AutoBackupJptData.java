@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.api.applifecycle.AppExitTask;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
+import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.io.FileUtil;
 import org.openide.util.Lookup;
@@ -26,7 +27,14 @@ public final class AutoBackupJptData implements AppExitTask {
 
     @Override
     public void execute() {
+        if (repositoryIsInit()) {
         export();
+    }
+    }
+
+    private boolean repositoryIsInit() {
+        Repository repo = Lookup.getDefault().lookup(Repository.class);
+        return repo.isInit();
     }
 
     private void export() {
@@ -92,6 +100,15 @@ public final class AutoBackupJptData implements AppExitTask {
         return new File(prefix + '-' + Integer.toString(version) + '.' + suffix);
     }
 
+    static String getDefaultFilename(String pathWithVersion) {
+        int index = pathWithVersion.lastIndexOf('-');
+        if (index < 0) {
+            return null;
+        }
+        String suffix = FileUtil.getSuffix(new File(pathWithVersion));
+        return pathWithVersion.substring(0, index) + '.' + suffix;
+    }
+
     private boolean ensureAutoBackupDir() {
         File dir = getAutoBackupDir();
         if (!dir.isDirectory()) {
@@ -103,7 +120,7 @@ public final class AutoBackupJptData implements AppExitTask {
         return true;
     }
 
-    private File getAutoBackupDir() {
+    static File getAutoBackupDir() {
         PreferencesDirectoryProvider p = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
         File prefDir = p.getPluginPreferencesDirectory();
         return new File(prefDir.getAbsolutePath() + File.separator + AUTO_BACKUP_DIRNAME);

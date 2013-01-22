@@ -10,6 +10,7 @@ import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.tasks.AutoBackupJptDataImporter;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -30,6 +31,7 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
                 JMenuItem itemImport = new JMenuItem(new JptImportAction());
                 MnemonicUtil.setMnemonics(itemImport);
                 menuImport.add(itemImport);
+                menuImport.add(AutoBackupJptDataImporter.getMenuItem());
                 return menuImport;
             }
 
