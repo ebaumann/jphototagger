@@ -6,6 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.30.4 2013-01-22
 -----------------
 
+* Bearbeiten > Einstellungen > 6. Sonstiges: Zusätzliche Datei-Info:
+  Unterordner können definiert werden
 * Bugfix: Importieren benutzerdefinierter Dateifilter versucht
   nicht mehr, bereits existierende Filter erneut einzufügen
   (Update statt dessen). Dies rief eine Datenbankausnahme hervor.
@@ -75,6 +77,9 @@ Changelog JPhotoTagger http://jphototagger.org/
   (von der Speicherkarte) erneut eingelesen.
 * Beim Herunterladen neuer Versionen kann der Zielordner ausgewählt
   werden
+* Im Programmfenster kann angezeigt werden, ob ausgewählte Bilder
+  andere Filaldateien als .XMP haben:
+  Bearbeiten > Einstellungen > 6. Sonstiges: Zusätzliche Datei-Info
 
 0.27.0 2013-01-07
 -----------------

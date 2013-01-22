@@ -6,6 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.30.4 2013-01-22
 -----------------
 
+* Edit > Settings > 6. Miscellaneous: Additional file info:
+  Subfolders can be defined
 * Bugfix: Importing user defined file filters does not
   try to import the same filter again (update instead).
   This did lead to a database exception.
