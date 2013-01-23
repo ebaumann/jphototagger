@@ -151,6 +151,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         labelInfo.setText(bundle.getString("SidecarSuffixesInfoSettingsPanel.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         panelContent.add(labelInfo, gridBagConstraints);
