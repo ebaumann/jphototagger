@@ -58,8 +58,16 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         fileFiltersComboBoxModel.selectPersistedItem();
         thumbnailsSortComboBoxModel.selectPersistedItem();
         thumbnailsPanel.setFileSortComparator(getFileSortComparator());
-        thumbnailsPanel.setFileFilter((FileFilter) comboBoxFileFilters.getSelectedItem());
+        initSetFileFilter(comboBoxFileFilters.getSelectedItem());
         AnnotationProcessor.process(this);
+    }
+
+    private void initSetFileFilter(Object item) {
+        if (item instanceof FileFilter) {
+            thumbnailsPanel.setFileFilter((FileFilter) item);
+        } else if (item instanceof UserDefinedFileFilter) {
+            thumbnailsPanel.setFileFilter(((UserDefinedFileFilter) item).getFileFilter());
+        }
     }
 
     private void createBottomPanel() {
