@@ -49,7 +49,6 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
     private void initSuffixTextField() {
         Document document = textFieldSuffix.getDocument();
-
         if (document instanceof AbstractDocument) {
             ((AbstractDocument) document).setDocumentFilter(new SuffixDocumentFilter());
         }
@@ -57,7 +56,6 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
     private void listen() {
         ChangeListener changeListener = new ChangeListener();
-
         textFieldSuffix.getDocument().addDocumentListener(changeListener);
         textFieldDescription.getDocument().addDocumentListener(changeListener);
         checkBoxExternalThumbnailCreator.addActionListener(changeListener);
@@ -67,21 +65,16 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         if (userDefinedFileType == null) {
             throw new NullPointerException("userDefinedFileType == null");
         }
-
         this.userDefinedFileType = userDefinedFileType;
-
         String suffix = userDefinedFileType.getSuffix();
         String description = userDefinedFileType.getDescription();
         boolean externalThumbnailCreator = userDefinedFileType.isExternalThumbnailCreator();
-
         if (suffix != null) {
             textFieldSuffix.setText(suffix);
         }
-
         if (description != null) {
             textFieldDescription.setText(description);
         }
-
         checkBoxExternalThumbnailCreator.setSelected(externalThumbnailCreator);
         changed = false;
         inAddNew = false;
@@ -91,7 +84,6 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         String suffix = getSuffix();
         String description = getDescription();
         boolean externalThumbnailCreator = isExternalThumbnailCreator();
-
         userDefinedFileType.setSuffix(suffix);
         userDefinedFileType.setDescription(description);
         userDefinedFileType.setExternalThumbnailCreator(externalThumbnailCreator);
@@ -113,15 +105,12 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         if (checkValid()) {
             UserDefinedFileType oldUserDefinedFileType = new UserDefinedFileType(userDefinedFileType);
             setGuiToUserDefinedFileType();
-
-            int countUpdated = 0;
-
+            int countUpdated;
             if (inAddNew) {
                 countUpdated = repo.saveUserDefinedFileType(userDefinedFileType);
             } else {
                 countUpdated = repo.updateUserDefinedFileType(oldUserDefinedFileType, userDefinedFileType);
             }
-
             if (countUpdated > 0) {
                 changed = false;
                 escape();
@@ -136,7 +125,6 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     private boolean checkNotEmpty() {
         String suffix = getSuffix();
         String description = getDescription();
-
         if (suffix.isEmpty() || description.isEmpty()) {
             String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Error.Empty");
             MessageDisplayer.error(this, message);
@@ -150,11 +138,9 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         if (!inAddNew) {
             return true;
         }
-
         String suffix = getSuffix();
         File aFile = new File("abc." + suffix);
         AppFileFilterProvider fileFilterProvider = Lookup.getDefault().lookup(AppFileFilterProvider.class);
-
         if (fileFilterProvider.isAcceptedImageFile(aFile)) {
             String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Error.IsAcceptedSuffix", suffix);
             MessageDisplayer.error(this, message);
@@ -162,22 +148,18 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         } else {
             return true;
         }
-
     }
 
     private boolean checkUniqueSuffix() {
         if (!inAddNew) {
             return true;
         }
-
         String suffix = getSuffix();
         boolean suffixExists = repo.existsUserDefinedFileTypeWithSuffix(suffix);
-
         if (suffixExists) {
             String message = Bundle.getString(EditUserDefinedFileTypeDialog.class, "EditUserDefinedFileTypeDialog.Error.SuffixExists", suffix);
             MessageDisplayer.error(this, message);
         }
-
         return !suffixExists;
     }
 
@@ -222,12 +204,11 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
     private class SuffixDocumentFilter extends javax.swing.text.DocumentFilter {
 
-        private static final String VALID_REGEX_PATTERN = "[A-Za-z0-9]+";
+        private static final String VALID_REGEX_PATTERN = "[\\.\\-A-Za-z0-9]+";
         private final int maxLength;
 
         SuffixDocumentFilter() {
             UserDefinedFileTypesRepository repo = Lookup.getDefault().lookup(UserDefinedFileTypesRepository.class);
-
             maxLength = repo == null ? 45 : repo.getMaxLengthSuffix();
         }
 
@@ -236,10 +217,8 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
             if (string == null) {
                 return;
             }
-
             int oldLength = fb.getDocument().getLength();
             int newLength = oldLength + string.length();
-
             if (isValid(string, newLength)) {
                 super.insertString(fb, offset, string, attr);
             }
@@ -250,7 +229,6 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
             int oldLength = fb.getDocument().getLength();
             int textLength = text == null ? 0 : text.length();
             int newLength = oldLength - length + textLength;
-
             if (isValid(text, newLength)) {
                 super.replace(fb, offset, length, text, attrs);
             }
@@ -258,7 +236,6 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
         private boolean isValid(String text, int newLength) {
             boolean lengthIsValid = newLength <= maxLength;
-
             return text == null
                     ? lengthIsValid
                     : lengthIsValid && text.matches(VALID_REGEX_PATTERN);
