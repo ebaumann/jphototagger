@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.programs.Program;
@@ -27,7 +29,6 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
 
 /**
@@ -36,11 +37,8 @@ import org.openide.util.Lookup;
 public class EditDefaultProgramsPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private final ProgramsRepository programsRepository = Lookup.getDefault().lookup(ProgramsRepository.class);
     private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
-    private String selectedFilenameSuffix;
-    private String selectedProgramName;
-    private Icon selectedProgramIcon;
+    private final ProgramsRepository programsRepository = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public EditDefaultProgramsPanel() {
         initComponents();
@@ -48,111 +46,75 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
     }
 
     private void postInitComponents() {
+        listFilenameSuffixes.addListSelectionListener(suffixesListListener);
         MnemonicUtil.setMnemonics(this);
     }
 
-    public String getSelectedFilenameSuffix() {
-        return selectedFilenameSuffix;
+    private void setButtonsEnabled() {
+        buttonRemoveDefaultPrograms.setEnabled(allSelectedHavingDefaultProgram());
+        boolean filenameSuffixSelected = listFilenameSuffixes.getSelectedIndex() >= 0;
+        buttonSetDefaultPrograms.setEnabled(filenameSuffixSelected);
     }
 
-    public void setSelectedFilenameSuffix(String selectedFilenameExtension) {
-        Object old = selectedFilenameExtension;
-        this.selectedFilenameSuffix = selectedFilenameExtension;
-        setSelectedProgramName();
-        setButtonsEnabled();
-        firePropertyChange("selectedFilenameExtension", old, this.selectedFilenameSuffix);
-    }
-
-    public String getSelectedProgramName() {
-        return selectedProgramName;
-    }
-
-    public Icon getSelectedProgramIcon() {
-        return selectedProgramIcon;
-    }
-
-    private void setSelectedProgramName() {
-        Object oldSelectedProgramName = selectedProgramName;
-        Object oldSelectedProgramIcon = selectedProgramIcon;
-        if (StringUtil.hasContent(selectedFilenameSuffix) && programsRepository != null) {
-            Program program = programsRepository.findDefaultProgram(selectedFilenameSuffix);
-            selectedProgramName = program == null
-                    ? null
-                    : program.getAlias();
-            selectedProgramIcon = program == null ? null : findIcon(program.getFile());
-            } else {
-            selectedProgramName = null;
-            selectedProgramIcon = null;
-        }
-        setButtonsEnabled();
-        firePropertyChange("selectedProgramName", oldSelectedProgramName, selectedProgramName);
-        firePropertyChange("selectedProgramIcon", oldSelectedProgramIcon, selectedProgramIcon);
-    }
-
-    private Icon findIcon(File file) {
-        synchronized (FILE_SYSTEM_VIEW) {
-            try {
-                return FILE_SYSTEM_VIEW.getSystemIcon(file);
-            } catch (Exception ex) {
-                Logger.getLogger(EditDefaultProgramsPanel.class.getName()).log(Level.SEVERE, null, ex);
-                return null;
+    private boolean allSelectedHavingDefaultProgram() {
+        final List<String> selectedFilenameSuffixes = listFilenameSuffixes.getSelectedValuesList();
+        for (String filenameSuffix : selectedFilenameSuffixes) {
+            if (!programsRepository.existsDefaultProgram(filenameSuffix)) {
+                return false;
             }
         }
+        return !selectedFilenameSuffixes.isEmpty();
     }
 
-    private void setButtonsEnabled() {
-        boolean filenameSuffixSelected = StringUtil.hasContent(selectedFilenameSuffix);
-        boolean programNameSelected = StringUtil.hasContent(selectedProgramName);
-        buttonRemoveDefaultProgram.setEnabled(programNameSelected);
-        buttonSetDefaultProgram.setEnabled(filenameSuffixSelected);
-    }
-
-    private void setDefaultProgram() {
-        if (!StringUtil.hasContent(selectedFilenameSuffix)) {
+    private void setDefaultPrograms() {
+        List<String> selectedFilenameSuffixes = listFilenameSuffixes.getSelectedValuesList();
+        if (selectedFilenameSuffixes.isEmpty()) {
             return;
         }
-        Program program = chooseProgram();
+        Program program = chooseProgram(selectedFilenameSuffixes.size() == 1 ? selectedFilenameSuffixes.get(0) : null);
         ComponentUtil.parentWindowToFront(this);
-        if (program != null) {
-            if (programsRepository.setDefaultProgram(selectedFilenameSuffix, program.getId())) {
-                setSelectedProgramName();
-            } else {
+        if (program == null) {
+            return;
+        }
+        for (String filenameSuffix : selectedFilenameSuffixes) { // suffixes are distinct
+            if (!programsRepository.setDefaultProgram(filenameSuffix, program.getId())) {
                 String message = Bundle.getString(EditDefaultProgramsPanel.class, "EditDefaultProgramsPanel.Error.SetDefaultProgram",
-                        selectedFilenameSuffix);
+                        filenameSuffix);
                 MessageDisplayer.error(this, message);
             }
         }
+        ComponentUtil.forceRepaint(listFilenameSuffixes);
+        setButtonsEnabled();
     }
 
-    private Program chooseProgram() {
-        Program selectedProgram = selectedFilenameSuffix == null
-                ? null
-                : programsRepository.findDefaultProgram(selectedFilenameSuffix);
-        ProgramChooseDialog dialog = new ProgramChooseDialog(selectedProgram);
+    private Program chooseProgram(String filenameSuffix) {
+        ProgramChooseDialog dialog = new ProgramChooseDialog(filenameSuffix == null ? null : programsRepository.findDefaultProgram(filenameSuffix));
         dialog.setVisible(true);
         return dialog.isAccepted()
                 ? dialog.getSelectedProgram()
                 : null;
     }
 
-    private void removeDefaultProgram() {
-        if (!StringUtil.hasContent(selectedFilenameSuffix)) {
+    private void removeDefaultPrograms() {
+        List<String> selectedFilenameSuffixes = listFilenameSuffixes.getSelectedValuesList();
+        if (selectedFilenameSuffixes.isEmpty()) {
             return;
         }
-        String message = Bundle.getString(EditDefaultProgramsPanel.class, "EditDefaultProgramsPanel.Confirm.RemoveProgram",
-                selectedFilenameSuffix);
+        String message = Bundle.getString(EditDefaultProgramsPanel.class, "EditDefaultProgramsPanel.Confirm.RemoveProgram");
         if (MessageDisplayer.confirmYesNo(this, message)) {
-            if (programsRepository.removeDefaultProgram(selectedFilenameSuffix)) {
-                setSelectedProgramName();
-            } else {
-                message = Bundle.getString(EditDefaultProgramsPanel.class, "EditDefaultProgramsPanel.Error.RemoveDefaultProgram",
-                        selectedFilenameSuffix);
-                MessageDisplayer.error(this, message);
+            for (String filenameSuffix : selectedFilenameSuffixes) {
+                if (!programsRepository.removeDefaultProgram(filenameSuffix)) {
+                    String errorMessage = Bundle.getString(EditDefaultProgramsPanel.class, "EditDefaultProgramsPanel.Error.RemoveDefaultProgram",
+                            filenameSuffix);
+                    MessageDisplayer.error(this, errorMessage);
+                }
             }
         }
+        ComponentUtil.forceRepaint(listFilenameSuffixes);
+        setButtonsEnabled();
     }
 
-    private static class FilenameSuffixesListModel extends DefaultListModel<Object> {
+    private static class FilenameSuffixesListModel extends DefaultListModel<String> {
 
         private static final long serialVersionUID = 1L;
 
@@ -201,6 +163,27 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
             label.setIcon(program == null ? null : findIcon(program.getFile()));
             return label;
         }
+
+        private Icon findIcon(File file) {
+            synchronized (FILE_SYSTEM_VIEW) {
+                try {
+                    return FILE_SYSTEM_VIEW.getSystemIcon(file);
+                } catch (Exception ex) {
+                    Logger.getLogger(EditDefaultProgramsPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    return null;
+                }
+            }
+        }
+    };
+
+    private final ListSelectionListener suffixesListListener = new ListSelectionListener() {
+
+        @Override
+        public void valueChanged(ListSelectionEvent e) {
+            if (!e.getValueIsAdjusting()) {
+                setButtonsEnabled();
+            }
+        }
     };
 
     /**
@@ -208,18 +191,16 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
      * content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    private void initComponents() {//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         labelListFilenameSuffixes = new javax.swing.JLabel();
+        panelButtons = new javax.swing.JPanel();
+        buttonRemoveDefaultPrograms = new javax.swing.JButton();
+        buttonSetDefaultPrograms = new javax.swing.JButton();
         scrollPaneFilenameSuffixes = new javax.swing.JScrollPane();
-        listFilenameSuffixes = new org.jdesktop.swingx.JXList();
-        panelDefaultProgram = new javax.swing.JPanel();
-        labelInfoDefaultProgram = new javax.swing.JLabel();
-        labelDefaultProgram = new org.jdesktop.swingx.JXLabel();
-        buttonRemoveDefaultProgram = new javax.swing.JButton();
-        buttonSetDefaultProgram = new javax.swing.JButton();
+        listFilenameSuffixes = new javax.swing.JList<>();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -227,17 +208,47 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         labelListFilenameSuffixes.setText(bundle.getString("EditDefaultProgramsPanel.labelListFilenameSuffixes.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
         add(labelListFilenameSuffixes, gridBagConstraints);
 
+        panelButtons.setLayout(new java.awt.GridBagLayout());
+
+        buttonRemoveDefaultPrograms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/programs/delete.png"))); // NOI18N
+        buttonRemoveDefaultPrograms.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonRemoveDefaultPrograms.toolTipText")); // NOI18N
+        buttonRemoveDefaultPrograms.setEnabled(false);
+        buttonRemoveDefaultPrograms.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonRemoveDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveDefaultProgramsActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelButtons.add(buttonRemoveDefaultPrograms, gridBagConstraints);
+
+        buttonSetDefaultPrograms.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/programs/edit.png"))); // NOI18N
+        buttonSetDefaultPrograms.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonSetDefaultPrograms.toolTipText")); // NOI18N
+        buttonSetDefaultPrograms.setEnabled(false);
+        buttonSetDefaultPrograms.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonSetDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSetDefaultProgramsActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonSetDefaultPrograms, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        add(panelButtons, gridBagConstraints);
+
         listFilenameSuffixes.setModel(new FilenameSuffixesListModel());
-        listFilenameSuffixes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listFilenameSuffixes.setCellRenderer(suffixProgramListCellRenderer);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedFilenameSuffix}"), listFilenameSuffixes, org.jdesktop.beansbinding.BeanProperty.create("selectedElement"));
-        bindingGroup.addBinding(binding);
-
         listFilenameSuffixes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listFilenameSuffixesMouseClicked(evt);
@@ -258,103 +269,35 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(scrollPaneFilenameSuffixes, gridBagConstraints);
+    }// </editor-fold>//GEN-END:initComponents
 
-        panelDefaultProgram.setLayout(new java.awt.GridBagLayout());
+    private void buttonSetDefaultProgramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetDefaultProgramsActionPerformed
+        setDefaultPrograms();
+    }//GEN-LAST:event_buttonSetDefaultProgramsActionPerformed
 
-        labelInfoDefaultProgram.setLabelFor(buttonSetDefaultProgram);
-        labelInfoDefaultProgram.setText(bundle.getString("EditDefaultProgramsPanel.labelInfoDefaultProgram.text")); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        panelDefaultProgram.add(labelInfoDefaultProgram, gridBagConstraints);
-
-        labelDefaultProgram.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedProgramIcon}"), labelDefaultProgram, org.jdesktop.beansbinding.BeanProperty.create("icon"));
-        bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${selectedProgramName}"), labelDefaultProgram, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        panelDefaultProgram.add(labelDefaultProgram, gridBagConstraints);
-
-        buttonRemoveDefaultProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/programs/delete.png"))); // NOI18N
-        buttonRemoveDefaultProgram.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonRemoveDefaultProgram.toolTipText")); // NOI18N
-        buttonRemoveDefaultProgram.setEnabled(false);
-        buttonRemoveDefaultProgram.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonRemoveDefaultProgram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRemoveDefaultProgramActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDefaultProgram.add(buttonRemoveDefaultProgram, gridBagConstraints);
-
-        buttonSetDefaultProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/programs/edit.png"))); // NOI18N
-        buttonSetDefaultProgram.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonSetDefaultProgram.toolTipText")); // NOI18N
-        buttonSetDefaultProgram.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonSetDefaultProgram.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSetDefaultProgramActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
-        panelDefaultProgram.add(buttonSetDefaultProgram, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        add(panelDefaultProgram, gridBagConstraints);
-
-        bindingGroup.bind();
-    }//GEN-END:initComponents
-
-    private void buttonSetDefaultProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetDefaultProgramActionPerformed
-        setDefaultProgram();
-    }//GEN-LAST:event_buttonSetDefaultProgramActionPerformed
-
-    private void buttonRemoveDefaultProgramActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveDefaultProgramActionPerformed
-        removeDefaultProgram();
-    }//GEN-LAST:event_buttonRemoveDefaultProgramActionPerformed
+    private void buttonRemoveDefaultProgramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveDefaultProgramsActionPerformed
+        removeDefaultPrograms();
+    }//GEN-LAST:event_buttonRemoveDefaultProgramsActionPerformed
 
     private void listFilenameSuffixesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFilenameSuffixesMouseClicked
         if (MouseEventUtil.isDoubleClick(evt) && listFilenameSuffixes.getSelectedIndex() >= 0) {
-            setSelectedFilenameSuffix((String) listFilenameSuffixes.getSelectedValue());
-            setDefaultProgram();
+            setDefaultPrograms();
         }
     }//GEN-LAST:event_listFilenameSuffixesMouseClicked
 
     private void listFilenameSuffixesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listFilenameSuffixesKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER && listFilenameSuffixes.getSelectedIndex() >= 0) {
-            setSelectedFilenameSuffix((String) listFilenameSuffixes.getSelectedValue());
-            setDefaultProgram();
+            setDefaultPrograms();
         } else if (evt.getKeyCode() == KeyEvent.VK_DELETE && listFilenameSuffixes.getSelectedIndex() >= 0) {
-            setSelectedFilenameSuffix((String) listFilenameSuffixes.getSelectedValue());
-            removeDefaultProgram();
+            removeDefaultPrograms();
         }
     }//GEN-LAST:event_listFilenameSuffixesKeyPressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonRemoveDefaultProgram;
-    private javax.swing.JButton buttonSetDefaultProgram;
-    private org.jdesktop.swingx.JXLabel labelDefaultProgram;
-    private javax.swing.JLabel labelInfoDefaultProgram;
+    private javax.swing.JButton buttonRemoveDefaultPrograms;
+    private javax.swing.JButton buttonSetDefaultPrograms;
     private javax.swing.JLabel labelListFilenameSuffixes;
-    private org.jdesktop.swingx.JXList listFilenameSuffixes;
-    private javax.swing.JPanel panelDefaultProgram;
+    private javax.swing.JList<String> listFilenameSuffixes;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JScrollPane scrollPaneFilenameSuffixes;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
