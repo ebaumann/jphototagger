@@ -12,7 +12,8 @@ Changelog JPhotoTagger http://jphototagger.org/
   erzeugen via DCRaw + ImageMagick + MPlayer, die Dateiformat-Endungen
   FLV, MKV, TS (Videos), BMP, TTF (Image, Font) hinzugefügt
 * Dialog "Standardprogramme bearbeiten" zeigt Programmname an
-  rechts der Datei-Endung
+  rechts der Datei-Endung; ein Programm kann mehreren Endungen
+  gleichzeitig zugewiesen werden
 * Sollte das GUI nicht initialisiert werden, d.h., nicht angzeigt
   nach einem Start, wird die Datenbank geschlossen und JPhotoTagger
   beendet. Damit ist die Gefahr geringer, dass die Datenbank

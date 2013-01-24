@@ -11,7 +11,8 @@ Changelog JPhotoTagger http://jphototagger.org/
   through DCRaw + ImageMagick + MPlayer the file format suffixes
   FLV, MKV, TS (Videos), BMP, TTF (Image, Font)
 * "Edit Default Programs" dialog displays default program right to
-  the file suffix
+  the file suffix; a program can be applied to multiple suffixes at
+  once
 * When the GUI was not initialized after starting, the database
   will be closed and JPhotoTagger exited, to minimize the risk of
   damaging the database
