@@ -2,36 +2,37 @@
 #
 # Author : Elmar Baumann <eb@elmar-baumann.de>
 # Date   : 2008/08/02
-# Doc    : Von einem Bild ein JPEG-Thumbnail ausgeben auf die Standardausgabe
-#          1. Parameter: Bilddateiname
-#          2. Paraeter: Länge der längeren Thumbnailseite in Pixel
+# Doc    : Create from an image a JPEG thumbnail and write it to stdout
+#          1st parameter: image filename
+#          2nd Parameter: maximum pixel count of the thumbnail width or height
 #
-#          Benötigte Programme: - ImageMagick, davon identify und convert
-#                               - dcraw
+#          Required Programs: - ImageMagick, esp. identify and convert
+#                             - dcraw
 #
 ################################################################################
 
-# Leerzeichen etc. in Dateinamen erlauben
+# allow spaces within filenames
 IFS="
 "
 
-# Name der Bilddatei, für die das Thumbnail erzeugt werden soll (1. Parameter)
+# image file name (1st parameter)
 image_filename=$1
 
-# Länge der längeren Thumbnailseite in Pixel (2. Parameter)
+# maximum pixel count of the thumbnail width or height (2nd parameter)
 length=$2
 
-# Speicherort für die Ausgabe von dcraw
+# directory for temporary dcraw file
 temp_dir=$HOME/tmp
 
-# Dateiname des von dcraw ausgegebenen temporären Bilds
+# filename of dcraw temporary file
 temp_filename=$temp_dir/$(basename $0).$$.ppm
 
-# So viele Pixel muss die längere Thumbnailseite mindesten haben
+# minimum pixel count of the thumbnail width or height
 MIN_LENGTH=50
 
-# Endungen aller Dateinamen, die keine RAW-Datei benennen
-not_raw_filename_suffixes="dng
+# filename suffixes of not RAW files
+not_raw_filename_suffixes="bmp
+dng
 gif
 jpeg
 jpg
@@ -45,12 +46,12 @@ xcf"
 function check_params() {
     if [ -z $image_filename ] || [ -z $length ]
     then
-        echo "Falsche Parameteranzahl (1. Bilddatei, 2. Länge)!" >&2
+        echo "Wrong count of parameters (1st image file name, 2nd thumbnail width in pixel)!" >&2
         exit 1
     fi
     if [ $length -lt $MIN_LENGTH ]
     then
-        echo "Thumbnaillänge muss mindestens $MIN_LENGTH sein!" >&2
+        echo "Thumbnail width has to be at least minimum $MIN_LENGTH pixels!" >&2
         exit 2
     fi
 }
@@ -58,7 +59,7 @@ function check_params() {
 function check_files() {
     if ! [ -f $image_filename ]
     then
-        echo "Bilddatei '$image_filename' existiert nicht!" >&2
+        echo "image file '$image_filename' does not exist!" >&2
         exit 3
     fi
     if ! [ -d $temp_dir ]
@@ -67,13 +68,13 @@ function check_files() {
     fi
     if ! [ -d $temp_dir ]
     then
-        echo "Temporärverzeichnis '$temp_dir' existiert nicht!" >&2
+        echo "Temporary directory '$temp_dir' does not exist!" >&2
         exit 4
     fi
     touch $temp_filename
     if [ $? -ne 0 ]
     then
-        echo "$temp_dir lässt sich nicht beschreiben!" >&2
+        echo "Temporary directory $temp_dir is not writable!" >&2
         exit 5
     fi
     rm $temp_filename
@@ -96,18 +97,16 @@ function is_landscape() {
 function image_to_stdout() {
     local filename=$1
     local length_cmd="x${length}"
-
     if [ $(is_landscape $filename) -eq 0 ]
     then
     	length_cmd="${length}x"
     fi
-
     ${convert} $filename -resize $length_cmd -unsharp 0.5x0.5+1.0+0.1 jpg:-
 }
 
 # dcraw-Parameter:
-# -c Ausgabe auf stdout
-# -h half-size color image (schneller)
+# -c write to stdout
+# -h half-size color image (faster)
 
 function raw_to_stdout() {
     ${dcraw} -c -h $image_filename > $temp_filename

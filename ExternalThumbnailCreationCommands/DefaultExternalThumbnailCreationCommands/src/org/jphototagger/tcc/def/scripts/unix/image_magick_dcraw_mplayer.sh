@@ -4,8 +4,8 @@
 #          extended by Fabian Ritzmann (Video files, mplayer) 2011/07/25
 # Date   : 2008/08/02
 # Doc    : Writes a JPEG thumbnail into the standard output
-#          1. Parameter: Name of image file or video file
-#          2. Parameter: Length in pixels of the largest thumbnail dimension
+#          1st parameter: Name of image file or video file
+#          2nd parameter: Length in pixels of the largest thumbnail dimension
 #
 #          Required programms: - ImageMagick (identify and convert)
 #                              - dcraw
@@ -36,7 +36,8 @@ temp_video_filename="$temp_dir/00000001.jpg"
 MIN_LENGTH=50
 
 # File name suffixes of non RAW files
-not_raw_filename_suffixes="dng
+not_raw_filename_suffixes="bmp
+dng
 gif
 jpeg
 jpg
@@ -46,15 +47,18 @@ tiff
 xcf"
 
 # File name suffixes of video files
-video_filename_suffixes="m2ts
-mts
-mpg
-mpeg
+video_filename_suffixes="avi
+flv
+m2ts
+mkv
+mov
 mp2
 mp4
-mov
-wmv
-avi"
+mpeg
+mpg
+mts
+ts
+wmv"
 
 ################################################################################
 

@@ -10,15 +10,18 @@ rem Extracting image suffix
 for %%i in (%IMAGE%) DO set THUMB_SUFFIX=%%~xi
 
 rem Video
+if /I "%THUMB_SUFFIX%" ==".avi" GOTO VIDEO
+if /I "%THUMB_SUFFIX%" ==".flv" GOTO VIDEO
 if /I "%THUMB_SUFFIX%" ==".m2ts" GOTO VIDEO
-if /I "%THUMB_SUFFIX%" ==".mts" GOTO VIDEO
-if /I "%THUMB_SUFFIX%" ==".mpg" GOTO VIDEO
-if /I "%THUMB_SUFFIX%" ==".mpeg" GOTO VIDEO
+if /I "%THUMB_SUFFIX%" ==".mkv" GOTO VIDEO
+if /I "%THUMB_SUFFIX%" ==".mov" GOTO VIDEO
 if /I "%THUMB_SUFFIX%" ==".mp2" GOTO VIDEO
 if /I "%THUMB_SUFFIX%" ==".mp4" GOTO VIDEO
-if /I "%THUMB_SUFFIX%" ==".mov" GOTO VIDEO
+if /I "%THUMB_SUFFIX%" ==".mpeg" GOTO VIDEO
+if /I "%THUMB_SUFFIX%" ==".mpg" GOTO VIDEO
+if /I "%THUMB_SUFFIX%" ==".mts" GOTO VIDEO
+if /I "%THUMB_SUFFIX%" ==".ts" GOTO VIDEO
 if /I "%THUMB_SUFFIX%" ==".wmv" GOTO VIDEO
-if /I "%THUMB_SUFFIX%" ==".avi" GOTO VIDEO
 
 GOTO IMAGES
 
@@ -32,13 +35,15 @@ goto END
 
 :IMAGES
 rem Deciding whether RAW or not
+if /I "%THUMB_SUFFIX%" ==".bmp" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".dng" GOTO OTHER
-if /I "%THUMB_SUFFIX%" ==".jpg" GOTO OTHER
-if /I "%THUMB_SUFFIX%" ==".tif" GOTO OTHER
-if /I "%THUMB_SUFFIX%" ==".tiff" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".gif" GOTO OTHER
+if /I "%THUMB_SUFFIX%" ==".jpg" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".png" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".psd" GOTO OTHER
+if /I "%THUMB_SUFFIX%" ==".tif" GOTO OTHER
+if /I "%THUMB_SUFFIX%" ==".tiff" GOTO OTHER
+if /I "%THUMB_SUFFIX%" ==".ttf" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".xcf" GOTO OTHER
 
 "${dcraw.exe}" -e -c %IMAGE% | "${convert.exe}" - -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
