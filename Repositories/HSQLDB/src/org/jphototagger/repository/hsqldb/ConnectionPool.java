@@ -236,7 +236,7 @@ public final class ConnectionPool implements Runnable {
      *  garbage collected. But this method gives more control
      *  regarding when the connections are closed.
      */
-    private synchronized void closeAllConnections() {
+    synchronized void closeAllConnections() {
         closeConnections(availableConnections);
         availableConnections.clear();
         closeConnections(busyConnections);
@@ -274,6 +274,10 @@ public final class ConnectionPool implements Runnable {
                 .append(busyConnections.size())
                 .append(", max=").append(MAX_CONNECTIONS);
         return info.toString();
+    }
+
+    void setShutdown() {
+        init = false;
     }
 
     private ConnectionPool() {
