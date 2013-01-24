@@ -3,6 +3,19 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.6 2013-01-24
+-----------------
+
+* User defined file types: "." (dot) and "-" (dash) are allowed
+* Added to automatically created external thumbnail creation scripts
+  through DCRaw + ImageMagick + MPlayer the file format suffixes
+  FLV, MKV, TS (Videos), BMP, TTF (Image, Font)
+* "Edit Default Programs" dialog displays default program right to
+  the file suffix
+* When the GUI was not initialized after starting, the database
+  will be closed and JPhotoTagger exited, to minimize the risk of
+  damaging the database
+
 0.30.5 2013-01-23
 -----------------
 

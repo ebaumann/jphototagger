@@ -3,6 +3,21 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.6 2013-01-24
+-----------------
+
+* Benutzerdefinierte Dateitypen: "." (Punkt) und "-" (Bindestrich)
+  sind erlaubt
+* Zu den automatisch erzeugten externen Scripts, die Vorschaubilder
+  erzeugen via DCRaw + ImageMagick + MPlayer, die Dateiformat-Endungen
+  FLV, MKV, TS (Videos), BMP, TTF (Image, Font) hinzugefügt
+* Dialog "Standardprogramme bearbeiten" zeigt Programmname an
+  rechts der Datei-Endung
+* Sollte das GUI nicht initialisiert werden, d.h., nicht angzeigt
+  nach einem Start, wird die Datenbank geschlossen und JPhotoTagger
+  beendet. Damit ist die Gefahr geringer, dass die Datenbank
+  beschädigt wird.
+
 0.30.5 2013-01-23
 -----------------
 
