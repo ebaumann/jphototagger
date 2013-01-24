@@ -103,9 +103,14 @@ public final class AppInit {
 
             @Override
             public void run() {
+                try {
                 AppFrame appFrame = new AppFrame();
-
                 appFrame.setVisible(true);
+                } catch (Throwable t) {
+                    Logger.getLogger(AppInit.class.getName()).log(Level.SEVERE, null, t);
+                    MessageDisplayer.thrown(Bundle.getString(AppInit.class, "AppInit.Error.ShowMainWindow"), t);
+                    AppLifeCycle.quitBeforeGuiWasCreated();
+            }
             }
         });
     }

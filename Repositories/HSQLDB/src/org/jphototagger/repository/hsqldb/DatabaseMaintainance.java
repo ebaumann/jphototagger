@@ -27,12 +27,14 @@ final class DatabaseMaintainance extends Database {
         }
         Connection con = null;
         Statement stmt = null;
+        boolean shutdown = false;
         try {
             con = getConnection();
             con.setAutoCommit(true);
             stmt = con.createStatement();
             LOGGER.log(Level.INFO, "Closing the database");
             stmt.executeUpdate("SHUTDOWN");
+            shutdown = true;
         } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, null, ex);
             String message = Bundle.getString(DatabaseMaintainance.class, "DatabaseMaintainance.Error.Shutdown");
@@ -40,7 +42,11 @@ final class DatabaseMaintainance extends Database {
         } finally {
             close(stmt);
             free(con);
+            if (shutdown) {
+                ConnectionPool.INSTANCE.closeAllConnections();
+                ConnectionPool.INSTANCE.setShutdown();
         }
+    }
     }
 
     /**
