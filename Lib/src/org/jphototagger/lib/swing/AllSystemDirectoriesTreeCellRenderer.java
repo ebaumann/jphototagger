@@ -53,13 +53,13 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
                     try {
                         setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
                     } catch (Throwable t) {
-                        Logger.getLogger(AllSystemDirectoriesTreeCellRenderer.class.getName()).log(Level.WARNING, null, t);
+                        LOGGER.log(Level.WARNING, null, t);
                     }
                 }
                 setText(getDirectoryName(file));
             }
         }
-        renderSelectionPopup(row, selected);
+        setColors(tree, row, selected);
         return this;
     }
 
@@ -79,14 +79,15 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
         tempSelRow = index;
     }
 
-    private void renderSelectionPopup(int row, boolean selected) {
+    private void setColors(JTree tree, int row, boolean selected) {
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow = row == tempSelRow;
-
-        setForeground((isTempSelRow || (selected && !tempSelExists))
+        boolean isDragging = isDragging(tree, row);
+        boolean selection = isTempSelRow || selected && !tempSelExists || isDragging;
+        setForeground(selection
                 ? TREE_SELECTION_FOREGROUND
                 : TREE_TEXT_FOREGROUND);
-        setBackground((isTempSelRow || (selected && !tempSelExists))
+        setBackground(selection
                 ? TREE_SELECTION_BACKGROUND
                 : TREE_TEXT_BACKGROUND);
     }
@@ -100,5 +101,12 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
                 return file.getName();
             }
         }
+    }
+
+    private boolean isDragging(JTree tree, int row) {
+        JTree.DropLocation dropLocation = tree.getDropLocation();
+        return dropLocation != null
+                && dropLocation.getChildIndex() == -1
+                && tree.getRowForPath(dropLocation.getPath()) == row;
     }
 }

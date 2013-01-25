@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.7 2013-01-25
+-----------------
+
+* Kartenreiter "Ordner" und "Favoriten":
+  * Drag & Drop: Deutlichere Hervorhebung
+  * Namen spezieller Ordner erscheinen wie im Explorer,
+    z.B. statt des echten Namens "Documents" -> "Eigene Dokumente"
+
 0.30.6 2013-01-24
 -----------------
 
