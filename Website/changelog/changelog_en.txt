@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.7 2013-01-25
+-----------------
+
+* Tabs "Folders" and "Favorites":
+  * Drag & Drop: Better Highlighting
+  * Names appears as in Windows Explorer
+
 0.30.6 2013-01-24
 -----------------
 

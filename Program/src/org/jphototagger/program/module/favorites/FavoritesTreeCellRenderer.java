@@ -12,8 +12,6 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
- * Renders items and text for {@code org.jphototagger.program.data.Timeline} nodes.
- *
  * @author Elmar Baumann
  */
 public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
@@ -28,16 +26,15 @@ public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
     }
 
     @Override
-    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded,
-            boolean leaf, int row, boolean hasFocus) {
+    public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
         Object userObject = node.getUserObject();
-        render(userObject, row);
+        render(tree, row, userObject);
         return this;
     }
 
-    private void render(Object userObject, int row) {
+    private void render(JTree tree, int row, Object userObject) {
         File file = null;
         if (userObject instanceof Favorite) {
             Favorite favoriteDirectory = (Favorite) userObject;
@@ -58,12 +55,18 @@ public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
                 }
             }
         }
+        setColors(tree, row, selected);
+    }
+
+    private void setColors(JTree tree, int row, boolean selected) {
         boolean tempSelExists = tempSelRow >= 0;
         boolean isTempSelRow = row == tempSelRow;
-        setForeground((isTempSelRow || (selected && !tempSelExists))
+        boolean isDragging = isDragging(tree, row);
+        boolean selection = isTempSelRow || selected && !tempSelExists || isDragging;
+        setForeground(selection
                 ? AppLookAndFeel.getTreeSelectionForeground()
                 : AppLookAndFeel.getTreeForeground());
-        setBackground((isTempSelRow || (selected && !tempSelExists))
+        setBackground(selection
                 ? AppLookAndFeel.getTreeSelectionBackground()
                 : AppLookAndFeel.getTreeBackground());
     }
@@ -93,5 +96,12 @@ public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
 
     public void setTempSelectionRow(int index) {
         tempSelRow = index;
+    }
+
+    private boolean isDragging(JTree tree, int row) {
+        JTree.DropLocation dropLocation = tree.getDropLocation();
+        return dropLocation != null
+                && dropLocation.getChildIndex() == -1
+                && tree.getRowForPath(dropLocation.getPath()) == row;
     }
 }
