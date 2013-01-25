@@ -6,6 +6,17 @@
     <property name="translation.root" value="${repo.root}/OmegaT"/>
     <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.properties"/><!-- Template see in ../conf -->
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${repo.root}/DeveloperSupport/script/ant-googlecode.jar"/>
+    <target name="dist_0_all_no_pdf_manual">
+        <antcall target="dist_1_set_version_info" />
+        <antcall target="dist_3_create_zip" />
+        <antcall target="dist_4_upload" />
+    </target>
+    <target name="dist_0_all_pdf_manual">
+        <antcall target="dist_1_set_version_info" />
+        <antcall target="dist_2_create_pdf_manual" />
+        <antcall target="dist_3_create_zip" />
+        <antcall target="dist_4_upload" />
+    </target>
     <target name="dist_1_set_version_info" description="Set Version Info to Dist">
         <exec executable="bash">
             <arg value="dist_set_version_info.sh" />
