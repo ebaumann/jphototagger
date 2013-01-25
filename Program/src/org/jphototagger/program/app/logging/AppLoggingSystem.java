@@ -56,6 +56,7 @@ public final class AppLoggingSystem {
             init = true;
         }
         try {
+            System.out.println("Init JPhotoTagger logging system. Log file: " + ALL_MESSAGES_LOGFILE_PATH);
             deleteObsoleteLogfiles();
             ensureLogDirectoryExists();
             createAndAddHandlersToAppLogger();
