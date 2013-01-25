@@ -837,11 +837,14 @@ public final class Settings {
                 int width = Integer.parseInt(properties.getProperty(keyWidth));
                 int height = Integer.parseInt(properties.getProperty(keyHeight));
                 Dimension preferredSize = component.getPreferredSize();
-                boolean isResize = width >= preferredSize.width & height >= preferredSize.height;
-                if (isResize) {
-                    component.setPreferredSize(new Dimension(width, height));
-                    component.setSize(new Dimension(width, height));
+                if (width < preferredSize.width) {
+                    width = preferredSize.width;
                 }
+                if (height < preferredSize.height) {
+                    height = preferredSize.height;
+                }
+                component.setPreferredSize(new Dimension(width, height));
+                component.setSize(new Dimension(width, height));
             } catch (Exception ex) {
                 Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
