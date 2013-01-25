@@ -73,8 +73,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
         }
         List<File> rootDirectories = Arrays.asList(roots);
         for (File rootDirectory : rootDirectories) {
-            boolean isExclude = excludeRootDirectories.contains(rootDirectory);
-            if (!isExclude) {
+            if (!excludeRootDirectories.contains(rootDirectory) && isReadableDirectory(rootDirectory)) {
                 DefaultMutableTreeNode rootDirectoryNode = new SortedChildrenTreeNode(rootDirectory);
                 insertNodeInto(rootDirectoryNode, rootNode, rootNode.getChildCount());
                 addChildren(rootDirectoryNode);
@@ -82,12 +81,19 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
         }
     }
 
+    private boolean isReadableDirectory(File file) {
+        return file != null
+                && file.isDirectory()
+                && file.canRead()
+                && file.listFiles() != null; // Worked for not traversable Windows Junction Points
+    }
+
     private void addChildren(DefaultMutableTreeNode parentNode) {
         Object userObject = parentNode.getUserObject();
         File parentDirectory = userObject instanceof File
                 ? (File) userObject
                 : null;
-        if ((parentDirectory == null) || !parentDirectory.isDirectory()) {
+        if (!isReadableDirectory(parentDirectory)) {
             return;
         }
         LOGGER.log(Level.FINEST, "Reading subdirectories of ''{0}''...", parentDirectory);
@@ -99,7 +105,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
         }
         List<File> parentNodeChildDirectories = getChildDirectories(parentNode);
         for (File subdirectory : subdirectories) {
-            if (!parentNodeChildDirectories.contains(subdirectory)) {
+            if (!parentNodeChildDirectories.contains(subdirectory) && isReadableDirectory(subdirectory)) {
                 addChildDirectory(parentNode, subdirectory);
             }
         }
@@ -139,7 +145,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
             if (userObject instanceof File) {
                 file = (File) userObject;
             }
-            if ((file != null) && !file.exists()) {
+            if (file != null && !file.exists()) {
                 nodesToRemove.add(child);
             }
         }
@@ -161,7 +167,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
      * @return created directory or null if not created
      */
     public File createDirectoryIn(DefaultMutableTreeNode parentNode) {
-        File parentNodeDirectory = (parentNode == null)
+        File parentNodeDirectory = parentNode == null
                 ? null
                 : TreeFileSystemDirectories.getFile(parentNode);
         if (parentNodeDirectory != null) {
@@ -186,7 +192,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
     public void expandToFile(File file, boolean select) {
         Stack<File> filePath = FileUtil.getPathFromRoot(file);
         DefaultMutableTreeNode node = rootNode;
-        while ((node != null) && !filePath.isEmpty()) {
+        while (node != null && !filePath.isEmpty()) {
             node = TreeUtil.findChildNodeWithFile(node, filePath.pop());
             if ((node != null) && (node.getChildCount() <= 0)) {
                 addChildren(node);
@@ -355,7 +361,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
                 @Override
                 public void run() {
                     for (File directory : directories) {
-                        if (directory.isDirectory() && !childDirectories.contains(directory)) {
+                        if (isReadableDirectory(directory) && !childDirectories.contains(directory)) {
                             addChildDirectory(node, directory);
                         }
                     }
