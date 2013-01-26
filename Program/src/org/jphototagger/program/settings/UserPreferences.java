@@ -8,6 +8,7 @@ import org.jphototagger.api.file.FilenameTokens;
 import org.jphototagger.domain.repository.FileRepositoryProvider;
 import org.jphototagger.lib.util.PropertiesFile;
 import org.jphototagger.lib.util.Settings;
+import org.jphototagger.lib.util.SortedProperties;
 import org.jphototagger.program.app.AppInfo;
 
 /**
@@ -20,7 +21,7 @@ final class UserPreferences {
     private static final String DOMAIN_NAME = "de.elmar_baumann"; // When changing see comment for AppInfo.PROJECT_NAME
     // NEVER CHANGE PROPERTIES_FILENAME!
     private static final String PROPERTIES_FILENAME = "Settings.properties";
-    private final Properties properties = new Properties();
+    private final Properties properties = new SortedProperties();
     private final PropertiesFile propertiesFile = new PropertiesFile(DOMAIN_NAME, AppInfo.PROJECT_NAME, PROPERTIES_FILENAME, properties);
     private final Settings settings = new Settings(properties);
     static final UserPreferences INSTANCE = new UserPreferences();
