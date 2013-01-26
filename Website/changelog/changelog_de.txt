@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.8 2013-01-26
+-----------------
+
+* Bugfix: Beim Start konnte das Programmfenster winzig werden,
+  falls es beim Beenden eine bestimmte Größe unterschritt
+
 0.30.7 2013-01-25
 -----------------
 
