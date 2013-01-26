@@ -13,6 +13,7 @@ import javax.swing.KeyStroke;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
 import org.jphototagger.api.windows.MainWindowManager;
@@ -45,6 +46,13 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
         AnnotationProcessor.process(this);
     }
 
+    private static boolean isDisplayIptcPreferred() {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        return preferences.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+                ? preferences.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+                : false;
+    }
+
     @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
     public void thumbnailsSelectionChanged(ThumbnailsSelectionChangedEvent evt) {
         List<File> selectedFiles = evt.getSelectedFiles();
@@ -71,7 +79,6 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
         if (selectedFile == null || !iptcPanelDisplayed) {
             return;
         }
-
         DisplayIptcMetaData displayIptcMetaData = new DisplayIptcMetaData(selectedFile, iptcPanel);
         EventQueueUtil.invokeInDispatchThread(displayIptcMetaData);
     }
@@ -92,7 +99,6 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
             if (file == null) {
                 return;
             }
-
             if (isDisplayIptc()) {
                 LOGGER.log(Level.FINEST, "Updating IPTC metadata of image file ''{0}'' in GUI table", file);
                 WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
@@ -107,13 +113,23 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
             boolean iptcPanelSelected = windowManager.isEditComponentSelected(iptcPanel);
             return iptcPanelSelected && isDisplayIptcPreferred();
         }
+    }
 
-        private boolean isDisplayIptcPreferred() {
-            Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-
-            return preferences.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                    ? preferences.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                    : false;
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void preferencesChanged(PreferencesChangedEvent evt) {
+        if (selectedFile == null) {
+            return;
+        }
+        String key = evt.getKey();
+        if (IptcPreferencesKeys.KEY_DISPLAY_IPTC.equals(key)) {
+           boolean isDisplay = (boolean) evt.getNewValue();
+            if (isDisplay) {
+                displaySelectedFile();
+            } else {
+                iptcPanel.removeAllRows();
+            }
+        } else if (IptcPreferencesKeys.KEY_IPTC_CHARSET.equals(key)) {
+                displaySelectedFile();
         }
     }
 
