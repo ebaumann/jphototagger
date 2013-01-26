@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -999,5 +1000,15 @@ public final class Settings {
 
     private String getArrayKeyMatchPattern(String key) {
         return "^" + java.util.regex.Pattern.quote(key + DELIMITER_ARRAY_KEYS) + "[0-9]+$";
+    }
+
+    public Set<String> keys() {
+        Set<String> keys = new HashSet<>();
+        for (Object key: properties.keySet()) {
+            if (key != null) {
+                keys.add(key.toString());
+            }
+        }
+        return keys;
     }
 }

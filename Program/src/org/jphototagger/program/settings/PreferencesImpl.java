@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Window;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -319,5 +320,10 @@ public final class PreferencesImpl implements Preferences {
         settings.removeStringCollection(key);
         writeToFile();
         EventBus.publish(new PreferencesChangedEvent(this, key, null, null));
+    }
+
+    @Override
+    public Set<String> keys() {
+        return settings.keys();
     }
 }
