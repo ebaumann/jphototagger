@@ -49,6 +49,8 @@ function set_version_to_files() {
         > ${TMP_FILE}
     mv ${TMP_FILE} ${HTML_DOWNLOAD_DOC}
 
+    echo "Setting version ${version}"
+
     echo "<span class=\"version\">$version</span>" > ${VERSION_FILE}
 
     sed -e "s%jptversion=.*%jptversion=${version}%" ${SUPPORT_SCRIPTS_PROPERTIES} > ${TMP_FILE}
