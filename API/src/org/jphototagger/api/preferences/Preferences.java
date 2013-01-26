@@ -3,6 +3,7 @@ package org.jphototagger.api.preferences;
 import java.awt.Component;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -80,4 +81,6 @@ public interface Preferences {
     void applyLocation(String key, Component component);
 
     List<String> getStringCollection(String key);
+
+    Set<String> keys();
 }
