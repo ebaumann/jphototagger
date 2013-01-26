@@ -151,9 +151,11 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
      */
     @SuppressWarnings("unchecked")
 
-    private void initComponents() {//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        panelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JPanel();
         labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
         checkBoxScanForEmbeddedXmp = new javax.swing.JCheckBox();
@@ -166,13 +168,15 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         setLayout(new java.awt.GridBagLayout());
 
+        panelMaximumSecondsToTerminateExternalPrograms.setLayout(new java.awt.GridBagLayout());
+
         labelMaximumSecondsToTerminateExternalPrograms.setLabelFor(spinnerMaximumSecondsToTerminateExternalPrograms);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
         labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("PerformanceSettingsPanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
-        add(labelMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
+        panelMaximumSecondsToTerminateExternalPrograms.add(labelMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
         spinnerMaximumSecondsToTerminateExternalPrograms.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -185,7 +189,14 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 2, 0, 10);
-        add(spinnerMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
+        panelMaximumSecondsToTerminateExternalPrograms.add(spinnerMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        add(panelMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
 
         checkBoxScanForEmbeddedXmp.setText(bundle.getString("PerformanceSettingsPanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
         checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
@@ -195,6 +206,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
@@ -208,6 +220,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
@@ -221,6 +234,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
@@ -237,6 +251,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
@@ -250,6 +265,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
@@ -263,6 +279,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
@@ -270,12 +287,13 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
         add(panelAutocomplete, gridBagConstraints);
-    }//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerMaximumSecondsToTerminateExternalProgramsStateChanged
         if (listen) {
@@ -328,6 +346,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
     private javax.swing.JCheckBox checkBoxUpdateAutocomplete;
     private javax.swing.JLabel labelMaximumSecondsToTerminateExternalPrograms;
     private javax.swing.JPanel panelAutocomplete;
+    private javax.swing.JPanel panelMaximumSecondsToTerminateExternalPrograms;
     private javax.swing.JSpinner spinnerMaximumSecondsToTerminateExternalPrograms;
     // End of variables declaration//GEN-END:variables
 }
