@@ -843,8 +843,9 @@ public final class Settings {
                 if (height < preferredSize.height) {
                     height = preferredSize.height;
                 }
-                component.setPreferredSize(new Dimension(width, height));
-                component.setSize(new Dimension(width, height));
+                Dimension dimension = new Dimension(width, height);
+                component.setPreferredSize(dimension);
+                component.setSize(dimension);
             } catch (Exception ex) {
                 Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
             }
