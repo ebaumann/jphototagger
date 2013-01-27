@@ -1,7 +1,9 @@
 package org.jphototagger.lib.swing;
 
 import java.text.Collator;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Vector;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 
@@ -28,21 +30,67 @@ public final class SortedChildrenTreeNode extends DefaultMutableTreeNode impleme
         super(userObject, allowsChildren);
     }
 
+    @SuppressWarnings("unchecked")
+    public void sortChildren() {
+        Collections.sort(this.children);
+    }
+
+    public void insertUnsorted(MutableTreeNode newChild, int childIndex) {
+        super.insert(newChild, childIndex);
+    }
+
     @Override
     @SuppressWarnings("unchecked")
-    public void insert(final MutableTreeNode newChild, final int childIndex) {
+    public void insert(MutableTreeNode newChild, int childIndex) {
         super.insert(newChild, childIndex);
         Collections.sort(this.children);
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public void add(final MutableTreeNode newChild) {
+    public void add(MutableTreeNode newChild) {
         super.add(newChild);
         Collections.sort(this.children);
     }
 
-    // Only used by Collections.sort(this.children) in #insert(), so that
+    public void addUnsorted(MutableTreeNode newChild) {
+        super.add(newChild);
+    }
+
+    public void insertAll(Collection<? extends MutableTreeNode> nodes) {
+        insertAll(nodes, true);
+    }
+
+    public void insertAllUnsorted(Collection<? extends MutableTreeNode> nodes) {
+        insertAll(nodes, false);
+    }
+
+    private void insertAll(Collection<? extends MutableTreeNode> nodes, boolean sortChildren) {
+        if (!allowsChildren) {
+            throw new IllegalStateException("node does not allow children");
+        }
+        for (MutableTreeNode node : nodes) {
+            if (node == null) {
+                throw new NullPointerException("node == null");
+            }
+            if (isNodeAncestor(node)) {
+                throw new IllegalArgumentException("new child is an ancestor");
+            }
+            MutableTreeNode oldParent = (MutableTreeNode)node.getParent();
+            if (oldParent != null) {
+                oldParent.remove(node);
+            }
+            node.setParent(this);
+        }
+        if (children == null) {
+            children = new Vector();
+        }
+        children.addAll(nodes);
+        if (sortChildren) {
+            sortChildren();
+        }
+    }
+
+    // Only used by Collections.sortChildren(this.children) in #insert(), so that
     // a compare of the path is not neccessary
     @Override
     public int compareTo(final Object o) {
