@@ -1,7 +1,6 @@
 package org.jphototagger.program.app;
 
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.Version;
 
 /**
  * @author Elmar Baumann
@@ -18,7 +17,6 @@ public final class AppInfo {
      */
     // IF CHANGING, SEE COMMENT ABOVE!
     public static final String PROJECT_NAME = "ImageMetaDataViewer";
-    public static final Version MIN_JAVA_VERSION = new Version(1, 7);
     public static final String APP_DESCRIPTION = Bundle.getString(AppInfo.class, "AppInfo.AppDescription");
     public static final String MAIL_TO_ADDRESS_BUGS = "support@jphototagger.org";
     public static final String MAIL_SUBJECT_BUGS = Bundle.getString(AppInfo.class, "AppInfo.Subject.Bugs");

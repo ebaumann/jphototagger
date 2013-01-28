@@ -8,6 +8,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Improved speed of reading folder trees in tabs "Folders"
   and "Favorites" an in folder selection dialog
+* Verification for Java version 1.7
 
 0.30.8 2013-01-26
 -----------------
