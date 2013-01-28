@@ -48,7 +48,8 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
             if (userObject instanceof File) {
                 file = (File) userObject;
             }
-            if ((file != null) && file.exists()) {
+            boolean fileExists = file != null && file.exists();
+            if (fileExists) {
                 synchronized (FILE_SYSTEM_VIEW) {
                     try {
                         setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
@@ -57,6 +58,8 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
                     }
                 }
                 setText(getDirectoryName(file));
+            } else if (file != null) {
+                setText('?' + file.getName() + '?');
             }
         }
         setColors(tree, row, selected);

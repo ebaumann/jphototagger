@@ -183,7 +183,6 @@ public final class TreeUtil {
                 tokenNumber++;
             }
         }
-
         return ((tokenCount > 0) && (tokenCount - 1 == tokenFoundCount))
                 ? new TreePath(path)
                 : null;
@@ -434,7 +433,6 @@ public final class TreeUtil {
                 }
             }
         }
-
         return null;
     }
 
@@ -614,6 +612,16 @@ public final class TreeUtil {
             }
         }
         return children;
+    }
+
+    public static boolean isNodeExpanded(JTree tree, DefaultMutableTreeNode node) {
+        if (tree == null) {
+            throw new NullPointerException("tree == null");
+        }
+        if (node == null) {
+            throw new NullPointerException("node == null");
+        }
+        return tree.isExpanded(new TreePath(node.getPath()));
     }
 
     private TreeUtil() {
