@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.9 2013-01-27
+-----------------
+
+* Improved speed of reading folder trees in tabs "Folders"
+  and "Favorites" an in folder selection dialog
+
 0.30.8 2013-01-26
 -----------------
 

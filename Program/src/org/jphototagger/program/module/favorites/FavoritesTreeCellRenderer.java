@@ -44,8 +44,8 @@ public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
             file = (File) userObject;
             setText(getDirectoryName(file));
         }
-        if (file != null) {
-            if (file.exists()) {
+        boolean fileExists = file != null && file.exists();
+        if (fileExists) {
                 synchronized (FILE_SYSTEM_VIEW) {
                     try {
                         setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
@@ -54,7 +54,6 @@ public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
                     }
                 }
             }
-        }
         setColors(tree, row, selected);
     }
 
@@ -72,6 +71,9 @@ public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
     }
 
     private String getDirectoryName(File file) {
+        if (!file.exists()) {
+            return '?' + file.getName() + '?';
+        }
         String name = file.getName();
         // Windows drive letters
         if (name.isEmpty()) {

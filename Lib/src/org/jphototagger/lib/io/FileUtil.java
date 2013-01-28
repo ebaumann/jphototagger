@@ -757,6 +757,37 @@ public final class FileUtil {
         }
     }
 
+    /**
+     * @param file null allowed (return: false)
+     * @return
+     */
+    public static boolean isReadableDirectory(File file) {
+        return file != null
+                && file.isDirectory()
+                && file.canRead()
+                && file.listFiles() != null; // Worked for not traversable Windows Junction Points
+    }
+
+    /**
+     * @param dir null allowed (return: false)
+     * @return true, if dir contains one or more subdirectories
+     */
+    public static boolean containsReadableDirectory(File dir) {
+        if (dir == null) {
+            return false;
+        }
+        File[] files = dir.listFiles();
+        if (files == null) {
+            return false;
+        }
+        for (File file : files) {
+            if (isReadableDirectory(file)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private FileUtil() {
     }
 }
