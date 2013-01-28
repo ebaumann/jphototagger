@@ -13,8 +13,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CommandLineParser;
 import org.jphototagger.lib.util.ExceptionUtil;
-import org.jphototagger.lib.util.SystemUtil;
-import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.logging.AppLogUtil;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.app.ui.AppFrame;
@@ -52,7 +50,6 @@ public final class AppInit {
             AppLookAndFeel.set(commandLineOptions.getLookAndFeel());
             AppLoggingSystem.init();
             AppLogUtil.logSystemInfo();
-            checkJavaVersion();
             lock();
             showSplashScreen();
             EventBus.publish(new AppWillInitEvent(this));
@@ -117,22 +114,6 @@ public final class AppInit {
 
     private void setJptEventQueue() {
         Toolkit.getDefaultToolkit().getSystemEventQueue().push(new AppEventQueue());
-    }
-
-    private static void checkJavaVersion() {
-        Version javaVersion = SystemUtil.getJavaVersion();
-        boolean javaVersionIsTooOld = javaVersion != null && javaVersion.compareTo(AppInfo.MIN_JAVA_VERSION) < 0;
-        if (javaVersionIsTooOld) {
-            errorMessageJavaVersion(javaVersion);
-            throw new RuntimeException("Java version" + javaVersion.toString3()
-                    + " is too old. Required minimum version is " + AppInfo.MIN_JAVA_VERSION);
-        }
-    }
-
-    private static void errorMessageJavaVersion(Version javaVersion) {
-        String message = Bundle.getString(AppInit.class, "AppInit.Error.JavaVersion",
-                javaVersion.toString3(), AppInfo.MIN_JAVA_VERSION.toString3());
-        MessageDisplayer.error(null, message);
     }
 
     private void showErrorMessage(Throwable t) {
