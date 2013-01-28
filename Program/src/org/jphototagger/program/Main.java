@@ -1,5 +1,6 @@
 package org.jphototagger.program;
 
+import java.awt.EventQueue;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,8 +14,8 @@ import org.jphototagger.program.app.AppInit;
  */
 public final class Main {
 
-    private static final int MIN_MAJOR_VERSION = 1;
-    private static final int MIN_MINOR_VERSION = 7;
+    private static final int MIN_JAVA_MAJOR_VERSION = 1;
+    private static final int MIN_JAVA_MINOR_VERSION = 7;
 
     public static void main(String[] args) {
         if (checkJavaVersion()) {
@@ -38,7 +39,7 @@ public final class Main {
         try {
             major = Integer.parseInt(versionToken[0]);
             minor = Integer.parseInt(versionToken[1]);
-            boolean tooOld = major < MIN_MAJOR_VERSION || major == MIN_MAJOR_VERSION && minor < MIN_MINOR_VERSION;
+            boolean tooOld = major < MIN_JAVA_MAJOR_VERSION || major == MIN_JAVA_MAJOR_VERSION && minor < MIN_JAVA_MINOR_VERSION;
             if (tooOld) {
                 errorMessageJavaVersion(version);
                 return false;
@@ -49,12 +50,18 @@ public final class Main {
         return true;
     }
 
-    private static void errorMessageJavaVersion(String version) {
-        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Java version ''{0}'' is too old! The required minimum Java version is ''{1}.{2}''.", new Object[]{version, MIN_MAJOR_VERSION, MIN_MINOR_VERSION});
-        ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/Bundle");
-        String message = MessageFormat.format(bundle.getString("Main.Error.JavaVersion.Message"), version, MIN_MAJOR_VERSION, MIN_MINOR_VERSION);
-        String title = bundle.getString("Main.Error.JavaVersion.MessageTitle");
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+    private static void errorMessageJavaVersion(final String version) {
+        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, "Java version ''{0}'' is too old! The required minimum Java version is ''{1}.{2}''.", new Object[]{version, MIN_JAVA_MAJOR_VERSION, MIN_JAVA_MINOR_VERSION});
+        EventQueue.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/Bundle");
+                String message = MessageFormat.format(bundle.getString("Main.Error.JavaVersion.Message"), version, MIN_JAVA_MAJOR_VERSION, MIN_JAVA_MINOR_VERSION);
+                String title = bundle.getString("Main.Error.JavaVersion.MessageTitle");
+                JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+            }
+        });
     }
 
     private Main() {
