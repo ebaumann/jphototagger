@@ -14,7 +14,7 @@ import org.jphototagger.program.app.AppInit;
 public final class Main {
 
     private static final int MIN_MAJOR_VERSION = 1;
-    private static final int MIN_MINOR_VERSION = 8;
+    private static final int MIN_MINOR_VERSION = 7;
 
     public static void main(String[] args) {
         if (checkJavaVersion()) {
