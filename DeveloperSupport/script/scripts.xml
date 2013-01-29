@@ -43,6 +43,7 @@
         <!--${googlecode.username}, ${googlecode.password} and ${jptversion}
         will be read from scripts.properties within this directory
         -->
+        <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.properties"/>
         <gcupload
             projectname="jphototagger"
             username="${googlecode.username}"
