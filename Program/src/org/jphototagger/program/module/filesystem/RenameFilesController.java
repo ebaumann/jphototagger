@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
 import org.jphototagger.program.resource.GUI;
 
@@ -46,9 +47,23 @@ public final class RenameFilesController implements ActionListener, KeyListener 
             RenameDialog dlg = new RenameDialog();
             Collections.sort(selFiles);
             dlg.setImageFiles(selFiles);
-            dlg.selectRenameViaTemplatesTab(GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().isInSameFileSystemDirectory());
+            dlg.selectRenameViaTemplatesTab(allInSameDirectory(selFiles));
             dlg.setVisible(true);
         }
+    }
+
+    private boolean allInSameDirectory(List<File> files) {
+        if (files.isEmpty()) {
+            return false;
+        }
+        File dir = files.get(0).getParentFile();
+        for (int i = 1; i < files.size(); i++) {
+            File otherDir = files.get(i).getParentFile();
+            if (!ObjectUtil.equals(dir, otherDir)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
