@@ -17,11 +17,21 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
+import org.jphototagger.domain.metadata.exif.Exif;
+import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
+import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.timeline.Timeline;
+import org.jphototagger.domain.timeline.Timeline.Date;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
@@ -33,6 +43,7 @@ import org.openide.util.Lookup;
 public final class TimelineItemSelectedController implements TreeSelectionListener {
 
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+    private TreePath selectedItemPath;
 
     public TimelineItemSelectedController() {
         listen();
@@ -45,49 +56,39 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        if (GUI.getTimelineTree().getSelectionCount() == 1) {
-            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
-
-            if (OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE.equals(typeOfDisplayedImages)) {
-                setFilesOfTreePathToThumbnailsPanel(GUI.getTimelineTree().getSelectionPath(), evt.getThumbnailsPanelSettings());
+        if (selectedItemPath != null) {
+            OriginOfDisplayedThumbnails originOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            if (OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE.equals(originOfDisplayedImages)) {
+                setFilesToThumbnailsPanel(evt.getThumbnailsPanelSettings());
             }
         }
     }
 
-    @Override
-    public void valueChanged(TreeSelectionEvent evt) {
-        if (evt.isAddedPath()) {
-            setFilesOfTreePathToThumbnailsPanel(evt.getNewLeadSelectionPath(), null);
+    private void setFilesToThumbnailsPanel(final ThumbnailsPanelSettings settings) {
+        if (selectedItemPath == null) {
+            return;
         }
-    }
-
-    private void setFilesOfTreePathToThumbnailsPanel(final TreePath path, final ThumbnailsPanelSettings settings) {
-        if (path != null) {
+        final TreePath path = selectedItemPath;
             Thread thread = new Thread(new Runnable() {
-
                 @Override
                 public void run() {
                     final Object lastPathComponent = path.getLastPathComponent();
-
                     EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
                         @Override
                         public void run() {
                             WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
                             waitDisplayer.show();
-                            setFilesOfPossibleNodeToThumbnailsPanel(lastPathComponent);
+                            setFilesOfPathToThumbnailsPanel(lastPathComponent);
                             GUI.getThumbnailsPanel().applyThumbnailsPanelSettings(settings);
                             waitDisplayer.hide();
                         }
                     });
                 }
             }, "JPhotoTagger: Setting files of sel. timeline item to TN panel");
-
             thread.start();
-        }
     }
 
-    private void setFilesOfPossibleNodeToThumbnailsPanel(Object lastPathComponent) {
+    private void setFilesOfPathToThumbnailsPanel(Object lastPathComponent) {
         if (lastPathComponent instanceof DefaultMutableTreeNode) {
             setFilesOfNodeToThumbnailsPanel((DefaultMutableTreeNode) lastPathComponent);
         }
@@ -95,14 +96,12 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
     private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
         Object userObject = node.getUserObject();
-
         if (node.equals(Timeline.getUnknownNode())) {
             setTitle();
             GUI.getThumbnailsPanel().setFiles(repo.findImageFilesOfUnknownDateTaken(), OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
         } else if (userObject instanceof Timeline.Date) {
             Timeline.Date date = (Timeline.Date) userObject;
             DefaultMutableTreeNode parent = (DefaultMutableTreeNode) node.getParent();
-
             if (parent != null) {
                 boolean isYear = parent.equals(node.getRoot());
                 boolean isMonth = !isYear && (node.getChildCount() > 0);
@@ -112,11 +111,8 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
                 int day = isMonth
                         ? -1
                         : date.day;
-
                 setTitle(isYear, date.year, isMonth, month, date);
-
                 List<File> files = new ArrayList<>(repo.findImageFilesOfDateTaken(date.year, month, day));
-
                 GUI.getThumbnailsPanel().setFiles(files, OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE);
             }
         }
@@ -130,18 +126,14 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
 
     private void setTitle(boolean isYear, int year, boolean isMonth, int month, Timeline.Date date) {
         java.util.Date d = null;
-
         if (date.isComplete()) {
             DateFormat df = new SimpleDateFormat("y-M-d");
-
             try {
-                d = df.parse(Integer.toString(date.year) + "-" + Integer.toString(date.month) + "-"
-                        + Integer.toString(date.day));
+                d = df.parse(Integer.toString(date.year) + "-" + Integer.toString(date.month) + "-" + Integer.toString(date.day));
             } catch (Exception ex) {
                 Logger.getLogger(TimelineItemSelectedController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
         NumberFormat yf = new DecimalFormat("####");
         DateFormat mf = new SimpleDateFormat("MMMMM");
         DateFormat df = DateFormat.getDateInstance(DateFormat.LONG);
@@ -155,5 +147,146 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
         String title = Bundle.getString(TimelineItemSelectedController.class, "TimelineItemSelectedController.AppFrame.Title.Timeline.Date", fDate);
         MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
         mainWindowManager.setMainWindowTitle(title);
+    }
+
+    private boolean isDisplayed(File imageFile) {
+        return GUI.getThumbnailsPanel().containsFile(imageFile);
+    }
+
+    private boolean isUnknownNodeSelected() {
+        if (selectedItemPath == null) {
+            return false;
+        }
+        Object lastPathComponent = selectedItemPath.getLastPathComponent();
+        if (lastPathComponent instanceof DefaultMutableTreeNode) {
+            return ((DefaultMutableTreeNode) lastPathComponent).equals(Timeline.getUnknownNode());
+        }
+        return false;
+    }
+
+    private Timeline.Date getSelectedDate() {
+        if (selectedItemPath == null) {
+            return null;
+        }
+        Object lastPathComponent = selectedItemPath.getLastPathComponent();
+        if (lastPathComponent instanceof DefaultMutableTreeNode) {
+            Object userObject = ((DefaultMutableTreeNode) lastPathComponent).getUserObject();
+            if (userObject instanceof Timeline.Date) {
+                return (Date) userObject;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void valueChanged(TreeSelectionEvent evt) {
+        selectedItemPath = evt.isAddedPath()
+                ? evt.getNewLeadSelectionPath()
+                : null;
+        setFilesToThumbnailsPanel(null);
+    }
+
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        xmpModified(evt.getImageFile(), evt.getXmp());
+    }
+
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        xmpModified(evt.getImageFile(), evt.getUpdatedXmp());
+    }
+
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        checkDeleted(evt.getImageFile());
+    }
+
+    private void checkDeleted(File imageFile) {
+        if (selectedItemPath != null) {
+            boolean displayed = isDisplayed(imageFile);
+            boolean unknownNodeSelected = isUnknownNodeSelected();
+            if (displayed && !unknownNodeSelected || !displayed && unknownNodeSelected) {
+                setFilesToThumbnailsPanel(null);
+            }
+        }
+    }
+
+    private void xmpModified(File imageFile, Xmp xmp) {
+        if (selectedItemPath != null && isUpdate(imageFile, xmp)) {
+            setFilesToThumbnailsPanel(null);
+        }
+    }
+
+    private boolean isUpdate(File imageFile, Xmp xmp) {
+        boolean displayed = isDisplayed(imageFile);
+        String dateCreated = (String) xmp.getValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
+        boolean hasDate = dateCreated != null;
+        boolean unknownNodeSelected = isUnknownNodeSelected();
+        if (unknownNodeSelected && displayed && !hasDate) {
+            return false;
+        }
+        if (unknownNodeSelected && displayed && hasDate) {
+            return true;
+        }
+        Date selectedDate = getSelectedDate();
+        boolean dateSelected = selectedDate != null;
+        boolean dateEqualsSelected = false;
+        if (dateCreated != null && selectedDate != null) {
+            Date xmpDate = new Date(1800, 1, 1);
+            xmpDate.setXmpDateCreated(dateCreated);
+            dateEqualsSelected = xmpDate.equals(selectedDate);
+        }
+        if (dateSelected && displayed && dateEqualsSelected) {
+            return false;
+        }
+        if (dateSelected && !displayed && dateEqualsSelected || dateSelected && displayed && !dateEqualsSelected) {
+            return true;
+        }
+        return true;
+    }
+
+    @EventSubscriber(eventClass=ExifUpdatedEvent.class)
+    public void exifUpdated(ExifUpdatedEvent evt) {
+        if (selectedItemPath != null && isUpdate(evt.getImageFile(), evt.getUpdatedExif())) {
+            setFilesToThumbnailsPanel(null);
+        }
+    }
+
+    @EventSubscriber(eventClass=ExifInsertedEvent.class)
+    public void exifInserted(ExifInsertedEvent evt) {
+        if (selectedItemPath != null && isUpdate(evt.getImageFile(), evt.getExif())) {
+            setFilesToThumbnailsPanel(null);
+        }
+    }
+
+    @EventSubscriber(eventClass=ExifDeletedEvent.class)
+    public void exifDeleted(ExifDeletedEvent evt) {
+        checkDeleted(evt.getImageFile());
+    }
+
+    private boolean isUpdate(File imageFile, Exif exif) {
+        boolean displayed = GUI.getThumbnailsPanel().containsFile(imageFile);
+        java.sql.Date exifDate = exif.getDateTimeOriginal();
+        boolean hasDate = exifDate != null;
+        boolean unknownNodeSelected = isUnknownNodeSelected();
+        if (unknownNodeSelected && displayed && !hasDate) {
+            return false;
+        }
+        if (unknownNodeSelected && displayed && hasDate) {
+            return true;
+        }
+        Date selectedDate = getSelectedDate();
+        boolean dateSelected = selectedDate != null;
+        boolean dateEqualsSelected = false;
+        if (exifDate != null && selectedDate != null) {
+            dateEqualsSelected = selectedDate.equals(new Date(exifDate));
+        }
+        if (dateSelected && displayed && dateEqualsSelected) {
+            return false;
+        }
+        if (dateSelected && !displayed && dateEqualsSelected || dateSelected && displayed && !dateEqualsSelected) {
+            return true;
+        }
+        return true;
     }
 }
