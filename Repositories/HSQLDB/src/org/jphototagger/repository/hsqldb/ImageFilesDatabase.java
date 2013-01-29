@@ -1937,11 +1937,17 @@ final class ImageFilesDatabase extends Database {
         ResultSet rs = null;
         try {
             con = getConnection();
-            String sql = "SELECT files.filename FROM files LEFT JOIN exif"
-                    + " ON files.id = exif.id_file"
+            String sql = "SELECT"
+                    + " files.filename"
+                    + " FROM files"
+                    + " LEFT JOIN exif ON files.id = exif.id_file"
                     + " LEFT JOIN xmp ON files.id = xmp.id_file"
-                    + " WHERE (exif.id IS NOT NULL AND exif.exif_date_time_original IS NULL)"
-                    + " AND (xmp.id IS NOT NULL AND xmp.iptc4xmpcore_datecreated IS NULL)"
+                    + " WHERE"
+                    + "    (exif.id IS NULL AND xmp.id IS NULL)" // image has neither EXIF nor XMP
+                    + "    OR (xmp.id IS NULL AND exif.id IS NOT NULL AND exif.exif_date_time_original IS NULL)" // image has only EXIF
+                    + "    OR (exif.id IS NULL AND xmp.id IS NOT NULL AND (xmp.iptc4xmpcore_datecreated IS NULL OR xmp.iptc4xmpcore_datecreated = ''))" // image has only XMP
+                    + "    OR (exif.id IS NOT NULL AND exif.exif_date_time_original IS NULL"
+                    + "       AND xmp.id IS NOT NULL AND (xmp.iptc4xmpcore_datecreated IS NULL OR xmp.iptc4xmpcore_datecreated = ''))" // image has both EXIF and XMP
                     + " ORDER BY files.filename ASC";
             stmt = con.createStatement();
             LOGGER.log(Level.FINEST, sql);
