@@ -328,6 +328,7 @@ public final class RenameDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContents = new javax.swing.JPanel();
+        labelInfoTemplatesTab = new javax.swing.JLabel();
         tabbedPane = new javax.swing.JTabbedPane();
         panelInputName = new javax.swing.JPanel();
         panelFolderPathname = new javax.swing.JPanel();
@@ -357,6 +358,12 @@ public final class RenameDialog extends Dialog {
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContents.setLayout(new java.awt.GridBagLayout());
+
+        labelInfoTemplatesTab.setText(bundle.getString("RenameDialog.labelInfoTemplatesTab.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelContents.add(labelInfoTemplatesTab, gridBagConstraints);
 
         panelInputName.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -533,6 +540,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelContents.add(tabbedPane, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -602,6 +610,7 @@ public final class RenameDialog extends Dialog {
     private javax.swing.JLabel labelDirectory;
     private javax.swing.JLabel labelFromName;
     private javax.swing.JLabel labelFromNamePrompt;
+    private javax.swing.JLabel labelInfoTemplatesTab;
     private javax.swing.JLabel labelToNamePrompt;
     private javax.swing.JPanel panelContents;
     private javax.swing.JPanel panelFolderPathname;

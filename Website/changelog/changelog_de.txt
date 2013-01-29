@@ -3,6 +3,18 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.10 2013-01-28
+------------------
+
+* Umbenennen von Dateien: Dialog hat Infotext, dass alle
+  Dateien im gleichen Verzeichnis sein müssen, damit
+  Umbenennungs-Schablonen benutzt werden können. Es können
+  nun prinzipiell Dateien im gleichen Ordner über
+  Schablonen umbenannt werden, egal woher die Auswahl stammt,
+  nicht nur jene in den Kartenreitern "Ordner" und
+  "Favoriten", sondern z.B. auch jene bei Auswahl eines
+  Stichworts im Kartenreiter "Stichwörter".
+
 0.30.9 2013-01-27
 -----------------
 

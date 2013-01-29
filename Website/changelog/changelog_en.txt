@@ -3,6 +3,17 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.10 2013-01-28
+------------------
+
+* Renaming files via templates: Dialog has info text,
+  that only files in the same folder can be renamed via
+  file rename templates. Now all files in the same
+  folder can be renamed through file rename templates,
+  regardless the origin, not only from tab "Folders"
+  or "Favorites", but also files e.g. from a selection
+  in the "Keywords" tab.
+
 0.30.9 2013-01-27
 -----------------
 

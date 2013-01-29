@@ -9,7 +9,7 @@ public final class AppInfo {
 
     public static final String APP_NAME = "JPhotoTagger";
     // Never change that scheme: "[0-9]+\.[0-9]+\.[0-9]+"!
-    public static final String APP_VERSION = "0.30.9";
+    public static final String APP_VERSION = "0.30.10";
     /**
      * ("Historical") Name of this project. <p> This is also the name of the user settings subdirectory (properties
      * file) and the default thumbnails parent directory. When changing, the first or second action in the main() mehtod
