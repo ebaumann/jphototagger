@@ -3,7 +3,10 @@ package org.jphototagger.domain.metadata.exif;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.bind.annotation.XmlTransient;
+import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
@@ -19,6 +22,8 @@ public final class Exif {
     private String recordingEquipment;
     private String lens;
     private long dateTimeOriginalTimestamp = -1;
+    @XmlTransient
+    private final Map<MetaDataValue, Object> metadataValues = new HashMap<>();
     @XmlTransient
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -38,6 +43,7 @@ public final class Exif {
         this.dateTimeOriginal = dateTimeOriginal == null
                 ? null
                 : new Date(dateTimeOriginal.getTime());
+        metadataValues.put(ExifDateTimeOriginalMetaDataValue.INSTANCE, this.dateTimeOriginal);
     }
 
     /**
@@ -72,6 +78,7 @@ public final class Exif {
      */
     public void setFocalLength(double focalLength) {
         this.focalLength = focalLength;
+        metadataValues.put(ExifFocalLengthMetaDataValue.INSTANCE, this.focalLength);
     }
 
     /**
@@ -86,6 +93,7 @@ public final class Exif {
      */
     public void setIsoSpeedRatings(short isoSpeedRatings) {
         this.isoSpeedRatings = isoSpeedRatings;
+        metadataValues.put(ExifIsoSpeedRatingsMetaDataValue.INSTANCE, this.isoSpeedRatings);
     }
 
     /**
@@ -103,6 +111,7 @@ public final class Exif {
         this.recordingEquipment = recordingEquipment == null || recordingEquipment.equals("0")
                 ? null
                 : recordingEquipment;
+        metadataValues.put(ExifRecordingEquipmentMetaDataValue.INSTANCE, this.recordingEquipment);
     }
 
     public String getLens() {
@@ -111,6 +120,7 @@ public final class Exif {
 
     public void setLens(String lens) {
         this.lens = lens;
+        metadataValues.put(ExifLensMetaDataValue.INSTANCE, this.lens);
     }
 
     public void resetGps() {
@@ -158,6 +168,10 @@ public final class Exif {
             return "";
         }
         return DATE_FORMAT.format(dateTimeOriginal);
+    }
+
+    public Object getValue(MetaDataValue mdv) {
+        return metadataValues.get(mdv);
     }
 
     public boolean isEmpty() {
