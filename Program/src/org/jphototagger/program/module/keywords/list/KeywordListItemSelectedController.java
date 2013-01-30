@@ -65,11 +65,8 @@ public final class KeywordListItemSelectedController implements ActionListener, 
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        if (isKeywordSelected()) {
-            OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
-            if (origin.isFilesMatchingAKeyword()) {
-                update(evt);
-            }
+        if (isKeywordSelected() && evt.getOriginOfDisplayedThumbnails().isFilesMatchingAKeyword()) {
+            update(evt);
         }
     }
 
@@ -79,8 +76,8 @@ public final class KeywordListItemSelectedController implements ActionListener, 
             selectedKeywords.clear();
             if (isKeywordSelected()) {
                 selectedKeywords.addAll(getSelectedKeywords());
+                update(null);
             }
-            update(null);
         }
     }
 
@@ -90,9 +87,6 @@ public final class KeywordListItemSelectedController implements ActionListener, 
     }
 
     private void update(ThumbnailsPanelRefreshEvent evt) {
-        if (!isKeywordSelected()) {
-            return;
-        }
         EventQueueUtil.invokeInDispatchThread(isAllKeywords()
                 ? new ShowThumbnailsContainingAllKeywords(selectedKeywords, (evt == null)
                 ? null
@@ -109,11 +103,9 @@ public final class KeywordListItemSelectedController implements ActionListener, 
     private void readPersistent() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         boolean radioButtonAll = true;
-
         if (prefs.containsKey(KEY_RADIO_BUTTON)) {
             radioButtonAll = prefs.getInt(KEY_RADIO_BUTTON) == 0;
         }
-
         getRadioButtonAllKeywords().setSelected(radioButtonAll);
         getRadioButtonOneKeyword().setSelected(!radioButtonAll);
     }
