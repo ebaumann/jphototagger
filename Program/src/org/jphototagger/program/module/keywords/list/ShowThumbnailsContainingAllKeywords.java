@@ -2,6 +2,7 @@ package org.jphototagger.program.module.keywords.list;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import org.jphototagger.api.windows.MainWindowManager;
@@ -36,7 +37,6 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
         if (keywords == null) {
             throw new NullPointerException("keywords == null");
         }
-
         this.keywords = new ArrayList<>(keywords);
         tnPanelSettings = settings;
     }
@@ -44,7 +44,6 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
     @Override
     public void run() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
@@ -57,30 +56,24 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     private void setFilesToThumbnailsPanel() {
         List<File> imageFiles = new ArrayList<>(getImageFilesOfKeywords());
-
-        if (imageFiles != null) {
+        if (!imageFiles.isEmpty()) {
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-
             tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD);
             tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
         }
     }
 
     private Set<File> getImageFilesOfKeywords() {
-
         // Faster than using 2 different DB queries if only 1 keyword
         // is selected
         if (keywords.size() == 1) {
             setTitle(keywords.get(0));
-
             return repo.findImageFilesContainingDcSubject(keywords.get(0), false);
         } else if (keywords.size() > 1) {
             setTitle(keywords);
-
             return repo.findImageFilesContainingAllDcSubjects(keywords);
         }
-
-        return null;
+        return Collections.emptySet();
     }
 
     private void setTitle(List<String> keywords) {
