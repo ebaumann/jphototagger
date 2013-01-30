@@ -11,6 +11,11 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -46,13 +51,13 @@ public final class KeywordListItemSelectedController implements ActionListener, 
         return GUI.getAppPanel().getRadioButtonSelKeywordsMultipleSelOne();
     }
 
-    private boolean keywordsSelected() {
+    private boolean isKeywordSelected() {
         return GUI.getSelKeywordsList().getSelectedIndex() >= 0;
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (keywordsSelected()) {
+        if (isKeywordSelected()) {
             writePersistent();
             update(null);
         }
@@ -60,7 +65,7 @@ public final class KeywordListItemSelectedController implements ActionListener, 
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        if (keywordsSelected()) {
+        if (isKeywordSelected()) {
             OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
             if (OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD.equals(origin)) {
                 update(evt);
@@ -72,7 +77,7 @@ public final class KeywordListItemSelectedController implements ActionListener, 
     public void valueChanged(ListSelectionEvent evt) {
         if (!evt.getValueIsAdjusting()) {
             selectedKeywords.clear();
-            if (keywordsSelected()) {
+            if (isKeywordSelected()) {
                 selectedKeywords.addAll(getSelectedKeywords());
             }
             update(null);
@@ -85,6 +90,9 @@ public final class KeywordListItemSelectedController implements ActionListener, 
     }
 
     private void update(ThumbnailsPanelRefreshEvent evt) {
+        if (!isKeywordSelected()) {
+            return;
+        }
         EventQueueUtil.invokeInDispatchThread(isAllKeywords()
                 ? new ShowThumbnailsContainingAllKeywords(selectedKeywords, (evt == null)
                 ? null
@@ -115,5 +123,30 @@ public final class KeywordListItemSelectedController implements ActionListener, 
         prefs.setInt(KEY_RADIO_BUTTON, isAllKeywords()
                 ? 0
                 : 1);
+    }
+
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        if (isKeywordSelected()
+                && evt.getXmp().containsOneOf(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, selectedKeywords)) {
+            update(null);
+        }
+    }
+
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        if (isKeywordSelected()
+                && evt.getXmp().containsOneOf(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, selectedKeywords)) {
+            update(null);
+        }
+    }
+
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        if (isKeywordSelected()
+                && (Xmp.valueDeleted(evt.getOldXmp(), evt.getUpdatedXmp(), XmpDcSubjectsSubjectMetaDataValue.INSTANCE, selectedKeywords)
+                || Xmp.valueInserted(evt.getOldXmp(), evt.getUpdatedXmp(), XmpDcSubjectsSubjectMetaDataValue.INSTANCE, selectedKeywords))) {
+            update(null);
+        }
     }
 }
