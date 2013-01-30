@@ -86,7 +86,11 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
     private String resolveMessage(LogRecord record) {
         String message = record.getMessage();
         if (message == null) {
-            return "";
+            Throwable thrown = record.getThrown();
+            String thrownMessage = thrown == null ? "" : thrown.getMessage();
+            return thrown == null
+                    ? ""
+                    : thrownMessage;
         }
         Object[] parameters = record.getParameters();
         if (parameters == null) {
