@@ -3,6 +3,19 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.11 2013-01-29
+------------------
+
+* The Windows installer tries to start JPhotoTagger
+  in 64 bit mode on 64 bit systems
+* Thumbnails will be updated automatically (without
+  pressing F5) if metadata has been updated for these
+  tabs:
+  * Keywords (list, tree)
+  * Miscellaneous
+  * Without metadata
+  * Timeline
+
 0.30.10 2013-01-28
 ------------------
 
