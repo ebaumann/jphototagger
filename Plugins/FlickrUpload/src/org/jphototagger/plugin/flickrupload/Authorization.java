@@ -9,7 +9,6 @@ import com.aetrion.flickr.auth.Permission;
 import java.awt.Desktop;
 import java.net.URL;
 import java.util.logging.Level;
-
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.jphototagger.api.preferences.Preferences;
