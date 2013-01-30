@@ -70,8 +70,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
     }
 
     private static boolean isMyOrigin(OriginOfDisplayedThumbnails origin) {
-        return origin == OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY
-                || origin == OriginOfDisplayedThumbnails.FILES_IN_DIRECTORY_RECURSIVE;
+        return origin.isFilesInSameDirectory() || origin.isFilesInDirectoryRecursive();
     }
 
     private static OriginOfDisplayedThumbnails getMyOrigin() {
@@ -81,7 +80,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
     }
 
     private static boolean isRecursive() {
-        return getMyOrigin() == OriginOfDisplayedThumbnails.FILES_IN_DIRECTORY_RECURSIVE;
+        return getMyOrigin().isFilesInDirectoryRecursive();
     }
 
     private void setFilesToThumbnailsPanel(ThumbnailsPanelSettings settings) {

@@ -74,11 +74,11 @@ public final class PasteFilesIntoDirectoryController implements KeyListener {
         return action.equals(FileAction.COPY) || action.equals(FileAction.CUT);
     }
 
-    private boolean isSingleDirectory(OriginOfDisplayedThumbnails content) {
-        return content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY)
-                || content.equals(OriginOfDisplayedThumbnails.FILES_IN_DIRECTORY_RECURSIVE)
-                || content.equals(OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY)
-                || content.equals(OriginOfDisplayedThumbnails.FILES_IN_FAVORITE_DIRECTORY_RECURSIVE);
+    private boolean isSingleDirectory(OriginOfDisplayedThumbnails origin) {
+        return origin.isFilesInSameDirectory()
+                || origin.isFilesInDirectoryRecursive()
+                || origin.isFilesInSameFavoriteDirectory()
+                || origin.isFilesInFavoriteDirectoryRecursive();
     }
 
     @Override

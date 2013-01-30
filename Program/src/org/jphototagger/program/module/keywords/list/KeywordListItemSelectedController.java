@@ -67,7 +67,7 @@ public final class KeywordListItemSelectedController implements ActionListener, 
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (isKeywordSelected()) {
             OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
-            if (OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD.equals(origin)) {
+            if (origin.isFilesMatchingAKeyword()) {
                 update(evt);
             }
         }

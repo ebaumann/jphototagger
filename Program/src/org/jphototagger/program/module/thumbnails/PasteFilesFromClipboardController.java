@@ -77,10 +77,10 @@ public final class PasteFilesFromClipboardController implements ActionListener, 
     }
 
     private File getDirectory() {
-        OriginOfDisplayedThumbnails content = GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails();
-        if (content == OriginOfDisplayedThumbnails.FILES_IN_SAME_DIRECTORY || content == OriginOfDisplayedThumbnails.FILES_IN_DIRECTORY_RECURSIVE) {
+        OriginOfDisplayedThumbnails origin = GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails();
+        if (origin.isFilesInSameDirectory() || origin.isFilesInDirectoryRecursive()) {
             return ViewUtil.getSelectedFile(GUI.getDirectoriesTree());
-        } else if (content == OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY || content == OriginOfDisplayedThumbnails.FILES_IN_FAVORITE_DIRECTORY_RECURSIVE) {
+        } else if (origin.isFilesInSameFavoriteDirectory() || origin.isFilesInFavoriteDirectoryRecursive()) {
             return ViewUtil.getSelectedFile(GUI.getFavoritesTree());
         }
         return null;

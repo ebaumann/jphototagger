@@ -45,9 +45,8 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getMiscMetadataTree().getSelectionCount() == 1) {
-            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
-
-            if (OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA.equals(typeOfDisplayedImages)) {
+            OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
+            if (origin.isFilesMatchingMiscMetadata()) {
                 EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(GUI.getMiscMetadataTree().getSelectionPath(), evt.getThumbnailsPanelSettings()));
             }
         }
@@ -63,7 +62,6 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
             if (treePath == null) {
                 throw new NullPointerException("treePath == null");
             }
-
             this.treePath = treePath;
             tnPanelSettings = settings;
         }
@@ -86,13 +84,10 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
         private void setFilesOfNodeToThumbnailsPanel(DefaultMutableTreeNode node) {
             Object userObject = node.getUserObject();
             ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-
             if (node.isLeaf()) {
                 Object parentUserObject = ((DefaultMutableTreeNode) node.getParent()).getUserObject();
-
                 if (parentUserObject instanceof MetaDataValue) {
                     MetaDataValue mdValue = (MetaDataValue) parentUserObject;
-
                     setTitle(mdValue, userObject);
                     tnPanel.setFiles(repo.findImageFilesWhereMetaDataValueHasExactValue(mdValue,
                             userObject.toString()), OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA);
@@ -102,7 +97,6 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
                 }
             } else if (userObject instanceof MetaDataValue) {
                 MetaDataValue mdValue = (MetaDataValue) userObject;
-
                 setTitle(mdValue);
                 tnPanel.setFiles(repo.findImageFilesContainingAVauleInMetaDataValue(mdValue), OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA);
                 tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);

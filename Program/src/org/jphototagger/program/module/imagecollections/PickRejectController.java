@@ -12,7 +12,6 @@ import org.jphototagger.api.messages.MessageType;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
-import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
@@ -58,18 +57,14 @@ public final class PickRejectController implements ActionListener, KeyListener {
         if ((pick && isPickCollection()) || (!pick && isRejectCollection())) {
             return;
         }
-
         ThumbnailsPanel panelThumbnails = GUI.getThumbnailsPanel();
-
         if (panelThumbnails.isAFileSelected()) {
             List<File> selFiles = panelThumbnails.getSelectedFiles();
-
             MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
             mainWindowManager.setMainWindowStatusbarText(getPopupMessage(pick), MessageType.INFO, 1000);
             addToCollection(pick
                     ? ImageCollection.PICKED_NAME
                     : ImageCollection.REJECTED_NAME, selFiles);
-
             if ((pick && isRejectCollection()) || (!pick && isPickCollection())) {
                 deleteFromCollection(pick
                         ? ImageCollection.REJECTED_NAME
@@ -94,16 +89,13 @@ public final class PickRejectController implements ActionListener, KeyListener {
     }
 
     private boolean isCollection(String collection) {
-        if (!GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().equals(OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION)) {
+        if (!GUI.getThumbnailsPanel().getOriginOfDisplayedThumbnails().isFilesOfAnImageCollection()) {
             return false;
         }
-
         JXList list = GUI.getAppPanel().getListImageCollections();
-
         if (list.getSelectedIndex() < 0) {
             return false;
         }
-
         return list.getSelectedValue().toString().equals(collection);
     }
 
