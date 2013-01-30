@@ -7,7 +7,9 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.keywords.Keyword;
+import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.module.keywords.list.ShowThumbnailsContainingAllKeywords2;
 import org.jphototagger.program.resource.GUI;
@@ -15,9 +17,11 @@ import org.jphototagger.program.resource.GUI;
 /**
  * @author Elmar Baumann
  */
-public final class KeywordsSelectionController implements TreeSelectionListener {
+public final class KeywordsTreeItemSelectedController implements TreeSelectionListener {
 
-    public KeywordsSelectionController() {
+    private final List<List<String>> selectedKeywordPaths = new ArrayList<>();
+
+    public KeywordsTreeItemSelectedController() {
         listen();
     }
 
@@ -26,15 +30,28 @@ public final class KeywordsSelectionController implements TreeSelectionListener 
         GUI.getSelKeywordsTree().getSelectionModel().addTreeSelectionListener(this);
     }
 
+    private boolean isKeywordSelected() {
+        return GUI.getSelKeywordsTree().getSelectionPaths() != null;
+    }
+
     @Override
     public void valueChanged(TreeSelectionEvent evt) {
+        selectedKeywordPaths.clear();
         if (evt.isAddedPath()) {
+            selectedKeywordPaths.addAll(getKeywordStringPaths());
+            showThumbnailsOfSelKeywords();
+        }
+    }
+
+    @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
+    public void refresh(ThumbnailsPanelRefreshEvent evt) {
+        if (isKeywordSelected() && evt.getOriginOfDisplayedThumbnails().isFilesMatchingAKeyword()) {
             showThumbnailsOfSelKeywords();
         }
     }
 
     private void showThumbnailsOfSelKeywords() {
-        EventQueueUtil.invokeInDispatchThread(new ShowThumbnailsContainingAllKeywords2(getKeywordStringPaths()));
+        EventQueueUtil.invokeInDispatchThread(new ShowThumbnailsContainingAllKeywords2(selectedKeywordPaths));
     }
 
     private List<List<String>> getKeywordStringPaths() {

@@ -54,7 +54,7 @@ import org.jphototagger.program.module.keywords.tree.DeleteKeywordFromEditPanelC
 import org.jphototagger.program.module.keywords.tree.HighlightKeywordsTreeController;
 import org.jphototagger.program.module.keywords.tree.KeywordsDisplayImagesController;
 import org.jphototagger.program.module.keywords.tree.KeywordsRepositoryUpdatesController;
-import org.jphototagger.program.module.keywords.tree.KeywordsSelectionController;
+import org.jphototagger.program.module.keywords.tree.KeywordsTreeItemSelectedController;
 import org.jphototagger.program.module.keywords.tree.RenameKeywordController;
 import org.jphototagger.program.module.keywords.tree.ToggleButtonExpandKeywordsTreeController;
 import org.jphototagger.program.module.keywords.tree.ToggleRealKeywordController;
@@ -156,7 +156,7 @@ public final class ControllerFactory {
         support.add(new SavedSearchSelectedController());
         support.add(new ImageCollectionSelectedController());
         support.add(new CreateMetadataOfSelectedThumbnailsController());
-        support.add(new KeywordsSelectionController());
+        support.add(new KeywordsTreeItemSelectedController());
         support.add(new MiscMetadataItemSelectedController());
         support.add(new TimelineItemSelectedController());
         support.add(new FavoriteSelectedController());
