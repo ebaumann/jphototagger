@@ -947,32 +947,22 @@ final class ImageFilesDatabase extends Database {
 
     private void setXmpValues(PreparedStatement stmt, long idImageFile, Xmp xmp) throws SQLException {
         stmt.setLong(1, idImageFile);
-        setLong(ensureValueExists("dc_creators", "creator", (String) xmp.getValue(XmpDcCreatorMetaDataValue.INSTANCE)), stmt,
-                2);
+        setLong(ensureValueExists("dc_creators", "creator", (String) xmp.getValue(XmpDcCreatorMetaDataValue.INSTANCE)), stmt, 2);
         setString(xmp.getValue(XmpDcDescriptionMetaDataValue.INSTANCE), stmt, 3);
         setLong(ensureValueExists("dc_rights", "rights", (String) xmp.getValue(XmpDcRightsMetaDataValue.INSTANCE)), stmt, 4);
         setString(xmp.getValue(XmpDcTitleMetaDataValue.INSTANCE), stmt, 5);
-        setLong(ensureValueExists("iptc4xmpcore_locations", "location",
-                (String) xmp.getValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE)), stmt, 6);
-        setLong(ensureValueExists("photoshop_authorspositions", "authorsposition",
-                (String) xmp.getValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE)), stmt, 7);
-        setLong(ensureValueExists("photoshop_captionwriters", "captionwriter",
-                (String) xmp.getValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE)), stmt, 8);
-        setLong(ensureValueExists("photoshop_cities", "city", (String) xmp.getValue(XmpPhotoshopCityMetaDataValue.INSTANCE)),
-                stmt, 9);
-        setLong(ensureValueExists("photoshop_countries", "country",
-                (String) xmp.getValue(XmpPhotoshopCountryMetaDataValue.INSTANCE)), stmt, 10);
-        setLong(ensureValueExists("photoshop_credits", "credit",
-                (String) xmp.getValue(XmpPhotoshopCreditMetaDataValue.INSTANCE)), stmt, 11);
+        setLong(ensureValueExists("iptc4xmpcore_locations", "location", (String) xmp.getValue(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE)), stmt, 6);
+        setLong(ensureValueExists("photoshop_authorspositions", "authorsposition", (String) xmp.getValue(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE)), stmt, 7);
+        setLong(ensureValueExists("photoshop_captionwriters", "captionwriter", (String) xmp.getValue(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE)), stmt, 8);
+        setLong(ensureValueExists("photoshop_cities", "city", (String) xmp.getValue(XmpPhotoshopCityMetaDataValue.INSTANCE)), stmt, 9);
+        setLong(ensureValueExists("photoshop_countries", "country", (String) xmp.getValue(XmpPhotoshopCountryMetaDataValue.INSTANCE)), stmt, 10);
+        setLong(ensureValueExists("photoshop_credits", "credit", (String) xmp.getValue(XmpPhotoshopCreditMetaDataValue.INSTANCE)), stmt, 11);
         setString(xmp.getValue(XmpPhotoshopHeadlineMetaDataValue.INSTANCE), stmt, 12);
         setString(xmp.getValue(XmpPhotoshopInstructionsMetaDataValue.INSTANCE), stmt, 13);
-        setLong(ensureValueExists("photoshop_sources", "source",
-                (String) xmp.getValue(XmpPhotoshopSourceMetaDataValue.INSTANCE)), stmt, 14);
-        setLong(ensureValueExists("photoshop_states", "state",
-                (String) xmp.getValue(XmpPhotoshopStateMetaDataValue.INSTANCE)), stmt, 15);
+        setLong(ensureValueExists("photoshop_sources", "source", (String) xmp.getValue(XmpPhotoshopSourceMetaDataValue.INSTANCE)), stmt, 14);
+        setLong(ensureValueExists("photoshop_states", "state", (String) xmp.getValue(XmpPhotoshopStateMetaDataValue.INSTANCE)), stmt, 15);
         setString(xmp.getValue(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE), stmt, 16);
-        setLongMinMax(xmp.getValue(XmpRatingMetaDataValue.INSTANCE), XmpRatingMetaDataValue.getMinValue(),
-                XmpRatingMetaDataValue.getMaxValue(), stmt, 17);
+        setLongMinMax(xmp.getValue(XmpRatingMetaDataValue.INSTANCE), XmpRatingMetaDataValue.getMinValue(), XmpRatingMetaDataValue.getMaxValue(), stmt, 17);
         setString(xmp.getValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE), stmt, 18);
     }
 
