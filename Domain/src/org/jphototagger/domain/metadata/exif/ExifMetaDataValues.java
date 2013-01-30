@@ -25,6 +25,10 @@ public final class ExifMetaDataValues {
         return new ArrayList<>(VALUES);
     }
 
+    public static boolean isExifMetadataValue(MetaDataValue mdv) {
+        return VALUES.contains(mdv);
+    }
+
     private ExifMetaDataValues() {
     }
 }
