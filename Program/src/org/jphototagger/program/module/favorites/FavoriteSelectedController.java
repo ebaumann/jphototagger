@@ -61,8 +61,7 @@ public final class FavoriteSelectedController implements TreeSelectionListener {
     }
 
     private static boolean isMyOrigin(OriginOfDisplayedThumbnails origin) {
-        return origin == OriginOfDisplayedThumbnails.FILES_IN_SAME_FAVORITE_DIRECTORY
-                || origin == OriginOfDisplayedThumbnails.FILES_IN_FAVORITE_DIRECTORY_RECURSIVE;
+        return origin.isFilesInSameFavoriteDirectory() || origin.isFilesInFavoriteDirectoryRecursive();
     }
 
     private static OriginOfDisplayedThumbnails getMyOrigin() {
@@ -72,7 +71,7 @@ public final class FavoriteSelectedController implements TreeSelectionListener {
     }
 
     private static boolean isRecursive() {
-        return getMyOrigin() == OriginOfDisplayedThumbnails.FILES_IN_FAVORITE_DIRECTORY_RECURSIVE;
+        return getMyOrigin().isFilesInFavoriteDirectoryRecursive();
     }
 
     @Override

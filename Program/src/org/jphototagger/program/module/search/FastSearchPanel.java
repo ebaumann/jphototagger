@@ -169,7 +169,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         if (autocomplete == null || !getPersistedAutocomplete()) {
             return;
         }
-
         new Thread(new Runnable() {
 
             @Override
@@ -311,9 +310,8 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (textAreaSearch.isEnabled()) {
-            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
-
-            if (OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH.equals(typeOfDisplayedImages)) {
+            OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
+            if (origin.isFilesFoundByFastSearch()) {
                 search(textAreaSearch.getText());
             }
         }
@@ -321,8 +319,8 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
     @EventSubscriber(eventClass = ThumbnailsChangedEvent.class)
     public void thumbnailsChanged(ThumbnailsChangedEvent evt) {
-        OriginOfDisplayedThumbnails originOfDisplayedThumbnails = evt.getOriginOfDisplayedThumbnails();
-        if (!OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH.equals(originOfDisplayedThumbnails)) {
+        OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
+        if (!origin.isFilesFoundByFastSearch()) {
             textAreaSearch.setText("");
         }
     }

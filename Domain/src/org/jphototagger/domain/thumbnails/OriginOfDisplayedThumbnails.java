@@ -47,7 +47,7 @@ public enum OriginOfDisplayedThumbnails {
     }
 
     public boolean isInSameFileSystemDirectory() {
-        return this.equals(FILES_IN_SAME_DIRECTORY) || this.equals(FILES_IN_SAME_FAVORITE_DIRECTORY);
+        return isFilesInSameDirectory() || isFilesInSameFavoriteDirectory();
     }
 
     public boolean isSortable() {
@@ -56,5 +56,49 @@ public enum OriginOfDisplayedThumbnails {
 
     public boolean isFilterable() {
         return CONTENT_IS_FILTERABLE.contains(this);
+    }
+
+    public boolean isFilesFoundByFastSearch() {
+        return this == FILES_FOUND_BY_FAST_SEARCH;
+    }
+
+    public boolean isFilesFoundBySavedSearch() {
+        return this == FILES_FOUND_BY_SAVED_SEARCH;
+    }
+
+    public boolean isFilesInDirectoryRecursive() {
+        return this == FILES_IN_DIRECTORY_RECURSIVE;
+    }
+
+    public boolean isFilesInFavoriteDirectoryRecursive() {
+        return this == FILES_IN_FAVORITE_DIRECTORY_RECURSIVE;
+    }
+
+    public boolean isFilesInSameDirectory() {
+        return this == FILES_IN_SAME_DIRECTORY;
+    }
+
+    public boolean isFilesInSameFavoriteDirectory() {
+        return this == FILES_IN_SAME_FAVORITE_DIRECTORY;
+    }
+
+    public boolean isFilesMatchingAKeyword() {
+        return this == FILES_MATCHING_A_KEYWORD;
+    }
+
+    public boolean isFilesMatchingDatesInATimeline() {
+        return this == FILES_MATCHING_DATES_IN_A_TIMELINE;
+    }
+
+    public boolean isFilesMatchingMiscMetadata() {
+        return this == FILES_MATCHING_MISC_METADATA;
+    }
+
+    public boolean isFilesMatchingMissingMetadata() {
+        return this == FILES_MATCHING_MISSING_METADATA;
+    }
+
+    public boolean isFilesOfAnImageCollection() {
+        return this == FILES_OF_AN_IMAGE_COLLECTION;
     }
 }

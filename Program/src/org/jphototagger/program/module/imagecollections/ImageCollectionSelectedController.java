@@ -51,9 +51,8 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getImageCollectionsList().getSelectedIndex() >= 0) {
-            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
-
-            if (OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(typeOfDisplayedImages)) {
+            OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
+            if (origin.isFilesOfAnImageCollection()) {
                 showImageCollection(evt.getThumbnailsPanelSettings());
             }
         }
@@ -61,7 +60,6 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
 
     private void showImageCollection(final ThumbnailsPanelSettings settings) {
         Thread thread = new Thread(new Runnable() {
-
             @Override
             public void run() {
                 Object selValue = GUI.getImageCollectionsList().getSelectedValue();
@@ -79,7 +77,6 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
 
     private void showImageCollection(final String collectionName, final ThumbnailsPanelSettings settings) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);

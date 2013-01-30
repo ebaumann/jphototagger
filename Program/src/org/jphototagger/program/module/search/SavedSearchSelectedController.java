@@ -43,9 +43,8 @@ public final class SavedSearchSelectedController implements ListSelectionListene
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
-
-        if (OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH.equals(typeOfDisplayedImages)) {
+        OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
+        if (origin.isFilesFoundBySavedSearch()) {
             search();
         }
     }
@@ -61,7 +60,6 @@ public final class SavedSearchSelectedController implements ListSelectionListene
         @Override
         public void run() {
             Object selectedValue = GUI.getSavedSearchesList().getSelectedValue();
-
             if (selectedValue != null) {
                 WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
                 waitDisplayer.show();
@@ -73,22 +71,17 @@ public final class SavedSearchSelectedController implements ListSelectionListene
         private void searchSelectedValue(Object selectedValue) {
             if (selectedValue instanceof SavedSearch) {
                 SavedSearch savedSearch = (SavedSearch) selectedValue;
-
                 if (!savedSearch.isValid()) {
                     assert false : savedSearch;
-
                     return;
                 }
-
                 ParamStatement stmt = savedSearch.createParamStatement();
-
                 searchParamStatement(stmt, savedSearch.getName());
             }
         }
 
         private void searchParamStatement(ParamStatement stmt, String name) {
             List<File> imageFiles = repo.findImageFiles(stmt);
-
             setTitle(name);
             GUI.getThumbnailsPanel().setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH);
         }
