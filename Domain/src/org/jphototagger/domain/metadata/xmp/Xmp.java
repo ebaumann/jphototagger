@@ -35,7 +35,6 @@ public final class Xmp implements TextEntryListener {
         if (other == null) {
             throw new NullPointerException("other == null");
         }
-
         set(other);
     }
 
@@ -43,7 +42,6 @@ public final class Xmp implements TextEntryListener {
         if (value == null) {
             throw new NullPointerException("value == null");
         }
-
         return metaDataValue.get(value) != null;
     }
 
@@ -51,14 +49,12 @@ public final class Xmp implements TextEntryListener {
         if (mdValue == null) {
             throw new NullPointerException("mdValue == null");
         }
-
         return metaDataValue.remove(mdValue);
     }
 
     @Override
     public void textRemoved(final MetaDataValue mdValue, final String removedText) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 removeValue(mdValue, removedText);
@@ -69,7 +65,6 @@ public final class Xmp implements TextEntryListener {
     @Override
     public void textAdded(final MetaDataValue mdValue, final String addedText) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 setValue(mdValue, addedText);
@@ -80,7 +75,6 @@ public final class Xmp implements TextEntryListener {
     @Override
     public void textChanged(final MetaDataValue mdValue, final String oldText, final String newText) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 changeText(mdValue, newText, oldText);
@@ -91,15 +85,12 @@ public final class Xmp implements TextEntryListener {
     private void changeText(MetaDataValue mdValue, String newText, String oldText) {
         if (XmpRepeatableValues.isRepeatable(mdValue)) {
             Object o = metaDataValue.get(mdValue);
-
             if (o == null) {
                 Collection<Object> collection = new ArrayList<>();
-
                 collection.add(newText);
                 metaDataValue.put(mdValue, collection);
             } else if (o instanceof Collection<?>) {
                 @SuppressWarnings(value = "unchecked") Collection<? super Object> collection = (Collection<? super Object>) o;
-
                 collection.remove(oldText);
                 collection.add(newText);
             }
@@ -112,7 +103,6 @@ public final class Xmp implements TextEntryListener {
         if (template == null) {
             throw new NullPointerException("template == null");
         }
-
         for (MetaDataValue value : XmpMetaDataValues.get()) {
             metaDataValue.put(value, template.getMetaDataValue(value));
         }
@@ -123,22 +113,65 @@ public final class Xmp implements TextEntryListener {
         if (mdValue == null) {
             throw new NullPointerException("mdValue == null");
         }
-
         if (value == null) {
             throw new NullPointerException("value == null");
         }
-
         Object o = metaDataValue.get(mdValue);
-
         if (o == null) {
             return false;
         }
-
         if (o instanceof Collection<?>) {
             return ((Collection<?>) o).contains(value);
         } else {
             return o.equals(value);
         }
+    }
+
+    /**
+     * Loops over {@link #containsValue(org.jphototagger.domain.metadata.MetaDataValue, java.lang.Object)}
+     * @param mdValue
+     * @param values
+     * @return true, if a value in vales is contained
+     */
+    public boolean containsOneOf(MetaDataValue mdValue, Collection<?> values) {
+        for (Object value : values) {
+            if (containsValue(mdValue, value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param oldXmp
+     * @param updatedXmp
+     * @param mdValue
+     * @param values
+     * @return true, if one of the values is present in {@code updatedXmp} but not in {@link oldXmp}
+     */
+    public static boolean valueInserted(Xmp oldXmp, Xmp updatedXmp, MetaDataValue mdValue, Collection<?> values) {
+        for (Object value : values) {
+            if (!oldXmp.containsValue(mdValue, value) && updatedXmp.containsValue(mdValue, value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param oldXmp
+     * @param updatedXmp
+     * @param mdValue
+     * @param values
+     * @return true, if one of the values is present in {@code oldXmp} but not in {@link updatedXmp}
+     */
+    public static boolean valueDeleted(Xmp oldXmp, Xmp updatedXmp, MetaDataValue mdValue, Collection<?> values) {
+        for (Object value : values) {
+            if (oldXmp.containsValue(mdValue, value) && !updatedXmp.containsValue(mdValue, value)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -159,27 +192,21 @@ public final class Xmp implements TextEntryListener {
         if (iptc == null) {
             throw new NullPointerException("iptc == null");
         }
-
         if (options == null) {
             throw new NullPointerException("options == null");
         }
-
         if (options.equals(SetIptc.REPLACE_EXISTING_VALUES)) {
             clear();
         }
-
         List<IPTCEntryMetaDataValue> mappings = IptcXmpMapping.getAllMappings();
-
         for (IPTCEntryMetaDataValue mapping : mappings) {
             MetaDataValue xmpMetaDataValue = mapping.getMetaDataValue();
             IPTCEntryMeta iptcEntryMeta = IptcXmpMapping.getIptcEntryMetaOfXmpMetaDataValue(xmpMetaDataValue);
             Object iptcValue = iptc.getValue(iptcEntryMeta);
-
             if (iptcValue != null) {
                 if (iptcValue instanceof String) {
                     String iptcString = (String) iptcValue;
                     boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES) || (getValue(xmpMetaDataValue) == null);
-
                     if (isSet) {
                         iptcString = formatIptcDate(xmpMetaDataValue, iptcString);
                         setValue(xmpMetaDataValue, iptcString);
@@ -194,7 +221,6 @@ public final class Xmp implements TextEntryListener {
                     } else if (!collection.isEmpty()) {
                         boolean isSet = options.equals(SetIptc.REPLACE_EXISTING_VALUES)
                                 || (getValue(xmpMetaDataValue) == null);
-
                         if (isSet) {
                             int i = 0;
 
@@ -221,20 +247,21 @@ public final class Xmp implements TextEntryListener {
             if (iptcString.contains("-")) {
                 return iptcString;
             }
-
             return iptcString.substring(0, 4) + "-" + iptcString.substring(4, 6) + "-" + iptcString.substring(6);
         }
-
         return iptcString;
     }
 
+    /**
+     * @param xmpMetaDataValue
+     * @return value or null if not contained. Repeatable values returned as list, if the value is not contained,
+     * an empty list will be returned
+     */
     public Object getValue(MetaDataValue xmpMetaDataValue) {
         if (xmpMetaDataValue == null) {
             throw new NullPointerException("xmpMetaDataValue == null");
         }
-
         Object o = metaDataValue.get(xmpMetaDataValue);
-
         return (o instanceof Collection<?>)
                 ? new ArrayList<>((Collection<?>) o)
                 : o;
@@ -244,13 +271,10 @@ public final class Xmp implements TextEntryListener {
         if (xmpMetaDataValue == null) {
             throw new NullPointerException("xmpMetaDataValue == null");
         }
-
         if (value == null) {
             metaDataValue.remove(xmpMetaDataValue);
-
             return;
         }
-
         if (XmpRepeatableValues.isRepeatable(xmpMetaDataValue)) {
             addToCollection(xmpMetaDataValue, value);
         } else {
@@ -271,21 +295,16 @@ public final class Xmp implements TextEntryListener {
         if (xmpMetaDataValue == null) {
             throw new NullPointerException("xmpMetaDataValue == null");
         }
-
         if (value == null) {
             throw new NullPointerException("value == null");
         }
-
         Object o = metaDataValue.get(xmpMetaDataValue);
         boolean remove = true;
-
         if (o instanceof Collection<?>) {
             @SuppressWarnings("unchecked") Collection<?> collection = (Collection<?>) o;
-
             collection.remove(value);
             remove = collection.isEmpty();
         }
-
         if (remove) {
             metaDataValue.remove(xmpMetaDataValue);
         }
@@ -298,16 +317,13 @@ public final class Xmp implements TextEntryListener {
     public boolean isEmpty() {
         for (MetaDataValue value : metaDataValue.keySet()) {
             Object o = metaDataValue.get(value);
-
             if (o instanceof String) {
                 String string = (String) o;
-
                 if (!string.trim().isEmpty()) {
                     return false;
                 }
             } else if (o instanceof List<?>) {
                 List<?> list = (List<?>) o;
-
                 if (!list.isEmpty()) {
                     return false;
                 }
@@ -322,7 +338,6 @@ public final class Xmp implements TextEntryListener {
     @SuppressWarnings("unchecked")
     private Collection<? super Object> collectionReferenceOf(MetaDataValue value) {
         Object o = metaDataValue.get(value);
-
         return (o instanceof Collection<?>)
                 ? (Collection<? super Object>) o
                 : null;
@@ -330,20 +345,16 @@ public final class Xmp implements TextEntryListener {
 
     private void addToCollection(MetaDataValue mdValue, Object value) {
         Collection<? super Object> collection = collectionReferenceOf(mdValue);
-
         if (collection == null) {
             collection = new ArrayList<>();
             metaDataValue.put(mdValue, collection);
         }
-
-        Collection<?> values = null;
-
+        Collection<?> values;
         if (value instanceof Collection<?>) {
             values = (Collection<?>) value;
         } else {
             values = Arrays.asList(value);
         }
-
         for (Object v : values) {
             if (!collection.contains(v)) {
                 collection.add(v);
@@ -355,16 +366,12 @@ public final class Xmp implements TextEntryListener {
         if (xmp == null) {
             throw new NullPointerException("xmp == null");
         }
-
         if (xmp == this) {
             return;
         }
-
         metaDataValue.clear();
-
         for (MetaDataValue value : xmp.metaDataValue.keySet()) {
             Object o = xmp.metaDataValue.get(value);
-
             if (o instanceof Collection<?>) {
                 metaDataValue.put(value, new ArrayList<>((List<?>) o));
             } else if (o != null) {
