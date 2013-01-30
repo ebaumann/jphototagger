@@ -7,7 +7,6 @@ import com.imagero.reader.tiff.IFDEntry;
 import com.imagero.reader.tiff.ImageFileDirectory;
 import com.imagero.reader.tiff.TiffReader;
 import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -28,9 +27,6 @@ public final class ExifMetadata {
 
     private static final Logger LOGGER = Logger.getLogger(ExifMetadata.class.getName());
 
-    private ExifMetadata() {
-    }
-
     static ExifTags getExifTags(File imageFile) {
         if (imageFile == null || !imageFile.exists()) {
             return null;
@@ -39,36 +35,40 @@ public final class ExifMetadata {
         try {
             LOGGER.log(Level.INFO, "Reading EXIF from image file ''{0}'', size {1} Bytes", new Object[]{imageFile, imageFile.length()});
             addExifTags(imageFile, exifTags);
-        } catch (Exception ex) {
-            Logger.getLogger(ExifMetadata.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
         ExifMakerNotesAdder.addMakerNotesToExifTags(imageFile, exifTags);
         return exifTags;
     }
 
-    private static void addExifTags(File imageFile, ExifTags exifTags) throws IOException {
-        ImageReader imageReader;
-        if (ImageFileType.isJpegFile(imageFile.getName())) {
-            LOGGER.log(Level.INFO, "Reading EXIF metadata of file ''{0}'''' with JPEG reader", imageFile);
-            imageReader = new JpegReader(imageFile);
-            addAllExifTags((JpegReader) imageReader, exifTags);
-        } else {
-            LOGGER.log(Level.INFO, "Reading EXIF metadata of file ''{0}'''' with TIFF reader", imageFile);
-            imageReader = new TiffReader(imageFile);
-            TiffReader tiffReader = (TiffReader) imageReader;
-            int count = tiffReader.getIFDCount();
-            for (int i = 0; i < count; i++) {
-                // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD (using not IfdType.EXIF)?
-                ImageFileDirectory iFD = tiffReader.getIFD(i);
-                addTagsOfIfd(iFD, ExifIfdType.EXIF, exifTags);
+    private static void addExifTags(File imageFile, ExifTags exifTags) throws Exception {
+        ImageReader imageReader = null;
+        try {
+            if (ImageFileType.isJpegFile(imageFile.getName())) {
+                LOGGER.log(Level.INFO, "Reading EXIF metadata of file ''{0}'''' with JPEG reader", imageFile);
+                imageReader = new JpegReader(imageFile);
+                addAllExifTags((JpegReader) imageReader, exifTags);
+            } else {
+                LOGGER.log(Level.INFO, "Reading EXIF metadata of file ''{0}'''' with TIFF reader", imageFile);
+                imageReader = new TiffReader(imageFile);
+                TiffReader tiffReader = (TiffReader) imageReader;
+                int count = tiffReader.getIFDCount();
+                for (int i = 0; i < count; i++) {
+                    // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD (using not IfdType.EXIF)?
+                    ImageFileDirectory iFD = tiffReader.getIFD(i);
+                    addTagsOfIfd(iFD, ExifIfdType.EXIF, exifTags);
+                }
             }
+        } catch (Throwable t) {
+            throw new RuntimeException("Imagero can't read EXIF of image file '" + imageFile + "'", t);
+        } finally {
+            closeImageReader(imageReader);
         }
-        closeImageReader(imageReader);
     }
 
     private static void addAllExifTags(JpegReader jpegReader, ExifTags exifTags) {
         IFDEntry[][] allIfdEntries = MetadataUtils.getExif(jpegReader);
-
         if (allIfdEntries != null) {
             for (int i = 0; i < allIfdEntries.length; i++) {
                 IFDEntry[] currentIfdEntry = allIfdEntries[i];
@@ -76,7 +76,6 @@ public final class ExifMetadata {
                     IFDEntry entry = currentIfdEntry[j];
                     ExifTag exifTag = new ExifTag(entry, ExifIfdType.EXIF);
                     ExifTag.Id exifTagId = exifTag.convertTagIdToEnumId();
-
                     if (exifTagId.isGpsId()) {
                         exifTags.addGpsTag(new ExifTag(entry, ExifIfdType.GPS));
                     } else if (exifTagId.isMakerNoteId()) {
@@ -241,5 +240,8 @@ public final class ExifMetadata {
             LOGGER.log(Level.SEVERE, null, ex);
         }
         return -1;
+    }
+
+    private ExifMetadata() {
     }
 }
