@@ -56,11 +56,9 @@ public final class ShowThumbnailsContainingAllKeywords implements Runnable {
 
     private void setFilesToThumbnailsPanel() {
         List<File> imageFiles = new ArrayList<>(getImageFilesOfKeywords());
-        if (!imageFiles.isEmpty()) {
-            ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
-            tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD);
-            tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
-        }
+        ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
+        tnPanel.setFiles(imageFiles, OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD);
+        tnPanel.applyThumbnailsPanelSettings(tnPanelSettings);
     }
 
     private Set<File> getImageFilesOfKeywords() {
