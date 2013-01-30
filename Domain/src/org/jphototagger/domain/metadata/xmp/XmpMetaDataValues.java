@@ -1,7 +1,9 @@
 package org.jphototagger.domain.metadata.xmp;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.jphototagger.domain.metadata.MetaDataValue;
 
 /**
@@ -10,7 +12,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
  */
 public final class XmpMetaDataValues {
 
-    private static final List<MetaDataValue> VALUES = new ArrayList<>();
+    private static final Set<MetaDataValue> VALUES = new LinkedHashSet<>();
 
     static {
         VALUES.add(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
@@ -38,5 +40,16 @@ public final class XmpMetaDataValues {
 
     public static List<MetaDataValue> get() {
         return new ArrayList<>(VALUES);
+    }
+
+    /**
+     * @param value null ok (returns false)
+     * @return
+     */
+    public static boolean isXmpMetaDataValue(MetaDataValue value) {
+        if (value == null) {
+            return false;
+        }
+        return VALUES.contains(value);
     }
 }
