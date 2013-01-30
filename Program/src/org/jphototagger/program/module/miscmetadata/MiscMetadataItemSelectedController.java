@@ -45,7 +45,7 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getMiscMetadataTree().getSelectionCount() == 1) {
-            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
 
             if (OriginOfDisplayedThumbnails.FILES_MATCHING_MISC_METADATA.equals(typeOfDisplayedImages)) {
                 EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(GUI.getMiscMetadataTree().getSelectionPath(), evt.getThumbnailsPanelSettings()));

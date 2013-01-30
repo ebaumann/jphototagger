@@ -2,6 +2,7 @@ package org.jphototagger.program.module.keywords.list;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JRadioButton;
 import javax.swing.event.ListSelectionEvent;
@@ -23,6 +24,7 @@ import org.openide.util.Lookup;
 public final class KeywordListItemSelectedController implements ActionListener, ListSelectionListener {
 
     private static final String KEY_RADIO_BUTTON = "ControllerKeywordItemSelected.RadioButton";
+    private final List<String> selectedKeywords = new ArrayList<>();
 
     public KeywordListItemSelectedController() {
         readPersistent();
@@ -44,9 +46,13 @@ public final class KeywordListItemSelectedController implements ActionListener, 
         return GUI.getAppPanel().getRadioButtonSelKeywordsMultipleSelOne();
     }
 
+    private boolean keywordsSelected() {
+        return GUI.getSelKeywordsList().getSelectedIndex() >= 0;
+    }
+
     @Override
     public void actionPerformed(ActionEvent evt) {
-        if (GUI.getSelKeywordsList().getSelectedIndex() >= 0) {
+        if (keywordsSelected()) {
             writePersistent();
             update(null);
         }
@@ -54,10 +60,9 @@ public final class KeywordListItemSelectedController implements ActionListener, 
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        if (GUI.getSelKeywordsList().getSelectedIndex() >= 0) {
-            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
-
-            if (OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD.equals(typeOfDisplayedImages)) {
+        if (keywordsSelected()) {
+            OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
+            if (OriginOfDisplayedThumbnails.FILES_MATCHING_A_KEYWORD.equals(origin)) {
                 update(evt);
             }
         }
@@ -65,27 +70,28 @@ public final class KeywordListItemSelectedController implements ActionListener, 
 
     @Override
     public void valueChanged(ListSelectionEvent evt) {
-        if (!evt.getValueIsAdjusting() && (GUI.getSelKeywordsList().getSelectedIndex() >= 0)) {
+        if (!evt.getValueIsAdjusting()) {
+            selectedKeywords.clear();
+            if (keywordsSelected()) {
+                selectedKeywords.addAll(getSelectedKeywords());
+            }
             update(null);
         }
     }
 
-    private void update(ThumbnailsPanelRefreshEvent evt) {
-        List<String> selKeywords = getSelectedKeywords();
-
-        EventQueueUtil.invokeInDispatchThread(isAllKeywords()
-                ? new ShowThumbnailsContainingAllKeywords(selKeywords, (evt == null)
-                ? null
-                : evt.getThumbnailsPanelSettings())
-                : new ShowThumbnailsContainingKeywords(selKeywords, (evt == null)
-                ? null
-                : evt.getThumbnailsPanelSettings()));
-    }
-
     private List<String> getSelectedKeywords() {
         JXList listSelKeywords = GUI.getSelKeywordsList();
-
         return KeywordsUtil.getSelectedKeywordsFromList(listSelKeywords);
+    }
+
+    private void update(ThumbnailsPanelRefreshEvent evt) {
+        EventQueueUtil.invokeInDispatchThread(isAllKeywords()
+                ? new ShowThumbnailsContainingAllKeywords(selectedKeywords, (evt == null)
+                ? null
+                : evt.getThumbnailsPanelSettings())
+                : new ShowThumbnailsContainingKeywords(selectedKeywords, (evt == null)
+                ? null
+                : evt.getThumbnailsPanelSettings()));
     }
 
     private boolean isAllKeywords() {

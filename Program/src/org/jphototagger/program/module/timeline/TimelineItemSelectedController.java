@@ -57,7 +57,7 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (selectedItemPath != null) {
-            OriginOfDisplayedThumbnails originOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails originOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
             if (OriginOfDisplayedThumbnails.FILES_MATCHING_DATES_IN_A_TIMELINE.equals(originOfDisplayedImages)) {
                 setFilesToThumbnailsPanel(evt.getThumbnailsPanelSettings());
             }

@@ -85,7 +85,7 @@ public final class FavoriteSelectedController implements TreeSelectionListener {
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getFavoritesTree().getSelectionCount() > 0) {
-            OriginOfDisplayedThumbnails origin = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
             if (isMyOrigin(origin)) {
                 setFiles(evt.getThumbnailsPanelSettings());
             }

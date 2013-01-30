@@ -43,7 +43,7 @@ public final class SavedSearchSelectedController implements ListSelectionListene
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+        OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
 
         if (OriginOfDisplayedThumbnails.FILES_FOUND_BY_SAVED_SEARCH.equals(typeOfDisplayedImages)) {
             search();
