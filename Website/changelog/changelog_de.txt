@@ -3,6 +3,19 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.30.11 2013-01-29
+------------------
+
+* Der Windows-Installer versucht auf 64-Bit-Systemen
+  JPhotoTagger im 64-Bit-Modus zur starten.
+* Vorschaubilder werden automatisch aktualisiert (ohne F5
+  zu drücken), falls sich Metadaten ändern für folgende
+  Kartenreiter:
+  * Stichwörter (Liste, Baum)
+  * Verschiedenes
+  * Ohne Metadaten
+  * Zeitleiste
+
 0.30.10 2013-01-28
 ------------------
 

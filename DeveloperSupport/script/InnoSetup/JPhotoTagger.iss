@@ -1,7 +1,7 @@
 [Setup]
 AppName=JPhotoTagger
-AppVerName=JPhotoTagger 0.30.10
-AppVersion=0.30.10
+AppVerName=JPhotoTagger 0.30.11
+AppVersion=0.30.11
 AppPublisher=Elmar Baumann <eb@elmar-baumann.de>
 AppPublisherURL=http://www.jphototagger.org/
 AppSupportURL=mailto:support@jphototagger.org
@@ -77,7 +77,12 @@ Name: "{commondesktop}\JPhotoTagger"; \
 [Run]
 Filename: "{app}\JPhotoTagger.bat"; \
   Description: "{cm:LaunchProgram,JPhotoTagger}"; \
-  Flags: nowait postinstall skipifsilent runminimized
+  Flags: 32bit nowait postinstall skipifsilent runminimized; \
+  Check: not IsWin64
+Filename: "{app}\JPhotoTagger.bat"; \
+  Description: "{cm:LaunchProgram,JPhotoTagger}"; \
+  Flags: 64bit nowait postinstall skipifsilent runminimized; \
+  Check: IsWin64
 
 [Messages]
 de.WelcomeLabel2=[name/ver] wird installiert.
