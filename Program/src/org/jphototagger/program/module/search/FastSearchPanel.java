@@ -311,7 +311,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (textAreaSearch.isEnabled()) {
-            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
 
             if (OriginOfDisplayedThumbnails.FILES_FOUND_BY_FAST_SEARCH.equals(typeOfDisplayedImages)) {
                 search(textAreaSearch.getText());

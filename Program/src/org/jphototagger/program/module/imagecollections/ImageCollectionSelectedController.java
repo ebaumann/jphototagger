@@ -51,7 +51,7 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (GUI.getImageCollectionsList().getSelectedIndex() >= 0) {
-            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getTypeOfDisplayedImages();
+            OriginOfDisplayedThumbnails typeOfDisplayedImages = evt.getOriginOfDisplayedThumbnails();
 
             if (OriginOfDisplayedThumbnails.FILES_OF_AN_IMAGE_COLLECTION.equals(typeOfDisplayedImages)) {
                 showImageCollection(evt.getThumbnailsPanelSettings());

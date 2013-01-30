@@ -14,12 +14,12 @@ public final class ThumbnailsPanelRefreshEvent {
 
     private final Object source;
     private final Point currentViewPosition;
-    private final OriginOfDisplayedThumbnails typeOfDisplayedImages;
+    private final OriginOfDisplayedThumbnails originOfDisplayedThumbnails;
     private List<Integer> selectedThumbnailIndices;
 
-    public ThumbnailsPanelRefreshEvent(Object source, OriginOfDisplayedThumbnails typeOfDisplayedImages, Point currentViewPosition) {
-        if (typeOfDisplayedImages == null) {
-            throw new NullPointerException("typeOfDisplayedImages == null");
+    public ThumbnailsPanelRefreshEvent(Object source, OriginOfDisplayedThumbnails originOfDisplayedThumbnails, Point currentViewPosition) {
+        if (originOfDisplayedThumbnails == null) {
+            throw new NullPointerException("originOfDisplayedThumbnails == null");
         }
 
         if (currentViewPosition == null) {
@@ -27,7 +27,7 @@ public final class ThumbnailsPanelRefreshEvent {
         }
 
         this.source = source;
-        this.typeOfDisplayedImages = typeOfDisplayedImages;
+        this.originOfDisplayedThumbnails = originOfDisplayedThumbnails;
         this.currentViewPosition = currentViewPosition;
     }
 
@@ -59,7 +59,7 @@ public final class ThumbnailsPanelRefreshEvent {
         return new ThumbnailsPanelSettings(currentViewPosition, selectedThumbnailIndices);
     }
 
-    public OriginOfDisplayedThumbnails getTypeOfDisplayedImages() {
-        return typeOfDisplayedImages;
+    public OriginOfDisplayedThumbnails getOriginOfDisplayedThumbnails() {
+        return originOfDisplayedThumbnails;
     }
 }

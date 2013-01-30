@@ -90,7 +90,7 @@ public final class DirectorySelectedController implements TreeSelectionListener 
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
-        OriginOfDisplayedThumbnails origin = evt.getTypeOfDisplayedImages();
+        OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
         if (isMyOrigin(origin)) {
             setFilesToThumbnailsPanel(evt.getThumbnailsPanelSettings());
         }
