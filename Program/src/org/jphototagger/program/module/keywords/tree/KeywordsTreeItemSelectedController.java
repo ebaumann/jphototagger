@@ -9,6 +9,11 @@ import javax.swing.tree.TreePath;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.keywords.Keyword;
+import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
+import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
+import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.module.keywords.list.ShowThumbnailsContainingAllKeywords2;
@@ -39,18 +44,18 @@ public final class KeywordsTreeItemSelectedController implements TreeSelectionLi
         selectedKeywordPaths.clear();
         if (evt.isAddedPath()) {
             selectedKeywordPaths.addAll(getKeywordStringPaths());
-            showThumbnailsOfSelKeywords();
+            showThumbnailsOfSelectedKeywords();
         }
     }
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (isKeywordSelected() && evt.getOriginOfDisplayedThumbnails().isFilesMatchingAKeyword()) {
-            showThumbnailsOfSelKeywords();
+            showThumbnailsOfSelectedKeywords();
         }
     }
 
-    private void showThumbnailsOfSelKeywords() {
+    private void showThumbnailsOfSelectedKeywords() {
         EventQueueUtil.invokeInDispatchThread(new ShowThumbnailsContainingAllKeywords2(selectedKeywordPaths));
     }
 
@@ -84,5 +89,43 @@ public final class KeywordsTreeItemSelectedController implements TreeSelectionLi
             paths.add(kwPath);
         }
         return paths;
+    }
+
+    @EventSubscriber(eventClass = XmpDeletedEvent.class)
+    public void xmpDeleted(XmpDeletedEvent evt) {
+        if (isKeywordSelected()
+                && evt.getXmp().containsOneOf(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, getSelectedKeywords())) {
+            showThumbnailsOfSelectedKeywords();
+        }
+    }
+
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        if (isKeywordSelected()
+                && evt.getXmp().containsOneOf(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, getSelectedKeywords())) {
+            showThumbnailsOfSelectedKeywords();
+        }
+    }
+
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        if (isKeywordSelected()) {
+            List<String> selectedKeywords = getSelectedKeywords();
+            if ((Xmp.valueDeleted(evt.getOldXmp(), evt.getUpdatedXmp(), XmpDcSubjectsSubjectMetaDataValue.INSTANCE, selectedKeywords)
+                    || Xmp.valueInserted(evt.getOldXmp(), evt.getUpdatedXmp(), XmpDcSubjectsSubjectMetaDataValue.INSTANCE, selectedKeywords))) {
+                showThumbnailsOfSelectedKeywords();
+            }
+        }
+    }
+
+    private List<String> getSelectedKeywords() {
+        List<String> selKeywords = new ArrayList<>(selectedKeywordPaths.size());
+        for (List<String> path : selectedKeywordPaths) {
+            int pathsize = path.size();
+            if (pathsize > 0) {
+                selKeywords.add(path.get(pathsize - 1));
+            }
+        }
+        return selKeywords;
     }
 }
