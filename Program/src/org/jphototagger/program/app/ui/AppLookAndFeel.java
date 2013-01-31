@@ -292,16 +292,15 @@ public final class AppLookAndFeel {
 
     private static void setBoldFont(String key, boolean bold) {
         Font defaultFont = UIManager.getFont(key);
-        int weight = bold
-                ? Font.BOLD
-                : Font.PLAIN;
-
         if (defaultFont != null) {
-            Font plainFont = new Font(defaultFont.getName(), defaultFont.isItalic()
+            int weight = bold
+                    ? Font.BOLD
+                    : Font.PLAIN;
+            int style = defaultFont.isItalic()
                     ? weight | Font.ITALIC
-                    : Font.PLAIN, defaultFont.getSize());
-
-            UIManager.put(key, new FontUIResource(plainFont));
+                    : weight;
+            Font derivedFont = defaultFont.deriveFont(style);
+            UIManager.put(key, new FontUIResource(derivedFont));
         }
     }
 
