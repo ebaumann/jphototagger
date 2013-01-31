@@ -90,6 +90,8 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
             String thrownMessage = thrown == null ? "" : thrown.getMessage();
             return thrown == null
                     ? ""
+                    : thrownMessage == null
+                    ? ""
                     : thrownMessage;
         }
         Object[] parameters = record.getParameters();
