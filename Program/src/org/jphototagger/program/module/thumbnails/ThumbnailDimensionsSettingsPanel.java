@@ -107,7 +107,6 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
         add(spinnerMaxThumbnailWidth, gridBagConstraints);
 
-        labelUpdateAllThumbnails.setForeground(new java.awt.Color(0, 0, 255));
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelUpdateAllThumbnails.setText(bundle.getString("ThumbnailDimensionsSettingsPanel.labelUpdateAllThumbnails.text")); // NOI18N
         labelUpdateAllThumbnails.setName("labelUpdateAllThumbnails"); // NOI18N

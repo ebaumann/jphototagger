@@ -521,7 +521,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelRepositoryDirectory.border.title"))); // NOI18N
         panelRepositoryDirectory.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoRepositoryDirectory.setForeground(new java.awt.Color(255, 0, 0));
         labelInfoRepositoryDirectory.setText(bundle.getString("MiscSettingsPanel.labelInfoRepositoryDirectory.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -554,7 +553,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         panelRepositoryDirectory.add(panelButtonsRepositoryDirectory, gridBagConstraints);
 
-        labelRepositoryDirectory.setForeground(new java.awt.Color(0, 0, 255));
         labelRepositoryDirectory.setText(" "); // NOI18N
         labelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -605,7 +603,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                .addComponent(tabbedPane)
                 .addContainerGap())
         );
     }//GEN-END:initComponents

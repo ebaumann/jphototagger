@@ -3,6 +3,15 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.31.0 2013-01-31
+-----------------
+
+* The look and feel of JPhotoTagger can be modified:
+  Edit > Settings > 6. Miscellaneous > Look and Feel of JPhotoTagger.
+  ATTENTION: The command line option "-cplaf" is dropped.
+  You can choose "Operating system independent", to get the
+  same result.
+
 0.30.11 2013-01-29
 ------------------
 

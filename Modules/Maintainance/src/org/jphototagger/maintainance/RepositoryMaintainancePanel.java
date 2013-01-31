@@ -505,7 +505,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         panelMessages.setLayout(new java.awt.GridBagLayout());
 
-        labelMessages.setForeground(new java.awt.Color(0, 0, 255));
         labelMessages.setText(bundle.getString("RepositoryMaintainancePanel.labelMessages.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -545,7 +544,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonDeleteMessages.setForeground(new java.awt.Color(0, 0, 255));
         buttonDeleteMessages.setText(bundle.getString("RepositoryMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
         buttonDeleteMessages.setEnabled(false);
         buttonDeleteMessages.addActionListener(new java.awt.event.ActionListener() {

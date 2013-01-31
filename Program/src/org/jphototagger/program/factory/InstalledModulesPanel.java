@@ -47,7 +47,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
 
     @Override
     public int getPosition() {
-        return 10000;
+        return 1000000;
     }
 
     private static class ModulesListModel extends DefaultListModel<Object> {
