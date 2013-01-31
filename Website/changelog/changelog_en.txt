@@ -3,10 +3,10 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.31.1 2013-01-31
+0.31.1 2013-01-32
 -----------------
 
-* Added Look&Feel: Nimbus
+* Added Look&Feels: Nimbus, JGoodies
 
 0.31.0 2013-01-31
 -----------------
