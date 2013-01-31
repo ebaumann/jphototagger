@@ -6,6 +6,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.31.1 2013-01-32
 -----------------
 
+* Bugfix in error log handler
 * Added Look&Feels: Nimbus, JGoodies
 
 0.31.0 2013-01-31
