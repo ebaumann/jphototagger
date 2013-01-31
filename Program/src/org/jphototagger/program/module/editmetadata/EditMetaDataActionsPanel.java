@@ -244,14 +244,13 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         labelPromptInfoCurrentTemplate.setText(bundle.getString("EditMetaDataActionsPanel.labelPromptInfoCurrentTemplate.text")); // NOI18N
         labelPromptInfoCurrentTemplate.setName("labelPromptInfoCurrentTemplate"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelTemplateNameInfo.add(labelPromptInfoCurrentTemplate, gridBagConstraints);
 
-        labelTemplateName.setForeground(new java.awt.Color(0, 0, 255));
         labelTemplateName.setText(bundle.getString("EditMetaDataActionsPanel.labelTemplateName.text")); // NOI18N
         labelTemplateName.setName("labelTemplateName"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelTemplateNameInfo.add(labelTemplateName, gridBagConstraints);
