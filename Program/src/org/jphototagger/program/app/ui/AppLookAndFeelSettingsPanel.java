@@ -35,7 +35,6 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
     }
 
     private void postInitComponents() {
-        editorPaneDescription.setBackground(getBackground());
         restoreLaf();
     }
 
