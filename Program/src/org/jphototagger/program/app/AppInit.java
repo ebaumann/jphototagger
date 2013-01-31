@@ -47,7 +47,7 @@ public final class AppInit {
 
     private void init() {
         try {
-            AppLookAndFeel.set(commandLineOptions.getLookAndFeel());
+            AppLookAndFeel.set();
             AppLoggingSystem.init();
             AppLogUtil.logSystemInfo();
             lock();

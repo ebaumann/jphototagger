@@ -7,13 +7,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.windows.LookAndFeelProvider;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.LookAndFeelUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -25,13 +30,9 @@ public final class AppLookAndFeel {
     public static final int TABLE_MAX_CHARS_CELL = 45;
     public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
     public static final String TABLE_ROW_HEADER_CSS = "margin-left:3px;margin-right:3px;";
-    private static Color tableStoredInRepositoryForeground = Color.BLACK;
-    private static Color tableStoredInRepositoryBackground = new Color(251, 249, 241);
     private static Color tableSelectionForeground = Color.BLACK;
     private static Color tableSelectionBackground = new Color(226, 226, 255);
     private static Color tableForeground = Color.BLACK;
-    private static Color tableExifMakerNoteForeground = Color.BLACK;
-    private static Color tableExifMakerNoteBackground = new Color(226, 226, 255);
     private static Color tableBackground = Color.WHITE;
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND = Color.BLACK;
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(255, 223, 181);
@@ -70,9 +71,6 @@ public final class AppLookAndFeel {
     static {
         APP_ICONS.add(IconUtil.getIconImage(SMALL_APP_ICON_PATH));
         APP_ICONS.add(IconUtil.getIconImage(MEDIUM_APP_ICON_PATH));
-    }
-
-    private AppLookAndFeel() {
     }
 
     public static List<Image> getAppIcons() {
@@ -152,35 +150,43 @@ public final class AppLookAndFeel {
         return IconUtil.getImageIcon(ICONS_PATH + "/" + name);
     }
 
-    public enum LookAndFeel {
+    public static void set() {
+        try {
+            lookupLookAndFeel();
+        } catch (Throwable t) {
+            Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.SEVERE, null, t);
+            LookAndFeelUtil.setSystemLookAndFeel();
+        }
+        changeFontWeights();
+        takeFromUiColors();
+    }
 
-        SYSTEM,
-        CROSS_PLATFORM;
+    static final String PREF_KEY_LOOK_AND_FEEL = "AppLookAndFeel";
 
-        private void set() {
-            switch (this) {
-                case SYSTEM:
-                    LookAndFeelUtil.setSystemLookAndFeel();
-                    break;
-                case CROSS_PLATFORM:
-                    LookAndFeelUtil.setCrossPlatformLookuAndFeel();
-                    break;
-                default:
-                    throw new IllegalStateException("Unsupported Look and Feel: " + this);
+    private static void lookupLookAndFeel() {
+        boolean set = false;
+        try {
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            if (!prefs.containsKey(PREF_KEY_LOOK_AND_FEEL)) {
+                return;
+            }
+            for (LookAndFeelProvider provider : Lookup.getDefault().lookupAll(LookAndFeelProvider.class)) {
+                if (prefs.getString(PREF_KEY_LOOK_AND_FEEL).equals(provider.getPreferencesKey())) {
+                    provider.setLookAndFeel();
+                    set = true;
+                    return;
+                }
+            }
+        } catch (Throwable t) {
+            Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.SEVERE, null, t);
+        } finally {
+            if (!set) {
+                LookAndFeelUtil.setSystemLookAndFeel();
             }
         }
     }
 
-    public static void set(LookAndFeel lookAndFeel) {
-        if (lookAndFeel == null) {
-            throw new NullPointerException("lookAndFeel == null");
-        }
-        lookAndFeel.set();
-        setFonts();
-        setUiColors();
-    }
-
-    private static void setUiColors() {
+    private static void takeFromUiColors() {
         treeSelectionForeground = LookAndFeelUtil.getUiColor("Tree.selectionForeground");
         treeSelectionBackground = LookAndFeelUtil.getUiColor("Tree.selectionBackground");
         treeTextBackground = LookAndFeelUtil.getUiColor("Tree.textBackground");
@@ -193,10 +199,6 @@ public final class AppLookAndFeel {
         tableBackground = LookAndFeelUtil.getUiColor("Table.background ");
         tableSelectionForeground = LookAndFeelUtil.getUiColor("Table.selectionForeground");
         tableSelectionBackground = LookAndFeelUtil.getUiColor("Table.selectionBackground ");
-        tableStoredInRepositoryForeground = new Color(0, 0, 200);
-        tableStoredInRepositoryBackground = tableBackground;
-        tableExifMakerNoteForeground = new Color(0, 125, 0);
-        tableExifMakerNoteBackground = tableBackground;
     }
 
     public static Color getListBackground() {
@@ -231,22 +233,6 @@ public final class AppLookAndFeel {
         return treeTextForeground;
     }
 
-    public static Color getTableStoredInRepositoryForeground() {
-        return tableStoredInRepositoryForeground;
-    }
-
-    public static Color getTableStoredInRepositoryBackground() {
-        return tableStoredInRepositoryBackground;
-    }
-
-    public static Color getTableExifMakerNoteForeground() {
-        return tableExifMakerNoteForeground;
-    }
-
-    public static Color getTableExifMakerNoteBackground() {
-        return tableExifMakerNoteBackground;
-    }
-
     public static Color getTableSelectionForeground() {
         return tableSelectionForeground;
     }
@@ -263,7 +249,7 @@ public final class AppLookAndFeel {
         return tableBackground;
     }
 
-    private static void setFonts() {
+    private static void changeFontWeights() {
         setBoldFont("Button.font", false);
         setBoldFont("CheckBox.font", false);
         setBoldFont("CheckBoxMenuItem.font", false);
@@ -317,5 +303,8 @@ public final class AppLookAndFeel {
 
             UIManager.put(key, new FontUIResource(plainFont));
         }
+    }
+
+    private AppLookAndFeel() {
     }
 }

@@ -848,7 +848,6 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         panelExampleContents.add(labelBefore, gridBagConstraints);
 
-        labelBeforeFilename.setForeground(new java.awt.Color(0, 0, 175));
         labelBeforeFilename.setText(" "); // NOI18N
         labelBeforeFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -868,7 +867,6 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelExampleContents.add(labelAfter, gridBagConstraints);
 
-        labelAfterFilename.setForeground(new java.awt.Color(0, 0, 255));
         labelAfterFilename.setText(" "); // NOI18N
         labelAfterFilename.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         gridBagConstraints = new java.awt.GridBagConstraints();

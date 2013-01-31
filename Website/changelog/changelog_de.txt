@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.31.0 2013-01-31
+-----------------
+
+* Das Aussehen von JPhotoTagger kann umgestellt werden:
+  Bearbeiten > Einstellungen > 6. Sonstiges > Aussehen von JPhotoTagger
+  ACHTUNG: Der bisherige Kommandozeilenparameter "-cplaf" entfällt
+  hiermit. Dies erledit nun die Einstellung "Betriebssystemunabhängig".
+
 0.30.11 2013-01-29
 ------------------
 

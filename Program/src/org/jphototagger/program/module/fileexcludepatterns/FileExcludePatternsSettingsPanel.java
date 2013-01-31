@@ -265,7 +265,6 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
 
         panelFiles.setName("panelFiles"); // NOI18N
 
-        labelInfoRepository.setForeground(new java.awt.Color(0, 0, 255));
         labelInfoRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelInfoRepository.text")); // NOI18N
         labelInfoRepository.setName("labelInfoRepository"); // NOI18N
 
@@ -375,13 +374,13 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         );
         panelFilesLayout.setVerticalGroup(
             panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
+            .addGap(0, 312, Short.MAX_VALUE)
             .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelFilesLayout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(labelInfoList)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textFieldInputPattern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -420,7 +419,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
             .addGroup(panelDirectoryFolderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDirectoryFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+                    .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
                     .addComponent(labelInfopanelDirectoryFolder))
                 .addContainerGap())
         );
@@ -430,7 +429,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(labelInfopanelDirectoryFolder)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -440,11 +439,11 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+            .addComponent(tabbedPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+            .addComponent(tabbedPane)
         );
     }//GEN-END:initComponents
 

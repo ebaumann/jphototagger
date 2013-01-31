@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
@@ -45,11 +46,9 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
 
     public void listenToRepositoryChanges(boolean listen) {
         listenToDbChanges = listen;
-
         if (listen) {
             setModelRepositoryInfo();
         }
-
         if (repositoryInfoTableModel != null) {
             repositoryInfoTableModel.setListenToRepository(listen);
         }
@@ -58,11 +57,9 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
     private void setLabelFilename() {
         String pattern = Bundle.getString(RepositoryInfoCountPanel.class, "RepositoryInfoCountPanel.labelFilename.Filename");
         FileRepositoryProvider provider = Lookup.getDefault().lookup(FileRepositoryProvider.class);
-
         if (provider != null) {
             String repositoryFileName = provider.getFileRepositoryFileName(FilenameTokens.FULL_PATH);
             String message = MessageFormat.format(pattern, repositoryFileName);
-
             labelFilename.setText(message);
         }
     }
@@ -96,19 +93,19 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
     private static class RepositoryInfoColumnsTableCellRenderer implements TableCellRenderer {
 
         private static final String PADDING_LEFT = "  ";
-        private final JLabel cellLabel = new JLabel();
+        private final TableCellRenderer delegate = new DefaultTableCellRenderer();
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) delegate.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             if (column == 0) {
                 MetaDataValue metaDataValue = (MetaDataValue) value;
-                cellLabel.setIcon(metaDataValue.getCategoryIcon());
-                cellLabel.setText(metaDataValue.getDescription());
+                label.setIcon(metaDataValue.getCategoryIcon());
+                label.setText(metaDataValue.getDescription());
             } else {
-                cellLabel.setText(PADDING_LEFT + value.toString());
+                label.setText(PADDING_LEFT + value.toString());
             }
-
-            return cellLabel;
+            return label;
         }
     }
 
@@ -160,7 +157,6 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
 
         private void addRows() {
             Set<MetaDataValue> columns = bufferOfMetaDataValue.keySet();
-
             for (MetaDataValue column : columns) {
                 addRow(getRow(column, bufferOfMetaDataValue.get(column)));
             }
