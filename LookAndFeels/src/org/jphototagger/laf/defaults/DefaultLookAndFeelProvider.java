@@ -1,5 +1,6 @@
 package org.jphototagger.laf.defaults;
 
+import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -13,6 +14,8 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = LookAndFeelProvider.class)
 public final class DefaultLookAndFeelProvider implements LookAndFeelProvider {
 
+    private static final Logger LOGGER = Logger.getLogger(DefaultLookAndFeelProvider.class.getName());
+
     @Override
     public String getDisplayname() {
         return Bundle.getString(DefaultLookAndFeelProvider.class, "DefaultLookAndFeelProvider.Displayname");
@@ -24,16 +27,22 @@ public final class DefaultLookAndFeelProvider implements LookAndFeelProvider {
     }
 
     @Override
+    public Component getPreferencesComponent() {
+        return null;
+    }
+
+    @Override
     public String getPreferencesKey() {
         return "DefaultLookAndFeelProvider"; // Do never change this!
     }
 
     @Override
     public void setLookAndFeel() {
+        LOGGER.info("Setting System Look and Feel");
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
-            Logger.getLogger(DefaultLookAndFeelProvider.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
     }
 

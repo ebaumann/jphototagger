@@ -28,7 +28,6 @@ import org.openide.util.lookup.ServiceProvider;
 public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements OptionPageProvider {
 
     private static final long serialVersionUID = 1L;
-    private boolean listen = true;
 
     public AppLookAndFeelSettingsPanel() {
         initComponents();
@@ -37,8 +36,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
 
     private void postInitComponents() {
         editorPaneDescription.setBackground(getBackground());
-        editorPaneDescription.setFont(labelInfo.getFont());
-        selectInitLaf();
+        restoreLaf();
     }
 
     @Override
@@ -66,13 +64,19 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         return 50000;
     }
 
-    private void persistLaf() {
-        String key = ((LookAndFeelProvider)lafComboBoxModel.getSelectedItem()).getPreferencesKey();
+    private void setProvider(LookAndFeelProvider provider) {
+        editorPaneDescription.setText(provider.getDescription());
+        Component c = provider.getPreferencesComponent();
+        scrollPanePreferences.setViewportView(c == null ? panelNoPreferences : c);
+    }
+
+    private void persistLaf(LookAndFeelProvider provider) {
+        String key = provider.getPreferencesKey();
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         prefs.setString(AppLookAndFeel.PREF_KEY_LOOK_AND_FEEL, key);
     }
 
-    private void selectInitLaf() {
+    private void restoreLaf() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String laf = prefs.getString(AppLookAndFeel.PREF_KEY_LOOK_AND_FEEL);
         if (!StringUtil.hasContent(laf)) {
@@ -80,18 +84,11 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         }
         for (LookAndFeelProvider provider : Lookup.getDefault().lookupAll(LookAndFeelProvider.class)) {
             if (laf.equals(provider.getPreferencesKey())) {
-                listen = false;
                 comboBoxLaf.setSelectedItem(provider);
-                persistLaf();
-                setDescription();
-                listen = true;
+                setProvider(provider);
+                break;
             }
         }
-    }
-
-    private void setDescription() {
-        String description = ((LookAndFeelProvider)lafComboBoxModel.getSelectedItem()).getDescription();
-        editorPaneDescription.setText(description);
     }
 
     private final ComboBoxModel<LookAndFeelProvider> lafComboBoxModel = new DefaultComboBoxModel<LookAndFeelProvider>() {
@@ -128,17 +125,26 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
+        panelNoPreferences = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
         comboBoxLaf = new JComboBox<>();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPaneDescription = new javax.swing.JScrollPane();
         editorPaneDescription = new javax.swing.JEditorPane();
+        panelPreferences = new javax.swing.JPanel();
+        scrollPanePreferences = new javax.swing.JScrollPane();
+
+        panelNoPreferences.setLayout(new java.awt.GridBagLayout());
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
+        jLabel1.setText(bundle.getString("AppLookAndFeelSettingsPanel.jLabel1.text")); // NOI18N
+        panelNoPreferences.add(jLabel1, new java.awt.GridBagConstraints());
 
         setLayout(new java.awt.GridBagLayout());
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         labelInfo.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -160,20 +166,40 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelContent.add(comboBoxLaf, gridBagConstraints);
 
-        scrollPane.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppLookAndFeelSettingsPanel.scrollPane.border.title"))); // NOI18N
+        scrollPaneDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppLookAndFeelSettingsPanel.scrollPaneDescription.border.title"))); // NOI18N
+        scrollPaneDescription.setPreferredSize(new java.awt.Dimension(250, 100));
 
         editorPaneDescription.setEditable(false);
         editorPaneDescription.setContentType("text/html"); // NOI18N
-        scrollPane.setViewportView(editorPaneDescription);
+        scrollPaneDescription.setViewportView(editorPaneDescription);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.weighty = 0.2;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        panelContent.add(scrollPane, gridBagConstraints);
+        panelContent.add(scrollPaneDescription, gridBagConstraints);
+
+        panelPreferences.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppLookAndFeelSettingsPanel.panelPreferences.border.title"))); // NOI18N
+        panelPreferences.setPreferredSize(new java.awt.Dimension(250, 200));
+        panelPreferences.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelPreferences.add(scrollPanePreferences, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.8;
+        panelContent.add(panelPreferences, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -186,18 +212,21 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
     }//GEN-END:initComponents
 
     private void comboBoxLafActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLafActionPerformed
-        if (listen) {
-            persistLaf();
-            setDescription();
-        }
+        LookAndFeelProvider provider = (LookAndFeelProvider) lafComboBoxModel.getSelectedItem();
+        setProvider(provider);
+        persistLaf(provider);
     }//GEN-LAST:event_comboBoxLafActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<LookAndFeelProvider> comboBoxLaf;
     private javax.swing.JEditorPane editorPaneDescription;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JPanel panelContent;
-    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JPanel panelNoPreferences;
+    private javax.swing.JPanel panelPreferences;
+    private javax.swing.JScrollPane scrollPaneDescription;
+    private javax.swing.JScrollPane scrollPanePreferences;
     // End of variables declaration//GEN-END:variables
 }
