@@ -47,7 +47,7 @@ public final class ModelFactory {
 
     void init() {
         synchronized (this) {
-            if (!Support.checkInit(getClass(), init)) {
+            if (!Support.checkInitOnlyOneTimes(getClass(), init)) {
                 return;
             }
             init = true;

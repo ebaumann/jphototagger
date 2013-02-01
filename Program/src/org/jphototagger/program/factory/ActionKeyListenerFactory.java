@@ -26,7 +26,7 @@ public final class ActionKeyListenerFactory {
     private boolean init;
 
     synchronized void init() {
-        Support.checkInit(ActionKeyListenerFactory.class, init);
+        Support.checkInitOnlyOneTimes(ActionKeyListenerFactory.class, init);
 
         if (!init) {
             init = true;

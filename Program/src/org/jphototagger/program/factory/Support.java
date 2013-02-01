@@ -16,37 +16,33 @@ import org.openide.util.Lookup;
  */
 final class Support {
 
-    private final Map<Class<?>, List<Object>> OBJECT_INSTANCES_OF_CLASS = new HashMap<>();
     private static final Logger LOGGER = Logger.getLogger(Support.class.getName());
+    private final Map<Class<?>, List<Object>> classInstances = new HashMap<>();
 
     @SuppressWarnings("unchecked")
-    synchronized <T> List<T> getAll(Class<T> clazz) {
-        return Collections.unmodifiableList((List<T>) OBJECT_INSTANCES_OF_CLASS.get(clazz));
+    synchronized <T> List<T> getAll(Class<T> type) {
+        return Collections.unmodifiableList((List<T>) classInstances.get(type));
     }
 
     @SuppressWarnings("unchecked")
-    synchronized <T> T getFirst(Class<T> clazz) {
-        List<T> instances = (List<T>) OBJECT_INSTANCES_OF_CLASS.get(clazz);
-
+    synchronized <T> T getFirst(Class<T> type) {
+        List<T> instances = (List<T>) classInstances.get(type);
         return (instances == null)
                 ? null
                 : instances.get(0);
     }
 
     synchronized void add(Object instance) {
-        List<Object> instances = OBJECT_INSTANCES_OF_CLASS.get(instance.getClass());
-
+        List<Object> instances = classInstances.get(instance.getClass());
         if (instances == null) {
             instances = new ArrayList<>();
-            OBJECT_INSTANCES_OF_CLASS.put(instance.getClass(), instances);
+            classInstances.put(instance.getClass(), instances);
         }
-
         instances.add(instance);
     }
 
     static void setStatusbarInfo(final String message) {
         MainWindowManager messageDisplayer = Lookup.getDefault().lookup(MainWindowManager.class);
-
         messageDisplayer.setMainWindowStatusbarText(message, MessageType.INFO, 2000);
     }
 
@@ -58,13 +54,11 @@ final class Support {
      * @param  init true if the factory is already initialized
      * @return      true if not initialized
      */
-    static boolean checkInit(Class<?> c, boolean init) {
+    static boolean checkInitOnlyOneTimes(Class<?> c, boolean init) {
         if (init) {
             LOGGER.log(Level.WARNING, "{0}: Initalized Meta-Factory again!", c.getName());
-
             return false;
         }
-
         return true;
     }
 }
