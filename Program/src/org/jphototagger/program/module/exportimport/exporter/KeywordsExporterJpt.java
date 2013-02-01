@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,11 +17,11 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.jphototagger.domain.metadata.keywords.Keyword;
+import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.module.keywords.tree.KeywordsTreeModel;
+import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.DOMImplementation;
@@ -71,6 +70,8 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
     public static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
     public static final String DISPLAY_NAME = Bundle.getString(KeywordsExporterJpt.class, "KeywordExporterJpt.DisplayName");
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DISPLAY_NAME, "xml");
+    private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
+
 
     static {
         VALUE_OF_ATTRIBUTE_TYPE.put(true, "real");
@@ -82,14 +83,12 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         try {
             Document doc = getXml();
             DOMSource ds = new DOMSource(doc);
             StreamResult sr = new StreamResult(checkSuffix(file));
             TransformerFactory tf = TransformerFactory.newInstance();
             Transformer trans = tf.newTransformer();
-
             initTransformer(trans);
             trans.transform(ds, sr);
         } catch (Exception ex) {
@@ -99,11 +98,9 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
 
     private File checkSuffix(File file) {
         String suffix = "." + FilenameSuffixes.JPT_KEYWORDS;
-
         if (!file.getName().endsWith(suffix)) {
             return new File(file.getAbsolutePath() + suffix);
         }
-
         return file;
     }
 
@@ -112,30 +109,27 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
         DocumentBuilder builder = factory.newDocumentBuilder();
         DOMImplementation impl = builder.getDOMImplementation();
         Document doc = impl.createDocument(null, null, null);
-        Object rootNode = ModelFactory.INSTANCE.getModel(KeywordsTreeModel.class).getRoot();
         Element rootElement = doc.createElement(TAGNAME_ROOT);
-
         doc.appendChild(rootElement);
-        appendChildren(doc, rootElement, (DefaultMutableTreeNode) rootNode);
-
+        for (Keyword keyword : repo.findRootKeywords()) {
+            appendChildren(doc, rootElement, keyword);
+        }
         return doc;
     }
 
-    private void appendChildren(Document doc, Element element, DefaultMutableTreeNode node) {
-        int childCount = node.getChildCount();
-
-        for (int i = 0; i < childCount; i++) {
-            DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) node.getChildAt(i);
-            Element childElement = doc.createElement(TAGNAME_KEYWORD);
-
-            setElementAttributes(childElement, getKeyword(childNode));
-            element.appendChild(childElement);
-            appendChildren(doc, childElement, childNode);    // recursive
+    private void appendChildren(Document doc, Element parentElement, Keyword  parentKeyword) {
+        appendChild(doc, parentElement, parentKeyword);
+        for (Keyword childKeyword : repo.findChildKeywords(parentKeyword.getId())) {
+            Element childElement = appendChild(doc, parentElement, childKeyword);
+            appendChildren(doc, childElement, childKeyword); // recursive
         }
     }
 
-    private Keyword getKeyword(DefaultMutableTreeNode parentNode) {
-        return (Keyword) parentNode.getUserObject();
+    private Element appendChild(Document doc, Element parentElement, Keyword childKeyword) {
+        Element childElement = doc.createElement(TAGNAME_KEYWORD);
+        setElementAttributes(childElement, childKeyword);
+        parentElement.appendChild(childElement);
+        return childElement;
     }
 
     private void setElementAttributes(Element el, Keyword keyword) throws DOMException {
