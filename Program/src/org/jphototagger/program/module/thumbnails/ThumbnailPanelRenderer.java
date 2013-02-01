@@ -180,9 +180,9 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             g2.setColor(ThumbnailsPanel.COLOR_BACKGROUND_PANEL);
             g2.fillRect(0, 0, w, h);
             paintThumbnailBackground(g2, panel.isFileSelected(rtci.file), isDragOver(rtci.file));
-            paintThumbnailFlags(g2, rtci.file);
             paintThumbnail(scaled, g2);
             if (!dummy) {
+                paintThumbnailFlags(g2, rtci.file);
                 paintThumbnailText(g2, rtci.file);
                 rtci.renderedForKeywords = panel.isMetaDataOverlay();
                 boolean actualOverlay = false;
@@ -234,8 +234,10 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             int x = thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_WIDTH * (i + 1);
             x -= i == 0 ? 0 : FLAG_PADDING;
             ThumbnailFlag flag = flags.get(i);
-            g.setColor(flag.getColor());
+            g.setColor(flag.getFillColor());
             g.fillRect(x, y, FLAG_WIDTH, FLAG_HEIGHT);
+            g.setColor(flag.getBorderColor());
+            g.drawRect(x, y, FLAG_WIDTH, FLAG_HEIGHT);
         }
         g.setColor(oldColor);
     }

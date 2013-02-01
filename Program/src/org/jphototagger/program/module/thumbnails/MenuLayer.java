@@ -16,6 +16,8 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
 
     @Override
     public Collection<? extends MenuItemProvider> getViewMenuItems() {
-        return Arrays.asList(new MenuItemProviderImpl(new ToggleMetaDataOverlayAction(), 100, false));
+        MenuItemProviderImpl itemToggleMetaDataOverlay = new MenuItemProviderImpl(new ToggleMetaDataOverlayAction(), 100, false);
+        MenuItemProviderImpl itemDisplaySidecarFileFlag = new MenuItemProviderImpl(new DisplaySidecarFlagAction(), 200, false);
+        return Arrays.asList(itemToggleMetaDataOverlay, itemDisplaySidecarFileFlag);
     }
 }
