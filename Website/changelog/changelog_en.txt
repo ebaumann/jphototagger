@@ -3,7 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.31.1 2013-01-32
+0.31.2 2013-02-01
+-----------------
+
+* Bugfix: Moving files could cause a deadlock
+
+0.31.1 2013-01-31
 -----------------
 
 * Bugfix in error log handler
