@@ -17,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.FileFilter;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -85,6 +86,7 @@ public class ThumbnailsPanel extends JPanel
     private static final int MARGIN_THUMBNAIL = 3;
     public static final Color COLOR_FOREGROUND_PANEL = Color.WHITE;
     public static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
+    private static final DateFormat TOOLTIP_FILE_DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
     private int isClickInSelection = -1;
     private final Map<Integer, ThumbnailFlag> flagOfThumbnailIndex = new HashMap<>();
     private final List<Integer> selectedThumbnailIndices = new ArrayList<>();
@@ -291,7 +293,6 @@ public class ThumbnailsPanel extends JPanel
     @Override
     public synchronized void thumbnailUpdated(final TypedThumbnailUpdateEvent event) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 int index = getIndexOf(event.getSource());
@@ -413,8 +414,7 @@ public class ThumbnailsPanel extends JPanel
      */
     public synchronized int getImageMoveDropIndex(int x, int y) {
         int row = Math.max(0, (y - MARGIN_THUMBNAIL) / (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL));
-        int col = Math.max(0, Math.min(getColumnCount(),
-                (x - MARGIN_THUMBNAIL) / (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL)));
+        int col = Math.max(0, Math.min(getColumnCount(), (x - MARGIN_THUMBNAIL) / (renderer.getThumbnailAreaWidth() + MARGIN_THUMBNAIL)));
         if ((row < 0) || (col < 0)) {
             return -1;
         }
@@ -719,8 +719,7 @@ public class ThumbnailsPanel extends JPanel
 
     private synchronized void paintThumbnail(int index, Graphics g) {
         Point topLeft = getTopLeftOfTnIndex(index);
-        Image im = renderedThumbnailCache.getThumbnail(getFileAtIndex(index), renderer.getThumbnailWidth(),
-                isMetaDataOverlay());
+        Image im = renderedThumbnailCache.getThumbnail(getFileAtIndex(index), renderer.getThumbnailWidth(), isMetaDataOverlay());
         if (im != null) {
             g.drawImage(im, topLeft.x, topLeft.y, viewport);
         }
@@ -735,29 +734,32 @@ public class ThumbnailsPanel extends JPanel
     private String createTooltipTextForIndex(int index) {
         if (isIndex(index)) {
             File file = files.get(index);
-            if (!file.exists()) {
-                return file.getAbsolutePath();
-            }
+            boolean fileExists = file.exists();
             ThumbnailFlag flag = getFlagAtIndex(index);
             String flagText = (flag == null)
                     ? ""
                     : flag.getDisplayName();
-            long length = file.length();
-            ByteSizeUnit unit = ByteSizeUnit.unit(length);
-            long unitLength = length / unit.bytes();
-            Date date = new Date(file.lastModified());
+            long length = fileExists ? file.length() : 0;
+            ByteSizeUnit unit = fileExists ? ByteSizeUnit.unit(length) : ByteSizeUnit.BYTE;
+            long unitLength = fileExists ? length / unit.bytes() : 0;
             String unitString = unit.toString();
-            return Bundle.getString(ThumbnailsPanel.class, "ThumbnailsPanel.TooltipText", file, unitLength, unitString, date,
-                    date, getSidecarFileNameOfFile(file), flagText);
+            String fileDate = file.exists() ? TOOLTIP_FILE_DATE_FORMAT.format(new Date(file.lastModified())) : "?";
+            return Bundle.getString(ThumbnailsPanel.class, "ThumbnailsPanel.TooltipText",
+                    file.getAbsolutePath(),
+                    unitLength,
+                    unitString,
+                    fileDate,
+                    getSidecarPathNameOfFile(file),
+                    flagText);
         } else {
             return "";
         }
     }
 
-    private String getSidecarFileNameOfFile(File file) {
+    private String getSidecarPathNameOfFile(File file) {
         File sidecarFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(file);
         return (sidecarFile == null)
-                ? ""
+                ? "-"
                 : sidecarFile.getAbsolutePath();
     }
 
