@@ -1,7 +1,6 @@
 package org.jphototagger.program.app;
 
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -62,11 +61,6 @@ public final class AppLifeCycle {
 
     private void listenForQuit() {
         appFrame.addWindowListener(new WindowAdapter() {
-
-            @Override
-            public void windowClosed(WindowEvent evt) {
-                quit();
-            }
 
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -322,10 +316,10 @@ public final class AppLifeCycle {
         }
     }
 
-    private final class ShutdownHook extends Thread {
+    private final class AppLifeCycleShutdownHook extends Thread {
 
-        private ShutdownHook() {
-            super("JPhotoTagger: Shoudown Hook");
+        private AppLifeCycleShutdownHook() {
+            super("JPhotoTagger: App life cycle shoudown Hook");
         }
 
         @Override
@@ -333,17 +327,17 @@ public final class AppLifeCycle {
             try {
                 Repository repo = Lookup.getDefault().lookup(Repository.class);
                 if (repo != null && repo.isInit()) {
-                    Logger.getLogger(ShutdownHook.class.getName()).severe("Database has not been shutdown; now shutting it down");
+                    Logger.getLogger(AppLifeCycleShutdownHook.class.getName()).severe("Database has not been shutdown; now shutting it down");
                     repo.shutdown();
                 }
             } catch (Throwable t) {
-                Logger.getLogger(ShutdownHook.class.getName()).log(Level.SEVERE, null, t);
+                Logger.getLogger(AppLifeCycleShutdownHook.class.getName()).log(Level.SEVERE, null, t);
             }
         }
 
     }
 
     private AppLifeCycle() {
-        Runtime.getRuntime().addShutdownHook(new ShutdownHook());
-}
+        Runtime.getRuntime().addShutdownHook(new AppLifeCycleShutdownHook());
+    }
 }
