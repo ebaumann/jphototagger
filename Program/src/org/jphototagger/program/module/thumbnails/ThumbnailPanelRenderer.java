@@ -31,8 +31,7 @@ import org.jphototagger.program.module.thumbnails.cache.ThumbnailRenderer;
 import org.jphototagger.program.module.thumbnails.cache.XmpCache;
 
 /**
- *
- * @author Martin Pohlack
+ * @author Martin Pohlack, Elmar Baumann
  */
 public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetListener {
 
@@ -44,6 +43,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
      * Height of a thumbnail flag in pixel
      */
     private static final int FLAG_HEIGHT = 10;
+
+    private static final int FLAG_PADDING = 5;
     /**
      * Height of the text font for text below the thumbnails in points
      */
@@ -125,7 +126,6 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
         if (_panel == null) {
             throw new NullPointerException("_panel == null");
         }
-
         panel = _panel;
         computeFontHeight();
         loadRatingImages();
@@ -149,9 +149,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             if ((file == null) || (dragIndex < 0)) {
                 return false;
             }
-
             File dragOverFile = panel.getFileAtIndex(dragIndex);
-
             return (panel.getIndexOf(file) >= 0) && file.equals(dragOverFile);
         }
     }
@@ -161,11 +159,9 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
         if (scaled == null) {
             throw new NullPointerException("scaled == null");
         }
-
         if (rtci == null) {
             throw new NullPointerException("rtci == null");
         }
-
         synchronized (panel) {
             int sw = scaled.getWidth(null);
             int sh = scaled.getHeight(null);
@@ -176,35 +172,27 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             int h = w + FONT_PIXEL_HEIGHT;
             BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
             Graphics2D g2 = bi.createGraphics();
-
             // switch this for performance / beauty
             if (!dummy) {
                 g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             }
-
             g2.setFont(FONT);
             g2.setColor(ThumbnailsPanel.COLOR_BACKGROUND_PANEL);
             g2.fillRect(0, 0, w, h);
             paintThumbnailBackground(g2, panel.isFileSelected(rtci.file), isDragOver(rtci.file));
-            paintThumbnailFlag(g2, rtci.file);
+            paintThumbnailFlags(g2, rtci.file);
             paintThumbnail(scaled, g2);
-
             if (!dummy) {
                 paintThumbnailText(g2, rtci.file);
                 rtci.renderedForKeywords = panel.isMetaDataOverlay();
-
                 boolean actualOverlay = false;
-
                 if (panel.isMetaDataOverlay()) {
                     actualOverlay = paintThumbnailKeywords(g2, rtci.file);
                     actualOverlay |= paintThumbnailStars(g2, rtci.file);
                 }
-
                 rtci.hasKeywords = actualOverlay;
             }
-
             g2.dispose();
-
             return bi;
         }
     }
@@ -219,29 +207,37 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
                 ? COLOR_BORDER_THUMBNAIL_HIGHLIGHTED
                 : COLOR_BORDER_THUMBNAIL;
         Color oldColor = g.getColor();
-
         g.setColor(backgroundColor);
-        g.fillRoundRect(0, 0, thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL, MARGIN_THUMBNAIL * 2,
-                MARGIN_THUMBNAIL * 2);
+        final int width = thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL;
+        final int height = thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL;
+        final int arcWidth = MARGIN_THUMBNAIL * 2;
+        final int arcHeight = MARGIN_THUMBNAIL * 2;
+        g.fillRoundRect(0, 0, width, height, arcWidth, arcHeight);
         g.setColor(borderColor);
-        g.drawRoundRect(0, 0, thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL,
-                thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL, MARGIN_THUMBNAIL * 2,
-                MARGIN_THUMBNAIL * 2);
+        int roundWidth = thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL;
+        final int roundHeight = thumbnailWidth + 2 * MARGIN_THUMBNAIL + WIDHT_BORDER_THUMBNAIL;
+        final int roundArcHeight = MARGIN_THUMBNAIL * 2;
+        final int roundArcHeigth = MARGIN_THUMBNAIL * 2;
+        g.drawRoundRect(0, 0, roundWidth, roundHeight, roundArcHeight, roundArcHeigth);
         g.setColor(oldColor);
     }
 
-    private void paintThumbnailFlag(Graphics g, File file) {
-        ThumbnailFlag flag = panel.getFlagOfFile(file);
-
-        if (flag != null) {
-            Color oldColor = g.getColor();
-
-            g.setColor(flag.getColor());
-            g.fillRect(thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_WIDTH,
-                    thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_HEIGHT, FLAG_WIDTH, FLAG_HEIGHT);
-            g.setColor(oldColor);
+    private void paintThumbnailFlags(Graphics g, File file) {
+        List<ThumbnailFlag> flags = panel.getFlagsOfFile(file);
+        int flagCount = flags.size();
+        if (flagCount < 1) {
+            return;
         }
+        Color oldColor = g.getColor();
+        int y = thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_HEIGHT;
+        for (int i = 0; i < flagCount; i++) {
+            int x = thumbnailWidth + 2 * MARGIN_THUMBNAIL - FLAG_WIDTH * (i + 1);
+            x -= i == 0 ? 0 : FLAG_PADDING;
+            ThumbnailFlag flag = flags.get(i);
+            g.setColor(flag.getColor());
+            g.fillRect(x, y, FLAG_WIDTH, FLAG_HEIGHT);
+        }
+        g.setColor(oldColor);
     }
 
     // similar to capitalized letter "I"
@@ -250,25 +246,20 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             if (dropIndex < 0) {
                 return;
             }
-
             Point topLeft = panel.getTopLeftOfTnIndex(dropIndex);
             Color oldColor = g.getColor();
-
             g.setColor(COLOR_DROP_MARKER);
-
             final int xCenter = topLeft.x + WIDHT_BORDER_THUMBNAIL + thumbnailWidth / 2;
             final int y = topLeft.y - 4;
             final int halfTopWidth = 10;
             final int height = 10;
-
             g.fillPolygon(getDropMarkerTriangle(xCenter, y, halfTopWidth, height));
             g.setColor(oldColor);
         }
     }
 
     private Polygon getDropMarkerTriangle(int xCenter, int y, int halfTopWidth, int height) {
-
-        // top left                 top right      bottom center
+                        // top left          top right      bottom center
         int[] xs = {xCenter - halfTopWidth, xCenter + halfTopWidth, xCenter};
         int[] ys = {y, y, y + height};
 
@@ -278,7 +269,6 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private void paintThumbnail(Image thumbnail, Graphics g) {
         int indentTop = getThumbnailTopIndent(thumbnail);
         int indentLeft = getThumbnailLeftIndent(thumbnail);
-
         g.drawImage(thumbnail, indentLeft, indentTop, null);
     }
 
@@ -287,11 +277,10 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
         int width = getThumbnailAreaWidth();
         int lenTitle = g.getFontMetrics().stringWidth(text);
         int space = width - lenTitle;
-        int xText = (space > 0)
+        int xText = space > 0
                 ? (space + 1) / 2
                 : 0;
         Color oldColor = g.getColor();
-
         g.setColor(panel.isFileSelected(file)
                 ? COLOR_TEXT_HIGHLIGHTED
                 : COLOR_TEXT);
@@ -301,114 +290,88 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
 
     private boolean paintThumbnailKeywords(Graphics g, File file) {
         List<String> keywords = getKeywords(file);
-
         if ((keywords == null) || (keywords.isEmpty())) {
             return false;
         }
-
         Collections.sort(keywords);
         int width = getThumbnailAreaWidth();
         int height = getThumbnailAreaHeightNoText();
         BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2 = bi.createGraphics();
-
         g2.setColor(new Color(0, 0, 0, 0));
         g2.fillRect(0, 0, width, height);
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         Iterator<String> is;
-
         // draw background
         g2.setColor(COLOR_TEXT_BACKGROUND);
         g2.setFont(FONT);
         is = keywords.iterator();
-
         for (int i = 0; is.hasNext(); i++) {
             String text = is.next();
             int x = WIDHT_BORDER_THUMBNAIL;
             int y = WIDHT_BORDER_THUMBNAIL + (i + 1) * FONT_PIXEL_HEIGHT - FONT_PIXEL_DESCENT;
-
             g2.drawString(text, x + 1, y);
             g2.drawString(text, x - 1, y);
             g2.drawString(text, x, y + 1);
             g2.drawString(text, x, y - 1);
         }
-
         g2.dispose();
-
         float frac = 1.0f / 9.0f;
         float[] kernel = {
             frac, frac, frac, frac, frac, frac, frac, frac, frac
         };
         ConvolveOp op = new ConvolveOp(new Kernel(3, 3, kernel), ConvolveOp.EDGE_NO_OP, null);
         BufferedImage bi2 = op.filter(bi, null);
-
         // draw foreground
         g2 = bi2.createGraphics();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setColor(COLOR_TEXT_HIGHLIGHTED);
         g2.setFont(FONT);
         is = keywords.iterator();
-
         for (int i = 0; is.hasNext(); i++) {
             g2.drawString(is.next(), WIDHT_BORDER_THUMBNAIL,
                     WIDHT_BORDER_THUMBNAIL + (i + 1) * FONT_PIXEL_HEIGHT - FONT_PIXEL_DESCENT);
         }
-
         g2.dispose();
-
         // copy over
         g.drawImage(bi2, 0, 0, null);    // fixme: is null ok here?
-
         return true;
     }
 
     private boolean paintThumbnailStars(Graphics g, File file) {
         int stars = getRating(file);
-
         if (stars >= 0) {
             int i = Math.min(STAR_COUNT - 1, stars);
-
             g.drawImage(starImage[i], getThumbnailAreaWidth() - starImage[i].getWidth(null), 0, null);
-
             return true;
         }
-
         return false;
     }
 
     private String getFormattedText(File file) {
         String text = getText(file);
         int charCountText = text.length();
-
         if (charCountText <= maxCharCountText) {
             return text;
         }
-
         return "..." + text.substring(text.length() - maxCharCountText + 2);
     }
 
     private int getThumbnailLeftIndent(Image thumbnail) {
-
         // fixme: observer
         int indentLeft = (getThumbnailAreaWidth() - thumbnail.getWidth(null) + 1) / 2;
-
         if (indentLeft < 0) {
             indentLeft = 0;
         }
-
         return indentLeft;
     }
 
     private int getThumbnailTopIndent(Image thumbnail) {
-
         // fixme: observer
         int indentTop = (getThumbnailAreaHeightNoText() - thumbnail.getHeight(null) + 1) / 2;
-
         if (indentTop < 0) {
             indentTop = 0;
         }
-
         return indentTop;
     }
 
@@ -437,14 +400,11 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         String filename = file.getAbsolutePath();
         int indexPathSeparator = filename.lastIndexOf(File.separator);
-
         if ((indexPathSeparator >= 0) && (indexPathSeparator + 1 < filename.length())) {
             filename = filename.substring(indexPathSeparator + 1);
         }
-
         return filename;
     }
 
@@ -460,13 +420,10 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             if (file == null) {
                 throw new NullPointerException("file == null");
             }
-
             Xmp xmp = xmpCache.getXmp(file);
-
             if ((xmp == null) || !xmp.contains(XmpDcSubjectsSubjectMetaDataValue.INSTANCE)) {
                 return null;
             }
-
             return (List<String>) xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
         }
     }
@@ -482,21 +439,16 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             if (file == null) {
                 throw new NullPointerException("file == null");
             }
-
             Xmp xmp = xmpCache.getXmp(file);
-
             if (xmp == null) {
                 return 0;
             }
-
             Long rating = xmp.contains(XmpRatingMetaDataValue.INSTANCE)
                     ? (Long) xmp.getValue(XmpRatingMetaDataValue.INSTANCE)
                     : null;
-
             if (rating == null) {
                 return 0;
             }
-
             return rating.intValue();
         }
     }
@@ -504,18 +456,14 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private void clearDrag() {
         synchronized (panel) {
             panel.setDrag(false);
-
             if ((dropIndex >= 0) || (oldDropIndex >= 0)) {
                 dropIndex = -1;
                 oldDropIndex = -1;
                 panel.repaint();
             }
-
             if (panel.isIndex(dragIndex)) {
                 int oldDragIndex = dragIndex;
-
                 dragIndex = -1;
-
                 if (panel.isIndex(oldDragIndex)) {
                     panel.rerender(oldDragIndex);
                 }
@@ -531,26 +479,20 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     public void dragOver(DropTargetDragEvent dtde) {
         synchronized (panel) {
             panel.setDrag(true);
-
             if (Flavor.isMetadataTransferred(dtde.getTransferable())) {
                 Point loc = dtde.getLocation();
                 int index = panel.getThumbnailIndexAtPoint(loc.x, loc.y);
-
                 if ((index != dragIndex) && panel.isIndex(index)) {
                     int oldDragIndex = dragIndex;
-
                     dragIndex = index;
-
                     if (panel.isIndex(oldDragIndex)) {
                         panel.rerender(oldDragIndex);
                     }
-
                     panel.rerender(index);
                 }
             } else if (isImageCollectionDrag(dtde.getTransferable())) {
                 Point loc = dtde.getLocation();
                 int index = panel.getImageMoveDropIndex(loc.x, loc.y);
-
                 if ((index != dropIndex) && panel.isIndex(index)) {
                     oldDropIndex = dropIndex;
                     dropIndex = index;

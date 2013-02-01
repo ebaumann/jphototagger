@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -60,6 +61,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.domain.thumbnails.event.TypedThumbnailUpdateEvent;
+import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
@@ -88,7 +90,7 @@ public class ThumbnailsPanel extends JPanel
     public static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
     private static final DateFormat TOOLTIP_FILE_DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
     private int isClickInSelection = -1;
-    private final Map<Integer, ThumbnailFlag> flagOfThumbnailIndex = new HashMap<>();
+    private final Map<Integer, Set<ThumbnailFlag>> thumbnailFlagsAtIndex = new HashMap<>();
     private final List<Integer> selectedThumbnailIndices = new ArrayList<>();
     private int thumbnailCountPerRow = 0;
     private boolean dragThumbnailsEnabled = false;
@@ -146,7 +148,7 @@ public class ThumbnailsPanel extends JPanel
 
     private void clearSelectionAndFlags() {
         clearSelection();
-        flagOfThumbnailIndex.clear();
+        thumbnailFlagsAtIndex.clear();
     }
 
     /**
@@ -304,18 +306,30 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private synchronized void addFlag(int index, ThumbnailFlag flag) {
-        flagOfThumbnailIndex.put(index, flag);
+        Set<ThumbnailFlag> flags = thumbnailFlagsAtIndex.get(index);
+        if (flags == null) {
+            flags = EnumSet.noneOf(ThumbnailFlag.class);
+            thumbnailFlagsAtIndex.put(index, flags);
+        }
+        flags.add(flag);
     }
 
-    private synchronized ThumbnailFlag getFlagAtIndex(int index) {
-        return flagOfThumbnailIndex.get(index);
+    private synchronized Set<ThumbnailFlag> getFlagsAtIndex(int index) {
+        return thumbnailFlagsAtIndex.get(index);
     }
 
-    public synchronized ThumbnailFlag getFlagOfFile(File file) {
+    /**
+     * @param file
+     * @return modifiable copy, empty if this file has no flags
+     */
+    public synchronized List<ThumbnailFlag> getFlagsOfFile(File file) {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-        return flagOfThumbnailIndex.get(getIndexOf(file));
+        Set<ThumbnailFlag> flags = thumbnailFlagsAtIndex.get(getIndexOf(file));
+        return flags == null
+                ? new ArrayList<ThumbnailFlag>(0)
+                : new ArrayList<>(flags);
     }
 
     private int getCountHorizontalLeftFromX(int x) {
@@ -735,10 +749,10 @@ public class ThumbnailsPanel extends JPanel
         if (isIndex(index)) {
             File file = files.get(index);
             boolean fileExists = file.exists();
-            ThumbnailFlag flag = getFlagAtIndex(index);
-            String flagText = (flag == null)
+            Set<ThumbnailFlag> flags = getFlagsAtIndex(index);
+            String flagText = flags == null
                     ? ""
-                    : flag.getDisplayName();
+                    : createFlagsDisplayName(new ArrayList<>(flags));
             long length = fileExists ? file.length() : 0;
             ByteSizeUnit unit = fileExists ? ByteSizeUnit.unit(length) : ByteSizeUnit.BYTE;
             long unitLength = fileExists ? length / unit.bytes() : 0;
@@ -754,6 +768,16 @@ public class ThumbnailsPanel extends JPanel
         } else {
             return "";
         }
+    }
+
+    private String createFlagsDisplayName(List<ThumbnailFlag> flags) {
+        Collections.sort(flags, PositionProviderAscendingComparator.INSTANCE);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < flags.size(); i++) {
+            sb.append(i == 0 ? "" : ',')
+              .append(flags.get(i).getDisplayName());
+        }
+        return sb.toString();
     }
 
     private String getSidecarPathNameOfFile(File file) {
