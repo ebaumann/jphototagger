@@ -14,6 +14,7 @@ import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.RepositoryUtil;
 import org.jphototagger.domain.repository.SaveOrUpdate;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
@@ -136,17 +137,22 @@ public final class FilesystemRepositoryUpdater {
         }
     }
 
-    private static void updateCaches(File sourceFile, File targetFile) {
+    private static void updateCaches(final File sourceFile, final File targetFile) {
         ThumbnailCache.INSTANCE.updateFiles(sourceFile, targetFile);
         XmpCache.INSTANCE.updateFiles(sourceFile, targetFile);
         RenderedThumbnailCache.INSTANCE.updateFiles(sourceFile, targetFile);
-        ThumbnailsPanel thumbnailsPanel = GUI.getThumbnailsPanel();
-        boolean inSameDirectory = FileUtil.inSameDirectory(Arrays.asList(sourceFile, targetFile));
-        boolean tnPanelContainsSourceFile = thumbnailsPanel.containsFile(sourceFile);
-        if (inSameDirectory && tnPanelContainsSourceFile) {
-            thumbnailsPanel.renameFile(sourceFile, targetFile);
-        } else if (tnPanelContainsSourceFile) {
-            thumbnailsPanel.removeFiles(Arrays.asList(sourceFile));
-        }
+        final boolean inSameDirectory = FileUtil.inSameDirectory(Arrays.asList(sourceFile, targetFile));
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            @Override
+            public void run() {
+                ThumbnailsPanel thumbnailsPanel = GUI.getThumbnailsPanel();
+                boolean tnPanelContainsSourceFile = thumbnailsPanel.containsFile(sourceFile);
+                if (inSameDirectory && tnPanelContainsSourceFile) {
+                    thumbnailsPanel.renameFile(sourceFile, targetFile);
+                } else if (tnPanelContainsSourceFile) {
+                    thumbnailsPanel.removeFiles(Arrays.asList(sourceFile));
+                }
+            }
+        });
     }
 }
