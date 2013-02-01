@@ -36,7 +36,7 @@ public final class MetaFactory implements Runnable {
 
     private void init() {
         synchronized (this) {
-            if (!Support.checkInit(getClass(), init)) {
+            if (!Support.checkInitOnlyOneTimes(getClass(), init)) {
                 return;
             }
 

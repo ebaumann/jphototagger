@@ -109,7 +109,7 @@ public final class ControllerFactory {
 
     void init() {
         synchronized (this) {
-            if (!Support.checkInit(getClass(), init)) {
+            if (!Support.checkInitOnlyOneTimes(getClass(), init)) {
                 return;
             }
 
