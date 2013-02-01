@@ -1,80 +1,43 @@
 package org.jphototagger.domain.thumbnails;
 
 import java.awt.Color;
+import org.jphototagger.api.collections.PositionProvider;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public final class ThumbnailFlag {
+public enum ThumbnailFlag implements PositionProvider {
+
+    HAS_SIDECAR_FILE(Color.BLUE, 0, "ThumbnailFlag.HasSidecarFile"),
+    ERROR_FILE_NOT_FOUND(Color.RED, 1, "ThumbnailFlag.FileNotFound"),
+    ;
 
     private final Color color;
-    private final String string;
-    public static final ThumbnailFlag ERROR_FILE_NOT_FOUND = new ThumbnailFlag(Color.RED, "File not found");
+    private final String displayName;
+    private final int position;
 
-    public ThumbnailFlag(Color color, String string) {
-        if (color == null) {
-            throw new NullPointerException("color == null");
-        }
-
-        if (string == null) {
-            throw new NullPointerException("string == null");
-        }
-
+    private ThumbnailFlag(Color color, int position, String bundleKey) {
         this.color = color;
-        this.string = string;
+        this.position = position;
+        this.displayName = Bundle.getString(ThumbnailFlag.class, bundleKey);
     }
 
     public Color getColor() {
         return color;
     }
 
-    /**
-     *
-     * @return Meaning of the flag
-     */
-    public String getString() {
-        return string;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        final ThumbnailFlag other = (ThumbnailFlag) obj;
-
-        if ((this.color != other.color) && ((this.color == null) || !this.color.equals(other.color))) {
-            return false;
-        }
-
-        if ((this.string == null) || !this.string.equals(other.string)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-
-        hash = 71 * hash + ((this.color != null)
-                ? this.color.hashCode()
-                : 0);
-        hash = 71 * hash + ((this.string != null)
-                ? this.string.hashCode()
-                : 0);
-
-        return hash;
+    public String getDisplayName() {
+        return displayName;
     }
 
     @Override
     public String toString() {
-        return string + "=" + color;
+        return displayName;
+    }
+
+    @Override
+    public int getPosition() {
+        return position;
     }
 }

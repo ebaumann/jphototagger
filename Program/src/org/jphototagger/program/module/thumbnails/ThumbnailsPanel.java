@@ -123,7 +123,6 @@ public class ThumbnailsPanel extends JPanel
 
     private boolean getPersistedDisplayThumbnailTooltip() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs == null || !prefs.containsKey(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP)
                 ? true
                 : prefs.getBoolean(AppPreferencesKeys.KEY_UI_DISPLAY_THUMBNAIL_TOOLTIP);
@@ -296,7 +295,6 @@ public class ThumbnailsPanel extends JPanel
             @Override
             public void run() {
                 int index = getIndexOf(event.getSource());
-
                 if (index >= 0) {
                     repaintAtIndex(index);
                 }
@@ -689,8 +687,7 @@ public class ThumbnailsPanel extends JPanel
             int firstIndex = Math.min(files.size(), getFirstPaintIndexAtHeight(rectClip.y));
             int lastIndex = Math.min(getLastPaintIndexAtHeight(rectClip.y + rectClip.height), files.size());
             int firstColumn = Math.max(0, getCountHorizontalLeftFromX(rectClip.x));
-            int lastColumn = Math.min(thumbnailCountPerRow - 1,
-                    getCountHorizontalRightFromX(rectClip.x + rectClip.width));
+            int lastColumn = Math.min(thumbnailCountPerRow - 1, getCountHorizontalRightFromX(rectClip.x + rectClip.width));
             for (int index = firstIndex; index < lastIndex; index++) {
                 if ((index % thumbnailCountPerRow >= firstColumn) && (index % thumbnailCountPerRow <= lastColumn)) {
                     paintThumbnail(index, g);
@@ -744,7 +741,7 @@ public class ThumbnailsPanel extends JPanel
             ThumbnailFlag flag = getFlagAtIndex(index);
             String flagText = (flag == null)
                     ? ""
-                    : flag.getString();
+                    : flag.getDisplayName();
             long length = file.length();
             ByteSizeUnit unit = ByteSizeUnit.unit(length);
             long unitLength = length / unit.bytes();
@@ -1212,7 +1209,6 @@ public class ThumbnailsPanel extends JPanel
             int tnHeight = renderer.getThumbnailAreaHeight();
             int topSel = getTopLeftOfTnIndex(getSelectedIndex()).y - tnHeight;
             int viewPosBottom = viewport.getViewPosition().y;
-
             if (topSel < viewPosBottom) {
                 scrollOneImageUp();
             }
