@@ -114,6 +114,7 @@ public class ThumbnailsPanel extends JPanel
     private static final Logger LOGGER = Logger.getLogger(ThumbnailsPanel.class.getName());
     private final Object thumbnailsChangedNotifyMonitor = new Object();
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
+    private final Set<ThumbnailFlag> flagsToDisplay = EnumSet.of(ThumbnailFlag.ERROR_FILE_NOT_FOUND);
 
     public ThumbnailsPanel() {
         ctrlDoubleklick = new ThumbnailDoubleklickController(this);
@@ -303,6 +304,43 @@ public class ThumbnailsPanel extends JPanel
                 }
             }
         });
+    }
+
+    synchronized void setDisplayFlag(ThumbnailFlag flag, boolean display) {
+        if (flag == ThumbnailFlag.ERROR_FILE_NOT_FOUND) { // Not existing files will always be flagged
+            return;
+        }
+        if (display) {
+            flagsToDisplay.add(flag);
+
+        } else {
+            flagsToDisplay.remove(flag);
+        }
+        setFlags();
+        rerenderAll();
+    }
+
+    synchronized boolean isDisplayFlag(ThumbnailFlag flag) {
+        return flagsToDisplay.contains(flag);
+    }
+
+    private synchronized void setFlags() {
+        int count = files.size();
+        thumbnailFlagsAtIndex.clear();
+        for (int i = 0; i < count; i++) {
+            for (ThumbnailFlag flag : flagsToDisplay) {
+                if (flag.matches(files.get(i))) {
+                    addFlag(i, flag);
+                }
+            }
+        }
+    }
+
+    private synchronized void rerenderAll() {
+        int filecount = files.size();
+        for (int i = 0; i < filecount; i++) {
+            rerender(i);
+        }
     }
 
     private synchronized void addFlag(int index, ThumbnailFlag flag) {
@@ -1023,19 +1061,10 @@ public class ThumbnailsPanel extends JPanel
             this.files.clear();
             this.files.addAll(filteredFiles);
             scrollToTop();
-            setMissingFilesFlags();
+            setFlags();
         }
         notifyThumbnailsChanged();
         forceRepaint();
-    }
-
-    private synchronized void setMissingFilesFlags() {
-        int count = files.size();
-        for (int i = 0; i < count; i++) {
-            if (!files.get(i).exists()) {
-                addFlag(i, ThumbnailFlag.ERROR_FILE_NOT_FOUND);
-            }
-        }
     }
 
     public synchronized boolean isEmpty() {

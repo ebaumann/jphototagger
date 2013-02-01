@@ -19,6 +19,10 @@ public interface ThumbnailsDisplayer {
 
     boolean isMetaDataOverlay();
 
+    void setDisplayFlag(ThumbnailFlag flag, boolean display);
+
+    boolean isDisplayFlag(ThumbnailFlag flag);
+
     void applyThumbnailsPanelSettings(ThumbnailsPanelSettings settings);
 
     List<File> getSelectedFiles();

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import org.jphototagger.domain.thumbnails.MainWindowThumbnailsComponent;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailFlag;
 import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.lib.awt.EventQueueUtil;
@@ -126,5 +127,15 @@ public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer, MainW
     @Override
     public void refresh() {
         THUMBNAILS_AREA_PANEL.getThumbnailsPanel().refresh();
+    }
+
+    @Override
+    public void setDisplayFlag(ThumbnailFlag flag, boolean display) {
+        THUMBNAILS_AREA_PANEL.getThumbnailsPanel().setDisplayFlag(flag, display);
+    }
+
+    @Override
+    public boolean isDisplayFlag(ThumbnailFlag flag) {
+        return THUMBNAILS_AREA_PANEL.getThumbnailsPanel().isDisplayFlag(flag);
     }
 }

@@ -3,9 +3,10 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.31.2 2013-02-01
+0.32.0 2013-02-01
 -----------------
 
+* Added Option: Menu "View > Display Flag: Sidecar file exists"
 * Bugfix: Moving files could cause a deadlock
 
 0.31.1 2013-01-31
