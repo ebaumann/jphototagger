@@ -1,7 +1,5 @@
 package org.jphototagger.laf.jgoodies;
 
-import com.jgoodies.looks.plastic.PlasticLookAndFeel;
-import com.jgoodies.looks.plastic.theme.DarkStar;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;

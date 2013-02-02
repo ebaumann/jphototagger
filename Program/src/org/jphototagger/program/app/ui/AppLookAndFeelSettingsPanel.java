@@ -12,9 +12,11 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.LookAndFeelProvider;
 import org.jphototagger.api.windows.OptionPageProvider;
+import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -28,6 +30,7 @@ import org.openide.util.lookup.ServiceProvider;
 public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements OptionPageProvider {
 
     private static final long serialVersionUID = 1L;
+    private boolean listen = true;
 
     public AppLookAndFeelSettingsPanel() {
         initComponents();
@@ -69,6 +72,14 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         scrollPanePreferences.setViewportView(c == null ? panelNoPreferences : c);
     }
 
+    private void changeLookAndFeel() {
+        LookAndFeelProvider provider = (LookAndFeelProvider) lafComboBoxModel.getSelectedItem();
+        setProvider(provider);
+        provider.setLookAndFeel();
+        EventBus.publish(new LookAndFeelChangedEvent(this, provider));
+        persistLaf(provider);
+    }
+
     private void persistLaf(LookAndFeelProvider provider) {
         String key = provider.getPreferencesKey();
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
@@ -83,8 +94,10 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         }
         for (LookAndFeelProvider provider : Lookup.getDefault().lookupAll(LookAndFeelProvider.class)) {
             if (laf.equals(provider.getPreferencesKey())) {
+                listen = false;
                 comboBoxLaf.setSelectedItem(provider);
                 setProvider(provider);
+                listen = true;
                 break;
             }
         }
@@ -125,7 +138,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelNoPreferences = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelNoPreferences = new javax.swing.JLabel();
         panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
         comboBoxLaf = new JComboBox<>();
@@ -137,8 +150,8 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         panelNoPreferences.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
-        jLabel1.setText(bundle.getString("AppLookAndFeelSettingsPanel.jLabel1.text")); // NOI18N
-        panelNoPreferences.add(jLabel1, new java.awt.GridBagConstraints());
+        labelNoPreferences.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelNoPreferences.text")); // NOI18N
+        panelNoPreferences.add(labelNoPreferences, new java.awt.GridBagConstraints());
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -211,17 +224,17 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
     }//GEN-END:initComponents
 
     private void comboBoxLafActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxLafActionPerformed
-        LookAndFeelProvider provider = (LookAndFeelProvider) lafComboBoxModel.getSelectedItem();
-        setProvider(provider);
-        persistLaf(provider);
+        if (listen) {
+            changeLookAndFeel();
+        }
     }//GEN-LAST:event_comboBoxLafActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<LookAndFeelProvider> comboBoxLaf;
     private javax.swing.JEditorPane editorPaneDescription;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelInfo;
+    private javax.swing.JLabel labelNoPreferences;
     private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelNoPreferences;
     private javax.swing.JPanel panelPreferences;

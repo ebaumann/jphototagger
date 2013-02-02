@@ -33,7 +33,6 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         if (filter == null) {
             throw new NullPointerException("filter == null");
         }
-
         udf.set(filter);
         initComponents();
         postInitComponents();

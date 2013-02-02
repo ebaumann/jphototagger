@@ -7,8 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JButton;
+import javax.swing.SwingUtilities;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.TabbedPaneUtil;
@@ -57,6 +61,7 @@ public final class SettingsDialog extends Dialog {
         readProperties();
         TabbedPaneUtil.setMnemonics(tabbedPane);
         initSearchPanel();
+        AnnotationProcessor.process(this);
     }
 
     private void initMaps() {
@@ -69,11 +74,9 @@ public final class SettingsDialog extends Dialog {
         indexOfTab.put(Tab.ACTIONS, 6);
         indexOfTab.put(Tab.PLUGINS, 7);
         indexOfTab.put(Tab.DISPLAY_IN_FUTURE, 8);
-
         for (Tab tab : indexOfTab.keySet()) {
             tabOfIndex.put(indexOfTab.get(tab), tab);
         }
-
         for (int index = 0; index < tabbedPane.getTabCount(); index++) {
             Component component = tabbedPane.getComponentAt(index);
             if (component instanceof HelpPageProvider) {
@@ -87,10 +90,8 @@ public final class SettingsDialog extends Dialog {
 
     private void initPersistentPanels() {
         int tabCount = tabbedPane.getTabCount();
-
         for (int i = 0; i < tabCount; i++) {
             Component c = tabbedPane.getComponentAt(i);
-
             if (c instanceof Persistence) {
                 persistentPanels.add((Persistence) c);
             }
@@ -111,9 +112,7 @@ public final class SettingsDialog extends Dialog {
         if (tab == null) {
             throw new NullPointerException("tab == null");
         }
-
         int index = indexOfTab.get(tab);
-
         if ((index >= 0) && (index < tabbedPane.getComponentCount())) {
             tabbedPane.setSelectedIndex(index);
         }
@@ -122,11 +121,9 @@ public final class SettingsDialog extends Dialog {
     private void readProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String key = getClass().getName();
-
         prefs.applySize(key, this);
         prefs.applyLocation(key, this);
         prefs.applyTabbedPaneSettings(KEY_INDEX_TABBED_PANE, tabbedPane, null);
-
         for (Persistence panel : persistentPanels) {
             panel.restore();
         }
@@ -134,9 +131,7 @@ public final class SettingsDialog extends Dialog {
 
     private void writeProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setTabbedPane(KEY_INDEX_TABBED_PANE, tabbedPane, null);
-
         for (Persistence panel : persistentPanels) {
             panel.persist();
         }
@@ -149,7 +144,6 @@ public final class SettingsDialog extends Dialog {
         } else {
             writeProperties();
         }
-
         super.setVisible(visible);
     }
 
@@ -165,6 +159,11 @@ public final class SettingsDialog extends Dialog {
 
     public JButton getButtonScheduledTasks() {
         return panelTasks.getButtonScheduledTasks();
+    }
+
+    @EventSubscriber(eventClass = LookAndFeelChangedEvent.class)
+    public void lookAndFeelChanged(LookAndFeelChangedEvent evt) {
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     /**

@@ -37,8 +37,8 @@ public final class RepositoryFileBrowserDialog extends Dialog {
     private ListTextFilter listTextFilter;
     private final BusyPanel busyPanel = new BusyPanel(new Dimension(200, 200));
 
-    public RepositoryFileBrowserDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public RepositoryFileBrowserDialog(java.awt.Frame parent) {
+        super(parent, true);
         initComponents();
         postInitComponents();
     }
@@ -602,7 +602,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
             @Override
             public void run() {
-                RepositoryFileBrowserDialog dialog = new RepositoryFileBrowserDialog(new javax.swing.JFrame(), true);
+                RepositoryFileBrowserDialog dialog = new RepositoryFileBrowserDialog(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
 
                     @Override

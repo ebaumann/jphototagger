@@ -9,7 +9,9 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
+import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
@@ -20,6 +22,7 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final Map<String, String> PREF_KEY_CLASSNAMES = new LinkedHashMap<>();
+    private boolean listen = true;
 
     static {
         PREF_KEY_CLASSNAMES.put("JGoodiesMiscLookAndFeel.PlasticLookAndFeel", "com.jgoodies.looks.plastic.PlasticLookAndFeel");
@@ -37,6 +40,13 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
         restoreLookAndFeel();
     }
 
+    private void changeLookAndFeel() {
+        persistLookAndFeel();
+        JGoodiesMiscLookAndFeelProvider provider = new JGoodiesMiscLookAndFeelProvider();
+        provider.setLookAndFeel();
+        EventBus.publish(new LookAndFeelChangedEvent(this, provider));
+    }
+
     private void persistLookAndFeel() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         prefs.setString(JGoodiesMiscLookAndFeelProvider.PREF_KEY, (String) comboBoxClassNames.getSelectedItem());
@@ -47,8 +57,9 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
         String laf = prefs.containsKey(JGoodiesMiscLookAndFeelProvider.PREF_KEY)
                 ? prefs.getString(JGoodiesMiscLookAndFeelProvider.PREF_KEY)
                 : JGoodiesMiscLookAndFeelProvider.DEFAULT_LAF_CLASSNAME;
+        listen = false;
         comboBoxClassNames.setSelectedItem(laf);
-
+        listen = true;
     }
 
     private final ComboBoxModel<String> classnamesComboBoxModel = new DefaultComboBoxModel<String>() {
@@ -83,8 +94,12 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
+        labelClassNames = new javax.swing.JLabel();
         comboBoxClassNames = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+
+        labelClassNames.setLabelFor(comboBoxClassNames);
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/laf/jgoodies/Bundle"); // NOI18N
+        labelClassNames.setText(bundle.getString("JGoodiesMiscLookAndFeelSettingsPanel.labelClassNames.text")); // NOI18N
 
         comboBoxClassNames.setModel(classnamesComboBoxModel);
         comboBoxClassNames.setRenderer(classnamesListCellRenderer);
@@ -94,15 +109,13 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
             }
         });
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/laf/jgoodies/Bundle"); // NOI18N
-        jLabel1.setText(bundle.getString("JGoodiesMiscLookAndFeelSettingsPanel.jLabel1.text")); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(labelClassNames)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(comboBoxClassNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -113,17 +126,19 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxClassNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(labelClassNames))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }//GEN-END:initComponents
 
     private void comboBoxClassNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxClassNamesActionPerformed
-        persistLookAndFeel();
+        if (listen) {
+            changeLookAndFeel();
+        }
     }//GEN-LAST:event_comboBoxClassNamesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> comboBoxClassNames;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel labelClassNames;
     // End of variables declaration//GEN-END:variables
 }

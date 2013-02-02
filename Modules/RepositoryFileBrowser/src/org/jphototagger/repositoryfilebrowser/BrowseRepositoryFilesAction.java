@@ -24,7 +24,7 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        RepositoryFileBrowserDialog dialog = new RepositoryFileBrowserDialog(null, true);
+        RepositoryFileBrowserDialog dialog = new RepositoryFileBrowserDialog(null);
         dialog.setVisible(true);
     }
 

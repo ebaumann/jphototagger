@@ -15,9 +15,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.api.LayerUtil;
+import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
@@ -80,6 +84,7 @@ public final class AppFrame extends javax.swing.JFrame {
         MenuUtil.setMnemonics(menuBar);
         initGotoMenuItemsMap();
         setIconImages(AppLookAndFeel.getAppIcons());
+        AnnotationProcessor.process(this);
         AppLifeCycle.INSTANCE.started(this);
     }
 
@@ -203,6 +208,11 @@ public final class AppFrame extends javax.swing.JFrame {
         }
         menuGoto.insert(item, lastGotoEditItemIndex + 1);
         lastGotoEditItemIndex++;
+    }
+
+    @EventSubscriber(eventClass = LookAndFeelChangedEvent.class)
+    public void lookAndFeelChanged(LookAndFeelChangedEvent evt) {
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     /**

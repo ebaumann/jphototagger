@@ -35,7 +35,6 @@ public class FlickrImageInfoDialog extends Dialog {
         if (imageInfo == null) {
             throw new NullPointerException("imageInfo == null");
         }
-
         imageInfos.add(imageInfo);
     }
 
@@ -47,13 +46,11 @@ public class FlickrImageInfoDialog extends Dialog {
         } else {
             writePersistent();
         }
-
         super.setVisible(visible);
     }
 
     private void writePersistent() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         if (prefs != null) {
             prefs.setSize(FlickrImageInfoDialog.class.getName(), this);
             prefs.setLocation(FlickrImageInfoDialog.class.getName(), this);
@@ -62,7 +59,6 @@ public class FlickrImageInfoDialog extends Dialog {
 
     private void readPersistent() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         if (prefs != null) {
             prefs.applySize(FlickrImageInfoDialog.class.getName(), this);
             prefs.applyLocation(FlickrImageInfoDialog.class.getName(), this);
@@ -72,36 +68,29 @@ public class FlickrImageInfoDialog extends Dialog {
     private void addImageInfoPanels() {
         int size = imageInfos.size();
         int gridy = -1;
-
         for (int i = 0; i < size; i++) {
             FlickrImageInfoPanel panel = new FlickrImageInfoPanel(imageInfos.get(i));
             boolean even = i % 2 != 0;
             int gridx = even ? 1 : 0;
-
             gridy = even ? gridy : gridy + 1;
-
             GridBagConstraints gbc = getConstraints(gridx, gridy);
-
             if (i >= size - 2) {
                 gbc.gridheight = GridBagConstraints.REMAINDER;
                 gbc.weighty = 1.0;
                 gbc.insets = new Insets(10, gridx == 0 ? 10 : 5, 10, 10);
             }
-
             panelImageInfos.add(panel, gbc);
         }
     }
 
     private GridBagConstraints getConstraints(int gridx, int gridy) {
         GridBagConstraints gbc = new GridBagConstraints();
-
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.weightx = 0.5;
         gbc.gridx = gridx;
         gbc.gridy = gridy;
         gbc.insets = new Insets(10, gridx == 0 ? 10 : 5, 0, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
         return gbc;
     }
 
@@ -111,7 +100,6 @@ public class FlickrImageInfoDialog extends Dialog {
 
     public List<ImageInfo> getUploadImages() {
         List<ImageInfo> infos = new ArrayList<>();
-
         if (upload) {
             int count = panelImageInfos.getComponentCount();
 
@@ -122,13 +110,11 @@ public class FlickrImageInfoDialog extends Dialog {
                 }
             }
         }
-
         return infos;
     }
 
     private void selectImages(boolean select) {
         int count = panelImageInfos.getComponentCount();
-
         for (int i = 0; i < count; i++) {
             FlickrImageInfoPanel panel = (FlickrImageInfoPanel) panelImageInfos.getComponent(i);
             panel.setUpload(select);

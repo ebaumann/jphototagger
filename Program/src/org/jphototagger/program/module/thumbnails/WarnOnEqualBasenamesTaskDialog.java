@@ -13,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
@@ -20,6 +21,7 @@ import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.settings.AppPreferencesKeys;
@@ -61,7 +63,6 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
 
     private void readDisplayInFutureFromPreferences() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         isDisplayInFuture = prefs == null
                 ? true
                 : prefs.containsKey(AppPreferencesKeys.KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES)
@@ -71,14 +72,12 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
 
     private void storePropertyDisplayInFuture() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setBoolean(AppPreferencesKeys.KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES, isDisplayInFuture);
     }
 
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
     public void userPropertyChanged(PreferencesChangedEvent evt) {
         String propertyKey = evt.getKey();
-
         if (AppPreferencesKeys.KEY_DISPLAY_IN_FUTURE_WARN_ON_EQUAL_BASENAMES.equals(propertyKey)) {
             listenToDisplayInFutureCheckBox = false;
             boolean newValue = (Boolean) evt.getNewValue();
@@ -97,6 +96,11 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         } else {
             super.setVisible(false);
         }
+    }
+
+    @EventSubscriber(eventClass = LookAndFeelChangedEvent.class)
+    public void lookAndFeelChanged(LookAndFeelChangedEvent evt) {
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     /** This method is called from within the constructor to

@@ -29,17 +29,13 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
         } else {
             panelSettingsThumbnailDimensions.persist();
         }
-
         super.setVisible(visible);
     }
 
     private void displayFurtherSettings() {
         setVisible(false);
-
         SettingsDialog dlg = SettingsDialog.INSTANCE;
-
         dlg.selectTab(SettingsDialog.Tab.THUMBNAILS);
-
         if (dlg.isVisible()) {
             dlg.toFront();
         } else {

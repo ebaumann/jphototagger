@@ -65,44 +65,36 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
     private void chooseDcraw() {
         File file = dcrawFileChooser.chooseFileFixedName();
-
         if (file != null) {
             dcraw = file;
         }
-
         labelDcrawOk.setIcon(dcraw == null ? ERROR_ICON : OK_ICON);
         setEnabledOkButton();
     }
 
     private void chooseConvert() {
         File file = convertFileChooser.chooseFileFixedName();
-
         if (file != null) {
             convert = file;
         }
-
         labelConvertOk.setIcon(convert == null ? ERROR_ICON : OK_ICON);
         setEnabledOkButton();
     }
 
     private void chooseIdentify() {
         File file = identifyFileChooser.chooseFileFixedName();
-
         if (file != null) {
             identify = file;
         }
-
         labelIdentifyOk.setIcon(identify == null ? ERROR_ICON : OK_ICON);
         setEnabledOkButton();
     }
 
     private void chooseMPlayer() {
         File file = mplayerFileChooser.chooseFileFixedName();
-
         if (file != null) {
             mplayer = file;
         }
-
         labelMPlayerOk.setIcon(mplayer == null ? ERROR_ICON : OK_ICON);
     }
 
@@ -114,7 +106,6 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String filename = "dcraw";
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Title");
-
         return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
@@ -122,7 +113,6 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String filename = "convert";
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
-
         return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
@@ -130,7 +120,6 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String filename = "identify";
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Identify.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Identify.FileChooser.Title");
-
         return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
@@ -138,7 +127,6 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String filename = "mplayer";
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Title");
-
         return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 

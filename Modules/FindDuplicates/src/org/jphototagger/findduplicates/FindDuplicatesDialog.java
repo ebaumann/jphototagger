@@ -19,14 +19,18 @@ import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 import javax.swing.ListModel;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.bushe.swing.event.EventBus;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.file.event.FileDeletedEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;
@@ -68,6 +72,7 @@ public class FindDuplicatesDialog extends Dialog {
         buttonDeleteSelectedFiles.setAction(new DeleteSelectedFilesAction());
         addFileDuplicatesPanel();
         MnemonicUtil.setMnemonics(this);
+        AnnotationProcessor.process(this);
     }
 
     private void addFileDuplicatesPanel() {
@@ -436,6 +441,11 @@ public class FindDuplicatesDialog extends Dialog {
         private void setEnabled() {
             setEnabled(panelFileDuplicates.isFileSelected());
         }
+    }
+
+    @EventSubscriber(eventClass = LookAndFeelChangedEvent.class)
+    public void lookAndFeelChanged(LookAndFeelChangedEvent evt) {
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     /** This method is called from within the constructor to
