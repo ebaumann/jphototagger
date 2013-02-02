@@ -1,11 +1,11 @@
 package org.jphototagger.laf.defaults;
 
-import org.jphototagger.laf.LafSupport;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import org.jphototagger.api.windows.LookAndFeelProvider;
+import org.jphototagger.laf.LafSupport;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
 
