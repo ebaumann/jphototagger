@@ -25,6 +25,11 @@ public interface LookAndFeelProvider extends PositionProvider {
     String getPreferencesKey();
 
     /**
+     * @return true if the Look and Feel can be installed (available under the current Java RE)
+     */
+    boolean canInstall();
+
+    /**
      * Does set the Look and Feel.
      */
     void setLookAndFeel();

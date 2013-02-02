@@ -13,19 +13,19 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = LookAndFeelProvider.class)
-public final class NimbusLookAndFeelProvider implements LookAndFeelProvider {
+public final class MotifLookAndFeelProvider implements LookAndFeelProvider {
 
-    private static final String LAF_CLASSNAME = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
-    private static final Logger LOGGER = Logger.getLogger(DefaultLookAndFeelProvider.class.getName());
+    private static final String LAF_CLASSNAME = "com.sun.java.swing.plaf.motif.MotifLookAndFeel";
+    private static final Logger LOGGER = Logger.getLogger(MotifLookAndFeelProvider.class.getName());
 
     @Override
     public String getDisplayname() {
-        return Bundle.getString(NimbusLookAndFeelProvider.class, "NimbusLookAndFeelProvider.Displayname");
+        return Bundle.getString(MotifLookAndFeelProvider.class, "MotifLookAndFeelProvider.Displayname");
     }
 
     @Override
     public String getDescription() {
-        return Bundle.getString(NimbusLookAndFeelProvider.class, "NimbusLookAndFeelProvider.Description");
+        return Bundle.getString(MotifLookAndFeelProvider.class, "MotifLookAndFeelProvider.Description");
     }
 
     @Override
@@ -35,7 +35,7 @@ public final class NimbusLookAndFeelProvider implements LookAndFeelProvider {
 
     @Override
     public String getPreferencesKey() {
-        return "NimbusLookAndFeelProvider"; // Do never change this!
+        return "MotifLookAndFeelProvider"; // Do never change this!
     }
 
     @Override
@@ -45,7 +45,7 @@ public final class NimbusLookAndFeelProvider implements LookAndFeelProvider {
 
     @Override
     public void setLookAndFeel() {
-        LOGGER.info("Setting Java Nimbus Look and Feel");
+        LOGGER.info("Setting Motif Look and Feel");
         try {
             UIManager.setLookAndFeel(LAF_CLASSNAME);
         } catch (Throwable t) {
@@ -55,6 +55,6 @@ public final class NimbusLookAndFeelProvider implements LookAndFeelProvider {
 
     @Override
     public int getPosition() {
-        return 10;
+        return 10000000;
     }
 }

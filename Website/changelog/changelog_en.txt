@@ -6,6 +6,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.1 2013-02-02
 -----------------
 
+* Added Look & Feel: Motif
 * Changing the Look & Feel doesn't require restarting
   JPhotoTagger
 

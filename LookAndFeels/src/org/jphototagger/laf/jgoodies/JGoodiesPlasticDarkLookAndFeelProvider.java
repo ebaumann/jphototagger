@@ -35,7 +35,12 @@ public final class JGoodiesPlasticDarkLookAndFeelProvider implements LookAndFeel
 
     @Override
     public String getPreferencesKey() {
-        return "JGoodiesPlasticDarkLookAndFeel";
+        return "JGoodiesPlasticDarkLookAndFeel"; // Do never change this!
+    }
+
+    @Override
+    public boolean canInstall() {
+        return true;
     }
 
     @Override
