@@ -6,12 +6,7 @@ import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
-import org.bushe.swing.event.annotation.AnnotationProcessor;
-import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.windows.LookAndFeelProvider;
-import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -22,14 +17,6 @@ import org.openide.util.lookup.ServiceProvider;
 public final class JGoodiesPlasticDarkLookAndFeelProvider implements LookAndFeelProvider {
 
     private static final Logger LOGGER = Logger.getLogger(JGoodiesPlasticDarkLookAndFeelProvider.class.getName());
-
-    public JGoodiesPlasticDarkLookAndFeelProvider() {
-        listen();
-    }
-
-    private void listen() {
-        AnnotationProcessor.process(this);
-    }
 
     @Override
     public String getDisplayname() {
@@ -65,13 +52,5 @@ public final class JGoodiesPlasticDarkLookAndFeelProvider implements LookAndFeel
     @Override
     public int getPosition() {
         return 1000;
-    }
-
-    @EventSubscriber(eventClass = LookAndFeelChangedEvent.class)
-    public void lookAndFeelChanged(LookAndFeelChangedEvent evt) {
-        if (evt.getProvider() instanceof JGoodiesPlasticDarkLookAndFeelProvider) {
-            String message = Bundle.getString(JGoodiesPlasticDarkLookAndFeelProvider.class, "JGoodiesPlasticDarkLookAndFeelProvider.LafChanged.Message");
-            MessageDisplayer.information(ComponentUtil.findFrameWithIcon(), message);
-        }
     }
 }
