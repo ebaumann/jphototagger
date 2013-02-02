@@ -4,10 +4,8 @@ import java.io.File;
 import java.util.Arrays;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
+import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.module.programs.ProgramsUtil;
 import org.jphototagger.program.module.programs.StartPrograms;
 import org.openide.util.Lookup;
 
@@ -35,9 +33,7 @@ public final class ThumbnailDoubleklickController {
             File selectedFile = panel.getFileAtIndex(index);
             Program program = findDefaultImageOpenProgram(selectedFile);
             if (program == null) {
-                String message = Bundle.getString(ThumbnailDoubleklickController.class, "ControllerOpenFilesWithStandardApp.Info.DefineOpenApp");
-                MessageDisplayer.information(null, message);
-                ProgramsUtil.openSelectedFilesWidth(ProgramsUtil.addProgram(), false);
+                DesktopUtil.open(selectedFile, "ThumbnailDoubleklickController.OpenWithDesktop");
             } else {
                 StartPrograms startPrograms = new StartPrograms();
                 boolean waitForTermination = false;
