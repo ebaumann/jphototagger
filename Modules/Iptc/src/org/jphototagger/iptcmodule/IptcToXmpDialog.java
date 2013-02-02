@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileSystemView;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
@@ -17,6 +18,7 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.iptc.IptcPreferencesKeys;
+import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
@@ -34,6 +36,7 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  */
 public final class IptcToXmpDialog extends Dialog implements ProgressListener {
+
     private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.LastDirectory";
     private static final String KEY_INCLUDE_SUBDIRS = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.IncludeSubdirectories";
     private static final long serialVersionUID = 1L;
@@ -45,12 +48,12 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     public IptcToXmpDialog() {
         super(ComponentUtil.findFrameWithIcon(), false);
         initComponents();
-        setHelpPage();
-        MnemonicUtil.setMnemonics((Container) this);
-        listen();
+        postInitComponents();
     }
 
-    private void listen() {
+    private void postInitComponents() {
+        setHelpPage();
+        MnemonicUtil.setMnemonics((Container) this);
         AnnotationProcessor.process(this);
     }
 
@@ -69,7 +72,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         if (files == null) {
             throw new NullPointerException("files == null");
         }
-
         this.files = new ArrayList<>(files);
     }
 
@@ -85,11 +87,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser.Option options = getDirChooserOptionShowHiddenDirs();
         DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), directory, hideRootFiles, options);
-
         dlg.setPreferencesKey("IptcToXmpDialog.DirChooser");
         dlg.setVisible(true);
         toFront();
-
         if (dlg.isAccepted()) {
             directory = dlg.getSelectedDirectories().get(0);
             labelDirectoryName.setText(directory.getAbsolutePath());
@@ -122,7 +122,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     public void setVisible(boolean visible) {
         if (visible) {
             readProperties();
-
             if (files == null) {
                 init();
             } else {
@@ -132,7 +131,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
             writeProperties();
             dispose();
         }
-
         super.setVisible(visible);
     }
 
@@ -143,7 +141,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private String getIptcCharset() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         String charset = prefs.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
-
         return charset.isEmpty()
                 ? "ISO-8859-1"
                 : charset;
@@ -151,7 +148,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private void readProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.applyComponentSettings(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         checkBoxIncludeSubdirectories.setSelected(prefs.getBoolean(KEY_INCLUDE_SUBDIRS));
         setIptcCharsetFromUserSettings();
@@ -161,7 +157,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private void writeProperties() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setComponent(this, new PreferencesHints(PreferencesHints.Option.SET_TABBED_PANE_CONTENT));
         prefs.setString(KEY_DIRECTORY_NAME, directory.getAbsolutePath());
         prefs.setBoolean(KEY_INCLUDE_SUBDIRS, checkBoxIncludeSubdirectories.isSelected());
@@ -175,9 +170,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private void init() {
         boolean directoryExists = directory.exists() && directory.isDirectory();
-
         buttonStart.setEnabled(directoryExists);
-
         if (directoryExists) {
             labelDirectoryName.setText(directory.getAbsolutePath());
             setIconToDirectoryLabel();
@@ -194,7 +187,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
     private void setIptcCharset(String charset) {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
     }
 
@@ -218,13 +210,9 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         public void run() {
             cancel = false;
             setEnabledButtons();
-
             ConvertIptcToXmp convertIptcToXmp = new ConvertIptcToXmp(getFiles());
-
             convertIptcToXmp.addProgressListener(progressListener);
-
             Thread thread = new Thread(convertIptcToXmp, "JPhotoTagger: Writing IPTC to XMP sidecar files");
-
             thread.start();
         }
 
@@ -239,14 +227,11 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private List<File> getFiles() {
         if (files == null) {
             List<File> directories = new ArrayList<>();
-
             directories.add(directory);
-
             if (checkBoxIncludeSubdirectories.isSelected()) {
                 Option showHiddenFiles = getDirFilterOptionShowHiddenFiles();
                 directories.addAll(FileUtil.getSubDirectoriesRecursive(directory, cancelChooseRequest, showHiddenFiles));
             }
-
             return FileFilterUtil.getImageFilesOfDirectories(directories);
         } else {
             return Collections.unmodifiableList(files);
@@ -327,6 +312,11 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         }
     }
 
+    @EventSubscriber(eventClass = LookAndFeelChangedEvent.class)
+    public void lookAndFeelChanged(LookAndFeelChangedEvent evt) {
+        SwingUtilities.updateComponentTreeUI(this);
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -334,7 +324,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-
     private void initComponents() {//GEN-BEGIN:initComponents
 
         labelInfo = new javax.swing.JLabel();

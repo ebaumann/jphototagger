@@ -60,33 +60,27 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
     private void chooseDcraw() {
         File file = dcrawFileChooser.chooseFileFixedName();
-
         if (file != null) {
             dcraw = file;
         }
-
         labelDcrawOk.setIcon(dcraw == null ? ERROR_ICON : OK_ICON);
         setEnabledOkButton();
     }
 
     private void chooseConvert() {
         File file = convertFileChooser.chooseFileFixedName();
-
         if (file != null) {
             convert = file;
         }
-
         labelConvertOk.setIcon(convert == null ? ERROR_ICON : OK_ICON);
         setEnabledOkButton();
     }
 
     private void chooseMPlayer() {
         File file = mplayerFileChooser.chooseFileFixedName();
-
         if (file != null) {
             mplayer = file;
         }
-
         labelMPlayerOk.setIcon(mplayer == null ? ERROR_ICON : OK_ICON);
     }
 
@@ -98,7 +92,6 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         List<String> filenames = Arrays.asList("dcraw.exe", "dcrawMS.exe");
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Dcraw.FileChooser.Title");
-
         return createFileChooser(new HashSet<>(filenames), fileDescription, fileChooserTitle);
     }
 
@@ -106,7 +99,6 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String filename = "convert.exe";
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
-
         return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
@@ -114,13 +106,11 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         String filename = "mplayer.exe";
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.MPlayer.FileChooser.Title");
-
         return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
     }
 
     private FileChooser createFileChooser(Set<String> filenames, String fileDescription, String fileChooserTitle) {
         String programsDirectory = System.getenv("ProgramFiles");
-
         return new FileChooser.Builder(filenames)
                 .fileChooserTitle(fileChooserTitle)
                 .fileDescription(fileDescription)

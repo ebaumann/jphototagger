@@ -25,6 +25,7 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  */
 public final class FavoritePropertiesDialog extends Dialog {
+
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
     private static final long serialVersionUID = 1L;
     private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
@@ -35,6 +36,10 @@ public final class FavoritePropertiesDialog extends Dialog {
     public FavoritePropertiesDialog() {
         super(GUI.getAppFrame(), true);
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         setHelpPage();
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -47,15 +52,12 @@ public final class FavoritePropertiesDialog extends Dialog {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
-
         dlg.setPreferencesKey("FavoritePropertiesDialog.DirChooser");
         dlg.setVisible(true);
         toFront();
-
         if (dlg.isAccepted()) {
             setDirectory(dlg.getSelectedDirectories().get(0));
         }
-
         setOkEnabled();
     }
 
@@ -67,7 +69,6 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private boolean isAcceptHiddenDirectories() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         return prefs.containsKey(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 ? prefs.getBoolean(Preferences.KEY_ACCEPT_HIDDEN_DIRECTORIES)
                 : false;
@@ -77,16 +78,13 @@ public final class FavoritePropertiesDialog extends Dialog {
         if (favorite == null) {
             throw new NullPointerException("favorite == null");
         }
-
         if (!valuesOk()) {
             return false;
         }
-
         String favoriteName = favorite.getName();
         String componentName = getName();
         boolean componentNameIsFavoriteName = componentName.equalsIgnoreCase(favoriteName);
         File favoriteDirectory = favorite.getDirectory();
-
         return dir.equals(favoriteDirectory) && componentNameIsFavoriteName;
     }
 
@@ -98,7 +96,6 @@ public final class FavoritePropertiesDialog extends Dialog {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
         textFieldFavoriteName.setText(name);
         update = true;
     }
@@ -107,11 +104,8 @@ public final class FavoritePropertiesDialog extends Dialog {
         if (dir == null) {
             throw new NullPointerException("dir == null");
         }
-
         this.dir = dir;
-
         String dirPathName = dir.getAbsolutePath();
-
         labelDirectoryname.setText(dirPathName);
 
         if (textFieldFavoriteName.getText().trim().isEmpty()) {
@@ -147,7 +141,6 @@ public final class FavoritePropertiesDialog extends Dialog {
         if (checkValuesOk()) {
             String favoriteName = textFieldFavoriteName.getText().trim();
             boolean exists = repo.existsFavorite(favoriteName);
-
             if (!update && exists) {
                 String message = Bundle.getString(FavoritePropertiesDialog.class, "FavoritePropertiesDialog.Error.FavoriteExists", favoriteName);
                 MessageDisplayer.error(this, message);
@@ -162,10 +155,8 @@ public final class FavoritePropertiesDialog extends Dialog {
         if (!valuesOk()) {
             String message = Bundle.getString(FavoritePropertiesDialog.class, "FavoritePropertiesDialog.Error.InvalidInput");
             MessageDisplayer.error(this, message);
-
             return false;
         }
-
         return true;
     }
 
@@ -183,13 +174,11 @@ public final class FavoritePropertiesDialog extends Dialog {
         } else {
             directoryToSettings();
         }
-
         super.setVisible(visible);
     }
 
     private void directoryFromSettings() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         if (prefs.containsKey(KEY_LAST_DIRECTORY)) {
             dir = new File(prefs.getString(KEY_LAST_DIRECTORY));
         }
@@ -201,7 +190,6 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void directoryToSettings() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-
         prefs.setString(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
     }
 
@@ -215,7 +203,6 @@ public final class FavoritePropertiesDialog extends Dialog {
         if (!buttonOk.isEnabled()) {
             return;
         }
-
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             exitIfOk();
         }
@@ -228,7 +215,6 @@ public final class FavoritePropertiesDialog extends Dialog {
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-
     private void initComponents() {//GEN-BEGIN:initComponents
 
         labelPromptFavoriteName = new javax.swing.JLabel();

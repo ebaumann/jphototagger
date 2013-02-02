@@ -25,10 +25,14 @@ import java.util.logging.XMLFormatter;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumnModel;
 import javax.swing.text.html.HTMLDocument;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;
@@ -59,16 +63,13 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     public LogfileDialog(Frame parent, String logfilename, Class<?> formatterClass) {
         super(parent, false);
-
         if (logfilename == null) {
             throw new NullPointerException("logfilename == null");
         }
-
         if (formatterClass == null) {
             throw new NullPointerException("formatterClass == null");
         }
-
-        this.logfilename    = logfilename;
+        this.logfilename = logfilename;
         this.formatterClass = formatterClass;
         initPaneIndexOfLogfileType();
         initComponents();
@@ -86,11 +87,11 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         initTableLogfileRecords();
         initLevelOfCheckbox();
         listenToCheckboxes();
+        AnnotationProcessor.process(this);
     }
 
     private void setLogfileNameLabelText() {
         String pattern = labelLogfileName.getText();
-
         labelLogfileName.setText(MessageFormat.format(pattern, logfilename));
     }
 
@@ -124,7 +125,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private void listenToCheckboxes() {
         Set<JCheckBox> checkBoxes = levelOfCheckBox.keySet();
-
         for (JCheckBox checkBox : checkBoxes) {
             checkBox.addActionListener(this);
         }
@@ -132,7 +132,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private void reload() {
         boolean simple = SimpleFormatter.class.equals(formatterClass);
-
         if (simple) {
             try {
                 textAreaSimple.setText(FileUtil.getContentAsString(new File(logfilename), "UTF-8"));
@@ -147,17 +146,13 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private void resetVisibeLevels() {
         visibleLevels.clear();
-
         Set<JCheckBox> checkBoxes = levelOfCheckBox.keySet();
-
         for (JCheckBox checkBox : checkBoxes) {
             if (checkBox.isSelected()) {
                 visibleLevels.add(levelOfCheckBox.get(checkBox));
             }
         }
-
         setTable();
-
         if (tableLogfileRecords.getSelectedRow() < 0) {
             textPaneDetails.setText("");
         }
@@ -166,7 +161,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private boolean checkFileSize() {
         File logfile = new File(logfilename);
         long logfileBytes = logfile.length();
-
         if (logfileBytes <= 0) {
             errorMessageEmpty();
             return false;
@@ -174,14 +168,12 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
             errorMessageMaxBytes();
             return false;
         }
-
         return true;
     }
 
     private void errorMessageEmpty() throws HeadlessException {
         String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.LogfileIsEmpty");
         String title = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.LogfileIsEmpty.Title");
-
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -216,10 +208,8 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         for (JCheckBox levelCheckBox : levelOfCheckBox.keySet()) {
             Level level = levelOfCheckBox.get(levelCheckBox);
             int levelIntValue = level.intValue();
-
             if (levelIntValue < intValue) {
                 JLabel iconLabel = iconLabelOfCheckBox.get(levelCheckBox);
-
                 panelFilterCheckBoxes.remove(iconLabel);
                 panelFilterCheckBoxes.remove(levelCheckBox);
             }
@@ -242,10 +232,8 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         int widthColumn0 = 25;
         int widthColumn1 = 150;
         int widthColumn2 = width - widthColumn0 - widthColumn1;
-
         if (widthColumn2 > 0) {
             TableColumnModel columnModel = tableLogfileRecords.getColumnModel();
-
             columnModel.getColumn(0).setPreferredWidth(widthColumn0);
             columnModel.getColumn(1).setPreferredWidth(widthColumn1);
             columnModel.getColumn(2).setPreferredWidth(widthColumn2);
@@ -255,101 +243,91 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private void showDetails() {
         LogfilesTableModel model = (LogfilesTableModel) tableLogfileRecords.getModel();
         int selectedRowIndex = tableLogfileRecords.getSelectedRow();
-
         if (selectedRowIndex >= 0) {
             showDetails(model.getLogfileRecord(selectedRowIndex));
         }
     }
 
     private void showDetails(LogfileRecord logfileRecord) {
-        StringBuffer details = new StringBuffer(1000);
-
-        details.append("<html>");
-        details.append("\n<table>");
+        StringBuilder sb = new StringBuilder(1000);
+        sb.append("<html>")
+          .append("\n<table>");
         addDetailTableRow(
-            details,
+            sb,
             Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Loglevel"),
             logfileRecord.getLevel().getLocalizedName());
         addDetailTableRow(
-            details,
+            sb,
             Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Message"),
             logfileRecord.getMessage());
         addDetailTableRow(
-            details,
+            sb,
             Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.LoggerClass"),
             logfileRecord.getLogger());
         addDetailTableRow(
-            details, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Class"),
+            sb, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Class"),
             logfileRecord.getClassname());
         addDetailTableRow(
-            details, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Method"),
+            sb, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Method"),
             logfileRecord.getMethodname());
         addDetailTableRow(
-            details, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Thread"),
+            sb, Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.Thread"),
             logfileRecord.getThread());
-        details.append("\n</table>");
-        addDetailException(details, logfileRecord.getException());
-        details.append("\n</html>");
-        textPaneDetails.setText(details.toString());
+        sb.append("\n</table>");
+        addDetailException(sb, logfileRecord.getException());
+        sb.append("\n</html>");
+        textPaneDetails.setText(sb.toString());
         textPaneDetails.moveCaretPosition(0);
     }
 
-    private void addDetailTableRow(StringBuffer stringBuffer, String rowHeader,
-                                   String rowData) {
+    private void addDetailTableRow(StringBuilder sb, String rowHeader, String rowData) {
         if (rowData != null) {
-            stringBuffer.append("\n\t<tr>");
-            stringBuffer.append("\n\t\t<td>");
-            stringBuffer.append("<strong>").append(rowHeader).append("</strong>");
-            stringBuffer.append("</td>");
-            stringBuffer.append("<td><font color=\"#5555aa\">");
-            stringBuffer.append(rowData);
-            stringBuffer.append("</font></td>");
-            stringBuffer.append("\n\t</tr>");
+            sb.append("\n\t<tr>")
+              .append("\n\t\t<td>")
+              .append("<strong>")
+              .append(rowHeader)
+              .append("</strong>")
+              .append("</td>")
+              .append("<td><font color=\"#5555aa\">")
+              .append(rowData)
+              .append("</font></td>")
+              .append("\n\t</tr>");
         }
     }
 
-    private void addDetailException(StringBuffer stringBuffer,
-                                    ExceptionLogfileRecord ex) {
+    private void addDetailException(StringBuilder sb, ExceptionLogfileRecord ex) {
         if (ex != null) {
-            addDetailExceptionMessage(ex, stringBuffer);
-            stringBuffer.append("\n<pre>");
-
+            addDetailExceptionMessage(ex, sb);
+            sb.append("\n<pre>");
             List<FrameLogfileRecord> frames = ex.getFrames();
-
             for (FrameLogfileRecord frame : frames) {
-                stringBuffer
-                        .append("\n")
-                        .append(frame.getClassName())
-                        .append(":");
-                stringBuffer
-                        .append(" ")
-                        .append(frame.getMethodName());
-                stringBuffer
-                        .append(Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.StartLineNumber"))
-                        .append(frame.getLine())
-                        .append(")");
+                sb
+                  .append("\n")
+                  .append(frame.getClassName())
+                  .append(":")
+                  .append(" ")
+                  .append(frame.getMethodName())
+                  .append(Bundle.getString(LogfileDialog.class, "LogfileDialog.Info.StartLineNumber"))
+                  .append(frame.getLine())
+                  .append(")");
             }
-
-            stringBuffer.append("\n</pre>");
+            sb.append("\n</pre>");
         }
     }
 
-    private void addDetailExceptionMessage(ExceptionLogfileRecord exception,
-            StringBuffer stringBuffer) {
+    private void addDetailExceptionMessage(ExceptionLogfileRecord exception, StringBuilder sb) {
         String message = exception.getMessage();
-
         if (message != null) {
-            stringBuffer
-                    .append("\n<br /><font color=\"ff0000\">")
-                    .append(message)
-                    .append("</font>");
+            sb
+              .append("\n<br /><font color=\"ff0000\">")
+              .append(message)
+              .append("</font>");
         }
     }
 
     private void setTable() {
         if ((logfilename != null) &&!logfilename.isEmpty()) {
             LogfilesTableModel model = new LogfilesTableModel(filterString, visibleLevels);
-
             tableLogfileRecords.setModel(model);
             Collections.sort(logfileRecords, LogfileRecordComparatorDescendingByTime.INSTANCE);
             model.setRecords(logfileRecords);
@@ -360,7 +338,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private void flushLoggerHandlers() {
         Handler[] handlers = Logger.getLogger("").getHandlers();
-
         for (Handler handler : handlers) {
             handler.flush();
         }
@@ -368,13 +345,11 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private boolean isCheckbox(Object source) {
         Set<JCheckBox> checkBoxes = levelOfCheckBox.keySet();
-
         for (JCheckBox checkBox : checkBoxes) {
             if (checkBox == source) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -398,9 +373,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         if (visible) {
             boolean simpleFormatter = formatterClass.equals(SimpleFormatter.class);
             boolean xmlFormatter = formatterClass.equals(XMLFormatter.class);
-
             panelSearchSimple.setEnabled(simpleFormatter);
-
             if (xmlFormatter) {
                 readXml();
                 panelSearchXml.requestFocusInWindow();
@@ -419,7 +392,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
     private void errorMessageNotSupportedFormat() {
         String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.UnknownLogfileFormat");
         String title = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.UnknownLogfileFormat.Title");
-
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
@@ -442,8 +414,12 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
     private void showCard(String cardName) {
         CardLayout cardLayout = (CardLayout) panelCards.getLayout();
-
         cardLayout.show(panelCards, cardName);
+    }
+
+    @EventSubscriber(eventClass = LookAndFeelChangedEvent.class)
+    public void lookAndFeelChanged(LookAndFeelChangedEvent evt) {
+        SwingUtilities.updateComponentTreeUI(this);
     }
 
     /**
@@ -453,7 +429,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -832,7 +807,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 LogfileDialog dialog =
@@ -840,7 +814,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
                         XMLFormatter.class);
 
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
