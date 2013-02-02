@@ -169,12 +169,10 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
 
         setName("Form"); // NOI18N
 
-        labelTitle.setForeground(new java.awt.Color(0, 0, 255));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         labelTitle.setText(bundle.getString("RenameFilenamesInRepositoryPanel.labelTitle.text")); // NOI18N
         labelTitle.setName("labelTitle"); // NOI18N
 
-        labelSearch.setForeground(new java.awt.Color(0, 196, 0));
         labelSearch.setLabelFor(textFieldSearch);
         labelSearch.setText(bundle.getString("RenameFilenamesInRepositoryPanel.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
@@ -186,7 +184,6 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
             }
         });
 
-        labelReplacement.setForeground(new java.awt.Color(0, 196, 0));
         labelReplacement.setLabelFor(textFieldReplacement);
         labelReplacement.setText(bundle.getString("RenameFilenamesInRepositoryPanel.labelReplacement.text")); // NOI18N
         labelReplacement.setName("labelReplacement"); // NOI18N
