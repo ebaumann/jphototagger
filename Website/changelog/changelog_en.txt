@@ -6,7 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.1 2013-02-02
 -----------------
 
-* Added Look & Feel: Motif
+* Added Look & Feels (only choosabel, if available under
+  the operating system): GTK, Motif, Windows Classic
 * Changing the Look & Feel doesn't require restarting
   JPhotoTagger
 
