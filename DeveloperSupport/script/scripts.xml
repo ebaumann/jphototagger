@@ -4,7 +4,6 @@
     <property environment="env"/>
     <property name="repo.root" value="../.."/>
     <property name="translation.root" value="${repo.root}/OmegaT"/>
-    <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.properties"/><!-- Template see in ../conf -->
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${repo.root}/DeveloperSupport/script/ant-googlecode.jar"/>
     <target name="dist_0_all_no_pdf_manual">
         <antcall target="dist_1_set_version_info" />
@@ -40,10 +39,12 @@
         </exec>
     </target>
     <target name="dist_4_upload" description="Uploading Distribution to Google Code">
-        <!--${googlecode.username}, ${googlecode.password} and ${jptversion}
-        will be read from scripts.properties within this directory
+        <!--${googlecode.username} and ${googlecode.password}
+            will be read from scripts.googlecode.properties
+            and ${jptversion} from scripts.version.properties
         -->
-        <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.properties"/>
+        <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.googlecode.properties"/>
+        <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.version.properties"/>
         <gcupload
             projectname="jphototagger"
             username="${googlecode.username}"
