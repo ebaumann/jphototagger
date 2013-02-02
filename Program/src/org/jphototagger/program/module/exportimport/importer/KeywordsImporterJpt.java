@@ -51,8 +51,8 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Repos
             if (nl.getLength() > 0) {
                 return getPaths(nl.item(0));
             }
-        } catch (Exception ex) {
-            Logger.getLogger(KeywordsImporterJpt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(KeywordsImporterJpt.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;

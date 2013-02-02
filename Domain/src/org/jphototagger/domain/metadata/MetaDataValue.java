@@ -131,8 +131,8 @@ public class MetaDataValue {
         private Object string2date(String s) {
             try {
                 return new java.sql.Date(DateFormat.getInstance().parse(s).getTime());
-            } catch (Exception ex) {
-                Logger.getLogger(MetaDataValue.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(MetaDataValue.class.getName()).log(Level.SEVERE, null, t);
             }
 
             return s;

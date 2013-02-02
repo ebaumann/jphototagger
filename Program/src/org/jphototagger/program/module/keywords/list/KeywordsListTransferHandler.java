@@ -88,8 +88,8 @@ public final class KeywordsListTransferHandler extends TransferHandler {
 
         try {
             return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
-        } catch (Exception ex) {
-            Logger.getLogger(KeywordsListTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(KeywordsListTransferHandler.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;

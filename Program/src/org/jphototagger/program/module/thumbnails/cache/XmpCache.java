@@ -78,7 +78,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
                 if (imageFiles.size() < 1) {
                     try {
                         imageFile = wq.fetch().file;
-                    } catch (Exception ex) {
+                    } catch (Throwable t) {
                         continue;
                     }
                 } else {
@@ -101,7 +101,7 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
 
                             // wait a bit to allow ThumbnailCache to get some disk bandwidth
                             Thread.sleep(10);
-                        } catch (Exception ex) {
+                        } catch (Throwable t) {
                         }
                     }
 

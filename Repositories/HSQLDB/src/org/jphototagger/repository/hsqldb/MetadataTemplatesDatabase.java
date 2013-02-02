@@ -96,8 +96,8 @@ final class MetadataTemplatesDatabase extends Database {
             con.commit();
             inserted = true;
             notifyInserted(template);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -215,8 +215,8 @@ final class MetadataTemplatesDatabase extends Database {
                 template = new MetadataTemplate();
                 setValues(template, rs);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -245,8 +245,8 @@ final class MetadataTemplatesDatabase extends Database {
                 setValues(template, rs);
                 templates.add(template);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -401,8 +401,8 @@ final class MetadataTemplatesDatabase extends Database {
             if (updated) {
                 notifyUpdated(oldTemplate, template);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -431,8 +431,8 @@ final class MetadataTemplatesDatabase extends Database {
             if (renamed) {
                 notifyRenamed(fromName, toName);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -467,8 +467,8 @@ final class MetadataTemplatesDatabase extends Database {
             if (deleted) {
                 notifyDelted(template);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -494,8 +494,8 @@ final class MetadataTemplatesDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);

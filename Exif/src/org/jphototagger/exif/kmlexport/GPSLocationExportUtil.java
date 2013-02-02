@@ -148,8 +148,8 @@ public final class GPSLocationExportUtil {
                 fos = new FileOutputStream(exportFile);
                 exporter.export(gpsImageInfos, fos);
                 fos.flush();
-            } catch (Exception ex) {
-                Logger.getLogger(GPSLocationExportUtil.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(GPSLocationExportUtil.class.getName()).log(Level.SEVERE, null, t);
                 String message = Bundle.getString(GPSLocationExportUtil.class, "GPSLocationExportUtil.Error.Export", exportFile);
                 MessageDisplayer.error(null, message);
             } finally {

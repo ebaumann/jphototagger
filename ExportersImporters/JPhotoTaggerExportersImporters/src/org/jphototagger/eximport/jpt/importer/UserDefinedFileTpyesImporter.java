@@ -36,8 +36,8 @@ public final class UserDefinedFileTpyesImporter implements RepositoryDataImporte
                     repo.saveUserDefinedFileType(fileType);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTpyesImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(UserDefinedFileTpyesImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

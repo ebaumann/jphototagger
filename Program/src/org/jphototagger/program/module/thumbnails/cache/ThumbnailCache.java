@@ -177,8 +177,8 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                     }
 
                     cache.update(image, imageFile);
-                } catch (Exception ex) {
-                    Logger.getLogger(ThumbnailFetcher.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(ThumbnailFetcher.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }

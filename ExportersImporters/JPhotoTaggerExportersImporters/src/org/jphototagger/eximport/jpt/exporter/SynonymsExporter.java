@@ -59,8 +59,8 @@ public final class SynonymsExporter implements RepositoryDataExporter {
             insertSynonyms(doc);
             initTransformer(trans);
             trans.transform(ds, sr);
-        } catch (Exception ex) {
-            Logger.getLogger(SynonymsExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(SynonymsExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

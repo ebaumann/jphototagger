@@ -37,8 +37,8 @@ public final class ProgramsImporter implements RepositoryDataImporter {
                     repo.saveProgram(program);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(ProgramsImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ProgramsImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

@@ -44,8 +44,8 @@ public final class UserDefinedFileTypesExporter implements RepositoryDataExporte
         try {
             List<UserDefinedFileType> filter = repo.findAllUserDefinedFileTypes();
             XmlObjectExporter.export(new CollectionWrapper(filter), xmpFile);
-        } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileTypesExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(UserDefinedFileTypesExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

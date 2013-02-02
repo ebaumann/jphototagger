@@ -95,7 +95,7 @@ public final class ScheduledTasks implements ActionListener {
                         setStart();
                         startUpdate();
                     }
-                } catch (Exception ex) {
+                } catch (Throwable t) {
                     Logger.getLogger(ScheduledTasks.class.getName()).log(Level.SEVERE, null, this);
                 }
             }

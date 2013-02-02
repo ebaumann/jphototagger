@@ -44,8 +44,8 @@ public final class WordsetsExporter implements RepositoryDataExporter {
         try {
             List<Wordset> wordsets = repo.findAll();
             XmlObjectExporter.export(new CollectionWrapper(wordsets), xmlFile);
-        } catch (Exception ex) {
-            Logger.getLogger(WordsetsExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(WordsetsExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

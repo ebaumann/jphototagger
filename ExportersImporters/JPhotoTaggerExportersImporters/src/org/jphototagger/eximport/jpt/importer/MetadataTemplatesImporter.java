@@ -62,8 +62,8 @@ public final class MetadataTemplatesImporter implements RepositoryDataImporter, 
             Document doc = docBuilder.parse(file);
 
             importTemplates(doc);
-        } catch (Exception ex) {
-            Logger.getLogger(MetadataTemplatesImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(MetadataTemplatesImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

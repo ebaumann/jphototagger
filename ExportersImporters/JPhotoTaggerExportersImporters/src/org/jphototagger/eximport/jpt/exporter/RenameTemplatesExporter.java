@@ -48,8 +48,8 @@ public final class RenameTemplatesExporter implements RepositoryDataExporter {
             Set<RenameTemplate> templates = repo.findAllRenameTemplates();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
-        } catch (Exception ex) {
-            Logger.getLogger(RenameTemplatesExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(RenameTemplatesExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

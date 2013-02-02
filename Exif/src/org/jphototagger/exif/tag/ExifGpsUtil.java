@@ -154,8 +154,8 @@ public final class ExifGpsUtil {
                 cal.set(Calendar.MINUTE, (int) ExifDatatypeUtil.convertExifRationalToDouble(timeStamp.getMinutes()));
                 cal.set(Calendar.SECOND, (int) ExifDatatypeUtil.convertExifRationalToDouble(timeStamp.getSeconds()));
                 return cal;
-            } catch (Exception ex) {
-                Logger.getLogger(ExifGpsUtil.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(ExifGpsUtil.class.getName()).log(Level.SEVERE, null, t);
             }
         }
         return null;

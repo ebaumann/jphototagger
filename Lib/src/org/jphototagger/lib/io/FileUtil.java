@@ -604,8 +604,8 @@ public final class FileUtil {
         MessageDigest md5;
         try {
             md5 = MessageDigest.getInstance("MD5");
-        } catch (Exception ex) {
-            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(FileUtil.class.getName()).log(Level.SEVERE, null, t);
 
             return null;
         }

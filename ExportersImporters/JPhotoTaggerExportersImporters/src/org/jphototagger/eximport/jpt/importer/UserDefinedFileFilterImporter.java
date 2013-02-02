@@ -36,8 +36,8 @@ public final class UserDefinedFileFilterImporter implements RepositoryDataImport
                     repo.saveUserDefinedFileFilter(filter);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileFilterImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(UserDefinedFileFilterImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

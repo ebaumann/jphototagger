@@ -49,8 +49,8 @@ public final class ProgramsExporter implements RepositoryDataExporter {
 
             programs.addAll(repo.findAllPrograms(ProgramType.PROGRAM));
             XmlObjectExporter.export(new CollectionWrapper(programs), xmlFile);
-        } catch (Exception ex) {
-            Logger.getLogger(ProgramsExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ProgramsExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

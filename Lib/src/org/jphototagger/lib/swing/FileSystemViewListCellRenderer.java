@@ -43,8 +43,8 @@ public class FileSystemViewListCellRenderer implements ListCellRenderer<File> {
             synchronized (FILE_SYSTEM_VIEW) {
                 try {
                     label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
-                } catch (Exception ex) {
-                    Logger.getLogger(FileSystemViewListCellRenderer.class.getName()).log(Level.WARNING, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(FileSystemViewListCellRenderer.class.getName()).log(Level.WARNING, null, t);
                 }
             }
 

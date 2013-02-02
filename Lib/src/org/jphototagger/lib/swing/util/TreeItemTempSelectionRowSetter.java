@@ -86,8 +86,8 @@ public final class TreeItemTempSelectionRowSetter implements MouseListener, Popu
 
                 m.invoke(renderer, index);
                 tree.repaint();
-            } catch (Exception ex) {
-                Logger.getLogger(TreeItemTempSelectionRowSetter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(TreeItemTempSelectionRowSetter.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }

@@ -53,9 +53,9 @@ public final class FileSystemDirectories {
                     logDelete(directory, count);
 
                     return true;
-                } catch (Exception ex) {
+                } catch (Throwable t) {
                     TreeFileSystemDirectories.errorMessageDelete(directory.getName());
-                    Logger.getLogger(FileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FileSystemDirectories.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }
@@ -94,8 +94,8 @@ public final class FileSystemDirectories {
 
                             return newDirectory;
                         }
-                    } catch (Exception ex) {
-                        Logger.getLogger(FileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Throwable t) {
+                        Logger.getLogger(FileSystemDirectories.class.getName()).log(Level.SEVERE, null, t);
                     }
                 }
             }

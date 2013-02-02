@@ -47,8 +47,8 @@ public final class SavedSearchesExporter implements RepositoryDataExporter {
             List<SavedSearch> savedSearches = repo.findAllSavedSearches();
 
             XmlObjectExporter.export(new CollectionWrapper(savedSearches), xmlFile);
-        } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(SavedSearchesExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

@@ -47,8 +47,8 @@ final class MetaDataValuesDatabase extends Database {
             while (rs.next()) {
                 content.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             content.clear();
         } finally {
             close(rs, stmt);

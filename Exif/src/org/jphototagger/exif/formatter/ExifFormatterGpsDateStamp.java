@@ -40,8 +40,8 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
             Date date = df.parse(rawString.substring(0, 10));
 
             return DateFormat.getDateInstance(DateFormat.FULL).format(date);
-        } catch (Exception ex) {
-            Logger.getLogger(ExifFormatterGpsDateStamp.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ExifFormatterGpsDateStamp.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return rawString;

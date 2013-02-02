@@ -90,8 +90,8 @@ public final class IconUtil {
             synchronized (fileSystemView) {
                 try {
                     icon = fileSystemView.getSystemIcon(file);
-                } catch (Exception ex) {
-                    Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(IconUtil.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }

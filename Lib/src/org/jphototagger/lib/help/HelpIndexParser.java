@@ -64,8 +64,8 @@ public final class HelpIndexParser {
 
             document.getDocumentElement().normalize();
             rootNode = getTree(document);
-        } catch (Exception ex) {
-            Logger.getLogger(HelpIndexParser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(HelpIndexParser.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return rootNode;

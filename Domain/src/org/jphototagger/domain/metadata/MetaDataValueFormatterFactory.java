@@ -36,8 +36,8 @@ final class MetaDataValueFormatterFactory {
             integerFormatterFactory = new DefaultFormatterFactory(integerFormatter);
             doubleFormatterFactory = new DefaultFormatterFactory(doubleFormatter);
             dateFormatterFactory = new DefaultFormatterFactory(new MaskFormatter("####-##-##"));
-        } catch (Exception ex) {
-            Logger.getLogger(MetaDataValueFormatterFactory.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(MetaDataValueFormatterFactory.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

@@ -48,8 +48,8 @@ public final class SynonymsImporter implements RepositoryDataImporter, EntityRes
             Document doc = docBuilder.parse(file);
 
             importSynonyms(doc);
-        } catch (Exception ex) {
-            Logger.getLogger(SynonymsImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(SynonymsImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

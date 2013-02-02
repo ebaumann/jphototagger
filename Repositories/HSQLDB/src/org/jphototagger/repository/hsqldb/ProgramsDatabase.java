@@ -82,8 +82,8 @@ final class ProgramsDatabase extends Database {
             countAffectedRows = stmt.executeUpdate();
             con.commit();
             notifyInserted(program);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -170,8 +170,8 @@ final class ProgramsDatabase extends Database {
             countAffectedRows = stmt.executeUpdate();
             con.commit();
             notifyUpdated(program);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -229,8 +229,8 @@ final class ProgramsDatabase extends Database {
             repo.deleteAction(program);
             deleteProgramFromDefaultPrograms(con, program.getId());
             notifyDeleted(program);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -262,8 +262,8 @@ final class ProgramsDatabase extends Database {
             while (rs.next()) {
                 programs.add(createProgramOfCurrentRecord(rs));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -355,8 +355,8 @@ final class ProgramsDatabase extends Database {
             if (rs.next()) {
                 program = createProgramOfCurrentRecord(rs);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -390,8 +390,8 @@ final class ProgramsDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getLong(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -419,8 +419,8 @@ final class ProgramsDatabase extends Database {
             if (rs.next()) {
                 program = createProgramOfCurrentRecord(rs);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -460,8 +460,8 @@ final class ProgramsDatabase extends Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -557,8 +557,8 @@ final class ProgramsDatabase extends Database {
                 defaultProgram.setProgramAlias(rs.getString(3));
                 defaultPrograms.add(defaultProgram);
             }
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, null, e);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             return Collections.emptyList();
         } finally {
             close(stmt);

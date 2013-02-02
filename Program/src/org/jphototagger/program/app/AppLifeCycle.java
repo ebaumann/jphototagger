@@ -307,8 +307,8 @@ public final class AppLifeCycle {
             try {
                 // Let the tasks a little bit time to complete until they can interrupt
                 Thread.sleep(MILLISECONDS_SLEEP);
-            } catch (Exception ex) {
-                Logger.getLogger(CancelOtherTasks.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(CancelOtherTasks.class.getName()).log(Level.SEVERE, null, t);
             }
         }
 

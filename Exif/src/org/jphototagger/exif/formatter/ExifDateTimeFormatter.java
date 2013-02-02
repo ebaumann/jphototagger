@@ -24,8 +24,8 @@ public final class ExifDateTimeFormatter {
                 GregorianCalendar cal = new GregorianCalendar(year, month - 1, day, hour, minute, second);
                 DateFormat df = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
                 return df.format(cal.getTime());
-            } catch (Exception ex) {
-                Logger.getLogger(ExifFormatterDateTimeOriginal.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(ExifFormatterDateTimeOriginal.class.getName()).log(Level.SEVERE, null, t);
             }
         }
         return stringValue;

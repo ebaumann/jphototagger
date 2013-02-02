@@ -62,8 +62,8 @@ public final class XmlObjectExporter {
         try {
             writer.flush();
             writer.close();
-        } catch (Exception ex) {
-            Logger.getLogger(XmlObjectExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(XmlObjectExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

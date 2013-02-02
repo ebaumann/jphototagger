@@ -50,8 +50,8 @@ final class ExifFactory {
             }
             setExifGps(exifTags, exif);
             return exif;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             return null;
         }
     }
@@ -116,8 +116,8 @@ final class ExifFactory {
                     exif.setFocalLength(focalLength);
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
     }
 
@@ -131,8 +131,8 @@ final class ExifFactory {
                 short isoSpeedRatings = Short.parseShort(isoSpeedRatingsString);
                 exif.setIsoSpeedRatings(isoSpeedRatings);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
     }
 

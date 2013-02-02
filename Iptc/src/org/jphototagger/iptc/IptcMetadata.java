@@ -41,8 +41,8 @@ public final class IptcMetadata {
                 if (collection != null) {
                     addEntries(collection.getEntries(IPTCConstants.RECORD_APPLICATION), metadata);
                 }
-            } catch (Exception ex) {
-                LOGGER.log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                LOGGER.log(Level.SEVERE, null, t);
             }
         }
 

@@ -53,8 +53,8 @@ final class UserDefinedFileFiltersDatabase extends Database {
                 filter.setId(findId(con, filter.getName()));
                 notifyInserted(filter);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -120,8 +120,8 @@ final class UserDefinedFileFiltersDatabase extends Database {
             if (count == 1) {
                 notifyUpdated(filter);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -151,8 +151,8 @@ final class UserDefinedFileFiltersDatabase extends Database {
             if (count == 1) {
                 notifyDeleted(filter);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -180,8 +180,8 @@ final class UserDefinedFileFiltersDatabase extends Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -210,8 +210,8 @@ final class UserDefinedFileFiltersDatabase extends Database {
                 f.setExpression(getString(rs, 5));
                 filter.add(f);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);

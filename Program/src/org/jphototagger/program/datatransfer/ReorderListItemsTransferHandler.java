@@ -86,8 +86,8 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
             if (td instanceof IndexInfo) {
                 indexInfo = (IndexInfo) td;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(ReorderListItemsTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ReorderListItemsTransferHandler.class.getName()).log(Level.SEVERE, null, t);
         }
 
         if (indexInfo != null) {
@@ -115,8 +115,8 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
         for (int index : selIndices) {
             try {
                 selValues.add(model.get(index));
-            } catch (Exception ex) {
-                Logger.getLogger(ReorderListItemsTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(ReorderListItemsTransferHandler.class.getName()).log(Level.SEVERE, null, t);
             }
         }
         for (Object selValue : selValues) {
@@ -145,8 +145,8 @@ public final class ReorderListItemsTransferHandler extends TransferHandler {
             if (td instanceof IndexInfo) {
                 return ((IndexInfo) td).source;
             }
-        } catch (Exception ex) {
-            Logger.getLogger(ReorderListItemsTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ReorderListItemsTransferHandler.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;

@@ -59,8 +59,8 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             if (countAffectedRows > 0) {
                 EventBus.publish(new ActionAfterRepoUpdateInsertedEvent(this, program));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -94,8 +94,8 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             if (countAffectedRows > 0) {
                 EventBus.publish(new ActionAfterRepoUpdateDeletedEvent(this, program));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -131,8 +131,8 @@ final class ActionsAfterDbInsertionDatabase extends Database {
                     programs.add(program);
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -164,8 +164,8 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -187,8 +187,8 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -230,8 +230,8 @@ final class ActionsAfterDbInsertionDatabase extends Database {
             if (allReordered) {
                 EventBus.publish(new ActionsAfterRepoUpdateReorderedEvent(this, actions));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);

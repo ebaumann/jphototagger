@@ -238,8 +238,8 @@ public final class NikonMakerNote {
         for (String key : keys) {
             try {
                 makerNoteTagInfos.add(new MakerNoteTagInfo(indexOfTag(key), bundle.getString(key)));
-            } catch (Exception ex) {
-                Logger.getLogger(NikonMakerNote.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(NikonMakerNote.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }

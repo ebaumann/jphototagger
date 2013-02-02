@@ -71,8 +71,8 @@ final class ThumbnailUtil {
                 ioParamBlock.setSource(file);
                 thumbnail = Imagero.getThumbnail(ioParamBlock, 0);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             return new ImageAndReader(null, null);
         }
         return new ImageAndReader(thumbnail, reader);
@@ -89,8 +89,8 @@ final class ThumbnailUtil {
             Image image = Imagero.readImage(procOptions);
             closeReader(procOptions.getImageReader());
             return image;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
         return null;
     }
@@ -166,8 +166,8 @@ final class ThumbnailUtil {
 
             // Letzter Skalierungsschritt auf Zielgröße
             scaledImage = scaleImage(scaledWidth, scaledHeight, img);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
 
         return scaledImage;
@@ -205,8 +205,8 @@ final class ThumbnailUtil {
             MediaTracker mediaTracker = new MediaTracker(new Container());
             mediaTracker.addImage(image, 0);
             mediaTracker.waitForID(0);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
         return image;
     }

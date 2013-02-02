@@ -124,8 +124,8 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
             if (StringUtil.hasContent(text)) {
                 inputAsInteger = Integer.valueOf(text).intValue();
             }
-        } catch (Exception ex) {
-            Logger.getLogger(RatingSelectionPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(RatingSelectionPanel.class.getName()).log(Level.SEVERE, null, t);
             return;
         }
 

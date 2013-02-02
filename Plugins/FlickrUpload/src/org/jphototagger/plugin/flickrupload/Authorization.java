@@ -80,8 +80,8 @@ final class Authorization {
             authenticated = true;
 
             return true;
-        } catch (Exception ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, t);
             JOptionPane.showMessageDialog(null, Bundle.getString(Authorization.class, "Auth.Error"));
         }
 

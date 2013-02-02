@@ -26,8 +26,8 @@ public final class SystemUtil {
                 int minor = Integer.parseInt(tok.nextToken());
 
                 return new Version(major, minor);
-            } catch (Exception ex) {
-                Logger.getLogger(SystemUtil.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(SystemUtil.class.getName()).log(Level.SEVERE, null, t);
             }
         }
 

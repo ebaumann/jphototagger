@@ -48,8 +48,8 @@ public final class UserDefinedFileFilterExporter implements RepositoryDataExport
             Set<UserDefinedFileFilter> filter = repo.findAllUserDefinedFileFilters();
 
             XmlObjectExporter.export(new CollectionWrapper(filter), xmpFile);
-        } catch (Exception ex) {
-            Logger.getLogger(UserDefinedFileFilterExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(UserDefinedFileFilterExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

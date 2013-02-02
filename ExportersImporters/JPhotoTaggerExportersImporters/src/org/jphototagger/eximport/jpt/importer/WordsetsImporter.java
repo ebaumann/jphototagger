@@ -35,8 +35,8 @@ public final class WordsetsImporter implements RepositoryDataImporter {
                     repo.insert(wordset);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(WordsetsImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(WordsetsImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

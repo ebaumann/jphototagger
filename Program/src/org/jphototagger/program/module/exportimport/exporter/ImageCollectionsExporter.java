@@ -49,8 +49,8 @@ public final class ImageCollectionsExporter implements RepositoryDataExporter {
             List<ImageCollection> templates = repo.findAllImageCollections();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
-        } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageCollectionsExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

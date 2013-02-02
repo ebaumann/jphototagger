@@ -51,8 +51,8 @@ public final class ExifGpsDateStamp {
             year = Integer.parseInt(yearString);
             month = Integer.parseInt(monthString);
             day = Integer.parseInt(dayString);
-        } catch (Exception ex) {
-            Logger.getLogger(ExifGpsDateStamp.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ExifGpsDateStamp.class.getName()).log(Level.SEVERE, null, t);
             unsetIntegerValues();
         }
     }

@@ -66,8 +66,8 @@ public final class LogfileParser implements EntityResolver {
                     records.add(record);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return records;
@@ -186,15 +186,15 @@ public final class LogfileParser implements EntityResolver {
             }
 
             return new ByteArrayInputStream(content.getBytes(System.getProperty("file.encoding")));
-        } catch (Exception ex) {
-            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, t);
         } finally {
             try {
                 if (bufferedReader != null) {
                     bufferedReader.close();
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(LogfileParser.class.getName()).log(Level.SEVERE, null, t);
             }
         }
 

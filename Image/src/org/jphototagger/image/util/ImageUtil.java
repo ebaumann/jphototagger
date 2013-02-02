@@ -57,8 +57,8 @@ public final class ImageUtil {
             byte[] byteArray = outputStream.toByteArray();
 
             stream = new ByteArrayInputStream(byteArray);
-        } catch (Exception ex) {
-            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return stream;
@@ -189,8 +189,8 @@ public final class ImageUtil {
             }
 
             scaledImage = scaleImage(scaledWidth, scaledHeight, img);
-        } catch (Exception ex) {
-            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return scaledImage;
@@ -226,8 +226,8 @@ public final class ImageUtil {
 
             mediaTracker.addImage(image, 0);
             mediaTracker.waitForID(0);
-        } catch (Exception ex) {
-            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return image;

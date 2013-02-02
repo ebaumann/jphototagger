@@ -44,8 +44,8 @@ final class ImageCollectionsDatabase extends Database {
             while (rs.next()) {
                 names.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             names.clear();
         } finally {
             close(rs, stmt);
@@ -94,8 +94,8 @@ final class ImageCollectionsDatabase extends Database {
             if (count > 0) {
                 notifyCollectionRenamed(fromName, toName);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -125,8 +125,8 @@ final class ImageCollectionsDatabase extends Database {
             while (rs.next()) {
                 imageFiles.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             imageFiles.clear();
         } finally {
             close(rs, stmt);
@@ -195,8 +195,8 @@ final class ImageCollectionsDatabase extends Database {
             con.commit();
             added = true;
             notifyCollectionInserted(collectionName, imageFiles);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmtColl);
@@ -232,8 +232,8 @@ final class ImageCollectionsDatabase extends Database {
             stmt.executeUpdate();
             deleted = true;
             notifyCollectionDeleted(collectioNname, delFiles);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -275,8 +275,8 @@ final class ImageCollectionsDatabase extends Database {
             }
             con.commit();
             notifyImagesDeleted(collectionName, deletedFiles);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -332,8 +332,8 @@ final class ImageCollectionsDatabase extends Database {
             }
             con.commit();
             added = true;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -417,8 +417,8 @@ final class ImageCollectionsDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -445,8 +445,8 @@ final class ImageCollectionsDatabase extends Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -473,8 +473,8 @@ final class ImageCollectionsDatabase extends Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);

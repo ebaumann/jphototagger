@@ -91,8 +91,8 @@ public final class MetaFactory implements Runnable {
                     try {
                         Thread.sleep(60 * 1000);
                         UpdateDownload.checkForNewerVersion();
-                    } catch (Exception ex) {
-                        Logger.getLogger(MetaFactory.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Throwable t) {
+                        Logger.getLogger(MetaFactory.class.getName()).log(Level.SEVERE, null, t);
                     }
                 }
             }, "JPhotoTagger: Checking for a newer version").start();

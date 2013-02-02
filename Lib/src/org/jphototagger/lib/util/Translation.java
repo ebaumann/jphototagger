@@ -42,15 +42,15 @@ public final class Translation {
         }
         try {
             return bundle.getString(string);
-        } catch (Exception ex) {
-            logMissingResource(ex, string);
+        } catch (Throwable t) {
+            logMissingResource(t, string);
         }
 
         return string;
     }
 
-    private void logMissingResource(Exception ex, String string) {
-        String localizedMessage = ex.getLocalizedMessage();
+    private void logMissingResource(Throwable t, String string) {
+        String localizedMessage = t.getLocalizedMessage();
         LOGGER.log(Level.INFO, "Missing translation for ''{0}'' in dictionary [''{1}'' ''{2}'']",
                 new Object[]{string, propertiesBasename, localizedMessage});
     }
@@ -64,8 +64,8 @@ public final class Translation {
         }
         try {
             return bundle.getString(string);
-        } catch (Exception ex) {
-            logMissingResource(ex, string);
+        } catch (Throwable t) {
+            logMissingResource(t, string);
         }
         return ifNoTranslationExists;
     }

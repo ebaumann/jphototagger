@@ -85,8 +85,8 @@ public final class CanonMakerNote {
             int valueByteCount = entry.getValueByteCount();
 
             return rawValue(file, valueOffset, valueByteCount);
-        } catch (Exception ex) {
-            Logger.getLogger(CanonMakerNote.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(CanonMakerNote.class.getName()).log(Level.SEVERE, null, t);
         } finally {
             close(raf);
         }
@@ -218,8 +218,8 @@ public final class CanonMakerNote {
             raf.read(rawValue, 0, valueByteCount);
 
             return rawValue;
-        } catch (Exception ex) {
-            Logger.getLogger(CanonMakerNote.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(CanonMakerNote.class.getName()).log(Level.SEVERE, null, t);
         } finally {
             close(raf);
         }
@@ -231,8 +231,8 @@ public final class CanonMakerNote {
         if (raf != null) {
             try {
                 raf.close();
-            } catch (Exception ex) {
-                Logger.getLogger(CanonMakerNote.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(CanonMakerNote.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }

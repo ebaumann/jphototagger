@@ -219,8 +219,8 @@ public final class Settings {
                 int location = Integer.parseInt(properties.getProperty(key));
 
                 splitPane.setDividerLocation(location);
-            } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -245,8 +245,8 @@ public final class Settings {
                 int x = Integer.parseInt(properties.getProperty(keyX));
                 int y = Integer.parseInt(properties.getProperty(keyY));
                 scrollPane.getViewport().setViewPosition(new Point(x, y));
-            } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -293,8 +293,8 @@ public final class Settings {
             String value = properties.getProperty(key);
             try {
                 spinner.setValue(Integer.parseInt(value));
-            } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -320,8 +320,8 @@ public final class Settings {
                 if (index < pane.getTabCount()) {
                     pane.setSelectedIndex(index);
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
             }
         }
         if ((hints != null) && hints.isOption(PreferencesHints.Option.SET_TABBED_PANE_CONTENT)) {
@@ -346,8 +346,8 @@ public final class Settings {
                 if (ind < comboBox.getItemCount()) {
                     comboBox.setSelectedIndex(ind);
                 }
-            } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -401,8 +401,8 @@ public final class Settings {
                     }
                 }
                 list.ensureIndexIsVisible(existingIndices.get(0));
-            } catch (Exception ex) {
-                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -471,8 +471,8 @@ public final class Settings {
             while (tokenizer.hasMoreTokens()) {
                 try {
                     integers.add(new Integer(tokenizer.nextToken()));
-                } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }
@@ -535,8 +535,8 @@ public final class Settings {
                     } else if (fieldType.equals(JTree.class)) {
                         set(key, (JTree) field.get(component));
                     }
-                } catch (Exception ex) {
-                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }
@@ -602,8 +602,8 @@ public final class Settings {
                     set(pane.getComponentAt(i), hints);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 
@@ -745,8 +745,8 @@ public final class Settings {
         if (properties.containsKey(key)) {
             try {
                 result = Integer.parseInt(properties.getProperty(key));
-            } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
             }
         }
         return result;
@@ -847,8 +847,8 @@ public final class Settings {
                 Dimension dimension = new Dimension(width, height);
                 component.setPreferredSize(dimension);
                 component.setSize(dimension);
-            } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -895,8 +895,8 @@ public final class Settings {
                 int locationY = Integer.parseInt(properties.getProperty(keyLocationY));
                 component.setLocation(new Point(locationX, locationY));
                 return true;
-            } catch (Exception ex) {
-                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, t);
             }
         }
         return false;

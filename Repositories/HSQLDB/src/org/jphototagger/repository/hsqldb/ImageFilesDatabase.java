@@ -116,8 +116,8 @@ final class ImageFilesDatabase extends Database {
             if (count > 0) {
                 notifyImageFileMoved(fromImageFile, toImageFile);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -139,8 +139,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 files.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -161,8 +161,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 functor.execute(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -232,8 +232,8 @@ final class ImageFilesDatabase extends Database {
                 progressEvent.setValue(countRenamed);
                 cancel = notifyProgressListenerPerformed(progressListener, progressEvent);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(rs, stmt);
@@ -270,8 +270,8 @@ final class ImageFilesDatabase extends Database {
             stmt.setString(1, imageFile.getAbsolutePath());
             LOGGER.log(Level.FINER, stmt.toString());
             countDeleted = stmt.executeUpdate();
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
         }
@@ -293,8 +293,8 @@ final class ImageFilesDatabase extends Database {
                 return false;
             }
             insertOrUpdateExif(con, imageFile, idFile, exif);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             free(con);
@@ -321,8 +321,8 @@ final class ImageFilesDatabase extends Database {
             setLastModifiedToXmpSidecarFileOfImageFile(imageFile, xmp.contains(XmpLastModifiedMetaDataValue.INSTANCE)
                     ? (Long) xmp.getValue(XmpLastModifiedMetaDataValue.INSTANCE)
                     : -1);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             free(con);
@@ -379,8 +379,8 @@ final class ImageFilesDatabase extends Database {
             con.commit();
             success = true;
             notifyImageFileInserted(file);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -450,8 +450,8 @@ final class ImageFilesDatabase extends Database {
             }
             con.commit();
             success = true;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -496,8 +496,8 @@ final class ImageFilesDatabase extends Database {
                 notifyProgressListenerPerformed(listener, progressEvent);
             }
             notifyProgressListenerEnd(listener, progressEvent);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -525,8 +525,8 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(true);
             updateThumbnailFile(imageFile, thumbnail);
             return true;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             free(con);
         }
@@ -563,8 +563,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 lastModified = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -589,8 +589,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 sizeInBytes = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -615,8 +615,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -653,8 +653,8 @@ final class ImageFilesDatabase extends Database {
                     }
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -701,8 +701,8 @@ final class ImageFilesDatabase extends Database {
                 notifyProgressListenerPerformed(listener, event);
                 cancel = event.isCancel();
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -753,8 +753,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 lastModified = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -785,8 +785,8 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.FINER, stmt.toString());
             int count = stmt.executeUpdate();
             set = count > 0;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -1012,8 +1012,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 result = rs.getString(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1039,8 +1039,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 count = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1057,8 +1057,8 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             countDeleted = deleteXmpOfImageFile(con, file);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             free(con);
         }
@@ -1107,8 +1107,8 @@ final class ImageFilesDatabase extends Database {
                 notifyProgressListenerPerformed(listener, progressEvent);
                 cancel = progressEvent.isCancel();
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1132,8 +1132,8 @@ final class ImageFilesDatabase extends Database {
             if (count > 0) {
                 EventBus.publish(new XmpDeletedEvent(this, imageFile, xmp));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
         }
@@ -1245,8 +1245,8 @@ final class ImageFilesDatabase extends Database {
                 }
                 prevFilepath = filepath;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1357,8 +1357,8 @@ final class ImageFilesDatabase extends Database {
                         getLongMinMax(rs, 17, XmpRatingMetaDataValue.getMinValue(), XmpRatingMetaDataValue.getMaxValue()));
                 xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, getString(rs, 18));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1387,8 +1387,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1414,8 +1414,8 @@ final class ImageFilesDatabase extends Database {
             if (id != null) {
                 ref = getCount(con, "xmp_dc_subject", "id_dc_subject", id) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             free(con);
         }
@@ -1436,8 +1436,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1470,8 +1470,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 dcSubjects.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1499,8 +1499,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 imageFiles.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1575,8 +1575,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 imageFiles.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1608,8 +1608,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 imageFiles.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1658,8 +1658,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 imageFiles.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1793,8 +1793,8 @@ final class ImageFilesDatabase extends Database {
             }
             addXmpDateCreatedToTimeline(con, timeline);
             timeline.addUnknownNode();
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1857,8 +1857,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 files.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1945,8 +1945,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 files.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -1974,8 +1974,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 values.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2013,8 +2013,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 files.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2057,8 +2057,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 files.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2086,8 +2086,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 timestamp = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2144,8 +2144,8 @@ final class ImageFilesDatabase extends Database {
                     exif.setGpsLongitude(gpsLongitude);
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2177,8 +2177,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2204,8 +2204,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2231,8 +2231,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2276,8 +2276,8 @@ final class ImageFilesDatabase extends Database {
             while (rs.next()) {
                 imageFiles.add(new File(rs.getString(1)));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2331,8 +2331,8 @@ final class ImageFilesDatabase extends Database {
                     tnFiles.add(tnFile);
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2414,8 +2414,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) == 1;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2441,8 +2441,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 id = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -2465,8 +2465,8 @@ final class ImageFilesDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) == 1;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);

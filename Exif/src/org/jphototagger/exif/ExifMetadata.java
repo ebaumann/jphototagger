@@ -236,8 +236,8 @@ public final class ExifMetadata {
             }
             calendar.set(year, month - 1, day, hours, minutes, seconds);
             return calendar.getTimeInMillis();
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
         return -1;
     }

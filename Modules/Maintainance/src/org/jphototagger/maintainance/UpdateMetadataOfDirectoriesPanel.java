@@ -436,8 +436,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
                 synchronized (FILE_SYSTEM_VIEW) {
                     try {
                         label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(dir));
-                    } catch (Exception ex) {
-                        Logger.getLogger(DirectoriesListCellRenderer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Throwable t) {
+                        Logger.getLogger(DirectoriesListCellRenderer.class.getName()).log(Level.SEVERE, null, t);
                     }
                 }
             }

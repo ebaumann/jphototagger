@@ -93,8 +93,8 @@ public abstract class Controller implements ActionListener, KeyListener {
                 Method m = object.getClass().getMethod("addActionListener", ActionListener.class);
 
                 m.invoke(object, this);
-            } catch (Exception ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -114,8 +114,8 @@ public abstract class Controller implements ActionListener, KeyListener {
                 Method m = object.getClass().getMethod("addKeyListener", KeyListener.class);
 
                 m.invoke(object, this);
-            } catch (Exception ex) {
-                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }

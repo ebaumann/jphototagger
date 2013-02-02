@@ -39,8 +39,8 @@ public final class ImageCollectionsImporter implements RepositoryDataImporter {
                     ImageCollectionsExporter.CollectionWrapper.class);
 
             new ImportThread(wrapper.getCollection()).start();
-        } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageCollectionsImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

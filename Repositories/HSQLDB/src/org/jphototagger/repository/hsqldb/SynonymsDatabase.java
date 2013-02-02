@@ -50,8 +50,8 @@ final class SynonymsDatabase extends Database {
             if (count > 0) {
                 notifySynonymOfWordRenamed(word, oldSynonym, newSynonym);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -83,8 +83,8 @@ final class SynonymsDatabase extends Database {
             if (count > 0) {
                 notifyWordRenamed(oldWord, newWord);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -116,8 +116,8 @@ final class SynonymsDatabase extends Database {
             if (count > 0) {
                 notifySynonymRenamed(oldSynonym, newSynonym);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -145,8 +145,8 @@ final class SynonymsDatabase extends Database {
             if (rs.next()) {
                 count = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -178,8 +178,8 @@ final class SynonymsDatabase extends Database {
             if (rs.next()) {
                 count = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -214,8 +214,8 @@ final class SynonymsDatabase extends Database {
             if (count > 0) {
                 notifySynonymInserted(word, synonym);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -247,8 +247,8 @@ final class SynonymsDatabase extends Database {
             if (count > 0) {
                 notifySynonymOfWordDeleted(word, synonym);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -282,8 +282,8 @@ final class SynonymsDatabase extends Database {
             if (count > 0) {
                 notifyWordDeleted(word);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             count = 0;
             rollback(con);
         } finally {
@@ -323,8 +323,8 @@ final class SynonymsDatabase extends Database {
             while (rs.next()) {
                 synonyms.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -346,8 +346,8 @@ final class SynonymsDatabase extends Database {
             while (rs.next()) {
                 words.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             words.clear();
         } finally {
             close(rs, stmt);

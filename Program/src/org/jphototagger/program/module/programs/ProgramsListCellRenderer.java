@@ -32,8 +32,8 @@ public final class ProgramsListCellRenderer extends DefaultListCellRenderer {
                 synchronized (FILE_SYSTEM_VIEW) {
                     try {
                         setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
-                    } catch (Exception ex) {
-                        Logger.getLogger(ProgramsListCellRenderer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Throwable t) {
+                        Logger.getLogger(ProgramsListCellRenderer.class.getName()).log(Level.SEVERE, null, t);
                     }
                 }
             }

@@ -579,8 +579,8 @@ final class EditMetaDataPanels implements FocusListener {
                         Long rating = Long.getLong(text);
                         xmp.setValue(XmpRatingMetaDataValue.INSTANCE, rating);
                     }
-                } catch (Exception ex) {
-                    Logger.getLogger(EditMetaDataPanels.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(EditMetaDataPanels.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }
