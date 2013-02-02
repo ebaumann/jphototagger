@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.OceanTheme;
 import org.jphototagger.api.windows.LookAndFeelProvider;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
@@ -40,6 +42,7 @@ public final class CrossPlatformLookAndFeelProvider implements LookAndFeelProvid
     public void setLookAndFeel() {
         LOGGER.info("Setting Cross Platform Look and Feel");
         try {
+            MetalLookAndFeel.setCurrentTheme(new OceanTheme());
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
