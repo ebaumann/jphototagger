@@ -6,6 +6,15 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.1 2013-02-02
 -----------------
 
+* Moved English language resources into separate project.
+  This process has been done automatically as far as possible
+  and in the best case, no errors occured. Please report any
+  translation errors. This has two improvements:
+  1. Every non programmer can do the English translation
+     using OmegaT, see http://www.jphototagger.org/dev/translate.html
+  2. For replacing wrong translations or adding a new
+     language, replacing the localized JAR does the job,
+     no complete JPhotoTagger application has to be built
 * Added Look & Feels (only choosabel, if available under
   the operating system): GTK, Motif, Windows Classic
 * Changing the Look & Feel doesn't require restarting

@@ -46,8 +46,7 @@
         <h1>Translate JPhotoTagger into another language</h1>
 
         <p><strong>JPhotoTagger's</strong> GUI texts are stored in plain text files
-            (Java properties files). Traditionally for German and English,
-            these files are maintained by the developers.
+            (Java properties files). For German these files are maintained by the developers.
             For other languages, users can add translations, which
             will be delivered with <strong>JPhotoTagger</strong>. The application
             Build creates a separate JAR file containing them (<code>Localization.jar</code>).
@@ -77,20 +76,20 @@
 
         <p>If you added a translation directory, update the <strong>Ant</strong> script
             <code>scripts.xml</code> through adding an <code>antcall</code> to the target
-            <code>translate_create_omegat_sources</code>, e.g.
+            <code>translate_1_create_omegat_sources</code>, e.g.
         </p>
 
 <pre>
-&lt;antcall target="_translate_copy_omegat_sources_from_en"&gt;
+&lt;antcall target="_translate_copy_omegat_sources_from_localized"&gt;
+    &lt;param name="src.locale" value="en"/&gt;
     &lt;param name="target.locale" value="pt_BR"/&gt;
 &lt;/antcall&gt;
 </pre>
 
-        <p>The <code>_translate_copy_omegat_sources_from_en</code> target treats English
-            as source language and an arbitrary language as target language. For an arbitrary
-            language different from English and German as source language and an arbitrary
-            language as target language different from English and German, use the target
-            <code>_translate_copy_omegat_sources_from_localized</code>.
+        <p>The <code>_translate_copy_omegat_sources_from_localized</code> target treats an
+            arbitrary language as source language and an arbitrary language as target language.
+            For German as source language and an arbitrary language as target language,
+            use the target <code>_translate_copy_omegat_sources_from_default</code>.
         </p>
 
         <p>A translator gets one of these <strong>OmegaT</strong> project subdirectories packed
@@ -156,7 +155,7 @@
 
         <p><strong>Author:</strong>
             <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20Discussion">Write e-Mail</a>
-            <br /><strong>Status of this document:</strong> 2013-01-17
+            <br /><strong>Status of this document:</strong> 2013-02-02
         </p>
 
     </div><!--content-->

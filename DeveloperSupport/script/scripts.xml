@@ -95,9 +95,13 @@
             <arg value="copy_test_images.sh"/>
         </exec>
     </target>
-    <target name="translate_create_omegat_sources">
+    <target name="translate_1_create_omegat_sources">
         <echo message="Creating source files for OmegaT translation"/>
-        <antcall target="_translate_copy_omegat_sources_from_en">
+        <antcall target="_translate_copy_omegat_sources_from_default"><!-- _translate_copy_omegat_sources_from_default always first! -->
+            <param name="target.locale" value="en"/>
+        </antcall>
+        <antcall target="_translate_copy_omegat_sources_from_localized">
+            <param name="src.locale" value="en"/>
             <param name="target.locale" value="pt_BR"/>
         </antcall>
     </target>
@@ -108,12 +112,15 @@
         <mkdir dir="${translation.srcdir}"/>
         <copy todir="${translation.srcdir}">
             <fileset dir="${repo.root}">
-                <include name="Localization/src/**/*${src.locale}.properties"/>
+                <include name="Localization/src/**/*_${src.locale}.properties"/>
             </fileset>
             <globmapper from="*_${src.locale}.properties" to="*.properties"/>
         </copy>
+        <antcall target="_translate_create_zip">
+            <param name="locale" value="${src.locale}-${target.locale}"/>
+        </antcall>
     </target>
-    <target name="_translate_copy_omegat_sources_from_de">
+    <target name="_translate_copy_omegat_sources_from_default">
         <echo message="Copying files to translate from de to ${target.locale}" />
         <property name="locale" value="de-${target.locale}"/>
         <property name="translation.srcdir" value="${translation.root}/${locale}/source" />
@@ -133,48 +140,25 @@
                 <exclude name="Website/**"/>
             </fileset>
         </copy>
-    </target>
-    <target name="_translate_copy_omegat_sources_from_en">
-        <echo message="Copying files to translate from en to ${target.locale}" />
-        <property name="locale" value="en-${target.locale}"/>
-        <property name="translation.srcdir" value="${translation.root}/${locale}/source" />
-        <delete dir="${translation.srcdir}" failonerror="false"/>
-        <mkdir dir="${translation.srcdir}"/>
-        <copy todir="${translation.srcdir}">
-            <fileset dir="${repo.root}">
-                <include name="**/*_en.properties"/>
-                <exclude name="**/build/**"/>
-                <exclude name="**/nbproject/**"/>
-                <exclude name="DeveloperSupport/**"/>
-                <exclude name="dist_files/**"/>
-                <exclude name="Libraries/**"/>
-                <exclude name="Localization/**"/>
-                <exclude name="OmegaT/**"/>
-                <exclude name="Website/**"/>
-            </fileset>
-            <globmapper from="*_en.properties" to="*.properties"/>
-        </copy>
         <antcall target="_translate_create_zip">
             <param name="locale" value="${locale}"/>
         </antcall>
     </target>
     <target name="_translate_create_zip">
         <echo message="Creating ZIP translation file for ${locale}"/>
-        <delete failonerror="false">
-            <fileset dir="${translation.root}/${locale}/target" includes="**" />
-        </delete>
         <zip destfile="${translation.root}/${locale}.zip"
              basedir="${translation.root}"
              includes="${locale}/**"
+             excludes="${translation.root}/${locale}/target/**"
              whenempty="create"
         />
     </target>
-    <target name="translate_copy_omegat_translations">
+    <target name="translate_2_copy_omegat_translations">
         <property name="localization.srcdir" value="${repo.root}/Localization/src" />
-        <echo message="Copy OmegaT translations to Localization project in ${localization.srcdir}"/>
+        <echo message="Copy OmegaT translations from ${translation.root} to Localization project in ${localization.srcdir}"/>
         <copy todir="${localization.srcdir}">
             <fileset dir="${translation.root}">
-                <include name="**/target/**"/>
+                <include name="**/target/**/*.properties"/>
             </fileset>
             <regexpmapper from="^.*/target/.*/src/(.*)" to="\1" handledirsep="yes"/>
         </copy>
