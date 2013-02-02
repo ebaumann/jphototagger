@@ -39,7 +39,12 @@ public final class JGoodiesMiscLookAndFeelProvider implements LookAndFeelProvide
 
     @Override
     public String getPreferencesKey() {
-        return "JGoodiesMiscLookAndFeelProvider";
+        return "JGoodiesMiscLookAndFeelProvider"; // Do never change this!
+    }
+
+    @Override
+    public boolean canInstall() {
+        return true;
     }
 
     @Override

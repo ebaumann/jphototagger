@@ -1,5 +1,6 @@
 package org.jphototagger.laf.defaults;
 
+import org.jphototagger.laf.LafSupport;
 import java.awt.Component;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = LookAndFeelProvider.class)
 public final class CrossPlatformLookAndFeelProvider implements LookAndFeelProvider {
 
+    private static final String LAF_CLASSNAME = UIManager.getCrossPlatformLookAndFeelClassName();
     private static final Logger LOGGER = Logger.getLogger(DefaultLookAndFeelProvider.class.getName());
 
     @Override
@@ -35,7 +37,12 @@ public final class CrossPlatformLookAndFeelProvider implements LookAndFeelProvid
 
     @Override
     public String getPreferencesKey() {
-        return "CrossPlatformLookuAndFeelProvider";
+        return "CrossPlatformLookuAndFeelProvider"; // Do never change this!
+    }
+
+    @Override
+    public boolean canInstall() {
+        return LafSupport.canInstall(LAF_CLASSNAME);
     }
 
     @Override
@@ -43,7 +50,7 @@ public final class CrossPlatformLookAndFeelProvider implements LookAndFeelProvid
         LOGGER.info("Setting Cross Platform Look and Feel");
         try {
             MetalLookAndFeel.setCurrentTheme(new OceanTheme());
-            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            UIManager.setLookAndFeel(LAF_CLASSNAME);
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
         }

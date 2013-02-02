@@ -13,6 +13,7 @@ import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.SystemUtil;
 import org.openide.util.Lookup;
 
 /**
@@ -22,13 +23,14 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
     private static final Map<String, String> PREF_KEY_CLASSNAMES = new LinkedHashMap<>();
+    public static final String WINDOWS_LAF_CLASSNAME = "com.jgoodies.looks.windows.WindowsLookAndFeel";
     private boolean listen = true;
 
     static {
         PREF_KEY_CLASSNAMES.put("JGoodiesMiscLookAndFeel.PlasticLookAndFeel", "com.jgoodies.looks.plastic.PlasticLookAndFeel");
         PREF_KEY_CLASSNAMES.put("JGoodiesMiscLookAndFeel.Plastic3DLookAndFeel", "com.jgoodies.looks.plastic.Plastic3DLookAndFeel");
         PREF_KEY_CLASSNAMES.put("JGoodiesMiscLookAndFeel.PlasticXPLookAndFeel", "com.jgoodies.looks.plastic.PlasticXPLookAndFeel");
-        PREF_KEY_CLASSNAMES.put("JGoodiesMiscLookAndFeel.WindowsLookAndFeel", "com.jgoodies.looks.windows.WindowsLookAndFeel");
+        PREF_KEY_CLASSNAMES.put("JGoodiesMiscLookAndFeel.WindowsLookAndFeel", WINDOWS_LAF_CLASSNAME);
     }
 
     public JGoodiesMiscLookAndFeelSettingsPanel() {
@@ -68,7 +70,12 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
 
         {
             for (String key : PREF_KEY_CLASSNAMES.keySet()) {
-                addElement(PREF_KEY_CLASSNAMES.get(key));
+                String classname = PREF_KEY_CLASSNAMES.get(key);
+                boolean isWindowsLafClassname = WINDOWS_LAF_CLASSNAME.equals(classname);
+                boolean add = !isWindowsLafClassname || isWindowsLafClassname && SystemUtil.isWindows();
+                if (add) {
+                    addElement(classname);
+                }
             }
         }
 
