@@ -93,8 +93,8 @@ public final class PropertiesFile {
         try {
             out = new FileOutputStream(getPropertyFilePathName());
             properties.store(out, "--- " + projectName + " persistent settings ---");
-        } catch (Exception ex) {
-            Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, t);
         } finally {
             if (out != null) {
                 try {
@@ -119,8 +119,8 @@ public final class PropertiesFile {
             try {
                 in = new FileInputStream(propertyFilename);
                 properties.load(in);
-            } catch (Exception ex) {
-                Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(PropertiesFile.class.getName()).log(Level.SEVERE, null, t);
             } finally {
                 if (in != null) {
                     try {

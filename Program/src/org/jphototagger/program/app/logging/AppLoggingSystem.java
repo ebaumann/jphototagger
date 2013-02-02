@@ -152,8 +152,8 @@ public final class AppLoggingSystem {
         }
         try {
             return Level.parse(levelString);
-        } catch (Exception ex) {
-            Logger.getLogger(AppLoggingSystem.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(AppLoggingSystem.class.getName()).log(Level.SEVERE, null, t);
             return null;
         }
     }

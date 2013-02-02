@@ -37,8 +37,8 @@ public final class FavoritesImporter implements RepositoryDataImporter {
                     repo.saveOrUpdateFavorite(favorite);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(FavoritesImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(FavoritesImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

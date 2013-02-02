@@ -72,8 +72,8 @@ final class ShowPdfUserManualAction extends AbstractAction {
                     return fileDefault;
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(ShowPdfUserManualAction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ShowPdfUserManualAction.class.getName()).log(Level.SEVERE, null, t);
         }
 
         String message = Bundle.getString(ShowPdfUserManualAction.class, "HelpController.Error.NoPdfFile", manualPath);

@@ -67,8 +67,8 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
                 cancel = false;
                 helperThread.start();
                 button.setText(BUTTON_TEXT_CANCEL);
-            } catch (Exception ex) {
-                Logger.getLogger(RepositoryUpdatePanel.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(RepositoryUpdatePanel.class.getName()).log(Level.SEVERE, null, t);
             }
         } else {
             cancel = true;

@@ -35,8 +35,8 @@ final class DatabaseMaintainance extends Database {
             LOGGER.log(Level.INFO, "Closing the database");
             stmt.executeUpdate("SHUTDOWN");
             shutdown = true;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             String message = Bundle.getString(DatabaseMaintainance.class, "DatabaseMaintainance.Error.Shutdown");
             MessageDisplayer.error(null, message);
         } finally {
@@ -64,8 +64,8 @@ final class DatabaseMaintainance extends Database {
             stmt = con.createStatement();
             stmt.executeUpdate("CHECKPOINT DEFRAG");
             success = true;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -134,8 +134,8 @@ final class DatabaseMaintainance extends Database {
                 LOGGER.log(Level.FINER, sql);
                 deleted += stmt.executeUpdate(sql);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);

@@ -77,8 +77,8 @@ public final class XmpFileReader {
                     }
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, t);
         } finally {
             closeFile(raf);
         }
@@ -102,8 +102,8 @@ public final class XmpFileReader {
 
             // file will be closed in finally
             return new String(bytes, 0, bytesRead, "UTF-8");
-        } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, t);
         } finally {
             closeFile(raf);
         }
@@ -138,8 +138,8 @@ public final class XmpFileReader {
                     return true;
                 }
             } while (line != null);
-        } catch (Exception ex) {
-            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, t);
         } finally {
             closeReader(bufferedReader);
         }
@@ -201,8 +201,8 @@ public final class XmpFileReader {
         if (file != null) {
             try {
                 file.close();
-            } catch (Exception ex) {
-                Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -211,8 +211,8 @@ public final class XmpFileReader {
         if (bufferedReader != null) {
             try {
                 bufferedReader.close();
-            } catch (Exception ex) {
-                Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(XmpFileReader.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }

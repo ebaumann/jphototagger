@@ -38,8 +38,8 @@ public final class AutoscanDirectoriesImporter implements RepositoryDataImporter
                     repo.saveAutoscanDirectory(new File(stringWrapper.getString()));
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(AutoscanDirectoriesImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(AutoscanDirectoriesImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

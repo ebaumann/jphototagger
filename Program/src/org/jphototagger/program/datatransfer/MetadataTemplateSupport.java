@@ -40,8 +40,8 @@ final class MetadataTemplateSupport {
                     panel.setDirty(true);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(MetadataTemplateSupport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(MetadataTemplateSupport.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

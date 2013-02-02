@@ -37,8 +37,8 @@ public final class SavedSearchesImporter implements RepositoryDataImporter {
                     repo.saveSavedSearch(savedSearch);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(SavedSearchesImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(SavedSearchesImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

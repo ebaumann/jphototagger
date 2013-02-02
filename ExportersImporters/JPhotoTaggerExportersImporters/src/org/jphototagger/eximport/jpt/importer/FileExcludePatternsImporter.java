@@ -38,8 +38,8 @@ public final class FileExcludePatternsImporter implements RepositoryDataImporter
                     repo.saveFileExcludePattern(stringWrapper.getString());
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(FileExcludePatternsImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(FileExcludePatternsImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

@@ -32,8 +32,8 @@ public final class ActionsListCellRenderer extends DefaultListCellRenderer {
         if (file.exists()) {
             try {
                 setIcon(ICON_ACTION);
-            } catch (Exception ex) {
-                Logger.getLogger(ActionsListCellRenderer.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(ActionsListCellRenderer.class.getName()).log(Level.SEVERE, null, t);
             }
         } else {
             label.setIcon(ICON_ERROR);

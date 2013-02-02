@@ -174,8 +174,8 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
         try {
             content = textArea.getText(0, pos + 1);
-        } catch (Exception ex) {
-            Logger.getLogger(Autocomplete.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(Autocomplete.class.getName()).log(Level.SEVERE, null, t);
         }
 
         // Find where the word starts

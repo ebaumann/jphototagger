@@ -79,8 +79,8 @@ final class RenameTemplatesDatabase extends Database {
                 template.setId(getId(template.getName()));
                 notifyInserted(template);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -125,8 +125,8 @@ final class RenameTemplatesDatabase extends Database {
             if (count == 1) {
                 notifyUpdated(template);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -154,8 +154,8 @@ final class RenameTemplatesDatabase extends Database {
             if (count == 1) {
                 notifyDeleted(delTemplate);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -217,9 +217,9 @@ final class RenameTemplatesDatabase extends Database {
             while (rs.next()) {
                 templates.add(getTemplate(rs));
             }
-        } catch (Exception ex) {
+        } catch (Throwable t) {
             templates.clear();
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -269,8 +269,8 @@ final class RenameTemplatesDatabase extends Database {
             if (rs.next()) {
                 template = getTemplate(rs);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -297,8 +297,8 @@ final class RenameTemplatesDatabase extends Database {
                 count = rs.getInt(1);
             }
             exists = count > 0;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -320,8 +320,8 @@ final class RenameTemplatesDatabase extends Database {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);

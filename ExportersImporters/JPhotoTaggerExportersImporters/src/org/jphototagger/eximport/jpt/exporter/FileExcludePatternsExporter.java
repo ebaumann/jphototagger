@@ -47,8 +47,8 @@ public final class FileExcludePatternsExporter implements RepositoryDataExporter
             List<String> patterns = repo.findAllFileExcludePatterns();
 
             XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(patterns)), xmlFile);
-        } catch (Exception ex) {
-            Logger.getLogger(FileExcludePatternsExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(FileExcludePatternsExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

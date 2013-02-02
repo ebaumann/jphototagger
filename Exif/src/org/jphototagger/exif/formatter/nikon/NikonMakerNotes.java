@@ -39,7 +39,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
                 ResourceBundle bundle = ResourceBundle.getBundle(PROPERTY_FILE_PREFIX + Integer.toString(index++));
 
                 MAKER_NOTES.add(new NikonMakerNote(bundle));
-            } catch (Exception ex) {
+            } catch (Throwable t) {
                 index = maxIndex + 1;
             }
         }
@@ -101,8 +101,8 @@ public final class NikonMakerNotes implements ExifMakerNotes {
             exifTags.addMakerNoteTags(nikonMakerNote.getDisplayableMakerNotesOf(allMakerNoteTags));
             exifTags.setMakerNoteDescription(nikonMakerNote.getDescription());
             mergeMakerNoteTags(exifTags, nikonMakerNote.getTagIdsEqualInExifIfd());
-        } catch (Exception ex) {
-            Logger.getLogger(NikonMakerNotes.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(NikonMakerNotes.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

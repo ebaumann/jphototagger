@@ -51,8 +51,8 @@ public final class ImageCollectionsListTransferHandler extends TransferHandler {
             Transferable transferable = support.getTransferable();
 
             imageFiles = getImageFiles((List<File>) transferable.getTransferData(DataFlavor.javaFileListFlavor));
-        } catch (Exception ex) {
-            Logger.getLogger(ImageCollectionsListTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageCollectionsListTransferHandler.class.getName()).log(Level.SEVERE, null, t);
 
             return false;
         }

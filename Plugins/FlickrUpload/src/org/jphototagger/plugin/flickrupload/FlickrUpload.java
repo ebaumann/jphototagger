@@ -124,8 +124,8 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                     EventBus.publish(new FileProcessedEvent(this, imageFile, false));
                     countOfProcessedImages++;
                     progressHandle.progressPerformed(createPerformedProgressEvent(countOfImagesToUpload, countOfProcessedImages));
-                } catch (Exception ex) {
-                    logDisplayUploadException(ex, imageFile);
+                } catch (Throwable t) {
+                    logDisplayUploadException(t, imageFile);
                     success = false;
 
                     break;
@@ -154,8 +154,8 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
             EventBus.publish(new FileProcessingFinishedEvent(this, success));
         }
 
-        private void logDisplayUploadException(Exception ex, File imageFile) throws HeadlessException {
-            Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, ex);
+        private void logDisplayUploadException(Throwable t, File imageFile) throws HeadlessException {
+            Logger.getLogger(FlickrUpload.class.getName()).log(Level.SEVERE, null, t);
             JOptionPane.showMessageDialog(ComponentUtil.findFrameWithIcon(), Bundle.getString(FlickrUpload.class, "FlickrUpload.Error.Upload", imageFile));
         }
 

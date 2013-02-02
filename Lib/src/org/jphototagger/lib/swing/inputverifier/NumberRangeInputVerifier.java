@@ -85,8 +85,8 @@ public final class NumberRangeInputVerifier extends InputVerifier implements Ser
     private Double toDouble(String string) {
         try {
             return Double.valueOf(string);
-        } catch (Exception ex) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", ex);
+        } catch (Throwable t) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "", t);
         }
 
         return null;

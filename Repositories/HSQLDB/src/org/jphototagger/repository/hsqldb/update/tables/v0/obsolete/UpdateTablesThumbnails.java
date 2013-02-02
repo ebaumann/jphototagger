@@ -99,8 +99,8 @@ final class UpdateTablesThumbnails extends Database {
                 ImageIcon icon = new ImageIcon(bytes);
                 Image thumbnail = icon.getImage();
                 writeThumbnail(thumbnail, id);
-            } catch (Exception ex) {
-                LOGGER.log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                LOGGER.log(Level.SEVERE, null, t);
             }
         }
     }
@@ -125,8 +125,8 @@ final class UpdateTablesThumbnails extends Database {
                     nextByte = is.read();
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, UpdateTablesThumbnails.class);
             closeStream(fos);
@@ -137,8 +137,8 @@ final class UpdateTablesThumbnails extends Database {
         if (fis != null) {
             try {
                 fis.close();
-            } catch (Exception ex) {
-                LOGGER.log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                LOGGER.log(Level.SEVERE, null, t);
             }
         }
     }
@@ -172,13 +172,13 @@ final class UpdateTablesThumbnails extends Database {
                             LOGGER.log(Level.WARNING, "Can''t delete orphaned Thumbnail ''{0}''!", file);
                         }
                     }
-                } catch (Exception ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                } catch (Throwable t ){
+                    LOGGER.log(Level.SEVERE, null, t);
                 }
             }
             appPropertiesRepo.setBoolean(KEY_UPATED_THUMBNAILS_NAMES_HASH_1, true);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             Database.close(rs, stmt);
         }
@@ -199,8 +199,8 @@ final class UpdateTablesThumbnails extends Database {
         try {
             FileUtil.ensureDirectoryExists(new File(directoryName));
             return new File(directoryName + File.separator + id);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
         return null;
     }

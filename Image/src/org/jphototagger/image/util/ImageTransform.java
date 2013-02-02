@@ -82,8 +82,8 @@ public final class ImageTransform {
             GraphicsConfiguration gc = gs.getDefaultConfiguration();
 
             bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
-        } catch (Exception ex) {
-            Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, t);
         }
 
         if (bimage == null) {
@@ -118,8 +118,8 @@ public final class ImageTransform {
 
         try {
             pg.grabPixels();
-        } catch (Exception ex) {
-            Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageTransform.class.getName()).log(Level.SEVERE, null, t);
         }
 
         ColorModel cm = pg.getColorModel();

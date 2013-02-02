@@ -44,8 +44,8 @@ public final class FileSystemListCellRenderer extends DefaultListCellRenderer {
                 synchronized (FILE_SYSTEM_VIEW) {
                     try {
                         label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
-                    } catch (Exception ex) {
-                        Logger.getLogger(FileSystemListCellRenderer.class.getName()).log(Level.WARNING, null, ex);
+                    } catch (Throwable t) {
+                        Logger.getLogger(FileSystemListCellRenderer.class.getName()).log(Level.WARNING, null, t);
                     }
                 }
             }

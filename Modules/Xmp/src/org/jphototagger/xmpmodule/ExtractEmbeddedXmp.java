@@ -69,14 +69,14 @@ public final class ExtractEmbeddedXmp extends FileEditor {
                 fos.write(xmp.getBytes());
                 fos.flush();
                 updateRepository(file);
-            } catch (Exception ex) {
-                Logger.getLogger(ExtractEmbeddedXmp.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(ExtractEmbeddedXmp.class.getName()).log(Level.SEVERE, null, t);
             } finally {
                 if (fos != null) {
                     try {
                         fos.close();
-                    } catch (Exception ex) {
-                        Logger.getLogger(ExtractEmbeddedXmp.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Throwable t) {
+                        Logger.getLogger(ExtractEmbeddedXmp.class.getName()).log(Level.SEVERE, null, t);
                     }
                 }
             }

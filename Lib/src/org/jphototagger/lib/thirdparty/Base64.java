@@ -634,22 +634,22 @@ public class Base64 {
         finally {
             try {
                 oos.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
 
             try {
                 gzos.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
 
             try {
                 b64os.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
 
             try {
                 baos.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
         }    // end finally
 
@@ -888,17 +888,17 @@ public class Base64 {
             finally {
                 try {
                     gzos.close();
-                } catch (Exception e) {
+                } catch (Throwable t) {
                 }
 
                 try {
                     b64os.close();
-                } catch (Exception e) {
+                } catch (Throwable t) {
                 }
 
                 try {
                     baos.close();
-                } catch (Exception e) {
+                } catch (Throwable t){
                 }
             }    // end finally
 
@@ -1256,17 +1256,17 @@ public class Base64 {
                 finally {
                     try {
                         baos.close();
-                    } catch (Exception e) {
+                    } catch (Throwable t) {
                     }
 
                     try {
                         gzis.close();
-                    } catch (Exception e) {
+                    } catch (Throwable t) {
                     }
 
                     try {
                         bais.close();
-                    } catch (Exception e) {
+                    } catch (Throwable t) {
                     }
                 }    // end finally
             }    // end if: gzipped
@@ -1354,12 +1354,12 @@ public class Base64 {
         finally {
             try {
                 bais.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
 
             try {
                 ois.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
         }    // end finally
 
@@ -1397,7 +1397,7 @@ public class Base64 {
         finally {
             try {
                 bos.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
         }    // end finally
     }    // end encodeToFile
@@ -1428,7 +1428,7 @@ public class Base64 {
         finally {
             try {
                 bos.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
         }    // end finally
     }    // end decodeToFile
@@ -1486,7 +1486,7 @@ public class Base64 {
         finally {
             try {
                 bis.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
         }    // end finally
 
@@ -1538,7 +1538,7 @@ public class Base64 {
         finally {
             try {
                 bis.close();
-            } catch (Exception e) {
+            } catch (Throwable t) {
             }
         }    // end finally
 
@@ -1567,7 +1567,7 @@ public class Base64 {
         finally {
             try {
                 out.close();
-            } catch (Exception ex) {
+            } catch (Throwable t) {
             }
         }    // end finally
     }    // end encodeFileToFile
@@ -1594,7 +1594,7 @@ public class Base64 {
         finally {
             try {
                 out.close();
-            } catch (Exception ex) {
+            } catch (Throwable t) {
             }
         }    // end finally
     }    // end decodeFileToFile

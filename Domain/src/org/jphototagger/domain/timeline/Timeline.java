@@ -462,8 +462,8 @@ public final class Timeline {
                 }
 
                 return true;
-            } catch (Exception ex) {
-                Logger.getLogger(Date.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Date.class.getName()).log(Level.SEVERE, null, t);
                 reset();
             }
 
@@ -531,8 +531,8 @@ public final class Timeline {
                 DateFormat dfLong = new SimpleDateFormat("MMMM");
 
                 return dfLong.format(date);
-            } catch (Exception ex) {
-                Logger.getLogger(Date.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(Date.class.getName()).log(Level.SEVERE, null, t);
             }
 
             return Bundle.getString(Date.class, "Timeline.DisplayName.NoMonth");

@@ -154,9 +154,9 @@ public final class XmpMetadata {
                     addXmpPropertyInfosTo(xmpMeta, propertyInfos);
                 }
             }
-        } catch (Exception ex) {
+        } catch (Throwable t) {
             propertyInfos = null;
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, t);
         }
         return propertyInfos;
     }
@@ -176,8 +176,8 @@ public final class XmpMetadata {
                     toXmpPropertyInfos.add(xmpPropertyInfo);
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
     }
 
@@ -286,8 +286,8 @@ public final class XmpMetadata {
             deleteAllEditableMetadataFrom(toXmpMeta);
             setMetadata(fromXmp, toXmpMeta);
             return writeSidecarFile(toXmpMeta, toSidecarFile);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             return false;
         }
     }
@@ -428,16 +428,16 @@ public final class XmpMetadata {
             XMPMetaFactory.serialize(fromXmpMeta, out,
                     new SerializeOptions().setPadding(10).setOmitPacketWrapper(true));
             return true;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             return false;
         } finally {
             FileLock.INSTANCE.unlock(toSidecarFile, XmpMetadata.class);
             if (out != null) {
                 try {
                     out.close();
-                } catch (Exception ex) {
-                    LOGGER.log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    LOGGER.log(Level.SEVERE, null, t);
                 }
             }
         }
@@ -519,8 +519,8 @@ public final class XmpMetadata {
                 if ((value != null) && (mdValue != null) && (mdValue.getValueType() != null)) {
                     try {
                         xmp.setValue(mdValue, mdValue.getValueType().parseString(value.toString()));
-                    } catch (Exception ex) {
-                        LOGGER.log(Level.SEVERE, null, ex);
+                    } catch (Throwable t) {
+                        LOGGER.log(Level.SEVERE, null, t);
                     }
                 }
             }

@@ -38,8 +38,8 @@ public final class DataTransferSupport {
 
         try {
             return (Object[]) transferable.getTransferData(Flavor.KEYWORDS_LIST);
-        } catch (Exception ex) {
-            Logger.getLogger(DataTransferSupport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(DataTransferSupport.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;
@@ -59,8 +59,8 @@ public final class DataTransferSupport {
 
         try {
             return (Collection<? extends MetaDataValueData>) transferable.getTransferData(Flavor.META_DATA_VALUE);
-        } catch (Exception ex) {
-            Logger.getLogger(DataTransferSupport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(DataTransferSupport.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;
@@ -82,8 +82,8 @@ public final class DataTransferSupport {
 
         try {
             return (List<DefaultMutableTreeNode>) transferable.getTransferData(Flavor.KEYWORDS_TREE);
-        } catch (Exception ex) {
-            Logger.getLogger(DataTransferSupport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(DataTransferSupport.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;
@@ -126,8 +126,8 @@ public final class DataTransferSupport {
 
         try {
             return (String) transferable.getTransferData(DataFlavor.stringFlavor);
-        } catch (Exception ex) {
-            Logger.getLogger(DataTransferSupport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(DataTransferSupport.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;

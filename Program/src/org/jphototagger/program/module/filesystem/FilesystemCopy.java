@@ -92,8 +92,8 @@ public final class FilesystemCopy implements Runnable, FileCopyService {
                         FilesystemRepositoryUpdater.insertFile(targetFile);
                     }
                     publishCopied(sourceFile, targetFile);
-                } catch (Exception ex) {
-                    Logger.getLogger(FilesystemCopy.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(FilesystemCopy.class.getName()).log(Level.SEVERE, null, t);
                     errorFiles.add(sourceTargetFile.getSourceFile());
                 }
             }

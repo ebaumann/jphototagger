@@ -130,8 +130,8 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
             DateFormat df = new SimpleDateFormat("y-M-d");
             try {
                 d = df.parse(Integer.toString(date.year) + "-" + Integer.toString(date.month) + "-" + Integer.toString(date.day));
-            } catch (Exception ex) {
-                Logger.getLogger(TimelineItemSelectedController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(TimelineItemSelectedController.class.getName()).log(Level.SEVERE, null, t);
             }
         }
         NumberFormat yf = new DecimalFormat("####");

@@ -54,8 +54,8 @@ final class FavoritesDatabase extends Database {
                 favorite.setId(findIdByFavoriteName(favorite.getName()));
                 notifyInserted(favorite);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -84,8 +84,8 @@ final class FavoritesDatabase extends Database {
             if (deleted && (delFavorite != null)) {
                 notifyDeleted(delFavorite);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -160,8 +160,8 @@ final class FavoritesDatabase extends Database {
             if (updated) {
                 notifyUpdated(oldFavorite, favorite);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -190,9 +190,9 @@ final class FavoritesDatabase extends Database {
                 favorite.setIndex(rs.getInt(4));
                 favorites.add(favorite);
             }
-        } catch (Exception ex) {
+        } catch (Throwable t) {
             favorites.clear();
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -219,8 +219,8 @@ final class FavoritesDatabase extends Database {
                 favorite.setDirectory(new File(rs.getString(3)));
                 favorite.setIndex(rs.getInt(4));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -247,8 +247,8 @@ final class FavoritesDatabase extends Database {
                 favorite.setDirectory(new File(rs.getString(3)));
                 favorite.setIndex(rs.getInt(4));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -270,8 +270,8 @@ final class FavoritesDatabase extends Database {
             if (rs.next()) {
                 id = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -298,8 +298,8 @@ final class FavoritesDatabase extends Database {
                 count = rs.getInt(1);
             }
             exists = count > 0;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);

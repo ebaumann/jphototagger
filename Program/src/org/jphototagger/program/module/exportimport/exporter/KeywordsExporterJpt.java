@@ -91,8 +91,8 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
             Transformer trans = tf.newTransformer();
             initTransformer(trans);
             trans.transform(ds, sr);
-        } catch (Exception ex) {
-            Logger.getLogger(KeywordsExporterJpt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(KeywordsExporterJpt.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

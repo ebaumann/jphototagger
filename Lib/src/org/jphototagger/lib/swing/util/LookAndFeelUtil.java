@@ -33,16 +33,16 @@ public final class LookAndFeelUtil {
     public static void setSystemLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception ex) {
-            Logger.getLogger(LookAndFeelUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(LookAndFeelUtil.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 
     public static void setCrossPlatformLookuAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-        } catch (Exception ex) {
-            Logger.getLogger(LookAndFeelUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(LookAndFeelUtil.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

@@ -111,8 +111,8 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
         if (stdout != null) {
             try {
                 image = javax.imageio.ImageIO.read(new ByteArrayInputStream(stdout));
-            } catch (Exception ex) {
-                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(ThumbnailUtil.class.getName()).log(Level.SEVERE, null, t);
             }
         }
         if (output.getStdErrBytes() != null) {

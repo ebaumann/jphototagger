@@ -69,8 +69,8 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
             writeScript(scriptName, scriptWriter, new File(scriptPath));
 
             return "\"" + scriptPath + "\" \"%s\" %i";
-        } catch (Exception ex) {
-            Logger.getLogger(ImageMagickDcrawThumbnailCreator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ImageMagickDcrawThumbnailCreator.class.getName()).log(Level.SEVERE, null, t);
             return null;
         }
     }
@@ -92,9 +92,9 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
             readScript = scriptWriter.replaceIn(readScript);
             FileUtil.writeStringAsFile(readScript, scriptFile);
             scriptFile.setExecutable(true);
-        } catch (Exception ex) {
+        } catch (Throwable t) {
             errorMessageGetScript();
-            throw ex;
+            throw t;
         }
     }
 

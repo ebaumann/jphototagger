@@ -168,8 +168,8 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
             synchronized (FILE_SYSTEM_VIEW) {
                 try {
                     return FILE_SYSTEM_VIEW.getSystemIcon(file);
-                } catch (Exception ex) {
-                    Logger.getLogger(EditDefaultProgramsPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t){
+                    Logger.getLogger(EditDefaultProgramsPanel.class.getName()).log(Level.SEVERE, null, t);
                     return null;
                 }
             }

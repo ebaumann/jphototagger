@@ -46,8 +46,8 @@ final class WordsetsDatabase extends Database {
                 wordset.setWords(words);
                 wordsets.add(wordset);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -76,8 +76,8 @@ final class WordsetsDatabase extends Database {
                 List<String> words = findWordsOfWordset(con, id);
                 wordset.setWords(words);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -92,8 +92,8 @@ final class WordsetsDatabase extends Database {
             if (wordsetName != null) {
                 wordset = find(wordsetName);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
         return wordset;
     }
@@ -112,8 +112,8 @@ final class WordsetsDatabase extends Database {
             if (rs.next()) {
                 name = rs.getString(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -135,8 +135,8 @@ final class WordsetsDatabase extends Database {
                 String name = rs.getString(1);
                 wordsetNames.add(name);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -181,8 +181,8 @@ final class WordsetsDatabase extends Database {
             if (countAffectedRows > 0) {
                 EventBus.publish(new WordsetRemovedEvent(this, wordsetName));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -218,8 +218,8 @@ final class WordsetsDatabase extends Database {
                     EventBus.publish(new WordsetWordAddedEvent(this, wordsetName, word));
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -252,8 +252,8 @@ final class WordsetsDatabase extends Database {
                     EventBus.publish(new WordsetWordRemovedEvent(this, wordsetName, word));
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -293,8 +293,8 @@ final class WordsetsDatabase extends Database {
                     EventBus.publish(new WordsetWordRenamedEvent(this, wordsetName, oldWord, newWord));
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -324,8 +324,8 @@ final class WordsetsDatabase extends Database {
             if (countAffectedRows > 0) {
                 EventBus.publish(new WordsetRenamedEvent(this, oldWordsetName, newWordsetName));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -361,8 +361,8 @@ final class WordsetsDatabase extends Database {
                     EventBus.publish(new WordsetInsertedEvent(this, wordset));
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             countAffectedRows = 0;
             rollback(con);
         } finally {
@@ -400,8 +400,8 @@ final class WordsetsDatabase extends Database {
             insertWords(con, wordsetsId, wordset.getWords());
             con.commit();
             EventBus.publish(new WordsetUpdatedEvent(this, oldWordset, wordset));
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
             return false;
         } finally {
@@ -470,8 +470,8 @@ final class WordsetsDatabase extends Database {
         try {
             con = getConnection();
             id = findWordsetId(con, wordsetName);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             free(con);
         }
@@ -518,8 +518,8 @@ final class WordsetsDatabase extends Database {
             if (rs.next()) {
                 count = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -544,8 +544,8 @@ final class WordsetsDatabase extends Database {
             if (rs.next()) {
                 count = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -567,8 +567,8 @@ final class WordsetsDatabase extends Database {
             if (rs.next()) {
                 count = rs.getLong(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);

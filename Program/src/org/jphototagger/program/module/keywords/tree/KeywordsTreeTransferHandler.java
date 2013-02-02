@@ -194,8 +194,8 @@ public final class KeywordsTreeTransferHandler extends TransferHandler {
                     }
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(KeywordsTreeTransferHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(KeywordsTreeTransferHandler.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

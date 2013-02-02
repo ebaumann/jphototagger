@@ -84,8 +84,8 @@ public final class MessageLabel {
             while (sleepTime > 0 && !Thread.currentThread().isInterrupted()) {
                 try {
                     Thread.sleep(sleepTime);
-                } catch (Exception ex) {
-                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, t);
                 }
                 currentTimeMillis = System.currentTimeMillis();
                 synchronized (monitor) {

@@ -47,8 +47,8 @@ public final class FavoritesExporter implements RepositoryDataExporter {
             List<Favorite> templates = repo.findAllFavorites();
 
             XmlObjectExporter.export(new CollectionWrapper(templates), xmlFile);
-        } catch (Exception ex) {
-            Logger.getLogger(FavoritesExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(FavoritesExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

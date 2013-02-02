@@ -199,8 +199,8 @@ public final class ConnectionPool implements Runnable {
             return (con);
         } catch (ClassNotFoundException cnfe) {
             throw new SQLException("Can't find class for driver: " + driver);
-        } catch (Exception ce) {
-            throw new SQLException("Can't connect to server " + url + "! " + ce);
+        } catch (Throwable t) {
+            throw new SQLException("Can't connect to server " + url + "! " + t);
         }
     }
 
@@ -255,7 +255,7 @@ public final class ConnectionPool implements Runnable {
                     con.close();
                 }
             }
-        } catch (Exception sqle) {
+        } catch (Throwable t) {
             // Ignore errors; garbage collect anyhow
         }
     }

@@ -264,8 +264,8 @@ public final class UserDefinedFileFilter implements Serializable {
                 return isNot
                         ? !filename.matches(pattern)
                         : filename.matches(pattern);
-            } catch (Exception ex) {
-                Logger.getLogger(UserDefinedFileFilter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(UserDefinedFileFilter.class.getName()).log(Level.SEVERE, null, t);
             }
 
             return false;

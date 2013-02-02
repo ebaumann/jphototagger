@@ -199,8 +199,8 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         try {
             textHighLighter.removeAllHighlights();
             editorPanePage.setPage(url);
-        } catch (Exception ex) {
-            Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(HelpBrowser.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

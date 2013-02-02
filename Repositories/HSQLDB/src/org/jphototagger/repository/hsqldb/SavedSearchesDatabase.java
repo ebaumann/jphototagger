@@ -66,8 +66,8 @@ public final class SavedSearchesDatabase extends Database {
             con.commit();
             inserted = true;
             notifyInserted(savedSearch);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -179,8 +179,8 @@ public final class SavedSearchesDatabase extends Database {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -197,8 +197,8 @@ public final class SavedSearchesDatabase extends Database {
             con = getConnection();
             long id = findId(con, name);
             return id > 0;
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             free(con);
         }
@@ -224,8 +224,8 @@ public final class SavedSearchesDatabase extends Database {
             if (deleted) {
                 notifyDeleted(name);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -256,8 +256,8 @@ public final class SavedSearchesDatabase extends Database {
             if (renamed) {
                 notifyRenamed(fromName, toName);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(stmt);
             free(con);
@@ -306,9 +306,9 @@ public final class SavedSearchesDatabase extends Database {
                 setSavedSearchPanels(con, savedSearch);
                 setSavedSearchKeywords(con, savedSearch);
             }
-        } catch (Exception ex) {
+        } catch (Throwable t) {
             savedSearch = null;
-            LOGGER.log(Level.SEVERE, null, ex);
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -353,8 +353,8 @@ public final class SavedSearchesDatabase extends Database {
                 setSavedSearchKeywords(con, savedSearch);
                 searches.add(savedSearch);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             searches.clear();
         } finally {
             close(rs, stmt);

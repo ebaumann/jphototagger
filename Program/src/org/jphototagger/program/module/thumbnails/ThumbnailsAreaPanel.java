@@ -176,8 +176,8 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
 
                     // Waiting until TN panel size was calculated
                     Thread.sleep(2000);
-                } catch (Exception ex) {
-                    Logger.getLogger(ThumbnailsAreaPanel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Throwable t) {
+                    Logger.getLogger(ThumbnailsAreaPanel.class.getName()).log(Level.SEVERE, null, t);
                 }
 
                 EventQueueUtil.invokeInDispatchThread(new Runnable() {

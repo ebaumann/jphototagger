@@ -79,8 +79,8 @@ public final class ListItemTempSelectionRowSetter implements MouseListener, Popu
                 Method m = renderer.getClass().getMethod(TEMP_SEL_ROW_METHOD_NAME, int.class);
                 m.invoke(renderer, index);
                 list.repaint();
-            } catch (Exception ex) {
-                Logger.getLogger(ListItemTempSelectionRowSetter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(ListItemTempSelectionRowSetter.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }

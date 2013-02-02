@@ -39,8 +39,8 @@ final class UserPreferences {
     void writeToFile() {
         try {
             propertiesFile.writeToFile();
-        } catch (Exception ex) {
-            Logger.getLogger(UserPreferences.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(UserPreferences.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

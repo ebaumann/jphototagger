@@ -38,8 +38,8 @@ public final class TransferUtil {
     static {
         try {
             URI_LIST_FLAVOR = new DataFlavor(MIME_TYPE_URI_LIST);
-        } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 
@@ -190,8 +190,8 @@ public final class TransferUtil {
                     files.add(new File(new URI(token)));
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, t);
         }
         return files;
     }
@@ -221,8 +221,8 @@ public final class TransferUtil {
                     files.add(new File(st.nextToken().trim()));
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, t);
         }
         return files;
     }
@@ -246,8 +246,8 @@ public final class TransferUtil {
             while (it.hasNext()) {
                 list.add(it.next());
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, t);
         }
         return list;
     }
@@ -306,8 +306,8 @@ public final class TransferUtil {
             } else if (isDataFlavorSupported(flavors, STRING_FLAVOR)) {
                 return new File((String) transferable.getTransferData(STRING_FLAVOR)).exists();
             }
-        } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, null, t);
         }
         return false;
     }
@@ -321,8 +321,8 @@ public final class TransferUtil {
         try {
             return maybeContainFileData(
                     Toolkit.getDefaultToolkit().getSystemClipboard().getContents(TransferUtil.class));
-        } catch (Exception ex) {
-            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, "", ex);
+        } catch (Throwable t) {
+            Logger.getLogger(TransferUtil.class.getName()).log(Level.SEVERE, "", t);
         }
         return false;
     }

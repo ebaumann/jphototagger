@@ -55,8 +55,8 @@ final class FileExcludePatternsDatabase extends Database {
             if (inserted) {
                 notifyInserted(pattern);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -90,8 +90,8 @@ final class FileExcludePatternsDatabase extends Database {
             if (deleted) {
                 notifyDeleted(pattern);
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(stmt);
@@ -123,8 +123,8 @@ final class FileExcludePatternsDatabase extends Database {
             if (rs.next()) {
                 exists = rs.getInt(1) > 0;
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -151,8 +151,8 @@ final class FileExcludePatternsDatabase extends Database {
             while (rs.next()) {
                 patterns.add(rs.getString(1));
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
             free(con);
@@ -223,8 +223,8 @@ final class FileExcludePatternsDatabase extends Database {
             }
             con.commit();
             notifyProgressListenerEnd(listener, event);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
         } finally {
             close(rs, stmtQuery);

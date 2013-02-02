@@ -22,8 +22,8 @@ final class SendMail {
 
             LOGGER.log(Level.INFO, "Sending email to this URI: ''{0}''", uri);
             Desktop.getDesktop().mail(uri);
-        } catch (Exception ex) {
-            Logger.getLogger(ShowHelpAction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(ShowHelpAction.class.getName()).log(Level.SEVERE, null, t);
             String message = Bundle.getString(ShowHelpAction.class, "SendMail.Error.SendMail");
             MessageDisplayer.error(null, message);
         }

@@ -68,8 +68,8 @@ public class Database {
         }
         try {
             ConnectionPool.INSTANCE.free(con);
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
     }
 
@@ -133,8 +133,8 @@ public class Database {
         }
         try {
             con.rollback();
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         }
     }
 

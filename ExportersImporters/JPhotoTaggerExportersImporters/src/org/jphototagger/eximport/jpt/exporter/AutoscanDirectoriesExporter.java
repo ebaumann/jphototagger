@@ -47,8 +47,8 @@ public final class AutoscanDirectoriesExporter implements RepositoryDataExporter
             List<String> directories = FileUtil.getAbsolutePathnames(repo.findAllAutoscanDirectories());
 
             XmlObjectExporter.export(new CollectionWrapper(StringWrapper.getWrappedStrings(directories)), xmlFile);
-        } catch (Exception ex) {
-            Logger.getLogger(AutoscanDirectoriesExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(AutoscanDirectoriesExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

@@ -294,8 +294,8 @@ public final class ExifTag {
     private byte[] deepCopyRawValueOfIfdEntry(IFDEntry entry) {
         try {
             return Arrays.copyOf(entry.getRawValue(), entry.getRawValue().length);
-        } catch (Exception ex) {
-            Logger.getLogger(ExifTag.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t){
+            Logger.getLogger(ExifTag.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;

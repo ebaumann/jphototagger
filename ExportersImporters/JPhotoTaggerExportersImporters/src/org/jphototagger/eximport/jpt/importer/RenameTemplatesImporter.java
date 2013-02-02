@@ -38,8 +38,8 @@ public final class RenameTemplatesImporter implements RepositoryDataImporter {
                     repo.saveRenameTemplate(template);
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(RenameTemplatesImporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(RenameTemplatesImporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

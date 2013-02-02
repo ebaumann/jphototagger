@@ -68,8 +68,8 @@ public final class MetadataTemplatesExporter implements RepositoryDataExporter {
             insertTemplates(doc);
             initTransformer(trans);
             trans.transform(ds, sr);
-        } catch (Exception ex) {
-            Logger.getLogger(MetadataTemplatesExporter.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(MetadataTemplatesExporter.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

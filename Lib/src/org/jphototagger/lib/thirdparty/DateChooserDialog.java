@@ -168,8 +168,8 @@ public final class DateChooserDialog extends JComponent {
                     gc.set(Calendar.DAY_OF_MONTH, num);
                     selectedDay = num;
                     drawCalendar();
-                } catch (Exception nfe) {
-                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, nfe);
+                } catch (Throwable t) {
+                    Logger.getLogger(getClass().getName()).log(Level.SEVERE, null, t);
                 }
             }
         };

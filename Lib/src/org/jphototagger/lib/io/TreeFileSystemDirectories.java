@@ -40,9 +40,9 @@ public final class TreeFileSystemDirectories {
                     FileUtil.deleteDirectoryRecursive(directory);
 
                     return true;
-                } catch (Exception ex) {
+                } catch (Throwable t) {
                     errorMessageDelete(directory.getName());
-                    Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, t);
                 }
             }
         }
@@ -74,8 +74,8 @@ public final class TreeFileSystemDirectories {
                         if (directory.renameTo(newDirectory)) {
                             return newDirectory;
                         }
-                    } catch (Exception ex) {
-                        Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Throwable t) {
+                        Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, t);
                     }
                 }
             }
@@ -107,8 +107,8 @@ public final class TreeFileSystemDirectories {
                         if (subdirectory.mkdir()) {
                             return subdirectory;
                         }
-                    } catch (Exception ex) {
-                        Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (Throwable t) {
+                        Logger.getLogger(TreeFileSystemDirectories.class.getName()).log(Level.SEVERE, null, t);
                     }
                 }
             }

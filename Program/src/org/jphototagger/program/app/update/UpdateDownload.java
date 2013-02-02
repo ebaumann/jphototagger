@@ -103,8 +103,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                         appPropertiesRepo.setBoolean(KEY_ASK_ONCE_CHECK_FOR_NEWER_VERSION, true);
                     }
                 });
-            } catch (Exception ex) {
-                Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }
@@ -132,8 +132,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                     }
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, "The most recent version of JPhotoTagger couldn''t be retrieved: {0}", ex.getLocalizedMessage());
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, "The most recent version of JPhotoTagger couldn''t be retrieved: {0}", t.getLocalizedMessage());
         } finally {
             synchronized (UpdateDownload.class) {
                 progressHandle.progressEnded();
@@ -155,8 +155,8 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.Success", targetFile);
                 MessageDisplayer.information(null, message);
             }
-        } catch (Exception ex) {
-            Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 

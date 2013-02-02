@@ -159,8 +159,8 @@ public final class XmpProperties {
         try {
             XMPMetaFactory.getSchemaRegistry().registerNamespace(Namespace.LIGHTROOM.getUri(),
                     Namespace.LIGHTROOM.getPrefix());
-        } catch (Exception ex) {
-            Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 
@@ -261,8 +261,8 @@ public final class XmpProperties {
             }
 
             return propertyInfos;
-        } catch (Exception ex) {
-            Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, t);
         } finally {
             if (fis != null) {
                 try {

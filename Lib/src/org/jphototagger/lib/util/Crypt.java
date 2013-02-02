@@ -26,16 +26,16 @@ import org.jphototagger.lib.thirdparty.Base64;
  * try {
  *     Crypt encrypter = new Crypt(secKey);
  *     encrypter.encrypt(string);
- * } catch (Exception ex) {
- *     Logger.getLogger(MyClass.class.getName()).log(Level.SEVERE, null, ex);
+ * } catch (Throwable t) {
+ *     Logger.getLogger(MyClass.class.getName()).log(Level.SEVERE, null, t);
  * }
  *
  * // Decrypt an encrypted string
  * try {
  *    Crypt decrypter = new Crypt(secKey);
  *    decrypter.decrypt(encryptedString);
- * } catch (Exception ex) {
- *     Logger.getLogger(MyClass.class.getName()).log(Level.SEVERE, null, ex);
+ * } catch (Throwable t) {
+ *     Logger.getLogger(MyClass.class.getName()).log(Level.SEVERE, null, t);
  * }
  * </pre>
  *
@@ -60,8 +60,8 @@ public final class Crypt {
             dcipher = Cipher.getInstance("DESede");
             ecipher.init(Cipher.ENCRYPT_MODE, key);
             dcipher.init(Cipher.DECRYPT_MODE, key);
-        } catch (Exception ex) {
-            Logger.getLogger(Crypt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(Crypt.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 
@@ -81,8 +81,8 @@ public final class Crypt {
             byte[] enc = ecipher.doFinal(utf8);
 
             return Base64.encodeBytes(enc);
-        } catch (Exception ex) {
-            Logger.getLogger(Crypt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(Crypt.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;
@@ -104,8 +104,8 @@ public final class Crypt {
             byte[] utf8 = dcipher.doFinal(dec);
 
             return new String(utf8, "UTF8");
-        } catch (Exception ex) {
-            Logger.getLogger(Crypt.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(Crypt.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return null;

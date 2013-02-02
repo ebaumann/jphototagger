@@ -111,8 +111,8 @@ public final class KMLExporter implements GPSLocationExporter {
                 String name = df.format(cal.getTime()) + filename;
 
                 placemark.setName(name);
-            } catch (Exception ex) {
-                Logger.getLogger(KMLExporter.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Throwable t) {
+                Logger.getLogger(KMLExporter.class.getName()).log(Level.SEVERE, null, t);
             }
         }
     }

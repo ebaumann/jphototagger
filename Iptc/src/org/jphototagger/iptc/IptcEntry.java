@@ -113,8 +113,8 @@ public final class IptcEntry {
             String encodedData = new String(data, iptcCharset);
 
             return encodedData.trim();
-        } catch (Exception ex) {
-            Logger.getLogger(IptcEntry.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            Logger.getLogger(IptcEntry.class.getName()).log(Level.SEVERE, null, t);
         }
 
         return "";

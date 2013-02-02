@@ -61,8 +61,8 @@ final class PersistentThumbnails {
                     fos.write(nextByte);
                 }
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             FileLock.INSTANCE.unlock(tnFile, PersistentThumbnails.class);
             IoUtil.close(fos);
@@ -110,8 +110,8 @@ final class PersistentThumbnails {
                 ImageIcon icon = new ImageIcon(bytes);
                 thumbnail = icon.getImage();
             }
-        } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
         } finally {
             IoUtil.close(fis);
         }
