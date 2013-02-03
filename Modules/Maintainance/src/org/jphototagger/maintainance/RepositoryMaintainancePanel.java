@@ -512,8 +512,8 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelMessages.add(labelMessages, gridBagConstraints);
 
-        textPaneMessages.setContentType(bundle.getString("RepositoryMaintainancePanel.textPaneMessages.contentType")); // NOI18N
         textPaneMessages.setEditable(false);
+        textPaneMessages.setContentType("text/html"); // NOI18N
         scrollPaneMessages.setViewportView(textPaneMessages);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
