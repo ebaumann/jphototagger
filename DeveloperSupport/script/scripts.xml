@@ -3,6 +3,7 @@
     <description>Helper scripts for developers</description>
     <property environment="env"/>
     <property name="repo.root" value="../.."/>
+    <property name="private.confdir" value="${repo.root}/../Support/conf"/>
     <property name="translation.root" value="${repo.root}/OmegaT"/>
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${repo.root}/DeveloperSupport/script/ant-googlecode.jar"/>
     <target name="dist_0_all_no_pdf_manual">
@@ -39,17 +40,22 @@
         </exec>
     </target>
     <target name="dist_4_upload" description="Uploading Distribution to Google Code">
+        <antcall target="_dist_upload_gc"/>
+        <antcall target="_dist_upload_website"/>
+    </target>
+    <target name="_dist_upload_gc">
         <!--${googlecode.username} and ${googlecode.password}
             will be read from scripts.googlecode.properties
             and ${jptversion} from scripts.version.properties
         -->
-        <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.googlecode.properties"/>
-        <property file="${env.PROJECTDIR}/JPhotoTagger/Support/conf/scripts.version.properties"/>
+        <property file="${private.confdir}/scripts.googlecode.properties"/>
+        <property file="${private.confdir}/scripts.version.properties"/>
+        <property name="dist.src" value="${repo.root}/dist_files/upload"/>
         <gcupload
             projectname="jphototagger"
             username="${googlecode.username}"
             password="${googlecode.password}"
-            filename="${env.PROJECTDIR}/JPhotoTagger/main-repository/dist_files/upload/JPhotoTagger.zip"
+            filename="${dist.src}/JPhotoTagger.zip"
             targetfilename="JPhotoTagger-${jptversion}.zip"
             summary="JPhotoTagger Version ${jptversion} - System independent ZIP archive"
             verbose="true"
@@ -59,13 +65,22 @@
             projectname="jphototagger"
             username="${googlecode.username}"
             password="${googlecode.password}"
-            filename="${env.PROJECTDIR}/JPhotoTagger/main-repository/dist_files/upload/JPhotoTagger-setup.exe"
+            filename="${dist.src}/JPhotoTagger-setup.exe"
             targetfilename="JPhotoTagger-setup-${jptversion}.exe"
             summary="JPhotoTagger Version ${jptversion} - Windows Installer"
             verbose="true"
             labels="photomanager, tagging, xmp, java"
         />
-        <exec executable="${env.HOME}/website/bin/update.sh"/>
+    </target>
+    <target name="_dist_upload_website">
+        <property file="${private.confdir}/scripts.website.properties"/><!-- contains user and pass -->
+        <ftp server="ftp.elmar-baumann.de"
+             userid="${user}"
+             password="${pass}"
+             remotedir="html/JPhotoTagger"
+        >
+            <fileset dir="${repo.root}/Website"/>
+        </ftp>
     </target>
     <target name="check_bundles_find_missing_strings" description="Finding missing Bundle strings">
         <exec executable="bash">
