@@ -73,13 +73,23 @@
         />
     </target>
     <target name="_dist_upload_website">
+        <echo message="Uploading new/updated website files to JPhotoTagger website"/>
         <property file="${private.confdir}/scripts.website.properties"/><!-- contains user and pass -->
         <ftp server="ftp.elmar-baumann.de"
              userid="${user}"
              password="${pass}"
              remotedir="html/JPhotoTagger"
-        >
+             depends="yes"
+             verbose="yes">
             <fileset dir="${repo.root}/Website"/>
+        </ftp>
+        <ftp server="ftp.elmar-baumann.de"
+             userid="${user}"
+             password="${pass}"
+             remotedir="html/JPhotoTagger/manual"
+             depends="yes"
+             verbose="yes">
+            <fileset dir="${repo.root}/Program/src/org/jphototagger/program/resource/doc"/>
         </ftp>
     </target>
     <target name="check_bundles_find_missing_strings" description="Finding missing Bundle strings">
