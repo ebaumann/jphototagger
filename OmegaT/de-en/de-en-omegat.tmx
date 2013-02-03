@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tmx SYSTEM "tmx11.dtd">
 <tmx version="1.1">
-  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="2.6.1_2" segtype="sentence" srclang="DE"/>
+  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="2.5.5_4" segtype="sentence" srclang="DE"/>
   <body>
 <!-- Default translations -->
     <tu>
@@ -1534,6 +1534,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>1.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134642Z">
+        <seg>1.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>1. dcraw auswählen...</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -1546,6 +1554,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>2 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>2.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134645Z">
+        <seg>2.</seg>
       </tuv>
     </tu>
     <tu>
@@ -1566,6 +1582,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>3.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134649Z">
+        <seg>3.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>3. identify auswählen...</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -1582,10 +1606,26 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>4.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134647Z">
+        <seg>4.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>5 Sterne</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>5 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134621Z">
+        <seg>&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -4622,6 +4662,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Bla {0} bla {1}</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134627Z">
+        <seg>Bla {0} bla {1}</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Blaue chromatische Aberration</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -4738,6 +4786,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Photographer/State</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>BundleTestValue</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134631Z">
+        <seg>BundleTestValue</seg>
       </tuv>
     </tu>
     <tu>
@@ -7582,6 +7638,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Firmware</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T135947Z">
+        <seg>Firmware</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Fixture Identifier</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -8768,6 +8832,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>ImageMagick Website ...</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134459Z">
+        <seg>ImageMagick Website ...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>ImageMagick convert</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -8780,6 +8852,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Choose ImageMagick convert</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>ImageMagick convert.exe</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134507Z">
+        <seg>ImageMagick convert.exe</seg>
       </tuv>
     </tu>
     <tu>
@@ -11888,14 +11968,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
-        <seg>Qualität</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Quality</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
         <seg>Quell- und Zieldatei sind identisch: ''{0}''!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -12212,14 +12284,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Focus mode</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
-        <seg>Scharfeinstellung</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Focus Mode</seg>
       </tuv>
     </tu>
     <tu>
@@ -14656,6 +14720,22 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>[&amp;1] Start</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134654Z">
+        <seg>[&amp;1] Start</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>[&amp;2] Start</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134656Z">
+        <seg>[&amp;2] Start</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>[&amp;3] Start</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -14732,6 +14812,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T192946Z">
         <seg>dcraw website...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>dcraw.exe</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134510Z">
+        <seg>dcraw.exe</seg>
       </tuv>
     </tu>
     <tu>
@@ -14884,6 +14972,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>with errors</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>mplayer</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130203T134437Z">
+        <seg>mplayer</seg>
       </tuv>
     </tu>
     <tu>
