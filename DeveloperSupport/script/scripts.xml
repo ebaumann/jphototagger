@@ -138,6 +138,8 @@
                 <exclude name="Localization/**"/>
                 <exclude name="OmegaT/**"/>
                 <exclude name="Website/**"/>
+                <exclude name="**/NikonExifMakerNote*.properties"/>
+                <exclude name="**/XmpPropertyExifTagIdTranslations*.properties"/>
             </fileset>
         </copy>
         <antcall target="_translate_create_zip">
