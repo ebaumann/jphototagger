@@ -172,10 +172,8 @@ public class EditMetaDataTemplateDialog extends Dialog {
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        panelContent.setName(bundle.getString("EditMetaDataTemplateDialog.panelContent.name")); // NOI18N
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        panelName.setName(bundle.getString("EditMetaDataTemplateDialog.panelName.name")); // NOI18N
         panelName.setLayout(new java.awt.GridBagLayout());
 
         labelName.setLabelFor(textFieldName);
@@ -216,7 +214,6 @@ public class EditMetaDataTemplateDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         panelContent.add(scrollPane, gridBagConstraints);
 
-        panelButtons.setName(bundle.getString("EditMetaDataTemplateDialog.panelButtons.name")); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
         buttonCancel.setText(bundle.getString("EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N

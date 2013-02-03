@@ -343,10 +343,9 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/exportimport/Bundle"); // NOI18N
-        panelDirectory.setName(bundle.getString("ExportImportPanel.panelDirectory.name")); // NOI18N
         panelDirectory.setLayout(new java.awt.GridBagLayout());
 
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/exportimport/Bundle"); // NOI18N
         labelPromptDir.setText(bundle.getString("ExportImportPanel.labelPromptDir.text")); // NOI18N
         labelPromptDir.setName("labelPromptDir"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -405,7 +404,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
 
-        panelButtons.setName(bundle.getString("ExportImportPanel.panelButtons.name")); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonSelectAll.setText(bundle.getString("ExportImportPanel.buttonSelectAll.text")); // NOI18N

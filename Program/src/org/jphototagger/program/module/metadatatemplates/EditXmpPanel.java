@@ -397,9 +397,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(panelPhotoshopCaptionwriter, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/metadatatemplates/Bundle"); // NOI18N
-        panelFill.setName(bundle.getString("EditXmpPanel.panelFill.name")); // NOI18N
-
         javax.swing.GroupLayout panelFillLayout = new javax.swing.GroupLayout(panelFill);
         panelFill.setLayout(panelFillLayout);
         panelFillLayout.setHorizontalGroup(
