@@ -24,7 +24,7 @@ Name: "de"; \
   MessagesFile: "compiler:Languages\German.isl"; \
   InfoAfterFile: "JPhotoTagger-Readme_de.txt"
 Name: "en"; \
-  MessagesFile: "compiler:Languages\Default.isl"; \
+  MessagesFile: "compiler:Default.isl"; \
   InfoAfterFile: "JPhotoTagger-Readme_en.txt"
 
 [Tasks]
@@ -47,11 +47,11 @@ Source: "{#SourcePath}\..\..\img\JPhotoTagger.ico"; \
 Source: "{#SourcePath}\..\..\..\dist_files\manual\Manual_de.pdf"; \
   DestDir: "{app}"; \
   Flags: ignoreversion
-Source: "{#SourcePath}\..\..\..\dist_files\script\rotatejpg.sh"; \
+Source: "{#SourcePath}\..\..\..\dist_files\scripts\rotatejpg.sh"; \
   DestDir: "{app}\scripts"
-Source: "{#SourcePath}\..\..\..\dist_files\script\thumbnail2stdoutwin.bat"; \
+Source: "{#SourcePath}\..\..\..\dist_files\scripts\thumbnail2stdoutwin.bat"; \
   DestDir: "{app}\scripts"
-Source: "{#SourcePath}\..\..\..\dist_files\script\thumbnail2stdoutwin.sh"; \
+Source: "{#SourcePath}\..\..\..\dist_files\scripts\thumbnail2stdoutwin.sh"; \
   DestDir: "{app}\scripts"
 Source: "{#SourcePath}\..\..\..\dist_files\dcraw\bin\win32\*"; \
   DestDir: "{app}\lib\dcraw\win32"

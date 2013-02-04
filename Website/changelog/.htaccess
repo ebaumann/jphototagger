@@ -1,0 +1,7 @@
+<FilesMatch "\.txt$">
+	ForceType text/plain;charset=utf-8
+</FilesMatch>
+
+<FilesMatch "\.html$">
+	ForceType text/html;charset=utf-8
+</FilesMatch>

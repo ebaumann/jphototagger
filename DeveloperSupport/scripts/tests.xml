@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JPhotoTagger Tests" default="default" basedir=".">
+
+    <description>JPhotoTagger Tests (non unit tests)</description>
+
+    <target name="switch-settingsdir-pristine">
+        <echo message="Switching to pristine settings"/>
+        <exec executable="bash">
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-p"/>
+        </exec>
+    </target>
+
+    <target name="switch-settingsdir-test">
+        <echo message="Switching to test settings"/>
+        <exec executable="bash">
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-t"/>
+        </exec>
+    </target>
+
+    <target name="switch-settingsdir-work">
+        <echo message="Switching to working settings"/>
+        <exec executable="bash">
+            <arg value="switch_settingsdir.sh"/>
+            <arg value="-w"/>
+        </exec>
+    </target>
+
+    <target name="copy-images">
+        <echo message="Copying test images"/>
+        <exec executable="bash">
+            <arg value="copy_images.sh"/>
+        </exec>
+    </target>
+
+    <target name="bundles_find_missing_strings">
+        <echo message="Finding missing Bundle strings"/>
+        <exec executable="bash">
+            <arg value="find_missing_bundle_strings.sh"/>
+        </exec>
+    </target>
+
+</project>
