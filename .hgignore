@@ -21,6 +21,6 @@
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc_iso.*\.html
 ^Program/src/org/jphototagger/program/resource/doc/.*/index\.html
 ^Website/manual/.*
-scripts.googlecode.properties
-scripts.innosetup.properties
-scripts.website.properties
+googlecode.properties
+innosetup.properties
+website.properties
