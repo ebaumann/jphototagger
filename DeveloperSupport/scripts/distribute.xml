@@ -105,7 +105,8 @@
             dir="InnoSetup"/>
     </target>
 
-    <target name="5-upload" description="Uploading Distribution to Google Code">
+    <target name="5-upload">
+        <echo message="Uploading JPhotoTagger Distribution"/>
         <antcall target="-upload-gc"/>
         <antcall target="-upload-website"/>
     </target>
@@ -114,7 +115,7 @@
         <!--${username} and ${password} will be read from scripts.googlecode.properties,
             ${Version} from Version.properties
         -->
-        <property name="dist.src" value="${repo.root}/dist_files/upload"/>
+        <property name="dist.src" location="${repo.root}/dist_files/upload"/>
         <gcupload
             projectname="jphototagger"
             username="${username}"
