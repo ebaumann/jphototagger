@@ -1,6 +1,8 @@
 package org.jphototagger.program.module.keywords.tree;
 
+import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -14,6 +16,7 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.module.keywords.list.ShowThumbnailsContainingAllKeywords2;
@@ -44,19 +47,19 @@ public final class KeywordsTreeItemSelectedController implements TreeSelectionLi
         selectedKeywordPaths.clear();
         if (evt.isAddedPath()) {
             selectedKeywordPaths.addAll(getKeywordStringPaths());
-            showThumbnailsOfSelectedKeywords();
+            showThumbnailsOfSelectedKeywords(new ThumbnailsPanelSettings(new Point(0, 0), Collections.<Integer>emptyList()));
         }
     }
 
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         if (isKeywordSelected() && evt.getOriginOfDisplayedThumbnails().isFilesMatchingAKeyword()) {
-            showThumbnailsOfSelectedKeywords();
+            showThumbnailsOfSelectedKeywords(evt.getThumbnailsPanelSettings());
         }
     }
 
-    private void showThumbnailsOfSelectedKeywords() {
-        EventQueueUtil.invokeInDispatchThread(new ShowThumbnailsContainingAllKeywords2(selectedKeywordPaths));
+    private void showThumbnailsOfSelectedKeywords(ThumbnailsPanelSettings settings) {
+        EventQueueUtil.invokeInDispatchThread(new ShowThumbnailsContainingAllKeywords2(selectedKeywordPaths, settings));
     }
 
     private List<List<String>> getKeywordStringPaths() {
@@ -95,7 +98,7 @@ public final class KeywordsTreeItemSelectedController implements TreeSelectionLi
     public void xmpDeleted(XmpDeletedEvent evt) {
         if (isKeywordSelected()
                 && evt.getXmp().containsOneOf(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, getSelectedKeywords())) {
-            showThumbnailsOfSelectedKeywords();
+            showThumbnailsOfSelectedKeywords(createThumbnailsPanelSettings());
         }
     }
 
@@ -103,7 +106,7 @@ public final class KeywordsTreeItemSelectedController implements TreeSelectionLi
     public void xmpInserted(XmpInsertedEvent evt) {
         if (isKeywordSelected()
                 && evt.getXmp().containsOneOf(XmpDcSubjectsSubjectMetaDataValue.INSTANCE, getSelectedKeywords())) {
-            showThumbnailsOfSelectedKeywords();
+            showThumbnailsOfSelectedKeywords(createThumbnailsPanelSettings());
         }
     }
 
@@ -113,7 +116,7 @@ public final class KeywordsTreeItemSelectedController implements TreeSelectionLi
             List<String> selectedKeywords = getSelectedKeywords();
             if ((Xmp.valueDeleted(evt.getOldXmp(), evt.getUpdatedXmp(), XmpDcSubjectsSubjectMetaDataValue.INSTANCE, selectedKeywords)
                     || Xmp.valueInserted(evt.getOldXmp(), evt.getUpdatedXmp(), XmpDcSubjectsSubjectMetaDataValue.INSTANCE, selectedKeywords))) {
-                showThumbnailsOfSelectedKeywords();
+                showThumbnailsOfSelectedKeywords(createThumbnailsPanelSettings());
             }
         }
     }
@@ -128,4 +131,10 @@ public final class KeywordsTreeItemSelectedController implements TreeSelectionLi
         }
         return selKeywords;
     }
+
+    public ThumbnailsPanelSettings createThumbnailsPanelSettings() {
+        ThumbnailsPanelSettings settings = new ThumbnailsPanelSettings(GUI.getThumbnailsPanel().getViewPosition(), Collections.<Integer>emptyList());
+        settings.setSelectedFiles(GUI.getThumbnailsPanel().getSelectedFiles());
+        return settings;
+}
 }

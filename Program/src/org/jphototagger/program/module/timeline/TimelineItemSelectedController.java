@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -206,14 +207,14 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
             boolean displayed = isDisplayed(imageFile);
             boolean unknownNodeSelected = isUnknownNodeSelected();
             if (displayed && !unknownNodeSelected || !displayed && unknownNodeSelected) {
-                setFilesToThumbnailsPanel(null);
+                setFilesToThumbnailsPanel(createThumbnailsPanelSettings());
             }
         }
     }
 
     private void xmpModified(File imageFile, Xmp xmp) {
         if (selectedItemPath != null && isUpdate(imageFile, xmp)) {
-            setFilesToThumbnailsPanel(null);
+            setFilesToThumbnailsPanel(createThumbnailsPanelSettings());
         }
     }
 
@@ -248,14 +249,14 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
     @EventSubscriber(eventClass=ExifUpdatedEvent.class)
     public void exifUpdated(ExifUpdatedEvent evt) {
         if (selectedItemPath != null && isUpdate(evt.getImageFile(), evt.getUpdatedExif())) {
-            setFilesToThumbnailsPanel(null);
+            setFilesToThumbnailsPanel(createThumbnailsPanelSettings());
         }
     }
 
     @EventSubscriber(eventClass=ExifInsertedEvent.class)
     public void exifInserted(ExifInsertedEvent evt) {
         if (selectedItemPath != null && isUpdate(evt.getImageFile(), evt.getExif())) {
-            setFilesToThumbnailsPanel(null);
+            setFilesToThumbnailsPanel(createThumbnailsPanelSettings());
         }
     }
 
@@ -289,4 +290,10 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
         }
         return true;
     }
+
+    public ThumbnailsPanelSettings createThumbnailsPanelSettings() {
+        ThumbnailsPanelSettings settings = new ThumbnailsPanelSettings(GUI.getThumbnailsPanel().getViewPosition(), Collections.<Integer>emptyList());
+        settings.setSelectedFiles(GUI.getThumbnailsPanel().getSelectedFiles());
+        return settings;
+}
 }

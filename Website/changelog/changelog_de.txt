@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.2 2013-02-04
+-----------------
+
+* Bugfix: Beim automatischen Aktualisieren von Vorschaubildern
+  rollt das Vorschaubildfenster nicht nach oben
+  (Bug seit Version 0.30.11)
+
 0.32.1 2013-02-02
 -----------------
 

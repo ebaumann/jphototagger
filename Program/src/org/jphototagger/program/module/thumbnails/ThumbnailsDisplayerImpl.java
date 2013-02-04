@@ -1,6 +1,7 @@
 package org.jphototagger.program.module.thumbnails;
 
 import java.awt.Component;
+import java.awt.Point;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -84,6 +85,11 @@ public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer, MainW
     }
 
     @Override
+    public void setSelectedFiles(Collection<? extends File> files) {
+        THUMBNAILS_AREA_PANEL.getThumbnailsPanel().setSelectedFiles(files);
+    }
+
+    @Override
     public List<File> getDisplayedFiles() {
         return THUMBNAILS_AREA_PANEL.getThumbnailsPanel().getFiles();
     }
@@ -138,4 +144,9 @@ public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer, MainW
     public boolean isDisplayFlag(ThumbnailFlag flag) {
         return THUMBNAILS_AREA_PANEL.getThumbnailsPanel().isDisplayFlag(flag);
     }
+
+    @Override
+    public Point getViewPosition() {
+        return THUMBNAILS_AREA_PANEL.getThumbnailsPanel().getViewPosition();
+}
 }

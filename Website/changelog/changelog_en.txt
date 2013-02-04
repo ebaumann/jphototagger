@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.2 2013-02-04
+-----------------
+
+* Bugfix: When updating thumbnails automatically, the thumbnails
+  window does not move to the top position
+  (Bug since Version 0.30.11)
+
 0.32.1 2013-02-02
 -----------------
 

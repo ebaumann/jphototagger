@@ -3,6 +3,7 @@ package org.jphototagger.program.module.keywords.list;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JRadioButton;
 import javax.swing.event.ListSelectionEvent;
@@ -16,6 +17,7 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
+import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
@@ -88,10 +90,10 @@ public final class KeywordListItemSelectedController implements ActionListener, 
     private void update(ThumbnailsPanelRefreshEvent evt) {
         EventQueueUtil.invokeInDispatchThread(isAllKeywords()
                 ? new ShowThumbnailsContainingAllKeywords(selectedKeywords, (evt == null)
-                ? null
+                ? createThumbnailsPanelSettings()
                 : evt.getThumbnailsPanelSettings())
                 : new ShowThumbnailsContainingKeywords(selectedKeywords, (evt == null)
-                ? null
+                ? createThumbnailsPanelSettings()
                 : evt.getThumbnailsPanelSettings()));
     }
 
@@ -140,4 +142,10 @@ public final class KeywordListItemSelectedController implements ActionListener, 
             update(null);
         }
     }
+
+    public ThumbnailsPanelSettings createThumbnailsPanelSettings() {
+        ThumbnailsPanelSettings settings = new ThumbnailsPanelSettings(GUI.getThumbnailsPanel().getViewPosition(), Collections.<Integer>emptyList());
+        settings.setSelectedFiles(GUI.getThumbnailsPanel().getSelectedFiles());
+        return settings;
+}
 }

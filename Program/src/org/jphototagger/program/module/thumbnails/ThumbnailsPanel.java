@@ -275,7 +275,7 @@ public class ThumbnailsPanel extends JPanel
         return renderer.getThumbnailWidth();
     }
 
-    private synchronized List<Integer> getSelectedIndices() {
+    public synchronized List<Integer> getSelectedIndices() {
         return new ArrayList<>(selectedThumbnailIndices);
     }
 
@@ -631,6 +631,17 @@ public class ThumbnailsPanel extends JPanel
         repaint();
     }
 
+    public synchronized void setSelectedFiles(Collection<? extends File> files) {
+        List<Integer> indices = new ArrayList<>(files.size());
+        for (File file : files) {
+            int index = getIndexOf(file);
+            if (index >= 0) {
+                indices.add(index);
+            }
+        }
+        setSelectedIndices(indices);
+    }
+
     private synchronized Set<Integer> getValidIndicesOf(Collection<Integer> indices) {
         Set<Integer> validIndices = new HashSet<>(indices.size());
         if (indices.isEmpty() || files.isEmpty()) {
@@ -921,12 +932,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     public void refresh() {
-        JViewport vp = getViewport();
-        Point viewportPosition = new Point(0, 0);
-        if (vp != null) {
-            viewportPosition = vp.getViewPosition();
-        }
-        ThumbnailsPanelRefreshEvent evt = new ThumbnailsPanelRefreshEvent(this, originOfOfDisplayedThumbnails, viewportPosition);
+        ThumbnailsPanelRefreshEvent evt = new ThumbnailsPanelRefreshEvent(
+                this, originOfOfDisplayedThumbnails, getViewPosition());
         evt.setSelectedThumbnailIndices(new ArrayList<>(selectedThumbnailIndices));
         notifyRefreshListeners(evt);
         // viewport position has to be setTree by the refresh listeners because they
@@ -941,13 +948,13 @@ public class ThumbnailsPanel extends JPanel
         if (settings == null) {
             return;
         }
-        if (settings.hasViewPosition()) {
             setViewPosition(settings.getViewPosition());
+        if (settings.hasSelectedFiles()) {
+            setSelectedFiles(settings.getSelectedFiles());
+        } else if (settings.hasSelectedIndices()) {
+            setSelectedIndices(settings.getSelectedIndices());
         }
-        if (settings.hasSelThumbnails()) {
-            setSelectedIndices(settings.getSelThumbnails());
         }
-    }
 
     private void setViewPosition(Point pos) {
         if (viewport != null) {
@@ -961,9 +968,9 @@ public class ThumbnailsPanel extends JPanel
         component.validateViewportPosition();
     }
 
-    private Point getViewPosition() {
+    public Point getViewPosition() {
         JViewport vp = getViewport();
-        return (vp == null)
+        return vp == null
                 ? new Point(0, 0)
                 : vp.getViewPosition();
     }
