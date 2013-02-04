@@ -1,5 +1,6 @@
 package org.jphototagger.domain.thumbnails;
 
+import java.awt.Point;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -27,7 +28,11 @@ public interface ThumbnailsDisplayer {
 
     List<File> getSelectedFiles();
 
+    void setSelectedFiles(Collection<? extends File> files);
+
     List<File> getDisplayedFiles();
+
+    Point getViewPosition();
 
     void refresh();
 }

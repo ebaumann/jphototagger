@@ -90,7 +90,7 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
             return true;
         }
         if (exif.getValue(selectedValue.mdValue) != null) {
-            EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(selectedPath, null));
+            EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(selectedPath, createThumbnailsPanelSettings()));
         }
         return false;
     }
@@ -118,7 +118,7 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
             return true;
         }
         if (xmp.getValue(selectedValue.mdValue) != null) {
-            EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(selectedPath, null));
+            EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(selectedPath, createThumbnailsPanelSettings()));
         }
         return false;
     }
@@ -143,7 +143,7 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
         boolean update = valueSelected && !ObjectUtil.equals(selectedValue.value, newValue)
                 || !ObjectUtil.equals(oldValue, newValue);
         if (update) {
-            EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(selectedPath, null));
+            EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(selectedPath, createThumbnailsPanelSettings()));
         }
     }
 
@@ -183,6 +183,12 @@ public final class MiscMetadataItemSelectedController implements TreeSelectionLi
                 ? userObject
                 : null;
         return new SelectedValue(md5Value, isMetadataCategory, value);
+    }
+
+    public ThumbnailsPanelSettings createThumbnailsPanelSettings() {
+        ThumbnailsPanelSettings settings = new ThumbnailsPanelSettings(GUI.getThumbnailsPanel().getViewPosition(), Collections.<Integer>emptyList());
+        settings.setSelectedFiles(GUI.getThumbnailsPanel().getSelectedFiles());
+        return settings;
     }
 
     private static class ShowThumbnails implements Runnable {

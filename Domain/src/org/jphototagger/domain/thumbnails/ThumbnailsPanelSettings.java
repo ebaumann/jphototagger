@@ -1,6 +1,8 @@
 package org.jphototagger.domain.thumbnails;
 
 import java.awt.Point;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,33 +11,51 @@ import java.util.List;
  */
 public class ThumbnailsPanelSettings {
 
-    private final List<Integer> selectedThumbnailIndices;
+    private final List<Integer> selectedIndices;
     private final Point viewPosition;
+    private final List<File> selectedFiles = new ArrayList<>();
 
-    public ThumbnailsPanelSettings(Point viewPosition, List<Integer> selectedThumbnailIndices) {
+    public ThumbnailsPanelSettings(Point viewPosition, List<Integer> selectedIndices) {
         if (viewPosition == null) {
             throw new NullPointerException("viewPosition == null");
         }
-        if (selectedThumbnailIndices == null) {
-            throw new NullPointerException("selectedThumbnailIndices == null");
+        if (selectedIndices == null) {
+            throw new NullPointerException("selectedIndices == null");
         }
         this.viewPosition = viewPosition;
-        this.selectedThumbnailIndices = selectedThumbnailIndices;
-    }
-
-    public List<Integer> getSelThumbnails() {
-        return Collections.unmodifiableList(selectedThumbnailIndices);
+        this.selectedIndices = new ArrayList<>(selectedIndices);
     }
 
     public Point getViewPosition() {
         return viewPosition;
     }
 
-    public boolean hasSelThumbnails() {
-        return selectedThumbnailIndices != null;
+    public List<File> getSelectedFiles() {
+        return Collections.unmodifiableList(selectedFiles);
     }
 
-    public boolean hasViewPosition() {
-        return viewPosition != null;
+    public void setSelectedFiles(List<File> files) {
+        if (files == null) {
+            throw new NullPointerException("files == null");
+    }
+        this.selectedFiles.clear();
+        this.selectedFiles.addAll(files);
+}
+
+    /**
+     * Higher priority than {@link #hasSelectedIndices()}
+     *
+     * @return
+     */
+    public boolean hasSelectedFiles() {
+        return !selectedFiles.isEmpty();
+    }
+
+    public List<Integer> getSelectedIndices() {
+        return Collections.unmodifiableList(selectedIndices);
+    }
+
+    public boolean hasSelectedIndices() {
+        return !selectedIndices.isEmpty();
     }
 }
