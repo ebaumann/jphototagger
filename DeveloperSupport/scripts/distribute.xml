@@ -128,8 +128,8 @@
         />
         <gcupload
             projectname="jphototagger"
-            username="${googlecode.username}"
-            password="${googlecode.password}"
+            username="${username}"
+            password="${password}"
             filename="${dist.src}/JPhotoTagger-setup.exe"
             targetfilename="JPhotoTagger-setup-${Version}.exe"
             summary="JPhotoTagger Version ${Version} - Windows Installer"
