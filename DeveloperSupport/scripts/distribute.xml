@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JPhotoTagger" default="default" basedir=".">
+
+    <description>JPhotoTagger Distribution</description>
+
+    <property name="repo.root" value="../.."/>
+    <property name="private.confdir" value="../conf"/>
+    <condition property="isWindows"><os family="windows" /></condition>
+
+    <property file="${repo.root}/Program/src/org/jphototagger/program/app/AppVersion.properties"/>
+    <property file="${private.confdir}/scripts.googlecode.properties"/>
+
+    <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${repo.root}/DeveloperSupport/scripts/ant-googlecode.jar"/>
+
+    <target name="0-all-no-pdf-manual">
+        <antcall target="1-set-version-info" />
+        <antcall target="3-create-zip" />
+        <antcall target="4-create-setup-exe" />
+        <antcall target="5-upload" />
+    </target>
+
+    <target name="0-all-pdf-manual">
+        <antcall target="1-set-version-info" />
+        <antcall target="2-create-pdf-manual" />
+        <antcall target="3-create-zip" />
+        <antcall target="4-create-setup-exe" />
+        <antcall target="5-upload" />
+    </target>
+
+    <target name="1-set-version-info" >
+        <echo message="Setting Version Info to Distribution"/>
+        <replaceregexp file="${repo.root}/Website/download.html"
+                       match="&lt;span class=&quot;version&quot;&gt;(.*)&lt;/span&gt;"
+                       replace="&lt;span class=&quot;version&quot;&gt;${Version}&lt;/span&gt;"/>
+        <tstamp>
+            <format property="rfc.time" pattern="yyyy-MM-dd'T'HH:mm:ssXXX"/>
+        </tstamp>
+        <replaceregexp file="${repo.root}/Website/download.html"
+                       match="&lt;meta name=&quot;date&quot;.*"
+                       replace="&lt;meta name=&quot;date&quot; content=&quot;${rfc.time}&quot; /&gt;"/>
+        <replaceregexp file="${repo.root}/Website/jphototagger-version.txt"
+                       match="&lt;span class=&quot;version&quot;&gt;(.*)&lt;/span&gt;"
+                       replace="&lt;span class=&quot;version&quot;&gt;${Version}&lt;/span&gt;"/>
+        <replaceregexp file="${repo.root}/Website/.htaccess"
+                       match="Redirect permanent /dist/JPhotoTagger-setup.exe.*"
+                       replace="Redirect permanent /dist/JPhotoTagger-setup.exe http://jphototagger.googlecode.com/files/JPhotoTagger-setup-${Version}.exe"/>
+        <replaceregexp file="${repo.root}/Website/.htaccess"
+                       match="Redirect permanent /dist/JPhotoTagger.zip.*"
+                       replace="Redirect permanent /dist/JPhotoTagger.zip   http://jphototagger.googlecode.com/files/JPhotoTagger-${Version}.zip"/>
+        <replaceregexp file="InnoSetup/JPhotoTagger.iss"
+                       encoding="Cp1252"
+                       match="AppVerName=.*"
+                       replace="AppVerName=JPhotoTagger ${Version}"/>
+        <replaceregexp file="InnoSetup/JPhotoTagger.iss"
+                       encoding="Cp1252"
+                       match="AppVersion=.*"
+                       replace="AppVersion=${Version}"/>
+    </target>
+
+    <target name="2-create-pdf-manual" >
+        <echo message="Creating PDF manual"/>
+        <exec executable="bash">
+            <arg value="create-html-index-manual.sh" />
+            <arg value="de"/>
+            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
+        </exec>
+        <exec executable="bash">
+            <arg value="create-pdf-manual.sh" />
+            <arg value="de" />
+            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
+        </exec>
+    </target>
+
+    <target name="3-create-zip">
+        <echo message="Creating ZIP distribution"/>
+        <property name="dist.dir" value="${repo.root}/dist_files"/>
+        <property name="upload.dir" value="${dist.dir}/upload"/>
+        <property name="program.dist.dir" value="${repo.root}/Program/dist"/>
+        <property name="zipfile" value="${upload.dir}/JPhotoTagger.zip"/>
+        <mkdir dir="${upload.dir}"/>
+        <delete file="${program.dist.dir}/README.TXT" failonerror="false"/>
+        <mkdir dir="${program.dist.dir}/scripts"/>
+        <copy todir="${program.dist.dir}/scripts">
+            <fileset dir="${dist.dir}/scripts"/>
+        </copy>
+        <copy todir="${program.dist.dir}">
+            <fileset dir="${dist.dir}/manual"/>
+        </copy>
+        <mkdir dir="${program.dist.dir}/lib/dcraw"/>
+        <copy todir="${program.dist.dir}/lib/dcraw">
+            <fileset dir="${dist.dir}/dcraw/bin"/>
+        </copy>
+        <delete file="${zipfile}" failonerror="false"/>
+        <zip destfile="${zipfile}">
+            <zipfileset dir="${program.dist.dir}" prefix="JPhotoTagger"/>
+        </zip>
+    </target>
+
+    <target name="4-create-setup-exe" if="isWindows">
+        <!-- Compil32.exe (path to the Inno Setup compiler) will be read from scripts.innosetup.properties  -->
+        <echo message="Creating Setup.exe with Inno Setup"/>
+        <property file="${private.confdir}/scripts.innosetup.properties"/>
+        <exec
+            command="&quot;${compil32.exe}&quot; /cc JPhotoTagger.iss"
+            dir="InnoSetup"/>
+    </target>
+
+    <target name="5-upload" description="Uploading Distribution to Google Code">
+        <antcall target="-upload-gc"/>
+        <antcall target="-upload-website"/>
+    </target>
+
+    <target name="-upload-gc">
+        <!--${username} and ${password} will be read from scripts.googlecode.properties,
+            ${Version} from Version.properties
+        -->
+        <property name="dist.src" value="${repo.root}/dist_files/upload"/>
+        <gcupload
+            projectname="jphototagger"
+            username="${username}"
+            password="${password}"
+            filename="${dist.src}/JPhotoTagger.zip"
+            targetfilename="JPhotoTagger-${Version}.zip"
+            summary="JPhotoTagger Version ${Version} - System independent ZIP archive"
+            verbose="true"
+            labels="photomanager, tagging, xmp, java"
+        />
+        <gcupload
+            projectname="jphototagger"
+            username="${googlecode.username}"
+            password="${googlecode.password}"
+            filename="${dist.src}/JPhotoTagger-setup.exe"
+            targetfilename="JPhotoTagger-setup-${Version}.exe"
+            summary="JPhotoTagger Version ${Version} - Windows Installer"
+            verbose="true"
+            labels="photomanager, tagging, xmp, java"
+        />
+    </target>
+
+    <target name="-upload-website">
+        <echo message="Uploading new/updated website files to JPhotoTagger website"/>
+        <property file="${private.confdir}/scripts.website.properties"/><!-- contains user and pass -->
+        <ftp server="ftp.elmar-baumann.de"
+             userid="${user}"
+             password="${pass}"
+             remotedir="html/JPhotoTagger"
+             depends="yes"
+             verbose="yes">
+            <fileset dir="${repo.root}/Website"/>
+        </ftp>
+        <ftp server="ftp.elmar-baumann.de"
+             userid="${user}"
+             password="${pass}"
+             remotedir="html/JPhotoTagger/manual"
+             depends="yes"
+             verbose="yes">
+            <fileset dir="${repo.root}/Program/src/org/jphototagger/program/resource/doc"/>
+        </ftp>
+    </target>
+
+</project>

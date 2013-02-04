@@ -7,14 +7,13 @@
 .*\.log
 .*\.patch
 .*~$
-dist_files/upload/.*
 \.chg\..*$
 \.conflict\~$
 \.fuse.*
-\.htaccess
 \.orig$
 \.orig\..*$
 \.rej$
+^dist_files/upload/.*
 ^OmegaT/.*\.bak$
 ^OmegaT/.*/target/.*
 ^OmegaT/.*\.zip$
@@ -22,3 +21,6 @@ dist_files/upload/.*
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc_iso.*\.html
 ^Program/src/org/jphototagger/program/resource/doc/.*/index\.html
 ^Website/manual/.*
+scripts.googlecode.properties
+scripts.innosetup.properties
+scripts.website.properties

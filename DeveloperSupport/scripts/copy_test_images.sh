@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-. $PROJECTDIR/JPhotoTagger/main-repository/DeveloperSupport/script/functions.sh || exit 1
-
 IFS="
 "
 

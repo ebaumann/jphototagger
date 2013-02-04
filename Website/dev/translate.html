@@ -67,29 +67,29 @@
             other subdirectories and project files. Save the project and quit <strong>OmegaT</strong>.
         </p>
 
-        <p>In the <a href="http://ant.apache.org">Ant</a> script
-            <code>Repository Root/DeveloperSupport/script/scripts.xml</code>,
-            the target <code>translate_create_omegat_sources</code> creates up to date
+        <p>In the <a href="http://ant.apache.org">Ant</a> file
+            <code>Repository Root/DeveloperSupport/script/localize.xml</code>,
+            the target <code>create-omegat-sources</code> creates up to date
             <strong>OmegaT</strong> sources for all languages. This target will be called
             automatically on each JPhotoTagger Build.
         </p>
 
         <p>If you added a translation directory, update the <strong>Ant</strong> script
-            <code>scripts.xml</code> through adding an <code>antcall</code> to the target
-            <code>translate_1_create_omegat_sources</code>, e.g.
+            <code>localize.xml</code> through adding an <code>antcall</code> to the target
+            <code>1-create-omegat-sources</code>, e.g.
         </p>
 
 <pre>
-&lt;antcall target="_translate_copy_omegat_sources_from_localized"&gt;
+&lt;antcall target="-copy-omegat-sources-from-localized"&gt;
     &lt;param name="src.locale" value="en"/&gt;
     &lt;param name="target.locale" value="pt_BR"/&gt;
 &lt;/antcall&gt;
 </pre>
 
-        <p>The <code>_translate_copy_omegat_sources_from_localized</code> target treats an
+        <p>The <code>-copy-omegat-sources-from-localized</code> target treats an
             arbitrary language as source language and an arbitrary language as target language.
             For German as source language and an arbitrary language as target language,
-            use the target <code>_translate_copy_omegat_sources_from_default</code>.
+            use the target <code>-copy-omegat-sources-from-default</code>.
         </p>
 
         <p>A translator gets one of these <strong>OmegaT</strong> project subdirectories packed
@@ -147,7 +147,7 @@
 
         <p>After extracting the ZIP contents to their original place, let <strong>OmegaT</strong>
             create the target files (<strong>Project &gt; Create target documents</strong>).
-            Then run the Ant target <code>translate_copy_omegat_translations</code>. This target
+            Then run the Ant target <code>copy-omegat-translations</code>. This target
             copies all translated files from the <strong>OmegaT</strong> target folders into the
             <strong>Localization</strong> project's source folder. Then rebuild
             <strong>JPhotoTagger</strong>.
