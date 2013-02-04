@@ -8,7 +8,6 @@
     <condition property="isWindows"><os family="windows" /></condition>
 
     <property file="${repo.root}/Program/src/org/jphototagger/program/app/AppVersion.properties"/>
-    <property file="${private.confdir}/scripts.googlecode.properties"/>
 
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${repo.root}/DeveloperSupport/scripts/ant-googlecode.jar"/>
 
@@ -97,9 +96,9 @@
     </target>
 
     <target name="4-create-setup-exe" if="isWindows">
-        <!-- Compil32.exe (path to the Inno Setup compiler) will be read from scripts.innosetup.properties  -->
+        <!-- Compil32.exe (path to the Inno Setup compiler) will be read from innosetup.properties  -->
         <echo message="Creating Setup.exe with Inno Setup"/>
-        <property file="${private.confdir}/scripts.innosetup.properties"/>
+        <property file="${private.confdir}/innosetup.properties"/>
         <exec
             command="&quot;${compil32.exe}&quot; /cc JPhotoTagger.iss"
             dir="InnoSetup"/>
@@ -112,9 +111,10 @@
     </target>
 
     <target name="-upload-gc">
-        <!--${username} and ${password} will be read from scripts.googlecode.properties,
+        <!--${username} and ${password} will be read from googlecode.properties,
             ${Version} from Version.properties
         -->
+        <property file="${private.confdir}/googlecode.properties"/>
         <property name="dist.src" location="${repo.root}/dist_files/upload"/>
         <gcupload
             projectname="jphototagger"
@@ -140,7 +140,7 @@
 
     <target name="-upload-website">
         <echo message="Uploading new/updated website files to JPhotoTagger website"/>
-        <property file="${private.confdir}/scripts.website.properties"/><!-- contains server, user and pass -->
+        <property file="${private.confdir}/website.properties"/><!-- contains server, user and pass -->
         <ftp server="${server}"
              userid="${user}"
              password="${pass}"

@@ -62,18 +62,38 @@
 		<p>Everything is done automatically through the <a href="http://ant.apache.org/">Ant</a>
 		   file <code>distribute.xml</code> within the repository root, subdirectory
 		   <code>DeveloperSupport/script</code>. Each task can be executed separately by
-		   calling an appropriate Ant task or completely by an Ant task <code>.*-all-.*</code>-task.
+		   calling an appropriate Ant target or completely by an Ant <code>.*-all-.*</code>-target.
 		</p>
 
-		<p>To create the Windows setup, <a href="http://www.jrsoftware.org/isinfo.php">Inno Setup</a>
+        <p>Some targets reading private properties from property files in <code>DeveloperSupport/conf</code> which may
+            differ from system to system and excluded from version control. They must exist and
+            containing the key value pairs as described below:
+        </p>
+
+        <ul>
+            <li><code>googlecode.properties</code> with the keys
+                <code>username</code> and <code>password</code>
+                (login data, <em>not</em> very secure, restrict access!)
+            </li>
+            <li><code>innosetup.properties</code> with the key <code>compil32.exe</code>
+                (file path to Inno Setup compiler, e.g. <code>C:\\Program Files\\InnoSetup\\Compil32.exe</code>)
+            </li>
+            <li><code>website.properties</code> with the keys <code>server</code>
+                (JPhotoTagger's web site server), <code>user</code> and <code>pass</code>
+                (login data, <em>not</em> very secure, restrict access!)
+            </li>
+        </ul>
+
+		<p>To create the Windows setup file, <a href="http://www.jrsoftware.org/isinfo.php">Inno Setup</a>
 		is required. The PDF manual creation requires a <code>Bash</code> interpreter (and some Unix utils),
 		<code>html2ps</code> and <code>ps2pdf</code>. The PDF manual task should be executed through a platform
-		independend Java library or program (TODO: Find it).
+		independend Java library or program (TODO: Find a freeware solution which can be distributed side by
+        side with the Ant file).
 		</p>
 
 		<p>If all files are created or modified, they will be uploaded to the correct places,
 		currently the ZIP and EXE file to <a href="https://code.google.com/p/jphototagger/downloads/list">Google Code</a>
-		and the remaining files to <a href="http://jphototagger.org/">JPhotoTagger.org</a>.
+		and the other files to <a href="http://jphototagger.org/">JPhotoTagger.org</a>.
 		</p>
 
         <p><strong>Author:</strong>
