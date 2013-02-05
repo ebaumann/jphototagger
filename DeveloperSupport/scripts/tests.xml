@@ -3,38 +3,131 @@
 
     <description>JPhotoTagger Tests (non unit tests)</description>
 
-    <target name="switch-settingsdir-pristine">
+    <property environment="env"/>
+    <property name="windows.settings.parent.dir" value="${env.USERPROFILE}/.de.elmar_baumann"/>
+    <property name="unix.settings.parent.dir" value="${env.HOME}/.de.elmar_baumann"/>
+    <property name="settings.work.dir" value="ImageMetaDataViewer.work"/>
+    <property name="settings.test.dir" value="ImageMetaDataViewer.test"/>
+    <property name="settings.pristine.dir" value="ImageMetaDataViewer.pristine"/>
+    <property name="settings.link.dir" value="ImageMetaDataViewer"/>
+    <condition property="isWindows">
+        <os family="windows"/>
+    </condition>
+    <condition property="isUnix">
+        <os family="unix"/>
+    </condition>
+    <condition property="windows.work.and.test.dirs.existing">
+        <and>
+            <available file="${windows.settings.parent.dir}/${settings.work.dir}" type="dir"/>
+            <available file="${windows.settings.parent.dir}/${settings.test.dir}" type="dir"/>
+        </and>
+    </condition>
+    <condition property="unix.work.and.test.dirs.existing">
+        <and>
+            <available file="${unix.settings.parent.dir}/${settings.work.dir}" type="dir"/>
+            <available file="${unix.settings.parent.dir}/${settings.test.dir}" type="dir"/>
+        </and>
+    </condition>
+
+    <!--
+        switch-settingsdir-.* tasks creating in the user home directory under ".de.elmar_baumann.de"
+        a "ImageMetaDataViewer" link (Unix: Symlink, Windows: Junction Point) if - and only if -
+        a "ImageMetaDataViewer.work" and a "ImageMetaDataViewer.test" directory exists with
+        JPhotoTagger specific settings and database for usual work and test specific issues.
+        "ImageMetaDataViewer.prisitine" will always be deleted and recreated empty.
+        The "ImageMetaDataViewer" link points to the work or test or pristine directory. JPhotoTagger
+        always looks into "ImageMetaDataViewer" which than contains different - work, test -
+        or no - pristine - content.
+    -->
+
+    <target name="switch-settingsdir-pristine"><!-- see comment switch-settingsdir-.* tasks obove -->
         <echo message="Switching to pristine settings"/>
-        <exec executable="bash">
-            <arg value="switch_settingsdir.sh"/>
-            <arg value="-p"/>
-        </exec>
+        <antcall target="-create-unix-pristine-settings-link"/>
+        <antcall target="-create-windows-pristine-settings-link"/>
     </target>
 
-    <target name="switch-settingsdir-test">
+    <target name="switch-settingsdir-test"><!-- see comment switch-settingsdir-.* tasks obove -->
         <echo message="Switching to test settings"/>
-        <exec executable="bash">
-            <arg value="switch_settingsdir.sh"/>
-            <arg value="-t"/>
-        </exec>
+        <antcall target="-create-unix-test-settings-link"/>
+        <antcall target="-create-windows-test-settings-link"/>
     </target>
 
-    <target name="switch-settingsdir-work">
+    <target name="switch-settingsdir-work"><!-- see comment switch-settingsdir-.* tasks obove -->
         <echo message="Switching to working settings"/>
-        <exec executable="bash">
-            <arg value="switch_settingsdir.sh"/>
-            <arg value="-w"/>
+        <antcall target="-create-unix-work-settings-link"/>
+        <antcall target="-create-windows-work-settings-link"/>
+    </target>
+
+    <target name="-create-windows-work-settings-link" if="isWindows">
+        <antcall target="-create-windows-settings-link">
+            <param name="target.dir" value="${settings.work.dir}"/>
+        </antcall>
+    </target>
+
+    <target name="-create-windows-test-settings-link" if="isWindows">
+        <antcall target="-create-windows-settings-link">
+            <param name="target.dir" value="${settings.test.dir}"/>
+        </antcall>
+    </target>
+
+    <target name="-create-windows-pristine-settings-link" if="isWindows">
+        <delete dir="${windows.settings.parent.dir}/${settings.pristine.dir}" failonerror="false"/>
+        <mkdir dir="${windows.settings.parent.dir}/${settings.pristine.dir}"/>
+        <antcall target="-create-windows-settings-link">
+            <param name="target.dir" value="${settings.pristine.dir}"/>
+        </antcall>
+    </target>
+
+    <target name="-create-windows-settings-link" if="windows.work.and.test.dirs.existing">
+        <echo message="Creating Link in '${windows.settings.parent.dir}': ${settings.link.dir} -&gt; ${target.dir}"/>
+        <exec executable="cmd" dir="${windows.settings.parent.dir}" failonerror="false">
+            <arg value="/C"/>
+            <arg value="rmdir"/>
+            <arg value="${settings.link.dir}"/>
+        </exec>
+        <exec executable="cmd" dir="${windows.settings.parent.dir}">
+            <arg value="/C"/>
+            <arg value="mklink"/>
+            <arg value="/J"/>
+            <arg value="${settings.link.dir}"/>
+            <arg value="${target.dir}"/>
         </exec>
     </target>
 
-    <target name="copy-images">
-        <echo message="Copying test images"/>
-        <exec executable="bash">
-            <arg value="copy_images.sh"/>
+    <target name="-create-unix-work-settings-link" if="isUnix">
+        <antcall target="-create-unix-settings-link">
+            <param name="target.dir" value="${settings.work.dir}"/>
+        </antcall>
+    </target>
+
+    <target name="-create-unix-test-settings-link" if="isUnix">
+        <antcall target="-create-unix-settings-link">
+            <param name="target.dir" value="${settings.test.dir}"/>
+        </antcall>
+    </target>
+
+    <target name="-create-unix-pristine-settings-link" if="isUnix">
+        <delete dir="${unix.settings.parent.dir}/${settings.pristine.dir}" failonerror="false"/>
+        <mkdir dir="${unix.settings.parent.dir}/${settings.pristine.dir}"/>
+        <antcall target="-create-unix-settings-link">
+            <param name="target.dir" value="${settings.pristine.dir}"/>
+        </antcall>
+    </target>
+
+    <target name="-create-unix-settings-link" if="unix.work.and.test.dirs.existing">
+        <echo message="Creating Link in '${unix.settings.parent.dir}': ${settings.link.dir} -&gt; ${target.dir}"/>
+        <exec executable="rm" dir="${unix.settings.parent.dir}" failonerror="false">
+            <arg value="${settings.link.dir}"/>
+        </exec>
+        <exec executable="ln" dir="${unix.settings.parent.dir}">
+            <arg value="-s"/>
+            <arg value="-v"/>
+            <arg value="${target.dir}"/>
+            <arg value="${settings.link.dir}"/>
         </exec>
     </target>
 
-    <target name="bundles_find_missing_strings">
+    <target name="find-missing-bundle-strings">
         <echo message="Finding missing Bundle strings"/>
         <exec executable="bash">
             <arg value="find_missing_bundle_strings.sh"/>
