@@ -29,6 +29,7 @@ public final class HelpBrowserDisplayer implements HelpDisplayer, HelpContentPro
 
     static {
         HelpNode rootNode = HelpUtil.createNodeFromHelpContentProviders();
+        rootNode.setTitle(Bundle.getString(HelpBrowserDisplayer.class, "HelpBrowser.RootNode.Title"));
         HELP_BROWSER = new HelpBrowser(rootNode);
         HELP_BROWSER.setTitle(Bundle.getString(HelpBrowserDisplayer.class, "HelpBrowserDisplayer.Title"));
         restoreCurrentUrl();
