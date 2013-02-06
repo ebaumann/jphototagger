@@ -22,5 +22,4 @@
 ^OmegaT/.*\.zip$
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc\.html
 ^Program/src/org/jphototagger/program/resource/doc/.*/doc_iso.*\.html
-^Program/src/org/jphototagger/program/resource/doc/.*/index\.html
 ^Website/manual/.*

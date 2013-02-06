@@ -4,26 +4,42 @@
     <description>JPhotoTagger Distribution</description>
 
     <property name="repo.root" value="../.."/>
+    <property name="dist.dir" value="${repo.root}/dist_files"/>
+    <property name="upload.dir" value="${dist.dir}/upload"/>
     <property name="private.confdir" value="../conf"/>
-    <condition property="isWindows"><os family="windows" /></condition>
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+    <condition property="isUnix">
+        <os family="unix"/>
+    </condition>
 
     <property file="${repo.root}/Program/src/org/jphototagger/program/app/AppVersion.properties"/>
 
     <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${repo.root}/DeveloperSupport/scripts/ant-googlecode.jar"/>
+    <taskdef name="htmlmanualindex" classname="org.jphototagger.developersupport.CreateHelpIndexTask" classpath="${repo.root}/DeveloperSupport/scripts/DeveloperSupport.jar"/>
 
     <target name="0-all-no-pdf-manual">
-        <antcall target="1-set-version-info" />
-        <antcall target="3-create-zip" />
-        <antcall target="4-create-setup-exe" />
-        <antcall target="5-upload" />
+        <antcall target="-delete-upload-files"/>
+        <antcall target="1-set-version-info"/>
+        <antcall target="3-create-zip"/>
+        <antcall target="4-create-setup-exe"/>
+        <antcall target="5-upload"/>
     </target>
 
     <target name="0-all-pdf-manual">
-        <antcall target="1-set-version-info" />
-        <antcall target="2-create-pdf-manual" />
-        <antcall target="3-create-zip" />
-        <antcall target="4-create-setup-exe" />
+        <antcall target="-delete-upload-files"/>
+        <antcall target="1-set-version-info"/>
+        <antcall target="2-create-pdf-manual"/>
+        <antcall target="3-create-zip"/>
+        <antcall target="4-create-setup-exe"/>
         <antcall target="5-upload" />
+    </target>
+
+    <target name="-delete-upload-files">
+        <echo message="Deleting upload Setup/ZIP files"/>
+        <delete file="${upload.dir}/JPhotoTagger-setup.exe" failonerror="false"/>
+        <delete file="${upload.dir}/JPhotoTagger.zip" failonerror="false"/>
     </target>
 
     <target name="1-set-version-info" >
@@ -56,7 +72,7 @@
                        replace="AppVersion=${Version}"/>
     </target>
 
-    <target name="2-create-pdf-manual" >
+    <target name="2-create-pdf-manual" if="isUnix">
         <echo message="Creating PDF manual"/>
         <exec executable="bash">
             <arg value="create-html-index-manual.sh" />
@@ -72,8 +88,6 @@
 
     <target name="3-create-zip">
         <echo message="Creating ZIP distribution"/>
-        <property name="dist.dir" value="${repo.root}/dist_files"/>
-        <property name="upload.dir" value="${dist.dir}/upload"/>
         <property name="program.dist.dir" value="${repo.root}/Program/dist"/>
         <property name="zipfile" value="${upload.dir}/JPhotoTagger.zip"/>
         <mkdir dir="${upload.dir}"/>
@@ -107,7 +121,14 @@
     <target name="5-upload">
         <echo message="Uploading JPhotoTagger Distribution"/>
         <antcall target="-upload-gc"/>
+        <antcall target="-create-html-manual-index"/>
         <antcall target="-upload-website"/>
+    </target>
+
+    <target name="-create-html-manual-index">
+        <echo message="Creating HTML index of JPhotoTagger HTML manual"/>
+        <property name="file" location="${repo.root}/Program/src/org/jphototagger/program/resource/doc/de/contents.xml"/>
+        <htmlmanualindex helpcontentfile="${file}"/>
     </target>
 
     <target name="-upload-gc">
