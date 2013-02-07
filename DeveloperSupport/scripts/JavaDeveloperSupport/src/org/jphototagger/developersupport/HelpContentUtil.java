@@ -2,8 +2,10 @@ package org.jphototagger.developersupport;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -16,11 +18,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 /**
  * @author Elmar Baumann
@@ -31,7 +32,36 @@ public class HelpContentUtil {
 
     // For debugging
     public static void main(String[] args) throws Exception {
-        getSingleHtmlFileFile(new File("somewhere on my computer"));
+        //getSingleHtmlManual(new File("somewhere on my computer"));
+    }
+
+    public static void createPdfManual(File contentXmlFile, File pdfFile) throws Exception {
+        File singleHtmlFile = new File(contentXmlFile.getParent() + File.separator + "HelpContentUtil-Temporary-manual.html");
+        try (PrintStream  out = new PrintStream(new FileOutputStream(singleHtmlFile), true, "UTF8")) {
+            out.print(fixHtmlForPdf(getSingleHtmlManual(contentXmlFile)));
+        }
+        try {
+            htmlToPdf(singleHtmlFile, pdfFile);
+        } finally {
+            singleHtmlFile.delete();
+        }
+    }
+
+    private static String fixHtmlForPdf(String html) {
+        return html.replace("&nbsp;", "&#160;")
+                   .replace("&deg;", "&#176;")
+                   .replace("&ndash;", "&#8211;")
+                   .replace("&mdash;", "&#8212;")
+                ;
+    }
+
+    private static void htmlToPdf(File htmlFile, File pdfFile) throws Exception {
+        try (OutputStream os = new FileOutputStream(pdfFile)) {
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocument(htmlFile);//.toURI().toURL().toString());
+            renderer.layout();
+            renderer.createPDF(os);
+        }
     }
 
     /**
@@ -41,11 +71,14 @@ public class HelpContentUtil {
      * @throws IOException
      * @throws ParserConfigurationException
      */
-    public static String getSingleHtmlFileFile(File contentXmlFile) throws SAXException, IOException, ParserConfigurationException {
+    private static String getSingleHtmlManual(File contentXmlFile) throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("\n<html>");
         appendHeadToHtmlIndex(sb);
         sb.append("\n\t<body>");
+        String pattern = BUNDLE.getString("HelpContentUtil.PdfManual.Status");
+        sb.append(MessageFormat.format(pattern, createHumanReadableDateString()));
+        appendHtmlIndex(contentXmlFile, sb);
         for (File file : getHtmlFiles(contentXmlFile)) { // Parser would loop infinitely, because HTML is no XML (don't know, why not throwing an Exception)
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 boolean inBody = false;
@@ -55,7 +88,7 @@ public class HelpContentUtil {
                         inBody = false;
                     }
                     if (inBody) {
-                        sb.append("\n").append(line);
+                        sb.append("\n").append(new String(line.getBytes(), "UTF-8"));
                     }
                     if (line.toLowerCase().contains("<body>")) {
                         inBody = true;
@@ -75,7 +108,7 @@ public class HelpContentUtil {
      * @throws IOException
      * @throws ParserConfigurationException
      */
-    public static List<File> getHtmlFiles(File contentXmlFile) throws SAXException, IOException, ParserConfigurationException {
+    private static List<File> getHtmlFiles(File contentXmlFile) throws Exception {
         List<File> files = new ArrayList<>();
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
@@ -90,20 +123,24 @@ public class HelpContentUtil {
         return files;
     }
 
-    public static String createHtmlIndex(File contentXmlFile) throws SAXException, IOException, ParserConfigurationException {
+    public static String createHtmlIndex(File contentXmlFile) throws Exception {
         StringBuilder sb = new StringBuilder();
         sb.append("<html>");
         appendHeadToHtmlIndex(sb);
         sb.append("\n\t<body>");
+        appendHtmlIndex(contentXmlFile, sb);
+        appendStatusToHtmlIndex(sb);
+        sb.append("\n\t</body>");
+        sb.append("\n</html>");
+        return sb.toString();
+    }
+
+    private static void appendHtmlIndex(File contentXmlFile, StringBuilder sb) throws Exception {
         sb.append("\n\t\t<h1>").append(BUNDLE.getString("HelpContentUtil.HtmlManual.title")).append("</h1>");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         Document doc = db.parse(contentXmlFile);
         appendNodesToHtmlIndex(doc.getElementsByTagName("node"), sb);
-        appendStatusToHtmlIndex(sb);
-        sb.append("\n\t</body>");
-        sb.append("\n</html>");
-        return sb.toString();
     }
 
     // nested nodes are not expected!
@@ -154,21 +191,25 @@ public class HelpContentUtil {
           .append(escapeHtml(title))
           .append("</title>")
           .append("\n\t\t<meta http-equiv=\"content-type\" content=\"text/html; charset=")
-          .append(BUNDLE.getString("HelpContentUtil.HtmlManual.Charset")).append("\">")
+          .append(BUNDLE.getString("HelpContentUtil.HtmlManual.Charset")).append("\"/>")
           .append("\n\t\t<meta name=\"date\" content=\"")
           .append(htmlMetaDateFormat.format(new Date())).append("\" />")
           .append("\n\t</head>");
     }
 
     private static void appendStatusToHtmlIndex(StringBuilder sb) {
-        Locale locale = Locale.forLanguageTag(BUNDLE.getString("HelpContentUtil.HtmlManual.Locale"));
-        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, locale);
         String pattern = BUNDLE.getString("HelpContentUtil.HtmlManual.Status");
         sb.append("\n")
           .append(createTabIndent(2))
           .append("<p>")
-          .append(MessageFormat.format(pattern, df.format(new Date())))
+          .append(MessageFormat.format(pattern, createHumanReadableDateString()))
           .append("</p>");
+    }
+
+    private static String createHumanReadableDateString() {
+        Locale locale = Locale.forLanguageTag(BUNDLE.getString("HelpContentUtil.HtmlManual.Locale"));
+        DateFormat df = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, locale);
+        return df.format(new Date());
     }
 
     private static String createTabIndent(int level) {
@@ -190,7 +231,7 @@ public class HelpContentUtil {
         HTML_ESCAPES.put("\n", "<br/>");
     }
 
-    public static String escapeHtml(String s) {
+    private static String escapeHtml(String s) {
         if (s == null) {
             throw new NullPointerException("s == null");
         }

@@ -16,18 +16,17 @@
 
     <property file="${repo.root}/Program/src/org/jphototagger/program/app/AppVersion.properties"/>
 
-    <taskdef name="gcupload" classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask" classpath="${repo.root}/DeveloperSupport/scripts/ant-googlecode.jar"/>
-    <taskdef name="htmlmanualindex" classname="org.jphototagger.developersupport.CreateHelpIndexTask" classpath="${repo.root}/DeveloperSupport/scripts/DeveloperSupport.jar"/>
+    <taskdef name="gcupload"
+             classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
+             classpath="${repo.root}/DeveloperSupport/scripts/ant-googlecode.jar"/>
+    <taskdef name="htmlmanualindex"
+             classname="org.jphototagger.developersupport.CreateHtmlHelpIndexTask"
+             classpath="${repo.root}/DeveloperSupport/scripts/JavaDeveloperSupport/dist_files/DeveloperSupport.jar"/>
+    <taskdef name="pdfmanual"
+             classname="org.jphototagger.developersupport.CreatePdfManualTask"
+             classpath="${repo.root}/DeveloperSupport/scripts/JavaDeveloperSupport/dist_files/DeveloperSupport.jar"/>
 
-    <target name="0-all-no-pdf-manual">
-        <antcall target="-delete-upload-files"/>
-        <antcall target="1-set-version-info"/>
-        <antcall target="3-create-zip"/>
-        <antcall target="4-create-setup-exe"/>
-        <antcall target="5-upload"/>
-    </target>
-
-    <target name="0-all-pdf-manual">
+    <target name="0-all">
         <antcall target="-delete-upload-files"/>
         <antcall target="1-set-version-info"/>
         <antcall target="2-create-pdf-manual"/>
@@ -72,18 +71,11 @@
                        replace="AppVersion=${Version}"/>
     </target>
 
-    <target name="2-create-pdf-manual" if="isUnix">
+    <target name="2-create-pdf-manual">
         <echo message="Creating PDF manual"/>
-        <exec executable="bash">
-            <arg value="create-html-index-manual.sh" />
-            <arg value="de"/>
-            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
-        </exec>
-        <exec executable="bash">
-            <arg value="create-pdf-manual.sh" />
-            <arg value="de" />
-            <arg value="Handbuch des Programms &quot;JPhotoTagger&quot;"/>
-        </exec>
+        <property name="helpcontentfile" location="${repo.root}/Program/src/org/jphototagger/program/resource/doc/de/contents.xml"/>
+        <property name="pdffile_de" location="${dist.dir}/manual/Manual_de.pdf"/>
+        <pdfmanual helpcontentfile="${helpcontentfile}" pdffile="${pdffile_de}"/>
     </target>
 
     <target name="3-create-zip">

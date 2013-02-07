@@ -8,7 +8,7 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <project name="DeveloperUtil" default="default" basedir=".">
-    <description>Builds, tests, and runs the project DeveloperSupport</description>
+    <description>Builds, tests, and runs the project JPhotoTagger: Developer Support</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -71,4 +71,12 @@
     nbproject/build-impl.xml file.
 
     -->
+
+    <target name="-post-jar">
+        <delete dir="dist_files" failonerror="false"/>
+        <mkdir dir="dist_files"/>
+        <copy todir="dist_files">
+            <fileset dir="dist"/>
+        </copy>
+    </target>
 </project>

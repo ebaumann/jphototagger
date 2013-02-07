@@ -8,7 +8,7 @@ import org.apache.tools.ant.Task;
 /**
  * @author Elmar Baumann
  */
-public final class CreateHelpIndexTask extends Task {
+public final class CreateHtmlHelpIndexTask extends Task {
 
     private File helpcontentfile;
 
