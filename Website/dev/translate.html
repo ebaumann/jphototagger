@@ -46,7 +46,7 @@
         <h1>Translate JPhotoTagger into another language</h1>
 
         <p><strong>JPhotoTagger's</strong> GUI texts are stored in plain text files
-            (Java properties files). For German these files are maintained by the developers.
+            (Java properties files). For German, these files are maintained by the developers.
             For other languages, users can add translations, which
             will be delivered with <strong>JPhotoTagger</strong>. The application
             Build creates a separate JAR file containing them (<code>Localization.jar</code>).
@@ -60,18 +60,18 @@
 
         <p>If not already done, start <strong>OmegaT</strong> and create a project
             for a specific translation in the directory <code>Repository Root/OmegaT</code>.
-            The project name contains the locale of the source language and separated through a dash the locale of
+            The project name contains the locale of the source language and separated through an underscore the locale of
             the target language, e.g. <code>en-pt_BR</code>, where the source language is English and
-            the target language Brazilian Portuguese. <strong>OmegaT</strong> crates a directory of
+            the target language Brazilian Portuguese. <strong>OmegaT</strong> creates a directory of
             that name (<code>en-pt_BR</code>) within the <code>OmegatT</code> directory and some
             other subdirectories and project files. Save the project and quit <strong>OmegaT</strong>.
         </p>
 
         <p>In the <a href="http://ant.apache.org">Ant</a> file
-            <code>Repository Root/DeveloperSupport/script/localize.xml</code>,
+            <code>Repository Root/DeveloperSupport/scripts/localize.xml</code>,
             the target <code>create-omegat-sources</code> creates up to date
             <strong>OmegaT</strong> sources for all languages. This target will be called
-            automatically on each JPhotoTagger Build.
+            automatically on each JPhotoTagger Build:
         </p>
 
         <p>If you added a translation directory, update the <strong>Ant</strong> script
@@ -89,33 +89,63 @@
         <p>The <code>-copy-omegat-sources-from-localized</code> target treats an
             arbitrary language as source language and an arbitrary language as target language.
             For German as source language and an arbitrary language as target language,
-            use the target <code>-copy-omegat-sources-from-default</code>.
+            call the target <code>-copy-omegat-sources-from-default</code>.
         </p>
 
         <p>A translator gets one of these <strong>OmegaT</strong> project subdirectories packed
-            into a ZIP file (if a developer has the complete JPhotoTagger's repository, this is
-            not required). JPhotoTagger's Build script creates ZIP files for each translation
+            into a ZIP file. JPhotoTagger's Build script creates these ZIP files for each translation
             in the <code>OmegaT</code> directory named equal to the translation directory,
             e.g. <code>en-pt_BR.zip</code>.
         </p>
 
         <h2>Translators: How to translate</h2>
 
-        <p>Unzip the language specific <code>OmegaT</code> folder's ZIP file a developer
-            sent to you (see obove). Open it with <strong>OmegaT</strong>,
+        <p>Unzip the language specific <code>OmegaT</code> folder's ZIP file, sent from a developer
+            to you (see obove). Open it with <strong>OmegaT</strong>,
             which is available for free at <a href="http://www.omegat.org">omegat.org</a>.
-            You can read the 5 Minute manual; in short: Either go with <kbd>ENTER</kbd>
+        </p>
+
+        <p><img src="img/omegat-open-project.png" width="397" height="228" alt=""/>
+            <br/><strong>Screenshot:</strong> OmegaT project open dialog, selected is the translation
+            project from German (de) into English (en)
+        </p>
+
+        <p>You can read the 5 Minute manual; in short: Either go with <kbd>ENTER</kbd>
             from one text to the next (first translation) or with <kbd>Cmd+U</kbd> to
             the next untranslated. Replace the not highlighted source text with
             the correct translation. If done, save your work (<kbd>Cmd+S</kbd> or via the
             <strong>Project</strong> menu).
         </p>
 
-        <p>Rules:</p>
+        <p><img src="img/omegat-mainwindow-01.png" width="362" height="397" alt=""/>
+            <br/><strong>Screenshot:</strong> OmegaT editor. Text with green background
+            is in the source language, text in target language has yellow background.
+            To see the colors differentiating between source, target and untranslated
+            texts, check all menu items in <strong>View</strong>.
+        </p>
+
+        <h3>Recommended OmegaT Settings</h3>
 
         <ul>
-            <li>Ampersands (&amp;): Following characters are accelerators e.g. in menus or buttons.
-                You should use an appropriate position for your language. E.g. in a menu item, a
+            <li><strong>Options &gt; Editing Behavior</strong>
+                <ul>
+                    <li>Allow the translation to be equal to source: Cecked, else trade marks
+                        etc., which are equal in every language, always will be treated as
+                        untranslated.
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>Editing rules</h3>
+
+        <ul>
+            <li><strong>Ampersands (&amp;)</strong> in non HTML texts:
+                Following characters are selectors for menu items or buttons or jump marks
+                (Java Mnemonics): <kbd>Alt+Character</kbd> executes the menu item or
+                button command or moves the cursor into the text field or combo box or other GUI element
+                next to the label with the mnemonic.
+                You should use an appropriate ampersand position for your language. E.g. in a menu item, a
                 text may be &quot;<code>&amp;File</code>&quot;, where <kbd>Alt+F</kbd> will invoke
                 the <code>File</code> menu. A german translation of that is &quot;<code>&amp;Datei</code>&quot;,
                 but the ampersand could be at another position, e.g. &quot;<code>Da&amp;tei</code> &quot;,
@@ -140,7 +170,7 @@
         </ul>
 
         <p>If all texts are translated, zip the folder and send it back to a <strong>JPhotoTagger</strong>
-            developer.
+            developer. If you an OmegaT expert: The translation memory contains the relevant information.
         </p>
 
         <h2>Developers: Integrate translated texts</h2>
@@ -155,7 +185,7 @@
 
         <p><strong>Author:</strong>
             <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20Discussion">Write e-Mail</a>
-            <br /><strong>Status of this document:</strong> 2013-02-02
+            <br /><strong>Status of this document:</strong> 2013-02-08
         </p>
 
     </div><!--content-->
