@@ -1,0 +1,129 @@
+body {
+	margin-left: 3cm;
+	width: 12cm;
+	color: #000;
+	background: #fff;
+	font: 12pt 'Palatino Linotype',Palatino,Times,'Times New Roman',serif;
+}
+
+p {
+	margin-top: 2mm;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+h1, h2, h3, h4 {
+	margin-top: 2.5mm;
+	padding-top: 2.5mm;
+	font-family: Helvetica,Verdana,Arial,sans-serif;
+	font-weight: bold;
+	page-break-after: avoid;
+	font-size: 14pt;
+}
+
+strong {
+	font-weight: bold;
+}
+
+em {
+	font-style: italic;
+}
+
+img {
+    max-width: 10cm;
+	border: none;
+	margin: 3mm 0 1mm 5mm;
+	page-break-inside: avoid;
+}
+
+a img {
+	border: none;
+}
+
+ol, ul {
+	margin-top: 1.5mm;
+}
+
+ul {
+	list-style-type: square;
+}
+
+li {
+	margin: 0 0 1mm 5mm;
+}
+
+li ul, li ol {
+	list-style-type: circle;
+}
+
+table {
+	margin-top: 3mm;
+	border-top: 0.15mm solid #000;
+	border-bottom: 0.15mm solid #000;
+	border-collapse: collapse;
+}
+
+tr, th, td {
+	padding: 1mm;
+}
+
+tr {
+	border-top: 1px solid #000;
+}
+
+th {
+	text-align: center;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+th.rowheader {
+	text-align: left;
+}
+
+td {
+	text-align: left;
+	vertical-align: top;
+}
+
+dt {
+	margin-top: 1.5mm;
+	font-weight: bold;
+}
+
+pre {
+	margin-top: 1mm;
+}
+
+a, a:link, a:visited {
+	color: #000;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+:lang(de) {
+	quotes:"\201E" "\201C" "\201A" "\2018";
+}
+
+code {
+	font-family: 'Courier New',Courier,monospace;
+}
+
+q:before, q q:before {
+	content: open-quote;
+}
+
+q:after, q q:after {
+	content: close-quote;
+}
+
+blockquote {
+	margin-left: 5mm;
+}
+
+kbd {
+	border: 1px solid #dcdcdc;
+	padding: 0.2mm 0.3mm;
+	background: #fcfcfc;
+	font-family: Arial,sans-serif;
+}

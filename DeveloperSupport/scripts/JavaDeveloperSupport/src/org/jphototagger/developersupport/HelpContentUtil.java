@@ -58,7 +58,7 @@ public class HelpContentUtil {
     private static void htmlToPdf(File htmlFile, File pdfFile) throws Exception {
         try (OutputStream os = new FileOutputStream(pdfFile)) {
             ITextRenderer renderer = new ITextRenderer();
-            renderer.setDocument(htmlFile);//.toURI().toURL().toString());
+            renderer.setDocument(htmlFile);
             renderer.layout();
             renderer.createPDF(os);
         }
@@ -73,12 +73,16 @@ public class HelpContentUtil {
      */
     private static String getSingleHtmlManual(File contentXmlFile) throws Exception {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n<html>");
-        appendHeadToHtmlIndex(sb);
+        StringBuilder sbBookmarks = new StringBuilder("<bookmarks>");
+        StringBuilder sbHead = new StringBuilder();
+        appendHeadToHtmlIndex(sbHead);
+        sb.append("<html>");
+        sb.append(sbHead.toString().replace("</head>", "\t<bookmarks/>\n\t</head>"));
         sb.append("\n\t<body>");
         String pattern = BUNDLE.getString("HelpContentUtil.PdfManual.Status");
         sb.append(MessageFormat.format(pattern, createHumanReadableDateString()));
         appendHtmlIndex(contentXmlFile, sb);
+        int bookmarkId = 0;
         for (File file : getHtmlFiles(contentXmlFile)) { // Parser would loop infinitely, because HTML is no XML (don't know, why not throwing an Exception)
             try (BufferedReader br = new BufferedReader(new FileReader(file))) {
                 boolean inBody = false;
@@ -88,7 +92,14 @@ public class HelpContentUtil {
                         inBody = false;
                     }
                     if (inBody) {
-                        sb.append("\n").append(new String(line.getBytes(), "UTF-8"));
+                        if (line.toLowerCase().contains("<h1>")) {
+                            sb.append(new String(line.replace("<h1>", "<h1><a name=\"bm" + bookmarkId + "\"></a>").getBytes(), "UTF-8"));
+                            String heading = line.replaceAll(".*<h1>", "").replaceAll("</h1>.*", ""); // Requires whole heading in 1 line! (error prone, i.e. truncated heading text)
+                            sbBookmarks.append("\n\t\t\t<bookmark name=\"").append(heading).append("\" href=\"#bm").append(bookmarkId).append("\"/>");
+                            bookmarkId++;
+                        } else {
+                            sb.append("\n").append(new String(line.getBytes(), "UTF-8"));
+                        }
                     }
                     if (line.toLowerCase().contains("<body>")) {
                         inBody = true;
@@ -98,7 +109,8 @@ public class HelpContentUtil {
         }
         sb.append("\n\t</body>");
         sb.append("\n</html>");
-        return sb.toString();
+        sbBookmarks.append("\n\t\t</bookmarks> ");
+        return sb.toString().replace("<bookmarks/>", new String(sbBookmarks.toString().getBytes(), "UTF-8"));
     }
 
     /**
@@ -194,6 +206,7 @@ public class HelpContentUtil {
           .append(BUNDLE.getString("HelpContentUtil.HtmlManual.Charset")).append("\"/>")
           .append("\n\t\t<meta name=\"date\" content=\"")
           .append(htmlMetaDateFormat.format(new Date())).append("\" />")
+          .append("\n\t\t<link rel=\"stylesheet\" media=\"print\" type=\"text/css\" href=\"print.css\" />")
           .append("\n\t</head>");
     }
 
