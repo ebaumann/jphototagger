@@ -49,24 +49,36 @@
 		</p>
 
 		<ul>
-			<li>Platform independend ZIP file</li>
-			<li>Windows setup (EXE) file</li>
+			<li>A platform independend ZIP file containing JPhotoTagger's JAR files,
+                PDF manual, external scripts etc. The PDF manual will be created
+                automatically from JPhotoTagger's internal HTML help pages.
+            </li>
+            <li>A Windows setup (EXE) file, which contains the same content as the
+                ZIP file and installs JPhotoTagger (integrates it into the software
+                control panel and provides an unistall routine)
+            </li>
             <li>Up to date version information file <code>jphototagger-version.txt</code>;
-                JPhotoTagger auto update checks it for newer versions</li>
+                JPhotoTagger's auto update checks it for newer versions</li>
 			<li>Up to date <a href="../download.html">download web page</a>
-  			     containing the current JPhotoTagger version and HTML meta date</li>
-			<li>Up to date <code>.htaccess</code> file, which redirects from the download web page
-			    to the current download location</li>
+  			     containing JPhotoTagger's current version and the current date in the HTML head.
+                 A HTML index page will be created, linking to JPhotoTagger's internal
+                 HTML help pages, which will be transferred to the web site along with
+                 the HTML help pages.
+            </li>
+			<li>Up to date <code>.htaccess</code> file, which redirects from the download
+                web page to the current download location
+            </li>
 		</ul>
 
 		<p>Everything is done automatically through the <a href="http://ant.apache.org/">Ant</a>
 		   file <code>distribute.xml</code> within the repository root, subdirectory
-		   <code>DeveloperSupport/script</code>. Each task can be executed separately by
-		   calling an appropriate Ant target or completely by the <code>0-all</code>-target.
+		   <code>DeveloperSupport/scripts</code>. Each task can be executed separately by
+		   calling an appropriate Ant target or completely by the <strong>0-all</strong> target.
 		</p>
 
-        <p>Some targets reading private properties from property files in <code>DeveloperSupport/conf</code> which may
-            differ from system to system and excluded from version control. They must exist and
+        <p>Some targets reading private properties from property files in
+            <code>DeveloperSupport/conf</code>, which may differ from system
+            to system and excluded from version control. They must exist and
             containing the key value pairs as described below:
         </p>
 
@@ -84,18 +96,19 @@
             </li>
         </ul>
 
-		<p>To create the Windows setup file, <a href="http://www.jrsoftware.org/isinfo.php">Inno Setup</a>
+		<p>To create the Windows setup EXE file, <a href="http://www.jrsoftware.org/isinfo.php">Inno Setup</a>
 		is required.
 		</p>
 
 		<p>If all files are created or modified, they will be uploaded to the correct places,
-		currently the ZIP and EXE file to <a href="https://code.google.com/p/jphototagger/downloads/list">Google Code</a>
+		currently the ZIP and setup EXE file to
+        <a href="https://code.google.com/p/jphototagger/downloads/list">Google Code</a>
 		and the other files to <a href="http://jphototagger.org/">JPhotoTagger.org</a>.
 		</p>
 
         <p><strong>Author:</strong>
             <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20Discussion">Write e-Mail</a>
-            <br /><strong>Status of this document:</strong> 2013-02-07
+            <br /><strong>Status of this document:</strong> 2013-02-08
         </p>
 
     </div><!--content-->
