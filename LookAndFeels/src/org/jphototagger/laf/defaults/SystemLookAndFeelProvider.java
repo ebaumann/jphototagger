@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import org.jphototagger.api.windows.LookAndFeelProvider;
-import org.jphototagger.laf.LafSupport;
+import org.jphototagger.laf.LafUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -13,19 +13,19 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = LookAndFeelProvider.class)
-public final class DefaultLookAndFeelProvider implements LookAndFeelProvider {
+public final class SystemLookAndFeelProvider implements LookAndFeelProvider {
 
     private static final String LAF_CLASSNAME = UIManager.getSystemLookAndFeelClassName();
-    private static final Logger LOGGER = Logger.getLogger(DefaultLookAndFeelProvider.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SystemLookAndFeelProvider.class.getName());
 
     @Override
     public String getDisplayname() {
-        return Bundle.getString(DefaultLookAndFeelProvider.class, "DefaultLookAndFeelProvider.Displayname");
+        return Bundle.getString(SystemLookAndFeelProvider.class, "SystemLookAndFeelProvider.Displayname");
     }
 
     @Override
     public String getDescription() {
-        return Bundle.getString(DefaultLookAndFeelProvider.class, "DefaultLookAndFeelProvider.Description");
+        return Bundle.getString(SystemLookAndFeelProvider.class, "SystemLookAndFeelProvider.Description");
     }
 
     @Override
@@ -40,7 +40,7 @@ public final class DefaultLookAndFeelProvider implements LookAndFeelProvider {
 
     @Override
     public boolean canInstall() {
-        return LafSupport.canInstall(LAF_CLASSNAME);
+        return LafUtil.canInstall(LAF_CLASSNAME);
     }
 
     @Override

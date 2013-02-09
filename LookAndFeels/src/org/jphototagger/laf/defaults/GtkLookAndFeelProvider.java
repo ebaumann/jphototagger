@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import org.jphototagger.api.windows.LookAndFeelProvider;
-import org.jphototagger.laf.LafSupport;
+import org.jphototagger.laf.LafUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -15,8 +15,8 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = LookAndFeelProvider.class)
 public final class GtkLookAndFeelProvider implements LookAndFeelProvider {
 
-    private static final String LAF_CLASSNAME = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
-    private static final Logger LOGGER = Logger.getLogger(DefaultLookAndFeelProvider.class.getName());
+    private static final String LAF_CLASSNAME = LafUtil.findLookuAndFeel("GTKLookAndFeel", "com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+    private static final Logger LOGGER = Logger.getLogger(SystemLookAndFeelProvider.class.getName());
 
     @Override
     public String getDisplayname() {
@@ -40,7 +40,7 @@ public final class GtkLookAndFeelProvider implements LookAndFeelProvider {
 
     @Override
     public boolean canInstall() {
-        return LafSupport.canInstall(LAF_CLASSNAME);
+        return LafUtil.canInstall(LAF_CLASSNAME);
     }
 
     @Override
