@@ -4,11 +4,11 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
-import org.jphototagger.exif.datatype.ExifDatatypeUtil;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.datatype.ExifRational;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#FOCAL_LENGTH}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#FOCAL_LENGTH}.
  *
  * @author Elmar Baumann
  */
@@ -25,7 +25,7 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.FOCAL_LENGTH);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.FOCAL_LENGTH);
 
         byte[] rawValue = exifTag.getRawValue();
 
@@ -35,7 +35,7 @@ public final class ExifFormatterFocalLength extends ExifFormatter {
 
             df.applyPattern("#.# mm");
 
-            return df.format(ExifDatatypeUtil.convertExifRationalToDouble(er));
+            return df.format(ExifValueUtil.convertExifRationalToDouble(er));
         }
 
         return "?";

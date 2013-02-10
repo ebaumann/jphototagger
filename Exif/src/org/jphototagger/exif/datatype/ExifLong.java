@@ -4,7 +4,7 @@ import java.nio.ByteOrder;
 import org.jphototagger.exif.Ensure;
 
 /**
- * EXIF data exifDataType LONG as described in the standard: A 32-bit (4-byte) unsigned
+ * EXIF data exifValueType LONG as described in the standard: A 32-bit (4-byte) unsigned
  * integer.
  *
  * BUGS: Possibly too small because the EXIF LONG is unsigned and has the
@@ -33,7 +33,7 @@ public final class ExifLong {
         }
 
         Ensure.length(rawValue, getRawValueByteCount());
-        value = ExifDatatypeUtil.convertRawValueToInt(rawValue, byteOrder);
+        value = ExifValueUtil.convertRawValueToInt(rawValue, byteOrder);
         Ensure.zeroOrPositive(value);
     }
 
@@ -52,8 +52,8 @@ public final class ExifLong {
                 : rawValue.length == getRawValueByteCount();
     }
 
-    public static ExifDataType getExifDataType() {
-        return ExifDataType.LONG;
+    public static ExifValueType getValueType() {
+        return ExifValueType.LONG;
     }
 
     /**

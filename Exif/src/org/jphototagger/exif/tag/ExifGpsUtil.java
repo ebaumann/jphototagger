@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
-import org.jphototagger.exif.datatype.ExifDatatypeUtil;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.datatype.ExifRational;
 
 /**
@@ -27,9 +27,9 @@ public final class ExifGpsUtil {
         ExifRational degrees = exifDegrees.getDegrees();
         ExifRational minutes = exifDegrees.getMinutes();
         ExifRational seconds = exifDegrees.getSeconds();
-        double degreesDouble = ExifDatatypeUtil.convertExifRationalToDouble(degrees);
-        double minutesDouble = ExifDatatypeUtil.convertExifRationalToDouble(minutes);
-        double secondsDouble = ExifDatatypeUtil.convertExifRationalToDouble(seconds);
+        double degreesDouble = ExifValueUtil.convertExifRationalToDouble(degrees);
+        double minutesDouble = ExifValueUtil.convertExifRationalToDouble(minutes);
+        double secondsDouble = ExifValueUtil.convertExifRationalToDouble(seconds);
         return degreesDouble + minutesDouble / 60 + secondsDouble / 3600;
     }
 
@@ -37,8 +37,8 @@ public final class ExifGpsUtil {
         if (minutes == null) {
             throw new NullPointerException("minutes == null");
         }
-        double doubleMinutes = ExifDatatypeUtil.convertExifRationalToDouble(minutes);
-        double integerMinutes = ExifDatatypeUtil.convertExifRationalToLong(minutes);
+        double doubleMinutes = ExifValueUtil.convertExifRationalToDouble(minutes);
+        double integerMinutes = ExifValueUtil.convertExifRationalToLong(minutes);
         return (doubleMinutes - integerMinutes) * 60;
     }
 
@@ -50,11 +50,11 @@ public final class ExifGpsUtil {
         ExifRational exifDeg = exifDegrees.getDegrees();
         ExifRational exifMinutes = exifDegrees.getMinutes();
         ExifRational exifSeconds = exifDegrees.getSeconds();
-        double degrees = ExifDatatypeUtil.convertExifRationalToDouble(exifDeg);
-        double minutes = ExifDatatypeUtil.convertExifRationalToDouble(exifMinutes);
-        double seconds = ExifDatatypeUtil.convertExifRationalToDouble(exifSeconds);
+        double degrees = ExifValueUtil.convertExifRationalToDouble(exifDeg);
+        double minutes = ExifValueUtil.convertExifRationalToDouble(exifMinutes);
+        double seconds = ExifValueUtil.convertExifRationalToDouble(exifSeconds);
         if (seconds == 0) {
-            minutes = ExifDatatypeUtil.convertExifRationalToLong(exifMinutes);
+            minutes = ExifValueUtil.convertExifRationalToLong(exifMinutes);
             seconds = ExifGpsUtil.getSecondsOfMinutes(exifMinutes);
         }
         DecimalFormat decmailFormatMinutes = new DecimalFormat("#");
@@ -150,9 +150,9 @@ public final class ExifGpsUtil {
                 cal.set(Calendar.YEAR, dateStamp.getYear());
                 cal.set(Calendar.MONTH, dateStamp.getMonth() - 1);
                 cal.set(Calendar.DAY_OF_MONTH, dateStamp.getDay());
-                cal.set(Calendar.HOUR_OF_DAY, (int) ExifDatatypeUtil.convertExifRationalToDouble(timeStamp.getHours()));
-                cal.set(Calendar.MINUTE, (int) ExifDatatypeUtil.convertExifRationalToDouble(timeStamp.getMinutes()));
-                cal.set(Calendar.SECOND, (int) ExifDatatypeUtil.convertExifRationalToDouble(timeStamp.getSeconds()));
+                cal.set(Calendar.HOUR_OF_DAY, (int) ExifValueUtil.convertExifRationalToDouble(timeStamp.getHours()));
+                cal.set(Calendar.MINUTE, (int) ExifValueUtil.convertExifRationalToDouble(timeStamp.getMinutes()));
+                cal.set(Calendar.SECOND, (int) ExifValueUtil.convertExifRationalToDouble(timeStamp.getSeconds()));
                 return cal;
             } catch (Throwable t) {
                 Logger.getLogger(ExifGpsUtil.class.getName()).log(Level.SEVERE, null, t);
@@ -162,8 +162,8 @@ public final class ExifGpsUtil {
     }
 
     private static void setGpsLongitudeFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
-        ExifTag tagLongitudeRef = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_LONGITUDE_REF.getTagId());
-        ExifTag tagLongitude = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_LONGITUDE.getTagId());
+        ExifTag tagLongitudeRef = exifTags.findGpsTagByTagId(ExifTag.Properties.GPS_LONGITUDE_REF.getTagId());
+        ExifTag tagLongitude = exifTags.findGpsTagByTagId(ExifTag.Properties.GPS_LONGITUDE.getTagId());
         if ((tagLongitudeRef != null) && (tagLongitude != null)) {
             byte[] refRawValue = tagLongitudeRef.getRawValue();
             byte[] degreesRawValue = tagLongitude.getRawValue();
@@ -174,8 +174,8 @@ public final class ExifGpsUtil {
     }
 
     private static void setGpsLatitudeFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
-        ExifTag tagLatitudeRef = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_LATITUDE_REF.getTagId());
-        ExifTag tagLatitude = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_LATITUDE.getTagId());
+        ExifTag tagLatitudeRef = exifTags.findGpsTagByTagId(ExifTag.Properties.GPS_LATITUDE_REF.getTagId());
+        ExifTag tagLatitude = exifTags.findGpsTagByTagId(ExifTag.Properties.GPS_LATITUDE.getTagId());
         if ((tagLatitudeRef != null) && (tagLatitude != null)) {
             byte[] refRawValue = tagLatitudeRef.getRawValue();
             byte[] degreesRawValue = tagLatitude.getRawValue();
@@ -186,8 +186,8 @@ public final class ExifGpsUtil {
     }
 
     private static void setGpsAltitudeFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
-        ExifTag tagAltitudeRef = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_ALTITUDE_REF.getTagId());
-        ExifTag tagAltitude = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_ALTITUDE.getTagId());
+        ExifTag tagAltitudeRef = exifTags.findGpsTagByTagId(ExifTag.Properties.GPS_ALTITUDE_REF.getTagId());
+        ExifTag tagAltitude = exifTags.findGpsTagByTagId(ExifTag.Properties.GPS_ALTITUDE.getTagId());
         if ((tagAltitudeRef != null) && (tagAltitude != null)) {
             byte[] refRawValue = tagAltitudeRef.getRawValue();
             byte[] rawValue = tagAltitude.getRawValue();
@@ -198,7 +198,7 @@ public final class ExifGpsUtil {
     }
 
     private static void setGpsDateFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
-        ExifTag tagDate = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_DATE_STAMP.getTagId());
+        ExifTag tagDate = exifTags.findGpsTagByTagId(ExifTag.Properties.GPS_DATE_STAMP.getTagId());
         if (tagDate != null) {
             byte[] rawValue = tagDate.getRawValue();
 
@@ -210,7 +210,7 @@ public final class ExifGpsUtil {
     }
 
     private static void setGpsTimeFromExifTagsToExifGpsMetadata(ExifTags exifTags, ExifGpsMetadata exifGpsMetaData) {
-        ExifTag tagTime = exifTags.findGpsTagByTagId(ExifTag.Id.GPS_TIME_STAMP.getTagId());
+        ExifTag tagTime = exifTags.findGpsTagByTagId(ExifTag.Properties.GPS_TIME_STAMP.getTagId());
         if (tagTime != null) {
             byte[] rawValue = tagTime.getRawValue();
             if ((rawValue != null) && (rawValue.length == 24)) {

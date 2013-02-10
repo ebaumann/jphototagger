@@ -57,7 +57,7 @@ public final class ExifMetadata {
                 for (int i = 0; i < count; i++) {
                     // FIXME: IfdType.EXIF: How to determine the IFD type of an IFD (using not IfdType.EXIF)?
                     ImageFileDirectory iFD = tiffReader.getIFD(i);
-                    addTagsOfIfd(iFD, ExifIfdType.EXIF, exifTags);
+                    addTagsOfIfd(iFD, ExifIfd.EXIF, exifTags);
                 }
             }
         } catch (Throwable t) {
@@ -74,12 +74,12 @@ public final class ExifMetadata {
                 IFDEntry[] currentIfdEntry = allIfdEntries[i];
                 for (int j = 0; j < currentIfdEntry.length; j++) {
                     IFDEntry entry = currentIfdEntry[j];
-                    ExifTag exifTag = new ExifTag(entry, ExifIfdType.EXIF);
-                    ExifTag.Id exifTagId = exifTag.convertTagIdToEnumId();
-                    if (exifTagId.isGpsId()) {
-                        exifTags.addGpsTag(new ExifTag(entry, ExifIfdType.GPS));
-                    } else if (exifTagId.isMakerNoteId()) {
-                        exifTags.addMakerNoteTag(new ExifTag(entry, ExifIfdType.MAKER_NOTE));
+                    ExifTag exifTag = new ExifTag(entry, ExifIfd.EXIF);
+                    ExifTag.Properties exifTagId = exifTag.parseProperties();
+                    if (exifTagId.isGpsTag()) {
+                        exifTags.addGpsTag(new ExifTag(entry, ExifIfd.GPS));
+                    } else if (exifTagId.isMakerNoteTag()) {
+                        exifTags.addMakerNoteTag(new ExifTag(entry, ExifIfd.MAKER_NOTE));
                     } else {
                         exifTags.addExifTag(exifTag);
                     }
@@ -94,29 +94,29 @@ public final class ExifMetadata {
         }
     }
 
-    private static void addTagsOfIfd(ImageFileDirectory ifd, ExifIfdType ifdType, ExifTags exifTags) {
-        if (!ifdType.equals(ExifIfdType.UNDEFINED)) {
+    private static void addTagsOfIfd(ImageFileDirectory ifd, ExifIfd ifdType, ExifTags exifTags) {
+        if (!ifdType.equals(ExifIfd.UNDEFINED)) {
             addExifTags(ifd, ifdType, exifTags);
         }
         for (int i = 0; i < ifd.getIFDCount(); i++) {
             ImageFileDirectory subIfd = ifd.getIFDAt(i);
-            addTagsOfIfd(subIfd, ExifIfdType.UNDEFINED, exifTags);    // recursive
+            addTagsOfIfd(subIfd, ExifIfd.UNDEFINED, exifTags);    // recursive
         }
         ImageFileDirectory exifIFD = ifd.getExifIFD();
         if (exifIFD != null) {
-            addTagsOfIfd(exifIFD, ExifIfdType.EXIF, exifTags);    // recursive
+            addTagsOfIfd(exifIFD, ExifIfd.EXIF, exifTags);    // recursive
         }
         ImageFileDirectory gpsIFD = ifd.getGpsIFD();
         if (gpsIFD != null) {
-            addTagsOfIfd(gpsIFD, ExifIfdType.GPS, exifTags);    // recursive
+            addTagsOfIfd(gpsIFD, ExifIfd.GPS, exifTags);    // recursive
         }
         ImageFileDirectory interoperabilityIFD = ifd.getInteroperabilityIFD();
         if (interoperabilityIFD != null) {
-            addTagsOfIfd(interoperabilityIFD, ExifIfdType.INTEROPERABILITY, exifTags);    // recursive
+            addTagsOfIfd(interoperabilityIFD, ExifIfd.INTEROPERABILITY, exifTags);    // recursive
         }
     }
 
-    private static void addExifTags(ImageFileDirectory ifd, ExifIfdType ifdType, ExifTags exifTags) {
+    private static void addExifTags(ImageFileDirectory ifd, ExifIfd ifdType, ExifTags exifTags) {
         int entryCount = ifd.getEntryCount();
         for (int i = 0; i < entryCount; i++) {
             IFDEntry ifdEntry = ifd.getEntryAt(i);
@@ -190,12 +190,12 @@ public final class ExifMetadata {
         if (exifTags == null) {
             return file.lastModified();
         }
-        ExifTag dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
+        ExifTag dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Properties.DATE_TIME_ORIGINAL.getTagId());
         if (dateTimeTag == null) {
-            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_DIGITIZED.getTagId());
+            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Properties.DATE_TIME_DIGITIZED.getTagId());
         }
         if (dateTimeTag == null) {
-            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME.getTagId());
+            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Properties.DATE_TIME.getTagId());
         }
         if (dateTimeTag == null) {
             return file.lastModified();

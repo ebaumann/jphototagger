@@ -29,10 +29,10 @@ final class ExifFactory {
         try {
             Exif exif = new Exif();
             ExifTag dateTimeOriginalTag = findDateTimeTag(exifTags);
-            ExifTag focalLengthTag = exifTags.findExifTagByTagId(ExifTag.Id.FOCAL_LENGTH.getTagId());
-            ExifTag isoSpeedRatingsTag = exifTags.findExifTagByTagId(ExifTag.Id.ISO_SPEED_RATINGS.getTagId());
-            ExifTag modelTag = exifTags.findExifTagByTagId(ExifTag.Id.MODEL.getTagId());
-            ExifTag lensTag = exifTags.findExifTagByTagId(ExifTag.Id.MAKER_NOTE_LENS.getTagId());
+            ExifTag focalLengthTag = exifTags.findExifTagByTagId(ExifTag.Properties.FOCAL_LENGTH.getTagId());
+            ExifTag isoSpeedRatingsTag = exifTags.findExifTagByTagId(ExifTag.Properties.ISO_SPEED_RATINGS.getTagId());
+            ExifTag modelTag = exifTags.findExifTagByTagId(ExifTag.Properties.MODEL.getTagId());
+            ExifTag lensTag = exifTags.findExifTagByTagId(ExifTag.Properties.MAKER_NOTE_LENS.getTagId());
             if (dateTimeOriginalTag != null) {
                 setExifDateTimeOriginal(exif, dateTimeOriginalTag);
             }
@@ -57,12 +57,12 @@ final class ExifFactory {
     }
 
     private static ExifTag findDateTimeTag(ExifTags exifTags) {
-        ExifTag dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
+        ExifTag dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Properties.DATE_TIME_ORIGINAL.getTagId());
         if (dateTimeTag == null) {
-            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME_DIGITIZED.getTagId());
+            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Properties.DATE_TIME_DIGITIZED.getTagId());
         }
         if (dateTimeTag == null) {
-            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Id.DATE_TIME.getTagId());
+            dateTimeTag = exifTags.findExifTagByTagId(ExifTag.Properties.DATE_TIME.getTagId());
         }
         return dateTimeTag;
     }

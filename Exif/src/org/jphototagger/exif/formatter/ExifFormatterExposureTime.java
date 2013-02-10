@@ -6,7 +6,7 @@ import org.jphototagger.exif.datatype.ExifRational;
 import org.jphototagger.exif.datatype.Fraction;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#EXPOSURE_TIME}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#EXPOSURE_TIME}.
  *
  * @author Elmar Baumann
  */
@@ -23,7 +23,7 @@ public final class ExifFormatterExposureTime extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.EXPOSURE_TIME);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.EXPOSURE_TIME);
 
         if (ExifRational.getRawValueByteCount() == exifTag.getRawValue().length) {
             ExifRational time = new ExifRational(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());

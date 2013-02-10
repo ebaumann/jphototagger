@@ -3,7 +3,7 @@ package org.jphototagger.exif;
 /**
  * @author Elmar Baumann
  */
-public enum ExifIfdType {
+public enum ExifIfd {
 
     EXIF,
     GPS,

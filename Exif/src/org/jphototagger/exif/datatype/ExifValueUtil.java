@@ -6,7 +6,7 @@ import java.nio.ByteOrder;
 /**
  * @author Elmar Baumann
  */
-public final class ExifDatatypeUtil {
+public final class ExifValueUtil {
 
     public static double convertExifRationalToDouble(ExifRational rational) {
         if (rational == null) {
@@ -65,6 +65,6 @@ public final class ExifDatatypeUtil {
         return buf;
     }
 
-    private ExifDatatypeUtil() {
+    private ExifValueUtil() {
     }
 }

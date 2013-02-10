@@ -62,8 +62,8 @@ public final class ExifAscii {
         return ByteUtil.toInt(lastByte) == 0;
     }
 
-    public static ExifDataType getExifDataType() {
-        return ExifDataType.ASCII;
+    public static ExifValueType getValueType() {
+        return ExifValueType.ASCII;
     }
 
     public String getValue() {

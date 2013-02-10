@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jphototagger.exif.ExifIfdType;
+import org.jphototagger.exif.ExifIfd;
 import org.jphototagger.exif.ExifMakerNotes;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
@@ -73,7 +73,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
     }
 
     private void add(ExifTag exifMakerNote, ExifTags exifTags) {
-        assert exifMakerNote.convertTagIdToEnumId().equals(ExifTag.Id.MAKER_NOTE);
+        assert exifMakerNote.parseProperties().equals(ExifTag.Properties.MAKER_NOTE);
 
         NikonMakerNote nikonMakerNote = NikonMakerNotes.get(exifTags, exifMakerNote.getRawValue());
 
@@ -95,7 +95,7 @@ public final class NikonMakerNotes implements ExifMakerNotes {
             int count = ifd.getEntryCount();
 
             for (int i = 0; i < count; i++) {
-                allMakerNoteTags.add(new ExifTag(ifd.getEntryAt(i), ExifIfdType.MAKER_NOTE));
+                allMakerNoteTags.add(new ExifTag(ifd.getEntryAt(i), ExifIfd.MAKER_NOTE));
             }
 
             exifTags.addMakerNoteTags(nikonMakerNote.getDisplayableMakerNotesOf(allMakerNoteTags));
@@ -117,10 +117,10 @@ public final class NikonMakerNotes implements ExifMakerNotes {
 
                 // prefering existing tag
                 if (exifTag == null) {
-                    exifTags.addExifTag(new ExifTag(nikonMakerNoteTagIdExifTagId.getExifTagId(), makerNoteTag.getDataTypeId(),
+                    exifTags.addExifTag(new ExifTag(nikonMakerNoteTagIdExifTagId.getExifTagId(), makerNoteTag.getIntValueType(),
                             makerNoteTag.getValueCount(), makerNoteTag.getValueOffset(),
                             makerNoteTag.getRawValue(), makerNoteTag.getStringValue(),
-                            makerNoteTag.getByteOrderId(), makerNoteTag.getName(), ExifIfdType.EXIF));
+                            makerNoteTag.getByteOrderId(), makerNoteTag.getName(), ExifIfd.EXIF));
                 }
             }
         }

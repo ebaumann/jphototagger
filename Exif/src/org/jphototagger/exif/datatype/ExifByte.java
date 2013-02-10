@@ -3,7 +3,7 @@ package org.jphototagger.exif.datatype;
 import org.jphototagger.exif.Ensure;
 
 /**
- * EXIF data exifDataType <code>BYTE</code> as defined in the EXIF standard:
+ * EXIF data exifValueType <code>BYTE</code> as defined in the EXIF standard:
  * An 8-bit unsigned integer.
  *
  * @author Elmar Baumann
@@ -13,7 +13,7 @@ public final class ExifByte {
     private final int value;
 
     /**
-     * EXIF data exifDataType BYTE as described in the standard: An 8-bit unsigned
+     * EXIF data exifValueType BYTE as described in the standard: An 8-bit unsigned
      * integer.
      *
      * @param  rawValue
@@ -45,8 +45,8 @@ public final class ExifByte {
                 : rawValue.length == getRawValueByteCount();
     }
 
-    public static ExifDataType getExifDataType() {
-        return ExifDataType.BYTE;
+    public static ExifValueType getValueType() {
+        return ExifValueType.BYTE;
     }
 
     public int getValue() {

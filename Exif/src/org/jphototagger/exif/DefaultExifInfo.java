@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.domain.metadata.exif.ExifInfo;
 import org.jphototagger.domain.metadata.exif.ExifMakerNoteTags;
-import org.jphototagger.exif.ExifTag.Id;
+import org.jphototagger.exif.ExifTag.Properties;
 import org.jphototagger.exif.tag.ExifGpsAltitude;
 import org.jphototagger.exif.tag.ExifGpsLatitude;
 import org.jphototagger.exif.tag.ExifGpsLongitude;
@@ -90,21 +90,21 @@ public final class DefaultExifInfo implements ExifInfo {
         ExifGpsLongitude longitude = exifGpsMetadata.getLongitude();
         ExifGpsAltitude altitude = exifGpsMetadata.getAltitude();
         if (latitude != null) {
-            String tagId = Integer.toString(ExifTag.Id.GPS_LATITUDE.getTagId());
+            String tagId = Integer.toString(ExifTag.Properties.GPS_LATITUDE.getTagId());
             String nameString = TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
             String valueString = exifGpsMetadata.getLatitude().getLocalizedString();
             org.jphototagger.domain.metadata.exif.ExifTag exifTag = new org.jphototagger.domain.metadata.exif.ExifTag(nameString, valueString);
             target.add(exifTag);
         }
         if (longitude != null) {
-            String tagId = Integer.toString(ExifTag.Id.GPS_LONGITUDE.getTagId());
+            String tagId = Integer.toString(ExifTag.Properties.GPS_LONGITUDE.getTagId());
             String tagName = TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
             String valueString = exifGpsMetadata.getLongitude().toLocalizedString();
             org.jphototagger.domain.metadata.exif.ExifTag exifTag = new org.jphototagger.domain.metadata.exif.ExifTag(tagName, valueString);
             target.add(exifTag);
         }
         if (altitude != null) {
-            String tagId = Integer.toString(ExifTag.Id.GPS_ALTITUDE.getTagId());
+            String tagId = Integer.toString(ExifTag.Properties.GPS_ALTITUDE.getTagId());
             String nameString = TAG_ID_TAGNAME_TRANSLATION.translate(tagId, tagId);
             String valueString = exifGpsMetadata.getAltitude().getLocalizedString();
             org.jphototagger.domain.metadata.exif.ExifTag exifTag = new org.jphototagger.domain.metadata.exif.ExifTag(nameString, valueString);
@@ -132,14 +132,14 @@ public final class DefaultExifInfo implements ExifInfo {
 
     private static String getTagName(ExifTag exifTag) {
         String tagName = exifTag.getName();
-        ExifIfdType ifdType = exifTag.getIfdType();
-        boolean isMakerNoteIfd = ifdType.equals(ExifIfdType.MAKER_NOTE);
+        ExifIfd ifdType = exifTag.getIfd();
+        boolean isMakerNoteIfd = ifdType.equals(ExifIfd.MAKER_NOTE);
         if (isMakerNoteIfd) {
             return tagName;
         }
-        Id exifTagId = exifTag.convertTagIdToEnumId();
+        Properties exifTagId = exifTag.parseProperties();
         int tagId = exifTagId.getTagId();
-        int makerNoteTagId = ExifTag.Id.MAKER_NOTE.getTagId();
+        int makerNoteTagId = ExifTag.Properties.MAKER_NOTE.getTagId();
         boolean isMakerNoteTag = tagId >= makerNoteTagId;
         if (isMakerNoteTag) {
             boolean canTranslate = TAGNAME_TRANSLATION.canTranslate(tagName);
@@ -154,14 +154,14 @@ public final class DefaultExifInfo implements ExifInfo {
     }
 
     private void addMakerNoteTagsFromService(ExifTags source, Collection<org.jphototagger.domain.metadata.exif.ExifTag> target) {
-        ExifTag makerNoteTag = source.findExifTagByTagId(ExifTag.Id.MAKER_NOTE.getTagId());
+        ExifTag makerNoteTag = source.findExifTagByTagId(ExifTag.Properties.MAKER_NOTE.getTagId());
         if (makerNoteTag == null) {
             return;
         }
         byte[] makerNoteRawValue = makerNoteTag.getRawValue();
-        ExifTag modelTag = source.findExifTagByTagId(ExifTag.Id.MODEL.getTagId());
+        ExifTag modelTag = source.findExifTagByTagId(ExifTag.Properties.MODEL.getTagId());
         String modelString = modelTag.getStringValue();
-        ExifTag makeTag = source.findExifTagByTagId(ExifTag.Id.MAKE.getTagId());
+        ExifTag makeTag = source.findExifTagByTagId(ExifTag.Properties.MAKE.getTagId());
         String makeString = makeTag.getStringValue();
         Collection<? extends ExifMakerNoteTags> makerNoteExifInfos = Lookup.getDefault().lookupAll(ExifMakerNoteTags.class);
         for (ExifMakerNoteTags makerNoteTags : makerNoteExifInfos) {
