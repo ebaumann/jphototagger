@@ -1,13 +1,13 @@
 package org.jphototagger.exif.formatter;
 
 import org.jphototagger.exif.Ensure;
-import org.jphototagger.exif.ExifIfdType;
+import org.jphototagger.exif.ExifIfd;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifAscii;
 import org.jphototagger.lib.util.ByteUtil;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#FLASH}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#FLASH}.
  *
  * @author Elmar Baumann
  */
@@ -24,7 +24,7 @@ public final class ExifFormatterFlash extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.FLASH);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.FLASH);
 
         byte[] rawValue = exifTag.getRawValue();
 
@@ -34,12 +34,12 @@ public final class ExifFormatterFlash extends ExifFormatter {
             boolean hasFlash = !bitsByte1[5];
 
             if (!hasFlash) {
-                return translate(ExifIfdType.EXIF, "FlashNone");
+                return translate(ExifIfd.EXIF, "FlashNone");
             }
 
             return fired
-                    ? translate(ExifIfdType.EXIF, "FlashFired")
-                    : translate(ExifIfdType.EXIF, "FlashNotFired");
+                    ? translate(ExifIfd.EXIF, "FlashFired")
+                    : translate(ExifIfd.EXIF, "FlashNotFired");
         }
 
         return ExifAscii.convertRawValueToString(rawValue);

@@ -3,8 +3,8 @@ package org.jphototagger.exif.formatter.canon;
 import java.nio.ByteOrder;
 import java.util.HashMap;
 import java.util.Map;
-import org.jphototagger.exif.datatype.ExifDataType;
-import org.jphototagger.exif.datatype.ExifDatatypeUtil;
+import org.jphototagger.exif.datatype.ExifValueType;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 
 /**
  * @author Elmar Baumann
@@ -37,8 +37,8 @@ public final class CanonIfd {
             return fieldType;
         }
 
-        public ExifDataType dataType() {
-            return ExifDataType.convertIntegerValueToExifDataType(fieldType);
+        public ExifValueType dataType() {
+            return ExifValueType.parseInt(fieldType);
         }
 
         public byte[] getRaw() {
@@ -110,7 +110,7 @@ public final class CanonIfd {
 
         System.arraycopy(rawValue, 0, raw, 0, 2);
 
-        return ExifDatatypeUtil.convertRawValueToShort(raw, byteOrder);
+        return ExifValueUtil.convertRawValueToShort(raw, byteOrder);
     }
 
     private void setEntries() {
@@ -159,12 +159,12 @@ public final class CanonIfd {
         System.arraycopy(raw, 4, valueNumberBytes, 0, 4);
         System.arraycopy(raw, 8, valueOffsetBytes, 0, 4);
 
-        int tag = ExifDatatypeUtil.convertRawValueToShort(tagBytes, byteOrder);
-        int fieldType = ExifDatatypeUtil.convertRawValueToShort(fieldTypeBytes, byteOrder);
-        ExifDataType dataType = ExifDataType.convertIntegerValueToExifDataType(fieldType);
-        int valueNumber = ExifDatatypeUtil.convertRawValueToInt(valueNumberBytes, byteOrder);
+        int tag = ExifValueUtil.convertRawValueToShort(tagBytes, byteOrder);
+        int fieldType = ExifValueUtil.convertRawValueToShort(fieldTypeBytes, byteOrder);
+        ExifValueType dataType = ExifValueType.parseInt(fieldType);
+        int valueNumber = ExifValueUtil.convertRawValueToInt(valueNumberBytes, byteOrder);
         int offsetBytes = (dataType.getBitCount() * valueNumber > 32)
-                ? ExifDatatypeUtil.convertRawValueToInt(valueOffsetBytes, byteOrder)
+                ? ExifValueUtil.convertRawValueToInt(valueOffsetBytes, byteOrder)
                 : -1;
 
         return new Entry(tag, fieldType, valueNumber, offsetBytes, raw);

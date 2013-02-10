@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import org.jphototagger.exif.datatype.ExifDatatypeUtil;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.datatype.ExifRational;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ByteUtil;
@@ -89,7 +89,7 @@ public final class ExifGpsAltitude {
     public String getLocalizedString() {
         MessageFormat msg = new MessageFormat("{0} m {1}");
 
-        return msg.format(new Object[]{ExifDatatypeUtil.convertExifRationalToLong(value), LOCALIZED_STRING_OF_REF.get(ref)});
+        return msg.format(new Object[]{ExifValueUtil.convertExifRationalToLong(value), LOCALIZED_STRING_OF_REF.get(ref)});
     }
 
     public Ref getRef() {

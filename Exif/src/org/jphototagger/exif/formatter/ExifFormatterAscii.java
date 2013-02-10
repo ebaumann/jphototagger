@@ -3,7 +3,7 @@ package org.jphototagger.exif.formatter;
 import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifAscii;
-import org.jphototagger.exif.datatype.ExifDataType;
+import org.jphototagger.exif.datatype.ExifValueType;
 
 /**
  * Formats EXIF metadata fields in ASCII format.
@@ -20,7 +20,7 @@ public final class ExifFormatterAscii extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifDataType(exifTag, ExifDataType.ASCII);
+        Ensure.exifValueType(exifTag, ExifValueType.ASCII);
 
         return ExifAscii.convertRawValueToString(exifTag.getRawValue());
     }

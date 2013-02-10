@@ -2,7 +2,7 @@ package org.jphototagger.exif.formatter;
 
 import java.util.EnumMap;
 import java.util.Map;
-import org.jphototagger.exif.ExifIfdType;
+import org.jphototagger.exif.ExifIfd;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.lib.util.Translation;
 
@@ -13,10 +13,10 @@ import org.jphototagger.lib.util.Translation;
  */
 public abstract class ExifFormatter {
 
-    private static final Map<ExifIfdType, Translation> TRANSLATION_OF_IFD = new EnumMap<>(ExifIfdType.class);
+    private static final Map<ExifIfd, Translation> TRANSLATION_OF_IFD = new EnumMap<>(ExifIfd.class);
 
     static {
-        TRANSLATION_OF_IFD.put(ExifIfdType.EXIF, new Translation(ExifFormatter.class, "ExifExifIfdFieldValueTranslations"));
+        TRANSLATION_OF_IFD.put(ExifIfd.EXIF, new Translation(ExifFormatter.class, "ExifExifIfdFieldValueTranslations"));
     }
 
     /**
@@ -28,7 +28,7 @@ public abstract class ExifFormatter {
      */
     public abstract String format(ExifTag exifTag);
 
-    protected String translate(ExifIfdType ifdType, String propertyKey) {
+    protected String translate(ExifIfd ifdType, String propertyKey) {
         if (ifdType == null) {
             throw new NullPointerException("ifdType == null");
         }

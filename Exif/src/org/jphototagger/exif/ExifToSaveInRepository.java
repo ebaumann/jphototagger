@@ -8,14 +8,14 @@ import java.util.List;
  */
 public final class ExifToSaveInRepository {
 
-    private static final List<ExifTag.Id> EXIF_TAG_IDS_TO_SAVE = new ArrayList<>();
+    private static final List<ExifTag.Properties> EXIF_TAG_IDS_TO_SAVE = new ArrayList<>();
 
     static {
-        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.DATE_TIME_ORIGINAL);
-        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.FOCAL_LENGTH);
-        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.ISO_SPEED_RATINGS);
-        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.MODEL);
-        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Id.MAKER_NOTE_LENS);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Properties.DATE_TIME_ORIGINAL);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Properties.FOCAL_LENGTH);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Properties.ISO_SPEED_RATINGS);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Properties.MODEL);
+        EXIF_TAG_IDS_TO_SAVE.add(ExifTag.Properties.MAKER_NOTE_LENS);
     }
 
     /**
@@ -25,7 +25,7 @@ public final class ExifToSaveInRepository {
      * @param  exifTagId Tag ID
      * @return           true, falls gespeichert
      */
-    public static boolean isSaveInRepository(ExifTag.Id exifTagId) {
+    public static boolean isSaveInRepository(ExifTag.Properties exifTagId) {
         if (exifTagId == null) {
             throw new NullPointerException("exifTagId == null");
         }
@@ -41,7 +41,7 @@ public final class ExifToSaveInRepository {
      * @param id      id or null
      * @return        true, falls gespeichert
      */
-    public static boolean isSaveInRepository(ExifIfdType ifdType, ExifTag.Id id) {
+    public static boolean isSaveInRepository(ExifIfd ifdType, ExifTag.Properties id) {
         if (ifdType == null) {
             throw new NullPointerException("ifdType == null");
         }

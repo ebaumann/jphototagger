@@ -18,36 +18,36 @@ public final class ExifTagsToDisplay {
     static {
 
         // Ordered alphabetically
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.ARTIST.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.CONTRAST.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.COPYRIGHT.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.DATE_TIME_ORIGINAL.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.DATE_TIME_DIGITIZED.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.DATE_TIME.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.EXPOSURE_PROGRAM.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.EXPOSURE_TIME.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.FILE_SOURCE.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.FLASH.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.F_NUMBER.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.FOCAL_LENGTH.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.FOCAL_LENGTH_IN_35_MM_FILM.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.IMAGE_DESCRIPTION.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.IMAGE_UNIQUE_ID.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.ISO_SPEED_RATINGS.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.MAKE.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.METERING_MODE.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.MODEL.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.SATURATION.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.SHARPNESS.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.SOFTWARE.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.USER_COMMENT.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.WHITE_BALANCE.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.SPECTRAL_SENSITIVITY.getTagId());
-        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Id.MAKER_NOTE_LENS.getTagId());
-        ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Id.GPS_DATE_STAMP.getTagId());
-        ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Id.GPS_SATELLITES.getTagId());
-        ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Id.GPS_TIME_STAMP.getTagId());
-        ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Id.GPS_VERSION_ID.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.ARTIST.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.CONTRAST.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.COPYRIGHT.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.DATE_TIME_ORIGINAL.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.DATE_TIME_DIGITIZED.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.DATE_TIME.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.EXPOSURE_PROGRAM.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.EXPOSURE_TIME.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.FILE_SOURCE.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.FLASH.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.F_NUMBER.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.FOCAL_LENGTH.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.FOCAL_LENGTH_IN_35_MM_FILM.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.IMAGE_DESCRIPTION.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.IMAGE_UNIQUE_ID.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.ISO_SPEED_RATINGS.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.MAKE.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.METERING_MODE.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.MODEL.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.SATURATION.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.SHARPNESS.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.SOFTWARE.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.USER_COMMENT.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.WHITE_BALANCE.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.SPECTRAL_SENSITIVITY.getTagId());
+        ID_VALUES_OF_EXIF_TAGS_TO_DISPLAY.add(ExifTag.Properties.MAKER_NOTE_LENS.getTagId());
+        ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Properties.GPS_DATE_STAMP.getTagId());
+        ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Properties.GPS_SATELLITES.getTagId());
+        ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Properties.GPS_TIME_STAMP.getTagId());
+        ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.add(ExifTag.Properties.GPS_VERSION_ID.getTagId());
     }
 
     public static List<ExifTag> getDisplayableExifTagsOf(Collection<? extends ExifTag> exifTags) {
@@ -77,9 +77,9 @@ public final class ExifTagsToDisplay {
     }
 
     private static boolean isDisplayableExifTag(ExifTag exifTag) {
-        ExifIfdType ifdType = exifTag.getIfdType();
+        ExifIfd ifdType = exifTag.getIfd();
         int tagId = exifTag.getTagId();
-        ExifTag.Id id = exifTag.convertTagIdToEnumId();
+        ExifTag.Properties id = exifTag.parseProperties();
 
         switch (ifdType) {
             case EXIF:
@@ -92,7 +92,7 @@ public final class ExifTagsToDisplay {
                 return ID_VALUES_OF_GPS_TAGS_TO_DISPLAY.contains(tagId);
 
             default:
-                return ifdType.equals(ExifIfdType.MAKER_NOTE) && !id.isMakerNoteId();
+                return ifdType.equals(ExifIfd.MAKER_NOTE) && !id.isMakerNoteTag();
         }
     }
 

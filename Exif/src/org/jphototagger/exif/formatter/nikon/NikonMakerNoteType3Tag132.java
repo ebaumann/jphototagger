@@ -3,7 +3,7 @@ package org.jphototagger.exif.formatter.nikon;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 import org.jphototagger.exif.ExifTag;
-import org.jphototagger.exif.datatype.ExifDatatypeUtil;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.datatype.ExifRational;
 import org.jphototagger.exif.formatter.ExifRawValueFormatter;
 
@@ -43,10 +43,10 @@ public final class NikonMakerNoteType3Tag132 implements ExifRawValueFormatter {
         ExifRational maxFStopR = new ExifRational(maxFStopRawValue, byteOrder);
         boolean fixFocalLength = minFocalLengthR.equals(maxFocalLengthR);
         boolean fixFStop = minFStopR.equals(maxFStopR);
-        double minFocalLength = ExifDatatypeUtil.convertExifRationalToDouble(minFocalLengthR);
-        double maxFocalLength = ExifDatatypeUtil.convertExifRationalToDouble(maxFocalLengthR);
-        double minFStop = ExifDatatypeUtil.convertExifRationalToDouble(minFStopR);
-        double maxFStop = ExifDatatypeUtil.convertExifRationalToDouble(maxFStopR);
+        double minFocalLength = ExifValueUtil.convertExifRationalToDouble(minFocalLengthR);
+        double maxFocalLength = ExifValueUtil.convertExifRationalToDouble(maxFocalLengthR);
+        double minFStop = ExifValueUtil.convertExifRationalToDouble(minFStopR);
+        double maxFStop = ExifValueUtil.convertExifRationalToDouble(maxFStopR);
         DecimalFormat df = new DecimalFormat("#.#");
         String focalLength = fixFocalLength
                 ? df.format(minFocalLength) + " mm"

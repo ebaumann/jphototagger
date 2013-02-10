@@ -5,7 +5,7 @@ import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifAscii;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_SATELLITES}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#GPS_SATELLITES}.
  *
  * @author Elmar Baumann
  */
@@ -22,7 +22,7 @@ public final class ExifFormatterGpsSatellites extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.GPS_SATELLITES);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.GPS_SATELLITES);
 
         return ExifAscii.convertRawValueToString(exifTag.getRawValue());
     }

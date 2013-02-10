@@ -5,7 +5,7 @@ import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.tag.ExifCopyright;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#COPYRIGHT}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#COPYRIGHT}.
  *
  * @author Elmar Baumann
  */
@@ -22,7 +22,7 @@ public final class ExifFormatterCopyright extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.COPYRIGHT);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.COPYRIGHT);
 
         return ExifCopyright.convertRawValueToPhotographerCopyright(exifTag.getRawValue());
     }

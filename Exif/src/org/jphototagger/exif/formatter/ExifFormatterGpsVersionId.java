@@ -6,7 +6,7 @@ import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifByte;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_VERSION_ID}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#GPS_VERSION_ID}.
  *
  * @author Elmar Baumann
  */
@@ -23,7 +23,7 @@ public final class ExifFormatterGpsVersionId extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.GPS_VERSION_ID);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.GPS_VERSION_ID);
 
         byte[] rawValue = exifTag.getRawValue();
 

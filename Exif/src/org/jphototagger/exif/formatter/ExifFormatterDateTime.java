@@ -4,7 +4,7 @@ import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#DATE_TIME_ORIGINAL}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#DATE_TIME_ORIGINAL}.
  *
  * @author Elmar Baumann
  */
@@ -20,7 +20,7 @@ public final class ExifFormatterDateTime extends ExifFormatter {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-        Ensure.exifTagId(exifTag, ExifTag.Id.DATE_TIME);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.DATE_TIME);
         return ExifDateTimeFormatter.format(exifTag.getRawValue());
     }
 }

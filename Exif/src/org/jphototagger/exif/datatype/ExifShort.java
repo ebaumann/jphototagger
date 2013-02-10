@@ -4,7 +4,7 @@ import java.nio.ByteOrder;
 import org.jphototagger.exif.Ensure;
 
 /**
- * EXIF data exifDataType <code>SHORT</code> as defined in the EXIF standard:
+ * EXIF data exifValueType <code>SHORT</code> as defined in the EXIF standard:
  * A 16-bit (2-byte) unsigned integer.
  *
  * BUGS: Possibly too small because the EXIF SHORT is unsigned and has the
@@ -34,7 +34,7 @@ public final class ExifShort {
         }
 
         Ensure.length(rawValue, getRawValueByteCount());
-        value = ExifDatatypeUtil.convertRawValueToShort(rawValue, byteOrder);
+        value = ExifValueUtil.convertRawValueToShort(rawValue, byteOrder);
         Ensure.zeroOrPositive(value);
     }
 
@@ -56,7 +56,7 @@ public final class ExifShort {
             throw new NullPointerException("byteOrder == null");
         }
 
-        return (rawValue.length == getRawValueByteCount()) && (ExifDatatypeUtil.convertRawValueToShort(rawValue, byteOrder) >= 0);
+        return (rawValue.length == getRawValueByteCount()) && (ExifValueUtil.convertRawValueToShort(rawValue, byteOrder) >= 0);
     }
 
     /**
@@ -74,8 +74,8 @@ public final class ExifShort {
                 : rawValue.length == getRawValueByteCount();
     }
 
-    public static ExifDataType getExifDataType() {
-        return ExifDataType.SHORT;
+    public static ExifValueType getValueType() {
+        return ExifValueType.SHORT;
     }
 
     /**

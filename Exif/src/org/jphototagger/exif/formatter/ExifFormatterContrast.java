@@ -3,12 +3,12 @@ package org.jphototagger.exif.formatter;
 import java.util.HashMap;
 import java.util.Map;
 import org.jphototagger.exif.Ensure;
-import org.jphototagger.exif.ExifIfdType;
+import org.jphototagger.exif.ExifIfd;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifShort;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#CONTRAST}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#CONTRAST}.
  *
  * @author Elmar Baumann
  */
@@ -29,14 +29,14 @@ public final class ExifFormatterContrast extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.CONTRAST);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.CONTRAST);
 
         if (ExifShort.isRawValueByteCountOk(exifTag.getRawValue())) {
             ExifShort es = new ExifShort(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
             int value = es.getValue();
 
             if (EXIF_KEY_OF_CONTRAST.containsKey(value)) {
-                return translate(ExifIfdType.EXIF, EXIF_KEY_OF_CONTRAST.get(value));
+                return translate(ExifIfd.EXIF, EXIF_KEY_OF_CONTRAST.get(value));
             }
         }
 

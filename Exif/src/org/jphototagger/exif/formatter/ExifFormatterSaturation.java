@@ -3,12 +3,12 @@ package org.jphototagger.exif.formatter;
 import java.util.HashMap;
 import java.util.Map;
 import org.jphototagger.exif.Ensure;
-import org.jphototagger.exif.ExifIfdType;
+import org.jphototagger.exif.ExifIfd;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifShort;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#SATURATION}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#SATURATION}.
  *
  * @author Elmar Baumann
  */
@@ -32,14 +32,14 @@ public final class ExifFormatterSaturation extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.SATURATION);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.SATURATION);
 
         if (ExifShort.isRawValueByteCountOk(exifTag.getRawValue())) {
             ExifShort es = new ExifShort(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());
             int value = es.getValue();
 
             if (exifKeyOfSaturation.containsKey(value)) {
-                return translate(ExifIfdType.EXIF, exifKeyOfSaturation.get(value));
+                return translate(ExifIfd.EXIF, exifKeyOfSaturation.get(value));
             }
         }
 

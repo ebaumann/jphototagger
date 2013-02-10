@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jphototagger.api.branding.AppProperties;
-import org.jphototagger.exif.datatype.ExifDatatypeUtil;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.tag.ExifGpsAltitude;
 import org.jphototagger.exif.tag.ExifGpsDateStamp;
 import org.jphototagger.exif.tag.ExifGpsLatitude;
@@ -74,7 +74,7 @@ public final class KMLExporter implements GPSLocationExporter {
             double latDeg = ExifGpsUtil.convertExifDegreesToDouble(latitude.getExifDegrees());
             double alt = (altitude == null)
                     ? Double.MIN_VALUE
-                    : ExifDatatypeUtil.convertExifRationalToDouble(altitude.getValue());
+                    : ExifValueUtil.convertExifRationalToDouble(altitude.getValue());
 
             if (latitude.getRef().equals(ExifGpsLatitude.Ref.SOUTH)) {
                 latDeg *= -1;

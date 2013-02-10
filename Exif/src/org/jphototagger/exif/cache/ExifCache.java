@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.CacheDirectoryProvider;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheClearedEvent;
 import org.jphototagger.domain.metadata.exif.event.ExifCacheFileDeletedEvent;
@@ -22,21 +23,20 @@ import org.openide.util.Lookup;
  */
 public final class ExifCache {
 
-    private final File CACHE_DIR;
-    private static final Logger LOGGER = Logger.getLogger(ExifCache.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ExifCache.class.getName()); // Has to be instanciated before INSTANCE!
     public static final ExifCache INSTANCE = new ExifCache();
+    private static final String PREF_KEY_STRUCTURE_VERSION = "org.jphototagger.exif.ExifDataStructureVersion";
+    private static final int STRUCTURE_VERSION = 1;
+    private final File CACHE_DIR;
 
     public void cacheExifTags(File imageFile, ExifTags exifTags) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (exifTags == null) {
             throw new NullPointerException("exifTags == null");
         }
-
         File cacheFile = getExifTagsCacheFile(imageFile);
-
         try {
             LOGGER.log(Level.FINEST, "EXIF Cache: Caching EXIF of image file ''{0}'' into cache file ''{1}''",
                     new Object[]{imageFile, cacheFile});
@@ -51,42 +51,20 @@ public final class ExifCache {
         }
     }
 
-    public void cacheExifTagsIfNotUpToDate(File imageFile, ExifTags exifTags) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        if (exifTags == null) {
-            throw new NullPointerException("exifTags == null");
-        }
-
-        if (!containsUpToDateExifTags(imageFile)) {
-            LOGGER.log(Level.FINEST, "EXIF Cache: Updating EXIF cache file of image file ''{0}''", new Object[]{imageFile});
-            cacheExifTags(imageFile, exifTags);
-        }
-    }
-
     public boolean containsUpToDateExifTags(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         if (!isCached(imageFile)) {
             return false;
         }
-
         File cacheFile = getExifTagsCacheFile(imageFile);
         long timestampImageFile = imageFile.lastModified();
         long timestampCachedFile = cacheFile.lastModified();
-
         return timestampCachedFile == timestampImageFile;
     }
 
-    public boolean isCached(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
+    private boolean isCached(File imageFile) {
         return getExifTagsCacheFile(imageFile).isFile();
     }
 
@@ -100,17 +78,13 @@ public final class ExifCache {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         File cacheFile = getExifTagsCacheFile(imageFile);
-
         if (!cacheFile.isFile()) {
             return null;
         }
-
         try {
             LOGGER.log(Level.FINEST, "EXIF Cache: Reading EXIF cache file of image file ''{0}'' from cache file ''{1}''",
                     new Object[]{imageFile, cacheFile});
-
             return ExifTags.readFromFile(cacheFile);
         } catch (Throwable ex) {
             LOGGER.log(Level.SEVERE, null, ex);
@@ -119,13 +93,8 @@ public final class ExifCache {
         }
     }
 
-    public void deleteCachedExifTags(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
+    private void deleteCachedExifTags(File imageFile) {
         File cacheFile = getExifTagsCacheFile(imageFile);
-
         if (cacheFile.isFile()) {
             LOGGER.log(Level.FINEST, "EXIF Cache: Deleting EXIF cache file ''{0}'' of image file ''{1}''",
                     new Object[]{cacheFile, imageFile});
@@ -136,20 +105,17 @@ public final class ExifCache {
         }
     }
 
-    public void renameCachedExifTags(File oldImageFile, File newImageFile) {
+    private void renameCachedExifTags(File oldImageFile, File newImageFile) {
         if (isCached(oldImageFile)) {
             File oldCacheFile = getExifTagsCacheFile(oldImageFile);
             File newCacheFile = getExifTagsCacheFile(newImageFile);
-
             LOGGER.log(
                     Level.FINEST,
                     "EXIF Cache: Renaming EXIF cache file ''{0}'' of renamed image file ''{1}'' to cache file ''{2}'' of new image file ''{3}''",
                     new Object[]{oldCacheFile, oldImageFile, newCacheFile, newImageFile});
-
             if (newCacheFile.isFile()) {
                 newCacheFile.delete();
             }
-
             oldCacheFile.renameTo(newCacheFile);
         }
     }
@@ -159,42 +125,23 @@ public final class ExifCache {
      *
      * @return count of deleted files
      */
-    public int clear() {
+    int clear() {
         File[] cacheFiles = CACHE_DIR.listFiles();
-
         if (cacheFiles == null || cacheFiles.length == 0) {
             return 0;
         }
-
         LOGGER.log(Level.INFO, "EXIF Cache: Deleting all cache files in directory ''{0}''", CACHE_DIR);
-
         int deleteCount = 0;
-
         for (File cacheFile : cacheFiles) {
             boolean deleted = cacheFile.delete();
-
             if (deleted) {
                 deleteCount++;
             } else {
                 LOGGER.log(Level.WARNING, "EXIF Cache: Couldn''t delete cache file ''{0}''", cacheFile);
             }
         }
-
         EventBus.publish(new ExifCacheClearedEvent(this, deleteCount));
-
         return deleteCount;
-    }
-
-    /**
-     *
-     * @return count of cached files
-     */
-    public int getSize() {
-        File[] cacheFiles = CACHE_DIR.listFiles();
-
-        return cacheFiles == null
-                ? 0
-                : cacheFiles.length;
     }
 
     private File getExifTagsCacheFile(File imageFile) {
@@ -205,14 +152,12 @@ public final class ExifCache {
     public void imageFileMoved(ImageFileMovedEvent event) {
         File oldImageFile = event.getOldImageFile();
         File newImageFile = event.getNewImageFile();
-
         renameCachedExifTags(oldImageFile, newImageFile);
     }
 
     @EventSubscriber(eventClass = ImageFileDeletedEvent.class)
     public void imageFileRemoved(ImageFileDeletedEvent event) {
         File deletedImageFile = event.getImageFile();
-
         deleteCachedExifTags(deletedImageFile);
     }
 
@@ -223,12 +168,12 @@ public final class ExifCache {
     private ExifCache() {
         CACHE_DIR = lookupCacheDirectory();
         ensureCacheDiretoryExists();
+        checkDataStructureVersion();
         deleteOldCachedFiles();
     }
 
     private File lookupCacheDirectory() {
         CacheDirectoryProvider provider = Lookup.getDefault().lookup(CacheDirectoryProvider.class);
-
         return provider.getCacheDirectory("ExifCache");
     }
 
@@ -247,5 +192,16 @@ public final class ExifCache {
         long dayInMilliseconds = 86400000;
         long maxAgeInMilliseconds = 30 * dayInMilliseconds;
         new DeleteOutOfDateFilesInDirectoryThread(CACHE_DIR, AcceptAllFilesFilter.INSTANCE, maxAgeInMilliseconds).start();
+    }
+
+    private void checkDataStructureVersion() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        boolean hasVersion = prefs.containsKey(PREF_KEY_STRUCTURE_VERSION);
+        boolean hasOlderVersion = hasVersion && STRUCTURE_VERSION > prefs.getInt(PREF_KEY_STRUCTURE_VERSION);
+        if (!hasVersion || hasOlderVersion) {
+            LOGGER.log(Level.INFO, "Clearing EXIF cache due structural changes in data types");
+            clear();
+            prefs.setInt(PREF_KEY_STRUCTURE_VERSION, STRUCTURE_VERSION);
+        }
     }
 }

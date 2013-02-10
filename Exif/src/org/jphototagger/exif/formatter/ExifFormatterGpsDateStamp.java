@@ -9,7 +9,7 @@ import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#GPS_DATE_STAMP}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#GPS_DATE_STAMP}.
  *
  * @author Elmar Baumann
  */
@@ -26,7 +26,7 @@ public final class ExifFormatterGpsDateStamp extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.GPS_DATE_STAMP);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.GPS_DATE_STAMP);
 
         byte[] rawValue = exifTag.getRawValue();
         String rawString = new String(rawValue);

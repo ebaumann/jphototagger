@@ -5,7 +5,7 @@ import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.datatype.ExifShort;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#ISO_SPEED_RATINGS}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#ISO_SPEED_RATINGS}.
  *
  * @author Elmar Baumann
  */
@@ -23,7 +23,7 @@ public final class ExifFormatterIsoSpeedRatings extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.ISO_SPEED_RATINGS);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.ISO_SPEED_RATINGS);
 
         if (ExifShort.isRawValueByteCountOk(exifTag.getRawValue())) {
             ExifShort es = new ExifShort(exifTag.getRawValue(), exifTag.convertByteOrderIdToByteOrder());

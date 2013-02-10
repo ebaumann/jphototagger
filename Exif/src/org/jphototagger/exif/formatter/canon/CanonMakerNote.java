@@ -6,7 +6,7 @@ import java.io.RandomAccessFile;
 import java.nio.ByteOrder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jphototagger.exif.datatype.ExifDatatypeUtil;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.image.ImageFileType;
 import org.jphototagger.lib.thirdparty.KMPMatch;
 import org.jphototagger.lib.util.ByteUtil;
@@ -174,7 +174,7 @@ public final class CanonMakerNote {
 
         raf.seek(pos);
 
-        return ExifDatatypeUtil.convertRawValueToShort(size, JPEG_BYTE_ORDER);
+        return ExifValueUtil.convertRawValueToShort(size, JPEG_BYTE_ORDER);
     }
 
     private static boolean isJpegFile(RandomAccessFile raf) throws Exception {
@@ -268,7 +268,7 @@ public final class CanonMakerNote {
 
         System.arraycopy(raw, 0, rawValueLen, 0, 2);
 
-        short valueCount = (short) (ExifDatatypeUtil.convertRawValueToShort(rawValueLen, byteOrder) / 2 - 1);
+        short valueCount = (short) (ExifValueUtil.convertRawValueToShort(rawValueLen, byteOrder) / 2 - 1);
 
         if (valueCount <= 0) {
             return null;
@@ -285,7 +285,7 @@ public final class CanonMakerNote {
 
         for (int i = 0; i < valueCount; i++) {
             System.arraycopy(raw, 2 + 2 * i, rawValue, 0, 2);
-            values[i] = ExifDatatypeUtil.convertRawValueToShort(rawValue, byteOrder);
+            values[i] = ExifValueUtil.convertRawValueToShort(rawValue, byteOrder);
         }
 
         return values;

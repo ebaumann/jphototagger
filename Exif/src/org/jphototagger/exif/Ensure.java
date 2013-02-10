@@ -1,6 +1,6 @@
 package org.jphototagger.exif;
 
-import org.jphototagger.exif.datatype.ExifDataType;
+import org.jphototagger.exif.datatype.ExifValueType;
 
 /**
  * Checks conditions and throws Exceptions if not fullified.
@@ -12,42 +12,39 @@ public final class Ensure {
     /**
      * Ensures that an EXIF tag has a specific tag ID.
      *
-     * @param  exifTag tag
-     * @param  id      tag id
+     * @param  exifTag
+     * @param  expected
      * @throws         IllegalArgumentException if the tag doesn't have that ID
      */
-    public static void exifTagId(ExifTag exifTag, ExifTag.Id id) throws IllegalArgumentException {
+    public static void exifTagId(ExifTag exifTag, ExifTag.Properties expected) throws IllegalArgumentException {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-
-        if (id == null) {
-            throw new NullPointerException("id == null");
+        if (expected == null) {
+            throw new NullPointerException("expected == null");
         }
-
-        if (exifTag.getTagId() != id.getTagId()) {
-            throw new IllegalArgumentException("Wrong tag: " + exifTag.getTagId() + ". Expected: " + id.getTagId());
+        if (exifTag.getTagId() != expected.getTagId()) {
+            throw new IllegalArgumentException("Wrong tag: " + exifTag.getTagId() + ". Expected: " + expected.getTagId());
         }
     }
 
     /**
      * Ensures that an EXIF tag is of a specific dataType.
      *
-     * @param  exifTag  tag
-     * @param  dataType dataType
-     * @throws          IllegalArgumentException if the tag doesn't have that dataType
+     * @param  exifTag
+     * @param  expectedValueType
+     * @throws          IllegalArgumentException if the tag has not the expectedValueType value type
      */
-    public static void exifDataType(ExifTag exifTag, ExifDataType dataType) throws IllegalArgumentException {
+    public static void exifValueType(ExifTag exifTag, ExifValueType expectedValueType) throws IllegalArgumentException {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-
-        if (dataType == null) {
-            throw new NullPointerException("dataType == null");
+        if (expectedValueType == null) {
+            throw new NullPointerException("expectedValueType == null");
         }
-
-        if (!exifTag.convertDataTypeIdToExifDataType().equals(dataType)) {
-            throw new IllegalArgumentException("Wrong type: " + exifTag.convertDataTypeIdToExifDataType() + ". Expected: " + dataType);
+        ExifValueType tagValueType = exifTag.parseValueType();
+        if (tagValueType != expectedValueType) {
+            throw new IllegalArgumentException("Wrong type: " + exifTag.parseValueType() + ". Expected: " + expectedValueType);
         }
     }
 
@@ -72,7 +69,6 @@ public final class Ensure {
      */
     public static void zeroOrPositive(long numerator, long denominator) throws IllegalArgumentException {
         boolean negative = ((numerator < 0) && (denominator > 0)) || ((numerator > 0) && (denominator < 0));
-
         if (negative) {
             throw new IllegalArgumentException("Negative fraction: " + numerator + "/" + denominator);
         }
@@ -103,7 +99,6 @@ public final class Ensure {
         if (bytes == null) {
             throw new NullPointerException("bytes == null");
         }
-
         if (bytes.length != length) {
             throw new IllegalArgumentException("Illegal length: " + bytes.length + ". Required: " + length);
         }

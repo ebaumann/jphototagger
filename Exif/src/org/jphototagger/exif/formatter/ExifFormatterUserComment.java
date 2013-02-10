@@ -6,7 +6,7 @@ import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
 
 /**
- * Formats an EXIF entry of the dataType {@code ExifTag.Id#USER_COMMENT}.
+ * Formats an EXIF entry of the dataType {@code ExifTag.Properties#USER_COMMENT}.
  *
  * @author Elmar Baumann
  */
@@ -57,7 +57,7 @@ public final class ExifFormatterUserComment extends ExifFormatter {
             throw new NullPointerException("exifTag == null");
         }
 
-        Ensure.exifTagId(exifTag, ExifTag.Id.USER_COMMENT);
+        Ensure.exifTagId(exifTag, ExifTag.Properties.USER_COMMENT);
 
         byte[] rawValue = exifTag.getRawValue();
 

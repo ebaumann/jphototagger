@@ -19,8 +19,8 @@ public final class ExifMakerNotesAdder {
     }
 
     static void addMakerNotesToExifTags(File file, ExifTags exifTags) {
-        ExifTag makerNoteTag = exifTags.findExifTagByTagId(ExifTag.Id.MAKER_NOTE.getTagId());
-        ExifTag makeTag = exifTags.findExifTagByTagId(ExifTag.Id.MAKE.getTagId());
+        ExifTag makerNoteTag = exifTags.findExifTagByTagId(ExifTag.Properties.MAKER_NOTE.getTagId());
+        ExifTag makeTag = exifTags.findExifTagByTagId(ExifTag.Properties.MAKE.getTagId());
         String makeLowerCase = (makeTag == null)
                 ? null
                 : makeTag.getStringValue().toLowerCase();

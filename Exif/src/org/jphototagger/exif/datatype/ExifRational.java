@@ -5,7 +5,7 @@ import java.util.Arrays;
 import org.jphototagger.exif.Ensure;
 
 /**
- * EXIF data exifDataType RATIONAL as described in the standard: Two LONGs.
+ * EXIF data exifValueType RATIONAL as described in the standard: Two LONGs.
  * The first LONG is the numerator and the second LONG expresses the
  * denominator.
  *
@@ -26,8 +26,8 @@ public final class ExifRational {
      */
     public ExifRational(byte[] rawValue, ByteOrder byteOrder) {
         Ensure.length(rawValue, getRawValueByteCount());
-        numerator = ExifDatatypeUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
-        denominator = ExifDatatypeUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
+        numerator = ExifValueUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
+        denominator = ExifValueUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
         Ensure.zeroOrPositive(numerator, denominator);
         Ensure.noDivisionByZero(denominator);
     }
@@ -51,8 +51,8 @@ public final class ExifRational {
         }
 
         if (rawValue.length == getRawValueByteCount()) {
-            int numerator = ExifDatatypeUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
-            int denominator = ExifDatatypeUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
+            int numerator = ExifValueUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
+            int denominator = ExifValueUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
             boolean negative = ((numerator < 0) && (denominator > 0)) || ((numerator > 0) && (denominator < 0));
 
             return !negative && (denominator != 0);
@@ -94,8 +94,8 @@ public final class ExifRational {
         return numerator;
     }
 
-    public static ExifDataType getExifDataType() {
-        return ExifDataType.RATIONAL;
+    public static ExifValueType getValueType() {
+        return ExifValueType.RATIONAL;
     }
 
     /**
