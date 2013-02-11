@@ -31,7 +31,7 @@ public final class DefaultExifInfo implements ExifInfo {
 
     @Override
     public double getRotationAngleOfEmbeddedThumbnail(File file) {
-        ExifTags exifTags = ExifMetadata.getExifTagsPreferCached(file);
+        ExifTags exifTags = ExifSupport.INSTANCE.getExifTagsPreferCached(file);
         if (exifTags != null) {
             ExifTag exifTag = exifTags.findExifTagByTagId(274);
             if (exifTag != null) {
@@ -43,7 +43,7 @@ public final class DefaultExifInfo implements ExifInfo {
 
     @Override
     public Collection<org.jphototagger.domain.metadata.exif.ExifTag> getExifTags(File file) {
-        ExifTags exifTags = ExifMetadata.getExifTags(file);
+        ExifTags exifTags = ExifSupport.INSTANCE.getExifTags(file);
         if (exifTags == null) {
             return Collections.emptyList();
         }
@@ -52,7 +52,7 @@ public final class DefaultExifInfo implements ExifInfo {
 
     @Override
     public Collection<org.jphototagger.domain.metadata.exif.ExifTag> getExifTagsPreferCached(File file) {
-        ExifTags exifTags = ExifMetadata.getExifTagsPreferCached(file);
+        ExifTags exifTags = ExifSupport.INSTANCE.getExifTagsPreferCached(file);
         if (exifTags == null) {
             return Collections.emptyList();
         }
@@ -174,6 +174,6 @@ public final class DefaultExifInfo implements ExifInfo {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-        return ExifMetadata.getTimeTakenInMillis(file);
+        return ExifSupport.INSTANCE.getTimeTakenInMillis(file);
     }
 }

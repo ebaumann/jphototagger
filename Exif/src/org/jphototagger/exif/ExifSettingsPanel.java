@@ -45,7 +45,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         if (prefs == null) {
             return;
         }
-        List<String> suffixes = new ArrayList<>(prefs.getStringCollection(DefaultExifSupport.PREF_KEY_EXCLUDE_FROM_READ_SUFFIXES));
+        List<String> suffixes = new ArrayList<>(prefs.getStringCollection(ExifSupport.PREF_KEY_EXCLUDE_FROM_READ_SUFFIXES));
         Collections.sort(suffixes);
         for (String suffix : suffixes) {
             excludeSuffixesListModel.addElement(suffix);
@@ -86,13 +86,13 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
             for (String suffix : dlg.getSelectedObjects()) {
                 excludeSuffixesListModel.addElement(suffix);
             }
-            prefs.setStringCollection(DefaultExifSupport.PREF_KEY_EXCLUDE_FROM_READ_SUFFIXES, getExcludeSuffixes());
+            prefs.setStringCollection(ExifSupport.PREF_KEY_EXCLUDE_FROM_READ_SUFFIXES, getExcludeSuffixes());
             clearExifCache();
         }
     }
 
     private List<String> getNotExcludeSuffixes() {
-        List<String> suffixes = new ArrayList<>(DefaultExifSupport.getSupportedSuffixes());
+        List<String> suffixes = new ArrayList<>(ExifSupport.INSTANCE.getSupportedSuffixes());
         suffixes.removeAll(getExcludeSuffixes());
         Collections.sort(suffixes);
         return suffixes;
@@ -114,7 +114,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         for (String suffix : suffixes) {
             excludeSuffixesListModel.removeElement(suffix);
         }
-        prefs.setStringCollection(DefaultExifSupport.PREF_KEY_EXCLUDE_FROM_READ_SUFFIXES, getExcludeSuffixes());
+        prefs.setStringCollection(ExifSupport.PREF_KEY_EXCLUDE_FROM_READ_SUFFIXES, getExcludeSuffixes());
         clearExifCache();
     }
 

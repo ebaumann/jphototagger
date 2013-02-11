@@ -17,7 +17,7 @@ public final class DefaultExifReader implements ExifReader {
         if (!canReadExif(file)) {
             return null;
         }
-        return ExifMetadata.getExif(file);
+        return ExifSupport.INSTANCE.getExif(file);
     }
 
     @Override
@@ -25,16 +25,16 @@ public final class DefaultExifReader implements ExifReader {
         if (!canReadExif(file)) {
             return null;
         }
-        return ExifMetadata.getExifPreferCached(file);
+        return ExifSupport.INSTANCE.getExifPreferCached(file);
     }
 
     @Override
     public boolean canReadExif(File file) {
-        return DefaultExifSupport.INSTANCE.canReadExif(file);
+        return ExifSupport.INSTANCE.canReadExif(file);
     }
 
     @Override
     public Collection<? extends String> getExludeFilenameSuffixes() {
-        return DefaultExifSupport.getExludeFilenameSuffixes();
+        return ExifSupport.INSTANCE.getExludeFilenameSuffixes();
     }
 }

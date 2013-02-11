@@ -43,7 +43,7 @@ public final class ExifMetaDataValueProvider implements MetaDataValueProvider {
     @Override
     public Collection<MetaDataValueData> getMetaDataForImageFile(File file) {
         try {
-            Exif exif = ExifMetadata.getExifPreferCached(file);
+            Exif exif = ExifSupport.INSTANCE.getExifPreferCached(file);
             if (exif == null) {
                 return Collections.emptyList();
             }
