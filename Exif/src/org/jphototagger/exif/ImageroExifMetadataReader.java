@@ -19,7 +19,7 @@ import org.openide.util.lookup.ServiceProvider;
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = ExifTagsProvider.class)
+@ServiceProvider(service = ExifTagsProvider.class, position = 0)
 public final class ImageroExifMetadataReader implements ExifTagsProvider {
 
     private static final Logger LOGGER = Logger.getLogger(ImageroExifMetadataReader.class.getName());
