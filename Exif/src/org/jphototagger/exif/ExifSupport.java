@@ -23,6 +23,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.exif.cache.ExifCache;
+import org.jphototagger.exif.datatype.ExifAscii;
 import org.jphototagger.exif.formatter.ExifFormatterAscii;
 import org.jphototagger.exif.tag.ExifGpsLatitude;
 import org.jphototagger.exif.tag.ExifGpsLongitude;
@@ -268,15 +269,14 @@ public final class ExifSupport {
     }
 
     private void setExifDateTimeOriginal(Exif exif, ExifTag dateTimeOriginalTag) {
-        String exifTagStringValue = dateTimeOriginalTag.getStringValue();
-        String dateTimeString = exifTagStringValue == null
-                ? ""
-                : exifTagStringValue.trim();
-        int dateTimeStringLength = dateTimeString.length();
-        if (dateTimeStringLength >= 19) {
+        byte[] rawValue = dateTimeOriginalTag.getRawValue();
+        if (rawValue == null || rawValue.length < ExifTag.Properties.DATE_TIME_ORIGINAL.getValueCount()) {
+            return;
+        }
+        String dateTimeString = ExifAscii.convertRawValueToString(rawValue).trim();
+        if (dateTimeString.length() == 19) {
             long timeInMillis = exifDateTimeStringToTimestamp(dateTimeString);
             Date dateTimeOriginal = new Date(timeInMillis < 0 ? 0 : timeInMillis);
-
             exif.setDateTimeOriginal(dateTimeOriginal);
             exif.setDateTimeOriginalTimestamp(timeInMillis);
         }
