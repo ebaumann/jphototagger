@@ -17,8 +17,8 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.api.progress.ProgressHandleFactory;
-import org.jphototagger.exif.ExifMetadata;
 import org.jphototagger.exif.ExifPreferencesKeys;
+import org.jphototagger.exif.ExifSupport;
 import org.jphototagger.exif.ExifTags;
 import org.jphototagger.exif.tag.ExifGpsMetadata;
 import org.jphototagger.exif.tag.ExifGpsUtil;
@@ -89,7 +89,7 @@ public final class GPSLocationExportUtil {
             List<GPSImageInfo> imageInfos = new ArrayList<>(fileCount);
             for (int i = 0; !cancel && !isInterrupted() && (i < fileCount); i++) {
                 File imageFile = imageFiles.get(i);
-                ExifTags et = ExifMetadata.getExifTagsPreferCached(imageFile);
+                ExifTags et = ExifSupport.INSTANCE.getExifTagsPreferCached(imageFile);
                 if (et != null) {
                     ExifGpsMetadata gpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(et);
                     imageInfos.add(new GPSImageInfo(imageFile, gpsMetadata));
