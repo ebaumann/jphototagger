@@ -1,5 +1,7 @@
 package org.jphototagger.exif;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jphototagger.exif.formatter.ExifFormatter;
 import org.jphototagger.exif.formatter.ExifFormatterFactory;
 
@@ -18,13 +20,15 @@ public final class ExifTagValueFormatter {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-
         ExifFormatter formatter = ExifFormatterFactory.get(exifTag);
-
         if (formatter != null) {
-            return formatter.format(exifTag);
+            try {
+                return formatter.format(exifTag);
+            } catch (Throwable t) {
+                Logger.getLogger(ExifTagValueFormatter.class.getName()).log(Level.SEVERE, null, t);
+                return "?";
+            }
         }
-
         return exifTag.getStringValue().trim();
     }
 
