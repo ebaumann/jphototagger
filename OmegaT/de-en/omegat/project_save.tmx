@@ -1798,6 +1798,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger-Team in alphabetischer Reihenfolge des Nachnamens:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Benutzte Bibliotheken in alphabetischer Reihenfolge: &lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130212T152231Z">
+        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger team in alphabetically order of their name::&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Used libraries in alphabetically Order: &lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;&lt;p&gt;&lt;strong&gt;JPhotoTaggers&lt;/strong&gt; Sperrdatei&lt;br/&gt;&lt;code&gt;{0}&lt;/code&gt; existiert noch!&lt;/p&gt;&lt;p&gt;Falls Sie sicher sind, dass &lt;strong&gt;JPhotoTagger&lt;/strong&gt; &lt;em&gt;nicht&lt;/em&gt; läuft, können Sie die Sperrdatei löschen lassen.&lt;/p&gt;&lt;p&gt;Sperrdatei löschen und &lt;strong&gt;JPhotoTagger&lt;/strong&gt; starten?&lt;/p&gt;&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -9736,6 +9744,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Number of components</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Kapitel</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130212T152106Z">
+        <seg>Kapitel</seg>
       </tuv>
     </tu>
     <tu>
