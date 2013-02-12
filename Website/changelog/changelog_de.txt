@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.3 2013-02-12
+-----------------
+
+* EXIF-Daten von Olympus-RAW-Dateien werden eingelesen
+  (getestet für OM-D E-M5). Dazu ist die Endung "ORF"
+  einzutragen als benutzerdefinierter Dateityp
+  (Fenster > Benutzerdefinierte Dateitypen).
+
 0.32.2 2013-02-04
 -----------------
 
