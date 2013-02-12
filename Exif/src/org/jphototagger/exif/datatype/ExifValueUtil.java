@@ -76,7 +76,7 @@ public final class ExifValueUtil {
             throw new IllegalArgumentException("Byte count < 1: " + byteCount);
         }
         int requiredBytes = (Long.numberOfTrailingZeros(Long.highestOneBit(value)) + 8) / 8;
-        if (byteCount < requiredBytes) {
+        if (value > 0 && byteCount < requiredBytes) {
             throw new IllegalArgumentException(requiredBytes + " byte(s) required, " + value + " does not fit into " + byteCount + " byte(s)");
         }
         byte[] byteValue = ByteBuffer.allocate(8).order(byteOrder).putLong(value).array();
