@@ -255,8 +255,8 @@ public final class ExifTag {
         this.intValueType = intValueType;
         this.valueCount = valueCount;
         this.valueOffset = valueOffset;
-        this.rawValue = (rawValue == null)
-                ? null
+        this.rawValue = rawValue == null
+                ? new byte[0]
                 : Arrays.copyOf(rawValue, rawValue.length);
         this.stringValue = stringValue;
         this.intByteOrder = intByteOrder;
@@ -328,7 +328,7 @@ public final class ExifTag {
     @Override
     public String toString() {
         return name == null
-                ? " Undefined "
+                ? parseValueType().name()
                 : name;
     }
 
