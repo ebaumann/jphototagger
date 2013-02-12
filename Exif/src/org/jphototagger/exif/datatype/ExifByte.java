@@ -24,7 +24,6 @@ public final class ExifByte {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
-
         Ensure.length(rawValue, getRawValueByteCount());
         value = (int) rawValue[0];
         Ensure.zeroOrPositive(value);
@@ -63,13 +62,10 @@ public final class ExifByte {
         if (obj == this) {
             return true;
         }
-
         if (!(obj instanceof ExifByte)) {
             return false;
         }
-
         ExifByte other = (ExifByte) obj;
-
         return value == other.value;
     }
 

@@ -18,7 +18,7 @@ public final class ExifLong {
 
     /**
      *
-     * @param  rawValue
+     * @param rawValue
      * @param  byteOrder
      * @throws IllegalArgumentException if the length of the raw value is not
      *         equals to {@code #getRawValueByteCount()} or if the value is negative
@@ -27,11 +27,9 @@ public final class ExifLong {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
-
         if (byteOrder == null) {
             throw new NullPointerException("byteOrder == null");
         }
-
         Ensure.length(rawValue, getRawValueByteCount());
         value = ExifValueUtil.convertRawValueToInt(rawValue, byteOrder);
         Ensure.zeroOrPositive(value);
@@ -79,20 +77,16 @@ public final class ExifLong {
         if (obj == this) {
             return true;
         }
-
         if (!(obj instanceof ExifLong)) {
             return false;
         }
-
         ExifLong other = (ExifLong) obj;
-
         return this.value == other.value;
     }
 
     @Override
     public int hashCode() {
         final int hash = 7;
-
         return 71 * hash + this.value;
     }
 }

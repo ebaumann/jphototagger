@@ -19,7 +19,7 @@ public final class ExifRational {
     /**
      * Creates a new instance.
      *
-     * @param  rawValue   raw value
+     * @param rawValue
      * @param  byteOrder  byte order
      * @throws IllegalArgumentException if the length of the raw value is not
      *         equals to {@code #getRawValueByteCount()} or if the result is negative or if the denominator is zero
@@ -36,7 +36,7 @@ public final class ExifRational {
      * Returns whether an byte array can be used to construct a valid
      * ExifRational object.
      *
-     * @param rawValue  raw value
+     * @param rawValue
      * @param byteOrder byte order
      * @return          true if the bytes can be used to construct an
      *                  ExifRational object
@@ -45,19 +45,15 @@ public final class ExifRational {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
-
         if (byteOrder == null) {
             throw new NullPointerException("byteOrder == null");
         }
-
         if (rawValue.length == getRawValueByteCount()) {
             int numerator = ExifValueUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 0, 4), byteOrder);
             int denominator = ExifValueUtil.convertRawValueToInt(Arrays.copyOfRange(rawValue, 4, 8), byteOrder);
             boolean negative = ((numerator < 0) && (denominator > 0)) || ((numerator > 0) && (denominator < 0));
-
             return !negative && (denominator != 0);
         }
-
         return false;
     }
 
@@ -108,23 +104,18 @@ public final class ExifRational {
         if (obj == this) {
             return true;
         }
-
         if (!(obj instanceof ExifRational)) {
             return false;
         }
-
         ExifRational other = (ExifRational) obj;
-
         return this.numerator == other.numerator && this.denominator == other.denominator;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-
         hash = 13 * hash + this.numerator;
         hash = 13 * hash + this.denominator;
-
         return hash;
     }
 

@@ -19,7 +19,7 @@ public final class ExifShort {
     /**
      * Creates a new instance.
      *
-     * @param  rawValue
+     * @param rawValue
      * @param  byteOrder
      * @throws IllegalArgumentException if the length of the raw value is not
      *         equals to {@code #getRawValueByteCount()} or negative
@@ -28,11 +28,9 @@ public final class ExifShort {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
-
         if (byteOrder == null) {
             throw new NullPointerException("byteOrder == null");
         }
-
         Ensure.length(rawValue, getRawValueByteCount());
         value = ExifValueUtil.convertRawValueToShort(rawValue, byteOrder);
         Ensure.zeroOrPositive(value);
@@ -51,11 +49,9 @@ public final class ExifShort {
         if (rawValue == null) {
             throw new NullPointerException("rawValue == null");
         }
-
         if (byteOrder == null) {
             throw new NullPointerException("byteOrder == null");
         }
-
         return (rawValue.length == getRawValueByteCount()) && (ExifValueUtil.convertRawValueToShort(rawValue, byteOrder) >= 0);
     }
 
@@ -88,20 +84,16 @@ public final class ExifShort {
         if (obj == this) {
             return true;
         }
-
         if (!(obj instanceof ExifShort)) {
             return false;
         }
-
         ExifShort other = (ExifShort) obj;
-
         return this.value == other.value;
     }
 
     @Override
     public int hashCode() {
         final int hash = 5;
-
         return 59 * hash + this.value;
     }
 
