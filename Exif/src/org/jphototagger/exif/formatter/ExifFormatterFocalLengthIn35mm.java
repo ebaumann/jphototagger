@@ -16,29 +16,27 @@ public final class ExifFormatterFocalLengthIn35mm extends ExifFormatter {
 
     public static final ExifFormatterFocalLengthIn35mm INSTANCE = new ExifFormatterFocalLengthIn35mm();
 
-    private ExifFormatterFocalLengthIn35mm() {
-    }
-
     @Override
     public String format(ExifTag exifTag) {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-
         Ensure.exifTagId(exifTag, ExifTag.Properties.FOCAL_LENGTH_IN_35_MM_FILM);
-
         byte[] rawValue = exifTag.getRawValue();
         ByteOrder byteOrder = exifTag.convertByteOrderIdToByteOrder();
-
         if (ExifShort.isRawValueZeroOrPositive(rawValue, byteOrder)) {
             ExifShort es = new ExifShort(rawValue, byteOrder);
+            if (es.getValue() <= 0) {
+                return "?";
+            }
             DecimalFormat df = (DecimalFormat) NumberFormat.getNumberInstance();
-
             df.applyPattern("#.# mm");
-
             return df.format(es.getValue());
         }
 
         return "?";
+    }
+
+    private ExifFormatterFocalLengthIn35mm() {
     }
 }
