@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.3 2013-02-12
+-----------------
+
+* EXIF metadata of Olympus RAW files will be read
+  (tested for OM-D E-M5). To enable this, the suffix "ORF"
+  has to be added as user defined file type
+  (Windows > User defined file types).
+
 0.32.2 2013-02-04
 -----------------
 
