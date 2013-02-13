@@ -88,7 +88,7 @@
     <target name="-post-jar">
         <delete file="${dist.dir}/lib/UserServices.jar"/>
         <antcall target="-copy-pdf-manuals-to-build-dir"/>
-        <ant antfile="../DeveloperSupport/scripts/localize.xml" target="2-copy-omegat-translations"/>
+        <ant antfile="../DeveloperSupport/scripts/localize.xml" target="1-create-omegat-sources"/>
     </target>
 
     <target name="-copy-pdf-manuals-to-build-dir">
