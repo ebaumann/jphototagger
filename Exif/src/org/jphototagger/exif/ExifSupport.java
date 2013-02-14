@@ -1,6 +1,8 @@
 package org.jphototagger.exif;
 
 import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,6 +41,7 @@ import org.openide.util.Lookup;
 public final class ExifSupport {
 
     private static final Logger LOGGER = Logger.getLogger(ExifSupport.class.getName());
+    private static final CharsetEncoder ASCII_ENCODER = Charset.forName("US-ASCII").newEncoder();
     public static final ExifSupport INSTANCE = new ExifSupport();
     public static final String PREF_KEY_EXCLUDE_FROM_READ_SUFFIXES = "ExifSettings.ExcludeFromReadSuffixes";
     private static final Set<String> SUPPORTED_FILENAME_SUFFIXES_LOWERCASE = new HashSet<>();
@@ -82,7 +85,7 @@ public final class ExifSupport {
                 && SUPPORTED_FILENAME_SUFFIXES_LOWERCASE.contains(suffixLowerCase);
     }
 
-    @EventSubscriber(eventClass=PreferencesChangedEvent.class)
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
     @SuppressWarnings("unchecked")
     public void preferencesChanged(PreferencesChangedEvent evt) {
         if (PREF_KEY_EXCLUDE_FROM_READ_SUFFIXES.equals(evt.getKey())) {
@@ -102,12 +105,11 @@ public final class ExifSupport {
     }
 
     /**
-     * Returns EXIF tags of an image file from the cache if up to date. If the
-     * tags are not up to date, they will be created from the image file and cached.
+     * Returns EXIF tags of an image file from the cache if up to date. If the tags are not up to date, they will be
+     * created from the image file and cached.
      *
-     * @param  imageFile image file
-     * @return           tags or null if the tags neither in the cache nor could be
-     *                   created from the image file
+     * @param imageFile image file
+     * @return tags or null if the tags neither in the cache nor could be created from the image file
      */
     public ExifTags getExifTagsPreferCached(File imageFile) {
         if (imageFile == null) {
@@ -247,7 +249,10 @@ public final class ExifSupport {
                 setExifEquipment(exif, modelTag);
             }
             if (lensTag != null) {
-                exif.setLens(lensTag.getStringValue());
+                String recEquipment = lensTag.getStringValue();
+                if (!recEquipment.isEmpty()) {
+                    exif.setLens(recEquipment);
+                }
             }
             setExifGps(exifTags, exif);
             return exif;
@@ -285,7 +290,10 @@ public final class ExifSupport {
     private void setExifEquipment(Exif exif, ExifTag modelTag) {
         ExifFormatterAscii formatter = ExifFormatterAscii.INSTANCE;
         String formattedModelTag = formatter.format(modelTag);
-        exif.setRecordingEquipment(formattedModelTag);
+        formattedModelTag = formattedModelTag.trim();
+        if (ASCII_ENCODER.canEncode(formattedModelTag)) {
+            exif.setRecordingEquipment(formattedModelTag);
+        }
     }
 
     private void setExifFocalLength(Exif exif, ExifTag focalLengthTag) {
@@ -329,7 +337,9 @@ public final class ExifSupport {
                     : exifTagStringValue.trim();
             if (NumberUtil.isShort(isoSpeedRatingsString)) {
                 short isoSpeedRatings = Short.parseShort(isoSpeedRatingsString);
-                exif.setIsoSpeedRatings(isoSpeedRatings);
+                if (isoSpeedRatings > 0) {
+                    exif.setIsoSpeedRatings(isoSpeedRatings);
+                }
             }
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);

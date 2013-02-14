@@ -6,6 +6,15 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.4 2013-02-14
 -----------------
 
+* Bugfix: ISO values and focal lengths less or equal to zero will
+  not be inserted into the database, the same for camera model
+  names with non ASCII characters. If erroneous data shall be fixed,
+  the fastest way is via the tab "Miscellaneous > Technics": Select
+  erroneous ISO values, focal lengths or camera model names, then
+  select the displayed thumbnails, right click and call the context
+  menu item "Refresh > Update metadata". Then you can delete not
+  referenced data: "File > Database > Maintainance: Delete not
+  referenced data (EXIF XMP)"
 * Bugfix: Special Photo Album names ("Previous import", ...) were
   inserted multiple times into the database and weren't localized.
   When JPhotoTagger was started first in English and then in
