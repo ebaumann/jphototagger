@@ -88,13 +88,12 @@
     <target name="-post-jar">
         <delete file="${dist.dir}/lib/UserServices.jar"/>
         <antcall target="-copy-pdf-manuals-to-build-dir"/>
-        <ant antfile="../DeveloperSupport/scripts/localize.xml" target="1-create-omegat-sources"/>
     </target>
 
     <target name="-copy-pdf-manuals-to-build-dir">
-        <echo message="Copying PDF manuals to build directory"/>
-        <copy todir="build">
-            <fileset dir="../../dist_files/manual" erroronmissingdir="false">
+        <echo message="Copying PDF manuals to build directory '${build.dir}'"/>
+        <copy todir="${build.dir}">
+            <fileset dir="../dist_files/manual" erroronmissingdir="false">
                 <filename name="**/*.pdf"/>
             </fileset>
         </copy>
