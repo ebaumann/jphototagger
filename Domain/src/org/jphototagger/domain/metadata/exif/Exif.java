@@ -31,7 +31,7 @@ public final class Exif {
      * @return date when the image was created or null
      */
     public Date getDateTimeOriginal() {
-        return (dateTimeOriginal == null)
+        return dateTimeOriginal == null
                 ? null
                 : new Date(dateTimeOriginal.getTime());
     }
@@ -60,6 +60,12 @@ public final class Exif {
         return dateTimeOriginalTimestamp;
     }
 
+    public Long getDateTimeOriginalTimestampGreaterZeroOrNull() {
+        return dateTimeOriginalTimestamp > 0
+                ? dateTimeOriginalTimestamp
+                : null;
+    }
+
     /**
      * @return focal length in mm
      */
@@ -86,6 +92,12 @@ public final class Exif {
      */
     public short getIsoSpeedRatings() {
         return isoSpeedRatings;
+    }
+
+    public Short getIsoSpeedRatingsGreaterZeroOrNull() {
+        return isoSpeedRatings > 0
+                ? isoSpeedRatings
+                : null;
     }
 
     /**

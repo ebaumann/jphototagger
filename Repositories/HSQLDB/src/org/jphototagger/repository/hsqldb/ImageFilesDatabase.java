@@ -1741,14 +1741,13 @@ final class ImageFilesDatabase extends Database {
         setLong(ensureValueExists("exif_recording_equipment", "equipment", exif.getRecordingEquipment()), stmt, 2);
         setDate(exif.getDateTimeOriginal(), stmt, 3);
         setDouble(exif.getFocalLengthGreaterZeroOrNull(), stmt, 4);
-        setShort(exif.getIsoSpeedRatings(), stmt, 5);
+        setShort(exif.getIsoSpeedRatingsGreaterZeroOrNull(), stmt, 5);
         setLong(ensureValueExists("exif_lenses", "lens", exif.getLens()), stmt, 6);
-        setLong(exif.getDateTimeOriginalTimestamp(), stmt, 7);
-        if (exif.hasGpsCoordinates()) {
-            setDouble(exif.getGpsLatitude(), stmt, 8);
-            setDouble(exif.getGpsLongitude(), stmt, 9);
+        setLong(exif.getDateTimeOriginalTimestampGreaterZeroOrNull(), stmt, 7);
+        boolean hasGpsCoordinates = exif.hasGpsCoordinates();
+        setDouble(hasGpsCoordinates ? exif.getGpsLatitude() : null, stmt, 8);
+        setDouble(hasGpsCoordinates ? exif.getGpsLongitude() : null, stmt, 9);
         }
-    }
 
     private long findIdExifOfIdFile(Connection con, long idFile) throws SQLException {
         long id = -1;

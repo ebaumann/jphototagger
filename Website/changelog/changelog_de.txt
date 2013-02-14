@@ -6,6 +6,16 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.4 2013-02-14
 -----------------
 
+* Bugfix: ISO-Werte und Brennweiten kleiner gleich Null werden nicht
+  mehr in die Datenbank gespeichert, das gleiche gilt für Kameranamen,
+  die Nicht-ASCII-Zeichen enthalten. Sollen fehlerhafte Daten
+  korrigiert werden, geht dies am schnellsten über den Kartenreiter
+  "Verschiedenes > Fototechnik": Dort die fehlerhaften Brennweiten,
+  ISO-Werte oder Kameranamen auswählen, die angezeigten Vorschaubilder
+  auswählen, und per Rechtsklick das Kontextmenü aufrufen: 
+  "Aktualisieren > Metadaten aktualisieren". Anschließend lassen Sie
+  nicht referenzierte Daten löschen: "Datei > Datenbank > Wartung:
+  Nicht referenzierte Daten löschen (EXIF, XMP)"
 * Bugfix: Spezialnamen in den Fotoalben ("Zuletzt importiert", ...)
   wurden mehrfach in die Datenbank geschrieben und waren nicht
   lokalisiert. Wurde JPhotoTagger erst mit deutscher und dann
