@@ -4992,8 +4992,8 @@
       <tuv xml:lang="DE">
         <seg>Das Fotoalbum ''{0}'' ist ein spezielles Album und kann nicht gelöscht werden!</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>The photo album ''{0}'' is a special album and can't be deleted!</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130214T184540Z">
+        <seg>The photo album ''{0}'' is a special album and can''t be deleted!</seg>
       </tuv>
     </tu>
     <tu>

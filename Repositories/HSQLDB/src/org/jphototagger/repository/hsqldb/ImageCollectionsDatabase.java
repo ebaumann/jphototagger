@@ -77,7 +77,9 @@ final class ImageCollectionsDatabase extends Database {
         if (toName == null) {
             throw new NullPointerException("toName == null");
         }
-        if (ImageCollection.isSpecialCollection(fromName) || ImageCollection.isSpecialCollection(toName)) {
+        if (ImageCollection.isSpecialCollection(fromName)
+                || ImageCollection.isSpecialCollection(toName)
+                || existsImageCollection(toName)) {
             return 0;
         }
         int count = 0;
@@ -161,7 +163,7 @@ final class ImageCollectionsDatabase extends Database {
         }
         boolean added = false;
         if (existsImageCollection(collectionName)) {
-            deleteImageCollection(collectionName);
+            deleteImageCollection(collectionName, true);
         }
         Connection con = null;
         PreparedStatement stmtName = null;
@@ -188,9 +190,10 @@ final class ImageCollectionsDatabase extends Database {
                 }
                 stmtColl.setLong(1, idCollectionName);
                 stmtColl.setLong(2, idImageFile);
-                stmtColl.setInt(3, sequence_number++);
+                stmtColl.setInt(3, sequence_number);
                 LOGGER.log(Level.FINER, stmtColl.toString());
                 stmtColl.executeUpdate();
+                sequence_number++;
             }
             con.commit();
             added = true;
@@ -212,11 +215,11 @@ final class ImageCollectionsDatabase extends Database {
      * @param collectioNname name of the image collection
      * @return               true if successfully deleted
      */
-    boolean deleteImageCollection(String collectioNname) {
+    boolean deleteImageCollection(String collectioNname, boolean force) {
         if (collectioNname == null) {
             throw new NullPointerException("collectioNname == null");
         }
-        if (ImageCollection.isSpecialCollection(collectioNname)) {
+        if (!force && ImageCollection.isSpecialCollection(collectioNname)) {
             return false;
         }
         boolean deleted = false;
@@ -319,10 +322,11 @@ final class ImageCollectionsDatabase extends Database {
                         long idFiles = repo.findIdImageFile(con, imageFile);
                         stmt.setLong(1, idFiles);
                         stmt.setLong(2, idCollectionNames);
-                        stmt.setInt(3, sequence_number++);
+                        stmt.setInt(3, sequence_number);
                         LOGGER.log(Level.FINER, stmt.toString());
                         stmt.executeUpdate();
                         insertedFiles.add(imageFile);
+                        sequence_number++;
                     }
                 }
                 reorderSequenceNumber(con, collectionName);
@@ -382,11 +386,12 @@ final class ImageCollectionsDatabase extends Database {
             LOGGER.log(Level.FINEST, stmt.toString());
             int sequenceNumer = 0;
             for (Long idFile : idFiles) {
-                stmt.setInt(1, sequenceNumer++);
+                stmt.setInt(1, sequenceNumer);
                 stmt.setLong(2, idCollectionName);
                 stmt.setLong(3, idFile);
                 LOGGER.log(Level.FINER, stmt.toString());
                 stmt.executeUpdate();
+                sequenceNumer++;
             }
         } finally {
             close(rs, stmtIdFiles);

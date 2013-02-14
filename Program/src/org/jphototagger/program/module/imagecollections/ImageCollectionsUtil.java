@@ -23,15 +23,12 @@ public final class ImageCollectionsUtil {
 
     public static void deleteSelectedFiles() {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 Object selectedValue = getSelectedCollection();
-
                 if (selectedValue != null) {
                     ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
                     List<File> selectedFiles = tnPanel.getSelectedFiles();
-
                     if (deleteImagesFromCollection(selectedValue.toString(), selectedFiles)) {
                         tnPanel.removeFiles(selectedFiles);
                     }
@@ -49,7 +46,6 @@ public final class ImageCollectionsUtil {
      */
     public static Object getSelectedCollection() {
         JXList list = GUI.getAppPanel().getListImageCollections();
-
         return list.getSelectedValue();
     }
 
@@ -64,19 +60,15 @@ public final class ImageCollectionsUtil {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-
         String name = inputCollectionName("");
-
         if ((name != null) && !name.isEmpty()) {
             logAddImageCollection(name);
             ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
             if (!repo.saveImageCollection(name, imageFiles)) {
                 errorMessageAddImageCollection(name);
-
                 return null;
             }
         }
-
         return name;
     }
 
@@ -91,25 +83,18 @@ public final class ImageCollectionsUtil {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-
         String message = Bundle.getString(ImageCollectionsUtil.class, "ImageCollectionsHelper.Confirm.DeleteSelectedFiles", collectionName);
-
         if (confirmDelete(message)) {
             ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
-            boolean removed = repo.deleteImagesFromImageCollection(collectionName, imageFiles)
-                    == imageFiles.size();
-
+            boolean removed = repo.deleteImagesFromImageCollection(collectionName, imageFiles) == imageFiles.size();
             if (!removed) {
                 errorMessageDeleteImagesFromCollection(collectionName);
             }
-
             return removed;
         }
-
         return false;
     }
 
@@ -117,19 +102,15 @@ public final class ImageCollectionsUtil {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-
         boolean deleted = false;
         String message = Bundle.getString(ImageCollectionsUtil.class, "ImageCollectionsHelper.Confirm.DeleteCollection", collectionName);
-
         if (confirmDelete(message)) {
             ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
             deleted = repo.deleteImageCollection(collectionName);
-
             if (!deleted) {
                 errorMessageDeleteImageCollection(collectionName);
             }
         }
-
         return deleted;
     }
 
@@ -137,18 +118,14 @@ public final class ImageCollectionsUtil {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-
         ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
         boolean added = repo.insertImagesIntoImageCollection(collectionName, imageFiles);
-
         if (!added) {
             errorMessageAddImagesToCollection(collectionName);
         }
-
         return added;
     }
 
@@ -156,22 +133,17 @@ public final class ImageCollectionsUtil {
         if (fromName == null) {
             throw new NullPointerException("fromName == null");
         }
-
         String newName = inputCollectionName(fromName);
-
         if ((newName != null) && !newName.isEmpty()) {
             ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
             boolean renamed = repo.updateRenameImageCollection(fromName, newName) > 0;
-
             if (renamed) {
                 return newName;
             } else {
                 errorMessageRenameImageCollection(fromName);
-
                 return null;
             }
         }
-
         return null;
     }
 
@@ -179,18 +151,15 @@ public final class ImageCollectionsUtil {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-
-        return !name.trim().equalsIgnoreCase(ImageCollection.PREVIOUS_IMPORT_NAME);
+        return !ImageCollection.isSpecialCollection(name);
     }
 
     private static boolean checkIsValidName(String name) {
         if (isValidName(name)) {
             return true;
         }
-
         String message = Bundle.getString(ImageCollectionsUtil.class, "ImageCollectionsHelper.Error.InvalidName", name);
         MessageDisplayer.error(null, message);
-
         return false;
     }
 
@@ -230,24 +199,19 @@ public final class ImageCollectionsUtil {
     private static String inputCollectionName(String defaultName) {
         String name = getCollectionName(defaultName);
         boolean willAdd = name != null;
-
         while ((name != null) && willAdd) {
             willAdd = false;
-
             String nameNextTry = name;
             ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
-
             if (repo.existsImageCollection(name) || !checkIsValidName(name)) {
                 String message = Bundle.getString(ImageCollectionsUtil.class, "ImageCollectionsHelper.Confirm.InputNewCollectionName", name);
                 willAdd = MessageDisplayer.confirmYesNo(null, message);
                 name = null;
             }
-
             if (willAdd) {
                 name = getCollectionName(nameNextTry);
             }
         }
-
         return name;
     }
 
@@ -255,15 +219,12 @@ public final class ImageCollectionsUtil {
         String info = Bundle.getString(ImageCollectionsUtil.class, "ImageCollectionsHelper.Input.CollectionName");
         String input = defaultName;
         String name = MessageDisplayer.input(info, input);
-
         if (name != null) {
             name = name.trim();
-
             if (name.isEmpty()) {
                 name = null;
             }
         }
-
         return name;
     }
 
@@ -271,17 +232,13 @@ public final class ImageCollectionsUtil {
         if (collectionName == null) {
             throw new NullPointerException("collectionName == null");
         }
-
         if (errorMessage == null) {
             throw new NullPointerException("propertyKey == null");
         }
-
         if (ImageCollection.isSpecialCollection(collectionName)) {
             MessageDisplayer.warning(null, errorMessage);
-
             return false;
         }
-
         return true;
     }
 

@@ -18,14 +18,14 @@ public final class ImageCollectionsListCellRenderer extends DefaultListCellRende
 
     private static final Icon ICON_DEFAULT = AppLookAndFeel.getIcon("icon_imagecollection.png");
     private static final Color SPECIAL_COLLECTION_FOREGROUND = Color.BLUE;
-    private static final Map<Object, Icon> ICON_OF_VALUE = new HashMap<>();
+    private static final Map<Object, Icon> ICON_OF_SPECIAL_COLLECTION = new HashMap<>();
     private static final long serialVersionUID = 1L;
     private int tempSelRow = -1;
 
     {
-        ICON_OF_VALUE.put(ImageCollection.PREVIOUS_IMPORT_NAME, AppLookAndFeel.getIcon("icon_card.png"));
-        ICON_OF_VALUE.put(ImageCollection.PICKED_NAME, AppLookAndFeel.getIcon("icon_picked.png"));
-        ICON_OF_VALUE.put(ImageCollection.REJECTED_NAME, AppLookAndFeel.getIcon("icon_rejected.png"));
+        ICON_OF_SPECIAL_COLLECTION.put(ImageCollection.PREVIOUS_IMPORT_NAME, AppLookAndFeel.getIcon("icon_card.png"));
+        ICON_OF_SPECIAL_COLLECTION.put(ImageCollection.PICKED_NAME, AppLookAndFeel.getIcon("icon_picked.png"));
+        ICON_OF_SPECIAL_COLLECTION.put(ImageCollection.REJECTED_NAME, AppLookAndFeel.getIcon("icon_rejected.png"));
     }
 
     public ImageCollectionsListCellRenderer() {
@@ -47,13 +47,15 @@ public final class ImageCollectionsListCellRenderer extends DefaultListCellRende
                 ? AppLookAndFeel.getListSelectionBackground()
                 : AppLookAndFeel.getListBackground());
         label.setIcon(getIconOfValue(value));
+        if (value instanceof String) {
+            label.setText(ImageCollection.getLocalizedName((String) value));
+        }
         return label;
     }
 
     private Icon getIconOfValue(Object value) {
-        Icon icon = ICON_OF_VALUE.get(value);
-
-        return (icon == null)
+        Icon icon = ICON_OF_SPECIAL_COLLECTION.get(value);
+        return icon == null
                 ? ICON_DEFAULT
                 : icon;
     }
