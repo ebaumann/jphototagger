@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.4 2013-02-14
+-----------------
+
+* Bugfix: Spezialnamen in den Fotoalben ("Zuletzt importiert", ...)
+  wurden mehrfach in die Datenbank geschrieben und waren nicht
+  lokalisiert. Wurde JPhotoTagger erst mit deutscher und dann
+  mit englischer Oberfläche gestartet, konnten so die Spezialnamen
+  mehrfach angezeigt werden.
+
 0.32.3 2013-02-12
 -----------------
 

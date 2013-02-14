@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.4 2013-02-14
+-----------------
+
+* Bugfix: Special Photo Album names ("Previous import", ...) were
+  inserted multiple times into the database and weren't localized.
+  When JPhotoTagger was started first in English and then in
+  German, these special names could appear multiple times.
+
 0.32.3 2013-02-12
 -----------------
 

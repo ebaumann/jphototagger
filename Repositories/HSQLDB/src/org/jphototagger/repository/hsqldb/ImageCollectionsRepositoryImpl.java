@@ -14,7 +14,7 @@ public final class ImageCollectionsRepositoryImpl implements ImageCollectionsRep
 
     @Override
     public boolean deleteImageCollection(String collectionName) {
-        return ImageCollectionsDatabase.INSTANCE.deleteImageCollection(collectionName);
+        return ImageCollectionsDatabase.INSTANCE.deleteImageCollection(collectionName, false);
     }
 
     @Override
