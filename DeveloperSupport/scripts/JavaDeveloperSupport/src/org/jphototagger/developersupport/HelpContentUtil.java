@@ -40,11 +40,8 @@ public class HelpContentUtil {
         try (PrintStream  out = new PrintStream(new FileOutputStream(singleHtmlFile), true, "UTF8")) {
             out.print(fixHtmlForPdf(getSingleHtmlManual(contentXmlFile)));
         }
-        try {
-            htmlToPdf(singleHtmlFile, pdfFile);
-        } finally {
-            singleHtmlFile.delete();
-        }
+        htmlToPdf(singleHtmlFile, pdfFile);
+        singleHtmlFile.delete();
     }
 
     private static String fixHtmlForPdf(String html) {
