@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32. 2013-02-
+-----------------
+
+* Dialog zum Importieren von Dateien schlägt bis zu
+  10 zuletzt ausgewählte Quell- und Zielordner vor
+
 0.32.4 2013-02-14
 -----------------
 

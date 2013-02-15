@@ -13,12 +13,17 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.AbstractAction;
+import javax.swing.AbstractButton;
+import javax.swing.Action;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
+import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.api.preferences.Preferences;
@@ -28,6 +33,7 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpEditor;
 import org.jphototagger.importfiles.filerenamers.FileRenameStrategyComboBoxModel;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.io.PreviousSelectedFiles;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
@@ -59,9 +65,11 @@ public class ImportImageFilesDialog extends Dialog {
     private static final String KEY_SUBDIRECTORY_CREATE_STRATEGY = "ImportImageFiles.SubdirectoryCreateStrategy";
     private static final String KEY_FILE_RENAME_STRATEGY = "ImportImageFiles.RenameStrategy";
     private static final String KEY_SKIP_DUPLICATES = "ImportImageFiles.SkipDuplicates";
-    private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private static final Color LABEL_FOREGROUND = getLabelForeground();
+    private final FileSystemView fileSystemView = FileSystemView.getFileSystemView();
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+    private final PreviousSelectedFiles prevSelectedSourceDirs = new PreviousSelectedFiles("IportImageFilesDialog.SourceDirs", 10);
+    private final PreviousSelectedFiles prevSelectedTargetDirs = new PreviousSelectedFiles("IportImageFilesDialog.TargetDirs", 10);
     private File sourceDirectory = new File(prefs.getString(KEY_LAST_SRC_DIR));
     private File targetDirectory = new File(prefs.getString(KEY_LAST_TARGET_DIR));
     private File scriptFile;
@@ -207,14 +215,19 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void chooseSourceDir() {
         File dir = chooseDir(sourceDirectory);
-        if (dir == null) {
-            return;
+        if (dir != null) {
+            setSourceDir(dir);
         }
-        if (!targetDirectory.exists() || checkDirsDifferent(dir, targetDirectory)) {
+    }
+
+    private void setSourceDir(File dir) {
+        boolean sourceDirNotEqualsTargetDir = !targetDirectory.exists() || checkDirsDifferent(dir, targetDirectory);
+        if (sourceDirNotEqualsTargetDir) {
             sourceDirectory = dir;
             filesChoosed = false;
             sourceFiles.clear();
             persistFilePath(KEY_LAST_SRC_DIR, dir);
+            prevSelectedSourceDirs.add(dir);
             resetLabelChoosedFiles();
             setDirLabel(labelSourceDir, dir);
         }
@@ -279,15 +292,76 @@ public class ImportImageFilesDialog extends Dialog {
 
     private void chooseTargetDir() {
         File dir = chooseDir(targetDirectory);
-        if (dir == null) {
-            return;
+        if (dir != null) {
+            setTargetDir(dir);
         }
-        if (!sourceDirectory.exists() || checkDirsDifferent(sourceDirectory, dir)) {
+    }
+
+    private void setTargetDir(File dir) {
+        boolean targetDirNotEqualsSourceDir = !sourceDirectory.exists() || checkDirsDifferent(sourceDirectory, dir);
+        if (targetDirNotEqualsSourceDir) {
             targetDirectory = dir;
             persistFilePath(KEY_LAST_TARGET_DIR, dir);
+            prevSelectedTargetDirs.add(dir);
             setDirLabel(labelTargetDir, dir);
         }
         setEnabledOkButton();
+    }
+
+    private final Action chooseSourceDirAction = new AbstractAction() {
+
+        private static final long serialVersionUID = 1L;
+
+        {
+            putValue(Action.NAME, Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.ChooseSourceDirAction.Name"));
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            chooseSourceDir();
+        }
+    };
+
+    private final Action chooseTargetDirAction = new AbstractAction() {
+
+        private static final long serialVersionUID = 1L;
+
+        {
+            putValue(Action.NAME, Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.ChooseTargetDirAction.Name"));
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            chooseTargetDir();
+        }
+    };
+
+    private final Functor<File> setSourceDirFunctor = new Functor<File>()  {
+        @Override
+        public void execute(File file) {
+            if (file.isDirectory()) {
+                setSourceDir(file);
+            }
+        }
+    };
+
+    private final Functor<File> setTargetDirFunctor = new Functor<File>()  {
+        @Override
+        public void execute(File file) {
+            if (file.isDirectory()) {
+                setTargetDir(file);
+            }
+        }
+    };
+
+    private void setDir(AbstractButton button, Action chooseAction, PreviousSelectedFiles psf,  Functor<File> chooseFunctor) {
+        JPopupMenu popupMenu = psf.createPopupMenu(chooseFunctor, sourceDirectory, targetDirectory);
+        if (popupMenu.getComponentCount() < 1) {
+            chooseAction.actionPerformed(null);
+        } else {
+            popupMenu.add(chooseAction);
+            popupMenu.show(button, 0, button.getHeight());
+        }
     }
 
     private void lookupPersistedScriptFile() {
@@ -949,11 +1023,11 @@ public class ImportImageFilesDialog extends Dialog {
     }//GEN-LAST:event_buttonOkActionPerformed
 
     private void buttonChooseSourceDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseSourceDirActionPerformed
-        chooseSourceDir();
+        setDir(buttonChooseSourceDir, chooseSourceDirAction, prevSelectedSourceDirs, setSourceDirFunctor);
     }//GEN-LAST:event_buttonChooseSourceDirActionPerformed
 
     private void buttonChooseTargetDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseTargetDirActionPerformed
-        chooseTargetDir();
+        setDir(buttonChooseTargetDir, chooseTargetDirAction, prevSelectedTargetDirs, setTargetDirFunctor);
     }//GEN-LAST:event_buttonChooseTargetDirActionPerformed
 
     private void buttonChooseFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseFilesActionPerformed

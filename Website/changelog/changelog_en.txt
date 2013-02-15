@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32. 2013-02-
+-----------------
+
+* Dialog for importing files suggests up to 10 previous
+  selected source and target folders
+
 0.32.4 2013-02-14
 -----------------
 

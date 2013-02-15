@@ -2934,6 +2934,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Anderen Ordner auswählen...</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130215T193039Z">
+        <seg>Choose other folder...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Angaben zu den Bildern</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
