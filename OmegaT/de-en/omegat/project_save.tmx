@@ -3098,6 +3098,22 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Anderen Ordner auswählen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130215T192949Z">
+        <seg>Anderen Ordner auswählen</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Anderen Ordner auswählen...</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130215T193039Z">
+        <seg>Choose other folder...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Angaben zu den Bildern</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
