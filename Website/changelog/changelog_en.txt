@@ -8,6 +8,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Dialog for importing files suggests up to 10 previous
   selected source and target folders
+* Confirm message, whether no longer existing folders
+  shall be deleted
 
 0.32.4 2013-02-14
 -----------------

@@ -8,6 +8,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 
 * Dialog zum Importieren von Dateien schlägt bis zu
   10 zuletzt ausgewählte Quell- und Zielordner vor
+* Nachfrage, ob nicht mehr existierende Favoriten
+  gelöscht werden sollen
 
 0.32.4 2013-02-14
 -----------------
