@@ -2062,6 +2062,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;Der Ordner ''{0}''&lt;br/&gt;des Favoriten ''{1}'' existiert nicht mehr!&lt;br/&gt;Favorit entfernen?&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130215T200421Z">
+        <seg>&lt;html&gt;The folder ''{0}''&lt;br/&gt;of Favorite ''{1}'' does not exist!&lt;br/&gt;Delete Favorite?&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;Die Bilder wurden dem Fotoalbum "Abgelehnt" hinzugefügt&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">

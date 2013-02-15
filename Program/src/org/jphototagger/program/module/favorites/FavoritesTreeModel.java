@@ -31,11 +31,13 @@ import org.jphototagger.domain.repository.FavoritesRepository;
 import org.jphototagger.domain.repository.event.favorites.FavoriteDeletedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteInsertedEvent;
 import org.jphototagger.domain.repository.event.favorites.FavoriteUpdatedEvent;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.SortedChildrenTreeNode;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -665,8 +667,17 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
         MessageDisplayer.error(null, message);
     }
 
-    private void errorMessageAddDirectory(Favorite favorite) {
-        LOGGER.log(Level.WARNING, "The favorite ''{0}'' couldn''t be read!", favorite.getDirectory());
+    private void errorMessageAddDirectory(final Favorite favorite) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            @Override
+            public void run() {
+                String message = Bundle.getString(FavoritesTreeModel.class, "FavoritesTreeModel.Confirm.RemoveNotExistingFavorite",
+                        favorite.getDirectory(), favorite.getName());
+                if (MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), message)) {
+                    repo.deleteFavorite(favorite.getName());
+                }
+            }
+        });
     }
 
     /**
