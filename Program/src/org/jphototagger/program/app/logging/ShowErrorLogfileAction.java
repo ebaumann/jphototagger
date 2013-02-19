@@ -34,7 +34,7 @@ final class ShowErrorLogfileAction extends AbstractAction {
         Frame parentFrame = ComponentUtil.findFrameWithIcon();
         String logfilePath = AppLoggingSystem.getErrorMessagesLogfilePath();
         LogfileDialog dialog = new LogfileDialog(parentFrame, logfilePath, XMLFormatter.class);
-
+        dialog.setTitle(Bundle.getString(ShowErrorLogfileAction.class, "ShowErrorLogfileAction.DialogTitle"));
         dialog.setFilterableMinIntValue(Level.WARNING.intValue());
         dialog.setVisible(true);
     }

@@ -29,7 +29,7 @@ public final class ShowAllMessagesLogfileAction extends AbstractAction {
         Frame parentFrame = ComponentUtil.findFrameWithIcon();
         String logfilePath = AppLoggingSystem.getAllMessagesLogfilePath();
         LogfileDialog dialog = new LogfileDialog(parentFrame, logfilePath, SimpleFormatter.class);
-
+        dialog.setTitle(Bundle.getString(ShowAllMessagesLogfileAction.class, "ShowAllMessagesLogfileAction.DialogTitle"));
         dialog.setFilterableMinIntValue(Level.WARNING.intValue());
         dialog.setVisible(true);
     }

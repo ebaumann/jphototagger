@@ -12424,6 +12424,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Protokoll mit allen Nachrichten</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130219T192323Z">
+        <seg>Logfile with all Messages</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Protokoll: Verschiedenes</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
