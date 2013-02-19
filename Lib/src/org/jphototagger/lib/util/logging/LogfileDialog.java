@@ -2,7 +2,6 @@ package org.jphototagger.lib.util.logging;
 
 import java.awt.CardLayout;
 import java.awt.Frame;
-import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -171,8 +170,8 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         return true;
     }
 
-    private void errorMessageEmpty() throws HeadlessException {
-        String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.LogfileIsEmpty");
+    private void errorMessageEmpty() {
+        String message = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.LogfileIsEmpty", logfilename);
         String title = Bundle.getString(LogfileDialog.class, "LogfileDialog.Error.LogfileIsEmpty.Title");
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
