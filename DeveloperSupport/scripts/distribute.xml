@@ -35,6 +35,14 @@
         <antcall target="5-upload" />
     </target>
 
+    <target name="0-all-no-pdf-manual">
+        <antcall target="-delete-upload-files"/>
+        <antcall target="1-set-version-info"/>
+        <antcall target="3-create-zip"/>
+        <antcall target="4-create-setup-exe"/>
+        <antcall target="5-upload" />
+    </target>
+
     <target name="-delete-upload-files">
         <echo message="Deleting upload Setup/ZIP files"/>
         <delete file="${upload.dir}/JPhotoTagger-setup.exe" failonerror="false"/>
