@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.6 2013-02-19
+-----------------
+
+* Bugfix: A choosen Windows Classic Look & Feel was not
+  restored after restarting JPhotoTagger (Windows only issue)
+
 0.32.5 2013-02-15
 -----------------
 

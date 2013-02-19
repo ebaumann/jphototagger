@@ -35,7 +35,7 @@ public final class WindowsClassicLookAndFeelProvider implements LookAndFeelProvi
 
     @Override
     public String getPreferencesKey() {
-        return "GtkLookAndFeelProvider"; // Do never change this!
+        return "WindowsClassicLookAndFeelProvider"; // Do never change this!
     }
 
     @Override
@@ -45,7 +45,7 @@ public final class WindowsClassicLookAndFeelProvider implements LookAndFeelProvi
 
     @Override
     public void setLookAndFeel() {
-        LOGGER.info("Setting Java GTK Look and Feel");
+        LOGGER.info("Setting Java Windows Classic Look and Feel");
         try {
             UIManager.setLookAndFeel(LAF_CLASSNAME);
         } catch (Throwable t) {
