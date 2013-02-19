@@ -103,7 +103,7 @@ final class ThumbnailUtil {
             throw new IllegalArgumentException("Invalid length: " + maxLength);
         }
         LOGGER.log(Level.INFO, "Creating thumbnail from image file ''{0}'', size {1} Bytes", new Object[]{file, file.length()});
-        BufferedImage image = loadImage(file);
+        BufferedImage image = loadImage(file); // Maybe better (no "strange color"): java.awt.Toolkit.getDefaultToolkit().getImage(file.getAbsolutePath())
         BufferedImage scaledImage = null;
         if (image != null) {
             scaledImage = stepScaleImage(image, maxLength, 0.5);
