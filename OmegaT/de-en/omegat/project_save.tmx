@@ -5434,6 +5434,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Datei: {0}</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130219T193403Z">
+        <seg>File: {0}</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Dateidatum (letzte Bearbeitung)</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -6200,6 +6208,14 @@ Would You input a new name?</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>The log file is empty!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Die Logdatei {0} ist leer!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130219T193118Z">
+        <seg>The log file {0} is empty!</seg>
       </tuv>
     </tu>
     <tu>
