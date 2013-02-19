@@ -47,8 +47,8 @@ public final class AppInit {
 
     private void init() {
         try {
-            AppLookAndFeel.set();
             AppLoggingSystem.init();
+            AppLookAndFeel.set();
             AppLogUtil.logSystemInfo();
             lock();
             showSplashScreen();
