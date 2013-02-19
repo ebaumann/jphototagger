@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.6 2013-02-19
+-----------------
+
+* Bugfix: Ein ausgewähltes "Windows klassisch" Look & Feel wurde
+  nach Neustart nicht wiederhergestellt (betraf nur Windows)
+
 0.32.5 2013-02-15
 -----------------
 
