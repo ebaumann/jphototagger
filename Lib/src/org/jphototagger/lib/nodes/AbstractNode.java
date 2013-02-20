@@ -6,7 +6,7 @@ import javax.swing.Action;
 import javax.swing.Icon;
 import org.jphototagger.api.component.HtmlDisplayNameProvider;
 import org.jphototagger.api.nodes.Node;
-import org.jphototagger.lib.util.StringEscapeUtil;
+import org.jphototagger.lib.util.HtmlUtil;
 
 /**
  * @author Elmar Baumann
@@ -20,7 +20,7 @@ public abstract class AbstractNode implements Node, HtmlDisplayNameProvider {
     @Override
     public String getHtmlDisplayName() {
         String displayName = getDisplayName();
-        String escapedDisplayName = StringEscapeUtil.escapeHTML(displayName);
+        String escapedDisplayName = HtmlUtil.escapeHTML(displayName);
 
         return "<html>" + escapedDisplayName + "</html>";
     }

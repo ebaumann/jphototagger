@@ -33,7 +33,7 @@ import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.StringEscapeUtil;
+import org.jphototagger.lib.util.HtmlUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.SystemProperties;
 import org.openide.util.Lookup;
@@ -100,7 +100,7 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
         StringBuilder sb = new StringBuilder("<tr>");
         for (MetaDataValue value : DefaultMetaDataValues.INSTANCE.getValues()) {
             sb.append("<th ").append(createHtmlClassAttribute(value)).append(">");
-            sb.append(StringEscapeUtil.escapeHTML(value.getDescription()));
+            sb.append(HtmlUtil.escapeHTML(value.getDescription()));
             sb.append("</th>");
         }
         sb.append("</tr>");
@@ -126,7 +126,7 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
                     ? formatThumbnail(file, valueData.getData())
                     : isFilename(valueData)
                     ? formatFilename(file, valueData.getData())
-                    : StringEscapeUtil.escapeHTML(format(valueData));
+                    : HtmlUtil.escapeHTML(format(valueData));
             sb.append(formattedData);
         }
         return sb.toString();
@@ -232,7 +232,7 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
         String message = Bundle.getString(HtmlReports.class, "HtmlReports.GetTitle.Message");
         String input = Bundle.getString(HtmlReports.class, "HtmlReports.GetTitle.Input");
         title = MessageDisplayer.input(message, input);
-        title = StringEscapeUtil.escapeHTML(StringUtil.hasContent(title) ? title : "");
+        title = HtmlUtil.escapeHTML(StringUtil.hasContent(title) ? title : "");
     }
 
     private void setHtmlFile() {
