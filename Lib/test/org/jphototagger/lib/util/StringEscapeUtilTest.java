@@ -12,23 +12,23 @@ public class StringEscapeUtilTest {
     public void testEscapeHTML() {
         String html = "";
         String expected = "";
-        String escapedHtml = StringEscapeUtil.escapeHTML(html);
+        String escapedHtml = HtmlUtil.escapeHTML(html);
 
         assertEquals(expected, escapedHtml);
 
         html = "<";
         expected = "&lt;";
-        escapedHtml = StringEscapeUtil.escapeHTML(html);
+        escapedHtml = HtmlUtil.escapeHTML(html);
         assertEquals(expected, escapedHtml);
 
         html = "\"If a > b and b > c then is c < a\"";
         expected = "&quot;If a &gt; b and b &gt; c then is c &lt; a&quot;";
-        escapedHtml = StringEscapeUtil.escapeHTML(html);
+        escapedHtml = HtmlUtil.escapeHTML(html);
         assertEquals(expected, escapedHtml);
 
         html = "(a && b) is a&&b";
         expected = "(a &amp;&amp; b) is a&amp;&amp;b";
-        escapedHtml = StringEscapeUtil.escapeHTML(html);
+        escapedHtml = HtmlUtil.escapeHTML(html);
         assertEquals(expected, escapedHtml);
     }
 }
