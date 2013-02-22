@@ -18,6 +18,7 @@ import org.jphototagger.api.windows.LookAndFeelProvider;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.LookAndFeelUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.SystemUtil;
 import org.openide.util.Lookup;
 
 /**
@@ -161,7 +162,9 @@ public final class AppLookAndFeel {
     }
 
     private static void setJPhotoTaggerDefaults() {
-        UIManager.put("FileChooser.useSystemExtensionHiding", true); // else FileSystemView#getSystemDisplayName() does display File#getName(), under Windows e.g. *not* localized "Users"
+        if (SystemUtil.isWindows()) {
+            UIManager.put("FileChooser.useSystemExtensionHiding", true); // else FileSystemView#getSystemDisplayName() does display File#getName(), under Windows e.g. *not* localized "Users"
+        }
         changeFontWeights();
         takeFromUiColors();
     }
