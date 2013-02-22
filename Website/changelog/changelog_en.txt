@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.7 2013-02-22
+-----------------
+
+* Windows: Some Look & Feels did ignore localized
+  folder names. They displayed e.g. "Users" instead
+  of "Benutzer" (German locale).
+
 0.32.6 2013-02-19
 -----------------
 
