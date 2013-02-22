@@ -98,7 +98,10 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
     private String getDisplayname(File file) {
         synchronized(FILE_SYSTEM_VIEW) {
             try {
-                return FILE_SYSTEM_VIEW.getSystemDisplayName(file);
+                String displayName = FILE_SYSTEM_VIEW.getSystemDisplayName(file);
+                return displayName == null
+                        ? file.getName()
+                        : displayName;
             } catch (Throwable t) {
                 LOGGER.log(Level.WARNING, null, t);
                 return file.getName();
