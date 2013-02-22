@@ -157,6 +157,11 @@ public final class AppLookAndFeel {
             Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.SEVERE, null, t);
             LookAndFeelUtil.setSystemLookAndFeel();
         }
+        setJPhotoTaggerDefaults();
+    }
+
+    private static void setJPhotoTaggerDefaults() {
+        UIManager.put("FileChooser.useSystemExtensionHiding", true); // else FileSystemView#getSystemDisplayName() does display File#getName(), under Windows e.g. *not* localized "Users"
         changeFontWeights();
         takeFromUiColors();
     }
