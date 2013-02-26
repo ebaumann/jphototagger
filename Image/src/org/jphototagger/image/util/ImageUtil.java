@@ -258,6 +258,17 @@ public final class ImageUtil {
         }
     }
 
+    public static BufferedImage imageToBufferedImage(Image im) { // http://www.rgagnon.com/javadetails/java-0601.html
+        if (im == null) {
+            throw new NullPointerException("im == null");
+        }
+        BufferedImage bi = new BufferedImage(im.getWidth(null), im.getHeight(null), BufferedImage.TYPE_INT_RGB);
+        Graphics bg = bi.getGraphics();
+        bg.drawImage(im, 0, 0, null);
+        bg.dispose();
+        return bi;
+    }
+
     private ImageUtil() {
     }
 }
