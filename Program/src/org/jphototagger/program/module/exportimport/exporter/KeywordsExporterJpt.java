@@ -1,6 +1,7 @@
 package org.jphototagger.program.module.exportimport.exporter;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -111,15 +112,15 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
         Document doc = impl.createDocument(null, null, null);
         Element rootElement = doc.createElement(TAGNAME_ROOT);
         doc.appendChild(rootElement);
-        for (Keyword keyword : repo.findRootKeywords()) {
-            appendChildren(doc, rootElement, keyword);
-        }
+        appendChildren(doc, rootElement, null);
         return doc;
     }
 
     private void appendChildren(Document doc, Element parentElement, Keyword  parentKeyword) {
-        appendChild(doc, parentElement, parentKeyword);
-        for (Keyword childKeyword : repo.findChildKeywords(parentKeyword.getId())) {
+        Collection<Keyword> children = parentKeyword == null
+                ? repo.findRootKeywords()
+                : repo.findChildKeywords(parentKeyword.getId());
+        for (Keyword childKeyword : children) {
             Element childElement = appendChild(doc, parentElement, childKeyword);
             appendChildren(doc, childElement, childKeyword); // recursive
         }
