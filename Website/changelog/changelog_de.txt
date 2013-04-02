@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.8 2013-04-02
+-----------------
+
+* Bugfix: Beim Exportieren des Stichwortbaums in eine XML-Datei
+  wurden Elternknoten zusätzlich als Kindknoten exportiert, z.B.
+  Landschaft > Landschaft
+             > Wald
+
 0.32.7 2013-02-22
 -----------------
 
