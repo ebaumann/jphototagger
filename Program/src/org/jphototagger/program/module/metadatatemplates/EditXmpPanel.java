@@ -230,9 +230,9 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         panelIptc4XmpCoreDateCreated = new EditTextEntryPanel(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
         panelPhotoshopAuthorsposition = new EditTextEntryPanel(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE);
         panelDcCreator = new EditTextEntryPanel(XmpDcCreatorMetaDataValue.INSTANCE);
-        panelPhotoshopCity = new EditTextEntryPanel(XmpPhotoshopCityMetaDataValue.INSTANCE);
-        panelPhotoshopState = new EditTextEntryPanel(XmpPhotoshopStateMetaDataValue.INSTANCE);
         panelPhotoshopCountry = new EditTextEntryPanel(XmpPhotoshopCountryMetaDataValue.INSTANCE);
+        panelPhotoshopState = new EditTextEntryPanel(XmpPhotoshopStateMetaDataValue.INSTANCE);
+        panelPhotoshopCity = new EditTextEntryPanel(XmpPhotoshopCityMetaDataValue.INSTANCE);
         panelDcRights = new EditTextEntryPanel(XmpDcRightsMetaDataValue.INSTANCE);
         panelPhotoshopCredit = new EditTextEntryPanel(XmpPhotoshopCreditMetaDataValue.INSTANCE);
         panelPhotoshopSource = new EditTextEntryPanel(XmpPhotoshopSourceMetaDataValue.INSTANCE);
@@ -316,14 +316,14 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(panelDcCreator, gridBagConstraints);
 
-        panelPhotoshopCity.setName("panelPhotoshopCity"); // NOI18N
+        panelPhotoshopCountry.setName("panelPhotoshopCountry"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        add(panelPhotoshopCity, gridBagConstraints);
+        add(panelPhotoshopCountry, gridBagConstraints);
 
         panelPhotoshopState.setName("panelPhotoshopState"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -334,14 +334,14 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(panelPhotoshopState, gridBagConstraints);
 
-        panelPhotoshopCountry.setName("panelPhotoshopCountry"); // NOI18N
+        panelPhotoshopCity.setName("panelPhotoshopCity"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        add(panelPhotoshopCountry, gridBagConstraints);
+        add(panelPhotoshopCity, gridBagConstraints);
 
         panelDcRights.setName("panelDcRights"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

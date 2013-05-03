@@ -4160,8 +4160,8 @@
       <tuv xml:lang="DE">
         <seg>Bezugsquelle des Bilds</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Where the image can be ordered</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130503T160623Z">
+        <seg>Where this image can be ordered</seg>
       </tuv>
     </tu>
     <tu>
@@ -4790,18 +4790,10 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Bundesland der Bildherkunft (Bundesland des Fotografen)</seg>
+        <seg>Bundesland/Kanton</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>The photographer's state</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>Bundesland/Kanton des Fotografen</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Photographer/State</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130503T160028Z">
+        <seg>State</seg>
       </tuv>
     </tu>
     <tu>
@@ -7830,22 +7822,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Fotograf/Bundesland</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Photographer/State</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>Fotograf/Land</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Photographer/Country</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Fotograf/Name</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7858,14 +7834,6 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Author's position</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>Fotograf/Stadt</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Photographer/City</seg>
       </tuv>
     </tu>
     <tu>
@@ -9848,14 +9816,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Land der Bildherkunft (Land des Fotografen)</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>The photographer's country</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Landschaftsprogramm</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -10824,10 +10784,34 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Name der Landes (Staates), in dem das Bild fotografiert wurde</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130503T160612Z">
+        <seg>Name of the country where this image was taken</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Name der Region eines Staates, in der das Bild fotografiert wurde (Bundesland oder Kanton)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130503T160315Z">
+        <seg>Name of the state where the image was taken</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Name der Schablone:</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Name of template:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Name der Stadt oder Ortschaft, in der das Bild fotografiert wurde</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130503T160557Z">
+        <seg>Name of the city where this image was taken</seg>
       </tuv>
     </tu>
     <tu>
@@ -11592,18 +11576,10 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Ort der Bildherkunft (Wohnort des Fotografen)</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>The photographer's city</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Ort, an dem das Bild fotografiert wurde</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Location where the image was taken</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130503T160649Z">
+        <seg>Location where this image was taken</seg>
       </tuv>
     </tu>
     <tu>
@@ -11612,6 +11588,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>East</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>PNG (Portable Network Graphics)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130503T160035Z">
+        <seg>PNG (Portable Network Graphics)</seg>
       </tuv>
     </tu>
     <tu>
@@ -12612,6 +12596,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>St&amp;op</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Stadt/Ort</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130503T155825Z">
+        <seg>City</seg>
       </tuv>
     </tu>
     <tu>

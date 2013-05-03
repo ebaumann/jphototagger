@@ -3,6 +3,23 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.9 2013-05-03
+-----------------
+
+* Bugfix: Im Bearbeiten-Tab Beschriftungen korrigiert für
+  * Land
+  * Bundesland/Kanton
+  * Ort
+  Diese waren vorher fälschlicherweise so bezeichnet, als ob
+  sie auf den Fotografen bezogen wären, sie gelten jedoch für
+  den Bildinhalt. Außerdem sind diese Tags nun so sortiert, dass
+  deren geographische Hierarchie ersichtlich ist von oben
+  (erste Ebene = Land) nach unten (dritte Ebene = Ort).
+* Kartenreiter "Verschiedenes" enthält Land und Bundesland/Kanton
+* JPhotoTagger erzeugt Vorschaubilder von PNG-Dateien
+  (falls nicht ein eigenes Skript/Programm die Vorschaubilder
+   erzeugt)
+
 0.32.8 2013-04-02
 -----------------
 
