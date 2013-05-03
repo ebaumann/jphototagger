@@ -20,7 +20,9 @@ import org.jphototagger.domain.metadata.xmp.XmpDcCreatorMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcRightsMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCountryMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
@@ -62,6 +64,8 @@ public final class MiscMetadataTreeModel extends DefaultTreeModel {
         EXIF_META_DATA_VALUES.add(ExifFocalLengthMetaDataValue.INSTANCE);
         EXIF_META_DATA_VALUES.add(ExifLensMetaDataValue.INSTANCE);
         EXIF_META_DATA_VALUES.add(ExifIsoSpeedRatingsMetaDataValue.INSTANCE);
+        XMP_META_DATA_VALUES.add(XmpPhotoshopCountryMetaDataValue.INSTANCE);
+        XMP_META_DATA_VALUES.add(XmpPhotoshopStateMetaDataValue.INSTANCE);
         XMP_META_DATA_VALUES.add(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE);
         XMP_META_DATA_VALUES.add(XmpDcCreatorMetaDataValue.INSTANCE);
         XMP_META_DATA_VALUES.add(XmpDcRightsMetaDataValue.INSTANCE);

@@ -3,6 +3,21 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.9 2013-05-03
+-----------------
+
+* Bugfix: Fixed in the "Edit" tab labels for
+  * Country
+  * State
+  * City
+  Previously they were designated as related to the photographer,
+  but they are related to the image's content. Also re-ordered these
+  tags to reflect their geographical hierarchy from top (first level
+  = country) to bottom (third level = city).
+* Tab "Miscellaneous" contains country and state
+* JPhotoTagger creates thumbnails of PNG images (if not an
+  own program/script creates the thumbnails)
+
 0.32.8 2013-04-02
 -----------------
 

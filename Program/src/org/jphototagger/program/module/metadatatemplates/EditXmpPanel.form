@@ -121,12 +121,12 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopCity">
+    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopCountry">
       <Properties>
-        <Property name="name" type="java.lang.String" value="panelPhotoshopCity" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="panelPhotoshopCountry" noResource="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopCityMetaDataValue.INSTANCE)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopCountryMetaDataValue.INSTANCE)"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -147,12 +147,12 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopCountry">
+    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopCity">
       <Properties>
-        <Property name="name" type="java.lang.String" value="panelPhotoshopCountry" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="panelPhotoshopCity" noResource="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopCountryMetaDataValue.INSTANCE)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopCityMetaDataValue.INSTANCE)"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
