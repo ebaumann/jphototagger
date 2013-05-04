@@ -44,13 +44,13 @@ public final class EditableMetaDataValues {
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpDcTitleMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpDcDescriptionMetaDataValue.INSTANCE, notRepeatableHintLarge);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopHeadlineMetaDataValue.INSTANCE, notRepeatableHintMedium);
-        EDIT_HINT_OF_META_DATA_VALUE.put(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, notRepeatableHintSmall);
+        EDIT_HINT_OF_META_DATA_VALUE.put(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE, notRepeatableHintSmall);
+        EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopCityMetaDataValue.INSTANCE, notRepeatableHintSmall);
+        EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopStateMetaDataValue.INSTANCE, notRepeatableHintSmall);
+        EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopCountryMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopAuthorspositionMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpDcCreatorMetaDataValue.INSTANCE, notRepeatableHintSmall);
-        EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopCountryMetaDataValue.INSTANCE, notRepeatableHintSmall);
-        EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopStateMetaDataValue.INSTANCE, notRepeatableHintSmall);
-        EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopCityMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpDcRightsMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopCreditMetaDataValue.INSTANCE, notRepeatableHintSmall);
         EDIT_HINT_OF_META_DATA_VALUE.put(XmpPhotoshopSourceMetaDataValue.INSTANCE, notRepeatableHintSmall);

@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.10 2013-05-04
+------------------
+
+* Tags im Bearbeiten-Tab umgeordnet: Bilddaten zuerst,
+  Fotograf etc. anschließend
+* Stadt/Ort hinzugefügt zu Tab "Verschiedenes"
+
 0.32.9 2013-05-03
 -----------------
 
