@@ -78,7 +78,7 @@
     <target name="-copy-dcraw-to-dist-dir">
         <echo message="Copying dcraw to dist directory"/>
         <copy todir="dist/dcraw">
-            <fileset dir="../../dist_files/dcraw/bin" erroronmissingdir="false">
+            <fileset dir="../dist_files/dcraw/bin" erroronmissingdir="false">
                 <filename name="**/*"/>
             </fileset>
         </copy>
