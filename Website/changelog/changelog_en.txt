@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.10 2013-05-04
+------------------
+
+* Re-arranged tags in Edit tab: image related data first,
+  photographer etc. second
+* Added "City" to Miscellaneous tab
+
 0.32.9 2013-05-03
 -----------------
 

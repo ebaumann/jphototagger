@@ -69,6 +69,19 @@
         </Constraint>
       </Constraints>
     </Component>
+    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelIptc4XmpCoreDateCreated">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="panelIptc4XmpCoreDateCreated" noResource="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE)"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+        </Constraint>
+      </Constraints>
+    </Component>
     <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelIptc4xmpcoreLocation">
       <Properties>
         <Property name="name" type="java.lang.String" value="panelIptc4xmpcoreLocation" noResource="true"/>
@@ -82,12 +95,38 @@
         </Constraint>
       </Constraints>
     </Component>
-    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelIptc4XmpCoreDateCreated">
+    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopCity">
       <Properties>
-        <Property name="name" type="java.lang.String" value="panelIptc4XmpCoreDateCreated" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="panelPhotoshopCity" noResource="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopCityMetaDataValue.INSTANCE)"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopState">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="panelPhotoshopState" noResource="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopStateMetaDataValue.INSTANCE)"/>
+      </AuxValues>
+      <Constraints>
+        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
+        </Constraint>
+      </Constraints>
+    </Component>
+    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopCountry">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="panelPhotoshopCountry" noResource="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopCountryMetaDataValue.INSTANCE)"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -114,45 +153,6 @@
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpDcCreatorMetaDataValue.INSTANCE)"/>
-      </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopCountry">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="panelPhotoshopCountry" noResource="true"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopCountryMetaDataValue.INSTANCE)"/>
-      </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopState">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="panelPhotoshopState" noResource="true"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopStateMetaDataValue.INSTANCE)"/>
-      </AuxValues>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-          <GridBagConstraints gridX="-1" gridY="-1" gridWidth="0" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="5" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="17" weightX="1.0" weightY="0.0"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="org.jphototagger.program.module.editmetadata.EditTextEntryPanel" name="panelPhotoshopCity">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="panelPhotoshopCity" noResource="true"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new EditTextEntryPanel(XmpPhotoshopCityMetaDataValue.INSTANCE)"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">

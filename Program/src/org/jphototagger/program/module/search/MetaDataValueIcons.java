@@ -17,6 +17,7 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcTitleMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4xmpcoreLocationMetaDataValue;
+import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCityMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopCountryMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopHeadlineMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
@@ -38,6 +39,7 @@ public final class MetaDataValueIcons {
         ICON_OF_META_DATA_VALUE.put(XmpDcCreatorMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_dc_creator.png"));
         ICON_OF_META_DATA_VALUE.put(XmpPhotoshopCountryMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_iptc4_core_location.png"));
         ICON_OF_META_DATA_VALUE.put(XmpPhotoshopStateMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_iptc4_core_location.png"));
+        ICON_OF_META_DATA_VALUE.put(XmpPhotoshopCityMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_iptc4_core_location.png"));
         ICON_OF_META_DATA_VALUE.put(XmpPhotoshopSourceMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_photoshop_source.png"));
         ICON_OF_META_DATA_VALUE.put(XmpIptc4xmpcoreLocationMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_xmp_iptc4_core_location.png"));
         ICON_OF_META_DATA_VALUE.put(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, AppLookAndFeel.getIcon("icon_timeline.png"));
