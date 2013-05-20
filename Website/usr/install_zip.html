@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>How to install JPhotoTagger's ZIP distribution</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="index.html">Users</a></li>
+            <li><a href="../dev/index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="https://groups.google.com/group/jphototagger-users-english">Users English Language</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>How to install JPhotoTagger's ZIP distribution</h1>
+
+        <p>Non Windows users can install JPhotoTagger's platform independent ZIP
+            distribution <strong>JPhotoTagger.zip</strong>, located at the
+            <a href="http://www.jphototagger.org/download.html">Download page</a>. This artice describes, how
+            to install JPhotoTagger from that ZIP file.</p>
+
+        <p>The installation typically consists of these 3 steps:</p>
+
+        <ol>
+            <li>Unzip the ZIP file either into a programs folder, e.g. <code>/usr/local</code>
+                or your home folder, e.g. <code>/home/peter</code>. This can be done with your
+                file manager e.g. Nautilus or Dolphin or via the command line:
+                <code>unzip JPhotoTagger.zip</code> If <code>unzip</code> is an unkown command,
+                you must install it before installing JPhotoTagger's ZIP distribution from the
+                command line.
+            </li>
+            <li>Write a start script, see below</li>
+            <li>Link the start script to your Desktop</li>
+        </ol>
+
+        <h2>Start script</h2>
+
+        <p>The start script starts the Java Virtual machine with JPhotoTagger's JAR as argument and parameters
+            how much memory JPhotoTagger can use. See also <a href="start_in_ohter_lang.html">parameters for
+            other languages</a>. The script has to be executable. Under Linux you can write a bash script - a plain
+            text file with the name e.g. <code>JPhotoTagger.sh</code>:
+        </p>
+
+<pre>
+#!/bin/sh
+
+# Comments starting with a hash sign "#". The "&" at the end of the
+# command starts JPhotoTagger as a background process.
+#
+# If the java executable's directory is not in the $PATH environment variable,
+# the full path must be specified, e.g. /usr/bin/java instead of "java"
+#
+# If JPhotoTagger is not installed into your home directory, the full
+# path has to be specified, e.g. /usr/local/JPhotoTagger/JPhotoTagger.jar
+# instead of "$HOME/JPhotoTagger/JPhotoTagger.jar"
+#
+# You can give JPhotoTagger more memory via the -Xmx parameter,
+# 750m are 750 Megabytes
+
+java -Xms30m -Xmx750m -jar $HOME/JPhotoTagger/JPhotoTagger.jar &
+</pre>
+
+        <p>If not already done, make the script executable. If it's name is
+            <code>JPhotoTagger.sh</code>, type into the command line
+        <code>chmod +x JPhotoTagger.sh</code>.</p>
+
+        <p>Usually it's a good idea, to put a link to that script as a desktop icon and/or as a start menu entry.</p>
+
+        <h2>Updates</h2>
+
+        <p>Unzip JPhotoTagger's updated ZIP distribution file always into the same folder
+            where it is already installed. Nothing further has to be done.</p>
+
+        <p><strong>Author:</strong>
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20">Write e-Mail</a>
+            <br /><strong>Status of this document:</strong> 2013-05-20
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>
