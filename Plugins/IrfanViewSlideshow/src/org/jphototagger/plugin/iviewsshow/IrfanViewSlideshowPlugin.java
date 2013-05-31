@@ -56,35 +56,29 @@ public final class IrfanViewSlideshowPlugin extends AbstractFileProcessorPlugin 
     public void processFiles(Collection<? extends File> files) {
         EventBus.publish(new FileProcessingStartedEvent(this));
         File slideshowFile = TemporaryStorage.INSTANCE.getNotExistingSlideshowFile();
-
-        String command = slideshowCommand.getCommandForFile(slideshowFile.getAbsolutePath());
-
-        if (command == null) {
+        String[] commandArray = slideshowCommand.getCommandArrayForFile(slideshowFile.getAbsolutePath());
+        if (commandArray == null) {
             Logger.getLogger(IrfanViewSlideshowPlugin.class.getName()).log(Level.WARNING, "Could not get the IrfanView slideshow command");
         } else {
             StringBuilder sb = new StringBuilder();
             String lineSeparator = SystemProperties.getLineSeparator();
-
             for (File file : files) {
                 sb.append(file.getAbsolutePath());
                 sb.append(lineSeparator);
             }
-
             Writer writer = null;
-
             try {
                 writer = new BufferedWriter(new FileWriter(slideshowFile));
                 writer.write(sb.toString());
                 writer.flush();
-                Logger.getLogger(IrfanViewSlideshowPlugin.class.getName()).log(Level.INFO, "Calling IrfanView: ''{0}''", command);
-                Runtime.getRuntime().exec(command);
+                Logger.getLogger(IrfanViewSlideshowPlugin.class.getName()).log(Level.INFO, "Calling IrfanView: ''{0}''", commandArray);
+                Runtime.getRuntime().exec(commandArray);
             } catch (Throwable t) {
                 Logger.getLogger(IrfanViewSlideshowPlugin.class.getName()).log(Level.SEVERE, null, t);
             } finally {
                 IoUtil.close(writer);
             }
         }
-
         EventBus.publish(new FileProcessingFinishedEvent(this, true));
     }
 

@@ -59,16 +59,13 @@ final class IrfanViewSlideshowCommand {
         }
     }
 
-    String getCommandForFile(String filepath) {
+    String[] getCommandArrayForFile(String filepath) {
         if (!ensureExecutablePathExists()) {
             return null;
         }
-
-        String reloadOnLoop = isReloadOnLoop ? " /reloadonloop" : "";
-        String pattern = "{0} /slideshow=\"{1}\"{2}";
-        String command = MessageFormat.format(pattern, irfanViewExecutablePath, filepath, reloadOnLoop);
-
-        return command;
+        String reloadOnLoopParam = isReloadOnLoop ? " /reloadonloop" : "";
+        String slideshowParam = "/slideshow=\"" + filepath + "\"";
+        return new String[]{irfanViewExecutablePath, slideshowParam, reloadOnLoopParam};
     }
 
     private boolean ensureExecutablePathExists() {
