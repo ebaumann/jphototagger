@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.11 2013-05-31
+------------------
+
+* Bugfix: Plugin "Diaschau mit IrfanView" angepasst an Oracles Änderungen
+  der Runtime-Klasse im JRE 7 Update 21
+  (http://www.oracle.com/technetwork/java/javase/7u21-relnotes-1932873.html#jruntime)
+* Im Programmfenster links Kartenreiter "Suchen" umbenannt in "Gespeicherte Suchen"
+  
 0.32.10 2013-05-04
 ------------------
 
