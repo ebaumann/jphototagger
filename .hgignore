@@ -15,6 +15,7 @@
 \.rej$
 ^DeveloperSupport/conf/googlecode.properties
 ^DeveloperSupport/conf/innosetup.properties
+^DeveloperSupport/conf/sourceforge.properties
 ^DeveloperSupport/conf/website.properties
 ^dist_files/upload/.*
 ^OmegaT/.*\.bak$
