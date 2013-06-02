@@ -159,6 +159,26 @@
         />
     </target>
 
+    <target name="-upload-sourceforge">
+        <!--${username} and ${password} will be read from sourceforge.properties,
+            ${Version} from Version.properties
+        -->
+        <property file="${private.confdir}/sourceforge.properties"/>
+        <property name="dist.src" location="${repo.root}/dist_files/upload"/>
+        <scp
+            file="${dist.src}/JPhotoTagger.zip"
+            remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/download/JPhotoTagger-${Version}.zip"
+            trust="true"
+            password="${password}"
+        />
+        <scp
+            file="${dist.src}/JPhotoTagger-setup.exe"
+            remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/download/JPhotoTagger-setup-${Version}.exe"
+            trust="true"
+            password="${password}"
+        />
+    </target>
+
     <target name="-upload-website">
         <echo message="Uploading new/updated website files to JPhotoTagger website"/>
         <property file="${private.confdir}/website.properties"/><!-- contains server, user and pass -->
