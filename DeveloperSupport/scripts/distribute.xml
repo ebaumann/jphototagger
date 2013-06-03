@@ -167,13 +167,13 @@
         <property name="dist.src" location="${repo.root}/dist_files/upload"/>
         <scp
             file="${dist.src}/JPhotoTagger.zip"
-            remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/download/JPhotoTagger-${Version}.zip"
+            remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/downloads/JPhotoTagger-${Version}.zip"
             trust="true"
             password="${password}"
         />
         <scp
             file="${dist.src}/JPhotoTagger-setup.exe"
-            remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/download/JPhotoTagger-setup-${Version}.exe"
+            remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/downloads/JPhotoTagger-setup-${Version}.exe"
             trust="true"
             password="${password}"
         />
