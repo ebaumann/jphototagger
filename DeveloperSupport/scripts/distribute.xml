@@ -16,9 +16,6 @@
 
     <property file="${repo.root}/Program/src/org/jphototagger/program/app/AppVersion.properties"/>
 
-    <taskdef name="gcupload"
-             classname="net.bluecow.googlecode.ant.GoogleCodeUploadTask"
-             classpath="${repo.root}/DeveloperSupport/scripts/ant-googlecode.jar"/>
     <taskdef name="htmlmanualindex"
              classname="org.jphototagger.developersupport.CreateHtmlHelpIndexTask"
              classpath="${repo.root}/DeveloperSupport/scripts/JavaDeveloperSupport/dist_files/DeveloperSupport.jar"/>
@@ -65,10 +62,10 @@
                        replace="&lt;span class=&quot;version&quot;&gt;${Version}&lt;/span&gt;"/>
         <replaceregexp file="${repo.root}/Website/.htaccess"
                        match="Redirect permanent /dist/JPhotoTagger-setup.exe.*"
-                       replace="Redirect permanent /dist/JPhotoTagger-setup.exe http://jphototagger.googlecode.com/files/JPhotoTagger-setup-${Version}.exe"/>
+                       replace="Redirect permanent /dist/JPhotoTagger-setup.exe http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-setup-${Version}.exe/download"/>
         <replaceregexp file="${repo.root}/Website/.htaccess"
                        match="Redirect permanent /dist/JPhotoTagger.zip.*"
-                       replace="Redirect permanent /dist/JPhotoTagger.zip   http://jphototagger.googlecode.com/files/JPhotoTagger-${Version}.zip"/>
+                       replace="Redirect permanent /dist/JPhotoTagger.zip   http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-${Version}.zip/download"/>
         <replaceregexp file="InnoSetup/JPhotoTagger.iss"
                        encoding="Cp1252"
                        match="AppVerName=.*"
@@ -120,7 +117,7 @@
 
     <target name="5-upload">
         <echo message="Uploading JPhotoTagger Distribution"/>
-        <antcall target="-upload-gc"/>
+        <antcall target="-upload-sourceforge"/>
         <antcall target="-create-html-manual-index"/>
         <antcall target="-upload-website"/>
     </target>
@@ -129,34 +126,6 @@
         <echo message="Creating HTML index of JPhotoTagger HTML manual"/>
         <property name="file" location="${repo.root}/Program/src/org/jphototagger/program/resource/doc/de/contents.xml"/>
         <htmlmanualindex helpcontentfile="${file}"/>
-    </target>
-
-    <target name="-upload-gc">
-        <!--${username} and ${password} will be read from googlecode.properties,
-            ${Version} from Version.properties
-        -->
-        <property file="${private.confdir}/googlecode.properties"/>
-        <property name="dist.src" location="${repo.root}/dist_files/upload"/>
-        <gcupload
-            projectname="jphototagger"
-            username="${username}"
-            password="${password}"
-            filename="${dist.src}/JPhotoTagger.zip"
-            targetfilename="JPhotoTagger-${Version}.zip"
-            summary="JPhotoTagger Version ${Version} - System independent ZIP archive"
-            verbose="true"
-            labels="photomanager, tagging, xmp, java"
-        />
-        <gcupload
-            projectname="jphototagger"
-            username="${username}"
-            password="${password}"
-            filename="${dist.src}/JPhotoTagger-setup.exe"
-            targetfilename="JPhotoTagger-setup-${Version}.exe"
-            summary="JPhotoTagger Version ${Version} - Windows Installer"
-            verbose="true"
-            labels="photomanager, tagging, xmp, java"
-        />
     </target>
 
     <target name="-upload-sourceforge">
