@@ -130,9 +130,9 @@ public final class FavoritesTreeModel extends DefaultTreeModel implements TreeWi
 
     @SuppressWarnings("unchecked")
     private void resetFavoriteIndices() {
+        int newIndex = 0;
         for (Enumeration<DefaultMutableTreeNode> children = rootNode.children(); children.hasMoreElements();) {
             Object userObject = children.nextElement().getUserObject();
-            int newIndex = 0;
             if (userObject instanceof Favorite) {
                 Favorite fav = (Favorite) userObject;
                 fav.setIndex(newIndex);

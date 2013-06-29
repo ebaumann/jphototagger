@@ -1,2 +1,2 @@
-Redirect permanent /dist/JPhotoTagger-setup.exe http://jphototagger.googlecode.com/files/JPhotoTagger-setup-0.32.11.exe
-Redirect permanent /dist/JPhotoTagger.zip   http://jphototagger.googlecode.com/files/JPhotoTagger-0.32.11.zip
+Redirect permanent /dist/JPhotoTagger-setup.exe http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-setup-0.32.12.exe/download
+Redirect permanent /dist/JPhotoTagger.zip   http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-0.32.12.zip/download
