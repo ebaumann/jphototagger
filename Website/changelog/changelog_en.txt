@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.12 2013-06-29
+------------------
+
+* Bugfix: Deleting a Favorite could change the sort order of Favorites
+
 0.32.11 2013-05-31
 ------------------
 

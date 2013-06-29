@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.12 2013-06-29
+------------------
+
+* Bugfix: Löschen eines Favoriten konnte die Sortier-Reihenfolge
+  der Favoriten verändern
+
 0.32.11 2013-05-31
 ------------------
 
