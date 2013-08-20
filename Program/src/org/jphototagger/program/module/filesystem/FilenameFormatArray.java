@@ -115,6 +115,9 @@ public final class FilenameFormatArray {
         } else if (format instanceof FilenameFormatDate) {
             FilenameFormatDate f = (FilenameFormatDate) format;
             f.setDelimiter(template.getDateDelimiter());
+        } else if (format instanceof FilenameFormatDateTime) {
+            FilenameFormatDateTime f = (FilenameFormatDateTime) format;
+            f.setDelimiter(template.getDateDelimiter());
         }
         return format;
     }

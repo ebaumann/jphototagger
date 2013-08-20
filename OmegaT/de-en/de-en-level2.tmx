@@ -3142,6 +3142,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Aufnahmedatum mit Uhrzeit</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130820T184956Z">
+        <seg>Date and Time taken</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Aufnahmedatum/Uhrzeit</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -13264,10 +13272,10 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Trenn&amp;zeichen zwischen Jahr/Monat/Tag:</seg>
+        <seg>Trenn&amp;zeichen zwischen Jahr/Monat/Tag und Stunden/Minuten/Sekunden:</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Se&amp;parator between year/month/day (empty: nothing):</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20130820T185300Z">
+        <seg>Se&amp;parator between year/month/day and hours/minutes/seconds::</seg>
       </tuv>
     </tu>
     <tu>
