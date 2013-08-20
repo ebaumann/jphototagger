@@ -3314,6 +3314,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Aufnahmedatum mit Uhrzeit</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130820T184956Z">
+        <seg>Date and Time taken</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Aufnahmedatum/Uhrzeit</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -13788,6 +13796,22 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Transfer function</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Trenn&amp;zeichen zwischen Jahr/Monat/Tag und Stunde/Minuten/Sekunden:</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130820T185057Z">
+        <seg>Delimiter between year/month/day and hours/minutes/seconds:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Trenn&amp;zeichen zwischen Jahr/Monat/Tag und Stunden/Minuten/Sekunden:</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130820T185300Z">
+        <seg>Se&amp;parator between year/month/day and hours/minutes/seconds::</seg>
       </tuv>
     </tu>
     <tu>

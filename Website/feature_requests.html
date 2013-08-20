@@ -45,18 +45,24 @@
         <h1>Feature Requests</h1>
 
         <p><strong>P</strong> is the priority, where <strong>L</strong> means low, <strong>M</strong> medium
-            and <strong>H</strong> high. Realized Feature Requests will be deleted from this list.</p>
+            and <strong>H</strong> high.</p>
 
 		<h2>Requests</h2>
 
         <ul>
-            <li>2013-08-19: Adding optional hours/minutes/seconds/milliseconds to Rename Templates P:M</li>
             <li>2013-02-04: Hierarchical keywords P:L</li>
         </ul>
 
 		<h2>Done</h2>
 
+        <p><strong>V</strong> is the version when the feature was released;
+            <strong>R</strong> is the date of the feature request.</p>
+
 		<ul>
+            <li>V: 0.32.13, R: 2013-08-19: Adding optional hours/minutes/seconds/milliseconds to Rename Templates.
+                Millicseconds can't be realized, because the EXIF tag <code>DateTimeOriginal</code>,
+                which format is <code>"YYYY:MM:DD HH:MM:SS"</code>, does not contain milliseconds.
+            </li>
             <li>2013-01-19: Option for displaying additional images of all subfolders when selecting a folder within the directories tab</li>
             <li>2013-01-08: Adding additional (to XMP sidecars) customizable user defined suffixes to InfoOfSelectedThumbnailPanel</li>
             <li>2013-01-08: Option to choose target directory for downloads of newer Versions</li>

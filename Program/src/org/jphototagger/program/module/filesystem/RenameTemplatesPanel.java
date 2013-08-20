@@ -71,6 +71,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         model.addElement(new FilenameFormatNumberSequence(1, 1, 4));
         model.addElement(new FilenameFormatFileName());
         model.addElement(new FilenameFormatDate("-"));
+        model.addElement(new FilenameFormatDateTime("-"));
         model.addElement(new FilenameFormatEmptyString());
         return model;
     }
@@ -243,6 +244,9 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
             f.setCountDigits((Integer) spinnerNumberCount.getValue());
         } else if (format instanceof FilenameFormatDate) {
             FilenameFormatDate f = (FilenameFormatDate) format;
+            f.setDelimiter(getDateDelimiter());
+        } else if (format instanceof FilenameFormatDateTime) {
+            FilenameFormatDateTime f = (FilenameFormatDateTime) format;
             f.setDelimiter(getDateDelimiter());
         }
     }
