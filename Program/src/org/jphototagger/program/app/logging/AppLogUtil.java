@@ -19,7 +19,7 @@ public final class AppLogUtil {
 
     public static void logSystemInfo() {
         StringBuilder sb = new StringBuilder();
-        sb.append(LINE_SEP).append("JPhotoTagger " + AppInfo.APP_VERSION);
+        sb.append(LINE_SEP).append("JPhotoTagger ").append(AppInfo.APP_VERSION);
         sb.append(SystemProperties.systemInfoToString());
         sb.append(LINE_SEP);
         sb.append(getPreferences());
