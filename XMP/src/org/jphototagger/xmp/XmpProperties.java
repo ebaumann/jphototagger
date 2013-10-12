@@ -28,9 +28,14 @@ public final class XmpProperties {
 
     public enum Namespace {
 
-        CAMERA_RAW(XMPConst.NS_CAMERARAW, "crs"), DUBLIN_CORE(XMPConst.NS_DC, "dc"), EXIF(XMPConst.NS_EXIF, "exif"),
-        IPTC_CORE(XMPConst.NS_IPTCCORE, "Iptc4xmpCore"), LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),
-        PHOTOSHOP(XMPConst.NS_PHOTOSHOP, "photoshop"), TIFF(XMPConst.NS_TIFF, "tiff"),
+        CAMERA_RAW(XMPConst.NS_CAMERARAW, "crs"),
+        DUBLIN_CORE(XMPConst.NS_DC, "dc"),
+        EXIF(XMPConst.NS_EXIF, "exif"),
+        HIERARCHICAL_KEYWORDS("http://www.metadataworkinggroup.com/schemas/keywords/", "mwg-kw"),
+        IPTC_CORE(XMPConst.NS_IPTCCORE, "Iptc4xmpCore"),
+        LIGHTROOM("http://ns.adobe.com/lightroom/1.0/", "lr"),
+        PHOTOSHOP(XMPConst.NS_PHOTOSHOP, "photoshop"),
+        TIFF(XMPConst.NS_TIFF, "tiff"),
         XMP_BASIC(XMPConst.NS_XMP, "xap"),;
         private final String uri;
         private final String prefix;
@@ -159,6 +164,8 @@ public final class XmpProperties {
         try {
             XMPMetaFactory.getSchemaRegistry().registerNamespace(Namespace.LIGHTROOM.getUri(),
                     Namespace.LIGHTROOM.getPrefix());
+            XMPMetaFactory.getSchemaRegistry().registerNamespace(Namespace.HIERARCHICAL_KEYWORDS.getUri(),
+                    Namespace.HIERARCHICAL_KEYWORDS.getPrefix());
         } catch (Throwable t) {
             Logger.getLogger(XmpProperties.class.getName()).log(Level.SEVERE, null, t);
         }
