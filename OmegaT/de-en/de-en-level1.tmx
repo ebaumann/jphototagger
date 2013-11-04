@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tmx SYSTEM "tmx11.dtd">
 <tmx version="1.1">
-  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="2.5.5_4" segtype="sentence" srclang="DE"/>
+  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="2.6.3_5" segtype="sentence" srclang="DE"/>
   <body>
 <!-- Default translations -->
     <tu>
@@ -2210,6 +2210,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>&lt;html&gt;Find images containing &lt;strong&gt;all&lt;/strong&gt; of these keywords&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&lt;html&gt;Fügt unbekannte Stichwörter automatisch in den Stichwortbaum ein,&lt;br/&gt;die im Bearbeiten-Kartenreiter eingegeben oder aus XMP-Dateien gelesen werden.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20131104T174021Z">
+        <seg>&lt;html&gt;Automatically adds unknown keywords to the keywords tree,&lt;br/&gt;which were input into the Edit tab or read from XMP files.</seg>
       </tuv>
     </tu>
     <tu>
@@ -13380,6 +13388,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Unknown</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Unbekannte Stichwörter automatisch hinzufügen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20131104T174041Z">
+        <seg>Automatically add unknown keywords</seg>
       </tuv>
     </tu>
     <tu>

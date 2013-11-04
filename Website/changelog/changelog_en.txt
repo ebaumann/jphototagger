@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.14 2013-11-04
+------------------
+
+* Added option to disable automatic population of the Hierarchical
+  keywords tree when adding a keyword to an image e.g. through the
+  edit panel: Edit > Settings > 6. Miscellaneous > Keywords Tree:
+  Automatically update Keywords Tree.
+
 0.32.13 2013-08-20
 ------------------
 

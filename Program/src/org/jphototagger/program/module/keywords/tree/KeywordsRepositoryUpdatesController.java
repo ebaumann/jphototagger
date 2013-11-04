@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.KeywordsRepository;
@@ -33,12 +34,37 @@ public final class KeywordsRepositoryUpdatesController {
         AnnotationProcessor.process(this);
     }
 
-    @SuppressWarnings("unchecked")
-    private void addNotExistingKeywords(Xmp xmp) {
-        Object o = xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
+    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
+    public void xmpUpdated(XmpUpdatedEvent evt) {
+        if (isAutoInsertKeywords()) {
+            addNotExistingKeywords(evt.getUpdatedXmp());
+        }
+    }
 
-        if (o instanceof List<?>) {
-            addNotExistingKeywords((List<String>) o);
+    @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
+    public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
+        if (isAutoInsertKeywords()) {
+            addNotExistingKeywords(Collections.singleton(evt.getDcSubject()));
+        }
+    }
+
+    @EventSubscriber(eventClass = XmpInsertedEvent.class)
+    public void xmpInserted(XmpInsertedEvent evt) {
+        if (isAutoInsertKeywords()) {
+            addNotExistingKeywords(evt.getXmp());
+        }
+    }
+
+    private boolean isAutoInsertKeywords() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return !prefs.containsKey(KeywordsTreePreferencesKeys.KEY_AUTO_INSERT_UNKNOWN_KEYWORDS)
+                || prefs.getBoolean(KeywordsTreePreferencesKeys.KEY_AUTO_INSERT_UNKNOWN_KEYWORDS);
+    }
+
+    private void addNotExistingKeywords(Xmp xmp) {
+        Object xmpValue = xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
+        if (xmpValue instanceof List<?>) {
+            addNotExistingKeywords((List<String>) xmpValue);
         }
     }
 
@@ -52,28 +78,11 @@ public final class KeywordsRepositoryUpdatesController {
 
     private void addKeyword(final String keyword) {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 KeywordsTreeModel model = ModelFactory.INSTANCE.getModel(KeywordsTreeModel.class);
-
                 model.insert((DefaultMutableTreeNode) model.getRoot(), keyword, true, false);
             }
         });
     }
-
-    @EventSubscriber(eventClass = XmpUpdatedEvent.class)
-    public void xmpUpdated(XmpUpdatedEvent evt) {
-        addNotExistingKeywords(evt.getUpdatedXmp());
     }
-
-    @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
-    public void dcSubjectInserted(DcSubjectInsertedEvent evt) {
-        addNotExistingKeywords(Collections.singleton(evt.getDcSubject()));
-    }
-
-    @EventSubscriber(eventClass = XmpInsertedEvent.class)
-    public void xmpInserted(XmpInsertedEvent evt) {
-        addNotExistingKeywords(evt.getXmp());
-    }
-}
