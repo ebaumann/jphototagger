@@ -1,4 +1,4 @@
-Zeichenkodierung dieser Datei: UTF-8
+﻿Zeichenkodierung dieser Datei: UTF-8
 
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
@@ -6,11 +6,11 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.14 2013-11-04
 ------------------
 
-* Option hinzugefÃ¼gt zum Deaktivieren des automatischen HinzufÃ¼gens
-  unbekannter StichwÃ¶rter in den Stichwortbaum z.B. nach Eingabe in
+* Option hinzugefügt zum Deaktivieren des automatischen Hinzufügens
+  unbekannter Stichwörter in den Stichwortbaum z.B. nach Eingabe in
   das Bearbeiten-Tab oder beim Einlesen von XMP-Dateien:
   Bearbeiten > Einstellungen > 6. Sonstiges > Stichwortbaum:
-  Unbekannte StichwÃ¶rter automatisch hinzufÃ¼gen.
+  Unbekannte Stichwöter automatisch hinzufügen.
 
 0.32.13 2013-08-20
 ------------------
