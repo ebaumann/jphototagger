@@ -29,7 +29,8 @@ public final class ImageCollectionsUtil {
                 if (selectedValue != null) {
                     ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
                     List<File> selectedFiles = tnPanel.getSelectedFiles();
-                    if (deleteImagesFromCollection(selectedValue.toString(), selectedFiles)) {
+                    String collectionName = ImageCollection.getLocalizedName(selectedValue.toString());
+                    if (deleteImagesFromCollection(collectionName, selectedFiles)) {
                         tnPanel.removeFiles(selectedFiles);
                     }
                 } else {
