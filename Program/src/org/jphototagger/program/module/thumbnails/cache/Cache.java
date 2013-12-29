@@ -1,8 +1,8 @@
 package org.jphototagger.program.module.thumbnails.cache;
 
 import java.io.File;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 
 /**
@@ -14,7 +14,7 @@ public abstract class Cache<CI extends CacheIndirection> {
 
     private static final int MAX_ENTRIES = 1500;
     private static int currentAge = 0;
-    final Set<ThumbnailUpdateListener> updateListeners = new HashSet<>();
+    final Set<ThumbnailUpdateListener> updateListeners = new CopyOnWriteArraySet<>();
     protected final WorkQueue<CI> workQueue = new WorkQueue<>();
     /**
      * Mapping from file to all kinds of cached data
