@@ -12,10 +12,10 @@ import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
  */
 public abstract class Cache<CI extends CacheIndirection> {
 
-    static int currentAge = 0;
     private static final int MAX_ENTRIES = 1500;
+    private static int currentAge = 0;
     final Set<ThumbnailUpdateListener> updateListeners = new HashSet<>();
-    protected WorkQueue<CI> workQueue = new WorkQueue<>();
+    protected final WorkQueue<CI> workQueue = new WorkQueue<>();
     /**
      * Mapping from file to all kinds of cached data
      */
@@ -28,7 +28,6 @@ public abstract class Cache<CI extends CacheIndirection> {
         if (ci == null) {
             throw new NullPointerException("ci == null");
         }
-
         ci.usageTime = currentAge++;
     }
 
@@ -36,7 +35,6 @@ public abstract class Cache<CI extends CacheIndirection> {
         if (_listener == null) {
             throw new NullPointerException("_listener == null");
         }
-
         updateListeners.add(_listener);
     }
 
@@ -44,7 +42,6 @@ public abstract class Cache<CI extends CacheIndirection> {
         if (_listener == null) {
             throw new NullPointerException("_listener == null");
         }
-
         updateListeners.remove(_listener);
     }
 
@@ -58,26 +55,23 @@ public abstract class Cache<CI extends CacheIndirection> {
         if (fileCache.containsKey(file)) {
             return;
         }
-
         generateEntry(file, true);
     }
 
-    public synchronized void updateFiles(File oldFile, File newFile) {
-        if (oldFile == null) {
-            throw new NullPointerException("oldFile == null");
+    public void updateFiles(File oldFile, File newFile) {
+        synchronized (this) {
+            if (oldFile == null) {
+                throw new NullPointerException("oldFile == null");
+            }
+            if (newFile == null) {
+                throw new NullPointerException("newFile == null");
+            }
+            CI sci = fileCache.remove(oldFile);
+            if (sci != null) {
+                sci.file = newFile;
+                fileCache.put(newFile, sci);
+            }
         }
-
-        if (newFile == null) {
-            throw new NullPointerException("newFile == null");
-        }
-
-        CI sci = fileCache.remove(oldFile);
-
-        if (sci != null) {
-            sci.file = newFile;
-            fileCache.put(newFile, sci);
-        }
-
         notifyUpdate(oldFile);
     }
 
@@ -85,7 +79,6 @@ public abstract class Cache<CI extends CacheIndirection> {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         fileCache.remove(file);
     }
 
