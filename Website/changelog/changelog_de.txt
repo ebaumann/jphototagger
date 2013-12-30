@@ -3,6 +3,11 @@
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.15 2013-12-30
+------------------
+
+* Bugfix: Deadlock beim Verschieben von Dateien via Drag&Drop
+
 0.32.14 2013-11-04
 ------------------
 
