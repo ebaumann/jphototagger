@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>How to distribute JPhotoTagger</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="date" content="2010-01-29T19:00:15+01:00" />
+	<meta http-equiv="content-language" content="en" />
+	<link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+	<link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+</head>
+<body>
+
+<div id="page">
+    <div id="sitenav">
+        <h2>Navigate</h2>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../download.html">Download</a></li>
+            <li><a href="../features.html">Features</a></li>
+            <li><a href="../system_req.html">System requirements</a></li>
+            <li><a href="../screenshots/index.html">Screenshots</a></li>
+            <li><a href="../usr/index.html">Users</a></li>
+            <li><a href="index.html">Developers</a></li>
+        </ul>
+        <h2>Discussion</h2>
+        <ul>
+            <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+            <li><a href="https://groups.google.com/group/jphototagger-users-english">Users English Language</a></li>
+            <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+        </ul>
+        <h2>Tracking</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+        </ul>
+        <h2>Repository</h2>
+        <ul>
+            <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+        </ul>
+    </div><!--sitenav-->
+    <div id="content">
+
+        <h1>How to distribute JPhotoTagger</h1>
+
+        <p>A <strong>JPhotoTagger</strong> distribution consists of:
+		</p>
+
+		<ul>
+			<li>A platform independend ZIP file containing JPhotoTagger's JAR files,
+                PDF manual, external scripts etc. The PDF manual will be created
+                automatically from JPhotoTagger's internal HTML help pages.
+            </li>
+            <li>A Windows setup (EXE) file, which contains the same content as the
+                ZIP file and installs JPhotoTagger (integrates it into the software
+                control panel and provides an unistall routine)
+            </li>
+            <li>Up to date version information file <code>jphototagger-version.txt</code>;
+                JPhotoTagger's auto update checks it for newer versions</li>
+			<li>Up to date <a href="../download.html">download web page</a>
+  			     containing JPhotoTagger's current version and the current date in the HTML head.
+                 A HTML index page will be created, linking to JPhotoTagger's internal
+                 HTML help pages, which will be transferred to the web site along with
+                 the HTML help pages.
+            </li>
+			<li>Up to date <code>.htaccess</code> file, which redirects from the download
+                web page to the current download location
+            </li>
+		</ul>
+
+		<p>Everything is done automatically through the <a href="http://ant.apache.org/">Ant</a>
+		   file <code>distribute.xml</code> within the repository root, subdirectory
+		   <code>DeveloperSupport/scripts</code>. Each task can be executed separately by
+		   calling an appropriate Ant target or completely by the <strong>0-all</strong> target.
+		</p>
+
+        <p>Some targets reading private properties from property files in
+            <code>DeveloperSupport/conf</code>, which may differ from system
+            to system and excluded from version control. They must exist and
+            containing the key value pairs as described below:
+        </p>
+
+        <ul>
+            <li><code>googlecode.properties</code> with the keys
+                <code>username</code> and <code>password</code>
+                (login data, <em>not</em> very secure, restrict access!)
+            </li>
+            <li><code>innosetup.properties</code> with the key <code>compil32.exe</code>
+                (file path to Inno Setup compiler, e.g. <code>C:\\Program Files\\InnoSetup\\Compil32.exe</code>)
+            </li>
+            <li><code>website.properties</code> with the keys <code>server</code>
+                (JPhotoTagger's web site server), <code>user</code> and <code>pass</code>
+                (login data, <em>not</em> very secure, restrict access!)
+            </li>
+        </ul>
+
+		<p>To create the Windows setup EXE file, <a href="http://www.jrsoftware.org/isinfo.php">Inno Setup</a>
+		is required.
+		</p>
+
+		<p>If all files are created or modified, they will be uploaded to the correct places,
+		currently the ZIP and setup EXE file to
+        <a href="https://code.google.com/p/jphototagger/downloads/list">Google Code</a>
+		and the other files to <a href="http://jphototagger.org/">JPhotoTagger.org</a>.
+		</p>
+
+        <p><strong>Author:</strong>
+            <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20Discussion">Write e-Mail</a>
+            <br /><strong>Status of this document:</strong> 2013-02-08
+        </p>
+
+    </div><!--content-->
+</div><!--page-->
+</body>
+</html>

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/synonyms.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE synonyms SYSTEM "synonyms.dtd">
+
+    <synonyms>
+    ...
+    </synonyms>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT synonyms (entry)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT entry (word, synonym+)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT word (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT synonym (#PCDATA)>

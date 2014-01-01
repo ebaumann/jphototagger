@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Behandlung von Stichworthierarchien</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Behandlung von Stichworthierarchien</h1>
+
+        <p><strong>JPhotoTagger</strong> kennt keine Stichworthierarchien. Fügen
+            Sie einem Bild ein Stichwort aus dem Stichwortbaum hinzu, werden
+            dieses und seine übergeordneten Stichwörter als unabhängige
+            (&quot;gleichwertige&quot;, &quot;flache&quot;) Stichwörter
+            hinzugefügt.
+        </p>
+
+        <p>Wählen Sie im linken Baum ein Stichwort aus, wird durch einen
+            &quot;Trick&quot; dessen Hierarchie berücksichtigt: Gezeigt werden
+            alle Bilder, die das Stichwort und alle dessen übergeordnete
+            Stichwörter enthalten. Das ist vermutlich in den meisten Fällen
+            korrekt, aber nicht garantiert.
+        </p>
+
+        <p>Ein Ziel von <strong>JPhotoTagger</strong> ist, austauschbar zu sein
+            mit anderen Programmen, was (offene) Standards erfordert. Es gibt
+            noch keinen XMP-Standard für hierarchische Stichwörter. Speicherte
+            <strong>JPhotoTagger</strong> Stichwörter hierarchisch in die
+            XMP-Filialdateien, wäre es so gut wie sicher, dass kein anderes
+            Programm damit etwas anfangen kann (anfangen will). Es wäre auch
+            möglich, für jedes verbreitete Programm Stichwörter in dessen Format
+            abzuspeichern, beispielsweise für <strong>Adobe Photoshop
+            Lightroom</strong> (zurzeit das einzige, das hierarchische
+            Stichwörter in XMP-Dateien speichert, jedoch nicht unterscheidet
+            zwischen echten und Hilfsstichwörtern). Dies wäre redundant (das
+            heißt: Platz verschwendend, fehleranfällig und nicht
+            &quot;elegant&quot;) und für das <strong>JPhotoTagger</strong>-Team,
+            das in seiner Freizeit programmiert, zu arbeitsaufwändig.
+        </p>
+
+    </body>
+</html>

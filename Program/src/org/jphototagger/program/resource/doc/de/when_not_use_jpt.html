@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Wann ist JPhotoTagger für Sie nicht geeignet?</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Wann ist JPhotoTagger für Sie nicht geeignet?</h1>
+
+        <p>Ob <strong>JPhotoTagger</strong> für Sie das richtige Programm ist, können
+            Sie durch Benutzung entscheiden. In folgenden Fällen ist ein anderes
+            Programm vielleicht geeigneter für Ihre Zwecke:
+        </p>
+
+        <ul>
+            <li>Sie haben RAW-Dateien, die JPhotoTagger nicht kennt und wollen keine Zeit investieren, ein
+                benutzerdefiniertes Skript zum Erzeugen der Vorschaubilder
+                <a href="settings_thumbnails.html">auszuwählen</a>, das könnte
+                mit der Zusatzarbeit verbunden sein, Programme herunterzuladen und
+                zu installieren.
+            </li>
+            <li>Sie wollen ein &quot;Datenbankprogramm&quot;. <strong>JPhotoTagger</strong>
+                benutzt die Datenbank nur zum schnellen Auffinden der Bilder nach
+                verschiedenen Kriterien wie Stichwörter oder Kameramodell. Sie können
+                die Datenbank jederzeit löschen, anhand der XMP-Filialdateien und
+                EXIF-Daten der Bilder wird eine &quot;leere&quot; Datenbank aktualisiert.
+            </li>
+            <li><strong>JPhotoTagger</strong> kann die EXIF-Daten Ihrer RAW-Dateien nicht
+                lesen und Ihnen sind die Daten darin wichtig, da Sie zum Beispiel
+                wissen wollen, welche Bilder Sie mit ISO 400 fotografierten
+            </li>
+            <li>Sie wollen keine XMP-Filialdateien in den Bildordnern
+            </li>
+            <li>Sie wollen Bilder finden, die auf unterschiedlichen &quot;Wechseldatenträgern&quot;
+                gespeichert sind und die eventuell den gleichen Laufwerksbuchstaben (Mountpoint)
+                haben, sich nur durch Datenträgerbezeichnungen oder anderen
+                hardware-abhängigen Identifikatoren unterscheiden, beispielsweise auf
+                mehrere externe Festplatten oder verschiedene DVDs. Insbesondere ist
+                <strong>JPhotoTagger</strong> wenig geeignet, Bilder auf CDs/DVDs/blu-Rays
+                zu &quot;archivieren&quot;.
+            </li>
+        </ul>
+
+        <h2>Probleme bei RAW- und JPEG-Dateien gleichen Basisnamens im gleichen Ordner</h2>
+
+        <p>Gibt es in einem Ordner Bilder gleichen Namens und nur die Endung unterscheidet
+            sich, kann <strong>JPhotoTagger</strong> keine eindeutigen Filialdateien schreiben.
+            Heißt im gleichen Ordner ein Bild <code>img_01.cr2</code> und ein anderes
+            <code>img_01.jpg</code>, würde für <em>beide</em> die Filialdatei <code>img_01.xmp</code>
+            heißen und das ist problematisch. XMP-Filialdateien werden so benannt, damit
+            sie <strong>kompatibel</strong> sind zu anderen Programmen.
+        </p>
+
+        <p>Sie können <strong>JPhotoTagger</strong> so einstellen, dass dies keine Probleme bereitet,
+            wobei aber vermutlich andere Programme die Filialdatei nicht mehr finden:
+            <a href="settings_misc.html">Einstellungen, Kartenreiter &quot;Sonstiges&quot;</a>:
+            <strong>Lange XMP-Filialdateinamen benutzen</strong>.
+        </p>
+
+        <p>Sie können die auch JPEG-Bilder in einen Unterordner zu speichern, beispielsweise könnten Sie in
+            allen Bildordnern einen Ordner <code>Bearbeitet</code> anlegen, in dem Sie
+            Ihre JPEG-Bilder speichern. Im Grunde sind JPEG-Bilder, die die Kamera im
+            Modus RAW+JPEG schreibt, nichts anderes als bearbeitete RAW-Bilder, die
+            Kamera benutzt dazu einen bestimmten Algorithmus, beispielsweise lassen sich
+            bei einigen Kameras &quot;Landschaft&quot; oder &quot;Porträts&quot; einstellen.
+            Diese Einstellungen verändern <em>nicht</em> das RAW-Bild, es wird nur ein
+            anderer Algorithmus benutzt zum Erzeugen des JPEG-Bilds. Bei einigen Kameras
+            lassen sich solche Verarbeitungsalgorithmen selbst erstellen und einspeichern,
+            zum Beispiel bei der (betagteren) Nikon D300.
+        </p>
+
+        <h2>Probleme bei Vorschaubildern von RAW-Dateien</h2>
+
+        <p><strong>JPhotoTagger</strong> kann mangels existierender <em>gebrauchstauglicher</em>
+            (ausreichend schnell, den Arbeitsspeicher schonend, &quot;ausreichende&quot; Qualität)
+            freier Java-Biblitheken zum Verarbeiten von RAW-Formaten keine Vorschaubilder
+            von RAW-Dateien erzeugen (und mir fehlt die Zeit, das nachzuholen; wäre dies
+            einfach und schnell zu programmieren, gäbe es nicht wenige
+            Java-RAW-Konverter-Bibliotheken sondern sehr viele). Ein weiteres
+            Problem ist, dass jeder Kamerahersteller eigene RAW-Formate benutzt, für
+            unterschiedliche Kameras des gleichen Herstellers können diese variieren.
+        </p>
+
+        <p>Aus diesem Grund bietet <strong>JPhotoTagger</strong> an, Skripte und
+            Programme aufzurufen, die RAW-Dateien verarbeiten können. Falls Sie
+            <strong>JPhotoTagger</strong> benutzen wollen, müssen Sie unter Umständen
+            erst diese Programme installieren, die Schaltfläche <strong>Auswählen</strong>
+            für vorgefertigte Skripte enthält Links zu den Download-Seiten. Das kostet
+            einige Zeit, die Sie vielleicht nicht investieren möchten, außerdem gibt es
+            folgendes Problem: Funktioniert ein Skript nicht, kann es schwierig bis
+            unmöglich werden, die Ursache herauszufinden.
+        </p>
+
+        <p>Für einige Betriebssysteme gibt benutzt <strong>JPhotoTagger</strong>
+            <strong>dcraw</strong> (http://www.cybercom.net/~dcoffin/dcraw/), aktuell
+            für Windows 32 Bit, Windows 64 Bit und Linux 32 Bit. Für Erweiterungen
+            bin ich auf Benutzer angewiesen, die mir
+            kompilierte <strong>dcraw</strong>-Versionen liefern und testen,
+            ob <strong>JPhotoTagger</strong> diese richtig benutzt.
+        </p>
+
+        <h2>Datenbank und XMP-Filialdateien</h2>
+
+        <p>Der Gedanke hinter den XMP-Filialdateien ist: Sie sollen Ihre Bilder auch mit
+            anderen Programmen verwalten können ohne Zusatzaufwand. Außerdem ist
+            so ein Verlust oder Defekt der Datenbank kein großes Problem. Auch
+            falls Sie Ihre Bilder außerhalb <strong>JPhotoTagger</strong> verschieben/umbenennen
+            &ndash; sofern Sie die XMP-Filialdateien mit verschieben/umbenennen &ndash; ist dies kein
+            Problem: Sobald Sie den (neuen) Ordner mit den Bildern auswählen, kennt
+            <strong>JPhotoTagger</strong> diese inklusive der Metadaten (Stichwörter etc.).
+            Außerdem müssen Backups nicht zum Teil riesige Bilder sichern
+            beim Ändern von Stichwörtern etc., sondern nur kleine XMP-Textdateien.
+            Der Nachteil ist, dass es weitere Dateien im gleichen Ordner gibt, an die
+            beim Kopieren (Sichern), Verschieben und Umbenennen zu denken ist.
+            <strong>JPhotoTagger</strong> berücksichtigt bei Dateioperationen die
+            XMP-Filialdateien automatisch.
+        </p>
+
+        <p>Für <strong>JPhotoTagger</strong> ist die Datenbank nur wichtig, damit es
+            Bilder anhand derer Metadaten finden kann. Sie ist <em>nicht</em> Grundlage der Metadaten, dies
+            sind die XMP-Filialdateien. Der Vorteil ist nicht nur, dass bei Verlust/Defekt
+            der Datenbank Ihre Metdaten nicht verloren sind, Sie haben auch keine
+            &quot;Datenbankverwaltung&quot; zu leisten: Es ist nicht erforderlich, Bilder
+            in die Datenbank zu &quot;importieren&quot; (nicht importierte wären nicht
+            existent). Sie wählen in <strong>JPhotoTagger</strong> einen Ordner aus und
+            es kennt die Bilder (oder Sie lassen <strong>JPhotoTagger</strong>
+            <a href="settings_tasks.html">automatisch</a> Bilder finden).
+        </p>
+
+    </body>
+</html>

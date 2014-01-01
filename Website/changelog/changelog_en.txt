@@ -1,0 +1,603 @@
+Character encoding of this file: UTF-8
+
+Changelog JPhotoTagger http://jphototagger.org/
+===============================================
+
+0.32.16 2014-01-01
+------------------
+
+* Using Thumbnails database rather than individual files.
+  The older thumbnail files will be inserted into the new
+  database. Depending on the image count this can take a
+  longer time.
+
+0.32.15 2013-12-30
+------------------
+
+* Bugfix: Deadlock when moving files via Drag&Drop
+
+0.32.14 2013-11-04
+------------------
+
+* Added option to disable automatic population of the Hierarchical
+  keywords tree when adding a keyword to an image e.g. through the
+  edit panel: Edit > Settings > 6. Miscellaneous > Keywords Tree:
+  Automatically update Keywords Tree.
+
+0.32.13 2013-08-20
+------------------
+
+* New option when renaming files: "Date and Time taken"
+  (F2 when thumbnails are selected).
+  Time includes hours, minutes and seconds.
+
+0.32.12 2013-06-29
+------------------
+
+* Bugfix: Deleting a Favorite could change the sort order of Favorites
+
+0.32.11 2013-05-31
+------------------
+
+* Bugfix: Fixed IrfanView Slideshow Plugin due Oracle's Changes to the
+  Runtime class' behaviour in JRE 7 Update 21
+  (http://www.oracle.com/technetwork/java/javase/7u21-relnotes-1932873.html#jruntime)
+* Renamed in program's window left tab "Searches" into "Saved Searches"
+
+0.32.10 2013-05-04
+------------------
+
+* Re-arranged tags in Edit tab: image related data first,
+  photographer etc. second
+* Added "City" to Miscellaneous tab
+
+0.32.9 2013-05-03
+-----------------
+
+* Bugfix: Fixed in the "Edit" tab labels for
+  * Country
+  * State
+  * City
+  Previously they were designated as related to the photographer,
+  but they are related to the image's content. Also re-ordered these
+  tags to reflect their geographical hierarchy from top (first level
+  = country) to bottom (third level = city).
+* Tab "Miscellaneous" contains country and state
+* JPhotoTagger creates thumbnails of PNG images (if not an
+  own program/script creates the thumbnails)
+
+0.32.8 2013-04-02
+-----------------
+
+* Bugfix: When exporting the keywords tree into a XML file,
+  parent nodes were exported as child nodes too, e.g.
+  Landscape > Landscape
+            > Woods
+
+0.32.7 2013-02-22
+-----------------
+
+* Windows: Some Look & Feels did ignore localized
+  folder names. They displayed e.g. "Users" instead
+  of "Benutzer" (German locale).
+
+0.32.6 2013-02-19
+-----------------
+
+* Bugfix: A choosen Windows Classic Look & Feel was not
+  restored after restarting JPhotoTagger (Windows only issue)
+
+0.32.5 2013-02-15
+-----------------
+
+* Dialog for importing files suggests up to 10 previous
+  selected source and target folders
+* Confirm message, whether no longer existing folders
+  shall be deleted
+
+0.32.4 2013-02-14
+-----------------
+
+* Bugfix: ISO values and focal lengths less or equal to zero will
+  not be inserted into the database, the same for camera model
+  names with non ASCII characters. If erroneous data shall be fixed,
+  the fastest way is via the tab "Miscellaneous > Technics": Select
+  erroneous ISO values, focal lengths or camera model names, then
+  select the displayed thumbnails, right click and call the context
+  menu item "Refresh > Update metadata". Then you can delete not
+  referenced data: "File > Database > Maintainance: Delete not
+  referenced data (EXIF XMP)"
+* Bugfix: Special Photo Album names ("Previous import", ...) were
+  inserted multiple times into the database and weren't localized.
+  When JPhotoTagger was started first in English and then in
+  German, these special names could appear multiple times.
+
+0.32.3 2013-02-12
+-----------------
+
+* EXIF metadata of Olympus RAW files will be read
+  (tested for OM-D E-M5). To enable this, the suffix "ORF"
+  has to be added as user defined file type
+  (Windows > User defined file types).
+
+0.32.2 2013-02-04
+-----------------
+
+* Bugfix: When updating thumbnails automatically, the thumbnails
+  window does not move to the top position
+  (Bug since Version 0.30.11)
+
+0.32.1 2013-02-02
+-----------------
+
+* Moved English language resources into separate project.
+  This process has been done automatically as far as possible
+  and in the best case, no errors occured. Please report any
+  translation errors. This has two improvements:
+  1. Every non programmer can do the English translation
+     using OmegaT, see http://www.jphototagger.org/dev/translate.html
+  2. For replacing wrong translations or adding a new
+     language, replacing the localized JAR does the job,
+     no complete JPhotoTagger application has to be built
+* Added Look & Feels (only choosabel, if available under
+  the operating system): GTK, Motif, Windows Classic
+* Changing the Look & Feel doesn't require restarting
+  JPhotoTagger
+
+0.32.0 2013-02-01
+-----------------
+
+* Added Option: Menu "View > Display Flag: Sidecar file exists"
+* Bugfix: Moving files could cause a deadlock
+
+0.31.1 2013-01-31
+-----------------
+
+* Bugfix in error log handler
+* Added Look&Feels: Nimbus, JGoodies
+
+0.31.0 2013-01-31
+-----------------
+
+* The look and feel of JPhotoTagger can be modified:
+  Edit > Settings > 6. Miscellaneous > Look and Feel of JPhotoTagger.
+  ATTENTION: The command line option "-cplaf" is dropped.
+  You can choose "Operating system independent", to get the
+  same result.
+
+0.30.11 2013-01-29
+------------------
+
+* The Windows installer tries to start JPhotoTagger
+  in 64 bit mode on 64 bit systems
+* Thumbnails will be updated automatically (without
+  pressing F5) if metadata has been updated for these
+  tabs:
+  * Keywords (list, tree)
+  * Miscellaneous
+  * Without metadata
+  * Timeline
+
+0.30.10 2013-01-28
+------------------
+
+* Renaming files via templates: Dialog has info text,
+  that only files in the same folder can be renamed via
+  file rename templates. Now all files in the same
+  folder can be renamed through file rename templates,
+  regardless the origin, not only from tab "Folders"
+  or "Favorites", but also files e.g. from a selection
+  in the "Keywords" tab.
+
+0.30.9 2013-01-27
+-----------------
+
+* Improved speed of reading folder trees in tabs "Folders"
+  and "Favorites" an in folder selection dialog
+* Verification for Java version 1.7
+
+0.30.8 2013-01-26
+-----------------
+
+* Bugfix: When starting, the program window could be very
+  small if it was below a specific size while quitting
+
+0.30.7 2013-01-25
+-----------------
+
+* Tabs "Folders" and "Favorites":
+  * Drag & Drop: Better Highlighting
+  * Names appears as in Windows Explorer
+
+0.30.6 2013-01-24
+-----------------
+
+* User defined file types: "." (dot) and "-" (dash) are allowed
+* Added to automatically created external thumbnail creation scripts
+  through DCRaw + ImageMagick + MPlayer the file format suffixes
+  FLV, MKV, TS (Videos), BMP, TTF (Image, Font)
+* "Edit Default Programs" dialog displays default program right to
+  the file suffix; a program can be applied to multiple suffixes at
+  once
+* When the GUI was not initialized after starting, the database
+  will be closed and JPhotoTagger exited, to minimize the risk of
+  damaging the database
+
+0.30.5 2013-01-23
+-----------------
+
+* Bugfix: When an user defined file filter was selected in the
+  thumbnails window, problems occured (JPhotoTagger did "hang")
+
+0.30.4 2013-01-22
+-----------------
+
+* Edit > Settings > 6. Miscellaneous: Additional file info:
+  Subfolders can be defined
+* Bugfix: Importing user defined file filters does not
+  try to import the same filter again (update instead).
+  This did lead to a database exception.
+
+0.30.3 2013-01-22
+-----------------
+
+* Automatically saved JPhotoTagger data can be restored
+  through the menu:
+  File > Import > Automatically saved JPhotoTagger data
+
+0.30.2 2013-01-21
+-----------------
+
+* Changed interna while quitting JPhotoTagger
+
+0.30.1 2013-01-21
+-----------------
+
+* Keywords contained in selected images will be highlighted
+  in keywords tabs even if multiple images selected (also
+  modified highlight color)
+* Bugfix: Keyword highlighting recognizes saved modified
+  keywords
+
+0.30.0 2013-01-20
+-----------------
+
+* New button right to fast search textfield: Restore previous
+  selection
+* Drag & Drop in Folders and Favorites Tab doesn't select
+  folders below the mouse pointer: If images in subfolders
+  are displayed this can lead to very long supends and
+  JPhotoTagger seems to "hang"
+
+0.29.0 2013-01-19
+-----------------
+
+* Tabs "Folders" and "Favorites": Checkbox to check, whether
+  images in all subfolders should be displayed too
+* Find duplicates displays text in progress bar
+
+0.28.2 2013-01-14
+-----------------
+
+* Bugfix in "Skip duplicates" while importing images
+
+0.28.2 2013-01-13
+-----------------
+
+* Individual JPhotoTagger-Data will be backed up automatically,
+  see German help for directory paths: "Tipps > Wiederherstellen
+  automatisch gesicherter JPhotoTagger-Daten"
+
+0.28.1 2013-01-11
+-----------------
+
+* Bugfix: File types and file sort filter were not applied
+  correctly at startup
+
+0.28.0 2013-01-08
+-----------------
+
+* New Option when importing Images (File > Import images):
+  Skip duplicates. Identical images in targed folder will
+  not be copied again (from a memory card).
+* When dowloading newer versions the target folder can be choosed
+* In the program window can be displayed, whether selected
+  thumbnails having sidecar files other than .XMP:
+  Edit > Settings > 6. Miscellaneous: Additional file info
+
+0.27.0 2013-01-07
+-----------------
+
+* New in program window menu: Tools > Find duplicate images
+
+0.26.5 2012-10-20
+-----------------
+
+* New Setting: Edit > Preferences > Miscellaneous > Miscellaneous:
+  Enable deleting folders
+* Bugfix: Export/Import of photo albums. Previous exported
+  albums can't be imported, please export them again.
+* The filesystem will be watched only if set:
+  Edit > Settings > 4. Performance: Watch file system.
+  If not watched, added or renamed folders will not
+  appear or deleted not disappear if the changes
+  did occur outside JPhotoTagger. Affected are the
+  tabs Folders and Favorites and the directory (folder)
+  chooser.
+
+0.26.4 2012-10-14
+-----------------
+
+* Reading of EXIF metadata can be suppressed for files with specific suffixes:
+  Edit > Settigns > Miscellaneous > EXIF > Exclude
+
+0.26.3 2012-10-13
+-----------------
+
+* JPhotoTagger now requires Java 7 (1.7)
+* Scripts using ImageMagick, accepting additional DNG files and TIFF files
+  with the suffix ".tiff"
+* Error message icon in program window bottom can be disabled for specific
+  messages: Edit > Settings > Miscellaneous > Logging > Exclude
+
+0.26.2 2012-10-04
+-----------------
+
+* Bugfix: When moving image files, their XMP sidecar files will be moved too
+  again
+
+0.26.1 2012-09-12
+-----------------
+
+* Programs for opening images recognizing Mac OS X applicatins (Suffix ".app")
+* Bugfix: Excluding a root folder within the folders tab is possible
+
+0.26.0 2012-07-05
+-----------------
+
+* Tab EXIF displays two new values:
+  * "Date and time saved", Tag 36868 (9004.H) = DateTimeDigitized.
+    Excerpt from the EXIF 2.2 standard:
+    "The date and time when the image was stored as digital data."
+  * "File change time", Tag 306 = DateTime.
+    Excerpt from the EXIF 2.2 standard:
+    "The date and time of image creation. In this standard it is the date and time the file was changed."
+* If DateTimeOriginal can't be found within the EXIF metadata,
+  JPhotoTagger first looks for DateTimeDigitized, then for DateTime and
+  uses them as date time taken
+* Added Option: Edit > Settings > Performance: Watch file system
+
+0.25.0 2012-06-10
+-----------------
+
+* If the EXIF metadata of an image containing the GPS
+  longitude and latitude, the tab "EXIF" displays a button
+  "OpenStreetMap". It displays the location in a web browser
+  on an OpenStreetMap map.
+* GPS latitude and longitude of the EXIF metadata will be stored
+  into the database for future usage. If anybody wants to read that
+  information from Exif objects through the API, previously the EXIF
+  metadata should be updated once (File > Database > Update >
+  Re-read EXIF...).
+
+0.24.13 2012-06-03
+------------------
+
+* Invalid strings in EXIF metadata will be ignored
+* Automatic generated thumbnail creating scripts using
+  ImageMagick convert recognizing "xcf" files (GIMP)
+* If a thumbnail creating program/script will be killed due
+  timeout, JPhotoTagger updates the corresponding progress bar
+
+0.24.12 2012-05-31
+------------------
+
+* Bugfix: Under Windows programs creating thumbnails could be blocked
+  if they printed long error messages
+
+0.24.11 2012-05-29
+------------------
+
+* New Command line parameter: "-cplaf" (_C_ross _P_latform _L_ook _A_nd
+  _F_eel): Starts JPhotoTagger in Java Look And Feel instead of a Look
+  And Feel similar to the operating system's Look and Feel. See also:
+  http://www.jphototagger.org/manual/de/commandline.html (German language)
+
+0.24.10 2012-05-01
+------------------
+
+* Bugfix: No error message when opening or saving an "Advanced Search"
+  if "Keyword combinations" are used together with "Simple SQL"
+* Brackets in "Simple SQL" of "Advanced Search" are better visible
+* Settings: Regular expressions for files to exclude will be validated
+  before adding them
+* Context menu thumbnails, rotating thumbnails: Renamed "Rotate 270°
+  clockwise" into "Rotate 90° counter clockwise", 180° without
+  direction
+
+0.24.9 2012-04-10
+-----------------
+
+* Export and Import dialog of JPhotoTagger data: Length of
+  displayed folder limited
+
+0.24.8 2012-04-09
+-----------------
+
+* The image file size will be stored into the database
+* Size of windows such as dialogs should not be go below
+  a minimum, so that e.g. all buttons will be displayed
+
+0.24.7 2012-03-22
+-----------------
+
+* Bugfix: Edit > Search (F3) > Simple SQL:
+  Eliminated multiple Joins from the File to the XMP table (Performance)
+* Bugfix: Edit > Search (F3) > Simple SQL:
+  Lens field accepts input
+* Double click on search within the search register opens the advanced
+  search dialog with that search
+
+0.24.6 2012-03-13
+-----------------
+
+* Edit register: Distances between input fields don't grow if
+  the program window gets larger
+* Automatic word collection can be cleared via clear button
+* Word collections can be edited even if no image is selected
+
+0.24.5 2012-03-12
+-----------------
+
+* Folder and Favorites registers updating themselve if
+  a folder was created, renamed or deleted outside of
+  JPhotoTagger
+* Edit > Settings > Thumbnails: Button "Choose"
+  contains dcraw, if JPhotoTagger has dcraw for the specific system
+  (within installation folder: "lib\dcraw\<system specific>\dcraw.exe")
+* Added: Edit > Settings > Miscellaneous > Miscellaneous:
+  Detailedness of the log file with all messages. Standard now is INFO.
+
+0.24.4 2012-03-11
+-----------------
+
+* Every task has it's own progress bar. Until now, all tasks
+  shared the progress bar bottom right in the program window.
+  If more than one task is running at the same time, the
+  additional progress bars can be shown. Every cancelable task
+  has a cancel button near it's progress bar.
+* Modified some interna
+
+0.24.3 2012-03-08
+-----------------
+
+* Within the edit register the keywords list will be
+  resized vertically if necessary and doesn't have
+  scroll bars anymore
+* Added dcraw for 64 Bit Windows
+
+0.24.2 2012-03-05
+-----------------
+
+* Within the edit register the text input fields will be
+  resized vertically if necessary. To achieve that, now their
+  width is fixed. You can change the default width through
+  "Edit > Settings > Miscellaneous > Miscellaneous: Width of
+  the text input fields".
+
+0.24.1 2012-03-04
+-----------------
+
+* JPhotoTagger doesn't offer any longer selecting between
+  the Java Image IO and Imagero in the thumbnail settings
+  (Edit > Settings > Thumbnails).
+  Instead it tries to select automatically the appropriate
+  method.
+  Extraction of embedded thumbnails has been dropped.
+* If an already existing keyword shall be added within
+  the edit register, no error message pops up. Instead
+  it will not be added twice.
+* Keywords overlaying images will be displayed in alphabetical
+  order (View > Overlay Metadata)
+
+0.24.0 2012-03-03
+-----------------
+
+* For some operating systems the RAW converter DCRaw will be
+  installed along with JPhotoTagger, so that under good
+  circumstances JPhotoTagger creates thumbnails from RAW files
+  without the need of defining external scripts/programs. If
+  this automatic does not work, a DCRaw executable can be set
+  manually through
+  Edit > Settings > Thumbnails > Further Settings > DCRaw
+  Currently automatically supported: Windows 32 Bit and Linux 32 Bit
+
+0.23.1 2012-03-01
+-----------------
+
+* JPhotoTagger downloads current versions in future from
+  another server via redirection. Older versions aren't able
+  to load updates automatically (they are not able to follow
+  URL redirections). If you have an older version than 0.23.1
+  please download the current version from
+  http://www.jphototagger.org/download.html
+
+0.23.0 2012-02-28
+-----------------
+
+* While copying, moving, renaming and deleting files, other
+  files with arbitrary suffixes can also be copied, moved,
+  renamed and deleted automatically:
+  Edit > Settings > Miscellaneous > File Hooks > JPhotoTagger Actions
+
+0.22.0 2012-02-26
+-----------------
+
+* New Menu item: File Rename Templates
+  Allows adding/editing/removing File Rename templates
+  without the file rename dialog
+* Dialog for importing images: File Rename Templates
+  can be added and edited
+* Dialog for importing images: Metadata Templates can be added
+  within the input dialog for Metadata Templates
+
+0.21.1 2012-02-23
+-----------------
+
+* Importing images (File > Import Images): If the source and/or
+  target folder doesn't exist, error icons will be displayed.
+  Also the progress bar shouldn't be "freeze" while importing.
+
+0.21.0 2012-02-22
+-----------------
+
+* Added to Export/Import of JPhotoTagger data (File > Export >
+  JPhotoTagger Data, File > Import > JPhotoTagger Data):
+  * User Defined File Types
+  * Word Collections
+
+0.20.1 2012-02-21
+-----------------
+
+* Bugfix Misc Metadata register: If after deleting images
+  some metadata no longer exists, e.g. an ISO value, it will
+  be removed immediately from the register
+
+0.20.0 2012-02-20
+-----------------
+
+* Importing images: Metadata can applied before import
+* Importing images: User templates for renaming files
+  (F2 whithin thumbnails window while one or more images
+  selected, register "Use Template") can be choosen for
+  renaming imported files
+* Bugfix: Renaming/Moving of image files was even buggy
+  (hopefully now it is)
+
+0.19.1 2012-02-19
+-----------------
+
+* Bugfix: Renaming files created orphaned database entries and
+  thumbnails
+* Importing images: Sorting to EXIF date taken before renaming
+
+0.19.0 2012-02-19
+-----------------
+
+* New: Edit > Settings > Open Images: Button "Default Programs".
+  Associates file types to different programs. So on double click
+  a raw converter can be started for a raw file and an image
+  editor for a RGB file
+* New: Edit > Settings > Miscellaneous: Use long XMP sidecar file
+  names, e.g. "image.nef.xmp" instead of "image.xmp"
+* Importing images (File > Import Images): Introduced a filename
+  rename strategy, currently imported images can be automatically
+  renamed into YYYY-MM-DD-<sequence number>.
+  Modified the design of the import dialog.
+
+0.18.0 2012-02-16
+-----------------
+
+* Importing images (File > Import Images): Introduced a subfolder
+  creation strategy, currently year/month/day subfolders of date
+  taken can be created automatically

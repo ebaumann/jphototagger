@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Einstellungen, Kartenreiter &quot;Sonstiges&quot;</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Einstellungen, Kartenreiter &quot;Sonstiges&quot;</h1>
+
+        <h2>Versteckte Ordner einlesen und anzeigen</h2>
+
+        <p>Wollen Sie Bilder archivieren, die in versteckten Ordnern gespeichert
+            sind, kreuzen Sie dieses Kästchen an.
+        </p>
+
+        <h2>Nach dem Programmstart automatisch auf eine neue Version prüfen</h2>
+
+        <p>Ist diese Option angekreuzt, sucht <strong>JPhotoTagger</strong> im
+            Internet nach einer neueren Programmversion. Existiert eine, wird
+            diese zum Download angeboten.
+        </p>
+
+        <h2>Schaltfläche &quot;Suchen&quot; anzeigen</h2>
+
+        <p>Falls angekreuzt, ist eine Schaltfläche neben dem Eingabefeld für die
+            Schnellsuche, die die Suche startet. Das ist die Standard-Einstellung. Sie geben dem
+            Eingabefeld mehr Platz, falls Sie die Schaltfläche entfernen.
+            Mit der <kbd>Enter</kbd>-Taste können Sie eine Suche ebenso starten:
+            Sie tippen einen Suchbegriff ein und betätigen anschließend die
+            <kbd>Enter</kbd>-Taste.
+        </p>
+
+        <h2>Lange XMP-Filialdateinamen benutzen</h2>
+
+        <p>Die Standard-XMP-Filial-Dateinamen setzen sich zusammen aus den Basisnamen
+            einer Datei plus der Endung <code>xmp</code>. Heißt ein Bild <code>Baum.jpg</code>,
+            ist seine XMP-Filialdatei <code>Baum.xmp</code>. Der <strong>lange</strong>
+            Filialdateiname ist der komplette Dateiname plus die Endung <code>XMP</code>,
+            beispielsweise <code>Baum.jpg.xmp</code>.
+        </p>
+
+        <p>Benutzen Sie die langen XMP-Filal-Dateinamen, können ohne Namenskonflikte mehrere
+            Dateien gleichen Basisnamens im gleichen Ordner sein. Das könnte erforderlich
+            sein, falls Ihre Kamera gleicheitig RAW- und JPEG-Dateien erzeugt und
+            Sie diese Bilder in den gleichen Ordner kopieren wollen.
+        </p>
+
+        <p><em>Wählen Sie diese Option mit Bedacht!</em> Falls Sie lange XMP-Filal-Dateinamen
+            erzeugen lassen, hat <strong>JPhotoTagger</strong> damit keine Probleme und
+            Anwendungen, die mit dieser Benennung umgehen können auch nicht. In der Regel
+            wird jedoch eine andere Anwendung dann nicht mehr die Metadaten lesen können,
+            die <strong>JPhotoTagger</strong> erzeugt und umgekehrt.
+        </p>
+
+        <h2>Ausführlichkeit des Protokolls mit allen Nachrichten</h2>
+
+        <p>Das Protokoll mit allen Nachrichten enthält mehr Ausgaben im Gegensatz zum
+            Fehlerprotokoll, das nur Fehler und Warnungen enthält. Sie können die Protokolle
+            einsehen über das Menü <strong>Fenster</strong>. Je feiner der Grad ist -
+            je weiter unten in der Liste - desto mehr schreibt <strong>JPhotoTagger</strong>
+            in die Protokolldatei. Bei <code>AM FEINSTEN</code> und
+            <code>ALLE</code> wird sie schnell viele Megabyte groß.
+        </p>
+
+        <p><code>INFO</code> ist Standard. Wählen Sie <code>ALLE</code>, falls Sie
+            Fehler analysieren wollen oder die SQL-Befehle. <code>FEINER</code> gibt
+            nur SQL-Befehle aus, die die Datenbank modifizieren.
+        </p>
+
+        <h2>Bearbeiten-Kartenreiter</h2>
+
+        <h2>Breite der Texteingabefelder (Anzahl des Buchstabens &quot;M&quot;)</h2>
+
+        <p>Die Textfelder haben eine feste Breite aus folgenden Gründen:
+        </p>
+
+        <ul>
+            <li>Lange Zeilen sind schwierig zu lesen</li>
+            <li>JPhotoTagger kann so bei Bedarf die Eingabefelder nach unten verlängern, Sie erfassen
+                den gesamten Text auf einen Blick und brauchen nicht scrollen
+            </li>
+        </ul>
+
+        <p>Sie können passend zu Ihrem Bildschirm Werte zwischen 10 und 100 einstellen, eine
+            Einheit entspricht etwa der Breite des Großbuchstabens &quot;M&quot;.
+        </p>
+
+        <h3>Wortzusammenstellungen im Bearbeiten-Kartenreiter anzeigen</h3>
+
+        <p>Falls angekreuzt, werden im Bearbeiten-Kartenreiter Wortzusammenstellungen angezeigt.
+            Mehr darüber können Sie lesen auf der Hilfeseite
+            <a href="mainwindow_edit.html">Kartenreiter &quot;Bearbeiten&quot;</a>.
+        </p>
+
+        <h2>Kopieren/Verschieben von Dateien: Quelldatei</h2>
+
+        <h3>Nachfragen, falls gleichnamige Datei im Zielordner existiert</h3>
+
+        <p>Ist diese Option aktiv, wird erst nachgefragt, ob eine existierende
+            Zieldatei überschrieben werden soll, bevor die Datei kopiert wird.
+            Beim Verschieben hat diese Option <em>keine</em> Auswirkung.
+        </p>
+
+        <h3>Automatisch umbenennen, falls gleichnamige Datei im Zielordner
+            existiert
+        </h3>
+
+        <p>Ist diese Option angekreuzt, wird die Quelldatei automatisch
+            umbenannt, falls im Zielordner eine gleichnamige Datei existiert:
+            Vor der Endung wird ein Unterstrich angehängt gefolgt von einer
+            fortlaufenden Nummer.
+        </p>
+
+        <h2>Datenbankordner</h2>
+
+        <p>Sie können die Datenbank in einem anderen Ordner anlegen lassen.
+            Wollen Sie Ihre bisherigen Daten übernehmen, verschieben Sie aus dem
+            aktuellen Datenbankordner, der im Dialog angezeigt wird, folgende
+            Dateien und Ordner - sofern vorhanden - <em>nach Beenden</em> von
+            <strong>JPhotoTagger</strong> und <em>vor einem Neustart</em> in
+            den neuen Ordner:
+        </p>
+
+        <ul>
+            <li><code>database.*</code> (<code>database.backup, database.data,
+                database.log, database.properties, database.script</code>)
+            </li>
+            <li>Ordner <code>thumbnails</code></li>
+        </ul>
+
+        <p>Sie könnten die Datenbank auslagern wollen in einen bestimmten Ordner,
+            den Sie regelmäßig sichern (Backup). Und/oder Sie speichern die
+            Datenbank in einem Netzwerk, in das Sie sich von verschiedenen
+            Rechnern aus anmelden, wobei die Ordnerpfade zu den Bildern auf
+            allen Rechnern gleich lauten.
+        </p>
+
+        <p><em>Diese Option ist nicht dafür gedacht, dass mehrere Benutzer
+           die gleiche Datenbank teilen!</em> Beim Start meldet <strong>JPhotoTagger</strong>,
+           falls die Datenbank (wahrscheinlich) geöffnet ist. Sind Sie sicher,
+           dies ist nicht der Fall, können Sie <strong>JPhotoTagger</strong>
+           starten. Im günstigsten Fall verhindert das Betriebssystem, dass die
+           gleiche Datenbank zwei Mal geöffnet wird, im ungünstigsten ist
+           die Datenbank anschließend beschädigt - es ist nicht vorherzusagen,
+           was genau geschieht. Falls Sie sicher sind, die Datenbank wird nicht
+           gleichzeitig mehrmals geöffnet, können Sie diese mit mehreren
+           Benutzern teilen, zu empfehlen ist dies <em>nicht</em> (In diesem
+           Fall sollten die Ordnerpfade zu den Bildern bei allen Benutzern
+           identisch sein).
+        </p>
+
+        <h2>Unter-Kartenreiter IPTC</h2>
+
+        <h3>Zeichensatz der IPTC-Daten</h3>
+
+        <p>Stellen Sie hier ein, mit welchem Zeichensatz die
+            <a href="glossary_iptc.html">IPTC</a>-Daten kodiert sind. Leider
+            schreiben dies nicht alle Programme (fehlerfrei) in die IPTC-Daten.
+            Ist der Zeichensatz falsch, werden beispielsweise Umlaute verkehrt
+            angezeigt und Sie können nicht danach suchen, außer, Sie geben die
+            gleichen &quot;Hieroglyphen&quot; ein, die falsch angezeigt werden.
+        </p>
+
+    </body>
+</html>

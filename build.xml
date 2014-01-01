@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JPhotoTagger" default="jar" basedir="Program">
+    <target name="jar">
+        <echo message="Creating JPhotoTagger JAR"/>
+        <ant antfile="build.xml" target="clean"/>
+        <ant antfile="build.xml" target="jar"/>
+    </target>
+</project>

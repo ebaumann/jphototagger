@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JPhotoTagger" default="default" basedir=".">
+
+    <description>JPhotoTagger Distribution</description>
+
+    <property name="repo.root" value="../.."/>
+    <property name="dist.dir" value="${repo.root}/dist_files"/>
+    <property name="upload.dir" value="${dist.dir}/upload"/>
+    <property name="private.confdir" value="../conf"/>
+    <condition property="isWindows">
+        <os family="windows" />
+    </condition>
+    <condition property="isUnix">
+        <os family="unix"/>
+    </condition>
+
+    <property file="${repo.root}/Program/src/org/jphototagger/program/app/AppVersion.properties"/>
+
+    <taskdef name="htmlmanualindex"
+             classname="org.jphototagger.developersupport.CreateHtmlHelpIndexTask"
+             classpath="${repo.root}/DeveloperSupport/scripts/JavaDeveloperSupport/dist_files/DeveloperSupport.jar"/>
+    <taskdef name="pdfmanual"
+             classname="org.jphototagger.developersupport.CreatePdfManualTask"
+             classpath="${repo.root}/DeveloperSupport/scripts/JavaDeveloperSupport/dist_files/DeveloperSupport.jar"/>
+
+    <target name="0-all">
+        <antcall target="-delete-upload-files"/>
+        <antcall target="1-set-version-info"/>
+        <antcall target="2-create-pdf-manual"/>
+        <antcall target="3-create-zip"/>
+        <antcall target="4-create-setup-exe"/>
+        <antcall target="5-upload" />
+    </target>
+
+    <target name="0-all-no-pdf-manual">
+        <antcall target="-delete-upload-files"/>
+        <antcall target="1-set-version-info"/>
+        <antcall target="3-create-zip"/>
+        <antcall target="4-create-setup-exe"/>
+        <antcall target="5-upload" />
+    </target>
+
+    <target name="-delete-upload-files">
+        <echo message="Deleting upload Setup/ZIP files"/>
+        <delete file="${upload.dir}/JPhotoTagger-setup.exe" failonerror="false"/>
+        <delete file="${upload.dir}/JPhotoTagger.zip" failonerror="false"/>
+    </target>
+
+    <target name="1-set-version-info" >
+        <echo message="Setting Version Info to Distribution"/>
+        <replaceregexp file="${repo.root}/Website/download.html"
+                       match="&lt;span class=&quot;version&quot;&gt;(.*)&lt;/span&gt;"
+                       replace="&lt;span class=&quot;version&quot;&gt;${Version}&lt;/span&gt;"/>
+        <tstamp>
+            <format property="rfc.time" pattern="yyyy-MM-dd'T'HH:mm:ssXXX"/>
+        </tstamp>
+        <replaceregexp file="${repo.root}/Website/download.html"
+                       match="&lt;meta name=&quot;date&quot;.*"
+                       replace="&lt;meta name=&quot;date&quot; content=&quot;${rfc.time}&quot; /&gt;"/>
+        <replaceregexp file="${repo.root}/Website/jphototagger-version.txt"
+                       match="&lt;span class=&quot;version&quot;&gt;(.*)&lt;/span&gt;"
+                       replace="&lt;span class=&quot;version&quot;&gt;${Version}&lt;/span&gt;"/>
+        <replaceregexp file="${repo.root}/Website/.htaccess"
+                       match="Redirect permanent /dist/JPhotoTagger-setup.exe.*"
+                       replace="Redirect permanent /dist/JPhotoTagger-setup.exe http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-setup-${Version}.exe/download"/>
+        <replaceregexp file="${repo.root}/Website/.htaccess"
+                       match="Redirect permanent /dist/JPhotoTagger.zip.*"
+                       replace="Redirect permanent /dist/JPhotoTagger.zip   http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-${Version}.zip/download"/>
+        <replaceregexp file="InnoSetup/JPhotoTagger.iss"
+                       encoding="Cp1252"
+                       match="AppVerName=.*"
+                       replace="AppVerName=JPhotoTagger ${Version}"/>
+        <replaceregexp file="InnoSetup/JPhotoTagger.iss"
+                       encoding="Cp1252"
+                       match="AppVersion=.*"
+                       replace="AppVersion=${Version}"/>
+    </target>
+
+    <target name="2-create-pdf-manual">
+        <echo message="Creating PDF manual"/>
+        <property name="helpcontentfile" location="${repo.root}/Program/src/org/jphototagger/program/resource/doc/de/contents.xml"/>
+        <property name="pdffile_de" location="${dist.dir}/manual/Manual_de.pdf"/>
+        <pdfmanual helpcontentfile="${helpcontentfile}" pdffile="${pdffile_de}"/>
+    </target>
+
+    <target name="3-create-zip">
+        <echo message="Creating ZIP distribution"/>
+        <property name="program.dist.dir" value="${repo.root}/Program/dist"/>
+        <property name="zipfile" value="${upload.dir}/JPhotoTagger.zip"/>
+        <mkdir dir="${upload.dir}"/>
+        <delete file="${program.dist.dir}/README.TXT" failonerror="false"/>
+        <mkdir dir="${program.dist.dir}/scripts"/>
+        <copy todir="${program.dist.dir}/scripts">
+            <fileset dir="${dist.dir}/scripts"/>
+        </copy>
+        <copy todir="${program.dist.dir}">
+            <fileset dir="${dist.dir}/manual"/>
+        </copy>
+        <mkdir dir="${program.dist.dir}/lib/dcraw"/>
+        <copy todir="${program.dist.dir}/lib/dcraw">
+            <fileset dir="${dist.dir}/dcraw/bin"/>
+        </copy>
+        <delete file="${zipfile}" failonerror="false"/>
+        <zip destfile="${zipfile}">
+            <zipfileset dir="${program.dist.dir}" prefix="JPhotoTagger"/>
+        </zip>
+    </target>
+
+    <target name="4-create-setup-exe" if="isWindows">
+        <!-- Compil32.exe (path to the Inno Setup compiler) will be read from innosetup.properties  -->
+        <echo message="Creating Setup.exe with Inno Setup"/>
+        <property file="${private.confdir}/innosetup.properties"/>
+        <exec
+            command="&quot;${compil32.exe}&quot; /cc JPhotoTagger.iss"
+            dir="InnoSetup"/>
+    </target>
+
+    <target name="5-upload">
+        <echo message="Uploading JPhotoTagger Distribution"/>
+        <antcall target="-upload-sourceforge"/>
+        <antcall target="-create-html-manual-index"/>
+        <antcall target="-upload-website"/>
+    </target>
+
+    <target name="-create-html-manual-index">
+        <echo message="Creating HTML index of JPhotoTagger HTML manual"/>
+        <property name="file" location="${repo.root}/Program/src/org/jphototagger/program/resource/doc/de/contents.xml"/>
+        <htmlmanualindex helpcontentfile="${file}"/>
+    </target>
+
+    <target name="-upload-sourceforge">
+        <!--${username} and ${password} will be read from sourceforge.properties,
+            ${Version} from Version.properties
+        -->
+        <property file="${private.confdir}/sourceforge.properties"/>
+        <property name="dist.src" location="${repo.root}/dist_files/upload"/>
+        <scp
+            file="${dist.src}/JPhotoTagger.zip"
+            remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/downloads/JPhotoTagger-${Version}.zip"
+            trust="true"
+            password="${password}"
+        />
+        <scp
+            file="${dist.src}/JPhotoTagger-setup.exe"
+            remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/downloads/JPhotoTagger-setup-${Version}.exe"
+            trust="true"
+            password="${password}"
+        />
+    </target>
+
+    <target name="-upload-website">
+        <echo message="Uploading new/updated website files to JPhotoTagger website"/>
+        <property file="${private.confdir}/website.properties"/><!-- contains server, user and pass -->
+        <ftp server="${server}"
+             userid="${user}"
+             password="${pass}"
+             remotedir="html/JPhotoTagger"
+             depends="yes"
+             verbose="yes">
+            <fileset dir="${repo.root}/Website"/>
+        </ftp>
+        <ftp server="${server}"
+             userid="${user}"
+             password="${pass}"
+             remotedir="html/JPhotoTagger/manual"
+             depends="yes"
+             verbose="yes">
+            <fileset dir="${repo.root}/Program/src/org/jphototagger/program/resource/doc"/>
+        </ftp>
+    </target>
+
+</project>

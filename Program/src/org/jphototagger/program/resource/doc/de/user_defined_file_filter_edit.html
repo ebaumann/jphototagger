@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Benutzerdefinierten Dateifilter bearbeiten</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Benutzerdefinierten Dateifilter bearbeiten</h1>
+
+        <h2>Name</h2>
+
+        <p>Hier vergeben Sie dem Filter einen noch nicht existierenden Namen.
+        </p>
+
+        <h2>Dropdown-Listenfeld</h2>
+
+        <ul>
+            <li><strong>Beginnt mit:</strong> Findet Dateinamen, die mit der
+                Eingabe starten: <code>DSC_</code> findet alle Bilder, deren
+                Dateiname mit <code>DSC_</code> beginnt, beispielsweise
+                <code>DSC_2995.jpg</code>.
+            </li>
+            <li><strong>Enthält:</strong> Findet Dateinamen, die (irgendwo)
+                Ihre Eingabe enthalten: <code>-bearbeitet</code> findet alle
+                bearbeiteten Bilder, falls Sie diese so benennen, z.B.
+                <code>2009-01-25-bearbeitet-01.jpg</code>.
+            </li>
+            <li><strong>Endet mit:</strong> Findet alle Bilder, die mit
+                Ihrer Eingabe enden: <code>zu-loeschen.jpg</code> findet alle
+                Bilder, die zu löschen sind, falls Sie diese so kennzeichnen,
+                z.B. <code>2008-07-07-025-zu-loeschen.jpg</code>.
+            </li>
+            <li><strong>Regulärer Ausdruck:</strong> Falls Ihnen das nichts
+                sagt, erkundigen Sie Sich im Web, diese Option ist für
+                &quot;Zeichenketten-Verarbeitungsprofis&quot;. Mit regulären
+                Ausdrücken können Sie schwierigere Aufgaben lösen, z.B.
+                bearbeitete Bilder im TIFF-Format, nicht jedoch im JPEG-Format:
+                <code>.*-bearbeitet.*\.[Tt][Ii][Ff]</code>.
+            </li>
+        </ul>
+
+        <h2>Negieren</h2>
+
+        <p>Kehrt den Filter um: So finden Sie Bilder, die <em>nicht</em> den
+            angegebenen Kriterien entsprechen, z.B. alle Bilder <em>außer</em>
+            JPEG-Bildern: <strong>Endet mit jpg</strong> bei angekreuzter
+            Negieren-Option.
+        </p>
+
+        <h2>Beispiele für reguläre Ausdrücke</h2>
+
+        <dl>
+            <dt><strong>Zeige sowohl Nikon RAW-Dateien an als auch TIFF-Dateien:</strong>
+                Nikon-RAW-Dateien enden mit
+                <code>NEF</code>, TIFF-Dateien mit <code>TIF</code>. <strong>.*</strong> am Anfang,
+                bedeutet, dass etwas beliebiges vor der Endung stehen darf. Der Punkt hat eine
+                besondere Bedeutung in regulären Ausdrücken, der Punkt vor der Endung soll als Punkt im Dateienamen vorkommen
+                und ist deshalb mit dem Backslash <strong>\</strong> maskiert.
+                Damit Groß- und Kleinschreibung gefunden werden, sind Buchstabenmengen definiert,
+                z.B. <strong>[Tt]</strong> (ein großes oder kleines <strong>T</strong>).
+                Das Dollar-Zeichen bedeutet, dass die Endung auch wirklich am Ende steht.
+                Der ODER-Operator <strong>|</strong> sorgt dafür, dass entweder NEF- oder TIFF-Dateien
+                akzeptiert werden.
+            </dt>
+            <dd><code>.*\.[Nn][Ee][Ff]$|.*\.[Tt][Ii][Ff]$</code></dd>
+        </dl>
+
+        <h2>Siehe auch</h2>
+
+        <ul>
+            <li><a href="user_defined_file_filter.html">Benutzerdefinierte Dateifilter</a>
+            </li>
+            <li><a href="filefilter.html">Filter: Folgende Bilder anzeigen</a>
+            </li>
+        </ul>
+
+    </body>
+</html>

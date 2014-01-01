@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Bilder importieren</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <h1>Bilder importieren</h1>
+
+        <p>Sie können Bilder von der Kamera-Speicherkarte oder einem anderen
+            Ordner <strong>einschließlich dessen untergeordneten Ordnern</strong>
+            in einen (anderen) Ordner kopieren lassen.
+        </p>
+
+        <p>Rufen Sie den Import-Dialog auf über das Menü <strong>Datei &gt;
+                Bilder importieren</strong>, Tastenkürzel <kbd>Strg</kbd>+<kbd>Umschalt</kbd>+<kbd>P</kbd>.
+        </p>
+
+        <h2>Was soll importiert werden?</h2>
+
+        <h3>Bilder eines Quellordners einschließlich aller Unterordner</h3>
+
+        <p><strong>JPhotoTagger</strong> sucht im ausgewählten Quellordner
+            einschließlich dessen untergeordneten Ordnern nach Bildern und
+            kopiert alle gefundenen in den Zielordner.
+        </p>
+
+        <h3>Einzelne Bilddateien</h3>
+
+        <p>Falls Sie nicht alle Dateien eines Ordners importieren wollen, können
+            Sie aus einem Ordner einzlene Bilddateien auswählen. Der
+            Auswahldialog zeigt das Vorschaubild eines ausgewählten Bilds an.
+        </p>
+
+        <h2>Nach dem Kopieren Dateien aus dem Quellordner löschen</h2>
+
+        <p>Kreuzen Sie diese Option an, werden nach dem Import alle importierten
+            Dateien vom Quelldatenträger gelöscht. Diese Option ist mit
+            <em>Bedacht</em> auszuwählen: Falls ein Problem auftritt, könnten
+            Sie so alle Bilder verlieren.
+        </p>
+
+        <h2>Duplikate vermeiden</h2>
+
+        <p>Ist diese Option angekreuzt, wird für jede Quelldatei überprüft,
+            ob  im Zielordner eine gleich große Datei ist, deren Inhalt
+            identisch ist. Trifft das zu, wird die Quelldatei nicht kopiert.
+            Identisch heißt, die Dateien sind gleich groß und jedes Byte
+            stimmt überein.
+        </p>
+
+        <h2>Zielordner</h2>
+
+        <p>Alle Bilder werden in den Zielordner kopiert. Existiert dort eine
+            Datei gleichen Namens, wird der kopierten Datei eine Nummer
+            hinzugefügt, Dateien werden <em>nicht</em> überschrieben.
+        </p>
+
+        <p>In der Aufklappliste können Sie bestimmen, ob alle Bilder in den ausgewählten
+            Ordner kopiert werden sollen oder ob im ausgewählten Ordner Unterordner
+            erzeugt werden sollen anhand verschiedener Vorgaben.
+        </p>
+
+        <h2>Importierte Dateien im Zielordner umbenennen</h2>
+
+        <p>Sie können Ihre Bilder nach fest vorgegebenen Schablonen umbenennen
+            lassen. Weiterhin stehen Ihnen alle Umbennungs-Schablonen zur Verfügung,
+            die Sie selbst erstellten. Sie können Umbenennungs-Schablonen erzeugen
+            und bearbeiten durch Betätigen der Schaltfläche neben dem
+            Auswahl-Dropdown-Listenfeld.
+        </p>
+
+        <h2>Metadaten hinzufügen</h2>
+
+        <p>Geben Sie hier Stichwörter, Copyright-Informationen und andere Daten
+            ein, die auf alle importierten Bilder zutreffen. So haben Sie
+            anschließend weniger Arbeit.
+        </p>
+
+        <h2>Experten-Einstellungen</h2>
+
+        <h3>Skript (Batch-Datei)</h3>
+
+        <p>Hier können Sie eine Skript-/Batch-Datei auswählen, die nach dem Import
+            aufgerufen wird mit der importierten Datei als Parameter. Diese Option
+            könnte Sie interessieren, falls Sie nach dem Import die Bilder beispielsweise
+            automatisiert bearbeiten wollen. Beispiel für eine Batch-Datei, die Bilder
+            zusätzlich nach DNG konvertiert (danke an Matthias Vonken, da dies sich nur
+            an erfahrene Computernutzer richtet, stehen hier keine weiteren
+            Erläuterungen):<br/>&nbsp;
+        </p>  <!-- Fix wegen der schlechten Auswertung von Styles durch die aktuelle JDK-Implementierung: br und extra div für pre -->
+        <div  style="padding: 12px; border: 1px solid black;">
+<pre>
+@echo off
+
+set IMAGE=%1
+for %%i in (%IMAGE%) DO set IMAGE_NEW=%%~dpni
+
+"C:\Program Files (x86)\Adobe\Adobe DNG Converter.exe" -p1 -cr6.6 %IMAGE%
+"C:\exiv2\exiv2.exe" -q -F -r %%Y-%%m-%%d-%%H%%M-%%S "%IMAGE_NEW%.dng"
+del %IMAGE%
+
+:END
+</pre>
+        </div>
+
+        <h2>Was geschieht nach dem Import?</h2>
+
+        <p>Von allen importierten Bildern werden Vorschaubilder erzeugt und die
+            Metadaten werden in die Datenbank eingefügt. Anschließend werden
+            alle importierten Bilder im Album <strong>Zuletzt importiert</strong>
+            angezeigt.
+        </p>
+
+        <h2>Hinweis</h2>
+
+        <p>Es werden nur Bilder importiert, <em>keine</em> XMP-Filialdateien!
+            Benutzen Sie für diesen Zweck den Kartenreiter
+            <a href="mainwindow_folders.html">Ordner</a> und die
+            Vorschaubildansicht: Auswählen und Einfügen in unterschiedliche
+            Vorschaubildansichten unterschiedlicher Ordner.
+        </p>
+
+    </body>
+</html>

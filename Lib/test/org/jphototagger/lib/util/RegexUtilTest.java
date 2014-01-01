@@ -1,0 +1,149 @@
+package org.jphototagger.lib.util;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import org.junit.AfterClass;
+import static org.junit.Assert.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+/**
+ * Tests the class {@code org.jphototagger.lib.util.RegexUtil}.
+ *
+ * @author Elmar Baumann
+ */
+public class RegexUtilTest {
+
+    public RegexUtilTest() {
+    }
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    /**
+     * Test of getMatches method, of class RegexUtil.
+     */
+    @Test
+    public void testGetMatches() {
+        Collection<String> strings = new ArrayList<>();
+        final String s1 = "Bill";
+        final String s2 = "Heute ist leider Montag";
+        final String s3 = "99Luftballons";
+        final String s4 = "Eiskreme";
+        final String s5 = ".*pattern$";
+        final String s6 = "Montag ist der Tag nach Sonntag";
+
+        strings.add(s1);
+        strings.add(s2);
+        strings.add(s3);
+        strings.add(s4);
+        strings.add(s5);
+        strings.add(s6);
+
+        String pattern = ".*Montag$";
+        List<String> expResult = Arrays.asList(s2);
+        List<String> result = RegexUtil.getMatches(strings, pattern);
+
+        assertEquals(expResult, result);
+        pattern = ".*Montag.*";
+        expResult = Arrays.asList(s2, s6);
+        result = RegexUtil.getMatches(strings, pattern);
+        assertEquals(expResult, result);
+        pattern = java.util.regex.Pattern.quote(s5);
+        expResult = Arrays.asList(s5);
+        result = RegexUtil.getMatches(strings, pattern);
+        assertEquals(expResult, result);
+        pattern = "[0-9]+.*";
+        expResult = Arrays.asList(s3);
+        result = RegexUtil.getMatches(strings, pattern);
+        assertEquals(expResult, result);
+        pattern = ".*nüscht.*";
+        expResult = new ArrayList<>();
+        result = RegexUtil.getMatches(strings, pattern);
+        assertEquals(expResult, result);
+        pattern = "^B.*ll$";
+        expResult = Arrays.asList(s1);
+        result = RegexUtil.getMatches(strings, pattern);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of containsMatch method, of class RegexUtil.
+     */
+    @Test
+    public void testContainsMatch() {
+        Collection<String> patterns = new ArrayList<>();
+
+        patterns.add(".*Montag$");
+        patterns.add(".*Montag.*");
+        patterns.add(java.util.regex.Pattern.quote(".*pattern$"));
+        patterns.add("[0-9]+.*");
+        patterns.add(".*nüscht.*");
+        patterns.add("^B.*ll$");
+
+        final String s1 = "Bill";
+        final String s2 = "Heute ist leider Montag";
+        final String s3 = "99Luftballons";
+        final String s4 = "Eiskreme";
+        final String s5 = ".*pattern$";
+        final String s6 = "Montag ist der Tag nach Sonntag";
+
+        assertTrue(RegexUtil.containsMatch(patterns, s1));
+        assertTrue(RegexUtil.containsMatch(patterns, s2));
+        assertTrue(RegexUtil.containsMatch(patterns, s3));
+        assertFalse(RegexUtil.containsMatch(patterns, s4));
+        assertTrue(RegexUtil.containsMatch(patterns, s5));
+        assertTrue(RegexUtil.containsMatch(patterns, s6));
+    }
+
+    /**
+     * Test of matches method, of class ArrayUtil.
+     */
+    @Test
+    public void testContainsMatch_movedFromArrayUtils() {
+        List<String> patterns = new ArrayList<>();
+
+        patterns.add(".*ille$");
+
+        String string = "Brille";
+        boolean expResult = true;
+        boolean result = RegexUtil.containsMatch(patterns, string);
+
+        assertEquals(expResult, result);
+        patterns = new ArrayList<>();
+        patterns.add("xyz");
+        patterns.add("^[A-Z]+");
+        string = "ABC";
+        expResult = true;
+        result = RegexUtil.containsMatch(patterns, string);
+        assertEquals(expResult, result);
+        patterns = new ArrayList<>();
+        patterns.add("xyz");
+        patterns.add("^[A-Z]+");
+        string = "AbC";
+        expResult = false;
+        result = RegexUtil.containsMatch(patterns, string);
+        assertEquals(expResult, result);
+
+        try {
+            RegexUtil.containsMatch(null, "");
+            fail("NullpointerException was not thrown");
+        } catch (NullPointerException ex) {
+            // ok
+        }
+
+        try {
+            RegexUtil.containsMatch(new ArrayList<String>(), null);
+            fail("NullpointerException was not thrown");
+        } catch (NullPointerException ex) {
+            // ok
+        }
+    }
+}

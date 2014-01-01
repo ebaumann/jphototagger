@@ -1,0 +1,59 @@
+InnoSetup JRE-Check: http://iluzio.de/archives/440
+
+[CustomMessages]
+german.jre_not_found=Für {#MyAppName} wird Java benötigt. %nAuf diesem Computer wurde kein Java gefunden. %n%nWollen Sie es jetzt installieren?
+german.jre_too_old=Für {#MyAppName} wird eine aktuelle Version von Java benötigt. %nDas auf diesem Computer installierte Java ist jedoch veraltet. %n%nWollen Sie es jetzt eine aktuelle Version von Java installieren?
+german.installing_jre=Java wird installiert... Bitte warten....
+
+[Files]
+Source: jre-6u22-windows-i586-s.exe; DestDir: "{app}"; Flags: ignoreversion
+
+[Run]
+Filename: {app}\jre-6u22-windows-i586-s.exe; StatusMsg: "{cm:installing_jre}"; Check: CheckJRE;
+
+[code]
+Function CheckJRE(): Boolean;
+var
+  CurrentJREVersion: String;
+  NecessaryJREVersion: String;
+  JRENotFound: Boolean;
+  JRETooOld: Boolean;
+  InstallJRE: Boolean;
+ 
+begin
+ 
+  NecessaryJREVersion := '1.7';
+  JRENotFound := False;
+  JRETooOld := False;
+ 
+  // check for JRE in registry  
+  if (RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\JavaSoft\Java Runtime Environment', 'CurrentVersion', CurrentJREVersion)) then
+  begin
+    JRETooOld := (CurrentJREVersion < NecessaryJREVersion);
+  end else begin
+    JRENotFound := True;
+  end;
+ 
+  // ask user
+  InstallJRE := False;
+ 
+  if (JRENotFound) then
+  begin
+ 
+    if (MsgBox(ExpandConstant('{cm:jre_not_found}'), mbinformation, mb_YesNo) = idYes) then
+    begin
+      InstallJRE := True;
+    end;
+  end;
+ 
+  if (JRETooOld) then
+  begin
+    if (MsgBox(ExpandConstant('{cm:jre_too_old}'), mbinformation, mb_YesNo) = idYes) then
+    begin
+      InstallJRE := True;
+    end;
+  end;
+ 
+  Result := InstallJRE;
+ 
+end;

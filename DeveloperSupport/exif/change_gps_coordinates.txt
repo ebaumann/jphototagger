@@ -1,0 +1,10 @@
+Changing existing GPS coordinates with ExifTool:
+
+E.g.:
+
+exiftool \
+    -gpslatitude="34 36 0.00" -gpslatituderef=S \
+    -gpslongitude="58 23 0.00" -gpslongituderef=W \
+    2010-07-18-001.NEF
+
+See: http://www.sno.phy.queensu.ca/~phil/exiftool/faq.html#Q14

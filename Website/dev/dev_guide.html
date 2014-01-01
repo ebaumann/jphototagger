@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>How to implement something (&quot;Best practices&quot;)</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="content-language" content="en" />
+        <link rel="stylesheet" media="screen" type="text/css" href="../css/standard.css" />
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <style type="text/css">
+            #content ol, #content ul { margin-top: 0.75em; margin-left: 0.75em; padding-left: 0.75em; }
+            #content ul { list-style-type: square; }
+        </style>
+    </head>
+    <body>
+
+        <div id="page">
+            <div id="sitenav">
+                <h2>Navigate</h2>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../download.html">Download</a></li>
+                    <li><a href="../features.html">Features</a></li>
+                    <li><a href="../system_req.html">System requirements</a></li>
+                    <li><a href="../screenshots/index.html">Screenshots</a></li>
+                    <li><a href="../usr/index.html">Users</a></li>
+                    <li><a href="index.html">Developers</a></li>
+                </ul>
+                <h2>Discussion</h2>
+                <ul>
+                    <li><a href="http://groups.google.de/group/jphototagger-benutzer">Deutsche Benutzer</a></li>
+                    <li><a href="https://groups.google.com/group/jphototagger-users-english">Users English Language</a></li>
+                    <li><a href="http://groups.google.de/group/jphototagger-developers">Developers</a></li>
+                </ul>
+                <h2>Tracking</h2>
+                <ul>
+                    <li><a href="http://code.google.com/p/jphototagger/issues/list">Bugs, Issues</a></li>
+                </ul>
+                <h2>Repository</h2>
+                <ul>
+                    <li><a href="http://code.google.com/p/jphototagger/source/checkout">Source Code</a></li>
+                </ul>
+            </div><!--sitenav-->
+            <div id="content">
+
+                <h1>How to implement something (&quot;Best practices&quot;)</h1>
+
+                <p><em>Do not repeat bad code</em> from (hopefully) old parts of <strong>JPhotoTagger</strong>!
+                    For example, in most cases it's better to use <code>Action</code>s instead
+                    <code>ActionListener</code>s. Use the <code>org.openide.util.Lookup</code>
+                    to provide e.g. selected content together with it's support in
+                    <strong>JPhotoTaggers</strong>'s <strong>Lib</strong> Project. You can see usage examples
+                    in the code of some modules, e.g. in <strong>Display Files Without Metadata</strong>
+                    or Module <strong>RepositoryFileBrowser</strong>.
+                </p>
+
+                <p><em>Do not add code to the </em> <strong>Program</strong> project. There should be only
+                    bugs fixed, code refactored or the functionality enhanced (only if not possible via the
+                    Java Service Provider Interface).
+                </p>
+
+                <p><strong>Start a new project for adding features.</strong> Refactorings are always welcome,
+                    if they will improve the design.
+                </p>
+
+                <p>Don't hesitate to fix bugs in code written by others. Write unit tests for every method,
+                    <strong>NetBeans</strong> automatically generates test classes and method skeletons.
+                </p>
+
+                <h2>Use JPhotoTagger's API and Domain Projects (Java Service Provider Interface in general)</h2>
+
+                <p>Do not use implementations, use interfaces. We are using the <strong>Java Service Provider
+                   Interface (SPI)</strong> to get implementations. With that lines of code you get an implementation:
+                </p>
+
+<pre>
+MyInterface implementation = Lookup.getDefault().lookup(MyInterface.class);
+</pre>
+
+                <p>As an example, the currently used database implements <code>Repository</code> interfaces.
+                    To use a different database and/or the JPA instead of JDBC, only the project implementing these
+                    interfaces has to be replaced and no other code has to be changed. Ideally the user does not
+                    recognize any change.
+                </p>
+
+                <p>Another example: <strong>JPhotoTagger</strong> has limited capabilities to generate thumbnails
+                    of different camera image file formats or other media formats such as videos. You can add an
+                    implementation of <code>ThumbnailCreator</code> in a separate project, e.g. for your special
+                    camera RAW format, and it will be automatically used (if no thumbnail could be created by the
+                    default implementation).
+                </p>
+
+                <p>Do <em>not</em> create files in <code>META-INF/services</code> for your service providers. This is
+                    very error prone on Move/Rename refactorings. Use the <code>@ServiceProvider</code> annotation
+                    instead, grep the source code for usage examples.
+                </p>
+
+                <h2>Extending JPhotoTagger</h2>
+
+                <h3>Extensions processing files</h3>
+
+                <p>If the thumbnails panel shall offer a menu entry for processing selected files, implement in
+                    a separate project the interface <code>FileProcessorPlugin</code>. Examples may be a HTML Gallery
+                    generator or FTP upload. Existing example implementations are the projects <strong>Copy Filenames
+                    To Clipboard</strong> (easy and a good starting point to learn) or <strong>Flickr Upload</strong>.
+                </p>
+
+                <h3>Complex extensions</h3>
+
+                <p>A complex extension implements <code>Module</code>. Modules will be initialized during the
+                    application startup without user interaction (file processors will be invoked only if the user
+                    calls them). Examples are <code>FileEventHooks</code> or <code>RepositoryFileBrowser</code>.
+                </p>
+
+				<h2>Thumbnails for a specific file format not supported by JPotoTagger</h2>
+
+				<p>Implement <code>org.jphototagger.domain.thumbnails.ThumbnailCreator</code>.
+				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
+				</p>
+
+				<h2>EXIF for a specific file format not supported by JPotoTagger</h2>
+
+				<p>Implement <code>org.jphototagger.domain.metadata.exif.ExifReader</code>.
+				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
+				</p>
+
+				<h2>EXIF Maker Notes</h2>
+
+				<p>Implement <code>org.jphototagger.domain.metadata.exif.ExifMakerNoteTags</code>.
+				   JPhotoTagger will find it through the <strong>Java Service Provider Interface</strong>.
+				   In Opposite to an <code>ExifReader</code>, an <code>ExifMakerNoteTags</code> instance
+				   gets the already read Maker Notes byte array and has to use the specification of
+				   the maker to decode them.
+				</p>
+
+                <h3>Remarks</h3>
+
+                <p>You can add menu entries, panels etc. to the application window, get thumbnails etc. &ndash;
+                    take a look into the <strong>API</strong> project. For querying or modifying a
+                    repository (part of a database), have also a look into the <strong>Domain</strong> project.
+                </p>
+
+				<h2>Events</h2>
+
+				<p>JPhotoTagger publishes many events through <a href="http://java.net/projects/eventbus/">EventBus</a>.
+                    Events are defined in the <strong>API</strong> and <strong>Domain</strong> projects.
+                    If you are interested into an event, e.g. if the user selects an image, you can do something like that:
+				</p>
+
+<pre>
+public final class MyImageProcessor {
+
+    public MyImageProcessor() {
+        // Registering to EventBus
+        AnnotationProcessor.process(this);
+    }
+
+    @EventSubscriber(eventClass = ThumbnailsSelectionChangedEvent.class)
+    public void thumbnailsSelectionChanged(ThumbnailsSelectionChangedEvent event) {
+        List&lt;File&gt; selectedFiles = event.getSelectedFiles();
+        for (File selectedFile : selectedFiles) {
+            processFile(selectedFile);
+        }
+    }
+}
+</pre>
+
+                <p>Processes taking some time should create a separate thread and do their tasks
+                    in this thread since the listeners will be notified in the <strong>Event
+                    Dispatch Thread</strong> and as long as they do something, the GUI is not accessable.
+                </p>
+
+                <h2>Persist Preferences (Settings)</h2>
+
+                <p>Preferences can be persisted and restored through
+                    <code>org.jphototagger.api.preferences.Preferences</code>:
+                </p>
+<pre>
+private void persistPreferences() {
+    Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+    prefs.setString("MyModule.PreviousDirectory", directory.getAbsolutePath());
+    prefs.setBoolean("MyModule.DeleteAlways", deleteAlways);
+    prefs.setLocation("MyModule.MyDialogLocation", dialog);
+}
+
+private void restorePreferences() {
+    Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+    String previousDirectory = prefs.getString("MyModule.PreviousDirectory");
+    boolean deleteAlways = prefs.getBoolean("MyModule.DeleteAlways");
+    prefs.applyLocation("MyModule.MyDialogLocation", dialog);
+}
+</pre>
+                <p>If you want react immediately to changes in user settings, subscribe to the
+                    <code>Eventbus</code> (see obove), you will get a <code>PreferencesChangedEvent</code>
+                    with the old and new value.
+                </p>
+
+                <h2>Commit and push changes</h2>
+
+                <p>Use <strong>Mercurial</strong>'s commit and push command to share your code. I don't want spent time
+                    to integrate patches sent by e mail.
+                </p>
+
+                <p><strong>Author:</strong> Elmar Baumann
+                    <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20How%20implement%20something">Write e-Mail</a>
+                    <br /><strong>Status of this document:</strong> 2012-03-02
+                </p>
+
+            </div><!--content-->
+        </div><!--page-->
+    </body>
+</html>
