@@ -176,11 +176,10 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     }
 
     private boolean isThumbnailUpToDate(File file) {
-        File thumbnailFile = thumbnailsRepository.findThumbnailFile(file);
-        if (thumbnailFile == null || !thumbnailFile.exists()) {
+        long lastModifiedThumbnailFile = thumbnailsRepository.findLastModified(file);
+        if (lastModifiedThumbnailFile < 0) {
             return false;
         }
-        long lastModifiedThumbnailFile = thumbnailFile.lastModified();
         long lastModifiedFile = file.lastModified();
         return lastModifiedThumbnailFile >= lastModifiedFile;
     }

@@ -53,8 +53,6 @@ public interface ImageFilesRepository {
 
     void eachImage(Functor<File> functor);
 
-    Set<File> findAllThumbnailFiles();
-
     List<String> findDcSubjectsOfImageFile(File file);
 
     Exif findExifOfImageFile(File file);

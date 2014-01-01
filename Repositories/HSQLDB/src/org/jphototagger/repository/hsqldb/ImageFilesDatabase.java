@@ -535,7 +535,7 @@ final class ImageFilesDatabase extends Database {
 
     private void updateThumbnailFile(File imageFile, Image thumbnail) {
         if (thumbnail != null) {
-            tnRepo.writeThumbnail(thumbnail, imageFile);
+            tnRepo.insertThumbnail(thumbnail, imageFile);
             notifyThumbnailUpdated(imageFile);
         }
     }
@@ -2310,33 +2310,6 @@ final class ImageFilesDatabase extends Database {
             close(rs, stmt);
         }
         return id;
-    }
-
-    public Set<File> getAllThumbnailFiles() {
-        Set<File> tnFiles = new HashSet<>();
-        Connection con = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            con = getConnection();
-            String sql = "SELECT filename FROM files";
-            stmt = con.createStatement();
-            LOGGER.log(Level.FINEST, sql);
-            rs = stmt.executeQuery(sql);
-            File tnFile;
-            while (rs.next()) {
-                tnFile = tnRepo.findThumbnailFile(new File(rs.getString(1)));
-                if (tnFile != null) {
-                    tnFiles.add(tnFile);
-                }
-            }
-        } catch (Throwable t) {
-            LOGGER.log(Level.SEVERE, null, t);
-        } finally {
-            close(rs, stmt);
-            free(con);
-        }
-        return tnFiles;
     }
 
     public void deleteValueOfJoinedColumn(MetaDataValue column, String value) {

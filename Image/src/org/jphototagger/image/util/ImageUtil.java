@@ -65,6 +65,33 @@ public final class ImageUtil {
     }
 
     /**
+     * @param image
+     * @param formatName
+     * @return Image byte array or null on errors
+     */
+    public static byte[] getByteArray(Image image, String formatName) {
+        if (image == null) {
+            throw new NullPointerException("image == null");
+        }
+        if (formatName == null) {
+            throw new NullPointerException("formatName == null");
+        }
+        try {
+            BufferedImage bufferedImage = new BufferedImage(image.getWidth(null), image.getHeight(null),
+                    BufferedImage.TYPE_INT_RGB);
+            Graphics graphics = bufferedImage.getGraphics();
+            graphics.drawImage(image, 0, 0, null);
+            graphics.dispose();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, formatName, outputStream);
+            return outputStream.toByteArray();
+        } catch (Throwable t) {
+            Logger.getLogger(ImageUtil.class.getName()).log(Level.SEVERE, null, t);
+            return null;
+        }
+    }
+
+    /**
      * Returns the new dimensions of an image if the image shall be scaled.
      *
      * @param img image to scale

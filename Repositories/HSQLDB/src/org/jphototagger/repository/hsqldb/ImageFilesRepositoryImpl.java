@@ -114,11 +114,6 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     }
 
     @Override
-    public Set<File> findAllThumbnailFiles() {
-        return ImageFilesDatabase.INSTANCE.getAllThumbnailFiles();
-    }
-
-    @Override
     public List<String> findDcSubjectsOfImageFile(File imageFile) {
         return ImageFilesDatabase.INSTANCE.getDcSubjectsOfImageFile(imageFile);
     }

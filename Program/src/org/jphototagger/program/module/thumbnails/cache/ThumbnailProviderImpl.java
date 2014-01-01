@@ -15,6 +15,6 @@ public final class ThumbnailProviderImpl implements ThumbnailProvider {
     public Image getThumbnail(File imageFile) {
         return imageFile == null
                 ? null
-                : PersistentThumbnails.getThumbnail(imageFile);
+                : ThumbnailsDb.findThumbnail(imageFile);
     }
 }

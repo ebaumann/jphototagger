@@ -3,6 +3,13 @@
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.16 2014-01-01
+------------------
+
+* Vorschaubilder-Datenbank wird benutzt anstelle einzelner Dateien.
+  Die älteren Vorschaubilder werden in die neue Datenbank eingefügt.
+  Abhängig von der Bildanzahl kann dies eine längere Zeit dauern.
+
 0.32.15 2013-12-30
 ------------------
 
@@ -37,7 +44,7 @@ Changelog JPhotoTagger http://jphototagger.org/
   der Runtime-Klasse im JRE 7 Update 21
   (http://www.oracle.com/technetwork/java/javase/7u21-relnotes-1932873.html#jruntime)
 * Im Programmfenster links Kartenreiter "Suchen" umbenannt in "Gespeicherte Suchen"
-  
+
 0.32.10 2013-05-04
 ------------------
 
@@ -74,7 +81,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 -----------------
 
 * Windows: Einige Look & Feels ignorierten lokalisierte
-  Ordnernamen, z.B. zeigten diese "Users" an statt 
+  Ordnernamen, z.B. zeigten diese "Users" an statt
   "Benutzer"
 
 0.32.6 2013-02-19
@@ -100,7 +107,7 @@ Changelog JPhotoTagger http://jphototagger.org/
   korrigiert werden, geht dies am schnellsten über den Kartenreiter
   "Verschiedenes > Fototechnik": Dort die fehlerhaften Brennweiten,
   ISO-Werte oder Kameranamen auswählen, die angezeigten Vorschaubilder
-  auswählen, und per Rechtsklick das Kontextmenü aufrufen: 
+  auswählen, und per Rechtsklick das Kontextmenü aufrufen:
   "Aktualisieren > Metadaten aktualisieren". Anschließend lassen Sie
   nicht referenzierte Daten löschen: "Datei > Datenbank > Wartung:
   Nicht referenzierte Daten löschen (EXIF, XMP)"

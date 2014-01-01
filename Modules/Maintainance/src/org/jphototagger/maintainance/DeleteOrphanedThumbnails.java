@@ -10,7 +10,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
+import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -21,13 +21,12 @@ import org.openide.util.Lookup;
 public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
 
     private final ProgressListenerSupport ls = new ProgressListenerSupport();
-    private int fileCount = 0;
+    private int tnCount = 0;
     private int countDeleted = 0;
     private int currentFileIndex = 0;
     private volatile boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(DeleteOrphanedThumbnails.class.getName());
-    private final ImageFilesRepository repo = Lookup.getDefault().
-            lookup(ImageFilesRepository.class);
+    private final ImageFilesRepository imageFilesRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public synchronized void addProgressListener(ProgressListener l) {
         if (l == null) {
@@ -46,45 +45,40 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
 
     @Override
     public void run() {
-        Set<File> allThumbnailFilesKnownByRepository = repo.findAllThumbnailFiles();
-        ThumbnailsDirectoryProvider provider = Lookup.getDefault().lookup(ThumbnailsDirectoryProvider.class);
-        File thumbnailsDirectory = provider.getThumbnailsDirectory();
-        File[] filesInThumbnailDirectory = thumbnailsDirectory.listFiles();
         ThumbnailsDisplayer thumbnailsDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
-        boolean isDelete;
-        File fileInThumbnailDirectory;
-        fileCount = filesInThumbnailDirectory.length;
+        ThumbnailsRepository  tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
+        Set<String> imageFilenames = tnRepo.getImageFilenames();
+        tnCount = imageFilenames.size();
         notifyStarted();
-        for (int i = 0; !cancel && (i < fileCount); i++) {
-            currentFileIndex = i + 1;
-            fileInThumbnailDirectory = filesInThumbnailDirectory[i];
-            isDelete = !allThumbnailFilesKnownByRepository.contains(fileInThumbnailDirectory);
-            if (isDelete && fileInThumbnailDirectory.isFile()) {
-                logDelete(fileInThumbnailDirectory);
-                if (fileInThumbnailDirectory.delete()) {
-                    countDeleted++;
-                    if (thumbnailsDisplayer.isDisplayFile(fileInThumbnailDirectory)) {
-                        thumbnailsDisplayer.removeFilesFromDisplay(Arrays.asList(fileInThumbnailDirectory));
-                    }
-                } else {
-                    LOGGER.log(Level.WARNING, "Can''t delete orphaned thumbnail ''{0}''!", fileInThumbnailDirectory);
+        for (String imageFilename : imageFilenames) {
+            if (cancel) {
+                break;
+            }
+            currentFileIndex++;
+            File imageFile = new File(imageFilename);
+            boolean isDelete = !imageFilesRepo.existsImageFile(imageFile);
+            if (isDelete) {
+                logDelete(imageFile);
+                tnRepo.deleteThumbnail(imageFile);
+                countDeleted++;
+                if (thumbnailsDisplayer.isDisplayFile(imageFile)) {
+                    thumbnailsDisplayer.removeFilesFromDisplay(Arrays.asList(imageFile));
                 }
             }
-            notifyPerformed(fileInThumbnailDirectory, isDelete);
+            notifyPerformed(imageFile, isDelete);
         }
         notifyEnded();
     }
 
-    private synchronized void logDelete(File file) {
-        LOGGER.log(Level.INFO, "Deleting orphaned thumbnail file ''{0}''", file);
+    private synchronized void logDelete(File imageFile ) {
+        LOGGER.log(Level.INFO, "Deleting orphaned thumbnail for image file ''{0}''", imageFile);
     }
 
     private synchronized void notifyStarted() {
-        LOGGER.log(Level.INFO, "Verifying which of the {0} thumbnails are orphaned", fileCount);
-
+        LOGGER.log(Level.INFO, "Verifying which of the {0} thumbnails are orphaned", tnCount);
         ProgressEvent evt = new ProgressEvent.Builder().source(this).
                 minimum(0).
-                maximum(fileCount).
+                maximum(tnCount).
                 value(0).
                 info(getStartMessage()).
                 build();
@@ -96,7 +90,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
         LOGGER.log(Level.FINEST, "Verifying wheter thumbnail ''{0}'' is orphaned", file);
         ProgressEvent evt = new ProgressEvent.Builder().source(this).
                 minimum(0).
-                maximum(fileCount).
+                maximum(tnCount).
                 value(currentFileIndex).
                 info(getPerformedMessage(file, wasDeleted)).
                 build();
@@ -106,7 +100,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     private void notifyEnded() {
         ProgressEvent evt = new ProgressEvent.Builder().source(this).
                 minimum(0).
-                maximum(fileCount).
+                maximum(tnCount).
                 value(currentFileIndex).
                 info(getEndMessage()).
                 build();
@@ -115,7 +109,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     }
 
     private String getStartMessage() {
-        return Bundle.getString(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Start", fileCount);
+        return Bundle.getString(DeleteOrphanedThumbnails.class, "DeleteOrphanedThumbnails.Info.Start", tnCount);
     }
 
     private String getPerformedMessage(File file, boolean wasDeleted) {

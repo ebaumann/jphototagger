@@ -23,7 +23,7 @@ import org.jphototagger.lib.util.Bundle;
 public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
 
     public static final ThumbnailCache INSTANCE = new ThumbnailCache();
-    private Image noPreviewThumbnail = IconUtil.getIconImage(Bundle.getString(ThumbnailCache.class, "ThumbnailCache.Path.NoPreviewThumbnail"));
+    private final Image noPreviewThumbnail = IconUtil.getIconImage(Bundle.getString(ThumbnailCache.class, "ThumbnailCache.Path.NoPreviewThumbnail"));
     private static final Logger LOGGER = Logger.getLogger(ThumbnailCache.class.getName());
 
     private ThumbnailCache() {
@@ -73,12 +73,9 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         ThumbnailCacheIndirection ci = new ThumbnailCacheIndirection(file);
-
         updateUsageTime(ci);
         fileCache.put(file, ci);
-
         if (prefetch) {
             workQueue.append(ci);
         } else {
@@ -90,22 +87,17 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
         if (image == null) {
             throw new NullPointerException("image == null");
         }
-
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         if (!fileCache.containsKey(file)) {
             return;    // stale entry
         }
-
         ThumbnailCacheIndirection ci = fileCache.get(file);
-
         updateUsageTime(ci);
         ci.thumbnail = image;
         fileCache.maybeCleanupCache();
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
             @Override
             public void run() {
                 notifyUpdate(file);
@@ -117,15 +109,11 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         ThumbnailCacheIndirection ci;
-
         while (null == (ci = fileCache.get(file))) {
             generateEntry(file, false);
         }
-
         updateUsageTime(ci);
-
         return ci.thumbnail;    // may return zero here if still loading
     }
 
@@ -143,7 +131,7 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
     private static class ThumbnailFetcher implements Runnable {
 
         private final ThumbnailCache cache;
-        private WorkQueue<ThumbnailCacheIndirection> wq;
+        private final WorkQueue<ThumbnailCacheIndirection> wq;
 
         ThumbnailFetcher(WorkQueue<ThumbnailCacheIndirection> imageWQ, ThumbnailCache _cache) {
             wq = imageWQ;
@@ -153,30 +141,22 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
         @Override
         public void run() {
             while (true) {
-                File imageFile = null;
-
                 try {
-                    imageFile = wq.fetch().file;
-
-                    Image image = null;
-
+                    File imageFile = wq.fetch().file;
+                    Image thumbnail = null;
                     if (imageFile == null) {
                         LOGGER.log(Level.WARNING, "Didn't find thumbnail of image in preview cache (is null)!");
                     } else {
-                        File tnFile = PersistentThumbnails.getThumbnailFile(imageFile);
-
-                        if (tnFile == null) {
-                            LOGGER.log(Level.WARNING, "Can''t resolve thumnbail name for image file ''{0}''", imageFile);
+                        if (ThumbnailsDb.existsThumbnail(imageFile)) {
+                            thumbnail = ThumbnailsDb.findThumbnail(imageFile);
                         } else {
-                            image = PersistentThumbnails.getThumbnail(imageFile);
+                            LOGGER.log(Level.WARNING, "Can''t resolve thumnbail name for image file ''{0}''", imageFile);
                         }
                     }
-
-                    if (image == null) {    // no image available from db
-                        image = cache.noPreviewThumbnail;
+                    if (thumbnail == null) {    // no image available from db
+                        thumbnail = cache.noPreviewThumbnail;
                     }
-
-                    cache.update(image, imageFile);
+                    cache.update(thumbnail, imageFile);
                 } catch (Throwable t) {
                     Logger.getLogger(ThumbnailFetcher.class.getName()).log(Level.SEVERE, null, t);
                 }

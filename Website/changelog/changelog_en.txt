@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.16 2014-01-01
+------------------
+
+* Using Thumbnails database rather than individual files.
+  The older thumbnail files will be inserted into the new
+  database. Depending on the image count this can take a
+  longer time.
+
 0.32.15 2013-12-30
 ------------------
 
@@ -31,11 +39,11 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.11 2013-05-31
 ------------------
 
-* Bugfix: Fixed IrfanView Slideshow Plugin due Oracle's Changes to the 
+* Bugfix: Fixed IrfanView Slideshow Plugin due Oracle's Changes to the
   Runtime class' behaviour in JRE 7 Update 21
   (http://www.oracle.com/technetwork/java/javase/7u21-relnotes-1932873.html#jruntime)
 * Renamed in program's window left tab "Searches" into "Saved Searches"
-  
+
 0.32.10 2013-05-04
 ------------------
 
