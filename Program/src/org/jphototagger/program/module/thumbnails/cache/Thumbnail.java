@@ -11,9 +11,9 @@ public final class Thumbnail implements Serializable {
     private final long lastModified;
     private final byte[] thumbnailBytes;
 
-    public Thumbnail(byte[] thumbnailBytes, long imageTimeStamp) {
+    public Thumbnail(byte[] thumbnailBytes, long lastModified) {
         this.thumbnailBytes = thumbnailBytes;
-        this.lastModified = imageTimeStamp;
+        this.lastModified = lastModified;
     }
 
     public byte[] getThumbnailBytes() {
