@@ -9,7 +9,6 @@ import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.event.listener.ProgressListenerSupport;
-import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -26,7 +25,6 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
     private int currentFileIndex = 0;
     private volatile boolean cancel;
     private static final Logger LOGGER = Logger.getLogger(DeleteOrphanedThumbnails.class.getName());
-    private final ImageFilesRepository imageFilesRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public synchronized void addProgressListener(ProgressListener l) {
         if (l == null) {
@@ -56,7 +54,7 @@ public final class DeleteOrphanedThumbnails implements Runnable, Cancelable {
             }
             currentFileIndex++;
             File imageFile = new File(imageFilename);
-            boolean isDelete = !imageFilesRepo.existsImageFile(imageFile);
+            boolean isDelete = !imageFile.isFile();
             if (isDelete) {
                 logDelete(imageFile);
                 tnRepo.deleteThumbnail(imageFile);
