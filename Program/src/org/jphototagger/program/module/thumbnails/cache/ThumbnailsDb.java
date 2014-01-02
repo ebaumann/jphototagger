@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import org.jphototagger.domain.thumbnails.ThumbnailsDirectoryProvider;
 import org.jphototagger.image.util.ImageUtil;
 import org.mapdb.DB;
@@ -48,7 +47,7 @@ public final class ThumbnailsDb {
             Thumbnail thumbnail = THUMBNAILS.get(createKey(imageFile));
             return thumbnail == null
                     ? null
-                    : new ImageIcon(thumbnail.getThumbnailBytes()).getImage();
+                    : thumbnail.createImage();
         } catch (Throwable t) {
             Logger.getLogger(ThumbnailsDb.class.getName()).log(Level.SEVERE, null, t);
             return null;
@@ -81,7 +80,7 @@ public final class ThumbnailsDb {
         byte[] imageBytes = ImageUtil.getByteArray(thumbnail, "jpeg");
         if (imageBytes != null) {
             LOGGER.log(Level.FINE, "Inserting thumbnail for image file {0}", imageFile);
-            Thumbnail tn = new Thumbnail(imageBytes, imageFile.lastModified());
+            Thumbnail tn = new Thumbnail(imageBytes, imageFile.length(), imageFile.lastModified());
             THUMBNAILS.put(createKey(imageFile), tn);
             try {
                 THUMBNAILS_DB.commit();
@@ -92,15 +91,16 @@ public final class ThumbnailsDb {
         }
     }
 
-    static long findLastModified(File imageFile) {
+    static boolean hasUpToDateThumbnail(File imageFile) {
         try {
             Thumbnail thumbnail = THUMBNAILS.get(createKey(imageFile));
             return thumbnail == null
-                    ? -1
-                    : thumbnail.getLastModified();
+                    ? false
+                    : thumbnail.getImageFileLength() == imageFile.length()
+                        && thumbnail.getImageFileLastModified() == imageFile.lastModified();
         } catch (Throwable t) {
             Logger.getLogger(ThumbnailsDb.class.getName()).log(Level.SEVERE, null, t);
-            return -1;
+            return false;
         }
     }
 
@@ -110,7 +110,7 @@ public final class ThumbnailsDb {
             if (tn != null) {
                 LOGGER.log(Level.FINE, "Renaming Thumbnail from image file ''{0}'' to image file {1}", new Object[]{fromImageFile, toImageFile});
                 THUMBNAILS.remove(createKey(fromImageFile));
-                THUMBNAILS.put(createKey(toImageFile), new Thumbnail(tn.getThumbnailBytes(), toImageFile.lastModified()));
+                THUMBNAILS.put(createKey(toImageFile), new Thumbnail(tn));
                 THUMBNAILS_DB.commit();
                 return true;
             }
@@ -124,6 +124,15 @@ public final class ThumbnailsDb {
 
     static Set<String> getImageFilenames() {
         return THUMBNAILS.keySet();
+    }
+
+    static void compact() {
+        try {
+            LOGGER.info("Compacting thumbnails database");
+            THUMBNAILS_DB.compact();
+        } catch (Throwable t) {
+            Logger.getLogger(ThumbnailsDb.class.getName()).log(Level.SEVERE, null, t);
+        }
     }
 
     private static String createKey(File imageFile) {

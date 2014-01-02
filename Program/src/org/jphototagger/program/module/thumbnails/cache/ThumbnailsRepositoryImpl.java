@@ -38,12 +38,17 @@ public final class ThumbnailsRepositoryImpl implements ThumbnailsRepository {
     }
 
     @Override
-    public long findLastModified(File imageFile) {
-        return ThumbnailsDb.findLastModified(imageFile);
+    public boolean hasUpToDateThumbnail(File imageFile) {
+        return ThumbnailsDb.hasUpToDateThumbnail(imageFile);
     }
 
     @Override
     public Set<String> getImageFilenames() {
         return ThumbnailsDb.getImageFilenames();
+    }
+
+    @Override
+    public void compact() {
+        ThumbnailsDb.compact();
     }
 }

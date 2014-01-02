@@ -15,15 +15,13 @@ public interface ThumbnailsRepository {
 
     boolean existsThumbnail(File imageFile);
 
-    /**
-     * @param imageFile
-     * @return time stamp of the last modification of the image file when the thumbnail was created
-     */
-    long findLastModified(File imageFile);
+    boolean hasUpToDateThumbnail(File imageFile);
 
     boolean renameThumbnail(File fromImageFile, File toImageFile);
 
     boolean deleteThumbnail(File imageFile);
+
+    void compact();
 
     /**
      * @return All image filenames where a thumbnail exists
