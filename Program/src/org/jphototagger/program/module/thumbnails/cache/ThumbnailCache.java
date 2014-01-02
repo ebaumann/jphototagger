@@ -145,13 +145,9 @@ public final class ThumbnailCache extends Cache<ThumbnailCacheIndirection> {
                     File imageFile = wq.fetch().file;
                     Image thumbnail = null;
                     if (imageFile == null) {
-                        LOGGER.log(Level.WARNING, "Didn't find thumbnail of image in preview cache (is null)!");
+                        LOGGER.log(Level.WARNING, "Didn't find image file in preview cache (is null)!");
                     } else {
-                        if (ThumbnailsDb.existsThumbnail(imageFile)) {
-                            thumbnail = ThumbnailsDb.findThumbnail(imageFile);
-                        } else {
-                            LOGGER.log(Level.WARNING, "Can''t resolve thumnbail name for image file ''{0}''", imageFile);
-                        }
+                        thumbnail = ThumbnailsDb.findThumbnail(imageFile);
                     }
                     if (thumbnail == null) {    // no image available from db
                         thumbnail = cache.noPreviewThumbnail;
