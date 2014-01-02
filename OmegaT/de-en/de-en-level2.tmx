@@ -1070,6 +1070,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>&amp;Vorschaubild-Datenbank komprimieren</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20140102T162529Z">
+        <seg>&amp;Compress thumbnails database</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>&amp;Vorschaubilder</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -1726,10 +1734,10 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger-Team in alphabetischer Reihenfolge des Nachnamens:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Benutzte Bibliotheken in alphabetischer Reihenfolge: &lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
+        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger-Team in alphabetischer Reihenfolge des Nachnamens:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Benutzte Bibliotheken in alphabetischer Reihenfolge: &lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;MapDB (http://www.mapdb.org)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130212T152231Z">
-        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger team in alphabetically order of their name::&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Used libraries in alphabetically Order: &lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20140102T163059Z">
+        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger team in alphabetical order of the last name:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Used libraries in alphabetical order: &lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;MapDB (http://www.mapdb.org)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -2242,6 +2250,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T192001Z">
         <seg>&lt;html&gt;Precise call of the external program.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>&lt;html&gt;Gibt Speicherplatz gelöschter Vorschaubilder frei.&lt;br/&gt;Kann bei einige Zeit dauern bei vielen Vorschaubildern.&lt;/html&gt;</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20140102T162700Z">
+        <seg>&lt;html&gt;Frees memory of deleted thumbnails.&lt;br/&gt;Can take some time if many thumbnails existing.&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -15108,6 +15124,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T200805Z">
         <seg>{0,choice,0#No file|1#1 file|1&lt;{0} files}, {1} selected, zoom {2} %</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>{0} / {1} Neue Thumbnail-DB</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20140102T162852Z">
+        <seg>{0} / {1} New Thumbnail Database</seg>
       </tuv>
     </tu>
     <tu>
