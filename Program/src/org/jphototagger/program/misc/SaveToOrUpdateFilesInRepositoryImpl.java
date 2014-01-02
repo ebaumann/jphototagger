@@ -150,11 +150,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private boolean isUpdateThumbnail(File imageFile) {
         return saveOrUpdate.contains(SaveOrUpdate.THUMBNAIL)
                 || (saveOrUpdate.contains(SaveOrUpdate.OUT_OF_DATE)
-                && (!existsThumbnail(imageFile) || !isThumbnailUpToDate(imageFile)));
-    }
-
-    private boolean existsThumbnail(File imageFile) {
-        return thumbnailsRepository.existsThumbnail(imageFile);
+                && !thumbnailsRepository.hasUpToDateThumbnail(imageFile));
     }
 
     private boolean isUpdateExif(File imageFile) {
@@ -173,15 +169,6 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         long repoSizeInBytes = imageFilesRepository.findImageFilesSizeInBytes(imageFile);
         long fileSizeInBytes = imageFile.length();
         return fileTime == repoTime && fileSizeInBytes == repoSizeInBytes;
-    }
-
-    private boolean isThumbnailUpToDate(File file) {
-        long lastModifiedThumbnailFile = thumbnailsRepository.findLastModified(file);
-        if (lastModifiedThumbnailFile < 0) {
-            return false;
-        }
-        long lastModifiedFile = file.lastModified();
-        return lastModifiedThumbnailFile >= lastModifiedFile;
     }
 
     private boolean isXmpUpToDate(File file) {
