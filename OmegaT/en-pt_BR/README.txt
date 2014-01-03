@@ -1,1 +1,0 @@
-Required directory - create them if absent, else OmegaT won't accept the project:dictionaryglossaryomegatsourcetargettm
