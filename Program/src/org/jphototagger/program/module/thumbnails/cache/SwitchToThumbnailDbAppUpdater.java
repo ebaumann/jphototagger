@@ -11,6 +11,8 @@ import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
@@ -41,6 +43,7 @@ public final class SwitchToThumbnailDbAppUpdater implements AppUpdater {
         ImageFilesRepository imageFilesRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
         long imageFileCount = imageFilesRepo.getFileCount();
         Logger.getLogger(SwitchToThumbnailDbAppUpdater.class.getName()).log(Level.INFO, "Processing {0} image files", imageFileCount);
+        showUpdateInfo(imageFileCount);
         ProgressHandle progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
         ProgressEvent progressEvent = createProgressStartedEvent((int) imageFileCount);
         progressHandle.progressStarted(progressEvent);
@@ -54,6 +57,17 @@ public final class SwitchToThumbnailDbAppUpdater implements AppUpdater {
         }
         if (updater.updateFinished) {
             updateFinished();
+        }
+    }
+
+    private void showUpdateInfo(final long imageFileCount) {
+        if (imageFileCount > 300) {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+                @Override
+                public void run() {
+                    MessageDisplayer.information(null, Bundle.getString(SwitchToThumbnailDbAppUpdater.class, "SwitchToThumbnailDbAppUpdater.UpdateInfo", imageFileCount));
+                }
+            });
         }
     }
 
@@ -78,7 +92,6 @@ public final class SwitchToThumbnailDbAppUpdater implements AppUpdater {
               progressEvent.setStringToPaint(getProgressMessage(filesProcessedCount, progressEvent.getMaximum()));
               progressHandle.progressPerformed(progressEvent);
         }
-
     }
 
     private void updateFinished() {

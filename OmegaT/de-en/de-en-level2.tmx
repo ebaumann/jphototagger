@@ -2318,6 +2318,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>&lt;html&gt;JPhotoTagger wechselt zu einer Vorschaubild-Datenbank anstelle einzelner Dateien.&lt;br/&gt;Einmalig werden dazu alle existierenden Vorschaubilddateien von {0} erfassten&lt;br/&gt;Bildern in die Datenbank geschrieben.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20140103T175826Z">
+        <seg>&lt;html&gt;JPhotoTagger switches to a thumbnails database rather than separate files.&lt;br/&gt;Once all existing thumbnails of {0} known&lt;br/&gt;images will be transferred into the database.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>&lt;html&gt;Lange XMP-Filialdateinamen bestehen aus dem kompletten Dateinamen und der Endung &lt;code&gt;xmp&lt;/code&gt;.&lt;br/&gt;Beispiele: &lt;code&gt;Bild.jpeg.xmp&lt;/code&gt; oder &lt;code&gt;Bild.nef.xmp&lt;/code&gt;.&lt;p&gt;&lt;p&gt;&amp;quot;Normale&amp;quot; XMP-Filialdateinamen bestehen aus dem Dateinamen ohne Endung, die Endung wird ersetzt durch &lt;code&gt;xmp&lt;/code&gt;.&lt;br/&gt;Beispiel: &lt;code&gt;Bild.xmp&lt;/code&gt;.&lt;p&gt;&lt;p&gt;Werden lange XMP-Filialdateinamen benutzt, hat weit reichende Konsequenzen:&lt;ul&gt;&lt;li&gt;Es können mehrere Dateien gleichen Basisnamens im gleichen Ordner gespeichert werden,&lt;br/&gt;ohne dass es Namenskonflikte mit XMP-Filialdateien gibt&lt;/li&gt;&lt;li&gt;Andere Anwendungen werden vermutlich &lt;em&gt;nicht&lt;/em&gt; mehr die Metadten lesen,&lt;br/&gt;die Sie mit &lt;strong&gt;JPhotoTagger&lt;/strong&gt; erstellen &lt;em&gt;und umgekehrt&lt;/em&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Auf jeden Fall benennt &lt;strong&gt;JPhotoTagger&lt;/strong&gt; gleich nach Aktivierung dieser Option die bestehenden XMP-Filialdateien um.&lt;p&gt;&lt;p&gt;Wollen Sie lange XMP-Dateinamen benutzen?&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -6026,6 +6034,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T190400Z">
         <seg>The maximum wait time limit of {0} sekonds exceeded!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Dies kann einige Zeit dauern, während&lt;br/&gt;der Sie mit JPhotoTagger weiterarbeiten können.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20140103T180444Z">
+        <seg>This can take some time, during that&lt;br/&gt;you can work with JPhotoTagger.</seg>
       </tuv>
     </tu>
     <tu>
@@ -12552,6 +12568,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Sollten Sie JPhotoTagger&lt;br/&gt;vorzeitig beenden, werden die verbliebenen Vorschaubilder beim nächsten&lt;br/&gt;Start in die Datenbank übertragen.&lt;/html&gt;</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20140103T180031Z">
+        <seg>If you quit JPhotoTagger&lt;br/&gt;before the process is finished, the remaining thumbnails will be&lt;br/&gt;transferred after next startup.&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Sonst können ausgeschlossene Dateien bei Suchen gefunden werden.&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T191456Z">
@@ -15128,10 +15152,10 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>{0} / {1} Neue Thumbnail-DB</seg>
+        <seg>{0} / {1} Neue Vorschaubild-DB</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20140102T162852Z">
-        <seg>{0} / {1} New Thumbnail Database</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20140103T175653Z">
+        <seg>{0} / {1} New Thumbnails DB</seg>
       </tuv>
     </tu>
     <tu>
