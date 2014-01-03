@@ -11,10 +11,12 @@
         <antcall target="-copy-omegat-sources-from-default"><!-- -copy-omegat-sources-from-default always first! -->
             <param name="target.locale" value="en"/>
         </antcall>
+        <!--
         <antcall target="-copy-omegat-sources-from-localized">
             <param name="src.locale" value="en"/>
             <param name="target.locale" value="pt_BR"/>
         </antcall>
+        -->
     </target>
 
     <target name="-copy-omegat-sources-from-localized">
