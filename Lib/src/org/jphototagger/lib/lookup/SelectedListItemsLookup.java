@@ -19,12 +19,12 @@ public final class SelectedListItemsLookup implements Lookup.Provider {
         }
         list.addListSelectionListener(listSelectionListener);
     }
-    private final ListSelectionListener listSelectionListener = new ListSelectionListener() {
 
+    private final ListSelectionListener listSelectionListener = new ListSelectionListener() {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             if (!e.getValueIsAdjusting()) {
-                JList list = (JList) e.getSource();
+                JList<?> list = (JList<?>) e.getSource();
                 Collection<?> content = LookupUtil.createContentOfSelectedValues(list);
                 lookup.set(content);
             }

@@ -15,6 +15,8 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = OptionPageProvider.class)
 public class KeywordsTreeSettingsPanel extends javax.swing.JPanel implements OptionPageProvider {
 
+    private static final long serialVersionUID = 1L;
+
     public KeywordsTreeSettingsPanel() {
         initComponents();
         postInitComponents();
