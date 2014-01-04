@@ -37,7 +37,7 @@ import org.jphototagger.lib.swing.util.TreeUtil;
  *
  * @author Elmar Baumann
  */
-public final abstract class PopupMenuTree extends JPopupMenu implements ActionListener, MouseListener {
+public abstract class PopupMenuTree extends JPopupMenu implements ActionListener, MouseListener {
 
     private static final long serialVersionUID = 1L;
     private final Map<JMenuItem, Collection<Listener>> listenersOfItem = new HashMap<>();
