@@ -12,8 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.exif.ExifTag;
 import org.jphototagger.exif.ExifTags;
-import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.datatype.ExifRational;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 
 /**
  * @author Elmar Baumann

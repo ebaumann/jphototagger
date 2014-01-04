@@ -80,7 +80,7 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
         }
     }
 
-    private ListSelectionListener sectionItemSelectedEventPublisher = new ListSelectionListener() {
+    private final ListSelectionListener sectionItemSelectedEventPublisher = new ListSelectionListener() {
 
         @Override
         public void valueChanged(ListSelectionEvent e) {

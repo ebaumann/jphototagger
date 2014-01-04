@@ -18,7 +18,7 @@ import java.util.TreeSet;
  */
 public class SoftCacheMap<C extends CacheIndirection> {
 
-    private HashMap<File, SoftReference<C>> _map = new HashMap<>();
+    private final HashMap<File, SoftReference<C>> _map = new HashMap<>();
     private final int MAX_ENTRIES;
     final WorkQueue<C> w;
 

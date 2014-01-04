@@ -114,7 +114,7 @@ public final class RenameDeleteXmpValue {
 
     private static class Rename extends Thread implements Cancelable {
 
-        private ProgressBarUpdater pb = new ProgressBarUpdater(this, Bundle.getString(Rename.class, "RenameDeleteXmpValue.ProgressBar.String"));
+        private final ProgressBarUpdater pb = new ProgressBarUpdater(this, Bundle.getString(Rename.class, "RenameDeleteXmpValue.ProgressBar.String"));
         private final MetaDataValue metaDataValue;
         private final String newValue;
         private final String oldValue;

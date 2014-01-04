@@ -324,7 +324,7 @@ public final class AllSystemDirectoriesTreeModel extends DefaultTreeModel implem
 
     private final Runnable updater = new Runnable() {
 
-        private AtomicInteger taskCount = new AtomicInteger(0);
+        private final AtomicInteger taskCount = new AtomicInteger(0);
 
         @Override
         public void run() {

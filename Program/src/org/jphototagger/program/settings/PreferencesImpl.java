@@ -26,7 +26,7 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = Preferences.class)
 public final class PreferencesImpl implements Preferences {
 
-    private Settings settings = UserPreferences.INSTANCE.getSettings();
+    private final Settings settings = UserPreferences.INSTANCE.getSettings();
 
     @Override
     public String getString(String key) {

@@ -117,7 +117,7 @@ public class DisplayMessagesInFutureSettingsPanel extends javax.swing.JPanel {
         }
     }
 
-    private ActionListener changeListener = new ActionListener() {
+    private final ActionListener changeListener = new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent e) {

@@ -2,7 +2,7 @@ package org.jphototagger.lib.util;
 
 import org.jphototagger.lib.util.CommandLineParser.Option;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

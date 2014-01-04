@@ -17,7 +17,7 @@ final class MetaDataValueFormatterFactory {
     private static DefaultFormatterFactory integerFormatterFactory;
     private static DefaultFormatterFactory doubleFormatterFactory;
     private static DefaultFormatterFactory dateFormatterFactory;
-    private static DefaultFormatterFactory defaultFormatterFactory =
+    private static final DefaultFormatterFactory defaultFormatterFactory =
             new DefaultFormatterFactory(new DefaultFormatter());
 
     static {

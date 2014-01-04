@@ -100,7 +100,7 @@ public final class External {
 
     private static class InterruptTimerTask extends TimerTask {
 
-        private Thread thread;
+        private final Thread thread;
 
         private InterruptTimerTask(Thread t) {
             this.thread = t;

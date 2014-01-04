@@ -484,7 +484,7 @@ public final class AppPanel extends javax.swing.JPanel {
         }
     }
 
-    private ChangeListener tabbedPaneEditChangeListener = new ChangeListener() {
+    private final ChangeListener tabbedPaneEditChangeListener = new ChangeListener() {
 
         @Override
         public void stateChanged(ChangeEvent e) {
@@ -493,7 +493,7 @@ public final class AppPanel extends javax.swing.JPanel {
         }
     };
 
-    private ChangeListener tabbedPaneSelectionChangeListener = new ChangeListener() {
+    private final ChangeListener tabbedPaneSelectionChangeListener = new ChangeListener() {
 
         @Override
         public void stateChanged(ChangeEvent e) {

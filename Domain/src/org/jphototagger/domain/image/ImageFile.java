@@ -14,7 +14,7 @@ import org.jphototagger.domain.repository.SaveOrUpdate;
  */
 public final class ImageFile {
 
-    private Set<SaveOrUpdate> insertIntoDb = EnumSet.noneOf(SaveOrUpdate.class);
+    private final Set<SaveOrUpdate> insertIntoDb = EnumSet.noneOf(SaveOrUpdate.class);
     private Exif exif;
     private File file;
     private long lastmodified = -1;

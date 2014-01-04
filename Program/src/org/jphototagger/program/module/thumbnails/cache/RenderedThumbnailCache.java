@@ -32,11 +32,11 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
     private final int MAX_ENTRIES = 1500;
     private static int currentAge = 0;
     private final Set<ThumbnailUpdateListener> updateListeners = new HashSet<>();
-    private WorkQueue<RenderedThumbnailCacheIndirection> workQueue = new WorkQueue<>();
-    private ThumbnailCache thumbCache = ThumbnailCache.INSTANCE;
-    private XmpCache xmpCache = XmpCache.INSTANCE;
+    private final WorkQueue<RenderedThumbnailCacheIndirection> workQueue = new WorkQueue<>();
+    private final ThumbnailCache thumbCache = ThumbnailCache.INSTANCE;
+    private final XmpCache xmpCache = XmpCache.INSTANCE;
     private Image scaledDummyThumbnail = null;
-    private Image dummyThumbnail = IconUtil.getIconImage(Bundle.getString(RenderedThumbnailCache.class, "RenderedThumbnailCache.Path.DummyThumbnail"));
+    private final Image dummyThumbnail = IconUtil.getIconImage(Bundle.getString(RenderedThumbnailCache.class, "RenderedThumbnailCache.Path.DummyThumbnail"));
     /**
      * Mapping from file to all kinds of cached data
      */
@@ -113,7 +113,7 @@ public final class RenderedThumbnailCache implements ThumbnailUpdateListener {
 
     private static class ThumbnailRenderer implements Runnable {
 
-        private WorkQueue<RenderedThumbnailCacheIndirection> wq;
+        private final WorkQueue<RenderedThumbnailCacheIndirection> wq;
         private final RenderedThumbnailCache cache;
 
         ThumbnailRenderer(WorkQueue<RenderedThumbnailCacheIndirection> imageWQ, RenderedThumbnailCache _cache) {

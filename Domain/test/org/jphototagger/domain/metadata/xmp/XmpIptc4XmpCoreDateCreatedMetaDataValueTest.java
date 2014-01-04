@@ -1,7 +1,8 @@
 package org.jphototagger.domain.metadata.xmp;
 
 import java.util.Calendar;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**

@@ -62,7 +62,7 @@ public final class EditSavedSearchController implements ActionListener, KeyListe
         // ignore
     }
 
-    private MouseListener mouseListener = new MouseAdapter() {
+    private final MouseListener mouseListener = new MouseAdapter() {
 
         @Override
         public void mouseClicked(MouseEvent e) {

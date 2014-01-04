@@ -28,19 +28,19 @@ public final class ExifTags {
     /**
      * Tags of EXIF IFD
      */
-    private Set<ExifTag> exifTags = new HashSet<>();
+    private final Set<ExifTag> exifTags = new HashSet<>();
     /**
      * Tags of GPS IFD
      */
-    private Set<ExifTag> gpsTags = new HashSet<>();
+    private final Set<ExifTag> gpsTags = new HashSet<>();
     /**
      * Tags of  Interoperability IFD
      */
-    private Set<ExifTag> interoperabilityTags = new HashSet<>();
+    private final Set<ExifTag> interoperabilityTags = new HashSet<>();
     /**
      * Maker note tags of EXIF IFD
      */
-    private Set<ExifTag> makerNoteTags = new HashSet<>();
+    private final Set<ExifTag> makerNoteTags = new HashSet<>();
 
     public Set<ExifTag> getExifTags() {
         return Collections.unmodifiableSet(exifTags);

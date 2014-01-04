@@ -49,7 +49,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     private transient MetaDataValue metaDataValue;
     private boolean dirty = false;
     private boolean editable;
-    private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private final transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private Autocomplete autocomplete;
 
     /**

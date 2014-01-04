@@ -61,8 +61,8 @@ public final class XmpCache extends Cache<XmpCacheIndirection> {
     private static class XmpFetcher implements Runnable {
 
         private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
-        private WorkQueue<XmpCacheIndirection> wq;
-        private XmpCache cache;
+        private final WorkQueue<XmpCacheIndirection> wq;
+        private final XmpCache cache;
 
         XmpFetcher(WorkQueue<XmpCacheIndirection> _wq, XmpCache _cache) {
             wq = _wq;

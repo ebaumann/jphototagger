@@ -6,7 +6,7 @@ package org.jphototagger.program.module.editmetadata;
 class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
 
     private static final long serialVersionUID = 1L;
-    private transient EditMetaDataPanels editMetadtaPanels;
+    private final transient EditMetaDataPanels editMetadtaPanels;
 
     EditMetaDataPanelsWrapperPanel() {
         initComponents();

@@ -288,7 +288,7 @@ public final class AppLifeCycle {
          * Sleep time in milliseconds before giving control to the caller, so that the threads can complete their
          * current action before they check for interruption.
          */
-        private static long MILLISECONDS_SLEEP = 2000;
+        private static final long MILLISECONDS_SLEEP = 2000;
 
         public static void cancel() {
             SerialTaskExecutor serialTaskExecutor = Lookup.getDefault().lookup(SerialTaskExecutor.class);
