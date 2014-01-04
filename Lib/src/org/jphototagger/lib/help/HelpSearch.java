@@ -104,8 +104,8 @@ final class HelpSearch {
             indexSearcher.search(query, collector);
             ScoreDoc[] scoreDocs = collector.topDocs().scoreDocs;
             matchingHelpPageUrls = new ArrayList<>(scoreDocs.length);
-            for (int i = 0; i < scoreDocs.length; i++) {
-                int docId = scoreDocs[i].doc;
+            for (ScoreDoc scoreDoc : scoreDocs) {
+                int docId = scoreDoc.doc;
                 Document document = indexSearcher.doc(docId);
                 addHelpPage(document, matchingHelpPageUrls);
             }

@@ -94,8 +94,7 @@ public final class Settings {
         final Class<? extends Component> clazz = component.getClass();
         final String componentName = clazz.getName();
         final Field[] fields = clazz.getDeclaredFields();
-        for (int index = 0; index < fields.length; index++) {
-            final Field field = fields[index];
+        for (Field field : fields) {
             field.setAccessible(true);
             String fieldName = field.getName();
             String key = componentName + DOT + fieldName;
@@ -513,8 +512,7 @@ public final class Settings {
         final Class<? extends Component> c = component.getClass();
         final String componentName = c.getName();
         final Field[] fields = c.getDeclaredFields();
-        for (int index = 0; index < fields.length; index++) {
-            final Field field = fields[index];
+        for (Field field : fields) {
             field.setAccessible(true);
             String fieldName = field.getName();
             String key = componentName + DOT + fieldName;
@@ -727,8 +725,8 @@ public final class Settings {
 
     private void setTreePath(String key, Object[] path, boolean selected) {
         StringBuilder sb = new StringBuilder();
-        for (int index = 0; index < path.length; index++) {
-            sb.append(path[index].toString());
+        for (Object path1 : path) {
+            sb.append(path1.toString());
             sb.append(TREE_PATH_SEPARATOR);
         }
         sb.append(selected

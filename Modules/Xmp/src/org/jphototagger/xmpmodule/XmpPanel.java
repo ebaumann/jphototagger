@@ -193,9 +193,8 @@ public class XmpPanel extends javax.swing.JPanel {
 
     private void setPropertyInfosToXmpTableModel(File imageFile, XmpTableModel model, List<XMPPropertyInfo> allInfos, String[] namespaces) {
         List<XMPPropertyInfo> infos = new ArrayList<>();
-
-        for (int index = 0; index < namespaces.length; index++) {
-            infos.addAll(XmpMetadata.filterPropertyInfosOfNamespace(allInfos, namespaces[index]));
+        for (String namespace : namespaces) {
+            infos.addAll(XmpMetadata.filterPropertyInfosOfNamespace(allInfos, namespace));
         }
 
         model.setPropertyInfosOfFile(imageFile, infos);

@@ -156,8 +156,8 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         List<File> files = new ArrayList<>();
         TreePath[] paths = tree.getSelectionPaths();
         if (paths != null) {
-            for (int index = 0; index < paths.length; index++) {
-                Object[] path = paths[index].getPath();
+            for (TreePath path1 : paths) {
+                Object[] path = path1.getPath();
                 int filecount = path.length;
                 if ((path != null) && (filecount >= 1)) {
                     Object userObject = ((DefaultMutableTreeNode) path[filecount - 1]).getUserObject();
