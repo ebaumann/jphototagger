@@ -31,13 +31,11 @@ public final class DatabaseMetadata extends Database {
         boolean exists = false;
         DatabaseMetaData dbm = con.getMetaData();
         String[] names = {"TABLE"};
-        ResultSet rs = dbm.getTables(null, "%", "%", names);
-
-        while (!exists && rs.next()) {
-            exists = rs.getString("TABLE_NAME").equalsIgnoreCase(tablename);
+        try (ResultSet rs = dbm.getTables(null, "%", "%", names)) {
+            while (!exists && rs.next()) {
+                exists = rs.getString("TABLE_NAME").equalsIgnoreCase(tablename);
+            }
         }
-
-        rs.close();
 
         return exists;
     }
