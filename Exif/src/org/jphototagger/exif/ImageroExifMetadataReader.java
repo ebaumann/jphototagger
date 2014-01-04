@@ -83,10 +83,8 @@ public final class ImageroExifMetadataReader implements ExifTagsProvider {
     private void addAllExifTags(JpegReader jpegReader, ExifTags exifTags) {
         IFDEntry[][] allIfdEntries = MetadataUtils.getExif(jpegReader);
         if (allIfdEntries != null) {
-            for (int i = 0; i < allIfdEntries.length; i++) {
-                IFDEntry[] currentIfdEntry = allIfdEntries[i];
-                for (int j = 0; j < currentIfdEntry.length; j++) {
-                    IFDEntry entry = currentIfdEntry[j];
+            for (IFDEntry[] currentIfdEntry : allIfdEntries) {
+                for (IFDEntry entry : currentIfdEntry) {
                     ExifTag exifTag = new ExifTag(entry, ExifIfd.EXIF);
                     ExifTag.Properties exifTagId = exifTag.parseProperties();
                     if (exifTagId.isGpsTag()) {

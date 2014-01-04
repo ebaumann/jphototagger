@@ -51,17 +51,15 @@ public final class IptcMetadata {
 
     private static void addEntries(IPTCEntry[][] entries, List<IptcEntry> metadata) {
         if (entries != null) {
-            for (int i = 0; i < entries.length; i++) {
-                addEntries(entries[i], metadata);
+            for (IPTCEntry[] entrie : entries) {
+                addEntries(entrie, metadata);
             }
         }
     }
 
     private static void addEntries(IPTCEntry[] entries, List<IptcEntry> metadata) {
         if (entries != null) {
-            for (int i = 0; i < entries.length; i++) {
-                IPTCEntry currentEntry = entries[i];
-
+            for (IPTCEntry currentEntry : entries) {
                 if ((currentEntry != null) && !isVersionInfo(currentEntry)) {
                     IptcEntry newEntry = new IptcEntry(currentEntry);
 

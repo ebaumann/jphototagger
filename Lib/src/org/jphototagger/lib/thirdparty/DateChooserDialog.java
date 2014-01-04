@@ -358,13 +358,11 @@ public final class DateChooserDialog extends JComponent {
 
         previousButton.setFont(font);
         nextButton.setFont(font);
-
-        for (int i = 0; i < dayOfWeekLabels.length; i++) {
-            dayOfWeekLabels[i].setFont(font);
+        for (JLabel dayOfWeekLabel : dayOfWeekLabels) {
+            dayOfWeekLabel.setFont(font);
         }
-
-        for (int i = 0; i < dayOfMonthLabels.length; i++) {
-            dayOfMonthLabels[i].setFont(font);
+        for (JLabel dayOfMonthLabel : dayOfMonthLabels) {
+            dayOfMonthLabel.setFont(font);
         }
 
         monthYearLabel.setFont(font);

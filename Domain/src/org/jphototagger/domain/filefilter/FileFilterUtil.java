@@ -29,9 +29,7 @@ public final class FileFilterUtil {
         List<File> files = new ArrayList<>();
 
         if (filteredFiles != null) {
-            for (int index = 0; index < filteredFiles.length; index++) {
-                File file = filteredFiles[index];
-
+            for (File file : filteredFiles) {
                 if (!RegexUtil.containsMatch(excludePatterns, file.getAbsolutePath())) {
                     files.add(file);
                 }
