@@ -193,7 +193,6 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
 
     @Override
     public void enableAutocomplete() {
-        return;
     }
 
     @Override
