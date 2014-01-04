@@ -410,7 +410,7 @@ public final class Timeline {
      *
      * @author Elmar Baumann
      */
-    public static class Date implements Comparable<Date> {
+    public static final class Date implements Comparable<Date> {
 
         public int year;
         public int month;
