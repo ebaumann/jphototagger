@@ -250,6 +250,7 @@ public class FlickrImageInfoDialog extends Dialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 FlickrImageInfoDialog dialog = new FlickrImageInfoDialog();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {

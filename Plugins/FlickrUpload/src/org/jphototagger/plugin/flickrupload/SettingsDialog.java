@@ -49,6 +49,7 @@ public class SettingsDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 SettingsDialog dialog = new SettingsDialog();
 
