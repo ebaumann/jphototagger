@@ -47,6 +47,7 @@ public final class SortedChildrenTreeNode extends DefaultMutableTreeNode impleme
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void add(MutableTreeNode newChild) {
         super.add(newChild);
         Collections.sort(this.children);
@@ -64,6 +65,7 @@ public final class SortedChildrenTreeNode extends DefaultMutableTreeNode impleme
         insertAll(nodes, false);
     }
 
+    @SuppressWarnings("unchecked")
     private void insertAll(Collection<? extends MutableTreeNode> nodes, boolean sortChildren) {
         if (!allowsChildren) {
             throw new IllegalStateException("node does not allow children");

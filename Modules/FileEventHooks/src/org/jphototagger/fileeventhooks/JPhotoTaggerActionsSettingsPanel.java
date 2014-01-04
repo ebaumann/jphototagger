@@ -175,10 +175,10 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
     private final ListCellRenderer<?> suffixesListCellRenderer = new DefaultListCellRenderer() {
 
         private static final long serialVersionUID = 1L;
-        private Icon ICON_FILE = IconUtil.getImageIcon(JPhotoTaggerActionsSettingsPanel.class, "file.png");
+        private final Icon ICON_FILE = IconUtil.getImageIcon(JPhotoTaggerActionsSettingsPanel.class, "file.png");
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             label.setIcon(ICON_FILE);
             return label;

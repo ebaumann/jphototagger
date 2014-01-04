@@ -17,6 +17,7 @@ import org.openide.util.LookupListener;
  */
 public abstract class LookupAction<T> extends AbstractAction implements LookupListener {
 
+    private static final long serialVersionUID = 1L;
     private final Class<? extends T> lookupResultClass;
     private final Lookup lookup;
     private Lookup.Result<? extends T> lookupResult;

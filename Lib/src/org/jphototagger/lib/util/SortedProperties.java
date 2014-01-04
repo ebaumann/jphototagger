@@ -13,6 +13,8 @@ import java.util.Properties;
  */
 public final class SortedProperties extends Properties {
 
+    private static final long serialVersionUID = 1L;
+
     public SortedProperties() {
     }
 
@@ -21,6 +23,7 @@ public final class SortedProperties extends Properties {
     }
 
     @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public Enumeration keys() {
         List<String> keyList = new ArrayList<>();
         for (Enumeration<Object> e = super.keys(); e.hasMoreElements();) {

@@ -331,7 +331,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         private final String AUTOMATIC_WORDSET_NAME = Bundle.getString(WordsetsPanel.class, "WordsetsPanel.ListCellRenderer.AutomaticWordsetName");
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             if (WordsetPreferences.AUTOMATIC_WORDSET_NAME.equals(value)) {
                 label.setText(AUTOMATIC_WORDSET_NAME);

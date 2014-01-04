@@ -163,7 +163,7 @@ public class ObjectsSelectionDialog<T> extends Dialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ObjectsSelectionDialog dialog = new ObjectsSelectionDialog();
+                ObjectsSelectionDialog<?> dialog = new ObjectsSelectionDialog<>();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

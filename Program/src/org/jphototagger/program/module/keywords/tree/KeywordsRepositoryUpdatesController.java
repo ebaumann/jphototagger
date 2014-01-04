@@ -61,6 +61,7 @@ public final class KeywordsRepositoryUpdatesController {
                 || prefs.getBoolean(KeywordsTreePreferencesKeys.KEY_AUTO_INSERT_UNKNOWN_KEYWORDS);
     }
 
+    @SuppressWarnings("unchecked")
     private void addNotExistingKeywords(Xmp xmp) {
         Object xmpValue = xmp.getValue(XmpDcSubjectsSubjectMetaDataValue.INSTANCE);
         if (xmpValue instanceof List<?>) {

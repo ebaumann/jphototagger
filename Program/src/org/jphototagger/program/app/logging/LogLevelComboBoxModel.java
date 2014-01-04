@@ -32,7 +32,7 @@ public final class LogLevelComboBoxModel extends DefaultComboBoxModel<Object> {
             private static final long serialVersionUID = 1L;
 
             @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+            public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                 if (value instanceof Level) {
                     Level level = (Level) value;
