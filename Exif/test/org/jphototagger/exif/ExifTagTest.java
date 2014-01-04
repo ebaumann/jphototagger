@@ -3,7 +3,8 @@ package org.jphototagger.exif;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

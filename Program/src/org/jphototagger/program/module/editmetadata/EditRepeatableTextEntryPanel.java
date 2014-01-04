@@ -74,7 +74,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private Suggest suggest;
     private boolean settingTexts;
     private boolean ignoreIntervalAdded;
-    private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private final transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private Autocomplete autocomplete;
     private WordsetsPanel panelWordsets;
     private Color editBackground;

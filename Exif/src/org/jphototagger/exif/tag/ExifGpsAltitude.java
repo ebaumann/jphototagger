@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
-import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.datatype.ExifRational;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ByteUtil;
 

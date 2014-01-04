@@ -3,7 +3,7 @@ package org.jphototagger.lib.swing.util;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultListModel;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**

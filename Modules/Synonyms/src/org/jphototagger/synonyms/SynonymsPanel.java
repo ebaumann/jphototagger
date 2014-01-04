@@ -25,8 +25,8 @@ import org.openide.util.Lookup;
 public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionListener, DocumentListener {
 
     private static final long serialVersionUID = 1L;
-    private SynonymsListModel modelWords = new SynonymsListModel(SynonymsListModel.Role.WORDS);
-    private SynonymsListModel modelSynonyms = new SynonymsListModel(SynonymsListModel.Role.SYNONYMS);
+    private final SynonymsListModel modelWords = new SynonymsListModel(SynonymsListModel.Role.WORDS);
+    private final SynonymsListModel modelSynonyms = new SynonymsListModel(SynonymsListModel.Role.SYNONYMS);
     private Autocomplete autocomplete;
     private boolean listenToDocuments = true;
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);

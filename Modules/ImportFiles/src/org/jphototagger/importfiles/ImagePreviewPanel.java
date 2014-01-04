@@ -30,7 +30,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     private int width;
     private int height;
     private Image image;
-    private Color bg;
+    private final Color bg;
     private final ThumbnailProvider tnProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
 
     public ImagePreviewPanel() {

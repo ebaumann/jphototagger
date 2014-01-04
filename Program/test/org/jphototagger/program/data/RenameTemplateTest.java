@@ -2,7 +2,8 @@ package org.jphototagger.program.data;
 
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

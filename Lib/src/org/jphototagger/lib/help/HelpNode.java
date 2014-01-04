@@ -14,7 +14,7 @@ import org.jphototagger.lib.util.ObjectUtil;
 public final class HelpNode {
 
     private String title;
-    private List<Object> children = new ArrayList<>();
+    private final List<Object> children = new ArrayList<>();
     private HelpNode parent;
 
     public String getTitle() {

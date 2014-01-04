@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

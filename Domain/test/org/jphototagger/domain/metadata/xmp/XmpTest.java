@@ -8,7 +8,10 @@ import org.jphototagger.domain.metadata.iptc.Iptc;
 import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.domain.metadata.xmp.Xmp.SetIptc;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**

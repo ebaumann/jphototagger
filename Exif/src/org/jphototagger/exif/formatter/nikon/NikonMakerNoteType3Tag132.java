@@ -3,8 +3,8 @@ package org.jphototagger.exif.formatter.nikon;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 import org.jphototagger.exif.ExifTag;
-import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.datatype.ExifRational;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.formatter.ExifRawValueFormatter;
 
 /**

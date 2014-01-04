@@ -42,7 +42,7 @@ public final class ProgramPropertiesDialog extends Dialog {
     private File lastDir = initCreateLastDir();
     private File file;
     private boolean accecpted = false;
-    private boolean action;
+    private final boolean action;
     private static final Color FG_COLOR_LABEL_FILE_EXISTS = Color.BLUE;
     private static final Color BG_COLOR_LABEL_FILE_EXISTS = LookAndFeelUtil.getUiColor("Label.background");
     private static final Color FG_COLOR_LABEL_FILE_NOT_EXISTS = Color.WHITE;

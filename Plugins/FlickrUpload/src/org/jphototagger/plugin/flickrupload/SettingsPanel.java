@@ -8,7 +8,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
  */
 public class SettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
-    private transient Settings settings = new Settings();
+    private final transient Settings settings = new Settings();
 
     public SettingsPanel() {
         initComponents();

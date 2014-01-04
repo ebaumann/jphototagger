@@ -15,7 +15,7 @@ import org.openide.util.Lookup;
 public final class ExifRecordingEquipmentAscendingComparator extends ClassEquality implements Comparator<File>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private transient Collator collator = Collator.getInstance();
+    private final transient Collator collator = Collator.getInstance();
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     @Override

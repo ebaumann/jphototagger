@@ -47,7 +47,7 @@ public final class DeleteOutOfDateFilesInDirectoryThread extends Thread implemen
         cancel = true;
     }
 
-    private CancelRequest cancelRequest = new CancelRequest() {
+    private final CancelRequest cancelRequest = new CancelRequest() {
 
         @Override
         public boolean isCancel() {

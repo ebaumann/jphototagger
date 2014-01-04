@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import org.jphototagger.exif.Ensure;
 import org.jphototagger.exif.ExifTag;
-import org.jphototagger.exif.datatype.ExifValueUtil;
 import org.jphototagger.exif.datatype.ExifRational;
+import org.jphototagger.exif.datatype.ExifValueUtil;
 
 /**
  * Formats an EXIF entry of the dataType {@code ExifTag.Properties#GPS_TIME_STAMP}.

@@ -246,8 +246,8 @@ public final class Autocomplete implements DocumentListener, Serializable {
 
     private class CompletionTask implements Runnable {
 
-        private String completion;
-        private int position;
+        private final String completion;
+        private final int position;
 
         CompletionTask(String completion, int position) {
             this.completion = completion;

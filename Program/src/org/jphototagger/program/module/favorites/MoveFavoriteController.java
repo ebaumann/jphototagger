@@ -35,7 +35,7 @@ public final class MoveFavoriteController implements ActionListener {
 
     private class MoveDir implements Runnable {
 
-        private boolean up;
+        private final boolean up;
 
         MoveDir(boolean up) {
             this.up = up;

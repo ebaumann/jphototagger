@@ -35,7 +35,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private static final String KEY_DEL_RECORDS_OF_NOT_EX_FILES = "RepositoryMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
     private static final String KEY_COMPRESS_DB = "RepositoryMaintainancePanel.CheckBox.CompressDb";
     private static final String KEY_DEL_ORPHANED_THUMBS = "RepositoryMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
-    private String KEY_DEL_UNUSED_KEYWORDS = "RepositoryMaintainancePanel.CheckBox.DeleteUnusedKeywords";
+    private final String KEY_DEL_UNUSED_KEYWORDS = "RepositoryMaintainancePanel.CheckBox.DeleteUnusedKeywords";
     private static final String KEY_DEL_NOT_REF_1_N = "RepositoryMaintainancePanel.CheckBox.DeleteNotRef1n";
     private final Stack<Runnable> runnables = new Stack<>();
     private final Map<Class<?>, JLabel> finishedLabelOfRunnable = new HashMap<>();

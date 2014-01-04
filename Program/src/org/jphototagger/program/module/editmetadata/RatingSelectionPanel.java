@@ -43,9 +43,9 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     private boolean editable;
     private boolean dirty = false;
     private int value = 0;
-    private JButton buttons[] = new JButton[5];
+    private final JButton buttons[] = new JButton[5];
     private JButton lastClickedButton;
-    private transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
+    private final transient TextEntryListenerSupport textEntryListenerSupport = new TextEntryListenerSupport();
     private final Map<JButton, String> textOfButton = new HashMap<>();
 
     public RatingSelectionPanel(MetaDataValue metaDataValue) {

@@ -89,8 +89,8 @@ public final class UpdateInfoTreeModel {
     public static class NodeAndChild {
 
         private TreeNode node;
-        private Object[] updatedChildren = new Object[1];
-        private int[] updatedChildIndices = new int[1];
+        private final Object[] updatedChildren = new Object[1];
+        private final int[] updatedChildIndices = new int[1];
 
         public int[] getUpdatedChildIndex() {
             return Arrays.copyOf(updatedChildIndices, updatedChildIndices.length);
@@ -137,7 +137,7 @@ public final class UpdateInfoTreeModel {
      */
     public static class NodesAndChildIndices {
 
-        private List<NodeAndChildIndices> info = new ArrayList<>();
+        private final List<NodeAndChildIndices> info = new ArrayList<>();
 
         /**
          * Adds as last element a new node when more than one children were

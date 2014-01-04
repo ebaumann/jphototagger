@@ -25,7 +25,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
     private transient MetadataTemplate template;
-    private transient Xmp xmp = new Xmp();
+    private final transient Xmp xmp = new Xmp();
     private final MetadataTemplatesRepository repo = Lookup.getDefault().lookup(MetadataTemplatesRepository.class);
 
     public EditMetaDataTemplateDialog() {

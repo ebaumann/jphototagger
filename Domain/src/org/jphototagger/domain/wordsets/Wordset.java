@@ -27,7 +27,7 @@ public final class Wordset {
     private String name;
     @XmlElementWrapper(name = "words")
     @XmlElement(type = String.class, name="word")
-    private List<String> words = new ArrayList<>();
+    private final List<String> words = new ArrayList<>();
     @XmlTransient
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 

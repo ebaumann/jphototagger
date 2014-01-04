@@ -194,7 +194,7 @@ public class Dialog extends JDialog {
         return pane;
     }
 
-    private WindowListener sizeAndLocationPersister = new WindowAdapter() {
+    private final WindowListener sizeAndLocationPersister = new WindowAdapter() {
 
         @Override
         public void windowClosing(WindowEvent evt) {

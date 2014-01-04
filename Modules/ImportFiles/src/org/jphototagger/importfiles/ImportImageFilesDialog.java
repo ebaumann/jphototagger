@@ -19,7 +19,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileSystemView;
@@ -76,7 +75,7 @@ public class ImportImageFilesDialog extends Dialog {
     private Xmp xmp;
     private String lastChoosenScriptDir = "";
     private final List<File> sourceFiles = new ArrayList<>();
-    private Map<Integer, Component> panelOfSourceStrategyCbIndex = new HashMap<>();
+    private final Map<Integer, Component> panelOfSourceStrategyCbIndex = new HashMap<>();
     private Component currentPanelOfSourceStrategy;
     private boolean filesChoosed;
     private boolean accepted;
