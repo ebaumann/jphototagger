@@ -9,24 +9,13 @@ public final class ExifCacheFileDeletedEvent {
 
     private final Object source;
     private final File imageFile;
-    private final File cacheFile;
 
-    public ExifCacheFileDeletedEvent(Object source, File imageFile, File cacheFile) {
+    public ExifCacheFileDeletedEvent(Object source, File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
-        if (cacheFile == null) {
-            throw new NullPointerException("cacheFile == null");
-        }
-
         this.source = source;
         this.imageFile = imageFile;
-        this.cacheFile = cacheFile;
-    }
-
-    public File getCacheFile() {
-        return cacheFile;
     }
 
     public File getImageFile() {
