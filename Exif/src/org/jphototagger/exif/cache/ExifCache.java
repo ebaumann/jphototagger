@@ -41,7 +41,8 @@ public final class ExifCache {
         LOGGER.log(Level.FINEST, "Caching EXIF metadata of image file ''{0}''", imageFile);
         exifTags.setLastModified(imageFile.lastModified());
         try {
-            this.exifTags.put(imageFile.getAbsolutePath(), XmlObjectExporter.marshal(exifTags));
+            String exifTagsXml = XmlObjectExporter.marshal(exifTags);
+            this.exifTags.put(imageFile.getAbsolutePath(), exifTagsXml);
             cacheDb.commit();
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
@@ -55,9 +56,9 @@ public final class ExifCache {
         if (!isCached(imageFile)) {
             return false;
         }
-        ExifTags tags;
         try {
-            tags = XmlObjectImporter.unmarshal(exifTags.get(imageFile.getAbsolutePath()), ExifTags.class);
+            String exifTagsXml = exifTags.get(imageFile.getAbsolutePath());
+            ExifTags tags = XmlObjectImporter.unmarshal(exifTagsXml, ExifTags.class);
             return tags.getLastModified() == imageFile.lastModified();
         } catch (Throwable t) {
             Logger.getLogger(ExifCache.class.getName()).log(Level.SEVERE, null, t);
@@ -75,7 +76,8 @@ public final class ExifCache {
         }
         try {
             LOGGER.log(Level.FINEST, "Reading cached EXIF metadata of image file ''{0}''", imageFile);
-            return XmlObjectImporter.unmarshal(exifTags.get(imageFile.getAbsolutePath()), ExifTags.class);
+            String exifTagsXml = exifTags.get(imageFile.getAbsolutePath());
+            return XmlObjectImporter.unmarshal(exifTagsXml, ExifTags.class);
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
             return null;
@@ -99,9 +101,9 @@ public final class ExifCache {
     private synchronized void renameCachedExifTags(File oldImageFile, File newImageFile) {
         if (isCached(oldImageFile)) {
             try {
-                ExifTags tags = XmlObjectImporter.unmarshal(exifTags.get(oldImageFile.getAbsolutePath()), ExifTags.class);
+                String exifTagsXml = exifTags.get(oldImageFile.getAbsolutePath());
                 exifTags.remove(oldImageFile.getAbsolutePath());
-                exifTags.put(newImageFile.getAbsolutePath(), XmlObjectExporter.marshal(tags));
+                exifTags.put(newImageFile.getAbsolutePath(), exifTagsXml);
                 cacheDb.commit();
                 LOGGER.log(
                         Level.FINEST,
@@ -151,7 +153,7 @@ public final class ExifCache {
         deleteCachedExifTags(deletedImageFile);
     }
 
-    public void init() {
+    void init() {
         AnnotationProcessor.process(this);
     }
 
