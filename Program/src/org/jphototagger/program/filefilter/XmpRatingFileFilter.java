@@ -45,33 +45,26 @@ public final class XmpRatingFileFilter implements FileFilter, DisplayNameProvide
      *
      * @param  imageFile image file
      * @return           true if the image file has a sidecar file and the
-     *                   rating in the sidecar file is equal to the rating of
-     *                   this instance
+     *                   rating in the sidecar file is equal to or greater
+     *                   than the rating of this instance
      */
     @Override
     public boolean accept(File imageFile) {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-
         Xmp xmp = null;
-
         try {
             xmp = XmpMetadata.getXmpFromSidecarFileOf(imageFile);
         } catch (IOException ex) {
             Logger.getLogger(XmpRatingFileFilter.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         if (xmp == null) {
             return false;
         }
-
-        Object o = xmp.getValue(XmpRatingMetaDataValue.INSTANCE);
-
-        if (o instanceof Long) {
-            if (o != null) {
-                return ((Long) o).longValue() == rating;
-            }
+        Object fileRating = xmp.getValue(XmpRatingMetaDataValue.INSTANCE);
+        if (fileRating instanceof Long) {
+            return ((Long) fileRating).longValue() >= rating;
         }
 
         return false;
@@ -82,33 +75,23 @@ public final class XmpRatingFileFilter implements FileFilter, DisplayNameProvide
         if (obj == null) {
             return false;
         }
-
         if (getClass() != obj.getClass()) {
             return false;
         }
-
-        final XmpRatingFileFilter other = (XmpRatingFileFilter) obj;
-
-        if (this.rating != other.rating) {
-            return false;
-        }
-
-        return true;
+        XmpRatingFileFilter other = (XmpRatingFileFilter) obj;
+        return this.rating == other.rating;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-
         hash = 89 * hash + this.rating;
-
         return hash;
     }
 
     @Override
     public String getDisplayName() {
         String displayName = DISPLAY_NAME_OF_RATING.get(rating);
-
         return displayName == null
                 ? DISPLAY_NAME_UNDEFINED
                 : displayName;
