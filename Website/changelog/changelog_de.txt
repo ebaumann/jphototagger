@@ -3,6 +3,11 @@
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.18 2014-03-01
+------------------
+
+* EXIF-Cache ist jetzt in einer Datenbank anstelle einzelner Dateien
+
 0.32.17 2014-01-19
 ------------------
 
