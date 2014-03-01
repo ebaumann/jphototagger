@@ -4174,6 +4174,46 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Bewertung mindestens 1 Stern</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20140301T133011Z">
+        <seg>Rating at least 1 Star</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Bewertung mindestens 2 Sterne</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20140301T133020Z">
+        <seg>Rating at least 2 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Bewertung mindestens 3 Sterne</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20140301T133032Z">
+        <seg>Rating at least 3 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Bewertung mindestens 4 Sterne</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20140301T133036Z">
+        <seg>Rating at least 4 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Bewertung mindestens 5 Sterne</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20140301T133042Z">
+        <seg>Rating at least 5 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Bewertung nicht definiert</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
