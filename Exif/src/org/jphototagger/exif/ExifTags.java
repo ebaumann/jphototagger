@@ -24,6 +24,8 @@ import org.jphototagger.lib.xml.bind.XmlObjectImporter;
 @XmlSeeAlso(ExifTag.class)
 public final class ExifTags {
 
+    private long lastModified = -1;
+
     private String makerNoteDescription;
     /**
      * Tags of EXIF IFD
@@ -41,6 +43,14 @@ public final class ExifTags {
      * Maker note tags of EXIF IFD
      */
     private final Set<ExifTag> makerNoteTags = new HashSet<>();
+
+    public long getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(long lastModified) {
+        this.lastModified = lastModified;
+    }
 
     public Set<ExifTag> getExifTags() {
         return Collections.unmodifiableSet(exifTags);
@@ -64,12 +74,10 @@ public final class ExifTags {
 
     public List<ExifTag> getAllTagsAsList() {
         List<ExifTag> allTags = new ArrayList<>(getTagCount());
-
         allTags.addAll(exifTags);
         allTags.addAll(gpsTags);
         allTags.addAll(interoperabilityTags);
         allTags.addAll(makerNoteTags);
-
         return allTags;
     }
 
@@ -77,7 +85,6 @@ public final class ExifTags {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-
         exifTags.add(exifTag);
     }
 
@@ -85,7 +92,6 @@ public final class ExifTags {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-
         gpsTags.add(exifTag);
     }
 
@@ -93,7 +99,6 @@ public final class ExifTags {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-
         interoperabilityTags.add(exifTag);
     }
 
@@ -101,7 +106,6 @@ public final class ExifTags {
         if (tags == null) {
             throw new NullPointerException("tags == null");
         }
-
         makerNoteTags.addAll(tags);
     }
 
@@ -109,7 +113,6 @@ public final class ExifTags {
         if (exifTag == null) {
             throw new NullPointerException("exifTag == null");
         }
-
         makerNoteTags.add(exifTag);
     }
 
@@ -121,7 +124,6 @@ public final class ExifTags {
         if (makerNoteDescription == null) {
             throw new NullPointerException("makerNoteDescription == null");
         }
-
         this.makerNoteDescription = makerNoteDescription;
     }
 
@@ -145,7 +147,6 @@ public final class ExifTags {
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
-
         exifTags.remove(tag);
     }
 
@@ -153,7 +154,6 @@ public final class ExifTags {
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
-
         makerNoteTags.remove(tag);
     }
 
@@ -161,7 +161,6 @@ public final class ExifTags {
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
-
         interoperabilityTags.remove(tag);
     }
 
@@ -169,7 +168,6 @@ public final class ExifTags {
         if (tag == null) {
             throw new NullPointerException("tag == null");
         }
-
         gpsTags.remove(tag);
     }
 
@@ -179,7 +177,6 @@ public final class ExifTags {
                 return tag;
             }
         }
-
         return null;
     }
 
@@ -187,7 +184,6 @@ public final class ExifTags {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         XmlObjectExporter.export(this, file);
     }
 
@@ -195,7 +191,6 @@ public final class ExifTags {
         if (file == null) {
             throw new NullPointerException("file == null");
         }
-
         return (ExifTags) XmlObjectImporter.importObject(file, ExifTags.class);
     }
 }
