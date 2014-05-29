@@ -1,6 +1,7 @@
 package org.jphototagger.program.app;
 
 import java.awt.event.WindowAdapter;
+import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -16,8 +17,10 @@ import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.Repository;
+import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.factory.MetaFactory;
 import org.jphototagger.program.resource.GUI;
@@ -213,14 +216,15 @@ public final class AppLifeCycle {
 
     public static void quitBeforeGuiWasCreated() {
         LOGGER.info("Quitting before the GUI was created.");
-        shutdownRepository();
+        shutdownRepositories();
         AppStartupLock.unlock();
         System.exit(1);
     }
 
     private void quitVm() {
         CancelOtherTasks.cancel();
-        shutdownRepository();
+        shutdownRepositories();
+        backupRepositories();
         appFrame.dispose();
         AppStartupLock.unlock();
         System.exit(0);
@@ -277,9 +281,38 @@ public final class AppLifeCycle {
         prefs.setLocation(key, appFrame);
     }
 
-    private static void shutdownRepository() {
-        Repository repo = Lookup.getDefault().lookup(Repository.class);
-        repo.shutdown();
+    private static void shutdownRepositories() {
+        Lookup lookup = Lookup.getDefault();
+        lookup.lookup(Repository.class).shutdown();
+        lookup.lookup(ThumbnailsRepository.class).close();
+    }
+
+    private void backupRepositories() {
+        if (isBackupRepositories()) {
+            Lookup lookup = Lookup.getDefault();
+            String backupDirPathname = lookup.lookup(Preferences.class).getString(Preferences.KEY_REPOSITORIES_BACKUP_DIR);
+            if (!StringUtil.hasContent(backupDirPathname)) {
+                Logger.getLogger(AppLifeCycle.class.getName()).log(Level.WARNING, "No repository backup directory defined in preferences");
+                return;
+            }
+            File backupDir = new File(backupDirPathname);
+            if (!backupDir.isDirectory()) {
+                Logger.getLogger(AppLifeCycle.class.getName()).log(Level.WARNING, "Backup repository directory in preferences is no directory: {0}", backupDir);
+                return;
+            }
+            try {
+                lookup.lookup(Repository.class).backupToDirectory(backupDir);
+                lookup.lookup(ThumbnailsRepository.class).backupToDirectory(backupDir);
+            } catch (Throwable t) {
+                Logger.getLogger(AppLifeCycle.class.getName()).log(Level.SEVERE, null, t);
+            }
+        }
+    }
+
+    private boolean isBackupRepositories() {
+        Lookup lookup = Lookup.getDefault();
+        Preferences prefs = lookup.lookup(Preferences.class);
+        return prefs.getBoolean(Preferences.KEY_IS_BACKUP_REPOSITORIES); // TODO && check time intervals
     }
 
     private static class CancelOtherTasks {

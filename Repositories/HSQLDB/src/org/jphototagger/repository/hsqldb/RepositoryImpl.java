@@ -1,5 +1,6 @@
 package org.jphototagger.repository.hsqldb;
 
+import java.io.File;
 import org.jphototagger.domain.repository.Repository;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -24,5 +25,10 @@ public final class RepositoryImpl implements Repository {
     @Override
     public void shutdown() {
         DatabaseMaintainance.INSTANCE.shutdown();
+    }
+
+    @Override
+    public void backupToDirectory(File directory) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -19,6 +19,10 @@ public interface Preferences {
     static final String KEY_ACCEPT_HIDDEN_DIRECTORIES = "UserSettings.IsAcceptHiddenDirectories";
     static final String KEY_LOG_LEVEL = "UserSettings.Logging.Level";
     static final String KEY_MAX_THUMBNAIL_WIDTH = "UserSettings.MaxThumbnailWidth";
+    static final String KEY_IS_BACKUP_REPOSITORIES = "Preferences.IsBackupRepositories";
+    static final String KEY_BACKUP_REPOSITORIES_DAY_INTERVAL = "Preferences.BackupRepositoriesDayInterval";
+    static final String KEY_BACKUP_REPOSITORIES_LAST_BACKUP = "Preferences.BackupRepositoriesLastBackup";
+    static final String KEY_REPOSITORIES_BACKUP_DIR = "Preferences.BackupRepositoriesDirectory";
 
     String getString(String key);
 

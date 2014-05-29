@@ -126,6 +126,10 @@ public final class ThumbnailsDb {
         return THUMBNAILS.keySet();
     }
 
+    static void close() {
+        THUMBNAILS_DB.close();
+    }
+
     static void compact() {
         try {
             LOGGER.info("Compacting thumbnails database");

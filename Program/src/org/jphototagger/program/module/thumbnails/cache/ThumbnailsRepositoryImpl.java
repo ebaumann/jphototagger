@@ -51,4 +51,14 @@ public final class ThumbnailsRepositoryImpl implements ThumbnailsRepository {
     public void compact() {
         ThumbnailsDb.compact();
     }
+
+    @Override
+    public void close() {
+        ThumbnailsDb.close();
+    }
+
+    @Override
+    public void backupToDirectory(File directory) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

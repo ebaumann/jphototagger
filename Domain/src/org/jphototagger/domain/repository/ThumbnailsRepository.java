@@ -23,6 +23,10 @@ public interface ThumbnailsRepository {
 
     void compact();
 
+    void close();
+
+    void backupToDirectory(File directory);
+
     /**
      * @return All image filenames where a thumbnail exists
      */
