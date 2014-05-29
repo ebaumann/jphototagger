@@ -61,11 +61,15 @@ public final class DefaultExifInfo implements ExifInfo {
 
     private Collection<org.jphototagger.domain.metadata.exif.ExifTag> convertTags(ExifTags exifTags) {
         List<org.jphototagger.domain.metadata.exif.ExifTag> tags = new ArrayList<>();
-        addExifTags(exifTags.getExifTags(), tags);
-        addExifTags(exifTags.getInteroperabilityTags(), tags);
-        addGpsTags(exifTags, tags);
-        addExifTags(exifTags.getMakerNoteTags(), tags);
-        addMakerNoteTagsFromService(exifTags, tags);
+        try {
+            addExifTags(exifTags.getExifTags(), tags);
+            addExifTags(exifTags.getInteroperabilityTags(), tags);
+            addGpsTags(exifTags, tags);
+            addExifTags(exifTags.getMakerNoteTags(), tags);
+            addMakerNoteTagsFromService(exifTags, tags);
+        } catch (Throwable t) {
+            Logger.getLogger(DefaultExifInfo.class.getName()).log(Level.SEVERE, null, t);
+        }
         return tags;
     }
 
