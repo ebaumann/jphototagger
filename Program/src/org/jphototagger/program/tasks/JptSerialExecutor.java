@@ -4,6 +4,15 @@ import java.util.concurrent.Executors;
 import org.jphototagger.lib.concurrent.SerialExecutor;
 
 /**
+ * Maybe considered:
+ * ExecutorService exec = Executors.newFixedThreadPool(1);
+ * for (int i = 0; i < count; i++) {
+ *         exec.execute(new RunnableInstance());
+ * }
+ * exec.shutdown();
+ */
+
+/**
  * Queues user tasks and starts them as thread after the previous user task has
  * finished.
  *
