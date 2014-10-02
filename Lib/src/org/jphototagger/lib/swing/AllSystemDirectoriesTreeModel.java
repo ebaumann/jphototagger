@@ -43,6 +43,26 @@ import org.jphototagger.lib.util.StringUtil;
  *   with true directory nodes (these will have dummy nodes until expansion).
  */
 
+/*
+   Code to retrieve Network Environment under Windows (not sure, whether this works
+   on other machines):
+
+    FileSystemView fsv = FileSystemView.getFileSystemView();
+    File homeDirectory = fsv.getHomeDirectory();
+    File[] homeDirectoryFiles = homeDirectory.listFiles();
+    for (File homeDirectoryFile : homeDirectoryFiles) {
+        if (homeDirectoryFile.getName().startsWith("::")) {
+            File[] filesInColons = homeDirectoryFile.listFiles();
+            for (File file : filesInColons) {
+                if (file.getAbsolutePath().startsWith("\\\\")) {
+                    File[] networkFile = file.listFiles();
+                    // Add this to a network node
+                }
+            }
+        }
+    }
+*/
+
 /**
  * Tree model for all directories of a file system. All nodes are {@code DefaultMutableTreeNode}s and their user objects
  * are files with exception of the root directory.
