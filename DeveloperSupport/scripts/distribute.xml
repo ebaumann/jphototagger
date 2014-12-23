@@ -156,6 +156,7 @@
              password="${pass}"
              remotedir="html/JPhotoTagger"
              depends="yes"
+             passive="true"
              verbose="yes">
             <fileset dir="${repo.root}/Website"/>
         </ftp>
@@ -164,6 +165,7 @@
              password="${pass}"
              remotedir="html/JPhotoTagger/manual"
              depends="yes"
+             passive="true"
              verbose="yes">
             <fileset dir="${repo.root}/Program/src/org/jphototagger/program/resource/doc"/>
         </ftp>
