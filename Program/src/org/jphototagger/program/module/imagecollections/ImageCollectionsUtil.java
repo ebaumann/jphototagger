@@ -25,12 +25,11 @@ public final class ImageCollectionsUtil {
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
             @Override
             public void run() {
-                Object selectedValue = getSelectedCollection();
-                if (selectedValue != null) {
+                Object selectedCollection = getSelectedCollection();
+                if (selectedCollection != null) {
                     ThumbnailsPanel tnPanel = GUI.getThumbnailsPanel();
                     List<File> selectedFiles = tnPanel.getSelectedFiles();
-                    String collectionName = ImageCollection.getLocalizedName(selectedValue.toString());
-                    if (deleteImagesFromCollection(collectionName, selectedFiles)) {
+                    if (deleteImagesFromCollection(selectedCollection.toString(), selectedFiles)) {
                         tnPanel.removeFiles(selectedFiles);
                     }
                 } else {
@@ -87,7 +86,8 @@ public final class ImageCollectionsUtil {
         if (imageFiles == null) {
             throw new NullPointerException("imageFiles == null");
         }
-        String message = Bundle.getString(ImageCollectionsUtil.class, "ImageCollectionsHelper.Confirm.DeleteSelectedFiles", collectionName);
+        String localizedCollectionName = ImageCollection.getLocalizedName(collectionName);
+        String message = Bundle.getString(ImageCollectionsUtil.class, "ImageCollectionsHelper.Confirm.DeleteSelectedFiles", localizedCollectionName);
         if (confirmDelete(message)) {
             ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
             boolean removed = repo.deleteImagesFromImageCollection(collectionName, imageFiles) == imageFiles.size();

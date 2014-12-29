@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.20 2014-29-12
+------------------
+
+* Bugfix: Images can be removed from the special photo album "Picked"
+
 0.32.18 2014-03-01
 ------------------
 

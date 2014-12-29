@@ -3,6 +3,12 @@
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.20 2014-29-12
+------------------
+
+* Bugfix: Aus dem Speial-Fotoalbum "Ausgewählt" können Bilder wieder
+  entfernt werden
+
 0.32.18 2014-03-01
 ------------------
 
