@@ -15,34 +15,6 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = FileSortComparators.class)
 public final class ExifFileSortComparators implements FileSortComparators {
 
-    private final FileSortComparator dateOriginalFileSortComparator = new FileSortComparator() {
-
-        @Override
-        public Comparator<File> getAscendingSortComparator() {
-            return new ExifDateTimeOriginalAscendingComparator();
-        }
-
-        @Override
-        public String getAscendingSortComparatorDisplayName() {
-            return Bundle.getString(ExifFileSortComparators.class, "ExifFileSortComparators.DateOriginalAscending.DisplayName");
-        }
-
-        @Override
-        public Comparator<File> getDescendingSortComparator() {
-            return new ExifDateTimeOriginalDescendingComparator();
-        }
-
-        @Override
-        public String getDescendingSortComparatorDisplayName() {
-            return Bundle.getString(ExifFileSortComparators.class, "ExifFileSortComparators.DateOriginalDescending.DisplayName");
-        }
-
-        @Override
-        public int getPosition() {
-            return 10;
-        }
-    };
-
     private final FileSortComparator timestampOriginalFileSortComparator = new FileSortComparator() {
 
         @Override
@@ -158,7 +130,6 @@ public final class ExifFileSortComparators implements FileSortComparators {
     @Override
     public Collection<FileSortComparator> getFileSortComparators() {
         return Arrays.asList(
-                dateOriginalFileSortComparator, // Position 10
                 timestampOriginalFileSortComparator, // Position 20
                 focalLengthSortComparator, // Position 30
                 isoSpeedRatingSortComparator, // Position 40
