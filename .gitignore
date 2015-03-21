@@ -100,3 +100,6 @@
 /XMP/build/
 /XMP/dist/
 /XMP/nbproject/private/
+/Image/nbproject/private/
+/Repositories/HSQLDB/build
+/Modules/DisplayFilesWithoutMetaData/dist/
