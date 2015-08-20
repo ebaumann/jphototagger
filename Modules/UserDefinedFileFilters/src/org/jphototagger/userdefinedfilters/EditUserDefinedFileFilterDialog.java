@@ -18,9 +18,10 @@ import org.openide.util.Lookup;
 public class EditUserDefinedFileFilterDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
-    private boolean accepted;
     private final UserDefinedFileFilter udf = new UserDefinedFileFilter();
     private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
+    private boolean accepted;
+    private boolean update;
 
     public EditUserDefinedFileFilterDialog() {
         super(ComponentUtil.findFrameWithIcon(), true);
@@ -47,6 +48,15 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         setHelpPageUrl(Bundle.getString(EditUserDefinedFileFilterDialog.class, "EditUserDefinedFileFilterDialog.HelpPage"));
     }
 
+    /**
+     * @param update true, if an existing filter should be updated in the repository.
+     *        false, if a new filter should be created in the repository.
+     *        Default: false.
+     */
+    public void setUpdate(boolean update) {
+        this.update = update;
+    }
+
     public UserDefinedFileFilter getFilter() {
         return new UserDefinedFileFilter(filter);
     }
@@ -68,7 +78,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
     }
 
     private boolean checkName(String name) {
-        if (repo.existsUserDefinedFileFilter(name)) {
+        if (!update && repo.existsUserDefinedFileFilter(name)) {
             String message = Bundle.getString(EditUserDefinedFileFilterDialog.class, "EditUserDefinedFileFilterDialog.Error.NameExists", name);
             MessageDisplayer.error(this, message);
             return false;

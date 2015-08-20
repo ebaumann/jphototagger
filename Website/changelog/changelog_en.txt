@@ -9,6 +9,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 * Bugfix: Automatic creation of "User defined File Types" did not add any
           file type (Edit > Settings > 2. Thumbnails: External program
           creates the thumbnails > Script: dcraw + ImageMagick)
+* Bugfix: Editing user defined file filters without changing it's name
+          did not update the filter (Window > User Defined File Filters)
 
 0.32.20 2014-12-29
 ------------------

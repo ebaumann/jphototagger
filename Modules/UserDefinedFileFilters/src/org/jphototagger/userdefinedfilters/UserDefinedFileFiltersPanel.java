@@ -56,11 +56,21 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         for (UserDefinedFileFilter filter : getSelectedFilters()) {
             EditUserDefinedFileFilterDialog dlg = new EditUserDefinedFileFilterDialog(filter);
 
+            dlg.setUpdate(true);
             dlg.setVisible(true);
 
             if (dlg.isAccepted()) {
                 UserDefinedFileFilter updatedFilter = dlg.getFilter();
-                if (!repo.updateUserDefinedFileFilter(updatedFilter)) {
+                boolean equalNames = filter.getName().equals(updatedFilter.getName());
+                boolean exists = repo.existsUserDefinedFileFilter(filter.getName());
+                boolean updated;
+                if (!equalNames && exists) {
+                    repo.deleteUserDefinedFileFilter(filter);
+                    updated = repo.saveUserDefinedFileFilter(updatedFilter);
+                } else {
+                    updated = repo.updateUserDefinedFileFilter(updatedFilter);
+                }
+                if (!updated) {
                     errorMessageUpdate(updatedFilter);
                 }
             }

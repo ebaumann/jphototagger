@@ -10,7 +10,8 @@ Changelog JPhotoTagger http://jphototagger.org/
           fügte keine Dateitypen hinzu (Bearbeiten > Einstellungen
           2. Vorschaubilder: Eigenes Programm erzeugt die
           Vorschaubilder > Skript: dcraw + ImageMagick)
-
+* Bugfix: Das Bearbeiten benutzerdefinierter Dateifilter aktualisierte
+          den Filter nicht (Fenster > Benutzerdefinierte Dateifilter)
 
 0.32.20 2014-12-29
 ------------------
