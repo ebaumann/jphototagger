@@ -70,9 +70,12 @@
 /Modules/Xmp/build/
 /Modules/Xmp/dist/
 /Modules/Xmp/nbproject/private/
-/OmegaT/**.bak
-/OmegaT/**.zip
+/OmegaT/**/*.bak
+/OmegaT/**/project_stats.txt
+/OmegaT/**/src/**
+/OmegaT/**/source/**
 /OmegaT/**/target/
+/OmegaT/**.zip
 /Plugins/CopyFilenamesToClipboard/build/
 /Plugins/CopyFilenamesToClipboard/dist/
 /Plugins/CopyFilenamesToClipboard/nbproject/private/

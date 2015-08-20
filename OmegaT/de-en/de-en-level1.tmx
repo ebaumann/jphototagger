@@ -2576,8 +2576,8 @@
       <tuv lang="DE">
         <seg>AVCHD-Video (*.mts)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>AVCHD video (*.mts)</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T140828Z">
+        <seg>AVCHD Video (*.mts)</seg>
       </tuv>
     </tu>
     <tu>
@@ -3104,8 +3104,8 @@
       <tuv lang="DE">
         <seg>Audio Video Interleave-Video (*.avi)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Audio Video Interleave video (*.avi)</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T144632Z">
+        <seg>Audio Video Interleave Video (*.avi)</seg>
       </tuv>
     </tu>
     <tu>
@@ -4466,14 +4466,6 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Samples per pixel</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
-        <seg>BitMap Picture</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>BitMap Picture</seg>
       </tuv>
     </tu>
     <tu>
@@ -6350,22 +6342,6 @@
     </tu>
     <tu>
       <tuv lang="DE">
-        <seg>EXIF-Aufnahmedatum absteigend</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>EXIF Date taken descending</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
-        <seg>EXIF-Aufnahmedatum aufsteigend</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>EXIF Date taken ascending</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
         <seg>EXIF-Aufnahmedatum und -Uhrzeit absteigend</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7758,14 +7734,6 @@
     </tu>
     <tu>
       <tuv lang="DE">
-        <seg>Flash Video</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Flash Video</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
         <seg>Flickr-Upload</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -8078,10 +8046,10 @@
     </tu>
     <tu>
       <tuv lang="DE">
-        <seg>GIMP-Dateie</seg>
+        <seg>GIMP-Datei (*.xcf)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>GIMP file</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T140856Z">
+        <seg>GIMP File (*.xcf)</seg>
       </tuv>
     </tu>
     <tu>
@@ -10184,42 +10152,34 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
-        <seg>MPEG Transport Stream</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>MPEG Transport Stream</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
         <seg>MPEG-2-Video (*.mp2)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>MPEG-2 video (*.mp2)</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T144729Z">
+        <seg>MPEG 2 Video (*.mp2)</seg>
       </tuv>
     </tu>
     <tu>
       <tuv lang="DE">
         <seg>MPEG-4-Video (*.mp4)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>MPEG-4 video (*.mp4)</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T144724Z">
+        <seg>MPEG 4 Video (*.mp4)</seg>
       </tuv>
     </tu>
     <tu>
       <tuv lang="DE">
         <seg>MPEG-Video (*.mpeg)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>MPEG video (*.mpeg)</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T140819Z">
+        <seg>MPEG Video (*.mpeg)</seg>
       </tuv>
     </tu>
     <tu>
       <tuv lang="DE">
         <seg>MPEG-Video (*.mpg)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>MPEG video (*.mpg)</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T140825Z">
+        <seg>MPEG Video (*.mpg)</seg>
       </tuv>
     </tu>
     <tu>
@@ -10276,14 +10236,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Matrix metering</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
-        <seg>Matroska Video</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Matroska Video</seg>
       </tuv>
     </tu>
     <tu>
@@ -12114,8 +12066,8 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       <tuv lang="DE">
         <seg>QuickTime-Video (*.mov)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>QuickTime movie (*.mov)</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T144650Z">
+        <seg>QuickTime Movie (*.mov)</seg>
       </tuv>
     </tu>
     <tu>
@@ -13376,14 +13328,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
-        <seg>TrueType Font</seg>
-      </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>TrueType Font</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv lang="DE">
         <seg>Typ</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -14402,8 +14346,8 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       <tuv lang="DE">
         <seg>Windows Media-Video (*.wmv)</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Windows Media video (*.wmv)</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T140844Z">
+        <seg>Windows Media Video (*.wmv)</seg>
       </tuv>
     </tu>
     <tu>
@@ -15407,5 +15351,25 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
     </tu>
 <!-- Alternative translations -->
+    <tu>
+      <prop type="file">Domain/src/org/jphototagger/domain/filefilter/Bundle.properties</prop>
+      <prop type="id">UserDefinedFileFilter.DisplayName.Contains</prop>
+      <tuv lang="DE">
+        <seg>Enthält</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T141759Z">
+        <seg>Contains</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <prop type="file">ExternalThumbnailCreationCommands/DefaultExternalThumbnailCreationCommands/src/org/jphototagger/tcc/def/Bundle.properties</prop>
+      <prop type="id">FileType.m2ts.Description</prop>
+      <tuv lang="DE">
+        <seg>Blu-ray BDAV-Video (*.m2ts)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20150820T144643Z">
+        <seg>Blu-ray BDAV Video (*.m2ts)</seg>
+      </tuv>
+    </tu>
   </body>
 </tmx>
