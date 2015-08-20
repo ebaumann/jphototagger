@@ -106,12 +106,32 @@
         </zip>
     </target>
 
-    <target name="4-create-setup-exe" if="isWindows">
-        <!-- Compil32.exe (path to the Inno Setup compiler) will be read from innosetup.properties  -->
-        <echo message="Creating Setup.exe with Inno Setup"/>
+    <target name="4-create-setup-exe">
+        <antcall target="-4-create-windows-setup-exe" />
+        <antcall target="-4-create-unix-setup-exe" />
+    </target>
+
+    <target name="-4-create-windows-setup-exe" if="isWindows">
+        <!-- Compil32.exe (path to the Inno Setup compiler) will be read from innosetup.properties
+             Recommendataion: Use ISCC.exe instead Compil32.exe, it does not invoke the GUI
+        -->
+        <echo message="Creating Setup.exe with Inno Setup (Windows)"/>
         <property file="${private.confdir}/innosetup.properties"/>
         <exec
             command="&quot;${compil32.exe}&quot; /cc JPhotoTagger.iss"
+            dir="InnoSetup"/>
+    </target>
+
+    <target name="-4-create-unix-setup-exe" if="isUnix">
+        <!-- unix_ISCC.exe (path to the Inno Setup compiler) will be read from innosetup.properties.
+             Requires wine and all installation files of Inno Setup, from e.g. a Windows installation
+             copied to a Unix directory. "Compil32.exe"  is referenced in innosetup.properties as eg.
+             unix_compil32.exe=/usr/local/opt/InnoSetup/ISCC.exe
+               -->
+        <echo message="Creating Setup.exe with Inno Setup (Unix + wine)"/>
+        <property file="${private.confdir}/innosetup.properties"/>
+        <exec
+            command="wine &quot;${unix_ISCC.exe}&quot; JPhotoTagger.iss"
             dir="InnoSetup"/>
     </target>
 
