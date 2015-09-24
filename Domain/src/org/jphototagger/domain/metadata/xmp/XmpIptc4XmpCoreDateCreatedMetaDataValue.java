@@ -84,6 +84,9 @@ public final class XmpIptc4XmpCoreDateCreatedMetaDataValue extends MetaDataValue
         }
 
         private boolean verify(String input) {
+            if (!StringUtil.hasContent(input)) {
+                return true;
+            }
             final int minYear = 1839;
             if (input.length() == 4 && NumberUtil.isInteger(input)) { // "YYYY"
                 return Integer.parseInt(input) > minYear;
