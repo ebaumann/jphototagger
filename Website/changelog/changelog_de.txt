@@ -3,6 +3,13 @@
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.22 2015-09-24
+------------------
+
+* Bugfix: Im Bearbeiten-Kartenreiter wird ein Datum auf
+          Gültigkeit geprüft (gegen den Gregorianischen
+          Kalender)
+
 0.32.21 2015-08-20
 ------------------
 

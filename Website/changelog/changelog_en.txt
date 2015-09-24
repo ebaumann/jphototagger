@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.22 2015-09-24
+------------------
+
+* Bugfix: In the edit tab a Date is validated
+          against the Gregorian calendar
+
 0.32.21 2015-08-20
 ------------------
 

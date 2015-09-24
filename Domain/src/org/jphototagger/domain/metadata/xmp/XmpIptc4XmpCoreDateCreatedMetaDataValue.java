@@ -4,6 +4,7 @@ import java.util.Calendar;
 import javax.swing.InputVerifier;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.text.JTextComponent;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.swing.inputverifier.EmptyInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.InputVerifiersOr;
@@ -41,22 +42,23 @@ public final class XmpIptc4XmpCoreDateCreatedMetaDataValue extends MetaDataValue
 
     private static class InputVerifierDateCreated extends InputVerifier {
 
-        private final InputVerifiersOr inputVerifiersOr = new InputVerifiersOr();
+        private final InputVerifiersOr patternVerifier = new InputVerifiersOr();
+        private final InputVerifier dateVerifier = new DateVerifier();
 
         InputVerifierDateCreated() {
             EmptyInputVerifier inputVerifierEmpty = new EmptyInputVerifier(true);
             StringPatternInputVerifier inputVerifierY = new StringPatternInputVerifier("[0-9][0-9][0-9][0-9]");
             StringPatternInputVerifier inputVerifierYM = new StringPatternInputVerifier("[0-9][0-9][0-9][0-9]-[0-1][0-9]");
             StringPatternInputVerifier inputVerifierYMD = new StringPatternInputVerifier("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
-            inputVerifiersOr.addVerifier(inputVerifierEmpty);
-            inputVerifiersOr.addVerifier(inputVerifierY);
-            inputVerifiersOr.addVerifier(inputVerifierYM);
-            inputVerifiersOr.addVerifier(inputVerifierYMD);
+            patternVerifier.addVerifier(inputVerifierEmpty);
+            patternVerifier.addVerifier(inputVerifierY);
+            patternVerifier.addVerifier(inputVerifierYM);
+            patternVerifier.addVerifier(inputVerifierYMD);
         }
 
         @Override
         public boolean verify(JComponent input) {
-            boolean valid = inputVerifiersOr.verify(input);
+            boolean valid = patternVerifier.verify(input) && dateVerifier.verify(input);
             if (!valid) {
                 errorMessage(input);
             }
@@ -69,6 +71,47 @@ public final class XmpIptc4XmpCoreDateCreatedMetaDataValue extends MetaDataValue
             int messageType = JOptionPane.ERROR_MESSAGE;
             JOptionPane.showMessageDialog(input, message, title, messageType);
         }
+    }
+
+    private static final class DateVerifier extends InputVerifier {
+
+        @Override
+        public boolean verify(JComponent input) {
+            if (input instanceof JTextComponent) {
+                return verify(((JTextComponent) input).getText());
+            }
+            return false;
+        }
+
+        private boolean verify(String input) {
+            final int minYear = 1839;
+            if (input.length() == 4 && NumberUtil.isInteger(input)) { // "YYYY"
+                return Integer.parseInt(input) > minYear;
+            }
+            if (input.length() == 7 && input.contains("-")) { // "YYYY-MM"
+                String[] yearMonth = input.split("-");
+                if (yearMonth.length == 2
+                        && NumberUtil.isInteger(yearMonth[0])
+                        && NumberUtil.isInteger(yearMonth[1])) {
+                    int year = Integer.parseInt(yearMonth[0]);
+                    int month = Integer.parseInt(yearMonth[1]);
+                    return year > minYear && month > 0 && month < 13;
+                }
+            }
+            if (input.length() == 10 && input.contains("-")) { // "YYYY-MM-DD"
+                String[] yearMonthDay = input.split("-");
+                if (yearMonthDay.length == 3 && NumberUtil.isInteger(yearMonthDay[0])
+                        && NumberUtil.isInteger(yearMonthDay[1])
+                        && NumberUtil.isInteger(yearMonthDay[2])) {
+                    int year = Integer.parseInt(yearMonthDay[0]);
+                    int month = Integer.parseInt(yearMonthDay[1]);
+                    int day = Integer.parseInt(yearMonthDay[2]);
+                    return DateUtil.isValidGregorianDate(year, month, day);
+                }
+            }
+            return false;
+        }
+
     }
 
     /**

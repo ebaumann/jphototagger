@@ -6,7 +6,7 @@
         <tm_dir>__DEFAULT__</tm_dir>
         <glossary_dir>__DEFAULT__</glossary_dir>
         <glossary_file>__DEFAULT__</glossary_file>
-        <dictionary_dir>__DEFAULT__</dictionary_dir>
+        <dictionary_dir>glossary</dictionary_dir>
         <source_lang>DE</source_lang>
         <target_lang>EN</target_lang>
         <sentence_seg>true</sentence_seg>
