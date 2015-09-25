@@ -144,4 +144,13 @@ public final class DropTextComponentTransferHandler extends TransferHandler {
             textField.setText(text);
         }
     }
+
+    @Override
+    protected void exportDone(JComponent source, Transferable data, int action) {
+        if (action == TransferHandler.MOVE && source instanceof JTextComponent) {
+            ((JTextComponent) source).replaceSelection("");
+        } else {
+            super.exportDone(source, data, action);
+        }
+    }
 }
