@@ -3,9 +3,11 @@
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.32.22 2015-09-24
+0.32.22 2015-09-25
 ------------------
 
+* Bugfix: Strg+X funktioniert in den Bearbeiten-Textflächen
+          des Bearbeiten-Kartenreiters
 * Bugfix: Im Bearbeiten-Kartenreiter wird ein Datum auf
           Gültigkeit geprüft (gegen den Gregorianischen
           Kalender)
