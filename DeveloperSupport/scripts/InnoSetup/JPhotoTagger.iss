@@ -1,7 +1,7 @@
 [Setup]
 AppName=JPhotoTagger
-AppVerName=JPhotoTagger 0.32.21
-AppVersion=0.32.21
+AppVerName=JPhotoTagger 0.32.22
+AppVersion=0.32.22
 AppPublisher=Elmar Baumann <eb@elmar-baumann.de>
 AppPublisherURL=http://www.jphototagger.org/
 AppSupportURL=mailto:support@jphototagger.org
