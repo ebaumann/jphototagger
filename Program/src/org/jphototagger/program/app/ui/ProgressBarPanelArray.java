@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.Icon;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 
@@ -21,7 +22,6 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 public class ProgressBarPanelArray extends javax.swing.JPanel implements ProgressBarPanelListener {
 
     private static final long serialVersionUID = 1L;
-    private final List<ProgressBarPanel> inactiveProgressBarPanels = new ArrayList<>();
     private final List<ProgressBarPanel> activeProgressBarPanels = new ArrayList<>();
     private static final Icon DOWN_ARROW_ICON = IconUtil.getImageIcon(ProgressBarPanelArray.class, "arrow_down.png");
     private static final Icon UP_ARROW_ICON = IconUtil.getImageIcon(ProgressBarPanelArray.class, "arrow_up.png");
@@ -38,22 +38,21 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         buttonToggleVisibilityOfHiddenProgressBars.addActionListener(toggleVisibilityOfHiddenProgressBars);
     }
 
-    public synchronized ProgressHandle createHandle() {
+    public ProgressHandle createHandle() {
         return addProgressBarPanel(new ProgressBarPanel());
     }
 
-    public synchronized ProgressHandle createHandle(Cancelable cancelable) {
+    public ProgressHandle createHandle(Cancelable cancelable) {
         return addProgressBarPanel(new ProgressBarPanel(cancelable));
     }
 
-    private synchronized ProgressBarPanel addProgressBarPanel(ProgressBarPanel progressBarPanel) {
+    private ProgressBarPanel addProgressBarPanel(ProgressBarPanel progressBarPanel) {
         progressBarPanel.addProgressBarPanelListener(this);
         progressBarPanel.addMouseListener(toggleVisibilityOfHiddenProgressBars);
-        inactiveProgressBarPanels.add(progressBarPanel);
         return progressBarPanel;
     }
 
-    private synchronized void showActiveProgressBarPanel(ProgressBarPanel progressBarPanel) {
+    private void showActiveProgressBarPanel(ProgressBarPanel progressBarPanel) {
         if (activeProgressBarPanels.isEmpty()) {
             remove(visibleProgressBarPanel);
             add(progressBarPanel, getProgressBarPanelGbc());
@@ -63,12 +62,11 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
             panelHiddenProgressBars.add(progressBarPanel, getHiddenProgressBarPanelGbc());
             repaintHiddenProgressBars();
         }
-        inactiveProgressBarPanels.remove(progressBarPanel);
         activeProgressBarPanels.add(progressBarPanel);
         setEnabledButtonToggleEnabled();
     }
 
-    private synchronized void setEnabledButtonToggleEnabled() {
+    private void setEnabledButtonToggleEnabled() {
         buttonToggleVisibilityOfHiddenProgressBars.setEnabled(isMultipleTasks());
     }
 
@@ -89,7 +87,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         return gbc;
     }
 
-    private synchronized void removeProgressBarPanel(ProgressBarPanel progressBarPanel) {
+    private void removeProgressBarPanel(ProgressBarPanel progressBarPanel) {
         if (isAncestorOf(progressBarPanel)) {
             setProgressBarPanelFromHidden();
         } else {
@@ -108,7 +106,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         ComponentUtil.forceRepaint(getParent());
     }
 
-    private synchronized void setProgressBarPanelFromHidden() {
+    private void setProgressBarPanelFromHidden() {
         List<ProgressBarPanel> pbPanels = ComponentUtil.getAllOf(panelHiddenProgressBars, ProgressBarPanel.class);
         if (!pbPanels.isEmpty()) {
             remove(visibleProgressBarPanel);
@@ -130,7 +128,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         setProgressBarDialogLocation();
     }
 
-    private synchronized void toggleVisibilityOfHiddenProgressBars() {
+    private void toggleVisibilityOfHiddenProgressBars() {
         boolean multipleTasks = isMultipleTasks();
         boolean hide = !multipleTasks || dialogHiddenProgressBars.isVisible();
         buttonToggleVisibilityOfHiddenProgressBars.setIcon(hide ? UP_ARROW_ICON : DOWN_ARROW_ICON);
@@ -152,26 +150,28 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         dialogHiddenProgressBars.setLocation(xRight - dialogWidth, yTop - dialogHeight);
     }
 
-    public synchronized boolean hasActiveTasks() {
-        return !activeProgressBarPanels.isEmpty();
-    }
-
-    public synchronized boolean hasInactiveTasks() {
-        return !inactiveProgressBarPanels.isEmpty();
-    }
-
-    private synchronized boolean isMultipleTasks() {
+    private  boolean isMultipleTasks() {
         return activeProgressBarPanels.size() > 1;
     }
 
     @Override
-    public void progressStarted(ProgressBarPanel source) {
-        showActiveProgressBarPanel(source);
+    public void progressStarted(final ProgressBarPanel source) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            @Override
+            public void run() {
+                showActiveProgressBarPanel(source);
+            }
+        });
     }
 
     @Override
-    public void progressEnded(ProgressBarPanel source) {
-        removeProgressBarPanel(source);
+    public void progressEnded(final ProgressBarPanel source) {
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            @Override
+            public void run() {
+                removeProgressBarPanel(source);
+            }
+        });
     }
 
     private class ToggleVisibilityOfHiddenProgressBars extends MouseAdapter implements ActionListener {
