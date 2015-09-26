@@ -33,11 +33,13 @@ public final class DesktopUtil {
             throw new NullPointerException("file == null");
         }
         boolean failed = false;
+        boolean chooseProgramDenied = false;
         try {
             Desktop.getDesktop().open(file);
         } catch (Throwable t) {
             String confirmMessage = Bundle.getString(DesktopUtil.class, "DesktopUtil.Open.ConfirmChooseProgram");
             String programPath = resolveProgramPath(prefrencesKeyForAlternateProgram + ".Open", confirmMessage);
+            chooseProgramDenied = programPath == null;
             if (programPath != null) {
                 try {
                     String[] commandArray = new String[]{programPath, file.getAbsolutePath()};
@@ -53,7 +55,7 @@ public final class DesktopUtil {
         }
 
         String confirmMessage = Bundle.getString(DesktopUtil.class, "DesktopUtil.Open.ConfirmRetry");
-        if (failed && MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), confirmMessage)) {
+        if (failed && !chooseProgramDenied && MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), confirmMessage)) {
             open(file, prefrencesKeyForAlternateProgram); // Recursive
         }
     }
