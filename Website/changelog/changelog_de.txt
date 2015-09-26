@@ -1,4 +1,4 @@
-﻿Zeichenkodierung dieser Datei: UTF-8
+Zeichenkodierung dieser Datei: UTF-8
 
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
