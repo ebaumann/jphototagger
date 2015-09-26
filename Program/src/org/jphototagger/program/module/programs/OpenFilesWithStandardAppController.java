@@ -10,9 +10,8 @@ import java.util.Map;
 import org.jphototagger.api.file.FileViewer;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
+import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPopupMenu;
@@ -54,9 +53,9 @@ public final class OpenFilesWithStandardAppController implements ActionListener,
             File file = CollectionUtil.getFirstElement(filesOfSuffix);
             Program program = findDefaultImageOpenProgram(file);
             if (program == null) {
-                String message = Bundle.getString(OpenFilesWithOtherAppController.class, "OpenFilesWithStandardAppController.Info.DefineOpenApp");
-                MessageDisplayer.information(null, message);
-                ProgramsUtil.openSelectedFilesWidth(ProgramsUtil.addProgram(), false);
+                for (File f : files) {
+                    DesktopUtil.open(f, "OpenFilesWithStandardApp");
+                }
             } else {
                 StartPrograms startPrograms = new StartPrograms();
                 boolean waitForTermination = false;
