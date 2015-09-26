@@ -44,7 +44,16 @@ public final class RenameFilesystemFolderInFavoritesController implements Action
         if (isRename(evt) && !tree.isSelectionEmpty()) {
             Object node = tree.getSelectionPath().getLastPathComponent();
             if (node instanceof DefaultMutableTreeNode) {
-                renameDirectory((DefaultMutableTreeNode) node);
+                DefaultMutableTreeNode favoriteNode = (DefaultMutableTreeNode) node;
+                boolean firstLevel = tree.getModel().getRoot() == favoriteNode.getParent();
+                if (firstLevel) {
+                    Object uo = favoriteNode.getUserObject();
+                    if (uo instanceof Favorite) {
+                        FavoritesUtil.updateFavorite((Favorite) uo);
+                    }
+                } else {
+                    renameDirectory(favoriteNode);
+                }
             }
         }
     }

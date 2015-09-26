@@ -3,9 +3,11 @@
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.32.22 2015-09-25
+0.32.22 2015-09-26
 ------------------
 
+* Bugifx: Beim Umbenennen eines Favoriten wird geprüft, ob einer des
+          gleichen Namens bereits existiert
 * Bugfix: Strg+X funktioniert in den Bearbeiten-Textflächen
           des Bearbeiten-Kartenreiters
 * Bugfix: Im Bearbeiten-Kartenreiter wird ein Datum auf

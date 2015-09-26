@@ -15,6 +15,8 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.ObjectUtil;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
@@ -29,9 +31,9 @@ public final class FavoritePropertiesDialog extends Dialog {
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
     private static final long serialVersionUID = 1L;
     private final FavoritesRepository repo = Lookup.getDefault().lookup(FavoritesRepository.class);
-    private File dir = new File("");
+    private String oldName;
+    private File dir = null;
     private boolean accepted;
-    private boolean update;
 
     public FavoritePropertiesDialog() {
         super(GUI.getAppFrame(), true);
@@ -51,7 +53,7 @@ public final class FavoritePropertiesDialog extends Dialog {
     private void chooseDirectory() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), dir, hideRootFiles, showHiddenDirs);
+        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), getDirectoryFromSettings(), hideRootFiles, showHiddenDirs);
         dlg.setPreferencesKey("FavoritePropertiesDialog.DirChooser");
         dlg.setVisible(true);
         toFront();
@@ -85,7 +87,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         String componentName = getName();
         boolean componentNameIsFavoriteName = componentName.equalsIgnoreCase(favoriteName);
         File favoriteDirectory = favorite.getDirectory();
-        return dir.equals(favoriteDirectory) && componentNameIsFavoriteName;
+        return ObjectUtil.equals(dir, favoriteDirectory) && componentNameIsFavoriteName;
     }
 
     /**
@@ -96,8 +98,10 @@ public final class FavoritePropertiesDialog extends Dialog {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-        textFieldFavoriteName.setText(name);
-        update = true;
+        String favoriteName = name.trim();
+        textFieldFavoriteName.setText(favoriteName);
+        oldName = favoriteName;
+        textFieldFavoriteName.selectAll();
     }
 
     public void setDirectory(File dir) {
@@ -108,7 +112,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         String dirPathName = dir.getAbsolutePath();
         labelDirectoryname.setText(dirPathName);
 
-        if (textFieldFavoriteName.getText().trim().isEmpty()) {
+        if (getFavoriteName().isEmpty()) {
             textFieldFavoriteName.setText(dir.getName());
         }
     }
@@ -125,12 +129,14 @@ public final class FavoritePropertiesDialog extends Dialog {
         return textFieldFavoriteName.getText().trim();
     }
 
+    /**
+     * @return null if not set (choosen). Not null, if {@link #isAccepted()} returns true.
+     */
     public File getDirectory() {
         return dir;
     }
 
     /**
-     *
      * @return true, if closed with Ok
      */
     public boolean isAccepted() {
@@ -139,9 +145,9 @@ public final class FavoritePropertiesDialog extends Dialog {
 
     private void exitIfOk() {
         if (checkValuesOk()) {
-            String favoriteName = textFieldFavoriteName.getText().trim();
-            boolean exists = repo.existsFavorite(favoriteName);
-            if (!update && exists) {
+            String favoriteName = getFavoriteName();
+            boolean nameChanged = oldName == null || (oldName != null && !oldName.equals(favoriteName));
+            if (nameChanged && repo.existsFavorite(favoriteName)) {
                 String message = Bundle.getString(FavoritePropertiesDialog.class, "FavoritePropertiesDialog.Error.FavoriteExists", favoriteName);
                 MessageDisplayer.error(this, message);
             } else {
@@ -161,34 +167,38 @@ public final class FavoritePropertiesDialog extends Dialog {
     }
 
     private boolean valuesOk() {
-        return dir.isDirectory() && !getFavoriteName().isEmpty();
+        return dir != null && dir.isDirectory() && StringUtil.hasContent(getFavoriteName());
     }
 
     @Override
     public void setVisible(boolean visible) {
         if (visible) {
-            if (dir == null || !dir.isDirectory()) {
-                directoryFromSettings();
-            }
             setOkEnabled();
         } else {
-            directoryToSettings();
+            persistDirectory();
         }
         super.setVisible(visible);
     }
 
-    private void directoryFromSettings() {
+    private File getDirectoryFromSettings() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         if (prefs.containsKey(KEY_LAST_DIRECTORY)) {
-            dir = new File(prefs.getString(KEY_LAST_DIRECTORY));
+            String persistedDir = prefs.getString(KEY_LAST_DIRECTORY);
+            if (StringUtil.hasContent(persistedDir)) {
+                File pd = new File(persistedDir);
+                if (pd.isDirectory()) {
+                    return pd;
+                }
+            }
         }
+        return new File(System.getProperty("user.home"));
     }
 
     private void setOkEnabled() {
         buttonOk.setEnabled(valuesOk());
     }
 
-    private void directoryToSettings() {
+    private void persistDirectory() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         prefs.setString(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
     }
