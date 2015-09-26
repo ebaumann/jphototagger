@@ -12,6 +12,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.metadatatemplates.EditMetaDataTemplateDialog;
+import org.jphototagger.program.module.metadatatemplates.MetadataTemplateUtil;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesComboBoxModel;
 import org.openide.util.Lookup;
 
@@ -104,7 +105,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
     private void createTemplateFromEditMetaDataPanels() {
         MetadataTemplate template = editMetaDataPanels.createMetadataTemplateFromInput();
         String defaultName = null;
-        String gotName = askForNotExistingTemplateName(defaultName);
+        String gotName = MetadataTemplateUtil.getNewTemplateName(defaultName);
         if (gotName != null) {
             template.setName(gotName);
             repo.saveOrUpdateMetadataTemplate(template);
@@ -157,38 +158,10 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         }
         MetadataTemplate selectedTemplate = (MetadataTemplate) selectedItem;
         String fromName = selectedTemplate.getName();
-        String toName = askForNotExistingTemplateName(fromName);
+        String toName = MetadataTemplateUtil.getNewTemplateName(fromName);
         if (toName != null) {
             repo.updateRenameMetadataTemplate(fromName, toName);
         }
-    }
-
-    private String askForNotExistingTemplateName(String defaultName) {
-        boolean exists = true;
-        boolean cancel = false;
-        String name = defaultName;
-
-        while (exists && !cancel) {
-            String info = Bundle.getString(EditMetaDataActionsPanel.class, "EditMetaDataActionsPanel.Input.TemplateName");
-            String input = name;
-            name = MessageDisplayer.input(info, input);
-            exists = (name != null) && repo.existsMetadataTemplate(name);
-
-            if (exists) {
-                cancel = confirmOverwrite(name);
-            }
-
-            if (exists && cancel) {
-                name = null;
-            }
-        }
-
-        return name;
-    }
-
-    private boolean confirmOverwrite(String name) {
-        String message = Bundle.getString(EditMetaDataActionsPanel.class, "EditMetaDataActionsPanel.Confirm.OverwriteExistingTemplate", name);
-        return !MessageDisplayer.confirmYesNo(null, message);
     }
 
     private void createNewTemplate() {

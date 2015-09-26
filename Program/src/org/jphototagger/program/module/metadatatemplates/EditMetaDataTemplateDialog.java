@@ -10,6 +10,7 @@ import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.view.ViewUtil;
 import org.openide.util.Lookup;
@@ -102,7 +103,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
     }
 
     private void save() {
-        if (panelXmpEdit.isDirty() && checkSaveTemplateName()) {
+        if (checkDirty() && checkSaveTemplateName()) {
             panelXmpEdit.setInputToXmp();
             template.setXmp(xmp);
             if (repo.saveOrUpdateMetadataTemplate(template)) {
@@ -115,11 +116,21 @@ public class EditMetaDataTemplateDialog extends Dialog {
         }
     }
 
-    private boolean checkSaveTemplateName() {
+    private boolean checkDirty() {
+        boolean dirty = panelXmpEdit.isDirty();
+        if (!dirty) {
+            String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.NotDirty");
+            MessageDisplayer.error(this, message);
+            return false;
+        }
+        return true;
+    }
+////
+    private boolean checkSaveTemplateName() { // Should be refactored: Checks *and* sets the template name (should only check)
         if (!templateHasName()) {
-            String  name             = textFieldName.getText();
-            boolean textfieldHasName = (name != null) &&!name.trim().isEmpty();
-            if (textfieldHasName) {
+            String name = textFieldName.getText();
+            if (StringUtil.hasContent(name)) {
+                name = name.trim();
                 if (repo.existsMetadataTemplate(name)) {
                     String message = Bundle.getString(EditMetaDataTemplateDialog.class, "EditMetaDataTemplateDialog.Error.NameExists", name);
                     MessageDisplayer.error(this, message);

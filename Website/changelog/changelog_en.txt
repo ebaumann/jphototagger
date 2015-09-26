@@ -6,6 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.22 2015-09-26
 ------------------
 
+* When creating and renaming templates, spaces at the begin and end
+  will be trimmed
 * Bugfix: Renaming a favorite checks whether the name already exists
 * Bugfix: Ctrl+X does work in the Edit tab text areas
 * Bugfix: In the edit tab a Date is validated

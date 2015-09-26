@@ -46,10 +46,12 @@ public final class MetadataTemplateUtil {
                 return null;
             }
 
+            name = name.trim();
+
             boolean namesEqual = (fromName != null) && name.equalsIgnoreCase(fromName);
 
             if (namesEqual) {
-                String message = Bundle.getString(MetadataTemplateUtil.class, "MetadataTemplateHelper.Error.NamEquals");
+                String message = Bundle.getString(MetadataTemplateUtil.class, "MetadataTemplateHelper.Error.NameEquals");
 
                 if (!MessageDisplayer.confirmYesNo(null, message)) {
                     return null;
@@ -62,7 +64,7 @@ public final class MetadataTemplateUtil {
                 if (!MessageDisplayer.confirmYesNo(null, message)) {
                     return null;
                 }
-            } else {
+            } else if (!namesEqual) {
                 return name;
             }
         }

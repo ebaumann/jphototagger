@@ -6,6 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.22 2015-09-26
 ------------------
 
+* Beim Erzeugen und Umbenennen von Vorlagen werden Leerzeichen am
+  Anfang und Ende des Namens entfernt
 * Bugifx: Beim Umbenennen eines Favoriten wird geprüft, ob einer des
           gleichen Namens bereits existiert
 * Bugfix: Strg+X funktioniert in den Bearbeiten-Textflächen
