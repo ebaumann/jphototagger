@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.23 2015-09-26
+------------------
+
+* Bugfix: Thumbnails will be repainted explicitely when changing
+          the size of it's area. When enlarging the area, it
+          was not guaranteed that as many thumbnails as possible
+          will be showed in a row.
+
 0.32.22 2015-09-26
 ------------------
 

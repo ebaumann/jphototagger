@@ -1175,6 +1175,7 @@ public class ThumbnailsPanel extends JPanel
     @Override
     public void componentResized(ComponentEvent evt) {
         setCountPerRow();
+        repaint();
     }
 
     private synchronized void setCountPerRow() {

@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.32.23 2015-09-26
+------------------
+
+* Bugfix: Vorschaubilder werden beim Ändern der Darstellungsfläche
+          explizit neu gezeichnet. Beim Vergrößern der Fläche wurden
+          ggf. nicht so viele Vorschaubilder in einer Reihe angezeigt,
+          wie möglich wäre.
+
 0.32.22 2015-09-26
 ------------------
 
