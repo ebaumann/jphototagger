@@ -52,7 +52,8 @@ public final class DesktopUtil {
             }
         }
 
-        if (failed && MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), "DesktopUtil.Open.ConfirmRetry")) {
+        String confirmMessage = Bundle.getString(DesktopUtil.class, "DesktopUtil.Open.ConfirmRetry");
+        if (failed && MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), confirmMessage)) {
             open(file, prefrencesKeyForAlternateProgram); // Recursive
         }
     }
