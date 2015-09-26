@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tmx SYSTEM "tmx11.dtd">
 <tmx version="1.1">
-  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="2.6.3_5" segtype="sentence" srclang="DE"/>
+  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="3.1.9_4" segtype="sentence" srclang="DE"/>
   <body>
 <!-- Default translations -->
     <tu>
@@ -6380,6 +6380,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Die Vorlage enthält keine Eingaben!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20150926T113055Z" creationid="elmar" creationdate="20150926T113055Z">
+        <seg>The template does not contain values!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Die Wortzusammenstellung ''{0}'' konnte nicht aus der Datenbank geladen werden!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -11460,6 +11468,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Name of the new keyword:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Name ändern?</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20150926T113117Z" creationid="elmar" creationdate="20150926T113117Z">
+        <seg>Change name?</seg>
       </tuv>
     </tu>
     <tu>
