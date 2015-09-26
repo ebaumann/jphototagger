@@ -519,7 +519,6 @@ public final class AppPanel extends javax.swing.JPanel {
         splitPaneMain.setDividerLocation(getDividerLocationMain());
         panelSelection = new javax.swing.JPanel();
         panelSearch = new javax.swing.JPanel();
-        scrollPaneSelection = new javax.swing.JScrollPane();
         tabbedPaneSelection = new javax.swing.JTabbedPane();
         panelDirectories = new javax.swing.JPanel();
         scrollPaneDirectories = new javax.swing.JScrollPane();
@@ -600,6 +599,7 @@ public final class AppPanel extends javax.swing.JPanel {
         splitPaneMain.setName("splitPaneMain"); // NOI18N
         splitPaneMain.setOneTouchExpandable(true);
 
+        panelSelection.setMinimumSize(new java.awt.Dimension(100, 200));
         panelSelection.setName("panelSelection"); // NOI18N
         panelSelection.setLayout(new java.awt.GridBagLayout());
 
@@ -608,16 +608,12 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
         panelSelection.add(panelSearch, gridBagConstraints);
 
-        scrollPaneSelection.setName("scrollPaneSelection"); // NOI18N
-
         tabbedPaneSelection.setName("tabbedPaneSelection"); // NOI18N
-        tabbedPaneSelection.setPreferredSize(new java.awt.Dimension(150, 200));
 
         panelDirectories.setName("panelDirectories"); // NOI18N
         panelDirectories.setLayout(new java.awt.GridBagLayout());
@@ -1116,30 +1112,32 @@ public final class AppPanel extends javax.swing.JPanel {
 
         tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelMiscMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_misc_metadata.png")), panelMiscMetadata); // NOI18N
 
-        scrollPaneSelection.setViewportView(tabbedPaneSelection);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        panelSelection.add(scrollPaneSelection, gridBagConstraints);
+        gridBagConstraints.weighty = 0.9;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelSelection.add(tabbedPaneSelection, gridBagConstraints);
 
         splitPaneMain.setLeftComponent(panelSelection);
 
+        panelThumbnailsMetadata.setMinimumSize(new java.awt.Dimension(100, 200));
         panelThumbnailsMetadata.setName("panelThumbnailsMetadata"); // NOI18N
 
         splitPaneThumbnailsMetadata.setDividerSize(6);
-        splitPaneThumbnailsMetadata.setResizeWeight(1.0);
         splitPaneThumbnailsMetadata.setName("splitPaneThumbnailsMetadata"); // NOI18N
         splitPaneThumbnailsMetadata.setOneTouchExpandable(true);
 
-        thumbnailPanelComponent.setMinimumSize(new java.awt.Dimension(300, 300));
+        thumbnailPanelComponent.setMinimumSize(new java.awt.Dimension(150, 200));
         thumbnailPanelComponent.setName("thumbnailPanelComponent"); // NOI18N
-        thumbnailPanelComponent.setPreferredSize(new java.awt.Dimension(100, 0));
+        thumbnailPanelComponent.setPreferredSize(new java.awt.Dimension(300, 200));
         thumbnailPanelComponent.setLayout(new java.awt.GridBagLayout());
         splitPaneThumbnailsMetadata.setLeftComponent(thumbnailPanelComponent);
 
+        panelMetadata.setMinimumSize(new java.awt.Dimension(100, 200));
         panelMetadata.setName("panelMetadata"); // NOI18N
         panelMetadata.setLayout(new java.awt.GridBagLayout());
 
@@ -1164,9 +1162,9 @@ public final class AppPanel extends javax.swing.JPanel {
         panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
         panelThumbnailsMetadataLayout.setHorizontalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 564, Short.MAX_VALUE)
+            .addGap(0, 518, Short.MAX_VALUE)
             .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 564, Short.MAX_VALUE))
+                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
         );
         panelThumbnailsMetadataLayout.setVerticalGroup(
             panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1268,7 +1266,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPaneSavedSearches;
     private javax.swing.JScrollPane scrollPaneSelKeywordsList;
     private javax.swing.JScrollPane scrollPaneSelKeywordsTree;
-    private javax.swing.JScrollPane scrollPaneSelection;
     private javax.swing.JScrollPane scrollPaneTimeline;
     private javax.swing.JSplitPane splitPaneMain;
     private javax.swing.JSplitPane splitPaneThumbnailsMetadata;

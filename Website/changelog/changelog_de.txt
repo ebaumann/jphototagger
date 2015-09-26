@@ -6,6 +6,10 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.23 2015-09-26
 ------------------
 
+* Die linke und rechte Fläche können bis auf 100 Pixel verkleinert
+  werden. So kann die Vorschaubildfläche breiter sein ohne dass die
+  Flächen vollständig eingeklappt werden über die Dreiecke an ihren
+  Teilern.
 * Bugfix: Vorschaubilder werden beim Ändern der Darstellungsfläche
           explizit neu gezeichnet. Beim Vergrößern der Fläche wurden
           ggf. nicht so viele Vorschaubilder in einer Reihe angezeigt,

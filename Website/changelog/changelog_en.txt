@@ -6,6 +6,10 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.32.23 2015-09-26
 ------------------
 
+* The left and right panes of the main window can decreased down
+  to 100 pixels width. So the thumbnail's area can be wider
+  without collapsing one of the panes through the triangles on the
+  dividers.
 * Bugfix: Thumbnails will be repainted explicitely when changing
           the size of it's area. When enlarging the area, it
           was not guaranteed that as many thumbnails as possible
