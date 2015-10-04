@@ -9,13 +9,15 @@ import org.openide.util.lookup.ServiceProvider;
 @ServiceProvider(service = ReplaceableTask.class)
 public final class ReplaceableTaskImpl implements ReplaceableTask {
 
+    private static final ReplaceableThread DELEGATE = new ReplaceableThread();
+
     @Override
     public void replacePreviousTaskWith(Runnable runnable) {
-        AutomaticTask.INSTANCE.setTask(runnable);
+        DELEGATE.setTask(runnable);
     }
 
     @Override
     public void cancelRunningTask() {
-        AutomaticTask.INSTANCE.cancelCurrentTask();
+        DELEGATE.cancelCurrentThread();
     }
 }

@@ -4,8 +4,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
@@ -32,16 +36,26 @@ import java.util.Set;
 import java.util.TooManyListenersException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JViewport;
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
+import javax.swing.SwingUtilities;
 import javax.swing.TransferHandler;
 import org.bushe.swing.event.EventBus;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
+import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.concurrent.CancelableComparator;
 import org.jphototagger.api.file.event.DirectoryRenamedEvent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.domain.event.listener.ThumbnailUpdateListener;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter.RegexFileFilter;
@@ -72,6 +86,7 @@ import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.program.filefilter.AppFileFilters;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCache;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.program.tasks.ReplaceableThread;
 import org.jphototagger.program.types.ByteSizeUnit;
 import org.jphototagger.program.types.FileAction;
 import org.openide.util.Lookup;
@@ -89,6 +104,7 @@ public class ThumbnailsPanel extends JPanel
     public static final Color COLOR_FOREGROUND_PANEL = Color.WHITE;
     public static final Color COLOR_BACKGROUND_PANEL = new Color(32, 32, 32);
     private static final DateFormat TOOLTIP_FILE_DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM);
+    private static final ReplaceableThread SCHEDULER = new ReplaceableThread();
     private int isClickInSelection = -1;
     private final Map<Integer, Set<ThumbnailFlag>> thumbnailFlagsAtIndex = new HashMap<>();
     private final List<Integer> selectedThumbnailIndices = new ArrayList<>();
@@ -115,6 +131,8 @@ public class ThumbnailsPanel extends JPanel
     private final Object thumbnailsChangedNotifyMonitor = new Object();
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final Set<ThumbnailFlag> flagsToDisplay = EnumSet.of(ThumbnailFlag.ERROR_FILE_NOT_FOUND);
+    private Popup messagePopup;
+    private Object messagePopupOwner;
 
     public ThumbnailsPanel() {
         ctrlDoubleklick = new ThumbnailDoubleklickController(this);
@@ -154,8 +172,8 @@ public class ThumbnailsPanel extends JPanel
 
     /**
      *
-     * @param  index valid index
-     * @throws       IllegalArgumentException if index is not vaid
+     * @param index valid index
+     * @throws IllegalArgumentException if index is not vaid
      */
     public synchronized void rerender(int index) {
         if (index < 0) {
@@ -261,9 +279,8 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Enables the Drag gesture whithin the thumbnails panel. Whitout calling
-     * this, {@code #handleMouseDragged(java.awt.event.MouseEvent)} will never
-     * called.
+     * Enables the Drag gesture whithin the thumbnails panel. Whitout calling this,
+     * {@code #handleMouseDragged(java.awt.event.MouseEvent)} will never called.
      *
      * @param enabled true if enabled. Default: false
      */
@@ -457,12 +474,11 @@ public class ThumbnailsPanel extends JPanel
     /**
      * Returns the drop index when images moved within the panel itself.
      * <p>
-     * This is different to the drop index when other content will be dropped,
-     * e.g. metadata.
+     * This is different to the drop index when other content will be dropped, e.g. metadata.
      *
-     * @param  x x coordinate of current move position
-     * @param  y y coordinate of current move position
-     * @return     index or -1 if no valid index is near the move position
+     * @param x x coordinate of current move position
+     * @param y y coordinate of current move position
+     * @return index or -1 if no valid index is near the move position
      */
     public synchronized int getImageMoveDropIndex(int x, int y) {
         int row = Math.max(0, (y - MARGIN_THUMBNAIL) / (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL));
@@ -824,7 +840,7 @@ public class ThumbnailsPanel extends JPanel
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < flags.size(); i++) {
             sb.append(i == 0 ? "" : ',')
-              .append(flags.get(i).getDisplayName());
+                    .append(flags.get(i).getDisplayName());
         }
         return sb.toString();
     }
@@ -948,13 +964,13 @@ public class ThumbnailsPanel extends JPanel
         if (settings == null) {
             return;
         }
-            setViewPosition(settings.getViewPosition());
+        setViewPosition(settings.getViewPosition());
         if (settings.hasSelectedFiles()) {
             setSelectedFiles(settings.getSelectedFiles());
         } else if (settings.hasSelectedIndices()) {
             setSelectedIndices(settings.getSelectedIndices());
         }
-        }
+    }
 
     private void setViewPosition(Point pos) {
         if (viewport != null) {
@@ -1011,11 +1027,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Renames a file <strong>on the display</strong>, <em>not</em> in the
-     * file system.
+     * Renames a file <strong>on the display</strong>, <em>not</em> in the file system.
      *
-     * @param fromFile  old file
-     * @param toFile  new file
+     * @param fromFile old file
+     * @param toFile new file
      */
     public synchronized void renameFile(File fromFile, File toFile) {
         if (fromFile == null) {
@@ -1056,22 +1071,90 @@ public class ThumbnailsPanel extends JPanel
         }
         synchronized (this) {
             Logger.getLogger(ThumbnailsPanel.class.getName()).log(Level.FINE, "{0} new files to display", files.size());
-            clearSelectionAndFlags();
-            new WarnOnEqualBasenamesTask(files).start();
-            this.originOfOfDisplayedThumbnails = originOfOfDisplayedThumbnails;
-            List<File> filteredFiles = originOfOfDisplayedThumbnails.isFilterable()
-                    ? FileUtil.filterFiles(files, fileFilter)
-                    : new ArrayList<>(files);
-            if (originOfOfDisplayedThumbnails.isSortable()) {
-                Collections.sort(filteredFiles, fileSortComparator);
-            }
-            this.files.clear();
-            this.files.addAll(filteredFiles);
-            scrollToTop();
-            setFlags();
+            SCHEDULER.setTask(new FileSetter(files, fileSortComparator, originOfOfDisplayedThumbnails));
         }
-        notifyThumbnailsChanged();
-        forceRepaint();
+    }
+
+    private final class FileSetter implements Runnable, Cancelable {
+
+        private volatile boolean cancel;
+        private volatile boolean sorting;
+        private final OriginOfDisplayedThumbnails origin;
+        private final Collection<? extends File> files;
+        private final CancelableComparator<File> sortCmp;
+        private final ProgressHandle progressHandle;
+
+        private FileSetter(Collection<? extends File> files, Comparator<File> sortCmp, OriginOfDisplayedThumbnails origin) {
+            this.files = files;
+            this.sortCmp = new CancelableComparator<>(sortCmp);
+            this.origin = origin;
+            this.progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
+        }
+
+        @Override
+        public void run() {
+            progressStarted();
+            try {
+                List<File> filteredFiles = origin.isFilterable()
+                        ? FileUtil.filterFiles(files, fileFilter)
+                        : new ArrayList<>(files);
+                if (!cancel && origin.isSortable()) {
+                    sorting = true;
+                    Collections.sort(filteredFiles, sortCmp);
+                    sorting = false;
+                }
+                if (!cancel) {
+                    setFiles(filteredFiles);
+                }
+            } finally {
+                progressEnded();
+            }
+        }
+
+        private void setFiles(final List<File> files) {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+                @Override
+                public void run() {
+                    ThumbnailsPanel.this.originOfOfDisplayedThumbnails = origin;
+                    clearSelectionAndFlags();
+                    ThumbnailsPanel.this.files.clear();
+                    ThumbnailsPanel.this.files.addAll(files);
+                    scrollToTop();
+                    setFlags();
+                    notifyThumbnailsChanged();
+                    forceRepaint();
+                    new WarnOnEqualBasenamesTask(files).start();
+                }
+            });
+        }
+
+        @Override
+        public synchronized void cancel() {
+            progressEnded();
+            if (sorting) {
+                sortCmp.cancel();
+            }
+            cancel = true;
+        }
+
+        private void progressStarted() {
+            String message = Bundle.getString(ThumbnailsPanel.class, "ThumbnailsPanel.SetFiles.ProgressStarted", files.size());
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .indeterminate(true)
+                    .stringPainted(true)
+                    .stringToPaint(message)
+                    .build();
+            progressHandle.progressStarted(evt);
+            showMessagePopup(message, ThumbnailsPanel.this);
+        }
+
+        private void progressEnded() {
+            if (!cancel) {
+                progressHandle.progressEnded();
+                hideMessagePopup(ThumbnailsPanel.this);
+            }
+        }
     }
 
     public synchronized boolean isEmpty() {
@@ -1131,11 +1214,11 @@ public class ThumbnailsPanel extends JPanel
         double count = (double) files.size() / (double) thumbnailCountPerRow;
         return (files.size() > thumbnailCountPerRow)
                 ? (int) (MathUtil.isInteger(count)
-                ? count
-                : count + 1)
+                        ? count
+                        : count + 1)
                 : (files.isEmpty())
-                ? 0
-                : 1;
+                        ? 0
+                        : 1;
     }
 
     private void notifySelectionChanged() {
@@ -1241,12 +1324,10 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * Sets the viewport. Have to be called before adding files.
-     * If a viewport ist setTree, some additional functions supported, e.g.
-     * special keyboard keys that are not handled through the viewport
-     * and a scroll pane.
+     * Sets the viewport. Have to be called before adding files. If a viewport ist setTree, some additional functions
+     * supported, e.g. special keyboard keys that are not handled through the viewport and a scroll pane.
      *
-     * @param viewport  Viewport
+     * @param viewport Viewport
      */
     public synchronized void setViewport(JViewport viewport) {
         if (viewport == null) {
@@ -1398,7 +1479,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * @param  file
+     * @param file
      * @return -1 if not displayed
      */
     public synchronized int getIndexOf(File file) {
@@ -1409,7 +1490,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     /**
-     * @param  index
+     * @param index
      * @return null if the index is invalid
      */
     public synchronized File getFileAtIndex(int index) {
@@ -1528,7 +1609,7 @@ public class ThumbnailsPanel extends JPanel
         return requested;
     }
 
-    @EventSubscriber(eventClass=DirectoryRenamedEvent.class)
+    @EventSubscriber(eventClass = DirectoryRenamedEvent.class)
     public void directoryRenamed(DirectoryRenamedEvent evt) {
         if (originOfOfDisplayedThumbnails.isInSameFileSystemDirectory() && !isEmpty()) {
             synchronized (this) {
@@ -1547,5 +1628,68 @@ public class ThumbnailsPanel extends JPanel
                 setFiles(newFiles, originOfOfDisplayedThumbnails);
             }
         }
+    }
+
+    public void showMessagePopup(final String text, final Object owner) {
+        if (text == null) {
+            throw new NullPointerException("text == null");
+        }
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            @Override
+            public void run() {
+                hideMessagePopup(ThumbnailsPanel.this);
+
+                Component c = createPopupComponent(text);
+                Dimension cSize = c.getPreferredSize();
+                Rectangle thisRect = getVisibleRect();
+                int x = thisRect.width > cSize.width
+                        ? (thisRect.width - cSize.width) / 2
+                        : 0;
+                int y = thisRect.height > cSize.height
+                        ? (thisRect.height - cSize.height) / 2
+                        : 0;
+                Point p = new Point(x, y);
+                SwingUtilities.convertPointToScreen(p, ThumbnailsPanel.this);
+
+                PopupFactory factory = PopupFactory.getSharedInstance();
+                messagePopup = factory.getPopup(ThumbnailsPanel.this, c, p.x, p.y);
+                messagePopupOwner = owner;
+                messagePopup.show();
+            }
+        });
+    }
+
+    public void hideMessagePopup(final Object owner) {
+        if (owner == null) {
+            throw new NullPointerException("owner == null");
+        }
+        EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            @Override
+            public void run() {
+                if (messagePopup != null && (messagePopupOwner == owner || owner == ThumbnailsPanel.this)) {
+                    messagePopup.hide();
+                    messagePopup = null;
+                    messagePopupOwner = null;
+                }
+            }
+        });
+    }
+
+    private Component createPopupComponent(final String text) {
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(new Color(95, 95, 95));
+        panel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
+
+        JLabel label = new JLabel(text);
+        label.setFont(label.getFont().deriveFont(Font.BOLD, 32));
+        label.setForeground(Color.WHITE);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.insets = new Insets(15, 15, 15, 15);
+
+        panel.add(label, gbc);
+
+        return panel;
     }
 }

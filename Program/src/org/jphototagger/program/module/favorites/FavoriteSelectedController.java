@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.favorites;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -10,12 +11,20 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.concurrent.DefaultCancelRequest;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.tasks.ReplaceableThread;
 import org.openide.util.Lookup;
 
 /**
@@ -28,6 +37,7 @@ import org.openide.util.Lookup;
 public final class FavoriteSelectedController implements TreeSelectionListener {
 
     private static final String KEY_RECURSIVE = "FavoriteSelectedController.DirectoriesRecursive";
+    private static final ReplaceableThread SCHEDULER = new ReplaceableThread();
 
     public FavoriteSelectedController() {
         restoreRecursive();
@@ -92,15 +102,72 @@ public final class FavoriteSelectedController implements TreeSelectionListener {
     }
 
     private void setFiles(ThumbnailsPanelSettings settings) {
-        List<File> files = getFiles(FavoritesUtil.getSelectedDir());
-        FavoritesUtil.setFilesToThumbnailPanel(files, settings, getMyOrigin());
+        File directory = FavoritesUtil.getSelectedDir();
+        OriginOfDisplayedThumbnails origin = getMyOrigin();
+        SCHEDULER.setTask(new FileReader(directory, isRecursive(), settings, origin));
     }
 
-    private List<File> getFiles(File directory) {
-        return directory == null
-                ? Collections.<File>emptyList()
-                : isRecursive()
-                ? FileFilterUtil.getImageFilesOfDirAndSubDirs(directory)
-                : FileFilterUtil.getImageFilesOfDirectory(directory);
+    private static final class FileReader implements Runnable, Cancelable {
+
+        private final ThumbnailsPanelSettings settings;
+        private final OriginOfDisplayedThumbnails origin;
+        private final File directory;
+        private final boolean recursive;
+        private final DefaultCancelRequest cancelRequest = new DefaultCancelRequest();
+        private final ProgressHandle progressHandle;
+        private final String message;
+
+        private FileReader(File directory, boolean recursive, ThumbnailsPanelSettings settings, OriginOfDisplayedThumbnails origin) {
+            this.directory = directory;
+            this.recursive = recursive;
+            this.settings = settings;
+            this.origin = origin;
+            this.progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
+            this.message = Bundle.getString(FileReader.class, "FileReader.ProgressStarted", directory.getName());
+        }
+
+        @Override
+        public void run() {
+            progressStarted();
+            ThumbnailsDisplayer tnDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
+            try {
+                tnDisplayer.showMessagePopup(message, this);
+                List<File> files = directory == null
+                        ? Collections.<File>emptyList()
+                        : recursive
+                                ? FileFilterUtil.getImageFilesOfDirAndSubDirs(directory, cancelRequest)
+                                : FileFilterUtil.getImageFilesOfDirectory(directory);
+                if (!cancelRequest.isCancel()) {
+                    setFilesToThumbnailPanel(files);
+                }
+            } finally {
+                tnDisplayer.hideMessagePopup(this);
+                progressHandle.progressEnded();
+            }
+        }
+
+        private void setFilesToThumbnailPanel(final List<File> files) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    FavoritesUtil.setFilesToThumbnailPanel(files, settings, origin);
+                }
+            });
+        }
+
+        private void progressStarted() {
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .indeterminate(true)
+                    .stringPainted(true)
+                    .stringToPaint(message)
+                    .build();
+            progressHandle.progressStarted(evt);
+        }
+
+        @Override
+        public synchronized void cancel() {
+            cancelRequest.setCancel(true);
+        }
     }
 }

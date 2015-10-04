@@ -7,7 +7,6 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import org.jphototagger.api.windows.MainWindowManager;
-import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.repository.FavoritesRepository;
@@ -207,12 +206,9 @@ public final class FavoritesUtil {
 
         @Override
         public void run() {
-            WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
-            waitDisplayer.show();
             setTitle();
             thumbnailsDisplayer.displayFiles(files, origin);
             thumbnailsDisplayer.applyThumbnailsPanelSettings(tnPanelSettings);
-            waitDisplayer.hide();
         }
 
         private void setTitle() {

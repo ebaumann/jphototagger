@@ -149,4 +149,14 @@ public final class ThumbnailsDisplayerImpl implements ThumbnailsDisplayer, MainW
     public Point getViewPosition() {
         return THUMBNAILS_AREA_PANEL.getThumbnailsPanel().getViewPosition();
 }
+
+    @Override
+    public void showMessagePopup(String text, Object owner) {
+        THUMBNAILS_AREA_PANEL.getThumbnailsPanel().showMessagePopup(text, owner);
+    }
+
+    @Override
+    public void hideMessagePopup(Object owner) {
+        THUMBNAILS_AREA_PANEL.getThumbnailsPanel().hideMessagePopup(owner);
+    }
 }

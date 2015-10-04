@@ -5,6 +5,7 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.jphototagger.api.concurrent.CancelRequest;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.io.FileUtil;
@@ -54,14 +55,15 @@ public final class FileFilterUtil {
     }
 
     public static List<File> getImageFilesOfDirAndSubDirs(File dir) {
+        return getImageFilesOfDirAndSubDirs(dir, null);
+    }
+
+    public static List<File> getImageFilesOfDirAndSubDirs(File dir, CancelRequest cancelRequest) {
         if (dir == null) {
             throw new NullPointerException("dir == null");
         }
-
-        List<File> dirAndSubdirs = FileUtil.getSubDirectoriesRecursive(dir, null, getDirFilterOptionShowHiddenFiles());
-
+        List<File> dirAndSubdirs = FileUtil.getSubDirectoriesRecursive(dir, cancelRequest, getDirFilterOptionShowHiddenFiles());
         dirAndSubdirs.add(dir);
-
         return getImageFilesOfDirectories(dirAndSubdirs);
     }
 

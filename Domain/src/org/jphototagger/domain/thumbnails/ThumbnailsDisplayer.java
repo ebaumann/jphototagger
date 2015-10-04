@@ -35,4 +35,8 @@ public interface ThumbnailsDisplayer {
     Point getViewPosition();
 
     void refresh();
+
+    void showMessagePopup(String text, Object owner);
+
+    void hideMessagePopup(Object owner);
 }
