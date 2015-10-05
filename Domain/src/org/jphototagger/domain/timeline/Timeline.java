@@ -12,6 +12,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.lib.swing.SortedChildrenTreeNode;
 import org.jphototagger.lib.swing.UpdateInfoTreeModel;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.NumberUtil;
 
 /**
  * Times when images are created for useage in a {@code TreeModel}.
@@ -445,29 +446,31 @@ public final class Timeline {
             day = cal.get(Calendar.DAY_OF_MONTH);
         }
 
-        public boolean setXmpDateCreated(String date) {
-            int length = date.length();
+        public boolean setXmpDateCreated(String dateString) {
+            int dateStringLength = dateString.length();
 
-            try {
-                if (length >= 4) {
-                    year = Integer.parseInt(date.substring(0, 4));
+            if (dateStringLength >= 4) {
+                String yearString = dateString.substring(0, 4);
+                if (NumberUtil.isInteger(yearString)) {
+                    year = Integer.parseInt(yearString);
                 }
-
-                if (length >= 7) {
-                    month = Integer.parseInt(date.substring(5, 7));
-                }
-
-                if (length == 10) {
-                    day = Integer.parseInt(date.substring(8));
-                }
-
-                return true;
-            } catch (Throwable t) {
-                Logger.getLogger(Date.class.getName()).log(Level.SEVERE, null, t);
-                reset();
             }
 
-            return false;
+            if (year > 0 && dateStringLength >= 7) {
+                String monthString = dateString.substring(5, 7);
+                if (NumberUtil.isInteger(monthString)) {
+                    month = Integer.parseInt(monthString);
+                }
+            }
+
+            if (year > 0 && dateStringLength == 10) {
+                String dayString = dateString.substring(8);
+                if (NumberUtil.isInteger(dayString)) {
+                    day = Integer.parseInt(dayString);
+                }
+            }
+
+            return year > 0;
         }
 
         /**

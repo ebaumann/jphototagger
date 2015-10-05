@@ -11,6 +11,7 @@ Changelog JPhotoTagger http://jphototagger.org/
   geladen werden. Es kann unmittelbar danach ein anderer Ordner
   ausgewählt werden. Das Laden der Dateien und Vorschaubilder wird im
   Vorschaubildfenster und im Fortschrittsbalken angezeigt (Nachricht).
+* Bugfix: Zeitleiste prüft auf gültiges XMP-Datum (vorher: Fehlermeldung)
 
 0.32.23 2015-09-26
 ------------------

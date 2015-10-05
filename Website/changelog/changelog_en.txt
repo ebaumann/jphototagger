@@ -11,6 +11,8 @@ Changelog JPhotoTagger http://jphototagger.org/
   required. An other folder can be selected immediately.
   Loading of files and thumbnails will be showed as message
   in the thumbnails window and the progress bar.
+* Bugfix: Timeline validates XMP date created instead of
+  displaying an error message
 
 0.32.23 2015-09-26
 ------------------

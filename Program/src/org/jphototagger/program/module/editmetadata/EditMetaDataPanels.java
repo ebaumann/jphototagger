@@ -73,6 +73,7 @@ import org.openide.util.Lookup;
 final class EditMetaDataPanels implements FocusListener {
 
     private static final Logger LOGGER = Logger.getLogger(EditMetaDataPanels.class.getName());
+    private static final String DIFFERENT_VALUES = Bundle.getString(EditMetaDataPanels.class, "EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry");
     private final List<TextEntry> textEntries = new ArrayList<>();
     private final List<FileXmp> filesXmp = new CopyOnWriteArrayList<>();
     private final Set<MetaDataValue> repeatableMetaDataValuesOfTextEntries = new HashSet<>();
@@ -558,12 +559,16 @@ final class EditMetaDataPanels implements FocusListener {
                 EditTextEntryPanel panel = (EditTextEntryPanel) textEntry;
                 MetaDataValue metaDataValue = panel.getMetaDataValue();
                 String text = panel.getText();
-                xmp.setValue(metaDataValue, text);
+                if (!DIFFERENT_VALUES.equals(text)) {
+                    xmp.setValue(metaDataValue, text);
+                }
             } else if (textEntry instanceof EditRepeatableTextEntryPanel) {
                 EditRepeatableTextEntryPanel panel = (EditRepeatableTextEntryPanel) textEntry;
                 MetaDataValue metaDataValue = panel.getMetaDataValue();
                 String text = panel.getText();
-                xmp.setValue(metaDataValue, text);
+                if (!DIFFERENT_VALUES.equals(text)) {
+                    xmp.setValue(metaDataValue, text);
+                }
 
                 for (String repetableText : panel.getRepeatableText()) {
                     xmp.setValue(metaDataValue, repetableText);
@@ -1020,6 +1025,7 @@ final class EditMetaDataPanels implements FocusListener {
         private final List<TextEntry> entries = new ArrayList<>();
         private final Set<TextEntry> releasedEntries = new HashSet<>();
         private volatile boolean listen;
+
         public synchronized void setListen(boolean listen) {
             if (listen) {
                 listenToEntries();
@@ -1032,7 +1038,7 @@ final class EditMetaDataPanels implements FocusListener {
                 if (entry instanceof RatingSelectionPanel) {
                     // Text not parsable as number leads to an exception
                 } else {
-                    entry.setText(Bundle.getString(EditMetaDataPanels.class, "EditMetadataPanels.DisableIfMultipleValues.Info.TextEntry"));
+                    entry.setText(DIFFERENT_VALUES);
                 }
                 entry.addMouseListenerToInputComponents(this);
                 entry.setDirty(false);
