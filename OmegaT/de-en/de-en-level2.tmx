@@ -2150,14 +2150,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>&lt;html&gt;Es ist noch kein Programm definiert, das Bilder öffnen kann!&lt;p&gt;Bitte definieren Sie im folgenden Dialog ein Programm, das Bilder öffnen kann.&lt;/html&gt;</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;There is no application defined capable of opening an image.&lt;p&gt;Please define an application capable of opening images in the following dialog.&lt;/html&gt;</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>&lt;html&gt;Es laufen noch Benutzeraufgaben!&lt;p&gt;Es wird empfohlen, abzuwarten, bis diese fertig sind.&lt;p&gt;Wollen Sie &lt;strong&gt;JPhotoTagger&lt;/strong&gt; trotzdem beenden?&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -9864,6 +9856,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Lade, filtere und sortiere {0} Vorschaubilder</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20151005T171128Z" creationid="elmar" creationdate="20151005T171128Z">
+        <seg>Loading, filtering und sorting {0} thumbnails</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Land</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -9916,6 +9916,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Creates a new action</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Lese Dateien in "{0}"</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20151005T171057Z" creationid="elmar" creationdate="20151005T171057Z">
+        <seg>Reading files in "{0}"</seg>
       </tuv>
     </tu>
     <tu>
