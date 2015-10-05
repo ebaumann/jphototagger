@@ -208,6 +208,34 @@ public final class StringUtil {
         return prefix + s.substring(stringLength - substringLength);
     }
 
+    /**
+     * @param text maybe null
+     * @param maxLength
+     * @return text with "..." suffix if the string is longer than
+     *         {@code maxLength}. Null if {@code text} is null
+     */
+    public static String toMaxLengthEndingDots(String text, int maxLength) {
+        if (maxLength < 0) {
+            throw new IllegalArgumentException("Negative max length is not allowed: " + maxLength);
+        }
+        if (text == null) {
+            return null;
+        }
+        if (text.length() <= maxLength) {
+            return text;
+        }
+        String postfix = "...";
+        int cutindex = maxLength - postfix.length();
+        if (cutindex < 0) {
+            cutindex = 0;
+        }
+        String result = text.substring(0, cutindex);
+        if (result.length() + postfix.length() <= maxLength) {
+            result += postfix;
+        }
+        return result;
+    }
+
     public static String toString(Object[] objects) {
         if (objects == null) {
             return "null";

@@ -268,7 +268,7 @@ public final class FileUtil {
                 for (File dir : subDirs) {
                     isCancel = cancelRequest != null && cancelRequest.isCancel();
                     if (isCancel) {
-                        return Collections.emptyList();
+                        return new ArrayList<>();
                     }
                     allSubDirs.add(dir);
                     List<File> subSubDirs = getSubDirectoriesRecursive(dir, cancelRequest, options);
@@ -276,7 +276,6 @@ public final class FileUtil {
                 }
             }
         }
-
         return allSubDirs;
     }
 

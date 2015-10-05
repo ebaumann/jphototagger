@@ -1677,12 +1677,12 @@ public class ThumbnailsPanel extends JPanel
 
     private Component createPopupComponent(final String text) {
         JPanel panel = new JPanel(new GridBagLayout());
-        panel.setBackground(new Color(95, 95, 95));
-        panel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
+        panel.setBackground(getBackground());
+        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
         JLabel label = new JLabel(text);
-        label.setFont(label.getFont().deriveFont(Font.BOLD, 32));
-        label.setForeground(Color.WHITE);
+        label.setFont(label.getFont().deriveFont(Font.BOLD, 24));
+        label.setForeground(Color.LIGHT_GRAY);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;

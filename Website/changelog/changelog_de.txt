@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.33.0 2015-10-05
+-----------------
+
+* Bei der Auswahl eines Ordners im Ordner- oder Favoriten-Kartenreiter
+  muss nicht gewartet werden, bis alle Dateien und Vorschaubilder
+  geladen werden. Es kann unmittelbar danach ein anderer Ordner
+  ausgewählt werden. Das Laden der Dateien und Vorschaubilder wird im
+  Vorschaubildfenster und im Fortschrittsbalken angezeigt (Nachricht).
+
 0.32.23 2015-09-26
 ------------------
 

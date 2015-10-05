@@ -1,8 +1,10 @@
 package org.jphototagger.program.module.directories;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.event.TreeSelectionEvent;
@@ -10,16 +12,22 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.concurrent.DefaultCancelRequest;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.progress.ProgressEvent;
+import org.jphototagger.api.progress.ProgressHandle;
+import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.api.windows.MainWindowManager;
-import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
+import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.tasks.ReplaceableThread;
 import org.openide.util.Lookup;
 
 /**
@@ -31,6 +39,7 @@ import org.openide.util.Lookup;
 public final class DirectorySelectedController implements TreeSelectionListener {
 
     private static final String KEY_RECURSIVE = "DirectorySelectedController.DirectoriesRecursive";
+    private static final ReplaceableThread SCHEDULER = new ReplaceableThread();
 
     public DirectorySelectedController() {
         restoreRecursive();
@@ -83,10 +92,6 @@ public final class DirectorySelectedController implements TreeSelectionListener 
         return getMyOrigin().isFilesInDirectoryRecursive();
     }
 
-    private void setFilesToThumbnailsPanel(ThumbnailsPanelSettings settings) {
-        EventQueueUtil.invokeInDispatchThread(new ShowThumbnails(settings));
-    }
-
     @EventSubscriber(eventClass = ThumbnailsPanelRefreshEvent.class)
     public void refresh(ThumbnailsPanelRefreshEvent evt) {
         OriginOfDisplayedThumbnails origin = evt.getOriginOfDisplayedThumbnails();
@@ -95,56 +100,92 @@ public final class DirectorySelectedController implements TreeSelectionListener 
         }
     }
 
-    private class ShowThumbnails implements Runnable {
+    private void setFilesToThumbnailsPanel(ThumbnailsPanelSettings settings) {
+        if (GUI.getDirectoriesTree().getSelectionCount() > 0) {
+            File directory = getSelectedDirectoryFromTree();
+            OriginOfDisplayedThumbnails origin = getMyOrigin();
+            SCHEDULER.setTask(new FileReader(directory, isRecursive(), settings, origin));
+        }
+    }
 
-        private final ThumbnailsPanelSettings panelSettings;
+    private File getSelectedDirectoryFromTree() {
+        TreePath treePath = GUI.getDirectoriesTree().getSelectionPath();
+        if (treePath.getLastPathComponent() instanceof File) {
+            return ((File) treePath.getLastPathComponent());
+        } else {
+            return new File(treePath.getLastPathComponent().toString());
+        }
+    }
 
-        ShowThumbnails(ThumbnailsPanelSettings panelSettings) {
-            this.panelSettings = panelSettings;
+    private static final class FileReader implements Runnable, Cancelable {
+
+        private final ThumbnailsPanelSettings settings;
+        private final OriginOfDisplayedThumbnails origin;
+        private final File directory;
+        private final boolean recursive;
+        private final DefaultCancelRequest cancelRequest = new DefaultCancelRequest();
+        private final ProgressHandle progressHandle;
+        private final String message;
+
+        private FileReader(File directory, boolean recursive, ThumbnailsPanelSettings settings, OriginOfDisplayedThumbnails origin) {
+            this.directory = directory;
+            this.recursive = recursive;
+            this.settings = settings;
+            this.origin = origin;
+            this.progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
+            this.message = Bundle.getString(FileReader.class, "FileReader.ProgressStarted", StringUtil.toMaxLengthEndingDots(directory.getName(), 60));
         }
 
         @Override
         public void run() {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+            progressStarted();
+            ThumbnailsDisplayer tnDisplayer = Lookup.getDefault().lookup(ThumbnailsDisplayer.class);
+            try {
+                tnDisplayer.showMessagePopup(message, this);
+                List<File> files = directory == null
+                        ? Collections.<File>emptyList()
+                        : recursive
+                                ? FileFilterUtil.getImageFilesOfDirAndSubDirs(directory, cancelRequest)
+                                : FileFilterUtil.getImageFilesOfDirectory(directory);
+                if (!cancelRequest.isCancel()) {
+                    setFilesToThumbnailPanel(files);
+                }
+            } finally {
+                tnDisplayer.hideMessagePopup(this);
+                progressHandle.progressEnded();
+            }
+        }
+
+        private void setFilesToThumbnailPanel(final List<File> files) {
+            EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    showThumbnails();
+                    GUI.getThumbnailsPanel().setFiles(files, origin);
+                    GUI.getThumbnailsPanel().applyThumbnailsPanelSettings(settings);
+                    setTitle(directory);
                 }
             });
         }
 
-        private void showThumbnails() {
-            if (GUI.getDirectoriesTree().getSelectionCount() > 0) {
-                WaitDisplayer waitDisplayer = Lookup.getDefault().lookup(WaitDisplayer.class);
-                waitDisplayer.show();
-                File selectedDirectory = new File(getDirectorynameFromTree());
-                OriginOfDisplayedThumbnails origin = getMyOrigin();
-                setTitle(selectedDirectory);
-                GUI.getThumbnailsPanel().setFiles(getFiles(selectedDirectory), origin);
-                GUI.getThumbnailsPanel().applyThumbnailsPanelSettings(panelSettings);
-                waitDisplayer.hide();
-            }
-        }
-
-        private List<File> getFiles(File directory) {
-            return isRecursive()
-                    ? FileFilterUtil.getImageFilesOfDirAndSubDirs(directory)
-                    : FileFilterUtil.getImageFilesOfDirectory(directory);
-        }
-
         private void setTitle(File selectedDirectory) {
-            String title = Bundle.getString(ShowThumbnails.class, "ControllerDirectorySelected.AppFrame.Title.Directory", selectedDirectory);
+            String title = Bundle.getString(FileReader.class, "FileReader.AppFrame.Title.Directory", selectedDirectory);
             MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
             mainWindowManager.setMainWindowTitle(title);
         }
 
-        private String getDirectorynameFromTree() {
-            TreePath treePath = GUI.getDirectoriesTree().getSelectionPath();
-            if (treePath.getLastPathComponent() instanceof File) {
-                return ((File) treePath.getLastPathComponent()).getAbsolutePath();
-            } else {
-                return treePath.getLastPathComponent().toString();
-            }
+        private void progressStarted() {
+            ProgressEvent evt = new ProgressEvent.Builder()
+                    .source(this)
+                    .indeterminate(true)
+                    .stringPainted(true)
+                    .stringToPaint(message)
+                    .build();
+            progressHandle.progressStarted(evt);
+        }
+
+        @Override
+        public synchronized void cancel() {
+            cancelRequest.setCancel(true);
         }
     }
 }

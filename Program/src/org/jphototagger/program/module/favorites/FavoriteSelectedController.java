@@ -23,6 +23,7 @@ import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.tasks.ReplaceableThread;
 import org.openide.util.Lookup;
@@ -123,7 +124,7 @@ public final class FavoriteSelectedController implements TreeSelectionListener {
             this.settings = settings;
             this.origin = origin;
             this.progressHandle = Lookup.getDefault().lookup(ProgressHandleFactory.class).createProgressHandle();
-            this.message = Bundle.getString(FileReader.class, "FileReader.ProgressStarted", directory.getName());
+            this.message = Bundle.getString(FileReader.class, "FileReader.ProgressStarted", StringUtil.toMaxLengthEndingDots(directory.getName(), 60));
         }
 
         @Override

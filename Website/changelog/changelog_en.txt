@@ -3,6 +3,15 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.33.0 2015-10-05
+-----------------
+
+* When selecting a folder in the folder or favorites tab,
+  waiting until all files and thumbnails are loaded is not
+  required. An other folder can be selected immediately.
+  Loading of files and thumbnails will be showed as message
+  in the thumbnails window and the progress bar.
+
 0.32.23 2015-09-26
 ------------------
 
