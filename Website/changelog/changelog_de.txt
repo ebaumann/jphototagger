@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.0 2015-11-08
+-----------------
+
+* Flickr-Plugin arbeitet wieder
+
 0.33.0 2015-10-05
 -----------------
 

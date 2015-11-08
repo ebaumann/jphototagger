@@ -1,8 +1,8 @@
 package org.jphototagger.plugin.flickrupload;
 
 import com.adobe.xmp.properties.XMPPropertyInfo;
-import com.aetrion.flickr.uploader.UploadMetaData;
-import com.aetrion.flickr.uploader.Uploader;
+import com.flickr4java.flickr.uploader.UploadMetaData;
+import com.flickr4java.flickr.uploader.Uploader;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -37,6 +37,8 @@ import org.jphototagger.plugin.flickrupload.FlickrImageInfoPanel.ImageInfo;
 import org.jphototagger.xmp.XmpProperties;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
+
+// https://raw.githubusercontent.com/callmeal/Flickr4Java/master/Flickr4Java/src/examples/java/UploadPhoto.java
 
 /**
  * @author Elmar Baumann
@@ -96,10 +98,11 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
 
         @Override
         public void run() {
-            if (!new Authorization().authenticate()) {
+            Authorization authorization = new Authorization();
+            if (!authorization.authenticate()) {
                 return;
             }
-            Uploader uploader = createUploader();
+            Uploader uploader = authorization.getUploader();
             FlickrImageInfoDialog dlg = new FlickrImageInfoDialog();
             addImages(dlg);
             dlg.setVisible(true);
@@ -134,10 +137,6 @@ public final class FlickrUpload extends AbstractFileProcessorPlugin implements S
                 }
             }
             uploadFinished(countOfProcessedImages, success);
-        }
-
-        private Uploader createUploader() {
-            return new Uploader("1efba3cf4198b683047512bec1429f19", "b58bc39d8aedd4c5");
         }
 
         private ProgressEvent createStartProgressEvent(int maximum) {
