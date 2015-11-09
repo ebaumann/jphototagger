@@ -1091,14 +1091,6 @@ is divided into following sections:
         </antcall>
         <antcall target="-maybe-call-dep">
             <param name="call.built.properties" value="${built-jar.properties}"/>
-            <param location="${project.JPhotoTagger__Plugin__Flickr_Upload}" name="call.subproject"/>
-            <param location="${project.JPhotoTagger__Plugin__Flickr_Upload}/build.xml" name="call.script"/>
-            <param name="call.target" value="jar"/>
-            <param name="transfer.built-jar.properties" value="${built-jar.properties}"/>
-            <param name="transfer.not.archive.disabled" value="true"/>
-        </antcall>
-        <antcall target="-maybe-call-dep">
-            <param name="call.built.properties" value="${built-jar.properties}"/>
             <param location="${project.JPhotoTagger__Plugin__HTML_Reports}" name="call.subproject"/>
             <param location="${project.JPhotoTagger__Plugin__HTML_Reports}/build.xml" name="call.script"/>
             <param name="call.target" value="jar"/>
@@ -1810,14 +1802,6 @@ is divided into following sections:
             <param name="call.built.properties" value="${built-clean.properties}"/>
             <param location="${project.JPhotoTagger__Plugin__Copy_Filenames_To_Clipboard}" name="call.subproject"/>
             <param location="${project.JPhotoTagger__Plugin__Copy_Filenames_To_Clipboard}/build.xml" name="call.script"/>
-            <param name="call.target" value="clean"/>
-            <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
-            <param name="transfer.not.archive.disabled" value="true"/>
-        </antcall>
-        <antcall target="-maybe-call-dep">
-            <param name="call.built.properties" value="${built-clean.properties}"/>
-            <param location="${project.JPhotoTagger__Plugin__Flickr_Upload}" name="call.subproject"/>
-            <param location="${project.JPhotoTagger__Plugin__Flickr_Upload}/build.xml" name="call.script"/>
             <param name="call.target" value="clean"/>
             <param name="transfer.built-clean.properties" value="${built-clean.properties}"/>
             <param name="transfer.not.archive.disabled" value="true"/>

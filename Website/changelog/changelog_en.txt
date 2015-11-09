@@ -3,10 +3,10 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.34.0 2015-11-08
+0.34.0 2015-11-09
 -----------------
 
-* Fixed not working Flickr plugin
+* Removed not working Flickr plugin
 
 0.33.0 2015-10-05
 -----------------
