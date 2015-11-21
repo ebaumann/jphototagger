@@ -16,23 +16,25 @@ public final class InputDialog extends Dialog {
 
     public InputDialog() {
         super(ComponentUtil.findFrameWithIcon(), true);
-        initComponents();
+        init("", "");
     }
 
     public InputDialog(JDialog owner) {
         super(owner, true);
-        initComponents();
+        init("", "");
     }
 
     public InputDialog(String info, String input) {
         super(ComponentUtil.findFrameWithIcon(), true);
-        initComponents();
-        labelPrompt.setText(info);
-        textFieldInput.setText(input);
+        init(info, input);
     }
 
     public InputDialog(JDialog owner, String info, String input) {
         super(owner, true);
+        init(info, input);
+    }
+
+    private void init(String info, String input) {
         initComponents();
         labelPrompt.setText(info);
         textFieldInput.setText(input);
@@ -53,7 +55,6 @@ public final class InputDialog extends Dialog {
     }
 
     /**
-     *
      * @return true if closed with OK
      */
     public boolean isAccepted() {
@@ -63,11 +64,19 @@ public final class InputDialog extends Dialog {
     public String getInput() {
         return textFieldInput.getText();
     }
+    private void ok() {
+        accepted = true;
+        setVisible(false);
+    }
+
+    private void cancel() {
+        accepted = false;
+        setVisible(false);
+    }
 
     @Override
     protected void escape() {
-        accepted = false;
-        setVisible(false);
+        cancel();
     }
 
     /**
@@ -150,43 +159,18 @@ public final class InputDialog extends Dialog {
     }//GEN-END:initComponents
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
-        accepted = true;
-        setVisible(false);
+        ok();
     }//GEN-LAST:event_buttonOkActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        accepted = false;
-        setVisible(false);
+        cancel();
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void textFieldInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldInputKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            accepted = true;
-            setVisible(false);
+            ok();
         }
     }//GEN-LAST:event_textFieldInputKeyPressed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                InputDialog dialog = new InputDialog();
-
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonOk;
