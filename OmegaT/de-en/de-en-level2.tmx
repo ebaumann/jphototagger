@@ -510,14 +510,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>&amp;Hochladen</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&amp;Upload</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>&amp;IPTC-Daten importieren...</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -1686,14 +1678,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>&lt;html&gt;&lt;b&gt;Flickr Upload&lt;/b&gt; Version 0.2 by &lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;&lt;/i&gt;&lt;/html&gt;</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;&lt;b&gt;Flickr Upload&lt;/b&gt; Version 0.2 by &lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;&lt;/i&gt;&lt;/html&gt;</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>&lt;html&gt;&lt;b&gt;HTML Reports&lt;/b&gt; Version 0.1 by &lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;&lt;/i&gt;&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -1734,10 +1718,10 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger-Team in alphabetischer Reihenfolge des Nachnamens:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Benutzte Bibliotheken in alphabetischer Reihenfolge: &lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;MapDB (http://www.mapdb.org)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
+        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger-Team in alphabetischer Reihenfolge des Nachnamens:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Benutzte Bibliotheken in alphabetischer Reihenfolge:&lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;JGoodies (http://www.jgoodies.com/)&lt;br/&gt;MapDB (http://www.mapdb.org)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20140102T163059Z">
-        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger team in alphabetical order of the last name:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Used libraries in alphabetical order: &lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;MapDB (http://www.mapdb.org)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20151121T141815Z" creationid="elmar" creationdate="20151121T140328Z">
+        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger Team in alphabetical order of the second name:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Used libraries in alphabetical order:&lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;JGoodies (http://www.jgoodies.com/)&lt;br/&gt;MapDB (http://www.mapdb.org)&lt;br/&gt;(Part of the) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -1898,14 +1882,6 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>&lt;html&gt;Please type text at least into one textfield and check whether the count of open brackets is equals to the count of closing brackets!&lt;/html&gt;</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>&lt;html&gt;Bitte schließen Sie diesen Dialog erst, nachdem Sie im Web-Browser bestätigt haben, dass &lt;strong&gt;JPhotoTagger&lt;/strong&gt; Fotos hochladen darf!&lt;/html&gt;</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;Bitte close this dialog only, after You have confirmed whitin the web bowser, that &lt;strong&gt;JPhotoTagger&lt;/strong&gt; can upload images!&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -2358,14 +2334,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>&lt;html&gt;Nachdem Sie diese Nachricht schließen, wird ein  Web-Browser gestartet.&lt;p&gt;Sollten Sie nicht automatisch durch den Web-Browser bei &lt;strong&gt;Flickr&lt;/strong&gt; eingeloggt werden, melden Sie sich an.&lt;/p&gt;&lt;p&gt;Bitte erlauben Sie anschließend &lt;strong&gt;JPhotoTagger&lt;/strong&gt;, Fotos hozuchladen.&lt;/p&gt;&lt;/html&gt;</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;After You close this message, a web browser will be started.&lt;p&gt;If You are not logged in automatically into &lt;strong&gt;Flickr&lt;/strong&gt; through the web browser, please log in manually.&lt;/p&gt;&lt;p&gt;Then please permit &lt;strong&gt;JPhotoTagger&lt;/strong&gt; uploading images.&lt;/p&gt;&lt;/html&gt;</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>&lt;html&gt;Ordner &lt;code&gt;''{0}''&lt;/code&gt; von den &lt;strong&gt;Favoriten&lt;/strong&gt; entfernen?&lt;p&gt;Im &lt;strong&gt;Dateisystem&lt;/strong&gt; wird der Ornder &lt;em&gt;nicht&lt;/em&gt; gelöscht.&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -2506,14 +2474,6 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>&amp;Update</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>A&amp;lle auswählen</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Select &amp;All</seg>
       </tuv>
     </tu>
     <tu>
@@ -3258,14 +3218,6 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Remove from list</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>Aus XMP-Filialdatei hinzufügen</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Add from XMP sidecar file</seg>
       </tuv>
     </tu>
     <tu>
@@ -4038,14 +3990,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Beschreibung:</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Description:</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Beschriftung</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -4374,14 +4318,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Bilder hochladen zu Flickr</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Upload images to Flickr</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Bilder im&amp;portieren...</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -4458,6 +4394,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Samples per pixel</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>BitMap Picture (*.bmp)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20151121T140836Z" creationid="elmar" creationdate="20151121T140836Z">
+        <seg>BitMap Picture (*.bmp)</seg>
       </tuv>
     </tu>
     <tu>
@@ -5066,14 +5010,6 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130214T184540Z">
         <seg>The photo album ''{0}'' is a special album and can''t be deleted!</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>Das Hochladen wird abgebrochen!</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T190054Z">
-        <seg>Uploading will be aboarted!</seg>
       </tuv>
     </tu>
     <tu>
@@ -6894,14 +6830,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Entziehen</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Revoke</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Envelope Number</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -6930,14 +6858,6 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Gets 2 parameters: 1. path to the old name, 2. path to the new name</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>Erlaubnis für Upload</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Permission for uploading images</seg>
       </tuv>
     </tu>
     <tu>
@@ -7478,14 +7398,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Fehler beim Autorisieren von JPhotoTagger!</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Error while authorizing JPhotoTagger</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Fehler beim Einfügen des Stichworts ''{0}''!</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7522,14 +7434,6 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Error while adding images to photo album ''{0}''!</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>Fehler beim Hochladen der Datei ''{0}''!</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T190042Z">
-        <seg>Error uploading the file ''{0}''!</seg>
       </tuv>
     </tu>
     <tu>
@@ -7726,10 +7630,10 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Flickr-Upload</seg>
+        <seg>Flash Video (*.flv)</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Flickr-Upload</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20151121T140925Z" creationid="elmar" creationdate="20151121T140925Z">
+        <seg>Flash Video (*.flv)</seg>
       </tuv>
     </tu>
     <tu>
@@ -8676,14 +8580,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>High</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>Hochladen</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Upload</seg>
       </tuv>
     </tu>
     <tu>
@@ -10040,14 +9936,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Lädt ausgewählte Bilder hoch nach Flickr</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Uploads selected images to Flickr</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Längere Beschreibung des Bilds</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -10160,6 +10048,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>MPEG Transport Stream (*.ts)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20151121T140910Z" creationid="elmar" creationdate="20151121T140910Z">
+        <seg>MPEG Transport Stream (*.ts)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>MPEG-2-Video (*.mp2)</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20150820T144729Z">
@@ -10244,6 +10140,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Matrix metering</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Matroska Video (*.mkv)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20151121T140900Z" creationid="elmar" creationdate="20151121T140900Z">
+        <seg>Matroska Video (*.mkv)</seg>
       </tuv>
     </tu>
     <tu>
@@ -12840,14 +12744,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Stichwörter (Tags)</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Keywords (Tags)</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Stichwörter importieren</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -13144,14 +13040,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Tags durch Strichpunkte (;) getrennt:</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Tags delimited by semicolons (;):</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Teil der Fehlernachricht:</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -13288,14 +13176,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Titel:</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Title:</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Tragen Sie jetzt einen Wert ein, werden die bereits&lt;br /&gt;vorhandenen unterschiedlichen Daten dieses Feldes in allen markierten&lt;br /&gt;Bildern mit dem neuen Wert überschrieben!&lt;p&gt;&lt;p&gt;Diesen Eintrag bei allen markierten Fotos ändern?&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T191142Z">
@@ -13332,6 +13212,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Delimiter between the filenames:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>TrueType Font (*.ttf)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20151121T140916Z" creationid="elmar" creationdate="20151121T140916Z">
+        <seg>TrueType Font (*.ttf)</seg>
       </tuv>
     </tu>
     <tu>
@@ -15148,14 +15036,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20140103T175653Z">
         <seg>{0} / {1} New Thumbnails DB</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>{0} Bild(er) hochgeladen nach Flickr</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Uploaded {0} image(s) to Flickr</seg>
       </tuv>
     </tu>
     <tu>

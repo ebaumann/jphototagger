@@ -1822,6 +1822,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger-Team in alphabetischer Reihenfolge des Nachnamens:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Benutzte Bibliotheken in alphabetischer Reihenfolge:&lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;JGoodies (http://www.jgoodies.com/)&lt;br/&gt;MapDB (http://www.mapdb.org)&lt;br/&gt;(Teile der) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20151121T141815Z" creationid="elmar" creationdate="20151121T140328Z">
+        <seg>&lt;html&gt;&lt;b&gt;{0}, Version {1}&lt;/b&gt;&lt;p&gt;&lt;p&gt;JPhotoTagger Team in alphabetical order of the second name:&lt;br/&gt;&lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;, Martin Pohlack, Tobias Stening &amp;lt;tobi@cmaxx.de&amp;gt;&lt;/i&gt;&lt;p&gt;&lt;p&gt;Used libraries in alphabetical order:&lt;br/&gt;Apache Lucene (http://lucene.apache.org/)&lt;br/&gt;Beansbinding (http://java.net/projects/beansbinding/)&lt;br/&gt;EventBus (http://java.net/projects/eventbus)&lt;br/&gt;HSQLDB (http://hsqldb.org/)&lt;br/&gt;Imagero (http://reader.imagero.com/)&lt;br/&gt;JGoodies (http://www.jgoodies.com/)&lt;br/&gt;MapDB (http://www.mapdb.org)&lt;br/&gt;(Part of the) NetBeans Platform (http://netbeans.org/)&lt;br/&gt;metadata-extractor (http://code.google.com/p/metadata-extractor/)&lt;br/&gt;SwingX (http://java.net/projects/swingx/)&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;&lt;p&gt;&lt;strong&gt;JPhotoTaggers&lt;/strong&gt; Sperrdatei&lt;br/&gt;&lt;code&gt;{0}&lt;/code&gt; existiert noch!&lt;/p&gt;&lt;p&gt;Falls Sie sicher sind, dass &lt;strong&gt;JPhotoTagger&lt;/strong&gt; &lt;em&gt;nicht&lt;/em&gt; läuft, können Sie die Sperrdatei löschen lassen.&lt;/p&gt;&lt;p&gt;Sperrdatei löschen und &lt;strong&gt;JPhotoTagger&lt;/strong&gt; starten?&lt;/p&gt;&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -4686,6 +4694,14 @@ Would You input a new name?</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Samples per pixel</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>BitMap Picture (*.bmp)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20151121T140836Z" creationid="elmar" creationdate="20151121T140836Z">
+        <seg>BitMap Picture (*.bmp)</seg>
       </tuv>
     </tu>
     <tu>
@@ -8202,6 +8218,14 @@ Ursache: {0}</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Flash Video (*.flv)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20151121T140925Z" creationid="elmar" creationdate="20151121T140925Z">
+        <seg>Flash Video (*.flv)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Flickr-Upload</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -10736,6 +10760,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>MPEG Transport Stream (*.ts)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20151121T140910Z" creationid="elmar" creationdate="20151121T140910Z">
+        <seg>MPEG Transport Stream (*.ts)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>MPEG-2-Video (*.mp2)</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20150820T144729Z">
@@ -10828,6 +10860,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Matroska Video</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Matroska Video (*.mkv)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20151121T140900Z" creationid="elmar" creationdate="20151121T140900Z">
+        <seg>Matroska Video (*.mkv)</seg>
       </tuv>
     </tu>
     <tu>
@@ -13980,6 +14020,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>TrueType Font</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>TrueType Font (*.ttf)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20151121T140916Z" creationid="elmar" creationdate="20151121T140916Z">
+        <seg>TrueType Font (*.ttf)</seg>
       </tuv>
     </tu>
     <tu>
