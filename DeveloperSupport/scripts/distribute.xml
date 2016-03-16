@@ -118,7 +118,7 @@
         <echo message="Creating Setup.exe with Inno Setup (Windows)"/>
         <property file="${private.confdir}/innosetup.properties"/>
         <exec
-            command="&quot;${compil32.exe}&quot; /cc JPhotoTagger.iss"
+            command="&quot;${compil32.exe}&quot; JPhotoTagger.iss"
             dir="InnoSetup"/>
     </target>
 
