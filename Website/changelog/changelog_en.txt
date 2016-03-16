@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.1 2016-03-16
+-----------------
+
+* Added "i_view64.exe" and "IrfanViewPortable.exe" as valid
+  filenames for the "IrfanView Slideshow" plugin's executable
+
 0.34.0 2015-11-09
 -----------------
 

@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.1 2016-03-16
+-----------------
+
+* "i_view64.exe" und "IrfanViewPortable.exe" als gültige
+  Dateinamen hinzugefügt für die ausführbare Datei des 
+  "IrfanView-Diaschau"-Plugins
+
 0.34.0 2015-11-09
 -----------------
 

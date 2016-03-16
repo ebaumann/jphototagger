@@ -32,6 +32,8 @@ final class IrfanViewSlideshowCommand {
 
     static {
         VALID_IRFAN_VIEW_EXECUTABLE_NAMES.add("i_view32.exe");
+        VALID_IRFAN_VIEW_EXECUTABLE_NAMES.add("i_view64.exe");
+        VALID_IRFAN_VIEW_EXECUTABLE_NAMES.add("IrfanViewPortable.exe");
     }
 
     IrfanViewSlideshowCommand() {
