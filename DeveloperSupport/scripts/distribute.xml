@@ -172,6 +172,7 @@
         <echo message="Uploading new/updated website files to JPhotoTagger website"/>
         <property file="${private.confdir}/website.properties"/><!-- contains server, user and pass -->
         <ftp server="${server}"
+             port="${port}"
              userid="${user}"
              password="${pass}"
              remotedir="html/JPhotoTagger"
@@ -181,6 +182,7 @@
             <fileset dir="${repo.root}/Website"/>
         </ftp>
         <ftp server="${server}"
+             port="${port}"
              userid="${user}"
              password="${pass}"
              remotedir="html/JPhotoTagger/manual"
