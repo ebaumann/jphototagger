@@ -165,6 +165,7 @@ public final class AppLookAndFeel {
         if (SystemUtil.isWindows()) {
             UIManager.put("FileChooser.useSystemExtensionHiding", true); // else FileSystemView#getSystemDisplayName() does display File#getName(), under Windows e.g. *not* localized "Users"
         }
+        scaleFonts();
         changeFontWeights();
         takeFromUiColors();
     }
@@ -311,6 +312,35 @@ public final class AppLookAndFeel {
             UIManager.put(key, new FontUIResource(derivedFont));
         }
     }
+
+    private static void scaleFonts() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String key = "JPhotoTaggerFontScale";
+        if (prefs.containsKey(key)) {
+            String scale = prefs.getString(key);
+            try {
+                scaleFonts(Float.valueOf(scale));
+            } catch (Throwable t) {
+                Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.SEVERE, null, t);
+            }
+        }
+    }
+
+    private static void scaleFonts(float scale) {
+        for (Object key : UIManager.getLookAndFeelDefaults().keySet()) {
+            if (key != null && key.toString().toLowerCase().contains("font")) {
+                Font font = UIManager.getDefaults().getFont(key);
+                if (font != null) {
+                    int oldSize = font.getSize();
+                    int newSize = Math.round(oldSize * scale);
+                    font = font.deriveFont((float)newSize);
+                    Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.INFO, "Font-Anpassung: {0}={1}", new Object[]{key, font});
+                    UIManager.put(key, font);
+                }
+            }
+        }
+    }
+
 
     private AppLookAndFeel() {
     }
