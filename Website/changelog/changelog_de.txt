@@ -3,11 +3,35 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.3 2016-05-27
+-----------------
+
+* Einstellungs-Parameter "ExifImageDescriptionCharSet" hinzugefügt.
+  Beim Lesen der EXIF-Daten wird ein anderer Zeichensatz benutzt
+  zum Dekodieren der Bytes in EXIF-Feldern, die ASCII-Zeichen
+  enthalten. Aktuell sind dies folgende Felder:
+    270 (ImageDescription),
+    271 (Make),
+    272 (Model),
+    305 (Software),
+    315 (Artist),
+  34852 (SpectralSensitivity),
+  42016 (ImageUniqueID).
+  Beispiel: "ExifImageDescriptionCharSet=UTF-8".
+  Nicht im GUI bereitgestellt.
+
+0.34.2 2016-05-25
+-----------------
+
+* Einstellungs-Parameter "JPhotoTaggerFontScale" hinzugefügt. Skaliert
+  alle Schriftarten. Beispiel: "JPhotoTaggerFontScale=1.5". Ein
+  10-Punkt-Font wird auf 15 Punkt skaliert. Nicht im GUI bereitgestellt.
+
 0.34.1 2016-03-16
 -----------------
 
 * "i_view64.exe" und "IrfanViewPortable.exe" als gültige
-  Dateinamen hinzugefügt für die ausführbare Datei des 
+  Dateinamen hinzugefügt für die ausführbare Datei des
   "IrfanView-Diaschau"-Plugins
 
 0.34.0 2015-11-09

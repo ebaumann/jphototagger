@@ -3,6 +3,29 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.3 2016-05-27
+-----------------
+
+* Added settings parameter "ExifImageDescriptionCharSet". Uses
+  a different character set to decode the bytes in the EXIF
+  fields using ASCII characters. Currently these fields are
+    270 (ImageDescription),
+    271 (Make),
+    272 (Model),
+    305 (Software),
+    315 (Artist),
+  34852 (SpectralSensitivity),
+  42016 (ImageUniqueID).
+  Example: "ExifImageDescriptionCharSet=UTF-8".
+  Not exposed to the GUI.
+
+0.34.2 2016-05-25
+-----------------
+
+* Added settings parameter "JPhotoTaggerFontScale". Scales
+  all Fonts. Example: "JPhotoTaggerFontScale=1.5": A 10 point
+  font will be scaled to 15 points. Not exposed to the GUI.
+
 0.34.1 2016-03-16
 -----------------
 

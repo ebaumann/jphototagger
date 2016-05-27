@@ -1,17 +1,43 @@
 package org.jphototagger.exif.datatype;
 
 import java.nio.charset.Charset;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.util.ByteUtil;
+import org.jphototagger.lib.util.StringUtil;
+import org.openide.util.Lookup;
 
 /**
- * EXIF data type ASCII as described in the standard: An 8-bit byte containing one 7-bit ASCII code. The final byte is
- * terminated with NULL.
+ * EXIF data type ASCII as described in the standard: An 8-bit byte
+ * containing one 7-bit ASCII code. The final byte is terminated with NULL.
  *
  * @author Elmar Baumann
  */
 public final class ExifAscii {
 
-    private static final Charset CHARSET = Charset.forName("ISO-8859-1"); // Allow more characters than ASCII contains, ISO-8859-1 contains all ASCII characters
+    private static final Charset CHARSET;
+
+    static {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String key = "ExifImageDescriptionCharSet";
+        if (prefs.containsKey(key)) {
+            String charset = prefs.getString(key);
+            // Default: Allow more characters than ASCII contains. ISO-8859-1 contains as subset all ASCII characters.
+            Charset cs = Charset.forName("ISO-8859-1");
+            try {
+                if (StringUtil.hasContent(charset)) {
+                    cs = Charset.forName(charset);
+                    Logger.getLogger(ExifAscii.class.getName()).log(Level.INFO, "Using charset {0} to decode EXIF ASCII fields", charset);
+                }
+            } catch (Throwable t) {
+                Logger.getLogger(ExifAscii.class.getName()).log(Level.SEVERE, null, t);
+            }
+            CHARSET = cs;
+        } else {
+            CHARSET = Charset.forName("ISO-8859-1");
+        }
+    }
     private final String value;
 
     public ExifAscii(byte[] rawValue) {
