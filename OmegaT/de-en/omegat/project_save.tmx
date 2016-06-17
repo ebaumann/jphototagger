@@ -6840,6 +6840,14 @@ Some data may be lost!</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>EXIF-Text-Zeichensatz:</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20160617T165837Z" creationid="elmar" creationdate="20160617T165837Z">
+        <seg>EXIF text charset:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>EXIF-Version</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">

@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.4 2016-06-17
+-----------------
+
+* Edit > Settings > Miscellaneous > EXIF > Miscellaneous:
+  EXIF text charset. GUI for changes in Version 0.34.3.
+
 0.34.3 2016-05-27
 -----------------
 

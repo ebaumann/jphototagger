@@ -1,9 +1,14 @@
 package org.jphototagger.exif.datatype;
 
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.util.ByteUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
@@ -16,29 +21,56 @@ import org.openide.util.Lookup;
  */
 public final class ExifAscii {
 
-    private static final Charset CHARSET;
+    public static final String PREF_KEY_CHARSET = "ExifImageDescriptionCharSet";
+    public static final String DEFAULT_CHARSET = "UTF-8"; // Default: Allow more characters than ASCII contains. UTF-8 contains as subset all ASCII characters.
+    private static final Collection<String> VALID_EXIF_CHARSETS = Arrays.asList("UTF-8", "ISO-8859-1", "ASCII");
+    private static final CharsetChangeListener CHARSET_CHANGE_LISTENER = new CharsetChangeListener(); // Exactly one instance is required
+    private static Charset charset = Charset.forName(DEFAULT_CHARSET);
+    private final String value;
 
     static {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        String key = "ExifImageDescriptionCharSet";
-        if (prefs.containsKey(key)) {
-            String charset = prefs.getString(key);
-            // Default: Allow more characters than ASCII contains. ISO-8859-1 contains as subset all ASCII characters.
-            Charset cs = Charset.forName("ISO-8859-1");
+        if (prefs.containsKey(PREF_KEY_CHARSET)) {
+            setCharset(prefs.getString(PREF_KEY_CHARSET));
+        }
+    }
+
+    public static String[] getValidCharsets() {
+        return VALID_EXIF_CHARSETS.toArray(new String[VALID_EXIF_CHARSETS.size()]);
+    }
+
+    public static boolean isValidCharset(String charset) {
+        return VALID_EXIF_CHARSETS.contains(charset);
+    }
+
+    private static synchronized void setCharset(String newCharset) {
+        if (StringUtil.hasContent(newCharset) && isValidCharset(newCharset)) {
             try {
-                if (StringUtil.hasContent(charset)) {
-                    cs = Charset.forName(charset);
-                    Logger.getLogger(ExifAscii.class.getName()).log(Level.INFO, "Using charset {0} to decode EXIF ASCII fields", charset);
-                }
+                Logger.getLogger(ExifAscii.class.getName()).log(Level.INFO, "Using charset {0} to decode EXIF ASCII fields", newCharset);
+                charset = Charset.forName(newCharset);
             } catch (Throwable t) {
                 Logger.getLogger(ExifAscii.class.getName()).log(Level.SEVERE, null, t);
             }
-            CHARSET = cs;
-        } else {
-            CHARSET = Charset.forName("ISO-8859-1");
         }
     }
-    private final String value;
+
+    private static final class CharsetChangeListener {
+
+        private CharsetChangeListener() {
+            AnnotationProcessor.process(this);
+        }
+
+        @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+        public void preferencesChanged(PreferencesChangedEvent evt) {
+            if (PREF_KEY_CHARSET.equals(evt.getKey())) {
+                Object newValue = evt.getNewValue();
+                if (newValue instanceof String) {
+                    String charset = (String) newValue;
+                    setCharset(charset);
+                }
+            }
+        }
+    }
 
     public ExifAscii(byte[] rawValue) {
         if (rawValue == null) {
@@ -65,7 +97,7 @@ public final class ExifAscii {
         if (!onlyCharacters(notNullTerminatedRawValue)) {
             return "?";
         }
-        String converted = new String(notNullTerminatedRawValue, CHARSET);
+        String converted = new String(notNullTerminatedRawValue, charset);
         return converted;
     }
 

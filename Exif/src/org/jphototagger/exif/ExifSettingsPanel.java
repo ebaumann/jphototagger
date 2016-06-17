@@ -1,6 +1,8 @@
 package org.jphototagger.exif;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.event.ListSelectionEvent;
@@ -15,8 +18,10 @@ import javax.swing.event.ListSelectionListener;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.domain.metadata.exif.ExifCacheProvider;
+import org.jphototagger.exif.datatype.ExifAscii;
 import org.jphototagger.lib.swing.ObjectsSelectionDialog;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -37,8 +42,21 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
 
     private void postInitComponents() {
         initExcludeFromReadSuffixesListModel();
+        initExifCharset();
         listExcludeSuffixes.addListSelectionListener(suffixListSelectionListener);
         listExcludeSuffixes.addKeyListener(deleteSuffixesKeyListener);
+        comboBoxExifCharset.addActionListener(exifCharsetListener);
+    }
+
+    private void initExifCharset() {
+        if (prefs.containsKey((ExifAscii.PREF_KEY_CHARSET))) {
+            String charset = prefs.getString(ExifAscii.PREF_KEY_CHARSET);
+            if (StringUtil.hasContent(charset) && ExifAscii.isValidCharset(charset)) {
+                comboBoxExifCharset.setSelectedItem(charset);
+            }
+        } else {
+            comboBoxExifCharset.setSelectedItem(ExifAscii.DEFAULT_CHARSET);
+        }
     }
 
     private void initExcludeFromReadSuffixesListModel() {
@@ -150,6 +168,16 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         }
     };
 
+    private final ActionListener exifCharsetListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String selCharset = (String) comboBoxExifCharset.getSelectedItem();
+            if (ExifAscii.isValidCharset(selCharset)) {
+                prefs.setString(ExifAscii.PREF_KEY_CHARSET, selCharset);
+            }
+        }
+    };
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -160,6 +188,13 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         java.awt.GridBagConstraints gridBagConstraints;
 
         tabbedPane = new javax.swing.JTabbedPane();
+        panelDefault = new javax.swing.JPanel();
+        panelDefaultContent = new javax.swing.JPanel();
+        panelExifCharset = new javax.swing.JPanel();
+        labelExifCharset = new javax.swing.JLabel();
+        comboBoxExifCharset = new javax.swing.JComboBox<>()
+        ;
+        panelFill = new javax.swing.JPanel();
         panelExcludeSuffixes = new javax.swing.JPanel();
         panelExcludeSuffixesContent = new javax.swing.JPanel();
         labelExcludeSuffixes = new javax.swing.JLabel();
@@ -170,16 +205,55 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
 
         setLayout(new java.awt.GridBagLayout());
 
+        panelDefault.setLayout(new java.awt.GridBagLayout());
+
+        panelDefaultContent.setLayout(new java.awt.GridBagLayout());
+
+        panelExifCharset.setLayout(new java.awt.GridBagLayout());
+
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exif/Bundle"); // NOI18N
+        labelExifCharset.setText(bundle.getString("ExifSettingsPanel.labelExifCharset.text")); // NOI18N
+        panelExifCharset.add(labelExifCharset, new java.awt.GridBagConstraints());
+
+        comboBoxExifCharset.setModel(new DefaultComboBoxModel<>(ExifAscii.getValidCharsets()));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelExifCharset.add(comboBoxExifCharset, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelDefaultContent.add(panelExifCharset, gridBagConstraints);
+
+        panelFill.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weighty = 1.0;
+        panelDefaultContent.add(panelFill, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        panelDefault.add(panelDefaultContent, gridBagConstraints);
+
+        tabbedPane.addTab(bundle.getString("ExifSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
+
         panelExcludeSuffixes.setLayout(new java.awt.GridBagLayout());
 
         panelExcludeSuffixesContent.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exif/Bundle"); // NOI18N
         labelExcludeSuffixes.setText(bundle.getString("ExifSettingsPanel.labelExcludeSuffixes.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelExcludeSuffixesContent.add(labelExcludeSuffixes, gridBagConstraints);
 
         listExcludeSuffixes.setModel(excludeSuffixesListModel);
@@ -257,10 +331,16 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddExcludeSuffixes;
     private javax.swing.JButton buttonRemoveExcludeSuffixes;
+    private javax.swing.JComboBox<String> comboBoxExifCharset;
     private javax.swing.JLabel labelExcludeSuffixes;
+    private javax.swing.JLabel labelExifCharset;
     private javax.swing.JList<String> listExcludeSuffixes;
+    private javax.swing.JPanel panelDefault;
+    private javax.swing.JPanel panelDefaultContent;
     private javax.swing.JPanel panelExcludeSuffixes;
     private javax.swing.JPanel panelExcludeSuffixesContent;
+    private javax.swing.JPanel panelExifCharset;
+    private javax.swing.JPanel panelFill;
     private javax.swing.JScrollPane scrollPaneExcludeSuffixes;
     private javax.swing.JTabbedPane tabbedPane;
     // End of variables declaration//GEN-END:variables
