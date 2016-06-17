@@ -21,18 +21,15 @@ import org.openide.util.Lookup;
  */
 public final class ExifAscii {
 
-    public static final String PREF_KEY_CHARSET = "ExifImageDescriptionCharSet";
-    public static final String DEFAULT_CHARSET = "UTF-8"; // Default: Allow more characters than ASCII contains. UTF-8 contains as subset all ASCII characters.
+    private static final String PREF_KEY_CHARSET = "ExifImageDescriptionCharSet";
+    private static final String DEFAULT_CHARSET = "UTF-8"; // Default: Allow more characters than ASCII contains. UTF-8 contains as subset all ASCII characters.
     private static final Collection<String> VALID_EXIF_CHARSETS = Arrays.asList("UTF-8", "ISO-8859-1", "ASCII");
     private static final CharsetChangeListener CHARSET_CHANGE_LISTENER = new CharsetChangeListener(); // Exactly one instance is required
     private static Charset charset = Charset.forName(DEFAULT_CHARSET);
     private final String value;
 
     static {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        if (prefs.containsKey(PREF_KEY_CHARSET)) {
-            setCharset(prefs.getString(PREF_KEY_CHARSET));
-        }
+        setCharset(getCharset());
     }
 
     public static String[] getValidCharsets() {
@@ -41,6 +38,24 @@ public final class ExifAscii {
 
     public static boolean isValidCharset(String charset) {
         return VALID_EXIF_CHARSETS.contains(charset);
+    }
+
+    public static String getCharset() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        if (prefs.containsKey(PREF_KEY_CHARSET)) {
+            String cs = prefs.getString(ExifAscii.PREF_KEY_CHARSET);
+            return isValidCharset(cs)
+                    ? cs
+                    : DEFAULT_CHARSET;
+        }
+        return DEFAULT_CHARSET;
+    }
+
+    public static void persistCharset(String charset) {
+        if (StringUtil.hasContent(charset) && isValidCharset(charset)) {
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            prefs.setString(PREF_KEY_CHARSET, charset);
+        }
     }
 
     private static synchronized void setCharset(String newCharset) {

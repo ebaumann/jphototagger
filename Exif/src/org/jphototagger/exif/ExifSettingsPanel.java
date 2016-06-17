@@ -21,7 +21,6 @@ import org.jphototagger.domain.metadata.exif.ExifCacheProvider;
 import org.jphototagger.exif.datatype.ExifAscii;
 import org.jphototagger.lib.swing.ObjectsSelectionDialog;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -42,21 +41,10 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
 
     private void postInitComponents() {
         initExcludeFromReadSuffixesListModel();
-        initExifCharset();
+        comboBoxExifCharset.setSelectedItem(ExifAscii.getCharset());
         listExcludeSuffixes.addListSelectionListener(suffixListSelectionListener);
         listExcludeSuffixes.addKeyListener(deleteSuffixesKeyListener);
         comboBoxExifCharset.addActionListener(exifCharsetListener);
-    }
-
-    private void initExifCharset() {
-        if (prefs.containsKey((ExifAscii.PREF_KEY_CHARSET))) {
-            String charset = prefs.getString(ExifAscii.PREF_KEY_CHARSET);
-            if (StringUtil.hasContent(charset) && ExifAscii.isValidCharset(charset)) {
-                comboBoxExifCharset.setSelectedItem(charset);
-            }
-        } else {
-            comboBoxExifCharset.setSelectedItem(ExifAscii.DEFAULT_CHARSET);
-        }
     }
 
     private void initExcludeFromReadSuffixesListModel() {
@@ -172,9 +160,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         @Override
         public void actionPerformed(ActionEvent e) {
             String selCharset = (String) comboBoxExifCharset.getSelectedItem();
-            if (ExifAscii.isValidCharset(selCharset)) {
-                prefs.setString(ExifAscii.PREF_KEY_CHARSET, selCharset);
-            }
+            ExifAscii.persistCharset(selCharset);
         }
     };
 
