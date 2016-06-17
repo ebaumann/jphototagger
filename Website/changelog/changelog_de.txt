@@ -6,8 +6,10 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.34.4 2016-06-17
 -----------------
 
-* Bearbeiten > Einstellungen > Verschiedenes > EXIF > Verschiedenes:
+* Bearbeiten > Einstellungen > 6. Sonstiges > EXIF > Verschiedenes:
   EXIF-Text-Zeichensatz. GUI für Änderungen in Version 0.34.3.
+* Bearbeiten > Einstellungen > 6. Sonstiges > Aussehen von JPhotoTagger:
+  Font-Skalierungsfaktor. GUI für Änderungen in Version 0.34.2.
 
 0.34.3 2016-05-27
 -----------------

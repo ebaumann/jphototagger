@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -27,6 +29,7 @@ import org.openide.util.Lookup;
 public final class AppLookAndFeel {
 
     private static final String ICONS_PATH = "/org/jphototagger/program/resource/icons";
+    public static final String PREF_KEY_FONT_SCALE = "JPhotoTaggerFontScale";
     public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
     public static final int TABLE_MAX_CHARS_CELL = 45;
     public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
@@ -55,6 +58,7 @@ public final class AppLookAndFeel {
     public static final Image ERROR_THUMBNAIL = IconUtil.getIconImage(Bundle.getString(AppLookAndFeel.class, "ErrorThumbnailPath"));
     private static final List<Image> APP_ICONS = new ArrayList<>();
     private static final List<String> APP_ICON_PATHS = new ArrayList<>();
+    private static final Collection<Float> VALID_FONT_SCALES = Arrays.asList(1.0f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.75f, 2.0f, 2.25f, 2.5f);
     private static Color listBackground;
     private static Color listForeground;
     private static Color listSelectionBackground;
@@ -165,7 +169,7 @@ public final class AppLookAndFeel {
         if (SystemUtil.isWindows()) {
             UIManager.put("FileChooser.useSystemExtensionHiding", true); // else FileSystemView#getSystemDisplayName() does display File#getName(), under Windows e.g. *not* localized "Users"
         }
-        scaleFonts();
+        scaleFonts(getFontScale());
         changeFontWeights();
         takeFromUiColors();
     }
@@ -313,20 +317,31 @@ public final class AppLookAndFeel {
         }
     }
 
-    private static void scaleFonts() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        String key = "JPhotoTaggerFontScale";
-        if (prefs.containsKey(key)) {
-            String scale = prefs.getString(key);
-            try {
-                scaleFonts(Float.valueOf(scale));
-            } catch (Throwable t) {
-                Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.SEVERE, null, t);
-            }
+    public static void persistFontScale(float scale) {
+        if (isValidFontScale(scale)) {
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            prefs.setString(PREF_KEY_FONT_SCALE, String.valueOf(scale));
         }
     }
 
+    public static float getFontScale() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        if (prefs.containsKey(PREF_KEY_FONT_SCALE)) {
+            try {
+                String scale = prefs.getString(PREF_KEY_FONT_SCALE);
+                return Float.valueOf(scale);
+            } catch (Throwable t) {
+                Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.SEVERE, null, t);
+                return 1.0f;
+            }
+        }
+        return 1.0f;
+    }
+
     private static void scaleFonts(float scale) {
+        if (scale == 1.0 || !isValidFontScale(scale)) {
+            return;
+        }
         for (Object key : UIManager.getLookAndFeelDefaults().keySet()) {
             if (key != null && key.toString().toLowerCase().contains("font")) {
                 Font font = UIManager.getDefaults().getFont(key);
@@ -334,13 +349,20 @@ public final class AppLookAndFeel {
                     int oldSize = font.getSize();
                     int newSize = Math.round(oldSize * scale);
                     font = font.deriveFont((float)newSize);
-                    Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.INFO, "Font-Anpassung: {0}={1}", new Object[]{key, font});
+                    Logger.getLogger(AppLookAndFeel.class.getName()).log(Level.INFO, "Scaling font with scale {0}: {1}={2}", new Object[]{scale, key, font});
                     UIManager.put(key, font);
                 }
             }
         }
     }
 
+    public static boolean isValidFontScale(float scale) {
+        return VALID_FONT_SCALES.contains(scale);
+    }
+
+    public static Float[] getValidFontScales() {
+        return VALID_FONT_SCALES.toArray(new Float[VALID_FONT_SCALES.size()]);
+    }
 
     private AppLookAndFeel() {
     }

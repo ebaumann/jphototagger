@@ -1,6 +1,9 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -38,6 +41,8 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
     }
 
     private void postInitComponents() {
+        comboBoxFontScale.setSelectedItem(AppLookAndFeel.getFontScale());
+        comboBoxFontScale.addActionListener(fontScaleListener);
         restoreLaf();
     }
 
@@ -130,6 +135,27 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         }
     };
 
+    private final ActionListener fontScaleListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Float scale = (Float) comboBoxFontScale.getSelectedItem();
+            AppLookAndFeel.persistFontScale(scale);
+        }
+    };
+
+    private final ListCellRenderer<Float> fontScaleRenderer = new ListCellRenderer<Float>() {
+
+        private final DefaultListCellRenderer delegate = new DefaultListCellRenderer();
+        private final NumberFormat fmt = NumberFormat.getInstance();
+
+        @Override
+        public Component getListCellRendererComponent(JList<? extends Float> list, Float value, int index, boolean isSelected, boolean cellHasFocus) {
+            JLabel label = (JLabel) delegate.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            label.setText(fmt.format(value));
+            return label;
+        }
+    };
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -148,6 +174,10 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         editorPaneDescription = new javax.swing.JEditorPane();
         panelPreferences = new javax.swing.JPanel();
         scrollPanePreferences = new javax.swing.JScrollPane();
+        panelFontScale = new javax.swing.JPanel();
+        labelFontScalePrompt = new javax.swing.JLabel();
+        comboBoxFontScale = new javax.swing.JComboBox<>();
+        labelFontScaleInfo = new javax.swing.JLabel();
 
         panelNoPreferences.setLayout(new java.awt.GridBagLayout());
 
@@ -215,6 +245,29 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         gridBagConstraints.weighty = 0.8;
         panelContent.add(panelPreferences, gridBagConstraints);
 
+        panelFontScale.setLayout(new java.awt.GridBagLayout());
+
+        labelFontScalePrompt.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelFontScalePrompt.text")); // NOI18N
+        panelFontScale.add(labelFontScalePrompt, new java.awt.GridBagConstraints());
+
+        comboBoxFontScale.setModel(new javax.swing.DefaultComboBoxModel<>(AppLookAndFeel.getValidFontScales()));
+        comboBoxFontScale.setRenderer(fontScaleRenderer);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelFontScale.add(comboBoxFontScale, gridBagConstraints);
+
+        labelFontScaleInfo.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelFontScaleInfo.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelFontScale.add(labelFontScaleInfo, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(panelFontScale, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
@@ -233,11 +286,15 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Float> comboBoxFontScale;
     private javax.swing.JComboBox<LookAndFeelProvider> comboBoxLaf;
     private javax.swing.JEditorPane editorPaneDescription;
+    private javax.swing.JLabel labelFontScaleInfo;
+    private javax.swing.JLabel labelFontScalePrompt;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelNoPreferences;
     private javax.swing.JPanel panelContent;
+    private javax.swing.JPanel panelFontScale;
     private javax.swing.JPanel panelNoPreferences;
     private javax.swing.JPanel panelPreferences;
     private javax.swing.JScrollPane scrollPaneDescription;

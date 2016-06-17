@@ -7270,6 +7270,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Faktor 1,2: 10pt -&gt; 12pt.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20160617T174713Z" creationid="elmar" creationdate="20160617T174713Z">
+        <seg>factor 1.2: 10pt -&gt; 12pt.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Farbkanäle/Spektrale Empfindlichkeit</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7698,6 +7706,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Hide following Root Folders (Windows: Drive Letters, requires restart of JPhotoTagger):</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Font-Skalierungsfaktor (Neustart erforderlich):</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20160617T174619Z" creationid="elmar" creationdate="20160617T174619Z">
+        <seg>Font scale factor (requires restart):</seg>
       </tuv>
     </tu>
     <tu>
@@ -11116,6 +11132,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Normal Text Size</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Notlösung für High-DPI-Bildschirme.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20160617T174703Z" creationid="elmar" creationdate="20160617T174703Z">
+        <seg>Compromise using High DPI screens.</seg>
       </tuv>
     </tu>
     <tu>
