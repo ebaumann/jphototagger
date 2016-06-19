@@ -210,7 +210,7 @@ public class XmpPanel extends javax.swing.JPanel {
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            if (lookAndFeel == null) {
+            if (lookAndFeel == null || !(value instanceof XMPPropertyInfo)) {
                 return new JLabel(StringUtil.toStringNullToEmptyString(value));
             }
             XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;

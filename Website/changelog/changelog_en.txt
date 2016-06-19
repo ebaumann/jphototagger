@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.5 2016-06-19
+-----------------
+
+* Fixed 2 possible NullPointerExceptions and 1 possible ClassCastException
+
 0.34.4 2016-06-17
 -----------------
 

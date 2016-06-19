@@ -45,7 +45,7 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
         } else if (value instanceof Date) {
             renderDate(cellLabel, (Date) value);
         } else {
-            cellLabel.setText(value.toString());
+            cellLabel.setText(value == null ? "" : value.toString());
         }
 
         renderSelection(cellLabel, isSelected);

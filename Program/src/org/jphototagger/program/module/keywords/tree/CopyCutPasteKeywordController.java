@@ -89,9 +89,13 @@ public class CopyCutPasteKeywordController implements ActionListener, KeyListene
 
     @Override
     public void keyPressed(KeyEvent evt) {
-        assert evt.getSource() instanceof JTree : evt.getSource();
+        Object source = evt.getSource();
 
-        JTree tree = (JTree) evt.getSource();
+        if (!(source instanceof JTree)) {
+            return;
+        }
+
+        JTree tree = (JTree) source;
 
         if (tree.isSelectionEmpty()) {
             return;
