@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.ImageIcon;
+import org.jphototagger.api.preferences.CommonPreferences;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
@@ -35,6 +36,8 @@ import org.jphototagger.program.module.thumbnails.cache.XmpCache;
  */
 public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetListener {
 
+    private static final float FONT_SCALE = CommonPreferences.getFontScale();
+
     /**
      * Width of a thumbnail flag in pixel
      */
@@ -48,11 +51,11 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     /**
      * Height of the text font for text below the thumbnails in points
      */
-    private static final int FONT_HEIGHT = 10;
+    private static final int FONT_SIZE = Math.round(10.0f * FONT_SCALE);
     /**
      * Font of the text below the thumbnails
      */
-    private static final Font FONT = new Font("Arial", Font.PLAIN, FONT_HEIGHT);
+    private static final Font FONT = new Font("Arial", Font.PLAIN, FONT_SIZE);
     /**
      * Height of the text font for text below the thumbnails in pixels,
      * computed from FONT_HEIGHT.
@@ -94,7 +97,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     /**
      * Maximum character count of the text below a thumbnail
      */
-    private int maxCharCountText = 35;
+    private int maxCharCountText = Math.round(35.0f / FONT_SCALE);
     /**
      * Empty space surrounding a thumbnail within the border (space between
      * the thumbnail's image and the border) in pixel
@@ -108,7 +111,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
      * Maximimum character count of the text below the thumbnails when the
      * width of a thumbnail is 150 pixels
      */
-    private static final int MAX_CHAR_COUNT_PER_150_PX = 30;
+    private static final int MAX_CHAR_COUNT_PER_150_PX = Math.round(30.0f / FONT_SCALE);
     /**
      * Width of a thumbnail
      */

@@ -167,7 +167,7 @@
             <Component class="javax.swing.JComboBox" name="comboBoxFontScale">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(AppLookAndFeel.getValidFontScales())" type="code"/>
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(CommonPreferences.getValidFontScales())" type="code"/>
                 </Property>
                 <Property name="renderer" type="javax.swing.ListCellRenderer" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="fontScaleRenderer" type="code"/>
