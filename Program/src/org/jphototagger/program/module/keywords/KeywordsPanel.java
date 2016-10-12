@@ -34,6 +34,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
     private void postInitComponents() {
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+        tree.setRowHeight(0);
         MnemonicUtil.setMnemonics((Container) this);
     }
 

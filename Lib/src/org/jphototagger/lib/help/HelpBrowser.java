@@ -102,6 +102,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         editorPanePage.addPropertyChangeListener(this);
         tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
         tree.addTreeSelectionListener(this);
+        tree.setRowHeight(0);
         setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
         MnemonicUtil.setMnemonics(this);
         MnemonicUtil.setMnemonics(popupMenuEditorPane);

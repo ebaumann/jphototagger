@@ -6,6 +6,7 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.34.6 2016-10-12
 -----------------
 
+* Bäume im GUI passen Zeilenhöhe an, falls der Font skaliert ist
 * Schrift der Dateinamen unter den Vorschaubildern berücksichtigt den
   Font-Skalierungsfaktor
 

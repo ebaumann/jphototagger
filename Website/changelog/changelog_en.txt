@@ -6,8 +6,8 @@ Changelog JPhotoTagger http://jphototagger.org/
 0.34.6 2016-10-12
 -----------------
 
+* GUI Trees fitting their height to scaled fonts
 * Font below thumbnails uses font scale factor
-
 
 0.34.5 2016-06-19
 -----------------

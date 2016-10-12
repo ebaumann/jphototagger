@@ -11,6 +11,11 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
 
     public MiscXmpMetadataPanel() {
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
+        tree.setRowHeight(0);
     }
 
     public JTree getTree() {

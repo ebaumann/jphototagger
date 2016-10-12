@@ -89,6 +89,11 @@ public final class AppPanel extends javax.swing.JPanel {
         lookupStatusLineElements();
         tabbedPaneMetadata.addChangeListener(tabbedPaneEditChangeListener);
         tabbedPaneSelection.addChangeListener(tabbedPaneSelectionChangeListener);
+        treeDirectories.setRowHeight(0);
+        treeFavorites.setRowHeight(0);
+        treeMiscMetadata.setRowHeight(0);
+        treeSelKeywords.setRowHeight(0);
+        treeTimeline.setRowHeight(0);
     }
 
     private void setMnemonics() {

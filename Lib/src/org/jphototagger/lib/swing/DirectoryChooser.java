@@ -84,6 +84,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     private void postInitComponents() {
         tree.setModel(model);
         tree.addTreeSelectionListener(this);
+        tree.setRowHeight(0);
         popupMenu.addPopupMenuListener(this);
         MnemonicUtil.setMnemonics((Container) this);
     }
