@@ -20,7 +20,7 @@ public final class SubdirectoryCreateStrategyComboBoxModel extends DefaultComboB
     }
 
     private void addElements() {
-        List<SubdirectoryCreateStrategy> strategies = new LinkedList<>(
+        List<SubdirectoryCreateStrategy> strategies = new LinkedList<SubdirectoryCreateStrategy>(
                 Lookup.getDefault().lookupAll(SubdirectoryCreateStrategy.class));
         Collections.sort(strategies, PositionProviderAscendingComparator.INSTANCE);
         for (SubdirectoryCreateStrategy strategy : strategies) {

@@ -23,7 +23,7 @@ public final class FileRenameStrategyComboBoxModel extends DefaultComboBoxModel<
 
     private void addElements() {
         Collection<? extends FileRenameStrategy> lookup = Lookup.getDefault().lookupAll(FileRenameStrategy.class);
-        List<FileRenameStrategy> strategies = new LinkedList<>(lookup);
+        List<FileRenameStrategy> strategies = new LinkedList<FileRenameStrategy>(lookup);
         addProvidedStrategies(strategies);
         Collections.sort(strategies, PositionProviderAscendingComparator.INSTANCE);
         for (FileRenameStrategy strategy : strategies) {

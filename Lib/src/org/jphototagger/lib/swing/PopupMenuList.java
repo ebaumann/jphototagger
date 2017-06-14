@@ -168,7 +168,7 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
 
     @SuppressWarnings("unchecked")
     private void setAllSelectedListItems() {
-        lastSelValues = new ArrayList<>(list.getSelectedValuesList());
+        lastSelValues = new ArrayList<Object>(list.getSelectedValuesList());
     }
 
     @Override

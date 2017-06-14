@@ -120,7 +120,7 @@ public final class MetaFactory implements Runnable {
     public Collection<Module> getModules() {
         return modules == null
                 ? Collections.<Module>emptyList()
-                : Collections.unmodifiableCollection(modules);
+                : Collections.<Module>unmodifiableCollection(modules);
     }
 
     private void readPreferences(final AppWindowPersistence appPersistence) {

@@ -1097,7 +1097,7 @@ public class ThumbnailsPanel extends JPanel
             try {
                 List<File> filteredFiles = origin.isFilterable()
                         ? FileUtil.filterFiles(files, fileFilter)
-                        : new ArrayList<>(files);
+                        : new ArrayList<File>(files);
                 if (!cancel && origin.isSortable()) {
                     sorting = true;
                     Collections.sort(filteredFiles, sortCmp);

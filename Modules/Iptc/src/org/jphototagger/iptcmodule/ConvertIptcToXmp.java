@@ -38,7 +38,7 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
             throw new NullPointerException("imageFiles == null");
         }
 
-        this.files = new ArrayList<>(imageFiles);
+        this.files = new ArrayList<File>(imageFiles);
     }
 
     public synchronized void addProgressListener(ProgressListener listener) {

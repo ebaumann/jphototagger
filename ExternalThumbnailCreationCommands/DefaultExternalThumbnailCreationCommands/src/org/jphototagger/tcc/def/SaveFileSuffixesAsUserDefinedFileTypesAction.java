@@ -20,7 +20,7 @@ public class SaveFileSuffixesAsUserDefinedFileTypesAction extends AbstractAction
     private final Collection<UserDefinedFileType> filetypes;
 
     protected SaveFileSuffixesAsUserDefinedFileTypesAction(Collection<? extends UserDefinedFileType> filetypes) {
-        this.filetypes =  new ArrayList<>(filetypes);
+        this.filetypes =  new ArrayList<UserDefinedFileType>(filetypes);
     }
 
     static UserDefinedFileType createUserDefinedFileType(String suffix, String description) {

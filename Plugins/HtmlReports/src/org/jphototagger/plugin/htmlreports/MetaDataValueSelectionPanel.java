@@ -91,7 +91,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
 
         static {
             List<MetaDataValueProvider> sortedMetaDataValueProviders =
-                    new ArrayList<>(Lookup.getDefault().lookupAll(MetaDataValueProvider.class));
+                    new ArrayList<MetaDataValueProvider>(Lookup.getDefault().lookupAll(MetaDataValueProvider.class));
             Collections.sort(sortedMetaDataValueProviders, PositionProviderAscendingComparator.INSTANCE);
             META_DATA_VALUE_PROVIDERS = sortedMetaDataValueProviders;
         }

@@ -477,7 +477,7 @@ public final class AppPanel extends javax.swing.JPanel {
     }
 
     private void lookupStatusLineElements() {
-        List<StatusLineElementProvider> providers = new ArrayList<>(
+        List<StatusLineElementProvider> providers = new ArrayList<StatusLineElementProvider>(
                 Lookup.getDefault().lookupAll(StatusLineElementProvider.class));
         Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         boolean isFirst = true;

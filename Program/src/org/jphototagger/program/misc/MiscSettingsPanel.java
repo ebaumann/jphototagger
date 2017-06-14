@@ -275,7 +275,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
     private void lookupMiscOptionPages() {
         List<OptionPageProvider> providers =
-                new ArrayList<>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
+                new ArrayList<OptionPageProvider>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
         Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         LayerUtil.logWarningIfNotUniquePositions(providers);
         for (OptionPageProvider provider : providers) {

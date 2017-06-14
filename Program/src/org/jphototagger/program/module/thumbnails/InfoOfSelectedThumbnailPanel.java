@@ -51,7 +51,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
     }
 
     private void lookupThumbnailInfoProviders() {
-        List<ThumbnailInfoProvider> providers = new ArrayList<>(Lookup.getDefault().lookupAll(ThumbnailInfoProvider.class));
+        List<ThumbnailInfoProvider> providers = new ArrayList<ThumbnailInfoProvider>(Lookup.getDefault().lookupAll(ThumbnailInfoProvider.class));
         Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         for (ThumbnailInfoProvider provider : providers) {
             GridBagConstraints gbc = new GridBagConstraints();

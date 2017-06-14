@@ -111,7 +111,7 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
     };
 
     public void addDuplicates(Collection<? extends File> duplicates) {
-        List<File> dups = new ArrayList<>(duplicates);
+        List<File> dups = new ArrayList<File>(duplicates);
         Collections.sort(dups, FILE_SORT_COMPARATOR);
         JPanel panel = new JPanel(new GridBagLayout());
         boolean first = true;

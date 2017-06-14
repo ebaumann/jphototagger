@@ -114,7 +114,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         private static final long serialVersionUID = 1L;
 
         {
-            List<LookAndFeelProvider> providers = new ArrayList<>(Lookup.getDefault().lookupAll(LookAndFeelProvider.class));
+            List<LookAndFeelProvider> providers = new ArrayList<LookAndFeelProvider>(Lookup.getDefault().lookupAll(LookAndFeelProvider.class));
             Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
             for (LookAndFeelProvider provider : providers) {
                 if (provider.canInstall()) {

@@ -53,7 +53,7 @@ public final class FilesystemCopy implements Runnable, FileCopyService {
         if (options == null) {
             throw new NullPointerException("options == null");
         }
-        this.sourceTargetFiles = new ArrayList<>(sourceTargetFiles);
+        this.sourceTargetFiles = new ArrayList<SourceTargetFile>(sourceTargetFiles);
         this.options = options;
     }
 

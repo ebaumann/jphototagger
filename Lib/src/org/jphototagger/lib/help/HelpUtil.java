@@ -39,7 +39,7 @@ public final class HelpUtil {
      */
     public static HelpNode createNodeFromHelpContentProviders() {
         HelpNode rootNode = null;
-        List<HelpContentProvider> providers = new ArrayList<>(Lookup.getDefault().lookupAll(HelpContentProvider.class));
+        List<HelpContentProvider> providers = new ArrayList<HelpContentProvider>(Lookup.getDefault().lookupAll(HelpContentProvider.class));
         Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         for (HelpContentProvider provider : providers) {
             String helpContentsUrl = provider.getHelpContentUrl();

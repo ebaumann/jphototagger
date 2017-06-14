@@ -24,7 +24,7 @@ public final class ThumbnailsSelectionChangedEvent {
         }
 
         this.source = source;
-        this.selectedFiles = new ArrayList<>(selectedFiles);
+        this.selectedFiles = new ArrayList<File>(selectedFiles);
         this.selectedIndices = new ArrayList<>(selectedIndices);
     }
 

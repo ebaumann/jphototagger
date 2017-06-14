@@ -70,7 +70,7 @@ public final class SetExifToXmp extends HelperThread {
         }
 
         this.replaceExistingXmpData = replaceExistingXmpData;
-        files = new ArrayList<>(imageFiles);
+        files = new ArrayList<File>(imageFiles);
         setInfo();
     }
 

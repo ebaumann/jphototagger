@@ -76,7 +76,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         if (saveOrUpdate == null) {
             throw new NullPointerException("saveOrUpdate == null");
         }
-        this.files = new ArrayList<>(files);
+        this.files = new ArrayList<File>(files);
         this.saveOrUpdate.addAll(Arrays.asList(saveOrUpdate));
     }
 
