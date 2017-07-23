@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.7 2017-07-23
+-----------------
+
+* Kontextmenü zu Textfeldern im "Bearbeiten"-Kartenreiter hinzugefügt.
+  Dies enthält die Aktionen "Kopieren", "Ausschneiden" und "Einfügen".
+
 0.34.6 2016-10-12
 -----------------
 

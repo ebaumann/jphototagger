@@ -88,6 +88,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         textAreaEdit.setInputVerifier(metaDataValue.getInputVerifier());
         textAreaEdit.getDocument().addDocumentListener(this);
         textAreaEdit.setName(metaDataValue.getDescription());
+        EditMetadtaUtil.addCopyPasteToComponentPopupMenu(textAreaEdit);
 
     }
 

@@ -111,6 +111,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         textAreaInput.setInputVerifier(metaDataValue.getInputVerifier());
         textAreaInput.getDocument().addDocumentListener(this);
         textAreaInput.setName(metaDataValue.getDescription());
+        EditMetadtaUtil.addCopyPasteToComponentPopupMenu(textAreaInput);
     }
 
     private void setTextFieldBorder(JComponent component) {

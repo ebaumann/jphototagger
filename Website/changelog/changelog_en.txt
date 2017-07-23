@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.7 2017-07-23
+-----------------
+
+* Added context menu to text fields in edit tab. The context menu
+  contains the actions "copy", "cut" and "paste".
+
 0.34.6 2016-10-12
 -----------------
 
