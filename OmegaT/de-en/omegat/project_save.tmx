@@ -5706,6 +5706,22 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Dateigröße absteigend</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20170810T105428Z" creationid="elmar" creationdate="20170810T105428Z">
+        <seg>File size descending</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Dateigröße aufsteigend</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20170810T105419Z" creationid="elmar" creationdate="20170810T105419Z">
+        <seg>File size ascending</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Dateimuster</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">

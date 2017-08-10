@@ -16,6 +16,8 @@ public enum FileSort {
     TYPES_DESCENDING(new FilesuffixIgnoreCaseDescendingComparator()),
     LAST_MODIFIED_ASCENDING(new FileLastModifiedAscendingComparator()),
     LAST_MODIFIED_DESCENDING(new FileLastModifiedDescendingComparator()),
+    SIZE_ASCENDING(new FileSizeAscendingComparator()),
+    SIZE_DESCENDING(new FileSizeDescendingComparator()),
     NO_SORT(new FileUnsortedComparator()),;
     private final Comparator<File> comparator;
 

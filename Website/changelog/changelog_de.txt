@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.8 2017-08-10
+-----------------
+
+* Vorschaubilder können nach Dateigröße sortiert werden
+
 0.34.7 2017-07-23
 -----------------
 

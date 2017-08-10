@@ -5358,6 +5358,22 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Dateigröße absteigend</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20170810T105428Z" creationid="elmar" creationdate="20170810T105428Z">
+        <seg>File size descending</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Dateigröße aufsteigend</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20170810T105419Z" creationid="elmar" creationdate="20170810T105419Z">
+        <seg>File size ascending</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Dateimuster</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">

@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.8 2017-08-10
+-----------------
+
+* Thumbnails can be sorted by file size
+
 0.34.7 2017-07-23
 -----------------
 
