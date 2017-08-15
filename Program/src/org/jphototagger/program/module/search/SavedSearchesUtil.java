@@ -113,7 +113,7 @@ public final class SavedSearchesUtil {
             SavedSearchesRepository repo = Lookup.getDefault().lookup(SavedSearchesRepository.class);
 
             if (!repo.deleteSavedSearch(searchName)) {
-                String message = Bundle.getString(SavedSearchesUtil.class, "SavedSearchesHelper.Error.Delete");
+                String message = Bundle.getString(SavedSearchesUtil.class, "SavedSearchesHelper.Error.Delete", searchName);
                 MessageDisplayer.error(null, message);
             }
         }
