@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.9 2017-0-
+-----------------
+
+* If images sorted by "EXIF Date and Time taken" and the database does
+  not contain EXIF metadata of an image, the image file's last modification
+  time will be used.
+
 0.34.8 2017-08-10
 -----------------
 

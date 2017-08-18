@@ -20,6 +20,14 @@ public final class ExifTimestampOriginalAscendingComparator extends ClassEqualit
         long timeLeft = repo.findExifDateTimeOriginalTimestamp(fileLeft);
         long timeRight = repo.findExifDateTimeOriginalTimestamp(fileRight);
 
+        if (timeLeft < 0) {
+            timeLeft = fileLeft.lastModified();
+        }
+
+        if (timeRight < 0) {
+            timeRight = fileRight.lastModified();
+        }
+
         return timeLeft == timeRight
                 ? 0
                 : timeLeft < timeRight
