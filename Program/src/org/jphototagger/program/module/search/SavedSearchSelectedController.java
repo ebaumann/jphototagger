@@ -2,6 +2,8 @@ package org.jphototagger.program.module.search;
 
 import java.io.File;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
@@ -72,7 +74,7 @@ public final class SavedSearchSelectedController implements ListSelectionListene
             if (selectedValue instanceof SavedSearch) {
                 SavedSearch savedSearch = (SavedSearch) selectedValue;
                 if (!savedSearch.isValid()) {
-                    assert false : savedSearch;
+                    Logger.getLogger(ShowThumbnails.class.getName()).log(Level.WARNING, "Saved search without keywords and panels");
                     return;
                 }
                 ParamStatement stmt = savedSearch.createParamStatement();

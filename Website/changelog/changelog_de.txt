@@ -3,9 +3,10 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
-0.34.9 2017-0-
+0.34.9 2017-08-19
 -----------------
 
+* Problem mit den Namen gespeicherter Suchen behoben
 * Werden Bilder nach "EXIF-Aufnahmedatum und -Uhrzeit" sortiert und die Datenbank
   hat keine EXIF-Metadaten eines Bilds, wird die Zeit der letzten Änderung der
   Bilddatei benutzt.

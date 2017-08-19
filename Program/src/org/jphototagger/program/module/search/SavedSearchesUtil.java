@@ -1,5 +1,7 @@
 package org.jphototagger.program.module.search;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.repository.SavedSearchesRepository;
@@ -130,9 +132,7 @@ public final class SavedSearchesUtil {
         }
 
         if (!savedSearch.isValid()) {
-            assert false : savedSearch;
-
-            return;
+            Logger.getLogger(SavedSearchesUtil.class.getName()).log(Level.WARNING, "Saved Search without keywords and panels");
         }
 
         String fromName = savedSearch.getName();
