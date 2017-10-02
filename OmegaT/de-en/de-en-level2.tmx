@@ -2054,14 +2054,6 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>&lt;html&gt;Die Überprüfung findet im Hintergrund statt.&lt;p&gt;Falls es eine neue Version gibt, werden Sie benachrichtigt&lt;/html&gt;</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;The check will be done in background.&lt;p&gt;If a newer version exists, You will be notified&lt;/html&gt;</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>&lt;html&gt;Dunkles Plastic Look &amp;amp; Feel von &lt;b&gt;JGoodies&lt;/b&gt; (DarkStar).&lt;p&gt;Copyright (c) 2001-2013 JGoodies Software GmbH. All rights reserved.&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -2110,10 +2102,10 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>&lt;html&gt;Es gibt eine neuere Version von &lt;strong&gt;JPhotoTagger&lt;/strong&gt; ({0} -&amp;gt; {1}).&lt;p&gt;Soll diese heruntergeladen werden?&lt;p&gt;Sie können währenddessen weiterarbeiten.&lt;/html&gt;</seg>
+        <seg>&lt;html&gt;Es gibt eine neuere Version von &lt;strong&gt;JPhotoTagger&lt;/strong&gt; ({0} -&amp;gt; {1}).&lt;p&gt;Sie können diese herunterladen von {2}.&lt;p&gt;Download-Seite öffnen?&lt;/html&gt;</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;A newer version of &lt;strong&gt;JPhotoTagger&lt;/strong&gt; exists ({0} -&amp;gt; {1}).&lt;p&gt;Do You want to download it?&lt;p&gt;You can continue working during the download.&lt;/html&gt;</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20171002T140708Z" creationid="elmar" creationdate="20171002T140708Z">
+        <seg>&lt;html&gt;A newer version of &lt;strong&gt;JPhotoTagger&lt;/strong&gt; ({0} -&amp;gt; {1}) exists.&lt;p&gt;You can download it from {2}.&lt;p&gt;Open download page?&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>

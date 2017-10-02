@@ -2270,6 +2270,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;Es gibt eine neuere Version von &lt;strong&gt;JPhotoTagger&lt;/strong&gt; ({0} -&amp;gt; {1}).&lt;p&gt;Sie können diese herunterladen von {2}.&lt;p&gt;Download-Seite öffnen?&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20171002T140708Z" creationid="elmar" creationdate="20171002T140708Z">
+        <seg>&lt;html&gt;A newer version of &lt;strong&gt;JPhotoTagger&lt;/strong&gt; ({0} -&amp;gt; {1}) exists.&lt;p&gt;You can download it from {2}.&lt;p&gt;Open download page?&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;Es gibt eine neuere Version von &lt;strong&gt;JPhotoTagger&lt;/strong&gt; ({0} -&amp;gt; {1}).&lt;p&gt;Soll diese heruntergeladen werden?&lt;p&gt;Sie können währenddessen weiterarbeiten.&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">

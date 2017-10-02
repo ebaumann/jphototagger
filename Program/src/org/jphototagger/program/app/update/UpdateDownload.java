@@ -1,10 +1,6 @@
 package org.jphototagger.program.app.update;
 
 import java.awt.EventQueue;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.api.concurrent.CancelRequest;
@@ -13,19 +9,13 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.api.progress.ProgressHandleFactory;
-import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.repository.ApplicationPropertiesRepository;
-import org.jphototagger.lib.net.HttpUtil;
+import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.net.NetVersion;
-import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.lib.util.Version;
 import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.AppLifeCycle;
-import org.jphototagger.program.misc.FinalExecutable;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.openide.util.Lookup;
 
@@ -36,13 +26,9 @@ import org.openide.util.Lookup;
  */
 public final class UpdateDownload extends Thread implements CancelRequest, Cancelable {
 
-    private static final String FILENAME_WINDOWS = "JPhotoTagger-Setup.exe";
-    private static final String FILENAME_ZIP = "JPhotoTagger.zip";
+    private static final String DOWNLOAD_PAGE = "http://www.jphototagger.org/download.html";
     private static final String URL_VERSION_CHECK_FILE = "http://www.jphototagger.org/jphototagger-version.txt";
-    private static final String URL_WIN_INSTALLER = "http://www.jphototagger.org/dist/JPhotoTagger-setup.exe";
-    private static final String URL_ZIP = "http://www.jphototagger.org/dist/JPhotoTagger.zip";
     private static final String VERSION_DELIMITER = ".";
-    private static final String KEY_PREV_DOWNLOAD_DIR = "UpdateDownload.PrevDownloadDir";
     private static final Preferences PREFS = Lookup.getDefault().lookup(Preferences.class);
     private final Version currentVersion = Version.parseVersion(AppInfo.APP_VERSION, VERSION_DELIMITER);
     private Version netVersion = currentVersion;
@@ -118,18 +104,10 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
         try {
             startProgressHandle();
             netVersion = NetVersion.getOverHttp(URL_VERSION_CHECK_FILE, VERSION_DELIMITER);
-            String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.Download", currentVersion.toString3(), netVersion.toString3());
-            if (hasNewerVersion() && MessageDisplayer.confirmYesNo(null, message)) {
-                progressBarDownloadInfo();
-                File downloadFile = chooseDownloadFile();
-                if (downloadFile == null) {
-                    return;
-                }
-                download(downloadFile);
-                if (cancel && downloadFile.exists()) {
-                    if (!downloadFile.delete()) {
-                        LOGGER.log(Level.WARNING, "Uncomplete downloaded file ''{0}'' couldn''t be deleted!", downloadFile);
-                    }
+            if (hasNewerVersion()) {
+                String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.Download", currentVersion.toString3(), netVersion.toString3(), DOWNLOAD_PAGE);
+                if (MessageDisplayer.confirmYesNo(null, message)) {
+                    DesktopUtil.browse(DOWNLOAD_PAGE, "JPhotoTagger");
                 }
             }
         } catch (Throwable t) {
@@ -140,75 +118,6 @@ public final class UpdateDownload extends Thread implements CancelRequest, Cance
                 checkPending = false;
             }
         }
-    }
-
-    private void download(File targetFile) {
-        try {
-            BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(targetFile));
-            HttpUtil.write(new URL(getDownloadUrl()), os, this);
-            if (cancel) {
-                return;
-            }
-            if (SystemUtil.isWindows()) {
-                setFinalExecutable(targetFile);
-            } else {
-                String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Info.Success", targetFile);
-                MessageDisplayer.information(null, message);
-            }
-        } catch (Throwable t) {
-            Logger.getLogger(UpdateDownload.class.getName()).log(Level.SEVERE, null, t);
-        }
-    }
-
-    private void setFinalExecutable(File downloadFile) {
-        String message = Bundle.getString(UpdateDownload.class, "UpdateDownload.Confirm.SetFinalExecutable", downloadFile);
-        if (MessageDisplayer.confirmYesNo(null, message)) {
-            FinalExecutable exec = new FinalExecutable(downloadFile.getAbsolutePath());
-            AppLifeCycle.INSTANCE.addFinalTask(exec);
-        }
-    }
-
-    private String getDownloadUrl() {
-        return SystemUtil.isWindows()
-                ? URL_WIN_INSTALLER
-                : URL_ZIP;
-    }
-
-    private File chooseDownloadFile() {
-        String dirname = chooseDownloadDirectory();
-        if (dirname == null) {
-            return null;
-        }
-        String filename = SystemUtil.isWindows()
-                ? FILENAME_WINDOWS
-                : FILENAME_ZIP;
-        return new File(dirname + File.separator + filename);
-    }
-
-    private String chooseDownloadDirectory() {
-        String downloadDirectory = suggestDownloadDirectory();
-        DirectoryChooser dirChooser = new DirectoryChooser(ComponentUtil.findFrameWithIcon(),
-                new File(downloadDirectory), DirectoryChooser.Option.NO_OPTION);
-        dirChooser.setTitle(Bundle.getString(UpdateDownload.class, "UpdateDownload.ChooseDownloadDirectory.Title"));
-        dirChooser.setVisible(true);
-        if (dirChooser.isAccepted()) {
-            downloadDirectory = dirChooser.getSelectedDirectories().get(0).getAbsolutePath();
-            PREFS.setString(KEY_PREV_DOWNLOAD_DIR, downloadDirectory);
-            return downloadDirectory;
-        }
-        return null;
-    }
-
-    private String suggestDownloadDirectory() {
-        String dir = null;
-        if (PREFS.containsKey(KEY_PREV_DOWNLOAD_DIR)) {
-            dir = PREFS.getString(KEY_PREV_DOWNLOAD_DIR);
-        }
-        if (dir == null || !new File(dir).isDirectory()) {
-            PreferencesDirectoryProvider provider = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
-            dir = provider.getUserPreferencesDirectory().getAbsolutePath();
-        }
-        return dir;
     }
 
     private void startProgressHandle() {

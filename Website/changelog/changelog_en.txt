@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.10 2017-10-02
+------------------
+
+* Check for newer versions does not try to download. Instead it offers to
+  open the download page.
+
 0.34.9 2017-08-19
 -----------------
 

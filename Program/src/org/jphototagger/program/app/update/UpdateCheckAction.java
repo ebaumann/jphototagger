@@ -24,8 +24,6 @@ final class UpdateCheckAction extends AbstractAction {
             String message = Bundle.getString(UpdateCheckAction.class, "UpdateCheckAction.Error.CheckDownload");
             MessageDisplayer.error(null, message);
         } else {
-            String message = Bundle.getString(UpdateCheckAction.class, "UpdateCheckAction.Info");
-            MessageDisplayer.information(null, message);
             UpdateDownload.checkForNewerVersion();
         }
     }
