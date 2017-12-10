@@ -3,6 +3,16 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.11 2017-12-10
+------------------
+
+* Einstellungen-Schlüssel "Preferences.DisableSaveExifToXmpDateCreated" hinzugefügt.
+  "Preferences.DisableSaveExifToXmpDateCreated=1" in "Settings.properties"
+  deaktiviert das automatische Schreiben des Bilderzeugungsdatums, gelesen
+  aus den EXIF-Daten des Bilds, in die XMP-Filialdatei als
+  "Iptc4xmpCore:DateCreated", falls diese nicht in der XMP-Datei existiert oder
+  der Benutzer das Erzeugungsdatum nicht eingegeben hat.
+
 0.34.10 2017-10-02
 ------------------
 

@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -253,6 +254,10 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     }
 
     private void setExifDateToXmpDateCreated(ImageFile imageFile) {
+        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
+        if (preferences.getBoolean(PreferencesKeys.KEY_DISABLE_SAVE_EXIF_TO_XMP_DATE_CREATED)) {
+            return;
+        }
         Exif exif = imageFile.getExif();
         Xmp xmp = imageFile.getXmp();
         boolean hasExif = exif != null;
@@ -265,7 +270,9 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, exif.getXmpDateCreated());
         File sidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile.getFile());
         if (sidecarFile.canWrite()) {
+            long lastModified = sidecarFile.lastModified();
             XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
+            sidecarFile.setLastModified(lastModified);
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
         }
     }
