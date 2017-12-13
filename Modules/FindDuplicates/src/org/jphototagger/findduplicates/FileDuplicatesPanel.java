@@ -144,7 +144,12 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
         private void initComponents() {
             setLayout(new GridBagLayout());
             setBorder(BorderFactory.createEtchedBorder());
-            Image thumbnail = ThumbnailCreatorService.INSTANCE.createThumbnail(file);
+            Image thumbnail = null;
+            try {
+                thumbnail = ThumbnailCreatorService.INSTANCE.createThumbnail(file);
+            } catch (Throwable t) {
+                Logger.getLogger(FilePanel.class.getName()).log(Level.SEVERE, null, t);
+            }
             if (thumbnail == null) {
                 thumbnail = ERROR_THUMBNAIL;
             }
