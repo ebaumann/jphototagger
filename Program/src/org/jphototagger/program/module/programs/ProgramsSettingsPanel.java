@@ -16,6 +16,7 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
 import org.openide.util.Lookup;
 
@@ -40,6 +41,12 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         setEnabled();
         setDefaultProgramsButtonEnabled();
         model.addListDataListener(buttonDefaultProgramsEnabler);
+
+        menuItemAddProgram.setIcon(AppLookAndFeel.getIcon("icon_new.png")); // NOI18N
+        menuItemEditProgram.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
+        menuItemRemoveProgram.setIcon(AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
+        menuItemMoveProgramUp.setIcon(AppLookAndFeel.getIcon("icon_arrow_up.png")); // NOI18N
+        menuItemMoveProgramDown.setIcon(AppLookAndFeel.getIcon("icon_arrow_down.png")); // NOI18N
     }
 
     private void setAccelerators() {
@@ -210,7 +217,6 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonAddProgram = new javax.swing.JButton();
         buttonEditProgram = new javax.swing.JButton();
 
-        menuItemAddProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         menuItemAddProgram.setText(bundle.getString("ProgramsSettingsPanel.menuItemAddProgram.text")); // NOI18N
         menuItemAddProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +228,6 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         popupMenu.add(jSeparator1);
 
         menuItemEditProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
-        menuItemEditProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
         menuItemEditProgram.setText(bundle.getString("ProgramsSettingsPanel.menuItemEditProgram.text")); // NOI18N
         menuItemEditProgram.setEnabled(false);
         menuItemEditProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -233,7 +238,6 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         popupMenu.add(menuItemEditProgram);
 
         menuItemRemoveProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemoveProgram.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemRemoveProgram.setText(bundle.getString("ProgramsSettingsPanel.menuItemRemoveProgram.text")); // NOI18N
         menuItemRemoveProgram.setEnabled(false);
         menuItemRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -244,7 +248,6 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         popupMenu.add(menuItemRemoveProgram);
         popupMenu.add(jSeparator2);
 
-        menuItemMoveProgramUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
         menuItemMoveProgramUp.setText(bundle.getString("ProgramsSettingsPanel.menuItemMoveProgramUp.text")); // NOI18N
         menuItemMoveProgramUp.setEnabled(false);
         menuItemMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
@@ -254,7 +257,6 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         });
         popupMenu.add(menuItemMoveProgramUp);
 
-        menuItemMoveProgramDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
         menuItemMoveProgramDown.setText(bundle.getString("ProgramsSettingsPanel.menuItemMoveProgramDown.text")); // NOI18N
         menuItemMoveProgramDown.setEnabled(false);
         menuItemMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {

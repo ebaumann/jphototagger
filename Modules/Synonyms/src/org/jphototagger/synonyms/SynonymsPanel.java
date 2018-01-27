@@ -12,6 +12,7 @@ import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.Autocomplete;
@@ -41,6 +42,15 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         listSynonyms.addListSelectionListener(this);
         textAreaWords.getDocument().addDocumentListener(this);
         textFieldSynonyms.getDocument().addDocumentListener(this);
+
+        AppIconProvider appIconProvider = Lookup.getDefault().lookup(AppIconProvider.class);
+        menuItemChangeWord.setIcon(appIconProvider.getIcon("icon_xmp.png")); // NOI18N
+        menuItemRemoveWord.setIcon(appIconProvider.getIcon("icon_delete.png")); // NOI18N
+        menuItemChangeSynonym.setIcon(appIconProvider.getIcon("icon_rename.png")); // NOI18N
+        menuItemRemoveSynonym.setIcon(appIconProvider.getIcon("icon_delete.png")); // NOI18N
+
+        scrollPaneTextAreaWords.setMinimumSize(textFieldSynonyms.getPreferredSize());
+
         MnemonicUtil.setMnemonics((Container) this);
         setAutocomplete();
         setEnabled();
@@ -336,7 +346,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuWords.setName("popupMenuWords"); // NOI18N
 
         menuItemChangeWord.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        menuItemChangeWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_rename.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/synonyms/Bundle"); // NOI18N
         menuItemChangeWord.setText(bundle.getString("SynonymsPanel.menuItemChangeWord.text")); // NOI18N
         menuItemChangeWord.setName("menuItemChangeWord"); // NOI18N
@@ -348,7 +357,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuWords.add(menuItemChangeWord);
 
         menuItemRemoveWord.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemoveWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemRemoveWord.setText(bundle.getString("SynonymsPanel.menuItemRemoveWord.text")); // NOI18N
         menuItemRemoveWord.setName("menuItemRemoveWord"); // NOI18N
         menuItemRemoveWord.addActionListener(new java.awt.event.ActionListener() {
@@ -361,7 +369,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuSynonyms.setName("popupMenuSynonyms"); // NOI18N
 
         menuItemChangeSynonym.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        menuItemChangeSynonym.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_rename.png"))); // NOI18N
         menuItemChangeSynonym.setText(bundle.getString("SynonymsPanel.menuItemChangeSynonym.text")); // NOI18N
         menuItemChangeSynonym.setName("menuItemChangeSynonym"); // NOI18N
         menuItemChangeSynonym.addActionListener(new java.awt.event.ActionListener() {
@@ -372,7 +379,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuSynonyms.add(menuItemChangeSynonym);
 
         menuItemRemoveSynonym.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemoveSynonym.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemRemoveSynonym.setText(bundle.getString("SynonymsPanel.menuItemRemoveSynonym.text")); // NOI18N
         menuItemRemoveSynonym.setName("menuItemRemoveSynonym"); // NOI18N
         menuItemRemoveSynonym.addActionListener(new java.awt.event.ActionListener() {
@@ -402,7 +408,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         scrollPaneTextAreaWords.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPaneTextAreaWords.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        scrollPaneTextAreaWords.setMinimumSize(new java.awt.Dimension(7, 18));
         scrollPaneTextAreaWords.setName("scrollPaneTextAreaWords"); // NOI18N
 
         textAreaWords.setColumns(20);

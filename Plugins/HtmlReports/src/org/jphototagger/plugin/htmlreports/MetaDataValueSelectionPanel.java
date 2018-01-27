@@ -13,6 +13,7 @@ import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueProvider;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -141,7 +142,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         add(metaDataValuesComboBox, gridBagConstraints);
 
-        buttonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/plugin/htmlreports/add.png"))); // NOI18N
+        buttonAdd.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_add.png"));
         buttonAdd.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonAdd.setName("buttonAdd"); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +155,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         add(buttonAdd, gridBagConstraints);
 
-        buttonRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/plugin/htmlreports/remove.png"))); // NOI18N
+        buttonRemove.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
         buttonRemove.setEnabled(false);
         buttonRemove.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonRemove.setName("buttonRemove"); // NOI18N

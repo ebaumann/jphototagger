@@ -20,13 +20,13 @@ import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataVal
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.WordsetsRepository;
 import org.jphototagger.domain.wordsets.Wordset;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.DocumentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.openide.util.Lookup;
 
 /**
@@ -245,7 +245,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
     private static class WordsetNamesComboBoxRenderer extends DefaultListCellRenderer {
 
         private static final long serialVersionUID = 1L;
-        private static final ImageIcon ICON = IconUtil.getImageIcon(WordsetsPanel.class, "word.png");
+        private static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
 
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

@@ -18,6 +18,7 @@ import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.tasks.ScheduledTasks;
@@ -315,7 +316,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelTasksAutoscan.add(buttonAddAutoscanDirectories, gridBagConstraints);
 
-        buttonScheduledTasks.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_start.png"))); // NOI18N
+        buttonScheduledTasks.setIcon(AppLookAndFeel.getIcon("icon_start.png"));
         buttonScheduledTasks.setToolTipText(bundle.getString("ScheduledTasksSettingsPanel.buttonScheduledTasks.toolTipText")); // NOI18N
         buttonScheduledTasks.setAlignmentY(0.0F);
         buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -354,7 +355,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)

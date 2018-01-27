@@ -20,8 +20,8 @@ import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.openide.util.Lookup;
 
@@ -31,7 +31,7 @@ import org.openide.util.Lookup;
 public final class RepositoryMaintainancePanel extends JPanel implements ProgressListener {
 
     private static final long serialVersionUID = 1L;
-    private static final Icon ICON_FINISHED = IconUtil.getImageIcon(RepositoryMaintainancePanel.class, "finished.png");
+    private static final Icon ICON_FINISHED = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_finished.png");
     private static final String KEY_DEL_RECORDS_OF_NOT_EX_FILES = "RepositoryMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
     private static final String KEY_COMPRESS_DB = "RepositoryMaintainancePanel.CheckBox.CompressDb";
     private static final String KEY_DEL_ORPHANED_THUMBS = "RepositoryMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";
@@ -406,7 +406,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setIconTextGap(0);
-        labelFinishedDeleteRecordsOfNotExistingFilesInRepository.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -426,7 +425,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedCompressRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedCompressRepository.setIconTextGap(0);
-        labelFinishedCompressRepository.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -447,7 +445,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedDeleteOrphanedThumbnails.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteOrphanedThumbnails.setIconTextGap(0);
-        labelFinishedDeleteOrphanedThumbnails.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -468,7 +465,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedDeleteUnusedKeywords.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteUnusedKeywords.setIconTextGap(0);
-        labelFinishedDeleteUnusedKeywords.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -489,7 +485,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         labelFinishedDeleteNotReferenced1n.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelFinishedDeleteNotReferenced1n.setIconTextGap(0);
-        labelFinishedDeleteNotReferenced1n.setPreferredSize(new java.awt.Dimension(22, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;

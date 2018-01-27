@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.12 2018-01-27
+------------------
+
+* When starting, JPhotoTagger checks larger screen resolutions and scales
+  fonts and many symbols, if the user did not adjust a scale factor in the
+  settings. Compared to the previous scaling also icons will be appropriately
+  scaled on scale factors 1.5, 2, 2.5 and 3.
+
 0.34.11 2017-12-10
 ------------------
 

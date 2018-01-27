@@ -3,8 +3,9 @@ package org.jphototagger.userdefinedfiletypes;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -15,7 +16,7 @@ public final class EditUserDefinedFileTypesAction extends AbstractAction {
 
     public EditUserDefinedFileTypesAction() {
         super(Bundle.getString(EditUserDefinedFileTypesAction.class, "EditUserDefinedFileTypesAction.Name"));
-        putValue(Action.SMALL_ICON, IconUtil.getImageIcon(EditUserDefinedFileTypesAction.class, "user_defined_filetype.png"));
+        putValue(Action.SMALL_ICON, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_file.png"));
     }
 
     @Override

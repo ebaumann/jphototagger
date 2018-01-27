@@ -44,8 +44,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonAdd">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/org/jphototagger/plugin/htmlreports/add.png"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Lookup.getDefault().lookup(AppIconProvider.class).getIcon(&quot;icon_add.png&quot;)" type="code"/>
         </Property>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
@@ -63,8 +63,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonRemove">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/org/jphototagger/plugin/htmlreports/remove.png"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Lookup.getDefault().lookup(AppIconProvider.class).getIcon(&quot;icon_delete.png&quot;)" type="code"/>
         </Property>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">

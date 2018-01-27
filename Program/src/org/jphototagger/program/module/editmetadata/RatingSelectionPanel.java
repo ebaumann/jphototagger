@@ -352,9 +352,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonStar4 = new javax.swing.JButton();
         buttonStar5 = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(102, 32));
         setName("Rating Selection Panel"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(102, 32));
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText("Prompt:"); // NOI18N
@@ -368,7 +366,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.weightx = 1.0;
         add(labelPrompt, gridBagConstraints);
 
-        buttonNoRating.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_remove_not_set.png"))); // NOI18N
+        buttonNoRating.setIcon(AppLookAndFeel.getIcon("icon_xmp_rating_remove_not_set.png"));
         buttonNoRating.setMnemonic('0');
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/editmetadata/Bundle"); // NOI18N
         buttonNoRating.setToolTipText(bundle.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
@@ -387,7 +385,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 6);
         add(buttonNoRating, gridBagConstraints);
 
-        buttonStar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar1.setIcon(AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar1.setMnemonic('1');
         buttonStar1.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
         buttonStar1.setBorder(null);
@@ -405,7 +403,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar1, gridBagConstraints);
 
-        buttonStar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar2.setIcon(AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar2.setMnemonic('2');
         buttonStar2.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
         buttonStar2.setBorder(null);
@@ -423,7 +421,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar2, gridBagConstraints);
 
-        buttonStar3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar3.setIcon(AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar3.setMnemonic('3');
         buttonStar3.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
         buttonStar3.setBorder(null);
@@ -441,7 +439,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar3, gridBagConstraints);
 
-        buttonStar4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar4.setIcon(AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar4.setMnemonic('4');
         buttonStar4.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
         buttonStar4.setBorder(null);
@@ -459,7 +457,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
         add(buttonStar4, gridBagConstraints);
 
-        buttonStar5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_not_set.png"))); // NOI18N
+        buttonStar5.setIcon(AppLookAndFeel.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar5.setMnemonic('5');
         buttonStar5.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
         buttonStar5.setBorder(null);

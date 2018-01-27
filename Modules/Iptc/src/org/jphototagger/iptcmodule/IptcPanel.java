@@ -7,7 +7,6 @@ import java.awt.Insets;
 import java.io.File;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,6 +20,7 @@ import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.iptc.IptcEntry;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -47,6 +47,7 @@ public class IptcPanel extends javax.swing.JPanel {
         tableIptc.setDefaultRenderer(Object.class, iptcTableCellRenderer);
         setIptcTableTextFilter();
         setIptcTableComparator();
+        buttonIptcToXmp.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_xmp.png"));
         MnemonicUtil.setMnemonics(this);
     }
 
@@ -280,7 +281,6 @@ public class IptcPanel extends javax.swing.JPanel {
         add(scrollPaneIptc, gridBagConstraints);
 
         buttonIptcToXmp.setAction(new ExportIptcToXmpOfSelectedFilesAction());
-        buttonIptcToXmp.setIcon(new ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
         buttonIptcToXmp.setText(bundle.getString("IptcPanel.buttonIptcToXmp.text")); // NOI18N
         buttonIptcToXmp.setToolTipText(bundle.getString("IptcPanel.buttonIptcToXmp.toolTipText")); // NOI18N
         buttonIptcToXmp.setMargin(new Insets(2, 2, 2, 2));

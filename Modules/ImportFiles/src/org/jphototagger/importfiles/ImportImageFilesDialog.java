@@ -31,6 +31,7 @@ import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpEditor;
 import org.jphototagger.importfiles.filerenamers.FileRenameStrategyComboBoxModel;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.PreviousSelectedFiles;
 import org.jphototagger.lib.swing.Dialog;
@@ -39,7 +40,6 @@ import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.DisplayNameListCellRenderer;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComboBoxUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -54,7 +54,7 @@ import org.openide.util.Lookup;
 public class ImportImageFilesDialog extends Dialog {
 
     private static final long serialVersionUID = 1L;
-    private static final Icon ERROR_ICON = IconUtil.getImageIcon(ImportImageFilesDialog.class, "error.png");
+    private static final Icon ERROR_ICON = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_error.png");
     private static final String KEY_LAST_SRC_DIR = "ImportImageFiles.LastSrcDir";
     private static final String KEY_LAST_TARGET_DIR = "ImportImageFiles.LastTargetDir";
     private static final String KEY_DEL_SRC_AFTER_COPY = "ImportImageFiles.DelSrcAfterCopy";
@@ -743,7 +743,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
         panelScriptFile.add(scriptFileLabel, gridBagConstraints);
 
-        buttonRemoveScriptFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/importfiles/delete.png"))); // NOI18N
+        buttonRemoveScriptFile.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
         buttonRemoveScriptFile.setToolTipText(bundle.getString("ImportImageFilesDialog.buttonRemoveScriptFile.toolTipText")); // NOI18N
         buttonRemoveScriptFile.setEnabled(false);
         buttonRemoveScriptFile.setPreferredSize(new java.awt.Dimension(16, 16));
@@ -925,7 +925,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 0);
         panelFileRenameStrategy.add(comboBoxFileRenameStrategy, gridBagConstraints);
 
-        buttonEditRenameTemplates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/importfiles/edit.png"))); // NOI18N
+        buttonEditRenameTemplates.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_edit.png"));
         buttonEditRenameTemplates.setToolTipText(bundle.getString("ImportImageFilesDialog.buttonEditRenameTemplates.toolTipText")); // NOI18N
         buttonEditRenameTemplates.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonEditRenameTemplates.addActionListener(new java.awt.event.ActionListener() {

@@ -19,9 +19,9 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.StatusLineElementProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -123,7 +123,7 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
     private void showErrorLabel() {
         MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
         mainWindowManager.setMainWindowStatusbarText(STATUSBAR_INFO_TEXT, MessageType.ERROR, MILLISECONDS_ERROR_DISPLAY);
-        errorLabel.setIcon(IconUtil.getImageIcon(ErrorLogHandler.class, "error.png"));
+        errorLabel.setIcon(AppLookAndFeel.getIcon("icon_error.png"));
         errorLabel.setToolTipText(LABEL_ERROR_TOOLTIP_TEXT);
     }
 

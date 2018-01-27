@@ -19,9 +19,9 @@ import org.jphototagger.domain.metadata.SelectedFilesMetaDataEditor;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.api.MainWindowComponentProviderAdapter;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -36,7 +36,7 @@ public final class ModuleInstaller extends MainWindowComponentProviderAdapter im
 
     private static final EditMetaDataPanelsWrapperPanel EDIT_METADTA_PANELS_WRAPPER = new EditMetaDataPanelsWrapperPanel(); // Has to be static!
     private static final EditMetaDataPanels EDIT_METADATA_PANELS = EDIT_METADTA_PANELS_WRAPPER.getEditMetadtaPanels(); // Has to be static!
-    private static final Icon ICON = IconUtil.getImageIcon(ModuleInstaller.class, "edit.png");
+    private static final Icon ICON = AppLookAndFeel.getIcon("icon_edit.png");
     private static final String TITLE = Bundle.getString(ModuleInstaller.class, "ModuleInstaller.Title");
 
     @Override

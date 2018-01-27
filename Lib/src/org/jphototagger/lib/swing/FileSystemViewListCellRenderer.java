@@ -8,14 +8,13 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  * @author Elmar Baumann
  */
 public class FileSystemViewListCellRenderer implements ListCellRenderer<File> {
 
-    private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
+    private static final Object MONITOR = new Object();
     private final DefaultListCellRenderer delegate = new DefaultListCellRenderer();
     private final boolean onlyFilename;
 
@@ -40,9 +39,9 @@ public class FileSystemViewListCellRenderer implements ListCellRenderer<File> {
                 ? file.getName()
                 : file.getAbsolutePath());
         if (file != null && file.exists()) {
-            synchronized (FILE_SYSTEM_VIEW) {
+            synchronized (MONITOR) {
                 try {
-                    label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
+                    label.setIcon(CommonIcons.getIcon(file));
                 } catch (Throwable t) {
                     Logger.getLogger(FileSystemViewListCellRenderer.class.getName()).log(Level.WARNING, null, t);
                 }

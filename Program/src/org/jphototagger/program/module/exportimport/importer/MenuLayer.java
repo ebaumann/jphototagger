@@ -7,9 +7,9 @@ import javax.swing.JMenuItem;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.tasks.AutoBackupJptDataImporter;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -26,7 +26,7 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
             @Override
             public JMenuItem getMenuItem() {
                 JMenu menuImport = new JMenu(Bundle.getString(MenuLayer.class, "MenuLayer.Name"));
-                menuImport.setIcon(IconUtil.getImageIcon(MenuLayer.class, "import.png"));
+                menuImport.setIcon(AppLookAndFeel.getIcon("icon_import.png"));
                 MnemonicUtil.setMnemonics(menuImport);
                 JMenuItem itemImport = new JMenuItem(new JptImportAction());
                 MnemonicUtil.setMnemonics(itemImport);

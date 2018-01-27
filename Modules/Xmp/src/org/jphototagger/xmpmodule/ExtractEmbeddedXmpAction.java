@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import org.jphototagger.domain.filefilter.AppFileFilterProvider;
-import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -18,7 +18,7 @@ public final class ExtractEmbeddedXmpAction extends AbstractAction {
 
     public ExtractEmbeddedXmpAction() {
         super(Bundle.getString(ExtractEmbeddedXmpAction.class, "ExtractEmbeddedXmpAction.Name"));
-        putValue(SMALL_ICON, IconUtil.getImageIcon(ExtractEmbeddedXmpAction.class, "xmp.png"));
+        putValue(SMALL_ICON, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_xmp.png"));
         putValue(ACCELERATOR_KEY, KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_X));
     }
 

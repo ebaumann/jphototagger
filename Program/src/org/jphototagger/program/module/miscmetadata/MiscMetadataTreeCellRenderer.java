@@ -12,8 +12,8 @@ import javax.swing.tree.TreeNode;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;
 import org.jphototagger.program.module.search.MetaDataValueIcons;
 
@@ -22,10 +22,10 @@ import org.jphototagger.program.module.search.MetaDataValueIcons;
  */
 public final class MiscMetadataTreeCellRenderer extends TreeCellRendererExt {
 
-    private static final ImageIcon ICON_MISC_METADATA = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata.png");
-    private static final ImageIcon ICON_EXIF = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_exif.png");
-    private static final ImageIcon ICON_XMP = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_xmp.png");
-    private static final ImageIcon ICON_DETAIL = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_misc_metadata_detail.png");
+    private static final ImageIcon ICON_MISC_METADATA = AppLookAndFeel.getIcon("icon_misc_metadata.png");
+    private static final ImageIcon ICON_EXIF = AppLookAndFeel.getIcon("icon_exif.png");
+    private static final ImageIcon ICON_XMP = AppLookAndFeel.getIcon("icon_xmp.png");
+    private static final ImageIcon ICON_DETAIL = AppLookAndFeel.getIcon("icon_misc_metadata_detail.png");
     private static final Map<MetaDataValue, ImageIcon> ICON_OF_META_DATA_VALUE = new HashMap<>();
     private static final long serialVersionUID = 1L;
 

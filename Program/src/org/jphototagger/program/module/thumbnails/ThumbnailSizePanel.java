@@ -18,6 +18,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.openide.util.Lookup;
@@ -197,16 +198,15 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
         thumbnailSizeSlider.setPreferredSize(new java.awt.Dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
         add(thumbnailSizeSlider, gridBagConstraints);
 
-        thumbnailDimensionsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_thumbnail_size.png"))); // NOI18N
+        thumbnailDimensionsButton.setIcon(AppLookAndFeel.getIcon("icon_thumbnail_size.png"));
         thumbnailDimensionsButton.setToolTipText(bundle.getString("ThumbnailSizePanel.thumbnailDimensionsButton.toolTipText")); // NOI18N
         thumbnailDimensionsButton.setBorder(null);
         thumbnailDimensionsButton.setContentAreaFilled(false);
         thumbnailDimensionsButton.setName("thumbnailDimensionsButton"); // NOI18N
-        thumbnailDimensionsButton.setPreferredSize(new java.awt.Dimension(16, 16));
         thumbnailDimensionsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 thumbnailDimensionsButtonActionPerformed(evt);

@@ -9,6 +9,7 @@ import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import org.jphototagger.domain.favorites.Favorite;
+import org.jphototagger.lib.swing.CommonIcons;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
@@ -48,7 +49,7 @@ public final class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
         if (fileExists) {
                 synchronized (FILE_SYSTEM_VIEW) {
                     try {
-                        setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
+                        setIcon(CommonIcons.getIcon(file));
                     } catch (Throwable t) {
                         LOGGER.log(Level.SEVERE, null, t);
                     }

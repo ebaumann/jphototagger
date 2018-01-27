@@ -14,7 +14,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileSystemView;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.concurrent.CancelRequest;
@@ -26,11 +25,13 @@ import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
+import org.jphototagger.lib.swing.CommonIcons;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -423,7 +424,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
     private static class DirectoriesListCellRenderer extends DefaultListCellRenderer {
 
-        private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
+        private static final Object MONITOR = new Object();
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -433,9 +434,9 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
             File dir = directoryInfo.getDirectory();
 
             if (dir.exists()) {
-                synchronized (FILE_SYSTEM_VIEW) {
+                synchronized (MONITOR) {
                     try {
-                        label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(dir));
+                        label.setIcon(CommonIcons.getIcon(dir));
                     } catch (Throwable t) {
                         Logger.getLogger(DirectoriesListCellRenderer.class.getName()).log(Level.SEVERE, null, t);
                     }
@@ -485,17 +486,17 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
         popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                popupMenuPopupMenuWillBecomeVisible(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                popupMenuPopupMenuWillBecomeVisible(evt);
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/maintainance/delete.png"))); // NOI18N
+        menuItemDelete.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         menuItemDelete.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N

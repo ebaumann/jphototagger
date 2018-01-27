@@ -2,8 +2,8 @@ package org.jphototagger.program.help;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
  * @author Elmar Baumann
@@ -14,7 +14,7 @@ final class ShowAcceleratorKeysHelpAction extends AbstractAction {
 
     ShowAcceleratorKeysHelpAction() {
         super(Bundle.getString(ShowAcceleratorKeysHelpAction.class, "ShowAcceleratorKeysHelpAction.Name"));
-        putValue(SMALL_ICON, IconUtil.getImageIcon(ShowAcceleratorKeysHelpAction.class, "keyboard.png"));
+        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_keyboard.png"));
     }
 
     @Override

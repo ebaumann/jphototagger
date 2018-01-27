@@ -2,9 +2,9 @@ package org.jphototagger.program.app.update;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
  * @author Elmar Baumann
@@ -15,7 +15,7 @@ final class UpdateCheckAction extends AbstractAction {
 
     UpdateCheckAction() {
         super(Bundle.getString(UpdateCheckAction.class, "UpdateCheckAction.Name"));
-        putValue(SMALL_ICON, IconUtil.getImageIcon(UpdateCheckAction.class, "check_update.png"));
+        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_refresh.png"));
     }
 
     @Override

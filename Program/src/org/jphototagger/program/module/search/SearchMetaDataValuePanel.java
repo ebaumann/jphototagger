@@ -441,7 +441,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
 
-        buttonCalendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_calendar.png"))); // NOI18N
+        buttonCalendar.setIcon(AppLookAndFeel.getIcon("icon_calendar.png"));
         buttonCalendar.setMnemonic('1');
         buttonCalendar.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonCalendar.setMaximumSize(new java.awt.Dimension(16, 16));
@@ -459,7 +459,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(buttonCalendar, gridBagConstraints);
 
-        buttonRemoveColumn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete12.png"))); // NOI18N
+        buttonRemoveColumn.setIcon(AppLookAndFeel.getIcon("icon_delete12.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         buttonRemoveColumn.setToolTipText(bundle.getString("SearchMetaDataValuePanel.buttonRemoveColumn.toolTipText")); // NOI18N
         buttonRemoveColumn.setMargin(new java.awt.Insets(2, 2, 2, 2));

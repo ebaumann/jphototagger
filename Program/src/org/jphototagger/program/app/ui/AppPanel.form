@@ -90,9 +90,6 @@
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.panelDirectories.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_folder.png"/>
-                        </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -180,9 +177,6 @@
                       <JTabbedPaneConstraints tabName="Gespeicherte Suchen">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.panelSavedSearches.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_search.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -292,9 +286,6 @@
                       <JTabbedPaneConstraints tabName="Fotoalben">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.panelImageCollections.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_imagecollection.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -407,9 +398,6 @@
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.panelFavorites.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_favorite.png"/>
-                        </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -496,9 +484,6 @@
                       <JTabbedPaneConstraints tabName="Stichw&#xf6;rter">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.panelSelKeywords.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -798,9 +783,6 @@
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.panelTimeline.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                         </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_timeline.png"/>
-                        </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
                   </Constraints>
@@ -889,9 +871,6 @@
                       <JTabbedPaneConstraints tabName="Verschiedenes">
                         <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.panelMiscMetadata.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                        </Property>
-                        <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_misc_metadata.png"/>
                         </Property>
                       </JTabbedPaneConstraints>
                     </Constraint>
@@ -1076,9 +1055,6 @@
                               <JTabbedPaneConstraints tabName="Stichw&#xf6;rter">
                                 <Property name="tabTitle" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                                   <ResourceString bundle="org/jphototagger/program/app/ui/Bundle.properties" key="AppPanel.panelEditKeywords.TabConstraints.tabTitle" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
-                                </Property>
-                                <Property name="tabIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/org/jphototagger/program/resource/icons/icon_keyword.png"/>
                                 </Property>
                               </JTabbedPaneConstraints>
                             </Constraint>

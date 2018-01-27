@@ -46,8 +46,8 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="labelRefreshExif">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/org/jphototagger/maintainance/exif.png"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Lookup.getDefault().lookup(AppIconProvider.class).getIcon(&quot;icon_exif.png&quot;)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/maintainance/Bundle.properties" key="RepositoryUpdatePanel.labelRefreshExif.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
@@ -79,8 +79,8 @@
             </Component>
             <Component class="javax.swing.JLabel" name="labelRefreshXmp">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/org/jphototagger/maintainance/xmp.png"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Lookup.getDefault().lookup(AppIconProvider.class).getIcon(&quot;icon_xmp.png&quot;)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/maintainance/Bundle.properties" key="RepositoryUpdatePanel.labelRefreshXmp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
@@ -112,8 +112,8 @@
             </Component>
             <Component class="javax.swing.JLabel" name="labelUpdateThumbnails">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/org/jphototagger/maintainance/image.png"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Lookup.getDefault().lookup(AppIconProvider.class).getIcon(&quot;icon_image.png&quot;)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/maintainance/Bundle.properties" key="RepositoryUpdatePanel.labelUpdateThumbnails.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
@@ -145,8 +145,8 @@
             </Component>
             <Component class="javax.swing.JLabel" name="labelRenameFiles">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/org/jphototagger/maintainance/rename.png"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="Lookup.getDefault().lookup(AppIconProvider.class).getIcon(&quot;icon_rename.png&quot;)" type="code"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                   <ResourceString bundle="org/jphototagger/maintainance/Bundle.properties" key="RepositoryUpdatePanel.labelRenameFiles.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>

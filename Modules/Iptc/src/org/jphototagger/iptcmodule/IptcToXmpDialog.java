@@ -325,6 +325,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         labelInfo = new javax.swing.JLabel();
         labelDirectoryPrompt = new javax.swing.JLabel();
@@ -334,6 +335,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox<>();
         progressBar = new javax.swing.JProgressBar();
+        panelButtons = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
@@ -346,12 +348,23 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         labelInfo.setText(bundle.getString("IptcToXmpDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 7, 0, 7);
+        getContentPane().add(labelInfo, gridBagConstraints);
 
         labelDirectoryPrompt.setText(bundle.getString("IptcToXmpDialog.labelDirectoryPrompt.text")); // NOI18N
         labelDirectoryPrompt.setName("labelDirectoryPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 0);
+        getContentPane().add(labelDirectoryPrompt, gridBagConstraints);
 
         buttonChooseDirectory.setText(bundle.getString("IptcToXmpDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
@@ -360,16 +373,38 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 buttonChooseDirectoryActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 7);
+        getContentPane().add(buttonChooseDirectory, gridBagConstraints);
 
+        labelDirectoryName.setText(" "); // NOI18N
         labelDirectoryName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelDirectoryName.setName("labelDirectoryName"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 7);
+        getContentPane().add(labelDirectoryName, gridBagConstraints);
 
         checkBoxIncludeSubdirectories.setText(bundle.getString("IptcToXmpDialog.checkBoxIncludeSubdirectories.text")); // NOI18N
         checkBoxIncludeSubdirectories.setName("checkBoxIncludeSubdirectories"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 0);
+        getContentPane().add(checkBoxIncludeSubdirectories, gridBagConstraints);
 
         labelIptcCharset.setLabelFor(comboBoxIptcCharset);
         labelIptcCharset.setText(bundle.getString("IptcToXmpDialog.labelIptcCharset.text")); // NOI18N
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 0);
+        getContentPane().add(labelIptcCharset, gridBagConstraints);
 
         comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
         comboBoxIptcCharset.setName("comboBoxIptcCharset"); // NOI18N
@@ -378,8 +413,23 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 comboBoxIptcCharsetActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        getContentPane().add(comboBoxIptcCharset, gridBagConstraints);
 
         progressBar.setName("progressBar"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 7);
+        getContentPane().add(progressBar, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonCancel.setText(bundle.getString("IptcToXmpDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
@@ -389,6 +439,10 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 buttonCancelActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonCancel, gridBagConstraints);
 
         buttonStart.setText(bundle.getString("IptcToXmpDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
@@ -398,65 +452,16 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
                 buttonStartActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonStart, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelDirectoryPrompt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 591, Short.MAX_VALUE)
-                                .addComponent(buttonChooseDirectory))
-                            .addComponent(labelDirectoryName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonCancel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonStart))
-                            .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
-                        .addGap(16, 16, 16))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkBoxIncludeSubdirectories)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelIptcCharset)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDirectoryPrompt)
-                    .addComponent(buttonChooseDirectory))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDirectoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxIncludeSubdirectories)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxIptcCharset, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonStart)
-                    .addComponent(buttonCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 7, 7, 7);
+        getContentPane().add(panelButtons, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -512,6 +517,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private javax.swing.JLabel labelDirectoryPrompt;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelIptcCharset;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
 }

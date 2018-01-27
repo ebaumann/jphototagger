@@ -23,6 +23,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.SelectProgramDialog;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.openide.util.Lookup;
@@ -48,6 +49,12 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         MnemonicUtil.setMnemonics((Container) this);
         addAccelerators();
         setEnabled();
+
+        menuItemAddAction.setIcon(AppLookAndFeel.getIcon("icon_new.png")); // NOI18N
+        menuItemDeleteAction.setIcon(AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
+        menuItemMoveUpAction.setIcon(AppLookAndFeel.getIcon("icon_arrow_up.png")); // NOI18N
+        menuItemMoveDownAction.setIcon(AppLookAndFeel.getIcon("icon_arrow_down.png")); // NOI18N
+
         AnnotationProcessor.process(this);
     }
 
@@ -287,7 +294,6 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
 
         popupMenu.setName("popupMenu"); // NOI18N
 
-        menuItemAddAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/actions/Bundle"); // NOI18N
         menuItemAddAction.setText(bundle.getString("ActionsSettingsPanel.menuItemAddAction.text")); // NOI18N
         menuItemAddAction.setEnabled(false);
@@ -300,7 +306,6 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         popupMenu.add(menuItemAddAction);
 
         menuItemDeleteAction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDeleteAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemDeleteAction.setText(bundle.getString("ActionsSettingsPanel.menuItemDeleteAction.text")); // NOI18N
         menuItemDeleteAction.setEnabled(false);
         menuItemDeleteAction.setName("menuItemDeleteAction"); // NOI18N
@@ -314,7 +319,6 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         jSeparator1.setName("jSeparator1"); // NOI18N
         popupMenu.add(jSeparator1);
 
-        menuItemMoveUpAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
         menuItemMoveUpAction.setText(bundle.getString("ActionsSettingsPanel.menuItemMoveUpAction.text")); // NOI18N
         menuItemMoveUpAction.setEnabled(false);
         menuItemMoveUpAction.setName("menuItemMoveUpAction"); // NOI18N
@@ -325,7 +329,6 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         });
         popupMenu.add(menuItemMoveUpAction);
 
-        menuItemMoveDownAction.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
         menuItemMoveDownAction.setText(bundle.getString("ActionsSettingsPanel.menuItemMoveDownAction.text")); // NOI18N
         menuItemMoveDownAction.setEnabled(false);
         menuItemMoveDownAction.setName("menuItemMoveDownAction"); // NOI18N
@@ -442,7 +445,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                             .addComponent(radioButtonExecuteAlways)
                             .addContainerGap())
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +475,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                         .addComponent(buttonShowActions)
                         .addGap(8, 8, 8))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                        .addComponent(scrollPane)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(radioButtonExecuteAlways)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

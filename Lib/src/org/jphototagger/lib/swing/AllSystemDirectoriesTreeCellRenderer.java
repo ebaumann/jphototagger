@@ -52,7 +52,7 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
             if (fileExists) {
                 synchronized (FILE_SYSTEM_VIEW) {
                     try {
-                        setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
+                        setIcon(CommonIcons.getIcon(file));
                     } catch (Throwable t) {
                         LOGGER.log(Level.WARNING, null, t);
                     }

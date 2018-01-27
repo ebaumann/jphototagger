@@ -23,6 +23,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -332,7 +333,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelErrorTexts.add(buttonRemoveErrorText, gridBagConstraints);
 
-        buttonEditErrorText.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/app/logging/icon_edit.png"))); // NOI18N
+        buttonEditErrorText.setIcon(AppLookAndFeel.getIcon("icon_edit.png"));
         buttonEditErrorText.setToolTipText(bundle.getString("AppLoggingSystemSettingsPanel.buttonEditErrorText.toolTipText")); // NOI18N
         buttonEditErrorText.setEnabled(false);
         buttonEditErrorText.setMargin(new java.awt.Insets(2, 2, 2, 2));

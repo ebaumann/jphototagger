@@ -25,11 +25,11 @@ import org.jphototagger.domain.metadata.MetaDataValueProviderSupport;
 import org.jphototagger.domain.metadata.file.FilesFilenameMetaDataValue;
 import org.jphototagger.domain.metadata.thumbnails.ThumbnailsThumbnailMetaDataValue;
 import org.jphototagger.image.util.ImageUtil;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.help.HelpContentProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.IoUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -348,12 +348,12 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
 
     @Override
     public Icon getSmallIcon() {
-        return IconUtil.getImageIcon(HtmlReports.class, "html.png");
+        return Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_file.png");
     }
 
     @Override
     public Icon getLargeIcon() {
-        return IconUtil.getImageIcon(HtmlReports.class, "html32.png");
+        return Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_file.png");
     }
 
     @Override

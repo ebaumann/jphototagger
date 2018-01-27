@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.34.12 2018-01-27
+------------------
+
+* Beim Start prüft JPhotoTagger auf größere Bildschirmauflösungen und skaliert
+  die Schriftarten und viele Symbole, falls dies nicht vom Benutzer selbst in
+  den Einstellungen festgelegt wurde. Gegenüber der bisherigen Skalierung werden
+  nun auch anepasste größere Symbole benutzt bei 1,5-, 2-, 2,5- und 3-facher
+  Skalierung.
+
 0.34.11 2017-12-10
 ------------------
 

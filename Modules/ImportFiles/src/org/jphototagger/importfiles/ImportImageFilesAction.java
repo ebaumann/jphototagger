@@ -5,10 +5,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
 import org.jphototagger.api.windows.MenuItemProvider;
-import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -19,7 +20,7 @@ public final class ImportImageFilesAction extends AbstractAction implements Menu
 
     public ImportImageFilesAction() {
         super(Bundle.getString(ImportImageFilesAction.class, "ImportImageFilesAction.Name"));
-        putValue(SMALL_ICON, IconUtil.getImageIcon(ImportImageFilesAction.class, "card.png"));
+        putValue(SMALL_ICON, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_card.png"));
         putValue(ACCELERATOR_KEY, KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_P));
     }
 

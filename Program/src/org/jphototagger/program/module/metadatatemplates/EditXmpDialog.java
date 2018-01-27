@@ -5,6 +5,7 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
  * @author Elmar Baumann
@@ -32,6 +33,7 @@ public class EditXmpDialog extends Dialog {
     private void postInitComponents() {
         panelEditXmp.setXmp(xmp);
         setButtonInsertTemplateEnabled();
+        buttonEditMetadataTemplates.setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
         MnemonicUtil.setMnemonics(this);
     }
 
@@ -132,7 +134,6 @@ public class EditXmpDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelTemplates.add(comboBoxTemplates, gridBagConstraints);
 
-        buttonEditMetadataTemplates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/metadatatemplates/add.png"))); // NOI18N
         buttonEditMetadataTemplates.setToolTipText(bundle.getString("EditXmpDialog.buttonEditMetadataTemplates.toolTipText")); // NOI18N
         buttonEditMetadataTemplates.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonEditMetadataTemplates.addActionListener(new java.awt.event.ActionListener() {

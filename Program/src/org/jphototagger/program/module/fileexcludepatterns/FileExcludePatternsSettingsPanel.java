@@ -16,6 +16,7 @@ import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.openide.util.Lookup;
 
 /**
@@ -248,7 +249,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         popupMenu.setName("popupMenu"); // NOI18N
 
         menuItemDeletePattern.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDeletePattern.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
+        menuItemDeletePattern.setIcon(AppLookAndFeel.getIcon("icon_delete.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/fileexcludepatterns/Bundle"); // NOI18N
         menuItemDeletePattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.menuItemDeletePattern.text")); // NOI18N
         menuItemDeletePattern.setName("menuItemDeletePattern"); // NOI18N

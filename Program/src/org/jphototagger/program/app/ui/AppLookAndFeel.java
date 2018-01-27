@@ -27,6 +27,7 @@ import org.openide.util.Lookup;
  */
 public final class AppLookAndFeel {
 
+    private static final float FONT_SCALE = CommonPreferences.getFontScale();
     private static final String ICONS_PATH = "/org/jphototagger/program/resource/icons";
     public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
     public static final int TABLE_MAX_CHARS_CELL = 45;
@@ -149,7 +150,40 @@ public final class AppLookAndFeel {
             throw new NullPointerException("name == null");
         }
 
-        return IconUtil.getImageIcon(ICONS_PATH + "/" + name);
+        ImageIcon icon = IconUtil.getImageIcon(ICONS_PATH + "/" + getScaledName(name));
+
+        return icon == null
+                ? IconUtil.getImageIcon(ICONS_PATH + "/" + name) // Trying to get unscaled icon
+                : icon;
+    }
+
+    // All image names are assumed to be in lowercase due performance (not
+    // creating an uppercase or lowercase name and compare with ".PNG" or ".png"
+    private static String getScaledName(String name) {
+        if (FONT_SCALE < 1.5) {
+            return name;
+        }
+
+        if (!name.endsWith(".png")) {
+            return name;
+        }
+
+        int index = name.lastIndexOf(".png");
+        if (index < 1) {
+            return name;
+        }
+
+        String sizePostfix = FONT_SCALE > 3
+                ? "-64.png"
+                : FONT_SCALE > 2.0
+                ? "-48.png"
+                : FONT_SCALE > 1.5
+                ? "-32.png"
+                : FONT_SCALE > 1.0
+                ? "-24.png"
+                : "";
+
+        return name.substring(0, index) + sizePostfix;
     }
 
     public static void set() {
@@ -166,7 +200,7 @@ public final class AppLookAndFeel {
         if (SystemUtil.isWindows()) {
             UIManager.put("FileChooser.useSystemExtensionHiding", true); // else FileSystemView#getSystemDisplayName() does display File#getName(), under Windows e.g. *not* localized "Users"
         }
-        scaleFonts(CommonPreferences.getFontScale());
+        scaleFonts(FONT_SCALE);
         changeFontWeights();
         takeFromUiColors();
     }

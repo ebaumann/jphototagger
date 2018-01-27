@@ -14,7 +14,7 @@ import javax.swing.ListCellRenderer;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.DocumentUtil;
@@ -175,7 +175,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
     private final ListCellRenderer<?> suffixesListCellRenderer = new DefaultListCellRenderer() {
 
         private static final long serialVersionUID = 1L;
-        private final Icon ICON_FILE = IconUtil.getImageIcon(JPhotoTaggerActionsSettingsPanel.class, "file.png");
+        private final Icon ICON_FILE = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_file.png");
 
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

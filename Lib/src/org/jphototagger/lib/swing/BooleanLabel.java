@@ -2,6 +2,8 @@ package org.jphototagger.lib.swing;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
+import org.jphototagger.lib.api.AppIconProvider;
+import org.openide.util.Lookup;
 
 /**
  * Displays special icons and/or texts indicating whether something is true
@@ -13,8 +15,8 @@ import javax.swing.JLabel;
 public final class BooleanLabel extends JLabel {
 
     private static final long serialVersionUID = 1L;
-    private Icon trueIcon = IconUtil.getImageIcon(BooleanLabel.class, "icon_boolean_true.png");
-    private Icon falseIcon = IconUtil.getImageIcon(BooleanLabel.class, "icon_boolean_false.png");
+    private Icon trueIcon = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_true.png");
+    private Icon falseIcon = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_false.png");
     private String trueText;
     private String falseText;
     private Boolean isTrue;

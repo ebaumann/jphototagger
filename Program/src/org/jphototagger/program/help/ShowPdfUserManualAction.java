@@ -7,10 +7,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import org.jphototagger.lib.awt.DesktopUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.Main;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 
 /**
  * @author Elmar Baumann
@@ -22,7 +22,7 @@ final class ShowPdfUserManualAction extends AbstractAction {
 
     ShowPdfUserManualAction() {
         super(Bundle.getString(ShowPdfUserManualAction.class, "ShowPdfUserManualAction.Name"));
-        putValue(SMALL_ICON, IconUtil.getImageIcon(ShowPdfUserManualAction.class, "pdf_manual.png"));
+        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_pdf_manual.png"));
     }
 
     @Override

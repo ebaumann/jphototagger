@@ -51,7 +51,6 @@ import org.jphototagger.domain.thumbnails.ThumbnailsDisplayer;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.ImageTextArea;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.Autocomplete;
@@ -113,6 +112,9 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         if (font != null) {
             textAreaSearch.setFont(font);
         }
+        ((ImageTextArea) textAreaSearch).setImage(
+                AppLookAndFeel.getLocalizedImage("/org/jphototagger/program/resource/images/textfield_search.png"));
+        ((ImageTextArea) textAreaSearch).setConsumeEnter(true);
     }
 
     private boolean isAutocompleteFastSearchIgnoreCase() {
@@ -413,7 +415,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
         private SelectSearchTextAreaAction() {
             super(Bundle.getString(SelectSearchTextAreaAction.class, "SelectSearchTextAreaAction.Name"));
-            putValue(SMALL_ICON, IconUtil.getImageIcon(SelectSearchTextAreaAction.class, "search.png"));
+            putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_search.png"));
             putValue(ACCELERATOR_KEY, KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_F));
         }
 
@@ -461,10 +463,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
         fastSearchComboBox = new javax.swing.JComboBox<>();
         textAreaSearch = new ImageTextArea();
-        ((ImageTextArea) textAreaSearch).setImage(
-            AppLookAndFeel.getLocalizedImage(
-                "/org/jphototagger/program/resource/images/textfield_search.png"));
-        ((ImageTextArea) textAreaSearch).setConsumeEnter(true);
         searchButton = new javax.swing.JButton();
         buttonRestoreSelection = new javax.swing.JButton();
 
@@ -508,7 +506,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
         add(searchButton, gridBagConstraints);
 
-        buttonRestoreSelection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_restore_selection.png"))); // NOI18N
+        buttonRestoreSelection.setIcon(AppLookAndFeel.getIcon("icon_restore_selection.png"));
         buttonRestoreSelection.setToolTipText(bundle.getString("FastSearchPanel.buttonRestoreSelection.toolTipText")); // NOI18N
         buttonRestoreSelection.setEnabled(false);
         buttonRestoreSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));

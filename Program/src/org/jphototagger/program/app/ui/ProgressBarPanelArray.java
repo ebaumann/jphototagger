@@ -13,7 +13,6 @@ import javax.swing.Icon;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**
@@ -23,8 +22,8 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
 
     private static final long serialVersionUID = 1L;
     private final List<ProgressBarPanel> activeProgressBarPanels = new ArrayList<>();
-    private static final Icon DOWN_ARROW_ICON = IconUtil.getImageIcon(ProgressBarPanelArray.class, "arrow_down.png");
-    private static final Icon UP_ARROW_ICON = IconUtil.getImageIcon(ProgressBarPanelArray.class, "arrow_up.png");
+    private static final Icon DOWN_ARROW_ICON = AppLookAndFeel.getIcon("icon_arrow_down_gray.png");
+    private static final Icon UP_ARROW_ICON = AppLookAndFeel.getIcon("icon_arrow_up_gray.png");
     private final ToggleVisibilityOfHiddenProgressBars toggleVisibilityOfHiddenProgressBars = new ToggleVisibilityOfHiddenProgressBars();
     private ProgressBarPanel visibleProgressBarPanel;
 

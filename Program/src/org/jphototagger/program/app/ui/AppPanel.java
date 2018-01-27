@@ -94,6 +94,15 @@ public final class AppPanel extends javax.swing.JPanel {
         treeMiscMetadata.setRowHeight(0);
         treeSelKeywords.setRowHeight(0);
         treeTimeline.setRowHeight(0);
+
+        tabbedPaneSelection.setIconAt(0, AppLookAndFeel.getIcon("icon_folder.png"));
+        tabbedPaneSelection.setIconAt(1, AppLookAndFeel.getIcon("icon_search.png"));
+        tabbedPaneSelection.setIconAt(2, AppLookAndFeel.getIcon("icon_imagecollection.png"));
+        tabbedPaneSelection.setIconAt(3, AppLookAndFeel.getIcon("icon_favorite.png"));
+        tabbedPaneSelection.setIconAt(4, AppLookAndFeel.getIcon("icon_keyword.png"));
+        tabbedPaneSelection.setIconAt(5, AppLookAndFeel.getIcon("icon_timeline.png"));
+        tabbedPaneSelection.setIconAt(6, AppLookAndFeel.getIcon("icon_misc_metadata.png"));
+        tabbedPaneMetadata.setIconAt(4, AppLookAndFeel.getIcon("icon_keyword.png"));
     }
 
     private void setMnemonics() {
@@ -665,7 +674,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 0);
         panelDirectories.add(checkBoxDirectoriesRecursive, gridBagConstraints);
 
-        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelDirectories.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_folder.png")), panelDirectories); // NOI18N
+        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelDirectories.TabConstraints.tabTitle"), panelDirectories); // NOI18N
 
         panelSavedSearches.setName("panelSavedSearches"); // NOI18N
         panelSavedSearches.setLayout(new java.awt.GridBagLayout());
@@ -731,7 +740,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 0);
         panelSavedSearches.add(buttonSearchInSavedSearches, gridBagConstraints);
 
-        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelSavedSearches.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_search.png")), panelSavedSearches); // NOI18N
+        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelSavedSearches.TabConstraints.tabTitle"), panelSavedSearches); // NOI18N
 
         panelImageCollections.setName("panelImageCollections"); // NOI18N
         panelImageCollections.setLayout(new java.awt.GridBagLayout());
@@ -799,7 +808,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 0);
         panelImageCollections.add(buttonSearchInImageCollections, gridBagConstraints);
 
-        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelImageCollections.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_imagecollection.png")), panelImageCollections); // NOI18N
+        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelImageCollections.TabConstraints.tabTitle"), panelImageCollections); // NOI18N
 
         panelFavorites.setName("panelFavorites"); // NOI18N
         panelFavorites.setLayout(new java.awt.GridBagLayout());
@@ -843,7 +852,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 0);
         panelFavorites.add(checkBoxFavoritesRecursive, gridBagConstraints);
 
-        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelFavorites.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_favorite.png")), panelFavorites); // NOI18N
+        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelFavorites.TabConstraints.tabTitle"), panelFavorites); // NOI18N
 
         panelSelKeywords.setName("panelSelKeywords"); // NOI18N
         panelSelKeywords.setLayout(new java.awt.CardLayout());
@@ -1024,7 +1033,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         panelSelKeywords.add(panelSelKeywordsList, "flatKeywords");
 
-        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelSelKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png")), panelSelKeywords); // NOI18N
+        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelSelKeywords.TabConstraints.tabTitle"), panelSelKeywords); // NOI18N
 
         panelTimeline.setName("panelTimeline"); // NOI18N
         panelTimeline.setLayout(new java.awt.GridBagLayout());
@@ -1069,7 +1078,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(1, 2, 1, 0);
         panelTimeline.add(buttonSearchInTreeTimeline, gridBagConstraints);
 
-        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelTimeline.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_timeline.png")), panelTimeline); // NOI18N
+        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelTimeline.TabConstraints.tabTitle"), panelTimeline); // NOI18N
 
         panelMiscMetadata.setName("panelMiscMetadata"); // NOI18N
         panelMiscMetadata.setLayout(new java.awt.GridBagLayout());
@@ -1115,7 +1124,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(1, 2, 1, 0);
         panelMiscMetadata.add(buttonSearchInTreeMiscMetadata, gridBagConstraints);
 
-        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelMiscMetadata.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_misc_metadata.png")), panelMiscMetadata); // NOI18N
+        tabbedPaneSelection.addTab(bundle.getString("AppPanel.panelMiscMetadata.TabConstraints.tabTitle"), panelMiscMetadata); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1150,7 +1159,7 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneMetadata.setOpaque(true);
 
         panelEditKeywords.setName("panelEditKeywords"); // NOI18N
-        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelEditKeywords.TabConstraints.tabTitle"), new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_keyword.png")), panelEditKeywords); // NOI18N
+        tabbedPaneMetadata.addTab(bundle.getString("AppPanel.panelEditKeywords.TabConstraints.tabTitle"), panelEditKeywords); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

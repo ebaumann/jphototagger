@@ -20,12 +20,12 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.ImageIcon;
 import org.jphototagger.api.preferences.CommonPreferences;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCacheIndirection;
 import org.jphototagger.program.module.thumbnails.cache.ThumbnailRenderer;
@@ -142,8 +142,8 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private void loadRatingImages() {
         for (int i = 0; i < STAR_COUNT; i++) {
             starImage[i] =
-                    new ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp_rating_"
-                    + Integer.toString(i) + ".png")).getImage();
+                    AppLookAndFeel.getIcon("icon_xmp_rating_"
+                    + Integer.toString(i) + ".png").getImage();
         }
     }
 

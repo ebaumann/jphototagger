@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  * Renders an file specific icon for cell values that are an instance of
@@ -18,7 +17,7 @@ import javax.swing.filechooser.FileSystemView;
  */
 public final class FileSystemListCellRenderer extends DefaultListCellRenderer {
 
-    private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
+    private static final Object MONITOR = new Object();
     private static final long serialVersionUID = 1L;
     private final boolean absolutePathName;
 
@@ -41,9 +40,9 @@ public final class FileSystemListCellRenderer extends DefaultListCellRenderer {
             File file = (File) value;
 
             if (file.exists()) {
-                synchronized (FILE_SYSTEM_VIEW) {
+                synchronized (MONITOR) {
                     try {
-                        label.setIcon(FILE_SYSTEM_VIEW.getSystemIcon(file));
+                        label.setIcon(CommonIcons.getIcon(file));
                     } catch (Throwable t) {
                         Logger.getLogger(FileSystemListCellRenderer.class.getName()).log(Level.WARNING, null, t);
                     }

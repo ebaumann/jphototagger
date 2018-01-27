@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.ui.AppFrame;
@@ -20,7 +19,7 @@ public final class ShowAboutJPhotoTaggerAction extends AbstractAction {
 
     public ShowAboutJPhotoTaggerAction() {
         super(Bundle.getString(ShowAboutJPhotoTaggerAction.class, "ShowAboutJPhotoTaggerAction.Name"));
-        putValue(SMALL_ICON, IconUtil.getImageIcon(ShowAboutJPhotoTaggerAction.class, "about.png"));
+        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_app_about.png"));
     }
 
     @Override

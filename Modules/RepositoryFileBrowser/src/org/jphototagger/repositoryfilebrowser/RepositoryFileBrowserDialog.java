@@ -16,9 +16,9 @@ import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.lookup.NodesListModel;
 import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.BusyPanel;
@@ -151,7 +151,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
     }
 
     private static class FileNodeListCellRenderer extends DefaultListCellRenderer {
-        public static final ImageIcon ICON = IconUtil.getImageIcon(FileNodeListCellRenderer.class, "icon_file.png");
+        public static final ImageIcon ICON = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_file.png");
         private static final long serialVersionUID = 1L;
 
         @Override

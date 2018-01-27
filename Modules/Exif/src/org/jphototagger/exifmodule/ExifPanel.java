@@ -7,7 +7,6 @@ import java.awt.Insets;
 import java.io.File;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,6 +20,7 @@ import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.domain.metadata.exif.ExifTag;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.TableButtonMouseListener;
 import org.jphototagger.lib.swing.TableMouseClicker;
 import org.jphototagger.lib.swing.TableTextFilter;
@@ -51,6 +51,7 @@ public class ExifPanel extends javax.swing.JPanel {
         setExifTableTextFilter();
         setExifTableComparator();
         addMouseListener(new TableButtonMouseListener(tableExif));
+        buttonExifToXmp.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_xmp.png"));
         MnemonicUtil.setMnemonics(this);
     }
 
@@ -258,7 +259,6 @@ public class ExifPanel extends javax.swing.JPanel {
         add(scrollPaneExif, gridBagConstraints);
 
         buttonExifToXmp.setAction(new SetExifToXmpAction());
-        buttonExifToXmp.setIcon(new ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_xmp.png"))); // NOI18N
         buttonExifToXmp.setText(bundle.getString("ExifPanel.buttonExifToXmp.text")); // NOI18N
         buttonExifToXmp.setToolTipText(bundle.getString("ExifPanel.buttonExifToXmp.toolTipText")); // NOI18N
         buttonExifToXmp.setMargin(new Insets(2, 2, 2, 2));

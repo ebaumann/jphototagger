@@ -6,7 +6,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import org.jphototagger.domain.timeline.Timeline;
-import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;
 
 /**
@@ -14,10 +14,10 @@ import org.jphototagger.program.app.ui.TreeCellRendererExt;
  */
 public final class TimelineTreeCellRenderer extends TreeCellRendererExt {
 
-    private static final ImageIcon ICON_YEAR = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_timeline.png");
-    private static final ImageIcon ICON_MONTH = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_timeline_month.png");
-    private static final ImageIcon ICON_DAY = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_timeline_day.png");
-    private static final ImageIcon ICON_UNKNOWN = IconUtil.getImageIcon("/org/jphototagger/program/resource/icons/icon_timeline_unknown.png");
+    private static final ImageIcon ICON_YEAR = AppLookAndFeel.getIcon("icon_timeline.png");
+    private static final ImageIcon ICON_MONTH = AppLookAndFeel.getIcon("icon_timeline_month.png");
+    private static final ImageIcon ICON_DAY = AppLookAndFeel.getIcon("icon_timeline_day.png");
+    private static final ImageIcon ICON_UNKNOWN = AppLookAndFeel.getIcon("icon_timeline_unknown.png");
     private static final long serialVersionUID = 1L;
 
     @Override

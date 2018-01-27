@@ -14,6 +14,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.ProgramExecutorImpl;
 import org.jphototagger.program.module.programs.ProgramPropertiesDialog;
 import org.jphototagger.program.module.programs.ProgramsListModel;
@@ -42,6 +43,13 @@ public final class ActionsPanel extends javax.swing.JPanel {
         setAccelerators();
         selectFirstItem();
         addListener(new ProgramExecutorImpl(true));
+
+        menuItemExecute.setIcon(AppLookAndFeel.getIcon("icon_action.png")); // NOI18N
+        menuItemCreate.setIcon(AppLookAndFeel.getIcon("icon_new.png")); // NOI18N
+        menuItemEdit.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
+        menuItemDelete.setIcon(AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
+        menuItemMoveActionUp.setIcon(AppLookAndFeel.getIcon("icon_arrow_up.png")); // NOI18N
+        menuItemMoveActionDown.setIcon(AppLookAndFeel.getIcon("icon_arrow_down.png")); // NOI18N
     }
 
     private void selectFirstItem() {
@@ -249,7 +257,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         popupMenu.setName("popupMenu"); // NOI18N
 
         menuItemExecute.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
-        menuItemExecute.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_action.png"))); // NOI18N
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/actions/Bundle"); // NOI18N
         menuItemExecute.setText(bundle.getString("ActionsPanel.menuItemExecute.text")); // NOI18N
         menuItemExecute.setName("menuItemExecute"); // NOI18N
@@ -263,7 +270,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         jSeparator1.setName("jSeparator1"); // NOI18N
         popupMenu.add(jSeparator1);
 
-        menuItemCreate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_new.png"))); // NOI18N
         menuItemCreate.setText(bundle.getString("ActionsPanel.menuItemCreate.text")); // NOI18N
         menuItemCreate.setName("menuItemCreate"); // NOI18N
         menuItemCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -273,7 +279,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
         popupMenu.add(menuItemCreate);
 
-        menuItemEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_edit.png"))); // NOI18N
         menuItemEdit.setText(bundle.getString("ActionsPanel.menuItemEdit.text")); // NOI18N
         menuItemEdit.setName("menuItemEdit"); // NOI18N
         menuItemEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -284,7 +289,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         popupMenu.add(menuItemEdit);
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_delete.png"))); // NOI18N
         menuItemDelete.setText(bundle.getString("ActionsPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -297,7 +301,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         jSeparator2.setName("jSeparator2"); // NOI18N
         popupMenu.add(jSeparator2);
 
-        menuItemMoveActionUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_up.png"))); // NOI18N
         menuItemMoveActionUp.setText(bundle.getString("ActionsPanel.menuItemMoveActionUp.text")); // NOI18N
         menuItemMoveActionUp.setName("menuItemMoveActionUp"); // NOI18N
         menuItemMoveActionUp.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +310,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         });
         popupMenu.add(menuItemMoveActionUp);
 
-        menuItemMoveActionDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/resource/icons/icon_arrow_down.png"))); // NOI18N
         menuItemMoveActionDown.setText(bundle.getString("ActionsPanel.menuItemMoveActionDown.text")); // NOI18N
         menuItemMoveActionDown.setName("menuItemMoveActionDown"); // NOI18N
         menuItemMoveActionDown.addActionListener(new java.awt.event.ActionListener() {

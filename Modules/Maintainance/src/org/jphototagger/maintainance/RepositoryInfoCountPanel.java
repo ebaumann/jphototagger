@@ -105,6 +105,10 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
             } else {
                 label.setText(PADDING_LEFT + value.toString());
             }
+            int labelHeight = label.getPreferredSize().height;
+            if (table.getRowHeight(row) < labelHeight) {
+                table.setRowHeight(labelHeight + 4);
+            }
             return label;
         }
     }

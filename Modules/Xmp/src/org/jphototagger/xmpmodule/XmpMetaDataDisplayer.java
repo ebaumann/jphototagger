@@ -18,8 +18,8 @@ import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.ObjectUtil;
@@ -126,7 +126,7 @@ public final class XmpMetaDataDisplayer implements MainWindowComponentProvider {
 
             @Override
             public Icon getSmallIcon() {
-                return IconUtil.getImageIcon(ModuleInstaller.class, "xmp.png");
+                return Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_xmp.png");
             }
 
             @Override

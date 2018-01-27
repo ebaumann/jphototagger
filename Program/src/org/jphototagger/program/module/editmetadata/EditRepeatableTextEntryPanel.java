@@ -51,6 +51,7 @@ import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.module.wordsets.WordsetsPanel;
 import org.jphototagger.program.module.wordsets.WordsetsPanelListener;
@@ -876,7 +877,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         panelListButtons.setName("panelListButtons"); // NOI18N
         panelListButtons.setLayout(new java.awt.GridLayout(1, 1));
 
-        buttonRemoveSelection.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/delete.png"))); // NOI18N
+        buttonRemoveSelection.setIcon(AppLookAndFeel.getIcon("icon_delete.png"));
         buttonRemoveSelection.setMnemonic('-');
         buttonRemoveSelection.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
@@ -917,7 +918,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.weightx = 1.0;
         panelInput.add(textAreaInput, gridBagConstraints);
 
-        buttonAddInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/add.png"))); // NOI18N
+        buttonAddInput.setIcon(AppLookAndFeel.getIcon("icon_add.png"));
         buttonAddInput.setMnemonic('+');
         buttonAddInput.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
@@ -933,7 +934,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelInput.add(buttonAddInput, gridBagConstraints);
 
-        buttonSuggestion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/program/module/editmetadata/word.png"))); // NOI18N
+        buttonSuggestion.setIcon(AppLookAndFeel.getIcon("icon_keyword.png"));
         buttonSuggestion.setMnemonic('k');
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);

@@ -4778,6 +4778,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Bitte füllen Sie mindestens ein Feld aus!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180127T221308Z" creationid="elmar" creationdate="20180127T221308Z">
+        <seg>Please fill in at least one field!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Bitte geben Sie ein gültiges Datum ein!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7844,8 +7852,8 @@ Ursache: {0}</seg>
       <tuv lang="DE">
         <seg>Faktor 1,2: 10pt -&gt; 12pt.</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20160617T174713Z" creationid="elmar" creationdate="20160617T174713Z">
-        <seg>factor 1.2: 10pt -&gt; 12pt.</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20180127T221604Z" creationid="elmar" creationdate="20160617T174713Z">
+        <seg>Factor 1.2: 10pt -&gt; 12pt.</seg>
       </tuv>
     </tu>
     <tu>
@@ -8598,6 +8606,14 @@ Ursache: {0}</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Runs the selected action</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Für High-DPI-Bildschirme.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180127T221327Z" creationid="elmar" creationdate="20180127T221327Z">
+        <seg>For High DPI Monitors.</seg>
       </tuv>
     </tu>
     <tu>
