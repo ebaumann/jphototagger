@@ -45,10 +45,10 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableList;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.Dialog;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.SearchInComponentAction;
@@ -491,9 +491,9 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
     private static class HelpContentsTreeCellRenderer extends DefaultTreeCellRenderer {
 
-        private static final ImageIcon ICON_SECTION_COLLAPSED = IconUtil.getImageIcon(HelpContentsTreeCellRenderer.class, "help_section_collapsed.png");
-        private static final ImageIcon ICON_SECTION_EXPANDED = IconUtil.getImageIcon(HelpContentsTreeCellRenderer.class, "help_section_expanded.png");
-        private static final ImageIcon ICON_PAGE = IconUtil.getImageIcon(HelpContentsTreeCellRenderer.class, "help_page.png");
+        private static final ImageIcon ICON_SECTION_COLLAPSED = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_help_section_collapsed.png");
+        private static final ImageIcon ICON_SECTION_EXPANDED = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_help_section_expanded.png");
+        private static final ImageIcon ICON_PAGE = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_help_page.png");
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -520,7 +520,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private static class HelpPageListCellRenderer extends DefaultListCellRenderer {
 
         private static final long serialVersionUID = 1L;
-        private static final ImageIcon ICON = IconUtil.getImageIcon(HelpPageListCellRenderer.class, "help_page.png");
+        private static final ImageIcon ICON = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_help_page.png");
 
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

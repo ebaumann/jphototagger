@@ -13,7 +13,9 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.openide.util.Lookup;
 
 /**
  * Enhances a {@code JTextComponent} with search capabilities.
@@ -33,8 +35,14 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
 
     public TextComponentSearchPanel() {
         initComponents();
-        MnemonicUtil.setMnemonics((Container) this);
         searchTextFieldBackground = searchTextField.getBackground();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
+        MnemonicUtil.setMnemonics((Container) this);
+        buttonSearchDownwards.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_arrow_down.png")); // NOI18N
+        buttonSearchUpwards.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_arrow_up.png")); // NOI18N
         listen();
     }
 
@@ -262,7 +270,6 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         searchTextField.setColumns(10);
         searchTextField.setName("searchTextField"); // NOI18N
 
-        buttonSearchDownwards.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_down.png"))); // NOI18N
         buttonSearchDownwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchDownwards.text")); // NOI18N
         buttonSearchDownwards.setEnabled(false);
         buttonSearchDownwards.setName("buttonSearchDownwards"); // NOI18N
@@ -272,7 +279,6 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
             }
         });
 
-        buttonSearchUpwards.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/jphototagger/lib/resource/icons/icon_arrow_up.png"))); // NOI18N
         buttonSearchUpwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchUpwards.text")); // NOI18N
         buttonSearchUpwards.setEnabled(false);
         buttonSearchUpwards.setName("buttonSearchUpwards"); // NOI18N
@@ -289,7 +295,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
             .addGroup(layout.createSequentialGroup()
                 .addComponent(label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                .addComponent(searchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSearchDownwards)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

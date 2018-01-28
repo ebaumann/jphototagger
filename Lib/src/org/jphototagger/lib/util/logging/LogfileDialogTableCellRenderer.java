@@ -12,8 +12,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
-import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Renders the {@code java.util.logging.Level} icons displayed in the GUI of
@@ -29,13 +30,13 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
     private final JLabel cellLabel = new JLabel();
 
     static {
-        ICON_OF_LEVEL.put(Level.CONFIG, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_config.png"));
-        ICON_OF_LEVEL.put(Level.FINE, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_fine.png"));
-        ICON_OF_LEVEL.put(Level.FINER, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finer.png"));
-        ICON_OF_LEVEL.put(Level.FINEST, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_finest.png"));
-        ICON_OF_LEVEL.put(Level.INFO, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_info.png"));
-        ICON_OF_LEVEL.put(Level.SEVERE, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_severe.png"));
-        ICON_OF_LEVEL.put(Level.WARNING, IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_logfiledialog_warning.png"));
+        ICON_OF_LEVEL.put(Level.CONFIG, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_config.png"));
+        ICON_OF_LEVEL.put(Level.FINE, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_fine.png"));
+        ICON_OF_LEVEL.put(Level.FINER, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_finer.png"));
+        ICON_OF_LEVEL.put(Level.FINEST, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_finest.png"));
+        ICON_OF_LEVEL.put(Level.INFO, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_info.png"));
+        ICON_OF_LEVEL.put(Level.SEVERE, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_severe.png"));
+        ICON_OF_LEVEL.put(Level.WARNING, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_warning.png"));
     }
 
     @Override
@@ -49,6 +50,12 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
         }
 
         renderSelection(cellLabel, isSelected);
+
+        int prefHeight = cellLabel.getPreferredSize().height;
+        int rowHeight = table.getRowHeight(row);
+        if (prefHeight > rowHeight) {
+            table.setRowHeight(prefHeight);
+        }
 
         return cellLabel;
     }

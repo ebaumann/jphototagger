@@ -2,6 +2,7 @@ package org.jphototagger.lib.swing;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.FocusEvent;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
@@ -23,10 +25,8 @@ import org.openide.util.Lookup;
 public class ExpandCollapseComponentPanel extends JPanel implements FocusListener {
 
     private static final long serialVersionUID = 1L;
-    private static final String ICON_PATH_EXPAND = "/org/jphototagger/lib/resource/icons/icon_expand.png";
-    private static final String ICON_PATH_COLLAPSE = "/org/jphototagger/lib/resource/icons/icon_collapse.png";
-    private static final ImageIcon ICON_EXPAND = IconUtil.getImageIcon(ICON_PATH_EXPAND);
-    private static final ImageIcon ICON_COLLAPSE = IconUtil.getImageIcon(ICON_PATH_COLLAPSE);
+    private static final ImageIcon ICON_EXPAND = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_expand.png");
+    private static final ImageIcon ICON_COLLAPSE = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_collapse.png");
     private static final String TOOLTIP_TEXT_EXPAND = Bundle.getString(ExpandCollapseComponentPanel.class, "ExpandCollapseComponentPanel.TooltipTextExpand");
     private static final String TOOLTIP_TEXT_COLLAPSE = Bundle.getString(ExpandCollapseComponentPanel.class, "ExpandCollapseComponentPanel.TooltipTextCollapse");
     private String keyPersistence  = "";
@@ -42,11 +42,18 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         }
         this.component = component;
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         createFillLabel();
         addAsFocusListener();
         setPersistenceKey();
         addComponent(component);
         decorateButton();
+        Dimension buttonSize = buttonExpandCollapse.getPreferredSize();
+        buttonSize = new Dimension((int) (buttonSize.width * 0.66), (int) (buttonSize.height * 0.66));
+        buttonExpandCollapse.setPreferredSize(buttonSize);
     }
 
     private void addComponent(Component c) {
@@ -57,7 +64,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.anchor = java.awt.GridBagConstraints.WEST;
+        gbc.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weightx = 1;
         return gbc;
@@ -204,7 +211,6 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         buttonExpandCollapse.setFocusable(false);
         buttonExpandCollapse.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonExpandCollapse.setName("buttonExpandCollapse"); // NOI18N
-        buttonExpandCollapse.setPreferredSize(new java.awt.Dimension(12, 12));
         buttonExpandCollapse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExpandCollapseActionPerformed(evt);
@@ -214,7 +220,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 5);
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 5);
         add(buttonExpandCollapse, gridBagConstraints);
     }//GEN-END:initComponents
 

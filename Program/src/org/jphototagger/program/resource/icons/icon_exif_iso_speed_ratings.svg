@@ -25,10 +25,10 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="38.21875"
-     inkscape:cx="-3.4251137"
-     inkscape:cy="4.4310221"
-     inkscape:current-layer="layer2"
+     inkscape:zoom="76.4375"
+     inkscape:cx="8"
+     inkscape:cy="8"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:grid-bbox="true"
      inkscape:document-units="px"
@@ -80,12 +80,12 @@
            x="1"
            y="3" /></flowRegion><flowPara
          id="flowPara7138" /></flowRoot>    <rect
-       style="fill:#2200ff;fill-opacity:1;stroke:none;stroke-width:0.75;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:1.5, 1.50000000000000000;stroke-dashoffset:0;stroke-opacity:0.94117647"
+       style="fill:#2200ff;fill-opacity:1;stroke:none;stroke-width:0.75;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:1.5, 1.5;stroke-dashoffset:0;stroke-opacity:0.94117647"
        id="rect12333"
        width="16"
-       height="16"
+       height="12"
        x="0"
-       y="0" />
+       y="2" />
   </g>
   <g
      inkscape:groupmode="layer"

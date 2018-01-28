@@ -444,10 +444,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         buttonCalendar.setIcon(AppLookAndFeel.getIcon("icon_calendar.png"));
         buttonCalendar.setMnemonic('1');
         buttonCalendar.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonCalendar.setMaximumSize(new java.awt.Dimension(16, 16));
-        buttonCalendar.setMinimumSize(new java.awt.Dimension(16, 16));
         buttonCalendar.setName("buttonCalendar"); // NOI18N
-        buttonCalendar.setPreferredSize(new java.awt.Dimension(16, 16));
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCalendarActionPerformed(evt);
@@ -456,20 +453,21 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(buttonCalendar, gridBagConstraints);
 
         buttonRemoveColumn.setIcon(AppLookAndFeel.getIcon("icon_delete12.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         buttonRemoveColumn.setToolTipText(bundle.getString("SearchMetaDataValuePanel.buttonRemoveColumn.toolTipText")); // NOI18N
-        buttonRemoveColumn.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonRemoveColumn.setMaximumSize(new java.awt.Dimension(16, 16));
-        buttonRemoveColumn.setMinimumSize(new java.awt.Dimension(16, 16));
+        buttonRemoveColumn.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonRemoveColumn.setName("buttonRemoveColumn"); // NOI18N
-        buttonRemoveColumn.setPreferredSize(new java.awt.Dimension(16, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(buttonRemoveColumn, gridBagConstraints);
     }//GEN-END:initComponents

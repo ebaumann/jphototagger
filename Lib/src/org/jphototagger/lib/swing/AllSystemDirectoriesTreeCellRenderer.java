@@ -10,8 +10,10 @@ import javax.swing.JTree;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.util.LookAndFeelUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.Lookup;
 
 /**
  * Renders items of {@code AllSystemDirectoriesTreeModel}. Ddisplays only the
@@ -24,7 +26,7 @@ public final class AllSystemDirectoriesTreeCellRenderer extends DefaultTreeCellR
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(AllSystemDirectoriesTreeCellRenderer.class.getName());
     private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
-    private static final Icon ROOT_ICON = IconUtil.getImageIcon("/org/jphototagger/lib/resource/icons/icon_workspace.png");
+    private static final Icon ROOT_ICON = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_workspace.png");
     private static final String DISPLAY_NAME_ROOT = Bundle.getString(AllSystemDirectoriesTreeCellRenderer.class, "AllSystemDirectoriesTreeCellRenderer.DisplayName.Root");
     private static final Color TREE_SELECTION_FOREGROUND = LookAndFeelUtil.getUiColor("Tree.selectionForeground");
     private static final Color TREE_SELECTION_BACKGROUND = LookAndFeelUtil.getUiColor("Tree.selectionBackground");
