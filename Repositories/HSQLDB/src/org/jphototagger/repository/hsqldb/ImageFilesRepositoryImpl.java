@@ -277,4 +277,9 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     public long findExifDateTimeOriginalTimestamp(File file) {
         return ImageFilesDatabase.INSTANCE.findExifDateTimeOriginalTimestamp(file);
     }
+
+    @Override
+    public int updateRenameAllDcSubjects(String fromName, String toName) {
+        return ImageFilesDatabase.INSTANCE.updateRenameAllDcSubjects(fromName, toName);
+    }
 }

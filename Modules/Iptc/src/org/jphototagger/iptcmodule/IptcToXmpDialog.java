@@ -338,6 +338,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         panelButtons = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
+        panelVfill = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
@@ -354,9 +355,10 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 7, 0, 7);
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 0, 7);
         getContentPane().add(labelInfo, gridBagConstraints);
 
         labelDirectoryPrompt.setText(bundle.getString("IptcToXmpDialog.labelDirectoryPrompt.text")); // NOI18N
@@ -463,6 +465,14 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints.insets = new java.awt.Insets(10, 7, 7, 7);
         getContentPane().add(panelButtons, gridBagConstraints);
 
+        panelVfill.setName("panelVfill"); // NOI18N
+        panelVfill.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(panelVfill, gridBagConstraints);
+
         pack();
     }//GEN-END:initComponents
 
@@ -486,27 +496,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         setIptcCharset();
 }//GEN-LAST:event_comboBoxIptcCharsetActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                IptcToXmpDialog dialog = new IptcToXmpDialog();
-
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseDirectory;
@@ -518,6 +507,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelIptcCharset;
     private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelVfill;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
 }

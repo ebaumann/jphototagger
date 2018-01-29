@@ -44,23 +44,6 @@ public class HtmlReportsSettingsDialog extends Dialog {
         pack();
     }//GEN-END:initComponents
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                HtmlReportsSettingsDialog dialog = new HtmlReportsSettingsDialog();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.plugin.htmlreports.HtmlReportsSettingsPanel panel;
     // End of variables declaration//GEN-END:variables

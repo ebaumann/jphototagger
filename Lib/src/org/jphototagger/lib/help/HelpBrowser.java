@@ -826,15 +826,6 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         printPage();
     }//GEN-LAST:event_buttonPrintActionPerformed
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new HelpBrowser(new HelpNode()).setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonGotoNextUrl;
     private javax.swing.JButton buttonGotoPreviousUrl;

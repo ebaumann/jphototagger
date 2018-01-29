@@ -16,6 +16,7 @@ import org.jphototagger.domain.repository.Repository;
 import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectRenamedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
@@ -97,6 +98,16 @@ public final class KeywordsListModel extends DefaultListModel<Object> {
         return keywords;
     }
 
+    private void renameKeyword(String fromName, String toName) {
+        int count = getSize();
+        for (int index = 0; index < count; index++) {
+            String keyword = (String) getElementAt(index);
+            if (fromName.equals(keyword)) {
+                set(index, toName);
+            }
+        }
+    }
+
     @EventSubscriber(eventClass = XmpInsertedEvent.class)
     public void xmpInserted(final XmpInsertedEvent evt) {
         addNewKeywords(getKeywords(evt.getXmp()));
@@ -121,5 +132,10 @@ public final class KeywordsListModel extends DefaultListModel<Object> {
     @EventSubscriber(eventClass = DcSubjectInsertedEvent.class)
     public void dcSubjectInserted(final DcSubjectInsertedEvent evt) {
         addNewKeywords(Collections.singleton(evt.getDcSubject()));
+    }
+
+    @EventSubscriber(eventClass = DcSubjectRenamedEvent.class)
+    public void dcSubjectInserted(final DcSubjectRenamedEvent evt) {
+        renameKeyword(evt.getFromName(), evt.getToName());
     }
 }

@@ -3,6 +3,15 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.35.1 2018-01-29
+------------------
+
+* Fixed Bug: Directory chooser can be opened again (throwed Exception due
+  a missing icon).
+* When renaming a keyword in list view only in case, it will be renamed in the
+  database too, e.g. "TREE" -> "tree" and appears in the renamed case whithin
+  the list view.
+
 0.35.0 2018-01-28
 ------------------
 

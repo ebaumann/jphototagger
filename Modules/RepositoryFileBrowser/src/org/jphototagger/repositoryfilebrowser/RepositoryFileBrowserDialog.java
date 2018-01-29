@@ -597,23 +597,6 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         }
     }//GEN-LAST:event_textFieldFilterKeyPressed
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                RepositoryFileBrowserDialog dialog = new RepositoryFileBrowserDialog(new javax.swing.JFrame());
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.lib.swing.BooleanLabel booleanLabelImageFileExists;
     private org.jphototagger.lib.swing.BooleanLabel booleanLabelXmpFileExists;

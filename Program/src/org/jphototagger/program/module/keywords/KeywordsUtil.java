@@ -37,6 +37,7 @@ import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.ArrayUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.app.ui.AppPanel;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.misc.InputHelperDialog;
@@ -58,7 +59,7 @@ import org.openide.util.Lookup;
 public final class KeywordsUtil {
 
     private static final Logger LOGGER = Logger.getLogger(KeywordsUtil.class.getName());
-    private static final ImageFilesRepository imageFileRepo = Lookup.getDefault().lookup(ImageFilesRepository.class);
+    private static final ImageFilesRepository IMAGE_FILE_REPO = Lookup.getDefault().lookup(ImageFilesRepository.class);
     private static final XmpSidecarFileResolver XMP_SIDECAR_FILE_RESOLVER = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     private KeywordsUtil() {
@@ -100,8 +101,8 @@ public final class KeywordsUtil {
      * @param dcSubject subject
      */
     public static void insertDcSubject(String dcSubject) {
-        if (!imageFileRepo.existsDcSubject(dcSubject)) {
-            imageFileRepo.saveDcSubject(dcSubject);
+        if (!IMAGE_FILE_REPO.existsDcSubject(dcSubject)) {
+            IMAGE_FILE_REPO.saveDcSubject(dcSubject);
         }
     }
 
@@ -113,7 +114,7 @@ public final class KeywordsUtil {
         String input = "";
         String dcSubject = MessageDisplayer.input(info, input);
         if ((dcSubject != null) && checkExistsDcSubject(dcSubject)) {
-            if (imageFileRepo.saveDcSubject(dcSubject)) {
+            if (IMAGE_FILE_REPO.saveDcSubject(dcSubject)) {
                 insertDcSubjectAsKeyword(dcSubject);
             } else {
                 String message = Bundle.getString(KeywordsUtil.class, "KeywordsUtil.Error.InsertDcSubject", dcSubject);
@@ -130,7 +131,7 @@ public final class KeywordsUtil {
     }
 
     private static boolean checkExistsDcSubject(String dcSubject) {
-        if (imageFileRepo.existsDcSubject(dcSubject)) {
+        if (IMAGE_FILE_REPO.existsDcSubject(dcSubject)) {
             String message = Bundle.getString(KeywordsUtil.class, "KeywordsUtil.Error.DcSubjectExists", dcSubject);
             MessageDisplayer.error(null, message);
             return false;
@@ -426,7 +427,7 @@ public final class KeywordsUtil {
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
             imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);
-            imageFileRepo.saveOrUpdateImageFile(imageFile);
+            IMAGE_FILE_REPO.saveOrUpdateImageFile(imageFile);
         }
     }
 
@@ -443,7 +444,7 @@ public final class KeywordsUtil {
 
         @Override
         public void run() {
-            List<File> imageFiles = new ArrayList<>(imageFileRepo.findImageFilesContainingDcSubject(dcSubject, false));
+            List<File> imageFiles = new ArrayList<>(IMAGE_FILE_REPO.findImageFilesContainingDcSubject(dcSubject, false));
             logStartDelete(dcSubject);
             progressStarted(0, 0, imageFiles.size(), null);
             int size = imageFiles.size();
@@ -477,8 +478,8 @@ public final class KeywordsUtil {
         }
 
         private void checkRepository() {
-            if (imageFileRepo.existsDcSubject(dcSubject)) {
-                imageFileRepo.deleteDcSubject(dcSubject);
+            if (IMAGE_FILE_REPO.existsDcSubject(dcSubject)) {
+                IMAGE_FILE_REPO.deleteDcSubject(dcSubject);
             }
         }
     }
@@ -497,7 +498,7 @@ public final class KeywordsUtil {
 
         @Override
         public void run() {
-            List<File> imageFiles = new ArrayList<>(imageFileRepo.findImageFilesContainingDcSubject(fromName, false));
+            List<File> imageFiles = new ArrayList<>(IMAGE_FILE_REPO.findImageFilesContainingDcSubject(fromName, false));
             logStartRename(fromName, toName);
             progressStarted(0, 0, imageFiles.size(), null);
             int size = imageFiles.size();
@@ -519,12 +520,13 @@ public final class KeywordsUtil {
                 progressPerformed(index + 1, sidecarFile.getName());
             }
             deleteKeyword();
+            checkCase();
             progressEnded(index);
         }
 
         private void deleteKeyword() {
-            if (!imageFileRepo.isDcSubjectReferenced(fromName)) {
-                imageFileRepo.deleteDcSubject(fromName);
+            if (!IMAGE_FILE_REPO.isDcSubjectReferenced(fromName)) {
+                IMAGE_FILE_REPO.deleteDcSubject(fromName);
             }
         }
 
@@ -537,6 +539,23 @@ public final class KeywordsUtil {
         @Override
         public void cancel() {
             cancel = true;
+        }
+
+        // When renaming keywords to the same name but different case,
+        // e.g. "FROM" -> "from", the database may contain the old or both
+        // cases, because keywords are not case sensitive. So let have
+        // all keywords the same case in the database.
+        private void checkCase() {
+            if (!fromName.toLowerCase().equals(toName.toLowerCase()) || fromName.equals(toName)) {
+                return;
+            }
+            try {
+                if (StringUtil.hasContent(fromName) && StringUtil.hasContent(toName)) {
+                    IMAGE_FILE_REPO.updateRenameAllDcSubjects(fromName, toName);
+                }
+            } catch (Throwable t) {
+                Logger.getLogger(RenameDcSubject.class.getName()).log(Level.SEVERE, null, t);
+            }
         }
     }
 }

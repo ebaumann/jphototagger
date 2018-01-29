@@ -238,23 +238,6 @@ public class EditXmpDialog extends Dialog {
         editMetadataTemplates();
     }//GEN-LAST:event_buttonEditMetadataTemplatesActionPerformed
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                EditXmpDialog dialog = new EditXmpDialog();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonEditMetadataTemplates;

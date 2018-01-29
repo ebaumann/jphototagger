@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import org.jphototagger.domain.metadata.mapping.IptcXmpMapping;
 import org.jphototagger.domain.metadata.mapping.XmpRepeatableValues;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * XMP metadata of an image file. The <code>see</code> sections of the method
@@ -302,11 +304,33 @@ public final class Xmp implements TextEntryListener {
         boolean remove = true;
         if (o instanceof Collection<?>) {
             @SuppressWarnings("unchecked") Collection<?> collection = (Collection<?>) o;
-            collection.remove(value);
+            if (xmpMetaDataValue == XmpDcSubjectsSubjectMetaDataValue.INSTANCE && value instanceof String) {
+                removeXmpDcSubject(collection, (String) value);
+            } else {
+                collection.remove(value);
+            }
             remove = collection.isEmpty();
         }
         if (remove) {
             metaDataValue.remove(xmpMetaDataValue);
+        }
+    }
+
+    // DC subjectes are case insensitive. When "to" should be removed, then
+    // "TO", "tO" and "To" also have to be removed.
+    private void removeXmpDcSubject(Collection<?> collection, String dcSubject) {
+        if (!StringUtil.hasContent(dcSubject)) {
+            return;
+        }
+        String dcSubjectLc = dcSubject.toLowerCase();
+        for (Iterator<?> it = collection.iterator(); it.hasNext(); ) {
+            Object element = it.next();
+            if (element instanceof String) {
+                String existingDcSubject = (String) element;
+                if (dcSubjectLc.equals(existingDcSubject.toLowerCase())) {
+                    it.remove();
+                }
+            }
         }
     }
 

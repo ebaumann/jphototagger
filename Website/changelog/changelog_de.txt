@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.35.1 2018-01-29
+------------------
+
+* Bugfix: Ordnerauswahl-Dialog lässt sich wieder öffnen (warf Exception wegen
+  eines fehlenden Icons).
+* Wird ein Stichwort in der Listenansicht umbenannt, wird es auch in der
+  Datenbank umbenannt, falls nur die Groß-/Klein-Schreibung unterschiedlich
+  ist, z.B. "BAUM" -> "Baum" und erscheint auch so in der Listenansicht.
+
 0.35.0 2018-01-28
 ------------------
 

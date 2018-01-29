@@ -54,6 +54,7 @@ import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
+import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectRenamedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifDeletedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifInsertedEvent;
 import org.jphototagger.domain.repository.event.exif.ExifUpdatedEvent;
@@ -67,6 +68,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailUpdatedEvent;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
 
 /**
@@ -1443,6 +1445,41 @@ final class ImageFilesDatabase extends Database {
             free(con);
         }
         return dcSubjects;
+    }
+
+    public int updateRenameAllDcSubjects(String fromName, String toName) {
+        if (fromName == null) {
+            throw new NullPointerException("fromName == null");
+        }
+        if (toName == null) {
+            throw new NullPointerException("toName == null");
+        }
+        if ((!StringUtil.hasContent(fromName) && !StringUtil.hasContent(toName)) || fromName.equals(toName)) {
+            return 0;
+        }
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            String sql = "UPDATE dc_subjects SET subject = ? WHERE subject = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, toName);
+            stmt.setString(2, fromName);
+            LOGGER.log(Level.FINEST, sql);
+            int count = stmt.executeUpdate();
+            if (count > 0) {
+                EventBus.publish(new DcSubjectRenamedEvent(this, fromName, toName));
+            }
+            return count;
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+            rollback(con);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+        return 0;
     }
 
     public List<String> getDcSubjectsOfImageFile(File imageFile) {

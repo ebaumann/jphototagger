@@ -101,27 +101,6 @@ public final class ActionsDialog extends Dialog {
         pack();
     }//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                ActionsDialog dialog = new ActionsDialog();
-
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.module.actions.ActionsPanel panelActions;
     // End of variables declaration//GEN-END:variables

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -174,26 +173,6 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         }
     }//GEN-LAST:event_checkBoxDisplayInFutureActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                WarnOnEqualBasenamesTaskDialog dialog = new WarnOnEqualBasenamesTaskDialog(Collections.<File>emptyList());
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JCheckBox checkBoxDisplayInFuture;
     private JXLabel labelInfo;

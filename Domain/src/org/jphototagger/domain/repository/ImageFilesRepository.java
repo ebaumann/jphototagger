@@ -120,4 +120,6 @@ public interface ImageFilesRepository {
     int updateAllThumbnails(ProgressListener listener);
 
     int updateRenameFilenamesStartingWith(final String before, final String after, final ProgressListener progressListener);
+
+    public int updateRenameAllDcSubjects(String fromName, String toName);
 }

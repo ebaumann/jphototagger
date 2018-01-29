@@ -142,23 +142,6 @@ public class ProgramChooseDialog extends Dialog {
         }
     }//GEN-LAST:event_listProgramsKeyPressed
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                ProgramChooseDialog dialog = new ProgramChooseDialog();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonChooseProgram;
     private org.jdesktop.swingx.JXList listPrograms;
