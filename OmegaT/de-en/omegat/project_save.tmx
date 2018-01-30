@@ -800,8 +800,8 @@
       <tuv lang="DE">
         <seg>&amp;Ordner auswählen...</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Choose folder...</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20180130T171953Z">
+        <seg>Choose &amp;folders...</seg>
       </tuv>
     </tu>
     <tu>
@@ -3858,6 +3858,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Auszuschließende Ordner auswählen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180130T170430Z" creationid="elmar" creationdate="20180130T170430Z">
+        <seg>Select folders to exclude</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Auto-&amp;Vervollständigen-Wortschatz anhand Eingaben fortlaufend aktualisieren</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -4078,6 +4086,14 @@ Would You input a new name?</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>When multiple files are selected</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Bei ausgewählten Ordnern werden auch alle Ordner darunter ausgeschlossen.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180130T170542Z" creationid="elmar" creationdate="20180130T170542Z">
+        <seg>From the selected folders all subfolders will be also excluded.</seg>
       </tuv>
     </tu>
     <tu>

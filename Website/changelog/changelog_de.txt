@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.35.2 2018-01-30
+------------------
+
+* In den Einstellungen können unter "5. Ausschließen" Ordner hinzugefügt
+  werden durch Auswahl mittels eines Dialogs.
+
 0.35.1 2018-01-29
 ------------------
 

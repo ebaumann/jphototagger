@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger http://jphototagger.org/
 ===============================================
 
+0.35.2 2018-01-30
+------------------
+
+* In the Settings "5. Exclude" folders can be added via a dialog.
+
 0.35.1 2018-01-29
 ------------------
 

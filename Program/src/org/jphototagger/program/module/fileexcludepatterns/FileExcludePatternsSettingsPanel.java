@@ -38,6 +38,8 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
 
     private void postInitComponents() {
         textFieldInputPattern.requestFocusInWindow();
+        buttonChooseDirs.setText(Bundle.getString(FileExcludePatternsSettingsPanel.class, "FileExcludePatternsSettingsPanel.ButtonChooseDirs.Text"));
+        labelInfoChooseDirs.setText(Bundle.getString(FileExcludePatternsSettingsPanel.class, "FileExcludePatternsSettingsPanel.LabelInfoChooseDirs.Text"));
         MnemonicUtil.setMnemonics((Container) this);
         panelSelectRootFiles.setPersistenceKey(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
     }
@@ -216,6 +218,16 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         return Bundle.getString(FileExcludePatternsSettingsPanel.class, "FileExcludePatternsSettingsPanel.HelpPage");
     }
 
+    private void chooseDirPatterns() {
+        FileExcludePatternsController ctrl = new FileExcludePatternsController();
+
+        for (String pattern : ctrl.chooseDirectoryPatterns()) {
+            if (!model.contains(pattern) && checkRegex(pattern)) {
+                model.insert(pattern);
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to
      * initialize the form.
@@ -224,23 +236,30 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    private void initComponents() {//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenu = new javax.swing.JPopupMenu();
         menuItemDeletePattern = new javax.swing.JMenuItem();
         tabbedPane = new javax.swing.JTabbedPane();
         panelFiles = new javax.swing.JPanel();
-        labelInfoRepository = new javax.swing.JLabel();
-        progressBarUpdateRepository = new javax.swing.JProgressBar();
-        buttonCancelUpdateRepository = new javax.swing.JButton();
-        buttonUpdateRepository = new javax.swing.JButton();
-        labelTextFieldInputPattern = new javax.swing.JLabel();
-        textFieldInputPattern = new javax.swing.JTextField();
-        buttonDeletePattern = new javax.swing.JButton();
-        buttonInsertPattern = new javax.swing.JButton();
         labelInfoList = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
+        labelTextFieldInputPattern = new javax.swing.JLabel();
+        textFieldInputPattern = new javax.swing.JTextField();
+        panelButtons = new javax.swing.JPanel();
+        buttonChooseDirs = new javax.swing.JButton();
+        buttonDeletePattern = new javax.swing.JButton();
+        buttonInsertPattern = new javax.swing.JButton();
+        labelInfoChooseDirs = new javax.swing.JLabel();
+        panelRepository = new javax.swing.JPanel();
+        labelInfoRepository = new javax.swing.JLabel();
+        progressBarUpdateRepository = new javax.swing.JProgressBar();
+        panelButtonsRepository = new javax.swing.JPanel();
+        buttonCancelUpdateRepository = new javax.swing.JButton();
+        buttonUpdateRepository = new javax.swing.JButton();
         panelDirectoryFolder = new javax.swing.JPanel();
         labelInfopanelDirectoryFolder = new javax.swing.JLabel();
         scrollPanePanelDirectoryFolder = new javax.swing.JScrollPane();
@@ -265,68 +284,17 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelFiles.setName("panelFiles"); // NOI18N
-
-        labelInfoRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelInfoRepository.text")); // NOI18N
-        labelInfoRepository.setName("labelInfoRepository"); // NOI18N
-
-        progressBarUpdateRepository.setName("progressBarUpdateRepository"); // NOI18N
-
-        buttonCancelUpdateRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonCancelUpdateRepository.text")); // NOI18N
-        buttonCancelUpdateRepository.setEnabled(false);
-        buttonCancelUpdateRepository.setName("buttonCancelUpdateRepository"); // NOI18N
-        buttonCancelUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelUpdateRepositoryActionPerformed(evt);
-            }
-        });
-
-        buttonUpdateRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonUpdateRepository.text")); // NOI18N
-        buttonUpdateRepository.setName("buttonUpdateRepository"); // NOI18N
-        buttonUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonUpdateRepositoryActionPerformed(evt);
-            }
-        });
-
-        labelTextFieldInputPattern.setLabelFor(textFieldInputPattern);
-        labelTextFieldInputPattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelTextFieldInputPattern.text")); // NOI18N
-        labelTextFieldInputPattern.setName("labelTextFieldInputPattern"); // NOI18N
-
-        textFieldInputPattern.setName("textFieldInputPattern"); // NOI18N
-        textFieldInputPattern.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                textFieldInputPatternFocusGained(evt);
-            }
-        });
-        textFieldInputPattern.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                textFieldInputPatternKeyReleased(evt);
-            }
-        });
-
-        buttonDeletePattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonDeletePattern.text")); // NOI18N
-        buttonDeletePattern.setToolTipText(bundle.getString("FileExcludePatternsSettingsPanel.buttonDeletePattern.toolTipText")); // NOI18N
-        buttonDeletePattern.setEnabled(false);
-        buttonDeletePattern.setName("buttonDeletePattern"); // NOI18N
-        buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDeletePatternActionPerformed(evt);
-            }
-        });
-
-        buttonInsertPattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonInsertPattern.text")); // NOI18N
-        buttonInsertPattern.setToolTipText(bundle.getString("FileExcludePatternsSettingsPanel.buttonInsertPattern.toolTipText")); // NOI18N
-        buttonInsertPattern.setEnabled(false);
-        buttonInsertPattern.setName("buttonInsertPattern"); // NOI18N
-        buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonInsertPatternActionPerformed(evt);
-            }
-        });
+        panelFiles.setLayout(new java.awt.GridBagLayout());
 
         labelInfoList.setLabelFor(list);
         labelInfoList.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelInfoList.text")); // NOI18N
         labelInfoList.setName("labelInfoList"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelFiles.add(labelInfoList, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
 
@@ -346,60 +314,162 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         });
         scrollPane.setViewportView(list);
 
-        javax.swing.GroupLayout panelFilesLayout = new javax.swing.GroupLayout(panelFiles);
-        panelFiles.setLayout(panelFilesLayout);
-        panelFilesLayout.setHorizontalGroup(
-            panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
-            .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelFilesLayout.createSequentialGroup()
-                    .addGap(7, 7, 7)
-                    .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
-                        .addComponent(labelInfoList, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelFilesLayout.createSequentialGroup()
-                            .addComponent(buttonDeletePattern)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonInsertPattern))
-                        .addComponent(labelInfoRepository, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
-                        .addComponent(progressBarUpdateRepository, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
-                        .addGroup(panelFilesLayout.createSequentialGroup()
-                            .addComponent(buttonCancelUpdateRepository)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonUpdateRepository))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelFilesLayout.createSequentialGroup()
-                            .addComponent(labelTextFieldInputPattern)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textFieldInputPattern, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)))
-                    .addGap(8, 8, 8)))
-        );
-        panelFilesLayout.setVerticalGroup(
-            panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
-            .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelFilesLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(labelInfoList)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textFieldInputPattern, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelTextFieldInputPattern))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonInsertPattern)
-                        .addComponent(buttonDeletePattern))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(labelInfoRepository, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(progressBarUpdateRepository, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(panelFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonUpdateRepository)
-                        .addComponent(buttonCancelUpdateRepository))
-                    .addContainerGap()))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 5);
+        panelFiles.add(scrollPane, gridBagConstraints);
+
+        labelTextFieldInputPattern.setLabelFor(textFieldInputPattern);
+        labelTextFieldInputPattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelTextFieldInputPattern.text")); // NOI18N
+        labelTextFieldInputPattern.setName("labelTextFieldInputPattern"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        panelFiles.add(labelTextFieldInputPattern, gridBagConstraints);
+
+        textFieldInputPattern.setName("textFieldInputPattern"); // NOI18N
+        textFieldInputPattern.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textFieldInputPatternFocusGained(evt);
+            }
+        });
+        textFieldInputPattern.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textFieldInputPatternKeyReleased(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelFiles.add(textFieldInputPattern, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
+
+        buttonChooseDirs.setName("buttonChooseDirs"); // NOI18N
+        buttonChooseDirs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonChooseDirsActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelButtons.add(buttonChooseDirs, gridBagConstraints);
+
+        buttonDeletePattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonDeletePattern.text")); // NOI18N
+        buttonDeletePattern.setToolTipText(bundle.getString("FileExcludePatternsSettingsPanel.buttonDeletePattern.toolTipText")); // NOI18N
+        buttonDeletePattern.setEnabled(false);
+        buttonDeletePattern.setName("buttonDeletePattern"); // NOI18N
+        buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeletePatternActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonDeletePattern, gridBagConstraints);
+
+        buttonInsertPattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonInsertPattern.text")); // NOI18N
+        buttonInsertPattern.setToolTipText(bundle.getString("FileExcludePatternsSettingsPanel.buttonInsertPattern.toolTipText")); // NOI18N
+        buttonInsertPattern.setEnabled(false);
+        buttonInsertPattern.setName("buttonInsertPattern"); // NOI18N
+        buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInsertPatternActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonInsertPattern, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelFiles.add(panelButtons, gridBagConstraints);
+
+        labelInfoChooseDirs.setText(" "); // NOI18N
+        labelInfoChooseDirs.setName("labelInfoChooseDirs"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelFiles.add(labelInfoChooseDirs, gridBagConstraints);
+
+        panelRepository.setName("panelRepository"); // NOI18N
+        panelRepository.setLayout(new java.awt.GridBagLayout());
+
+        labelInfoRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelInfoRepository.text")); // NOI18N
+        labelInfoRepository.setName("labelInfoRepository"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelRepository.add(labelInfoRepository, gridBagConstraints);
+
+        progressBarUpdateRepository.setName("progressBarUpdateRepository"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelRepository.add(progressBarUpdateRepository, gridBagConstraints);
+
+        panelButtonsRepository.setName("panelButtonsRepository"); // NOI18N
+        panelButtonsRepository.setLayout(new java.awt.GridBagLayout());
+
+        buttonCancelUpdateRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonCancelUpdateRepository.text")); // NOI18N
+        buttonCancelUpdateRepository.setEnabled(false);
+        buttonCancelUpdateRepository.setName("buttonCancelUpdateRepository"); // NOI18N
+        buttonCancelUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelUpdateRepositoryActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelButtonsRepository.add(buttonCancelUpdateRepository, gridBagConstraints);
+
+        buttonUpdateRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonUpdateRepository.text")); // NOI18N
+        buttonUpdateRepository.setName("buttonUpdateRepository"); // NOI18N
+        buttonUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpdateRepositoryActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtonsRepository.add(buttonUpdateRepository, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelRepository.add(panelButtonsRepository, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelFiles.add(panelRepository, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("FileExcludePatternsSettingsPanel.panelFiles.TabConstraints.tabTitle"), panelFiles); // NOI18N
 
@@ -420,7 +490,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
             .addGroup(panelDirectoryFolderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDirectoryFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+                    .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
                     .addComponent(labelInfopanelDirectoryFolder))
                 .addContainerGap())
         );
@@ -446,7 +516,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tabbedPane)
         );
-    }//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
         handleListValueChanged(evt);
@@ -483,19 +553,29 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
     private void textFieldInputPatternFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldInputPatternFocusGained
         textFieldInputPattern.selectAll();
     }//GEN-LAST:event_textFieldInputPatternFocusGained
+
+    private void buttonChooseDirsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseDirsActionPerformed
+        chooseDirPatterns();
+    }//GEN-LAST:event_buttonChooseDirsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelUpdateRepository;
+    private javax.swing.JButton buttonChooseDirs;
     private javax.swing.JButton buttonDeletePattern;
     private javax.swing.JButton buttonInsertPattern;
     private javax.swing.JButton buttonUpdateRepository;
+    private javax.swing.JLabel labelInfoChooseDirs;
     private javax.swing.JLabel labelInfoList;
     private javax.swing.JLabel labelInfoRepository;
     private javax.swing.JLabel labelInfopanelDirectoryFolder;
     private javax.swing.JLabel labelTextFieldInputPattern;
     private org.jdesktop.swingx.JXList list;
     private javax.swing.JMenuItem menuItemDeletePattern;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelButtonsRepository;
     private javax.swing.JPanel panelDirectoryFolder;
     private javax.swing.JPanel panelFiles;
+    private javax.swing.JPanel panelRepository;
     private org.jphototagger.lib.swing.SelectRootFilesPanel panelSelectRootFiles;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBarUpdateRepository;

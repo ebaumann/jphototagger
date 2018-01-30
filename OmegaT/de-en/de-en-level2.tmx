@@ -776,8 +776,8 @@
       <tuv xml:lang="DE">
         <seg>&amp;Ordner auswählen...</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Choose folder...</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180130T171953Z">
+        <seg>Choose &amp;folders...</seg>
       </tuv>
     </tu>
     <tu>
@@ -3582,6 +3582,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Auszuschließende Ordner auswählen</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180130T170430Z" creationid="elmar" creationdate="20180130T170430Z">
+        <seg>Select folders to exclude</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Auto-&amp;Vervollständigen-Wortschatz anhand Eingaben fortlaufend aktualisieren</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -3802,6 +3810,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>When multiple files are selected</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bei ausgewählten Ordnern werden auch alle Ordner darunter ausgeschlossen.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180130T170542Z" creationid="elmar" creationdate="20180130T170542Z">
+        <seg>From the selected folders all subfolders will be also excluded.</seg>
       </tuv>
     </tu>
     <tu>
