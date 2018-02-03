@@ -63,8 +63,6 @@ public interface ImageFilesRepository {
 
     boolean existsXmpDcSubjectsLink(long idXmp, long idDcSubject);
 
-    ImageFile findImageFileOfFile(File file);
-
     Set<File> findImageFilesContainingAllDcSubjects(List<? extends String> dcSubjects);
 
     Set<File> findImageFilesContainingDcSubject(String dcSubject, boolean includeSynonyms);

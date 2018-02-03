@@ -14,6 +14,7 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpMetaDataValues;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.domain.metadata.xmp.XmpToImageWriters;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -152,8 +153,9 @@ public final class RenameDeleteXmpValue {
                 }
                 if (xmp != null) {
                     rename(xmp);
-                    File suggestSidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile);
-                    if (XmpMetadata.writeXmpToSidecarFile(xmp, suggestSidecarFile)) {
+                    File xmpSidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile);
+                    if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpSidecarFile)) {
+                        XmpToImageWriters.write(xmpSidecarFile, imageFile);
                         SaveToOrUpdateFilesInRepositoryImpl insertImageFilesIntoRepository =
                                 new SaveToOrUpdateFilesInRepositoryImpl(Collections.singletonList(imageFile),
                                 SaveOrUpdate.XMP);

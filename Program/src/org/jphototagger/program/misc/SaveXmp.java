@@ -12,6 +12,7 @@ import org.jphototagger.api.progress.ProgressHandleFactory;
 import org.jphototagger.domain.metadata.xmp.FileXmp;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.domain.metadata.xmp.XmpToImageWriters;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ThreadUtil;
@@ -70,6 +71,7 @@ public final class SaveXmp extends Thread implements Cancelable {
             Xmp xmp = fileXmp.getXmp();
             File sidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile);
             if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile)) {
+                XmpToImageWriters.write(sidecarFile, imageFile);
                 updateRepository(imageFile);
             }
             fileIndex++;

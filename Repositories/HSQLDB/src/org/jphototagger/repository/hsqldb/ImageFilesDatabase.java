@@ -336,8 +336,8 @@ final class ImageFilesDatabase extends Database {
      * Inserts an image file into the databse. If the image already existsValueInMetaDataValues it's data will be
      * updated. <p> Inserts or updates this metadata:
      *
-     * <ul> <li>EXIF when {@code ImageFile#isInsertExifIntoDb()} is true</li> <li>XMP when {@code ImageFile#isInsertXmpIntoDb()}
-     * is true</li> <li>Thumbnail when {@code ImageFile#isInsertThumbnailIntoDb()} is true </li> </ul>
+     * <ul> <li>EXIF when {@code ImageFile#isSaveExifIntoRepository()} is true</li> <li>XMP when {@code ImageFile#isSaveXmpIntoRepository()}
+     * is true</li> <li>Thumbnail when {@code ImageFile#isSaveThumbnailIntoRepository()} is true </li> </ul>
      *
      * @param imageFile image
      * @return true if inserted
@@ -357,7 +357,7 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(false);
             String sqlWithXmpLastModified = "INSERT INTO files (filename, size_in_bytes, lastmodified, xmp_lastmodified) VALUES (?, ?, ?, ?)";
             String sqlWithoutXmpLastModified = "INSERT INTO files (filename, size_in_bytes, lastmodified) VALUES (?, ?, ?)";
-            boolean insertXmpIntoDb = imageFile.isInsertXmpIntoDb();
+            boolean insertXmpIntoDb = imageFile.isSaveXmpIntoRepository();
             stmt = con.prepareStatement(insertXmpIntoDb ? sqlWithXmpLastModified : sqlWithoutXmpLastModified);
             File file = imageFile.getFile();
             stmt.setString(1, file.getAbsolutePath());
@@ -369,13 +369,13 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             long idFile = findIdImageFile(con, file);
-            if (imageFile.isInsertThumbnailIntoDb()) {
+            if (imageFile.isSaveThumbnailIntoRepository()) {
                 updateThumbnailFile(file, imageFile.getThumbnail());
             }
             if (insertXmpIntoDb) {
                 insertXmp(con, file, idFile, imageFile.getXmp());
             }
-            if (imageFile.isInsertExifIntoDb()) {
+            if (imageFile.isSaveExifIntoRepository()) {
                 insertExif(con, file, idFile, imageFile.getExif());
             }
             con.commit();
@@ -391,28 +391,11 @@ final class ImageFilesDatabase extends Database {
         return success;
     }
 
-    public ImageFile getImageFileOfFile(File file) {
-        if (file == null) {
-            throw new NullPointerException("imgFile == null");
-        }
-        ImageFile imageFile = new ImageFile();
-        imageFile.setExif(getExifOfImageFile(file));
-        imageFile.setFile(file);
-        imageFile.setLastmodified(getImageFilesLastModifiedTimestamp(file));
-        imageFile.setSizeInBytes(getImageFilesSizeInBytes(file));
-        Image thumbnail = tnRepo.findThumbnail(file);
-        if (thumbnail != null) {
-            imageFile.setThumbnail(thumbnail);
-        }
-        imageFile.setXmp(getXmpOfImageFile(file));
-        return imageFile;
-    }
-
     /**
      * Aktualisiert ein Bild in der Datenbank. <p> Updates this metadata:
      *
-     * <ul> <li>EXIF when {@code ImageFile#isInsertExifIntoDb()} is true</li> <li>XMP when {@code ImageFile#isInsertXmpIntoDb()}
-     * is true</li> <li>Thumbnail when {@code ImageFile#isInsertThumbnailIntoDb()} is true </li> </ul>
+     * <ul> <li>EXIF when {@code ImageFile#isSaveExifIntoRepository()} is true</li> <li>XMP when {@code ImageFile#isSaveXmpIntoRepository()}
+     * is true</li> <li>Thumbnail when {@code ImageFile#isSaveThumbnailIntoRepository()} is true </li> </ul>
      *
      * @param imageFile Bild
      * @return true bei Erfolg
@@ -429,7 +412,7 @@ final class ImageFilesDatabase extends Database {
             con.setAutoCommit(false);
             String sqlWithXmpLastModified = "UPDATE files SET size_in_bytes = ?, lastmodified = ?, xmp_lastmodified = ? WHERE id = ?";
             String sqlWithoutXmpLastModified = "UPDATE files SET size_in_bytes = ?, lastmodified = ? WHERE id = ?";
-            boolean insertXmpIntoDb = imageFile.isInsertXmpIntoDb();
+            boolean insertXmpIntoDb = imageFile.isSaveXmpIntoRepository();
             stmt = con.prepareStatement(insertXmpIntoDb ? sqlWithXmpLastModified : sqlWithoutXmpLastModified);
             File imgFile = imageFile.getFile();
             long idFile = findIdImageFile(con, imgFile);
@@ -441,13 +424,13 @@ final class ImageFilesDatabase extends Database {
             stmt.setLong(insertXmpIntoDb ? 4 : 3, idFile);
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
-            if (imageFile.isInsertThumbnailIntoDb()) {
+            if (imageFile.isSaveThumbnailIntoRepository()) {
                 updateThumbnailFile(imgFile, imageFile.getThumbnail());
             }
             if (insertXmpIntoDb) {
                 insertOrUpdateXmp(con, imgFile, idFile, imageFile.getXmp());
             }
-            if (imageFile.isInsertExifIntoDb()) {
+            if (imageFile.isSaveExifIntoRepository()) {
                 insertOrUpdateExif(con, imgFile, idFile, imageFile.getExif());
             }
             con.commit();

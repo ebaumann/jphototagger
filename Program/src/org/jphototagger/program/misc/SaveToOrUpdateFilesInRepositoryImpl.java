@@ -30,6 +30,7 @@ import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataVa
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpModifier;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.domain.metadata.xmp.XmpToImageWriters;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
 import org.jphototagger.domain.repository.ImageFilesRepository;
@@ -113,6 +114,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
                 deleteXmpFromRepositoryIfAbsentInFilesystem(file);
                 ImageFile imageFile = createImageFile(file);
                 if (isUpdate(imageFile)) {
+                    writeXmpToImageFile(imageFile);
                     setExifDateToXmpDateCreated(imageFile);
                     logInsertImageFile(imageFile);
                     imageFilesRepository.saveOrUpdateImageFile(imageFile);
@@ -125,14 +127,14 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     }
 
     private boolean isUpdate(ImageFile imageFile) {
-        return (imageFile.getExif() != null) || (imageFile.getXmp() != null) || (imageFile.getThumbnail() != null);
+        return (imageFile.getExif() != null)
+                || (imageFile.getXmp() != null)
+                || (imageFile.getThumbnail() != null);
     }
 
     private ImageFile createImageFile(File file) {
         ImageFile imageFile = new ImageFile();
         imageFile.setFile(file);
-        imageFile.setLastmodified(file.lastModified());
-        imageFile.setSizeInBytes(file.length());
         if (isUpdateThumbnail(file)) {
             imageFile.addToSaveIntoRepository(SaveOrUpdate.THUMBNAIL);
             createAndSetThumbnailToImageFile(imageFile);
@@ -304,6 +306,21 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         if (imageFilesRepository.existsXmpForFile(file)) {
             LOGGER.log(Level.INFO, "Deleting from Repository XMP of file ''{0}'' - it does not have (anymore) a XMP sidecar file", file);
             imageFilesRepository.deleteXmpOfFile(file);
+        }
+    }
+
+    private void writeXmpToImageFile(ImageFile imageFile) {
+        if (imageFile.isSaveXmpIntoRepository()) {
+            File imgFile = imageFile.getFile();
+            File xmpFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(imgFile);
+            if (xmpFile != null) {
+                if (XmpToImageWriters.write(xmpFile, imgFile)) {
+                    Xmp xmp = imageFile.getXmp();
+                    if (xmp != null) {
+                        xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, xmpFile.lastModified());
+                    }
+                }
+            }
         }
     }
 

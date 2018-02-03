@@ -2,8 +2,8 @@ package org.jphototagger.domain.image;
 
 import java.awt.Image;
 import java.io.File;
-import java.util.Collections;
 import java.util.EnumSet;
+import java.util.Objects;
 import java.util.Set;
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.domain.metadata.xmp.Xmp;
@@ -14,13 +14,11 @@ import org.jphototagger.domain.repository.SaveOrUpdate;
  */
 public final class ImageFile {
 
-    private final Set<SaveOrUpdate> insertIntoDb = EnumSet.noneOf(SaveOrUpdate.class);
-    private Exif exif;
+    private final Set<SaveOrUpdate> saveIntoRepository = EnumSet.noneOf(SaveOrUpdate.class);
     private File file;
-    private long lastmodified = -1;
-    private long sizeInBytes;
-    private Image thumbnail;
+    private Exif exif;
     private Xmp xmp;
+    private Image thumbnail;
 
     public File getFile() {
         return file;
@@ -39,19 +37,15 @@ public final class ImageFile {
     }
 
     public long getLastmodified() {
-        return lastmodified;
-    }
-
-    public void setLastmodified(long lastmodified) {
-        this.lastmodified = lastmodified;
+        return file == null || !file.exists()
+                ? -1
+                : file.lastModified();
     }
 
     public long getSizeInBytes() {
-        return sizeInBytes;
-    }
-
-    public void setSizeInBytes(long sizeInBytes) {
-        this.sizeInBytes = sizeInBytes;
+        return file == null || !file.exists()
+                ? 0
+                : file.length();
     }
 
     /**
@@ -76,35 +70,20 @@ public final class ImageFile {
         this.exif = exif;
     }
 
-    /**
-     * Returns wheter a specific metadadata is to insert into the repository.
-     *
-     * @param  insert Is that to insert?
-     * @return        true if <code>insert</code> is to insert into the repository
-     *
-     */
-    public boolean isSaveInRepository(SaveOrUpdate insert) {
-        return insertIntoDb.contains(insert);
+    public boolean isSaveXmpIntoRepository() {
+        return saveIntoRepository.contains(SaveOrUpdate.XMP);
     }
 
-    public boolean isInsertXmpIntoDb() {
-        return insertIntoDb.contains(SaveOrUpdate.XMP);
+    public boolean isSaveExifIntoRepository() {
+        return saveIntoRepository.contains(SaveOrUpdate.EXIF);
     }
 
-    public boolean isInsertExifIntoDb() {
-        return insertIntoDb.contains(SaveOrUpdate.EXIF);
-    }
-
-    public boolean isInsertThumbnailIntoDb() {
-        return insertIntoDb.contains(SaveOrUpdate.THUMBNAIL);
-    }
-
-    public Set<SaveOrUpdate> getInsertIntoDb() {
-        return Collections.unmodifiableSet(insertIntoDb);
+    public boolean isSaveThumbnailIntoRepository() {
+        return saveIntoRepository.contains(SaveOrUpdate.THUMBNAIL);
     }
 
     /**
-     * Adds metadata to add into the repository.
+     * Adds metadata to save into the repository.
      *
      * @param insert metadata to insert
      */
@@ -113,7 +92,7 @@ public final class ImageFile {
             throw new NullPointerException("insert == null");
         }
 
-        insertIntoDb.add(insert);
+        saveIntoRepository.add(insert);
     }
 
     /**
@@ -124,21 +103,17 @@ public final class ImageFile {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
+        if (obj == this) {
+            return true;
         }
 
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof ImageFile)) {
             return false;
         }
 
         final ImageFile other = (ImageFile) obj;
 
-        if ((this.file != other.file) && ((this.file == null) || !this.file.equals(other.file))) {
-            return false;
-        }
-
-        return true;
+        return Objects.equals(this.file, other.file);
     }
 
     @Override

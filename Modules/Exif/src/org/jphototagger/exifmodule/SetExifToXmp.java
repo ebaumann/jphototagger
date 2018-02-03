@@ -14,6 +14,7 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.domain.metadata.xmp.XmpToImageWriters;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
@@ -127,11 +128,9 @@ public final class SetExifToXmp extends HelperThread {
                 setDateCreated(xmp, exif);
                 File xmpFile = XMP_SIDECAR_FILE_RESOLVER.suggestXmpSidecarFile(file);
                 if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
+                    XmpToImageWriters.write(xmpFile, file);
                     ImageFile imageFile = new ImageFile();
                     xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, xmpFile.lastModified());
-                    // Avoiding re-reading thumbnails
-                    imageFile.setLastmodified(file.lastModified());
-                    imageFile.setSizeInBytes(file.length());
                     imageFile.setFile(file);
                     imageFile.setXmp(xmp);
                     imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);

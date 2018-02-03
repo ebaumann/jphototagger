@@ -124,11 +124,6 @@ public final class ImageFilesRepositoryImpl implements ImageFilesRepository {
     }
 
     @Override
-    public ImageFile findImageFileOfFile(File file) {
-        return ImageFilesDatabase.INSTANCE.getImageFileOfFile(file);
-    }
-
-    @Override
     public Set<File> findImageFilesContainingAllDcSubjects(List<? extends String> dcSubjects) {
         return ImageFilesDatabase.INSTANCE.getImageFilesContainingAllDcSubjects(dcSubjects);
     }

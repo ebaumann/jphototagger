@@ -117,6 +117,7 @@ public final class FilesystemCopy implements Runnable, FileCopyService {
             if (!xmpSidecarFileResolver.hasXmpSidecarFile(targetFile)) {
                 File xmpFile = xmpSidecarFileResolver.suggestXmpSidecarFile(targetFile);
                 Xmp xmp = (Xmp) userObject;
+                // XmpToImageWriters.write() not neccessary, because the XMP *contents* weren't modified
                 if (!xmp.isEmpty() && !XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
                     LOGGER.log(Level.WARNING, "XMP sidecar file for ''{0}'' couldn''t be written!", targetFile);
                 }

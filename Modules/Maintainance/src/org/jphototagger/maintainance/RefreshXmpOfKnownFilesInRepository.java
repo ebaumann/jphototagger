@@ -9,8 +9,10 @@ import java.util.logging.Logger;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.xmp.Xmp;
+import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpModifier;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.domain.metadata.xmp.XmpToImageWriters;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.concurrent.HelperThread;
 import org.jphototagger.lib.util.Bundle;
@@ -55,7 +57,12 @@ public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
                 Logger.getLogger(RefreshXmpOfKnownFilesInRepository.class.getName()).log(Level.SEVERE, null, ex);
             }
             if (xmp != null) {
-                modifyXmp(xmpSidecarFileResolver.findSidecarFile(xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile)), xmp);
+                File suggestedXmpFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile);
+                File xmpFile = xmpSidecarFileResolver.findSidecarFile(suggestedXmpFile);
+                if (modifyXmp(xmpFile, xmp)) {
+                    XmpToImageWriters.write(xmpFile, imageFile);
+                }
+                setLastModified(xmpFile, xmp);
                 repo.saveOrUpdateXmpOfImageFile(imageFile, xmp);
             }
             progressPerformed(i + 1, imageFile.getName());
@@ -63,15 +70,26 @@ public final class RefreshXmpOfKnownFilesInRepository extends HelperThread {
         progressEnded(null);
     }
 
-    private void modifyXmp(File sidecarFile, Xmp xmp) {
-        if (sidecarFile == null || xmp == null) {
-            return;
+    private boolean modifyXmp(File xmpFile, Xmp xmp) {
+        if (xmpFile == null || xmp == null) {
+            return false;
         }
+        boolean modified = false;
         for (XmpModifier xmpModifier : xmpModifiers) {
-            if (xmpModifier.modifyXmp(sidecarFile, xmp)) {
-                XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
+            if (xmpModifier.modifyXmp(xmpFile, xmp)) {
+                if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
+                    modified = true;
+                }
             }
         }
+        return modified;
+    }
+
+    private void setLastModified(File xmpFile, Xmp xmp) {
+        if (xmpFile == null || xmp == null) {
+            return;
+        }
+        xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, xmpFile.lastModified());
     }
 
     private boolean isScanForEmbeddedXmp() {

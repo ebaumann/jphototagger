@@ -27,6 +27,7 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpLastModifiedMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.domain.metadata.xmp.XmpToImageWriters;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.domain.repository.SaveOrUpdate;
@@ -420,10 +421,9 @@ public final class KeywordsUtil {
 
     private static void updateXmp(Xmp xmp, File file, File sidecarFile) {
         if (XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile)) {
+            XmpToImageWriters.write(sidecarFile, file);
             ImageFile imageFile = new ImageFile();
             imageFile.setFile(file);
-            imageFile.setLastmodified(file.lastModified());
-            imageFile.setSizeInBytes(file.length());
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
             imageFile.setXmp(xmp);
             imageFile.addToSaveIntoRepository(SaveOrUpdate.XMP);
