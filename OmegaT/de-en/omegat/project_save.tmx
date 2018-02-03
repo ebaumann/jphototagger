@@ -886,6 +886,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&amp;Standard wiederherstellen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200705Z" creationid="elmar" creationdate="20180203T200705Z">
+        <seg>Restore &amp;standard</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&amp;Standardprogramme...</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -3606,6 +3614,14 @@ Would You input a new name?</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Delete selected file types?</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Ausgewählte Endungen &amp;entfernen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200634Z" creationid="elmar" creationdate="20180203T200634Z">
+        <seg>&amp;Remove selected suffixes</seg>
       </tuv>
     </tu>
     <tu>
@@ -6696,6 +6712,14 @@ Some data may be lost!</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>E&amp;xifTool-Website öffnen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200620Z" creationid="elmar" creationdate="20180203T200620Z">
+        <seg>Open E&amp;xifTool website</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>E&amp;xistierende Dateien gleichen Namens ohne Rückfrage überschreiben</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7312,6 +7336,22 @@ Some data may be lost!</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Endungen &amp;hinzufügen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200606Z" creationid="elmar" creationdate="20180203T200606Z">
+        <seg>&amp;Add suffixes</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Endungen, mehrere durch Kommas trennen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200504Z" creationid="elmar" creationdate="20180203T200504Z">
+        <seg>suffixes, separate multiple with commas</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Entfernen</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7738,6 +7778,62 @@ Ursache: {0}</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>ExifTool (ausführbare Datei)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200537Z" creationid="elmar" creationdate="20180203T200537Z">
+        <seg>ExifTool (executable file)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>ExifTool aktivieren</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200729Z" creationid="elmar" creationdate="20180203T200729Z">
+        <seg>Activate ExifTool</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>ExifTool auswählen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200542Z" creationid="elmar" creationdate="20180203T200542Z">
+        <seg>Choose ExifTool</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>ExifTool existiert nicht mehr im ausgewählten Ordner!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200530Z" creationid="elmar" creationdate="20180203T200530Z">
+        <seg>ExifTool does not exist anymore in the selected folder!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>ExifTool kann nicht ausgeführt werden, weil der Dateipfad ungültig ist oder ExifTool keine Daten schreiben soll!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200914Z" creationid="elmar" creationdate="20180203T200914Z">
+        <seg>ExifTool can't be executed, because the file path is invalid or ExifTool shall not write any data!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>ExifTool wurde nicht ausgewählt!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200551Z" creationid="elmar" creationdate="20180203T200551Z">
+        <seg>ExifTool wasn't choosed!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>ExifTool-Metadatenschreiber</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200444Z" creationid="elmar" creationdate="20180203T200444Z">
+        <seg>ExifTool Metadata Writer</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Experten-Einstellungen für den Bild-Import</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7886,6 +7982,14 @@ Ursache: {0}</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20180127T221604Z" creationid="elmar" creationdate="20160617T174713Z">
         <seg>Factor 1.2: 10pt -&gt; 12pt.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Falls ExifTool automatisch nach dem Speichern einer XMP-Datei deren Metadaten in die Bilddatei schreiben soll, bedenken Sie, dass dies bei großen Bilddateien JPhotoTagger merklich verlangsamen kann.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T201411Z" creationid="elmar" creationdate="20180203T201411Z">
+        <seg>If ExifTool shall write automatically metadata into the image file after saving a XMP file, consider, that this can slow down JPhotoTagger noticable.</seg>
       </tuv>
     </tu>
     <tu>
@@ -9376,6 +9480,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Import IPTC data</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>IPTC-Daten ins Bild schreiben</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200744Z" creationid="elmar" creationdate="20180203T200744Z">
+        <seg>Write IPTC data into image file</seg>
       </tuv>
     </tu>
     <tu>
@@ -11064,6 +11176,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Metadaten automatisch in Bilder schreiben nach jedem Speichern von XMP-Dateien</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200826Z" creationid="elmar" creationdate="20180203T200826Z">
+        <seg>Write metadata automatically whenever XMP files were saved</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Metadaten bearbeiten</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -11132,6 +11252,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>At least one of the selected files already exists! Replace all existing files?</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Mit ExifTool können alle Metadaten, die JPhotoTagger sonst nur in XMP-Dateien speichert, auch in die Bilddateien übertragen werden.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T201051Z" creationid="elmar" creationdate="20180203T201051Z">
+        <seg>With ExifTool all metadata, which JPhotoTagger else writes only into XMP files, can be written also into image files.</seg>
       </tuv>
     </tu>
     <tu>
@@ -13176,6 +13304,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Schreibt mit ExifTool IPTC- und XMP-Metadaten in Bilddateien.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200431Z" creationid="elmar" creationdate="20180203T200431Z">
+        <seg>Writes with ExifTool IPTC and XMP metadata into image files..</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Schritt&amp;weite:</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -13256,6 +13392,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Sicherungskopie der Bilddatei erzeugen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200723Z" creationid="elmar" creationdate="20180203T200723Z">
+        <seg>Create backup of image file</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Sie können während des Kopierens weiterarbeiten</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -13268,6 +13412,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>You can continue working while moving the files</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Sie sollten in diesem Fall überlegen, ob Sie Eingaben erst speichern lassen, nachdem andere Bilder ausgewählt wurden.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T201541Z" creationid="elmar" creationdate="20180203T201541Z">
+        <seg>You should think in that case, to save input after other images were selected.</seg>
       </tuv>
     </tu>
     <tu>
@@ -15008,6 +15160,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>WARNUNG: Das Schreiben von Metadaten in Bilder könnte diese beschädigen!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T201125Z" creationid="elmar" creationdate="20180203T201125Z">
+        <seg>WARNING: Writing metadata into image files can damage these!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Warnung</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -15360,6 +15520,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>XMP-Daten ins Bild schreiben</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200838Z" creationid="elmar" creationdate="20180203T200838Z">
+        <seg>Write XMP data into image file</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>XMP-Daten ändern</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -15580,6 +15748,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Number sequences</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Zu berücksichtigende Dateiendungen (nur in diese Dateien wird geschrieben):</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180203T200957Z" creationid="elmar" creationdate="20180203T200957Z">
+        <seg>Regarded file suffixes (only in theses files will be written):</seg>
       </tuv>
     </tu>
     <tu>

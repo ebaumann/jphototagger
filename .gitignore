@@ -107,3 +107,6 @@
 /Image/nbproject/private/
 /Repositories/HSQLDB/build
 /Modules/DisplayFilesWithoutMetaData/dist/
+/Modules/ExifToolXmpToImageWriter/nbproject/private/
+/Modules/ExifToolXmpToImageWriter/build/
+/Modules/ExifToolXmpToImageWriter/dist/
