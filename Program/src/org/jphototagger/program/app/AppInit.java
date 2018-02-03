@@ -59,6 +59,7 @@ public final class AppInit {
             SplashScreen.INSTANCE.setProgress(75);
             AbstractImageReader.install(ImageProperties.class);
             hideSplashScreen();
+            checkXmx();
             showMainWindow();
             setJptEventQueue();
         } catch (Throwable t) {
@@ -92,6 +93,18 @@ public final class AppInit {
     private static void lock() {
         if (!AppStartupLock.lock() && !AppStartupLock.forceLock()) {
             throw new RuntimeException("Application can't be locked");
+        }
+    }
+
+    private static void checkXmx() {
+        final long maxMemoryB = Runtime.getRuntime().maxMemory();
+        final long maxMemoryMB = (long) ((double) maxMemoryB / 1024.0 / 1024.0);
+        final long minMB = 450;
+        final long minB = minMB * 1024 * 1024;
+        if (maxMemoryB < minB) {
+            String message = Bundle.getString(AppInit.class, "AppInit.CheckXmx.LowMaxMemory", minMB, maxMemoryMB);
+            Logger.getLogger(AppInit.class.getName()).log(Level.WARNING, "message");
+            MessageDisplayer.warning(null, message);
         }
     }
 

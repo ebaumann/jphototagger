@@ -5006,6 +5006,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Dadurch könnte JPhotoTagger sehr langsam reagieren.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T133444Z" creationid="elmar" creationdate="20180203T133444Z">
+        <seg>As a consequence JPhotoTagger may react very slow.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Das Benutzerverzeichnis zum Speichern des Skripts konnte nicht ermittelt werden!</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -6754,6 +6762,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Selected image files</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Empfehlenswert sind 750 und mehr Megabyte.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T133503Z" creationid="elmar" creationdate="20180203T133503Z">
+        <seg>Recommended are 750 and more megabytes.</seg>
       </tuv>
     </tu>
     <tu>
@@ -9156,6 +9172,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>JPhotoTagger Export/Import</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>JPhotoTagger hat weniger als {0} Megabyte maximalen Speicher ({1} MB)!</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T133259Z" creationid="elmar" creationdate="20180203T133259Z">
+        <seg>JPhotoTagger has less than {0} megabytes of maximum Memory ({1} MB)!</seg>
       </tuv>
     </tu>
     <tu>
