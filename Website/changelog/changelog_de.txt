@@ -1,7 +1,17 @@
 Zeichenkodierung dieser Datei: UTF-8
 
-Changelog JPhotoTagger http://jphototagger.org/
-===============================================
+Changelog JPhotoTagger https://jphototagger.org/
+================================================
+
+0.36.0 2018-02-04
+------------------
+
+* Beim Start prüft JPhotoTagger, ob es ausreichend maximalen Speicher
+  erhalten kann. Andernfalls wird eine Warnung angezeigt.
+* ExifTool-Unterstüzung integriert, sodass Metadaten in Bilder
+  geschrieben werden können: "Werkzeuge > Mit ExifTool Metadaten in
+  Bilder schreiben..." sowie "Bearbeiten > Einstellungen > 6. Sonstiges
+  > ExifTool-Metadatenschreiber"
 
 0.35.2 2018-01-30
 ------------------

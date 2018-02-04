@@ -3,11 +3,12 @@ package org.jphototagger.exiftoolxtiw;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.lib.util.Bundle;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann
  */
-//@ServiceProvider(service = Module.class) // Uncomment for activation
+@ServiceProvider(service = Module.class)
 public final class ModuleInstaller implements Module, ModuleDescription {
 
     @Override

@@ -13,6 +13,7 @@ import org.openide.util.Lookup;
  */
 public final class CommonPreferences {
 
+    public static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
     public static final String PREF_KEY_FONT_SCALE = "JPhotoTaggerFontScale";
     private static final float RECOMMENDED_FONT_SCALE = calculateRecommendedFontScale();
     private static final Collection<Float> VALID_FONT_SCALES = Arrays.asList(1.0f, 1.1f, 1.2f, 1.3f, 1.4f, 1.5f, 1.75f, 2.0f, 2.25f, 2.5f, 3.0f);

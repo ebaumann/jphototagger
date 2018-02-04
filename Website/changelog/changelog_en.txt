@@ -1,7 +1,16 @@
 Character encoding of this file: UTF-8
 
-Changelog JPhotoTagger http://jphototagger.org/
-===============================================
+Changelog JPhotoTagger https://jphototagger.org/
+================================================
+
+0.36.0 2018-02-04
+------------------
+
+* When starting, JPhotoTagger checks, if it can get sufficient maximum
+  memory. If not, an error message will be displayed.
+* Integrated ExifTool support, thus metadata can be written into image
+  files: "Tools > Write metadata into images with ExifTool" and
+  "Edit > Settings > ExifTool metadata writer".
 
 0.35.2 2018-01-30
 ------------------

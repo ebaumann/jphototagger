@@ -16,6 +16,10 @@ import javax.swing.event.ListDataListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.preferences.CommonPreferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
 import org.jphototagger.lib.swing.FileChooserHelper;
@@ -48,19 +52,21 @@ public class SettingsPanel extends javax.swing.JPanel {
         fileSuffixesListModel.addListDataListener(filePathListener);
         buttonRemoveFileSuffix.setEnabled(false);
         listFileSuffixes.getSelectionModel().addListSelectionListener(filePathSelectionListener);
-        setGuiViaExifToolEnabled();
+        setGuiEnabled();
         MnemonicUtil.setMnemonics(this);
-        setLabelErrorCanWriteVisible();
+        setErrorLabelsVisible();
+        AnnotationProcessor.process(this);
     }
 
     private void restore() {
         restoreExifToolFilePath();
-        checkBoxWriteIptc.setSelected(settings.isWriteIptc());
-        checkBoxWriteXmp.setSelected(settings.isWriteXmp());
+        checkBoxSelfResponsible.setSelected(settings.isSelfResponsible());
         checkBoxCreateBackupFile.setSelected(settings.isCreateBackupFile());
         checkBoxWriteOnSaveXmp.setSelected(settings.isWriteOnEveryXmpFileModification());
         checkBoxExifToolEnabled.setSelected(settings.isExifToolEnabled());
         restoreFileSuffixes();
+        checkSaveInputEarly();
+        setGuiEnabled();
     }
 
     private void restoreExifToolFilePath() {
@@ -125,7 +131,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         private void changed() {
             persistFileSuffixes();
-            setLabelErrorCanWriteVisible();
+            setErrorLabelsVisible();
         }
     };
 
@@ -138,6 +144,32 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         }
     };
+
+
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void applySettings(PreferencesChangedEvent evt) {
+        if (CommonPreferences.KEY_SAVE_INPUT_EARLY.equals(evt.getKey())) {
+            Object value = evt.getNewValue();
+            if (value instanceof Boolean) {
+                boolean saveInputEarly = (Boolean) value;
+                if (!saveInputEarly) {
+                    settings.setWriteOnEveryXmpFileModification(false);
+                }
+                checkSaveInputEarly();
+            }
+        }
+    }
+
+    private void checkSaveInputEarly() {
+        boolean saveInputEarly = settings.isInputSaveEarly();
+        checkBoxWriteOnSaveXmp.setEnabled(checkBoxSelfResponsible.isSelected()
+                && checkBoxExifToolEnabled.isSelected()
+                && !saveInputEarly);
+        if (saveInputEarly) {
+            checkBoxWriteOnSaveXmp.setSelected(false);
+        }
+        setErrorLabelsVisible();
+    }
 
     private void persistExifToolFilePath() {
         String filePath = textFieldExifToolFilePath.getText();
@@ -223,25 +255,76 @@ public class SettingsPanel extends javax.swing.JPanel {
         return filter.forFileChooser(Bundle.getString(SettingsPanel.class, "SettingsPanel.FileChooser.ExifToolFile"));
     }
 
-    private void setGuiViaExifToolEnabled() {
-        boolean enabled = checkBoxExifToolEnabled.isSelected();
+    private void setGuiEnabled() {
+        boolean selfResponsible = checkBoxSelfResponsible.isSelected();
+        boolean enabled = selfResponsible && checkBoxExifToolEnabled.isSelected();
 
         buttonAddFileSuffix.setEnabled(enabled);
         buttonChooseExifTool.setEnabled(enabled);
         buttonRemoveFileSuffix.setEnabled(enabled && listFileSuffixes.getSelectedIndex() >= 0);
         buttonSetDefaultFileSuffixes.setEnabled(enabled);
+
+        checkBoxExifToolEnabled.setEnabled(selfResponsible);
         checkBoxCreateBackupFile.setEnabled(enabled);
-        checkBoxWriteIptc.setEnabled(enabled);
-        checkBoxWriteOnSaveXmp.setEnabled(enabled);
-        checkBoxWriteXmp.setEnabled(enabled);
+        checkSaveInputEarly();
     }
 
-    private void setLabelErrorCanWriteVisible() {
+    private void setErrorLabelsVisible() {
         labelErrorCanWrite.setVisible(checkBoxExifToolEnabled.isSelected() && !settings.canWrite());
+        labelErrorInputsSavedEarly.setVisible(settings.isInputSaveEarly());
     }
 
     private void browseExifToolWebsite() {
         DesktopUtil.browse("https://www.sno.phy.queensu.ca/~phil/exiftool/", "ExifToolXmpToImageWriter.Browser");
+    }
+
+    private void selfResponsiblePerformed() {
+        boolean selfResponsible = checkBoxSelfResponsible.isSelected();
+        settings.setSelfResponsible(selfResponsible);
+        if (!selfResponsible) {
+            settings.setExifToolEnabled(false);
+            checkBoxExifToolEnabled.setSelected(false);
+        }
+        setGuiEnabled();
+    }
+
+    private void defaultFileSuffixesPerformed() {
+        setDefaultFileSuffixes();
+        setErrorLabelsVisible();
+    }
+
+    private void writeOnSaveXmpPerformed() {
+        if (checkBoxWriteOnSaveXmp.isSelected()) {
+            MessageDisplayer.information(this, Bundle.getString(SettingsPanel.class, "SettingsPanel.WarningWriteOnSaveXmp"));
+        }
+        settings.setWriteOnEveryXmpFileModification(checkBoxWriteOnSaveXmp.isSelected());
+        setErrorLabelsVisible();
+    }
+
+    private void createBackupFilePerformed() {
+        settings.setCreateBackupFile(checkBoxCreateBackupFile.isSelected());
+        setErrorLabelsVisible();
+    }
+
+    private void removeFileSuffixPerformed() {
+        removeSelectedFileSuffixes();
+        setErrorLabelsVisible();
+    }
+
+    private void addFileSuffixPerformed() {
+        addFileSuffixes();
+        setErrorLabelsVisible();
+    }
+
+    private void chooseExifToolPerformed() {
+        setExifToolFilePath();
+        setErrorLabelsVisible();
+    }
+
+    private void exifToolEnabledPerformed() {
+        settings.setExifToolEnabled(checkBoxExifToolEnabled.isSelected());
+        setErrorLabelsVisible();
+        setGuiEnabled();
     }
 
     /** This method is called from within the constructor to
@@ -254,6 +337,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         paneContents = new javax.swing.JPanel();
+        checkBoxSelfResponsible = new javax.swing.JCheckBox();
+        panelExifToolGeneral = new javax.swing.JPanel();
         checkBoxExifToolEnabled = new javax.swing.JCheckBox();
         buttonBrowseExifToolWebsite = new javax.swing.JButton();
         textAreaInfo = new javax.swing.JTextArea();
@@ -261,9 +346,9 @@ public class SettingsPanel extends javax.swing.JPanel {
         panelChooseExifTool = new javax.swing.JPanel();
         textFieldExifToolFilePath = new javax.swing.JTextField();
         buttonChooseExifTool = new javax.swing.JButton();
+        panelWriteOnSaveXmp = new javax.swing.JPanel();
         checkBoxWriteOnSaveXmp = new javax.swing.JCheckBox();
-        checkBoxWriteIptc = new javax.swing.JCheckBox();
-        checkBoxWriteXmp = new javax.swing.JCheckBox();
+        labelErrorInputsSavedEarly = new javax.swing.JLabel();
         checkBoxCreateBackupFile = new javax.swing.JCheckBox();
         labelFileSuffixes = new javax.swing.JLabel();
         scrollPaneFileSuffixes = new javax.swing.JScrollPane();
@@ -278,6 +363,20 @@ public class SettingsPanel extends javax.swing.JPanel {
         paneContents.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exiftoolxtiw/Bundle"); // NOI18N
+        checkBoxSelfResponsible.setText(bundle.getString("SettingsPanel.checkBoxSelfResponsible.text")); // NOI18N
+        checkBoxSelfResponsible.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxSelfResponsibleActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        paneContents.add(checkBoxSelfResponsible, gridBagConstraints);
+
+        panelExifToolGeneral.setLayout(new java.awt.GridBagLayout());
+
         checkBoxExifToolEnabled.setText(bundle.getString("SettingsPanel.checkBoxExifToolEnabled.text")); // NOI18N
         checkBoxExifToolEnabled.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +386,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        paneContents.add(checkBoxExifToolEnabled, gridBagConstraints);
+        panelExifToolGeneral.add(checkBoxExifToolEnabled, gridBagConstraints);
 
         buttonBrowseExifToolWebsite.setText(bundle.getString("SettingsPanel.buttonBrowseExifToolWebsite.text")); // NOI18N
         buttonBrowseExifToolWebsite.addActionListener(new java.awt.event.ActionListener() {
@@ -298,7 +397,15 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        paneContents.add(buttonBrowseExifToolWebsite, gridBagConstraints);
+        panelExifToolGeneral.add(buttonBrowseExifToolWebsite, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        paneContents.add(panelExifToolGeneral, gridBagConstraints);
 
         textAreaInfo.setEditable(false);
         textAreaInfo.setColumns(20);
@@ -351,6 +458,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         paneContents.add(panelChooseExifTool, gridBagConstraints);
 
+        panelWriteOnSaveXmp.setLayout(new java.awt.GridBagLayout());
+
         checkBoxWriteOnSaveXmp.setText(bundle.getString("SettingsPanel.checkBoxWriteOnSaveXmp.text")); // NOI18N
         checkBoxWriteOnSaveXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,37 +467,22 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        paneContents.add(checkBoxWriteOnSaveXmp, gridBagConstraints);
+        panelWriteOnSaveXmp.add(checkBoxWriteOnSaveXmp, gridBagConstraints);
 
-        checkBoxWriteIptc.setText(bundle.getString("SettingsPanel.checkBoxWriteIptc.text")); // NOI18N
-        checkBoxWriteIptc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxWriteIptcActionPerformed(evt);
-            }
-        });
+        labelErrorInputsSavedEarly.setForeground(java.awt.Color.RED);
+        labelErrorInputsSavedEarly.setText(bundle.getString("SettingsPanel.labelErrorInputsSavedEarly.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        panelWriteOnSaveXmp.add(labelErrorInputsSavedEarly, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        paneContents.add(checkBoxWriteIptc, gridBagConstraints);
-
-        checkBoxWriteXmp.setText(bundle.getString("SettingsPanel.checkBoxWriteXmp.text")); // NOI18N
-        checkBoxWriteXmp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxWriteXmpActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        paneContents.add(checkBoxWriteXmp, gridBagConstraints);
+        paneContents.add(panelWriteOnSaveXmp, gridBagConstraints);
 
         checkBoxCreateBackupFile.setText(bundle.getString("SettingsPanel.checkBoxCreateBackupFile.text")); // NOI18N
         checkBoxCreateBackupFile.addActionListener(new java.awt.event.ActionListener() {
@@ -409,7 +503,10 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         paneContents.add(labelFileSuffixes, gridBagConstraints);
 
+        scrollPaneFileSuffixes.setPreferredSize(new java.awt.Dimension(200, 100));
+
         listFileSuffixes.setModel(fileSuffixesListModel);
+        listFileSuffixes.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         scrollPaneFileSuffixes.setViewportView(listFileSuffixes);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -468,54 +565,40 @@ public class SettingsPanel extends javax.swing.JPanel {
     }//GEN-END:initComponents
 
     private void buttonSetDefaultFileSuffixesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSetDefaultFileSuffixesActionPerformed
-        setDefaultFileSuffixes();
-        setLabelErrorCanWriteVisible();
+        defaultFileSuffixesPerformed();
     }//GEN-LAST:event_buttonSetDefaultFileSuffixesActionPerformed
 
-    private void checkBoxWriteIptcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxWriteIptcActionPerformed
-        settings.setWriteIptc(checkBoxWriteIptc.isSelected());
-        setLabelErrorCanWriteVisible();
-    }//GEN-LAST:event_checkBoxWriteIptcActionPerformed
-
     private void checkBoxWriteOnSaveXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxWriteOnSaveXmpActionPerformed
-        settings.setWriteOnEveryXmpFileModification(checkBoxWriteOnSaveXmp.isSelected());
-        setLabelErrorCanWriteVisible();
+        writeOnSaveXmpPerformed();
     }//GEN-LAST:event_checkBoxWriteOnSaveXmpActionPerformed
 
-    private void checkBoxWriteXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxWriteXmpActionPerformed
-        settings.setWriteXmp(checkBoxWriteXmp.isSelected());
-        setLabelErrorCanWriteVisible();
-    }//GEN-LAST:event_checkBoxWriteXmpActionPerformed
-
-    private void checkBoxCreateBackupFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCreateBackupFileActionPerformed
-        settings.setCreateBackupFile(checkBoxCreateBackupFile.isSelected());
-        setLabelErrorCanWriteVisible();
-    }//GEN-LAST:event_checkBoxCreateBackupFileActionPerformed
-
     private void buttonRemoveFileSuffixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveFileSuffixActionPerformed
-        removeSelectedFileSuffixes();
-        setLabelErrorCanWriteVisible();
+        removeFileSuffixPerformed();
     }//GEN-LAST:event_buttonRemoveFileSuffixActionPerformed
 
     private void buttonAddFileSuffixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddFileSuffixActionPerformed
-        addFileSuffixes();
-        setLabelErrorCanWriteVisible();
+        addFileSuffixPerformed();
     }//GEN-LAST:event_buttonAddFileSuffixActionPerformed
 
     private void buttonChooseExifToolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonChooseExifToolActionPerformed
-        setExifToolFilePath();
-        setLabelErrorCanWriteVisible();
+        chooseExifToolPerformed();
     }//GEN-LAST:event_buttonChooseExifToolActionPerformed
 
     private void checkBoxExifToolEnabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxExifToolEnabledActionPerformed
-        settings.setExifToolEnabled(checkBoxExifToolEnabled.isSelected());
-        setLabelErrorCanWriteVisible();
-        setGuiViaExifToolEnabled();
+        exifToolEnabledPerformed();
     }//GEN-LAST:event_checkBoxExifToolEnabledActionPerformed
 
     private void buttonBrowseExifToolWebsiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBrowseExifToolWebsiteActionPerformed
         browseExifToolWebsite();
     }//GEN-LAST:event_buttonBrowseExifToolWebsiteActionPerformed
+
+    private void checkBoxSelfResponsibleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSelfResponsibleActionPerformed
+        selfResponsiblePerformed();
+    }//GEN-LAST:event_checkBoxSelfResponsibleActionPerformed
+
+    private void checkBoxCreateBackupFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCreateBackupFileActionPerformed
+        createBackupFilePerformed();
+    }//GEN-LAST:event_checkBoxCreateBackupFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAddFileSuffix;
@@ -525,18 +608,19 @@ public class SettingsPanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonSetDefaultFileSuffixes;
     private javax.swing.JCheckBox checkBoxCreateBackupFile;
     private javax.swing.JCheckBox checkBoxExifToolEnabled;
-    private javax.swing.JCheckBox checkBoxWriteIptc;
+    private javax.swing.JCheckBox checkBoxSelfResponsible;
     private javax.swing.JCheckBox checkBoxWriteOnSaveXmp;
-    private javax.swing.JCheckBox checkBoxWriteXmp;
     private javax.swing.JLabel labelErrorCanWrite;
+    private javax.swing.JLabel labelErrorInputsSavedEarly;
     private javax.swing.JLabel labelFileSuffixes;
     private javax.swing.JList<String> listFileSuffixes;
     private javax.swing.JPanel paneContents;
     private javax.swing.JPanel panelButtonsFileSuffixes;
     private javax.swing.JPanel panelChooseExifTool;
+    private javax.swing.JPanel panelExifToolGeneral;
+    private javax.swing.JPanel panelWriteOnSaveXmp;
     private javax.swing.JScrollPane scrollPaneFileSuffixes;
     private javax.swing.JTextArea textAreaInfo;
     private javax.swing.JTextField textFieldExifToolFilePath;
     // End of variables declaration//GEN-END:variables
-
 }

@@ -35,6 +35,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.applifecycle.AppWillExitEvent;
 import org.jphototagger.api.concurrent.Cancelable;
+import org.jphototagger.api.preferences.CommonPreferences;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -969,8 +970,8 @@ final class EditMetaDataPanels implements FocusListener {
 
     private boolean isSaveInputEarly() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        return prefs.containsKey(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
-                ? prefs.getBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
+        return prefs.containsKey(CommonPreferences.KEY_SAVE_INPUT_EARLY)
+                ? prefs.getBoolean(CommonPreferences.KEY_SAVE_INPUT_EARLY)
                 : true;
     }
 

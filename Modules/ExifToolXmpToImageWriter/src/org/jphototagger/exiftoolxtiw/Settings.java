@@ -1,10 +1,14 @@
 package org.jphototagger.exiftoolxtiw;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import org.jphototagger.api.preferences.CommonPreferences;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
 
@@ -15,15 +19,14 @@ import org.openide.util.Lookup;
  */
 public final class Settings {
 
+    private static final String KEY_SELF_RESPONSIBLE = "ExifToolXmpToImageWriter.SelfResponsible";
     private static final String KEY_EXIFTOOL_ENABLED = "ExifToolXmpToImageWriter.ExifToolEnabled";
     private static final String KEY_EXIFTOOL_FILEPATH = "ExifToolXmpToImageWriter.ExifToolFilePath";
-    private static final String KEY_WRITE_IPTC = "ExifToolXmpToImageWriter.WriteIptc";
-    private static final String KEY_WRITE_XMP = "ExifToolXmpToImageWriter.WriteXmp";
     private static final String KEY_CREATE_BACKUP_FILE = "ExifToolXmpToImageWriter.CreateBackupFile";
     private static final String KEY_WRITE_ON_EVERY_XMP_FILE_MODIFICATION = "ExifToolXmpToImageWriter.WriteOnEveryXmpFileModifcation";
     private static final String KEY_FILE_SUFFIXES_SET = "ExifToolXmpToImageWriter.FileSuffixesSet";
     private static final String KEY_FILE_SUFFIXES = "ExifToolXmpToImageWriter.FileSuffixes";
-    private static final Collection<String> DEFAULT_FILE_SUFFIXES = Arrays.asList(".jpg", ".tif", ".tiff");
+    private static final Collection<String> DEFAULT_FILE_SUFFIXES = Arrays.asList(".jpg", ".tif");
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
     /**
@@ -43,7 +46,28 @@ public final class Settings {
      * @return true, if ExifTool is enabled
      */
     public boolean isExifToolEnabled() {
-        return prefs.getBoolean(KEY_EXIFTOOL_ENABLED);
+        return isSelfResponsible()
+                && prefs.getBoolean(KEY_EXIFTOOL_ENABLED);
+    }
+
+    /**
+     * Sets that the user is self-responsible to use this feature.
+     *
+     * @param responsible true, if the user is self-responsible
+     */
+    public void setSelfResponsible(Boolean responsible) {
+        if (responsible == null) {
+            prefs.removeKey(KEY_SELF_RESPONSIBLE);
+        } else {
+            prefs.setBoolean(KEY_SELF_RESPONSIBLE, responsible);
+        }
+    }
+
+    /**
+     * @return true, if the user is self-responsible
+     */
+    public boolean isSelfResponsible() {
+        return prefs.getBoolean(KEY_SELF_RESPONSIBLE);
     }
 
     /**
@@ -67,48 +91,6 @@ public final class Settings {
     }
 
     /**
-     * Sets, whether ExifTool shall write IPTC into the image file.
-     *
-     * @param write true, if ExifTool shall write IPTC into the image file. Null
-     *              is equals to false.
-     */
-    public void setWriteIptc(Boolean write) {
-        if (write == null) {
-            prefs.removeKey(KEY_WRITE_IPTC);
-        } else {
-            prefs.setBoolean(KEY_WRITE_IPTC, write);
-        }
-    }
-
-    /**
-     * @return true, if ExifTool shall write IPTC into the image file
-     */
-    public boolean isWriteIptc() {
-        return prefs.getBoolean(KEY_WRITE_IPTC);
-    }
-
-    /**
-     * Sets, whether ExifTool shall write XMP into the image file.
-     *
-     * @param write true, if ExifTool shall write XMP into the image file. Null
-     *              is equals to false.
-     */
-    public void setWriteXmp(Boolean write) {
-        if (write == null) {
-            prefs.removeKey(KEY_WRITE_XMP);
-        } else {
-            prefs.setBoolean(KEY_WRITE_XMP, write);
-        }
-    }
-
-    /**
-     * @return true, if ExifTool shall write XMP into the image file
-     */
-    public boolean isWriteXmp() {
-        return prefs.getBoolean(KEY_WRITE_XMP);
-    }
-
-    /**
      * Sets, whether ExifTool shall backup the image file.
      *
      * @param create true, if ExifTool shall backup the image file. Null is
@@ -126,7 +108,9 @@ public final class Settings {
      * @return true, if ExifTool shall backup the image file
      */
     public boolean isCreateBackupFile() {
-        return prefs.getBoolean(KEY_CREATE_BACKUP_FILE);
+        return  prefs.containsKey(KEY_CREATE_BACKUP_FILE)
+                ? prefs.getBoolean(KEY_CREATE_BACKUP_FILE)
+                : true;
     }
 
     /**
@@ -181,11 +165,18 @@ public final class Settings {
         return Collections.unmodifiableCollection(DEFAULT_FILE_SUFFIXES);
     }
 
+    public boolean isInputSaveEarly() {
+        return prefs.containsKey(CommonPreferences.KEY_SAVE_INPUT_EARLY)
+                ? prefs.getBoolean(CommonPreferences.KEY_SAVE_INPUT_EARLY)
+                : true;
+    }
+
     /**
      * Checks, whether ExifTool can write into image files. Examines the
      * existence of the ExifTool executable and if at least one metadata option
      * - XMP or IPTC - is enabled and a file suffix is present. <em>Does not
-     * consider {@link #isExifToolEnabled()}.</em>
+     * consider {@link #isExifToolEnabled()} and not
+     * {@link #isSelfResponsible()}.</em>
      *
      * @return true, if ExifTool can write into image files
      */
@@ -198,14 +189,42 @@ public final class Settings {
 
         File exifToolFile = new File(filePath);
 
-        if (!exifToolFile.isFile()) {
-            return false;
+        return exifToolFile.isFile()
+                && ! getFileSuffixes().isEmpty();
+    }
+
+    /**
+     * @return File suffixes in lower case
+     */
+    public Collection<String> getFileSuffixesLcNoDot() {
+        Collection<String> fileSuffixes = getFileSuffixes();
+        Collection<String> lcSuffixes = new HashSet<String>();
+
+        for (String suffix : fileSuffixes) {
+            String sfx = suffix.toLowerCase().trim();
+            if (sfx.startsWith(".")) {
+                if (sfx.length() > 1) {
+                    lcSuffixes.add(sfx.substring(1));
+                }
+            } else {
+                lcSuffixes.add(sfx);
+            }
         }
 
-        if (getFileSuffixes().isEmpty()) {
-            return false;
-        }
+        return lcSuffixes;
+    }
 
-        return isWriteIptc() || isWriteXmp();
+    public FileFilter createFilenameFilter() {
+        return new FileFilter() {
+
+            private final Collection<String> suffixesLc = getFileSuffixesLcNoDot();
+
+            @Override
+            public boolean accept(File file) {
+                String suffix = FileUtil.getSuffix(file);
+
+                return suffixesLc.contains(suffix.toLowerCase());
+            }
+        };
     }
 }

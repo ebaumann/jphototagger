@@ -14,7 +14,6 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.metadata.iptc.Iptc;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
-import org.jphototagger.domain.metadata.xmp.XmpToImageWriters;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
@@ -80,7 +79,6 @@ public final class ConvertIptcToXmp implements Runnable, Cancelable {
                 xmp.setIptc(iptc, Xmp.SetIptc.DONT_CHANGE_EXISTING_VALUES);
                 logWriteXmpFile(file);
                 if (XmpMetadata.writeXmpToSidecarFile(xmp, xmpFile)) {
-                    XmpToImageWriters.write(xmpFile, file);
                     updateRepository(file);
                 }
             }

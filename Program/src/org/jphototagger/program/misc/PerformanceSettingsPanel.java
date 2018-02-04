@@ -2,6 +2,7 @@ package org.jphototagger.program.misc;
 
 import java.awt.Container;
 import javax.swing.SpinnerModel;
+import org.jphototagger.api.preferences.CommonPreferences;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.api.storage.Persistence;
@@ -10,7 +11,6 @@ import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.openide.util.Lookup;
 
 /**
@@ -80,13 +80,13 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
     private void persistSaveInputEarly() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         boolean saveInputEarlySelected = checkBoxSaveInputEarly.isSelected();
-        prefs.setBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY, saveInputEarlySelected);
+        prefs.setBoolean(CommonPreferences.KEY_SAVE_INPUT_EARLY, saveInputEarlySelected);
     }
 
     private boolean lookupSaveInputEarly() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        return prefs.containsKey(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
-                ? prefs.getBoolean(AppPreferencesKeys.KEY_SAVE_INPUT_EARLY)
+        return prefs.containsKey(CommonPreferences.KEY_SAVE_INPUT_EARLY)
+                ? prefs.getBoolean(CommonPreferences.KEY_SAVE_INPUT_EARLY)
                 : true;
     }
 

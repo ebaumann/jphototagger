@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.io.StringReader;
+import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -98,6 +99,36 @@ public final class External {
         }
     }
 
+    /**
+     * Executes an external command, waits for it's termination and returns it's output.
+     *
+     * @param commandArray command, e.g. {@code "/bin/ls" "-l" "/home"}
+     * @param maxMillisecondsUntilDestroy Maximum time in milliseconds to wait before (automatically) destroying the
+     * external process
+     * @return Bytes output by the program or null if errors occured
+     */
+    public static ProcessResult executeWaitForTermination(String[] commandArray, long maxMillisecondsUntilDestroy) {
+        if (commandArray == null) {
+            throw new NullPointerException("command == null");
+        }
+        if (maxMillisecondsUntilDestroy < 0) {
+            throw new IllegalArgumentException("Negative maximum milliseconds until destroy: " + maxMillisecondsUntilDestroy);
+        }
+        Timer timer = new Timer(true);
+        try {
+            InterruptTimerTask interrupter = new InterruptTimerTask(Thread.currentThread()); // http://kylecartmell.com/?p=9
+            timer.schedule(interrupter, maxMillisecondsUntilDestroy);
+            Process process = Runtime.getRuntime().exec(commandArray);
+            return waitForTermination(process, commandArray, maxMillisecondsUntilDestroy);
+        } catch (Throwable t) {
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE, null, t);
+            return null;
+        } finally {
+            timer.cancel();
+            Thread.interrupted();
+        }
+    }
+
     private static class InterruptTimerTask extends TimerTask {
 
         private final Thread thread;
@@ -131,6 +162,29 @@ public final class External {
             Logger.getLogger(External.class.getName()).log(Level.SEVERE,
                     "The command {1} did run more than {0} milliseconds and was terminated.",
                     new Object[]{maxMillisecondsUntilDestroy, command});
+            return null;
+        }
+    }
+
+    private static ProcessResult waitForTermination(Process process, String[] commandArray, long maxMillisecondsUntilDestroy) {
+        StreamReader stdOutStreamReader = new StreamReader(process.getInputStream());
+        Thread stdOutReaderThread = new Thread(stdOutStreamReader);
+        StreamReader stdErrStreamReader = new StreamReader(process.getErrorStream());
+        Thread stdErrReaderThread = new Thread(stdErrStreamReader);
+        stdOutReaderThread.setName("JPhotoTagger: Reading stdout of " + Arrays.toString(commandArray));
+        stdErrReaderThread.setName("JPhotoTagger: Reading stderr of " + Arrays.toString(commandArray));
+        stdOutReaderThread.start();
+        stdErrReaderThread.start();
+        try {
+            int processExitValue = process.waitFor();
+            byte[] stdOutBytes = stdOutStreamReader.readStreamBytes;
+            byte[] stdErrBytes = stdErrStreamReader.readStreamBytes;
+            return new ProcessResult(stdOutBytes, stdErrBytes, processExitValue);
+        } catch (InterruptedException ex) {
+            process.destroy();
+            Logger.getLogger(External.class.getName()).log(Level.SEVERE,
+                    "The command {1} did run more than {0} milliseconds and was terminated.",
+                    new Object[]{maxMillisecondsUntilDestroy, commandArray});
             return null;
         }
     }

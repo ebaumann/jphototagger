@@ -158,6 +158,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>&amp;Anhalten</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T190120Z" creationid="elmar" creationdate="20180204T190120Z">
+        <seg>Sto&amp;p</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>&amp;Ansicht</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -881,6 +889,14 @@
         <seg>&amp;Start</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
+        <seg>&amp;Start</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>&amp;Starten</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185318Z" creationid="elmar" creationdate="20180204T185318Z">
         <seg>&amp;Start</seg>
       </tuv>
     </tu>
@@ -2734,6 +2750,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Alle Ordner darunter einschließen</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185334Z" creationid="elmar" creationdate="20180204T185334Z">
+        <seg>Include also all subfolders</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Alle Stichwörter</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -4414,6 +4438,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Bildverzeichnisse hinzufügen</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185242Z" creationid="elmar" creationdate="20180204T185242Z">
+        <seg>Add image folders</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Bit pro Pixel</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -5106,6 +5138,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T192800Z">
         <seg>JPhotoTagger will be terminated.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Das Schreiben in eine Bilddatei nach jeder Modifikation einer XMP-Datei kann JPhotoTagger signifikant verlangsamen!</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185525Z" creationid="elmar" creationdate="20180204T185525Z">
+        <seg>Writing into an image file after every modification of a XMP file can slow down JPhotoTagger significantly!</seg>
       </tuv>
     </tu>
     <tu>
@@ -5842,6 +5882,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>The regular expression is invalid!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Deshalb wird dies nur übernommen, falls die Eingaben nicht unmittelbar nach Verlassen eines Eingabefelds gespeichert werden (Bearbeiten &gt; Einstellungen 4. Leistung:  Eingaben möglichst früh speichern).</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T190808Z" creationid="elmar" creationdate="20180204T190052Z">
+        <seg>Hence this will be only accepted, if inputs after leafing an input field, will not be saved immediately (Edit &gt; Settings 4. Performance:  Save inputs as early as possible).</seg>
       </tuv>
     </tu>
     <tu>
@@ -6726,6 +6774,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Eingaben werden früh gespeichert!</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185750Z" creationid="elmar" creationdate="20180204T185750Z">
+        <seg>Inputs will be saved early!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Einheit Auflösung</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7214,6 +7270,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>ExifTool &amp;konfigurieren</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185312Z" creationid="elmar" creationdate="20180204T185312Z">
+        <seg>&amp;Configure ExifTool</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>ExifTool (ausführbare Datei)</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20180203T200537Z" creationid="elmar" creationdate="20180203T200537Z">
@@ -7246,10 +7310,26 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>ExifTool kann nicht ausgeführt werden, weil der Dateipfad ungültig ist oder ExifTool keine Daten schreiben soll!</seg>
+        <seg>ExifTool ist unureichend konfiguriert!</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T200914Z" creationid="elmar" creationdate="20180203T200914Z">
-        <seg>ExifTool can't be executed, because the file path is invalid or ExifTool shall not write any data!</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185347Z" creationid="elmar" creationdate="20180204T185347Z">
+        <seg>ExifTool is configured unsufficient!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>ExifTool kann nicht ausgeführt werden, weil der Dateipfad ungültig ist oder ExifTool nicht aktiviert ist!</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185735Z" creationid="elmar" creationdate="20180204T185735Z">
+        <seg>ExifTool can't be executed, because the file path is invalid or ExifTool is not activated!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>ExifTool konfigurieren</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T184756Z" creationid="elmar" creationdate="20180204T184756Z">
+        <seg>Configure ExifTool</seg>
       </tuv>
     </tu>
     <tu>
@@ -8816,14 +8896,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>IPTC-Daten ins Bild schreiben</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T200744Z" creationid="elmar" creationdate="20180203T200744Z">
-        <seg>Write IPTC data into image file</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>IPTC-Daten nach XMP</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -8860,6 +8932,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>ISO country code</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Ich übernehme die Verantwortung für die Modifkation der Bilder (andernfalls werden die Bilder nicht modifiziert)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T190545Z" creationid="elmar" creationdate="20180204T185656Z">
+        <seg>I take self-responsibility (otherwise images won't be modified)</seg>
       </tuv>
     </tu>
     <tu>
@@ -10512,6 +10592,22 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Mit ExifTool Metadaten in Bilder schreiben</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185305Z" creationid="elmar" creationdate="20180204T185305Z">
+        <seg>Write metadata with ExifTool into images</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Mit ExifTool Metadaten in Bilder schreiben...</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T190108Z" creationid="elmar" creationdate="20180204T190108Z">
+        <seg>Write metadata wit ExifTool into images...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Mit ExifTool können alle Metadaten, die JPhotoTagger sonst nur in XMP-Dateien speichert, auch in die Bilddateien übertragen werden.</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20180203T201051Z" creationid="elmar" creationdate="20180203T201051Z">
@@ -11356,6 +11452,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T191755Z">
         <seg>Only the first of these will be renamed.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Nur in diese Dateien wird geschrieben.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185832Z" creationid="elmar" creationdate="20180204T185832Z">
+        <seg>Only in these files will be written.</seg>
       </tuv>
     </tu>
     <tu>
@@ -12208,6 +12312,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>RAW-Dateien sollten im Zweifelsfall nicht hinzugefügt werden.:</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185902Z" creationid="elmar" creationdate="20180204T185902Z">
+        <seg>RAW files shouldn't be added if in doubt.:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Radius</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -12504,6 +12616,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Schließen</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185244Z" creationid="elmar" creationdate="20180204T185244Z">
+        <seg>Close</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Schlägt dem eingegebenen übergeordnete Stichwörter vor</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -12520,10 +12640,10 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Schreibt mit ExifTool IPTC- und XMP-Metadaten in Bilddateien.</seg>
+        <seg>Schreibt mit ExifTool Metadaten in Bilddateien.</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T200431Z" creationid="elmar" creationdate="20180203T200431Z">
-        <seg>Writes with ExifTool IPTC and XMP metadata into image files..</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185421Z" creationid="elmar" creationdate="20180204T185421Z">
+        <seg>Writes metadata into image files with ExifTool.</seg>
       </tuv>
     </tu>
     <tu>
@@ -12608,10 +12728,10 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Sicherungskopie der Bilddatei erzeugen</seg>
+        <seg>Sicherungskopie der Bilddatei erzeugen (von der Bilddatei wird vorher eine Kopie mit der Endung "_original" erstellt)</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T200723Z" creationid="elmar" creationdate="20180203T200723Z">
-        <seg>Create backup of image file</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T191438Z" creationid="elmar" creationdate="20180204T191438Z">
+        <seg>Create backup of image file (a file with the suffix "_original" will be created before)</seg>
       </tuv>
     </tu>
     <tu>
@@ -12632,14 +12752,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Sie sollten in diesem Fall überlegen, ob Sie Eingaben erst speichern lassen, nachdem andere Bilder ausgewählt wurden.</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T201541Z" creationid="elmar" creationdate="20180203T201541Z">
-        <seg>You should think in that case, to save input after other images were selected.</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>Sie sollten nach jeder Änderung neu berechnet werden.&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T192454Z">
@@ -12652,6 +12764,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>See details</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Siehe Kommandozeilenbefehl unter https://www.jphototagger.org/usr/start_in_ohter_lang.html</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T190224Z" creationid="elmar" creationdate="20180204T190224Z">
+        <seg>See command line under https://www.jphototagger.org/usr/start_in_ohter_lang.html</seg>
       </tuv>
     </tu>
     <tu>
@@ -14672,14 +14792,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>XMP-Daten ins Bild schreiben</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T200838Z" creationid="elmar" creationdate="20180203T200838Z">
-        <seg>Write XMP data into image file</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
         <seg>XMP-Daten ändern</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -14896,10 +15008,10 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>Zu berücksichtigende Dateiendungen (nur in diese Dateien wird geschrieben):</seg>
+        <seg>Zu berücksichtigende Dateiendungen.</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20180203T200957Z" creationid="elmar" creationdate="20180203T200957Z">
-        <seg>Regarded file suffixes (only in theses files will be written):</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185821Z" creationid="elmar" creationdate="20180204T185821Z">
+        <seg>File suffixes to regard.</seg>
       </tuv>
     </tu>
     <tu>
@@ -15128,26 +15240,26 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>http://groups.google.de/group/jphototagger-benutzer</seg>
+        <seg>https://groups.google.de/group/jphototagger-benutzer</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>https://groups.google.com/group/jphototagger-users-english</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="DE">
-        <seg>http://www.jphototagger.org/</seg>
-      </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>http://www.jphototagger.org/</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T190254Z" creationid="elmar" creationdate="20180204T190254Z">
+        <seg>https://groups.google.de/group/jphototagger-benutzer</seg>
       </tuv>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>http://www.jphototagger.org/changelog/changelog_de.txt</seg>
+        <seg>https://www.jphototagger.org/</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>http://www.jphototagger.org/changelog/changelog_en.txt</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T190302Z" creationid="elmar" creationdate="20180204T190302Z">
+        <seg>https://www.jphototagger.org/</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>https://www.jphototagger.org/changelog/changelog_de.txt</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T184719Z" creationid="elmar" creationdate="20180204T184719Z">
+        <seg>https://www.jphototagger.org/changelog/changelog_en.txt</seg>
       </tuv>
     </tu>
     <tu>
@@ -15468,6 +15580,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>About...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Überlegen Sie, ob Sie nicht bei Bedarf die Bilder aktualisieren wollen (Werkzeuge &gt; Mit ExifTool Metadaten in Bilder schreiben).</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185617Z" creationid="elmar" creationdate="20180204T185617Z">
+        <seg>Think about update images when required (Tools &gt; Write metadata with ExifTool into images).</seg>
       </tuv>
     </tu>
     <tu>
