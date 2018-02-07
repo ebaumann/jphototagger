@@ -248,7 +248,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
     private FileFilter createFileFilter() {
         Collection<String> filenames = SystemUtil.isWindows()
-                ? Arrays.asList("exifool(-k).exe", "exiftool.exe")
+                ? Arrays.asList("exiftool(-k).exe", "exiftool.exe")
                 : Arrays.asList("exiftool");
         AcceptExactFilenamesFileFilter filter = new AcceptExactFilenamesFileFilter(filenames);
 
