@@ -25,7 +25,7 @@ import org.openide.util.lookup.ServiceProvider;
  *
  * @author Elmar Baumann
  */
-@ServiceProvider(service = FileProcessorPlugin.class)
+@ServiceProvider(service = FileProcessorPlugin.class, position = 100)
 public final class CopyFilenamesToClipboard extends AbstractFileProcessorPlugin implements Serializable, HelpContentProvider {
 
     private static final long serialVersionUID = 1L;

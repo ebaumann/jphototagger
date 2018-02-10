@@ -25,7 +25,7 @@ import org.openide.util.lookup.ServiceProvider;
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = FileProcessorPlugin.class)
+@ServiceProvider(service = FileProcessorPlugin.class, position = 1000)
 public final class IrfanViewSlideshowPlugin extends AbstractFileProcessorPlugin implements Serializable {
 
     private static final long serialVersionUID = 1L;

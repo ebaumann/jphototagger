@@ -42,7 +42,7 @@ import org.openide.util.lookup.ServiceProvider;
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = FileProcessorPlugin.class)
+@ServiceProvider(service = FileProcessorPlugin.class, position = 100000)
 public final class HtmlReports implements FileProcessorPlugin, HelpContentProvider {
 
     private static final String THUMBNAILS_DIR_NAME = "thumbnails";
