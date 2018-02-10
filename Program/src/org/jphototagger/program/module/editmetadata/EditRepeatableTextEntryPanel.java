@@ -7,7 +7,11 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,6 +102,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         setTextFieldBorder(list);
         setPropmt();
         model.addListDataListener(this);
+        list.addKeyListener(keyListener);
+        list.addMouseListener(mouseListener);
         AnnotationProcessor.process(this);
     }
 
@@ -586,6 +592,24 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         }
         return false;
     }
+
+    private final MouseListener mouseListener = new MouseAdapter() {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getClickCount() > 1) {
+                renameSelectedListItems();
+            }
+        }
+    };
+
+    private final KeyListener keyListener = new KeyAdapter() {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                renameSelectedListItems();
+            }
+        }
+    };
 
     private void renameSelectedListItems() {
         int[] selIndices = list.getSelectedIndices();

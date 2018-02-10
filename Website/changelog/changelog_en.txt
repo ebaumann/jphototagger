@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.2 2018-02-11
+------------------
+
+* In the tab "Edit" Enter or double click on a keyword triggers
+  the edit dialog for renaming a keyword.
+
 0.37.1 2018-02-10
 ------------------
 
