@@ -22,6 +22,7 @@ import org.jphototagger.domain.repository.KeywordsRepository;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.w3c.dom.DOMException;
@@ -68,7 +69,7 @@ public final class KeywordsExporterJpt implements RepositoryDataExporter {
      * Name of the attribute containing the keyword name within the keyword tag
      */
     public static final String ATTRIBUTE_NAME = "name";
-    public static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
+    public static final Icon ICON = Icons.getIcon("icon_app_small.png");
     public static final String DISPLAY_NAME = Bundle.getString(KeywordsExporterJpt.class, "KeywordExporterJpt.DisplayName");
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(DISPLAY_NAME, "xml");
     private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);

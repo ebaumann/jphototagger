@@ -21,7 +21,6 @@ import org.jphototagger.api.windows.TabInEditWindowDisplayedEvent;
 import org.jphototagger.api.windows.WaitDisplayer;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.iptc.IptcPreferencesKeys;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
@@ -149,7 +148,7 @@ public final class IptcMetaDataDisplayer implements MainWindowComponentProvider 
 
             @Override
             public Icon getSmallIcon() {
-                return Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_file.png");
+                return org.jphototagger.resources.Icons.getIcon("icon_file.png");
             }
 
             @Override

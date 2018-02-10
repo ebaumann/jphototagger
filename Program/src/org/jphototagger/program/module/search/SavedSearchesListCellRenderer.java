@@ -6,13 +6,14 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
  */
 public final class SavedSearchesListCellRenderer extends DefaultListCellRenderer {
 
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_search.png");
+    private static final Icon ICON = Icons.getIcon("icon_search.png");
     private static final long serialVersionUID = 1L;
     private int tempSelRow = -1;
 

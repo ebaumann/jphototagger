@@ -5,12 +5,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JMenuItem;
 import org.jphototagger.api.windows.MenuItemProvider;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -21,7 +19,7 @@ public final class ShowUpdateMetadataOfDirectoriesDialogAction extends AbstractA
 
     public ShowUpdateMetadataOfDirectoriesDialogAction() {
         super(Bundle.getString(ShowUpdateMetadataOfDirectoriesDialogAction.class, "ShowUpdateMetadataOfDirectoriesDialogAction.Name"));
-        putValue(SMALL_ICON, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_folder.png"));
+        putValue(SMALL_ICON, org.jphototagger.resources.Icons.getIcon("icon_folder.png"));
         putValue(ACCELERATOR_KEY, KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_R));
     }
 

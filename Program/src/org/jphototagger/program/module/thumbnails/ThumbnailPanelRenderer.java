@@ -30,6 +30,7 @@ import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCacheIndirection;
 import org.jphototagger.program.module.thumbnails.cache.ThumbnailRenderer;
 import org.jphototagger.program.module.thumbnails.cache.XmpCache;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Martin Pohlack, Elmar Baumann
@@ -142,7 +143,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
     private void loadRatingImages() {
         for (int i = 0; i < STAR_COUNT; i++) {
             starImage[i] =
-                    AppLookAndFeel.getIcon("icon_xmp_rating_"
+                    Icons.getIcon("icon_xmp_rating_"
                     + Integer.toString(i) + ".png").getImage();
         }
     }

@@ -30,6 +30,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -90,14 +91,15 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void postInitComponents() {
-        menuItemGotoDirectories.setIcon(AppLookAndFeel.getIcon("icon_folder.png")); // NOI18N
-        menuItemGotoSavedSearches.setIcon(AppLookAndFeel.getIcon("icon_search.png")); // NOI18N
-        menuItemGotoCollections.setIcon(AppLookAndFeel.getIcon("icon_imagecollection.png")); // NOI18N
-        menuItemGotoFavorites.setIcon(AppLookAndFeel.getIcon("icon_favorite.png")); // NOI18N
-        menuItemGotoKeywordsSel.setIcon(AppLookAndFeel.getIcon("icon_keyword.png")); // NOI18N
-        menuItemGotoTimeline.setIcon(AppLookAndFeel.getIcon("icon_timeline.png")); // NOI18N
-        menuItemGotoMiscMetadata.setIcon(AppLookAndFeel.getIcon("icon_misc_metadata.png")); // NOI18N
-        menuItemGotoKeywordsEdit.setIcon(AppLookAndFeel.getIcon("icon_keyword.png")); // NOI18N
+        menuItemGotoDirectories.setIcon(Icons.getIcon("icon_folder.png")); // NOI18N
+        menuItemGotoSavedSearches.setIcon(Icons.getIcon("icon_search.png")); // NOI18N
+        menuItemGotoCollections.setIcon(Icons.getIcon("icon_imagecollection.png")); // NOI18N
+        menuItemGotoFavorites.setIcon(Icons.getIcon("icon_favorite.png")); // NOI18N
+        menuItemGotoKeywordsSel.setIcon(Icons.getIcon("icon_keyword.png")); // NOI18N
+        menuItemGotoTimeline.setIcon(Icons.getIcon("icon_timeline.png")); // NOI18N
+        menuItemGotoMiscMetadata.setIcon(Icons.getIcon("icon_misc_metadata.png")); // NOI18N
+        menuItemGotoKeywordsEdit.setIcon(Icons.getIcon("icon_keyword.png")); // NOI18N
+        setIconImages(AppLookAndFeel.getAppIcons());
     }
 
     public AppPanel getAppPanel() {

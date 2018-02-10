@@ -7,6 +7,7 @@ import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -19,7 +20,7 @@ public final class AddProgramAction extends AbstractAction {
 
     public AddProgramAction() {
         super(Bundle.getString(AddProgramAction.class, "AddProgramAction.Name"));
-        putValue(Action.SMALL_ICON, AppLookAndFeel.getIcon("icon_add.png"));
+        putValue(Action.SMALL_ICON, Icons.getIcon("icon_add.png"));
     }
 
     @Override

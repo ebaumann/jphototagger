@@ -6,6 +6,7 @@ import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -16,7 +17,7 @@ final class BrowseUserForumAction extends AbstractAction {
 
     BrowseUserForumAction() {
         super(Bundle.getString(BrowseUserForumAction.class, "BrowseUserForumAction.Name"));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_web.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_web.png"));
     }
 
     @Override

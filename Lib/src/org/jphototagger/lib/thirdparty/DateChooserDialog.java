@@ -28,9 +28,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * Code geringfügig modifiziert Elmar Baumann:
@@ -113,7 +111,7 @@ public final class DateChooserDialog extends JComponent {
         c.weightx = 1.0;
         c.anchor = GridBagConstraints.WEST;
         previousButton = new JButton();
-        previousButton.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_datechooser_prev.png"));
+        previousButton.setIcon(org.jphototagger.resources.Icons.getIcon("icon_datechooser_prev.png"));
         previousButton.setBorder(BorderFactory.createEmptyBorder());
         previousButton.addActionListener(new ActionListener() {
 
@@ -136,7 +134,7 @@ public final class DateChooserDialog extends JComponent {
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
         nextButton = new JButton();
-        nextButton.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_datechooser_next.png"));
+        nextButton.setIcon(org.jphototagger.resources.Icons.getIcon("icon_datechooser_next.png"));
         nextButton.setBorder(BorderFactory.createEmptyBorder());
         nextButton.addActionListener(new ActionListener() {
 

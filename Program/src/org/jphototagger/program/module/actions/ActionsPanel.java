@@ -20,6 +20,7 @@ import org.jphototagger.program.module.programs.ProgramPropertiesDialog;
 import org.jphototagger.program.module.programs.ProgramsListModel;
 import org.jphototagger.program.module.programs.ProgramsUtil;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -44,12 +45,12 @@ public final class ActionsPanel extends javax.swing.JPanel {
         selectFirstItem();
         addListener(new ProgramExecutorImpl(true));
 
-        menuItemExecute.setIcon(AppLookAndFeel.getIcon("icon_action.png")); // NOI18N
-        menuItemCreate.setIcon(AppLookAndFeel.getIcon("icon_new.png")); // NOI18N
-        menuItemEdit.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
-        menuItemDelete.setIcon(AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
-        menuItemMoveActionUp.setIcon(AppLookAndFeel.getIcon("icon_arrow_up.png")); // NOI18N
-        menuItemMoveActionDown.setIcon(AppLookAndFeel.getIcon("icon_arrow_down.png")); // NOI18N
+        menuItemExecute.setIcon(Icons.getIcon("icon_action.png")); // NOI18N
+        menuItemCreate.setIcon(Icons.getIcon("icon_new.png")); // NOI18N
+        menuItemEdit.setIcon(Icons.getIcon("icon_edit.png")); // NOI18N
+        menuItemDelete.setIcon(Icons.getIcon("icon_delete.png")); // NOI18N
+        menuItemMoveActionUp.setIcon(Icons.getIcon("icon_arrow_up.png")); // NOI18N
+        menuItemMoveActionDown.setIcon(Icons.getIcon("icon_arrow_down.png")); // NOI18N
     }
 
     private void selectFirstItem() {

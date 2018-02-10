@@ -22,6 +22,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.tasks.ScheduledTasks;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -316,7 +317,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelTasksAutoscan.add(buttonAddAutoscanDirectories, gridBagConstraints);
 
-        buttonScheduledTasks.setIcon(AppLookAndFeel.getIcon("icon_start.png"));
+        buttonScheduledTasks.setIcon(org.jphototagger.resources.Icons.getIcon("icon_start.png"));
         buttonScheduledTasks.setToolTipText(bundle.getString("ScheduledTasksSettingsPanel.buttonScheduledTasks.toolTipText")); // NOI18N
         buttonScheduledTasks.setAlignmentY(0.0F);
         buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

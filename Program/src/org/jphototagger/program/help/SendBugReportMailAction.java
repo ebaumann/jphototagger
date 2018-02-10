@@ -8,6 +8,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -18,7 +19,7 @@ final class SendBugReportMailAction extends AbstractAction {
 
     SendBugReportMailAction() {
         super(Bundle.getString(SendBugReportMailAction.class, "SendBugReportMailAction.Name"));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_mail.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_mail.png"));
     }
 
     @Override

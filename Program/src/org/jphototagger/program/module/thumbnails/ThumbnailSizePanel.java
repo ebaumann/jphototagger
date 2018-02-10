@@ -21,6 +21,7 @@ import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -202,7 +203,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         gridBagConstraints.weighty = 1.0;
         add(thumbnailSizeSlider, gridBagConstraints);
 
-        thumbnailDimensionsButton.setIcon(AppLookAndFeel.getIcon("icon_thumbnail_size.png"));
+        thumbnailDimensionsButton.setIcon(org.jphototagger.resources.Icons.getIcon("icon_thumbnail_size.png"));
         thumbnailDimensionsButton.setToolTipText(bundle.getString("ThumbnailSizePanel.thumbnailDimensionsButton.toolTipText")); // NOI18N
         thumbnailDimensionsButton.setBorder(null);
         thumbnailDimensionsButton.setContentAreaFilled(false);

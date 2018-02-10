@@ -12,7 +12,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
@@ -233,7 +232,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
         panelFileCopied.add(buttonChooseScriptFileCopied, gridBagConstraints);
 
         buttonRemoveScriptFileCopied.setAction(removeScriptFileAction);
-        buttonRemoveScriptFileCopied.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
+        buttonRemoveScriptFileCopied.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFileCopied.setToolTipText(bundle.getString("UserScriptsSettingsPanel.buttonRemoveScriptFileCopied.toolTipText")); // NOI18N
         buttonRemoveScriptFileCopied.setEnabled(false);
         buttonRemoveScriptFileCopied.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -284,7 +283,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
         panelFileRenamed.add(buttonChooseScriptFileRenamed, gridBagConstraints);
 
         buttonRemoveScriptFileRenamed.setAction(removeScriptFileAction);
-        buttonRemoveScriptFileRenamed.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
+        buttonRemoveScriptFileRenamed.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFileRenamed.setToolTipText(bundle.getString("UserScriptsSettingsPanel.buttonRemoveScriptFileRenamed.toolTipText")); // NOI18N
         buttonRemoveScriptFileRenamed.setEnabled(false);
         buttonRemoveScriptFileRenamed.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -335,7 +334,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
         panelFileMoved.add(buttonChooseScriptFileMoved, gridBagConstraints);
 
         buttonRemoveScriptFileMoved.setAction(removeScriptFileAction);
-        buttonRemoveScriptFileMoved.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
+        buttonRemoveScriptFileMoved.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFileMoved.setToolTipText(bundle.getString("UserScriptsSettingsPanel.buttonRemoveScriptFileMoved.toolTipText")); // NOI18N
         buttonRemoveScriptFileMoved.setEnabled(false);
         buttonRemoveScriptFileMoved.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -386,7 +385,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
         panelFileDeleted.add(buttonChooseScriptFileDeleted, gridBagConstraints);
 
         buttonRemoveScriptFileDeleted.setAction(removeScriptFileAction);
-        buttonRemoveScriptFileDeleted.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
+        buttonRemoveScriptFileDeleted.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFileDeleted.setToolTipText(bundle.getString("UserScriptsSettingsPanel.buttonRemoveScriptFileDeleted.toolTipText")); // NOI18N
         buttonRemoveScriptFileDeleted.setEnabled(false);
         buttonRemoveScriptFileDeleted.setMargin(new java.awt.Insets(2, 2, 2, 2));

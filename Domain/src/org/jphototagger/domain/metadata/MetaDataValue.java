@@ -8,23 +8,21 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.InputVerifier;
 import javax.swing.text.DefaultFormatterFactory;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.inputverifier.AlwaysTrueInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.DateInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.MaxLengthInputVerifier;
 import org.jphototagger.lib.swing.inputverifier.NumberInputVerifier;
 import org.jphototagger.lib.util.StringUtil;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
  */
 public class MetaDataValue {
 
-    private static final Icon CATEGORY_ICON_EXIF =  Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_exif.png");
-    private static final Icon CATEGORY_ICON_FILE = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_file.png");
-    private static final Icon CATEGORY_ICON_XMP = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_xmp.png");
-    private static final Icon CATEGORY_ICON_UNDEFINED = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_table_undefined.png");
+    private static final Icon CATEGORY_ICON_EXIF =  org.jphototagger.resources.Icons.getIcon("icon_exif.png");
+    private static final Icon CATEGORY_ICON_FILE = org.jphototagger.resources.Icons.getIcon("icon_file.png");
+    private static final Icon CATEGORY_ICON_XMP = org.jphototagger.resources.Icons.getIcon("icon_xmp.png");
+    private static final Icon CATEGORY_ICON_UNDEFINED = org.jphototagger.resources.Icons.getIcon("icon_table_undefined.png");
     private static final Map<String, Icon> ICON_OF_CATEGORY = new HashMap<>();
     private final ValueType valueType;
     private String description;

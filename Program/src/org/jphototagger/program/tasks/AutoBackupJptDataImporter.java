@@ -25,6 +25,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -100,7 +101,7 @@ public final class AutoBackupJptDataImporter {
 
     public static JMenuItem getMenuItem() {
         JMenu menu = new JMenu(Bundle.getString(AutoBackupJptDataImporter.class, "AutoBackupJptDataImporter.MenuItemText"));
-        menu.setIcon(AppLookAndFeel.getIcon("icon_save.png"));
+        menu.setIcon(Icons.getIcon("icon_save.png"));
         for (List<File> fileset : getFilesets()) {
             if (!fileset.isEmpty()) {
                 menu.add(new JMenuItem(new ImportAction(fileset)));

@@ -8,16 +8,17 @@ import javax.swing.tree.TreeNode;
 import org.jphototagger.domain.timeline.Timeline;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
  */
 public final class TimelineTreeCellRenderer extends TreeCellRendererExt {
 
-    private static final ImageIcon ICON_YEAR = AppLookAndFeel.getIcon("icon_timeline.png");
-    private static final ImageIcon ICON_MONTH = AppLookAndFeel.getIcon("icon_timeline_month.png");
-    private static final ImageIcon ICON_DAY = AppLookAndFeel.getIcon("icon_timeline_day.png");
-    private static final ImageIcon ICON_UNKNOWN = AppLookAndFeel.getIcon("icon_timeline_unknown.png");
+    private static final ImageIcon ICON_YEAR = Icons.getIcon("icon_timeline.png");
+    private static final ImageIcon ICON_MONTH = Icons.getIcon("icon_timeline_month.png");
+    private static final ImageIcon ICON_DAY = Icons.getIcon("icon_timeline_day.png");
+    private static final ImageIcon ICON_UNKNOWN = Icons.getIcon("icon_timeline_unknown.png");
     private static final long serialVersionUID = 1L;
 
     @Override

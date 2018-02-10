@@ -6,6 +6,7 @@ import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -33,7 +34,7 @@ public class EditXmpDialog extends Dialog {
     private void postInitComponents() {
         panelEditXmp.setXmp(xmp);
         setButtonInsertTemplateEnabled();
-        buttonEditMetadataTemplates.setIcon(AppLookAndFeel.getIcon("icon_add.png")); // NOI18N
+        buttonEditMetadataTemplates.setIcon(Icons.getIcon("icon_add.png")); // NOI18N
         MnemonicUtil.setMnemonics(this);
     }
 

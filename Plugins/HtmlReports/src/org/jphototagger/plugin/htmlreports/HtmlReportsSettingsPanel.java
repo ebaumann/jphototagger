@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.api.preferences.Preferences;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
@@ -70,7 +69,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
             labelDirectory.setIcon(FileSystemView.getFileSystemView().getSystemIcon(dir));
             labelDirectory.setToolTipText(dir.getAbsolutePath());
         } else {
-            labelDirectory.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_error.png"));
+            labelDirectory.setIcon(org.jphototagger.resources.Icons.getIcon("icon_error.png"));
             labelDirectory.setToolTipText(Bundle.getString(HtmlReportsSettingsPanel.class, "HtmlReportsSettingsPanel.Error.DirectoryDoesNotExist"));
         }
     }

@@ -63,6 +63,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -415,7 +416,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
         private SelectSearchTextAreaAction() {
             super(Bundle.getString(SelectSearchTextAreaAction.class, "SelectSearchTextAreaAction.Name"));
-            putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_search.png"));
+            putValue(SMALL_ICON, Icons.getIcon("icon_search.png"));
             putValue(ACCELERATOR_KEY, KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_F));
         }
 
@@ -506,7 +507,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
         add(searchButton, gridBagConstraints);
 
-        buttonRestoreSelection.setIcon(AppLookAndFeel.getIcon("icon_restore_selection.png"));
+        buttonRestoreSelection.setIcon(org.jphototagger.resources.Icons.getIcon("icon_restore_selection.png"));
         buttonRestoreSelection.setToolTipText(bundle.getString("FastSearchPanel.buttonRestoreSelection.toolTipText")); // NOI18N
         buttonRestoreSelection.setEnabled(false);
         buttonRestoreSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));

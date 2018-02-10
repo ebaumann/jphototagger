@@ -26,6 +26,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.SelectProgramDialog;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -50,10 +51,10 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         addAccelerators();
         setEnabled();
 
-        menuItemAddAction.setIcon(AppLookAndFeel.getIcon("icon_new.png")); // NOI18N
-        menuItemDeleteAction.setIcon(AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
-        menuItemMoveUpAction.setIcon(AppLookAndFeel.getIcon("icon_arrow_up.png")); // NOI18N
-        menuItemMoveDownAction.setIcon(AppLookAndFeel.getIcon("icon_arrow_down.png")); // NOI18N
+        menuItemAddAction.setIcon(Icons.getIcon("icon_new.png")); // NOI18N
+        menuItemDeleteAction.setIcon(Icons.getIcon("icon_delete.png")); // NOI18N
+        menuItemMoveUpAction.setIcon(Icons.getIcon("icon_arrow_up.png")); // NOI18N
+        menuItemMoveDownAction.setIcon(Icons.getIcon("icon_arrow_down.png")); // NOI18N
 
         AnnotationProcessor.process(this);
     }

@@ -5,6 +5,7 @@ import javax.swing.AbstractAction;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -15,7 +16,7 @@ public final class ShowActionsDialogAction extends AbstractAction {
 
     public ShowActionsDialogAction() {
         super(Bundle.getString(ShowActionsDialogAction.class, "ShowActionsDialogAction.Name"));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_action.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_action.png"));
     }
 
     @Override

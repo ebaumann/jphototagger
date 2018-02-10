@@ -210,7 +210,7 @@
                     <Component class="javax.swing.JButton" name="buttonEditErrorText">
                       <Properties>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="AppLookAndFeel.getIcon(&quot;icon_edit.png&quot;)" type="code"/>
+                          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_edit.png&quot;)" type="code"/>
                         </Property>
                         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
                           <ResourceString bundle="org/jphototagger/program/app/logging/Bundle.properties" key="AppLoggingSystemSettingsPanel.buttonEditErrorText.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>

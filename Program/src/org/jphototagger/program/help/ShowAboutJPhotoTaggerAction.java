@@ -9,6 +9,7 @@ import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.ui.AppFrame;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -19,12 +20,12 @@ public final class ShowAboutJPhotoTaggerAction extends AbstractAction {
 
     public ShowAboutJPhotoTaggerAction() {
         super(Bundle.getString(ShowAboutJPhotoTaggerAction.class, "ShowAboutJPhotoTaggerAction.Name"));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_app_about.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_app_about.png"));
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        ImageIcon icon = AppLookAndFeel.getIcon("icon_logo.png");
+        ImageIcon icon = Icons.getIcon("icon_logo.png");
         String key = "ShowAboutJPhotoTaggerAction.Info.About";
         String title = "JPhotoTagger";
         AppFrame parentComponent = GUI.getAppFrame();

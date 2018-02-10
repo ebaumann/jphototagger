@@ -7,13 +7,14 @@ import javax.swing.JList;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.ListCellRendererExt;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
  */
 public final class MetadataTemplatesListCellRenderer extends ListCellRendererExt {
 
-    private static final ImageIcon ICON = AppLookAndFeel.getIcon("icon_edit.png");
+    private static final ImageIcon ICON = Icons.getIcon("icon_edit.png");
     private static final long serialVersionUID = 1L;
 
     @Override

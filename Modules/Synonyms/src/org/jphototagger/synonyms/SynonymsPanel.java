@@ -12,7 +12,6 @@ import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.selections.AutoCompleteDataOfMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.Autocomplete;
@@ -43,11 +42,10 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         textAreaWords.getDocument().addDocumentListener(this);
         textFieldSynonyms.getDocument().addDocumentListener(this);
 
-        AppIconProvider appIconProvider = Lookup.getDefault().lookup(AppIconProvider.class);
-        menuItemChangeWord.setIcon(appIconProvider.getIcon("icon_xmp.png")); // NOI18N
-        menuItemRemoveWord.setIcon(appIconProvider.getIcon("icon_delete.png")); // NOI18N
-        menuItemChangeSynonym.setIcon(appIconProvider.getIcon("icon_rename.png")); // NOI18N
-        menuItemRemoveSynonym.setIcon(appIconProvider.getIcon("icon_delete.png")); // NOI18N
+        menuItemChangeWord.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp.png")); // NOI18N
+        menuItemRemoveWord.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png")); // NOI18N
+        menuItemChangeSynonym.setIcon(org.jphototagger.resources.Icons.getIcon("icon_rename.png")); // NOI18N
+        menuItemRemoveSynonym.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png")); // NOI18N
 
         scrollPaneTextAreaWords.setMinimumSize(textFieldSynonyms.getPreferredSize());
 

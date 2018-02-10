@@ -155,7 +155,7 @@
     <Component class="javax.swing.JButton" name="buttonCalendar">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getIcon(&quot;icon_calendar.png&quot;)" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_calendar.png&quot;)" type="code"/>
         </Property>
         <Property name="mnemonic" type="int" value="49"/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
@@ -175,7 +175,7 @@
     <Component class="javax.swing.JButton" name="buttonRemoveColumn">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getIcon(&quot;icon_delete12.png&quot;)" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_delete12.png&quot;)" type="code"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="org/jphototagger/program/module/search/Bundle.properties" key="SearchMetaDataValuePanel.buttonRemoveColumn.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>

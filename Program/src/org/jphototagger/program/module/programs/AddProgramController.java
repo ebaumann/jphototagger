@@ -5,6 +5,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -15,7 +16,7 @@ public final class AddProgramController extends AbstractAction {
 
     public AddProgramController() {
         super(Bundle.getString(AddProgramController.class, "AddProgramController.Name"));
-        putValue(Action.SMALL_ICON, AppLookAndFeel.getIcon("icon_add.png"));
+        putValue(Action.SMALL_ICON, Icons.getIcon("icon_add.png"));
     }
 
     @Override

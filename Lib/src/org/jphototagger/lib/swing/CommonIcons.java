@@ -4,8 +4,6 @@ import java.io.File;
 import javax.swing.Icon;
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.api.preferences.CommonPreferences;
-import org.jphototagger.lib.api.AppIconProvider;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -18,15 +16,11 @@ public final class CommonIcons {
     private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
 
     private static Icon getScaledFolderIcon() {
-        AppIconProvider provider = Lookup.getDefault().lookup(AppIconProvider.class);
-
-        return provider.getIcon("icon_folder.png");
+        return org.jphototagger.resources.Icons.getIcon("icon_folder.png");
     }
 
     private static Icon getScaledFileIcon() {
-        AppIconProvider provider = Lookup.getDefault().lookup(AppIconProvider.class);
-
-        return provider.getIcon("icon_file.png");
+        return org.jphototagger.resources.Icons.getIcon("icon_file.png");
     }
 
     /**

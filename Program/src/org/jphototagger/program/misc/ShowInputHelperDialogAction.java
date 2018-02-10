@@ -7,6 +7,7 @@ import javax.swing.KeyStroke;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -18,7 +19,7 @@ public final class ShowInputHelperDialogAction extends AbstractAction {
     public ShowInputHelperDialogAction() {
         super(Bundle.getString(ShowInputHelperDialogAction.class, "ShowInputHelperDialogAction.Name"));
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_edit.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_edit.png"));
     }
 
     @Override

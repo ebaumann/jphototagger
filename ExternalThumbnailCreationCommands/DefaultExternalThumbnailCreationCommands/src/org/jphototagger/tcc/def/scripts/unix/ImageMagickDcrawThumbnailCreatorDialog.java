@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.swing.Icon;
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -29,8 +28,8 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
     private final FileChooser convertFileChooser = createConvertFileChooser();
     private final FileChooser identifyFileChooser = createIdentifyFileChooser();
     private final FileChooser mplayerFileChooser = createMPlayerFileChooser();
-    private static final Icon OK_ICON = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_ok.png");
-    private static final Icon ERROR_ICON = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_error.png");
+    private static final Icon OK_ICON = org.jphototagger.resources.Icons.getIcon("icon_ok.png");
+    private static final Icon ERROR_ICON = org.jphototagger.resources.Icons.getIcon("icon_error.png");
     private boolean accepted;
 
     public ImageMagickDcrawThumbnailCreatorDialog() {

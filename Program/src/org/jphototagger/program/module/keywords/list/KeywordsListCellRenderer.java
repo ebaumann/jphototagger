@@ -13,6 +13,7 @@ import org.jphototagger.domain.repository.DcSubjectsStatistics;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.ListCellRendererExt;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -22,7 +23,7 @@ public final class KeywordsListCellRenderer extends ListCellRendererExt {
 
     private static final long serialVersionUID = 1L;
     private static final DcSubjectsStatistics STATISTICS = Lookup.getDefault().lookup(DcSubjectsStatistics.class);
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
+    private static final Icon ICON = Icons.getIcon("icon_keyword.png");
     private boolean isDisplayCount = Lookup.getDefault().lookup(Preferences.class).getBoolean(CommonPreferences.KEY_DISPLAY_DC_SUBJECT_COUNT);
     private Component component;
 

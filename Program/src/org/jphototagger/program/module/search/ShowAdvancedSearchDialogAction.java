@@ -7,6 +7,7 @@ import javax.swing.KeyStroke;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -17,7 +18,7 @@ public final class ShowAdvancedSearchDialogAction extends AbstractAction {
 
     public ShowAdvancedSearchDialogAction() {
         super(Bundle.getString(ShowAdvancedSearchDialogAction.class, "ShowAdvancedSearchDialogAction.Name"));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_search.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_search.png"));
         putValue(ACCELERATOR_KEY, KeyStroke.getKeyStroke(KeyEvent.VK_F3, 0));
     }
 

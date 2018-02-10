@@ -110,3 +110,6 @@
 /Modules/ExifToolXmpToImageWriter/nbproject/private/
 /Modules/ExifToolXmpToImageWriter/build/
 /Modules/ExifToolXmpToImageWriter/dist/
+/Resources/nbproject/private/
+/Resources/build/
+/Resources/dist/

@@ -26,7 +26,6 @@ import javax.swing.event.ListSelectionListener;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
@@ -341,7 +340,7 @@ public final class ExifTooolXmpToImageWriterController {
     private static final class DirListCellRenderer implements ListCellRenderer<File> {
 
         private final DefaultListCellRenderer delegate = new DefaultListCellRenderer();
-        private final Icon iconDir = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_folder.png");
+        private final Icon iconDir = org.jphototagger.resources.Icons.getIcon("icon_folder.png");
 
         @Override
         public Component getListCellRendererComponent(JList<? extends File> list, File value, int index, boolean isSelected, boolean cellHasFocus) {

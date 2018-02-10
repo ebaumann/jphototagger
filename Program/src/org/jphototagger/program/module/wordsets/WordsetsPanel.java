@@ -29,6 +29,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -383,7 +384,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelWordsets.add(comboBoxWordsetNames, gridBagConstraints);
 
-        buttonRemoveWordset.setIcon(AppLookAndFeel.getIcon("icon_delete.png"));
+        buttonRemoveWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonRemoveWordset.toolTipText")); // NOI18N
         buttonRemoveWordset.setFocusable(false);
         buttonRemoveWordset.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -397,7 +398,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelWordsets.add(buttonRemoveWordset, gridBagConstraints);
 
-        buttonEditWordset.setIcon(AppLookAndFeel.getIcon("icon_edit.png"));
+        buttonEditWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
         buttonEditWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonEditWordset.toolTipText")); // NOI18N
         buttonEditWordset.setFocusable(false);
         buttonEditWordset.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -411,7 +412,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelWordsets.add(buttonEditWordset, gridBagConstraints);
 
-        buttonAddWordset.setIcon(AppLookAndFeel.getIcon("icon_add.png"));
+        buttonAddWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_add.png"));
         buttonAddWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonAddWordset.toolTipText")); // NOI18N
         buttonAddWordset.setFocusable(false);
         buttonAddWordset.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -425,7 +426,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelWordsets.add(buttonAddWordset, gridBagConstraints);
 
-        buttonEraseAutomaticWords.setIcon(AppLookAndFeel.getIcon("icon_erase.png"));
+        buttonEraseAutomaticWords.setIcon(org.jphototagger.resources.Icons.getIcon("icon_erase.png"));
         buttonEraseAutomaticWords.setToolTipText(bundle.getString("WordsetsPanel.buttonEraseAutomaticWords.toolTipText")); // NOI18N
         buttonEraseAutomaticWords.setFocusable(false);
         buttonEraseAutomaticWords.setMargin(new java.awt.Insets(2, 2, 2, 2));

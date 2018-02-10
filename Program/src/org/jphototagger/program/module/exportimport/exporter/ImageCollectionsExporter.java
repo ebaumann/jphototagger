@@ -19,6 +19,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -33,7 +34,7 @@ public final class ImageCollectionsExporter implements RepositoryDataExporter {
     public static final String SUFFIX_XML = "xml";
     private static final String FILE_FILTER_DESCRIPTION = Bundle.getString(ImageCollectionsExporter.class, "ImageCollectionsExporter.FileFilterDescription");
     public static final FileFilter FILE_FILTER = new FileNameExtensionFilter(FILE_FILTER_DESCRIPTION, SUFFIX_XML);
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_app_small.png");
+    private static final Icon ICON = Icons.getIcon("icon_app_small.png");
     public static final int POSITION = 50;
     private final ImageCollectionsRepository repo = Lookup.getDefault().lookup(ImageCollectionsRepository.class);
 

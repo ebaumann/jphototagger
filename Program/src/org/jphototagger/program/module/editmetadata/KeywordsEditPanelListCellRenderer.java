@@ -6,6 +6,7 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 
 /**
@@ -13,7 +14,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
  */
 public final class KeywordsEditPanelListCellRenderer extends DefaultListCellRenderer {
 
-    private static final Icon ICON = AppLookAndFeel.getIcon("icon_keyword_list.png");
+    private static final Icon ICON = Icons.getIcon("icon_keyword_list.png");
     private static final long serialVersionUID = 1L;
 
     @Override

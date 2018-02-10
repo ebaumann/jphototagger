@@ -15,6 +15,7 @@ import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -27,8 +28,8 @@ import org.openide.util.Lookup;
 public final class DirectoriesPopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
-    public static final ImageIcon ICON_FAVORITE = AppLookAndFeel.getIcon("icon_favorite.png");
-    public static final ImageIcon ICON_FOLDER_NEW = AppLookAndFeel.getIcon("icon_folder_new.png");
+    public static final ImageIcon ICON_FAVORITE = Icons.getIcon("icon_favorite.png");
+    public static final ImageIcon ICON_FOLDER_NEW = Icons.getIcon("icon_folder_new.png");
     private final JMenuItem itemAddToFavorites = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.AddToFavoriteDirectories"), ICON_FAVORITE);
     private final JMenuItem itemCreateDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.CreateDirectory"), ICON_FOLDER_NEW);
     private final JMenuItem itemRenameDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.RenameDirectory"), AppLookAndFeel.ICON_RENAME);

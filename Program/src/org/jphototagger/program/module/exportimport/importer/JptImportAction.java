@@ -6,6 +6,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.exportimport.ExportImportContext;
 import org.jphototagger.program.module.exportimport.ExportImportDialog;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -16,7 +17,7 @@ public final class JptImportAction extends AbstractAction {
 
     public JptImportAction() {
         super(Bundle.getString(JptImportAction.class, "JptImportAction.Name"));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_app.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_app.png"));
     }
 
     @Override

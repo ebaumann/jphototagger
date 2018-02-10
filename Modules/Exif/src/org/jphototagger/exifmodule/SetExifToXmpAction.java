@@ -8,9 +8,7 @@ import javax.swing.AbstractAction;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -22,7 +20,7 @@ public final class SetExifToXmpAction extends AbstractAction {
 
     public SetExifToXmpAction() {
         super(Bundle.getString(SetExifToXmpAction.class, "SetExifToXmpAction.Name"));
-        putValue(SMALL_ICON, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_xmp.png"));
+        putValue(SMALL_ICON, org.jphototagger.resources.Icons.getIcon("icon_xmp.png"));
         setEnabled(false);
         listen();
     }

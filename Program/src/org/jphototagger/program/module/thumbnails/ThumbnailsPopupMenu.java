@@ -36,6 +36,7 @@ import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.module.actions.ActionsUtil;
 import org.jphototagger.program.module.programs.AddProgramController;
 import org.jphototagger.program.plugins.PluginAction;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -45,20 +46,20 @@ import org.openide.util.Lookup;
  */
 public final class ThumbnailsPopupMenu extends JPopupMenu {
 
-    public static final ImageIcon ICON_IMAGE_COLLECTION = AppLookAndFeel.getIcon("icon_imagecollection.png");
-    private static final ImageIcon ICON_IMAGE_COLLECTION_ADD_TO = AppLookAndFeel.getIcon("icon_imagecollection_add_to.png");
-    private static final ImageIcon ICON_IMAGE_COLLECTION_REMOVE_FROM = AppLookAndFeel.getIcon("icon_imagecollection_remove_from.png");
-    private static final ImageIcon ICON_PICKED = AppLookAndFeel.getIcon("icon_picked.png");
-    private static final ImageIcon ICON_REJECTED = AppLookAndFeel.getIcon("icon_rejected.png");
-    private static final ImageIcon ICON_ROTATE_180 = AppLookAndFeel.getIcon("icon_rotate_180.png");
-    private static final ImageIcon ICON_ROTATE_270 = AppLookAndFeel.getIcon("icon_rotate_270.png");
-    private static final ImageIcon ICON_ROTATE_90 = AppLookAndFeel.getIcon("icon_rotate_90.png");
-    private static final ImageIcon ICON_XMP_RATING_1 = AppLookAndFeel.getIcon("icon_xmp_rating_1.png");
-    private static final ImageIcon ICON_XMP_RATING_2 = AppLookAndFeel.getIcon("icon_xmp_rating_2.png");
-    private static final ImageIcon ICON_XMP_RATING_3 = AppLookAndFeel.getIcon("icon_xmp_rating_3.png");
-    private static final ImageIcon ICON_XMP_RATING_4 = AppLookAndFeel.getIcon("icon_xmp_rating_4.png");
-    private static final ImageIcon ICON_XMP_RATING_5 = AppLookAndFeel.getIcon("icon_xmp_rating_5.png");
-    private static final ImageIcon ICON_XMP_RATING_REMOVE = AppLookAndFeel.getIcon("icon_xmp_rating_remove.png");
+    public static final ImageIcon ICON_IMAGE_COLLECTION = Icons.getIcon("icon_imagecollection.png");
+    private static final ImageIcon ICON_IMAGE_COLLECTION_ADD_TO = Icons.getIcon("icon_imagecollection_add_to.png");
+    private static final ImageIcon ICON_IMAGE_COLLECTION_REMOVE_FROM = Icons.getIcon("icon_imagecollection_remove_from.png");
+    private static final ImageIcon ICON_PICKED = Icons.getIcon("icon_picked.png");
+    private static final ImageIcon ICON_REJECTED = Icons.getIcon("icon_rejected.png");
+    private static final ImageIcon ICON_ROTATE_180 = Icons.getIcon("icon_rotate_180.png");
+    private static final ImageIcon ICON_ROTATE_270 = Icons.getIcon("icon_rotate_270.png");
+    private static final ImageIcon ICON_ROTATE_90 = Icons.getIcon("icon_rotate_90.png");
+    private static final ImageIcon ICON_XMP_RATING_1 = Icons.getIcon("icon_xmp_rating_1.png");
+    private static final ImageIcon ICON_XMP_RATING_2 = Icons.getIcon("icon_xmp_rating_2.png");
+    private static final ImageIcon ICON_XMP_RATING_3 = Icons.getIcon("icon_xmp_rating_3.png");
+    private static final ImageIcon ICON_XMP_RATING_4 = Icons.getIcon("icon_xmp_rating_4.png");
+    private static final ImageIcon ICON_XMP_RATING_5 = Icons.getIcon("icon_xmp_rating_5.png");
+    private static final ImageIcon ICON_XMP_RATING_REMOVE = Icons.getIcon("icon_xmp_rating_remove.png");
     private static final long serialVersionUID = 1L;
     private static final AddProgramController ADD_PROGRAM_ACTION = new AddProgramController();
     private final JMenu menuRefresh = new JMenu(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.MenuRefresh"));

@@ -7,6 +7,7 @@ import javax.swing.JPopupMenu;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -17,7 +18,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 public final class ImageCollectionsPopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
-    private static final ImageIcon ICON_IMAGE_COLLECTION = AppLookAndFeel.getIcon("icon_imagecollection.png");
+    private static final ImageIcon ICON_IMAGE_COLLECTION = Icons.getIcon("icon_imagecollection.png");
     public static final ImageCollectionsPopupMenu INSTANCE = new ImageCollectionsPopupMenu();
     private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
     private final JMenuItem itemRename = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);

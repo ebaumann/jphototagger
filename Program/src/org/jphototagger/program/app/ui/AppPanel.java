@@ -52,6 +52,7 @@ import org.jphototagger.lib.swingx.SearchInJxTreeAction;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -95,14 +96,14 @@ public final class AppPanel extends javax.swing.JPanel {
         treeSelKeywords.setRowHeight(0);
         treeTimeline.setRowHeight(0);
 
-        tabbedPaneSelection.setIconAt(0, AppLookAndFeel.getIcon("icon_folder.png"));
-        tabbedPaneSelection.setIconAt(1, AppLookAndFeel.getIcon("icon_search.png"));
-        tabbedPaneSelection.setIconAt(2, AppLookAndFeel.getIcon("icon_imagecollection.png"));
-        tabbedPaneSelection.setIconAt(3, AppLookAndFeel.getIcon("icon_favorite.png"));
-        tabbedPaneSelection.setIconAt(4, AppLookAndFeel.getIcon("icon_keyword.png"));
-        tabbedPaneSelection.setIconAt(5, AppLookAndFeel.getIcon("icon_timeline.png"));
-        tabbedPaneSelection.setIconAt(6, AppLookAndFeel.getIcon("icon_misc_metadata.png"));
-        tabbedPaneMetadata.setIconAt(4, AppLookAndFeel.getIcon("icon_keyword.png"));
+        tabbedPaneSelection.setIconAt(0, Icons.getIcon("icon_folder.png"));
+        tabbedPaneSelection.setIconAt(1, Icons.getIcon("icon_search.png"));
+        tabbedPaneSelection.setIconAt(2, Icons.getIcon("icon_imagecollection.png"));
+        tabbedPaneSelection.setIconAt(3, Icons.getIcon("icon_favorite.png"));
+        tabbedPaneSelection.setIconAt(4, Icons.getIcon("icon_keyword.png"));
+        tabbedPaneSelection.setIconAt(5, Icons.getIcon("icon_timeline.png"));
+        tabbedPaneSelection.setIconAt(6, Icons.getIcon("icon_misc_metadata.png"));
+        tabbedPaneMetadata.setIconAt(4, Icons.getIcon("icon_keyword.png"));
     }
 
     private void setMnemonics() {
@@ -406,7 +407,7 @@ public final class AppPanel extends javax.swing.JPanel {
             super(Bundle.getString(AppPanel.class, "SelectThumbnailsPanelAction.Name"));
             this.thumbnailsPanel = thumbnailsPanel;
             putValue(ACCELERATOR_KEY, KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_0));
-            putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_thumbnails.png"));
+            putValue(SMALL_ICON, Icons.getIcon("icon_thumbnails.png"));
         }
 
         @Override

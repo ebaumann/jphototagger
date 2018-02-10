@@ -37,7 +37,7 @@
     <Component class="javax.swing.JButton" name="buttonNoRating">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getIcon(&quot;icon_xmp_rating_remove_not_set.png&quot;)" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_xmp_rating_remove_not_set.png&quot;)" type="code"/>
         </Property>
         <Property name="mnemonic" type="int" value="48"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -61,7 +61,7 @@
     <Component class="javax.swing.JButton" name="buttonStar1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
         </Property>
         <Property name="mnemonic" type="int" value="49"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -85,7 +85,7 @@
     <Component class="javax.swing.JButton" name="buttonStar2">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
         </Property>
         <Property name="mnemonic" type="int" value="50"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -109,7 +109,7 @@
     <Component class="javax.swing.JButton" name="buttonStar3">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
         </Property>
         <Property name="mnemonic" type="int" value="51"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -133,7 +133,7 @@
     <Component class="javax.swing.JButton" name="buttonStar4">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
         </Property>
         <Property name="mnemonic" type="int" value="52"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
@@ -157,7 +157,7 @@
     <Component class="javax.swing.JButton" name="buttonStar5">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getIcon(&quot;icon_xmp_rating_not_set.png&quot;)" type="code"/>
         </Property>
         <Property name="mnemonic" type="int" value="53"/>
         <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">

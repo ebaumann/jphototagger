@@ -6,8 +6,6 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
-import org.jphototagger.lib.api.AppIconProvider;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -15,7 +13,7 @@ import org.openide.util.Lookup;
 class UserDefinedFileFiltersListCellRenderer extends DefaultListCellRenderer {
 
     private static final long serialVersionUID = 1L;
-    private static final Icon ICON = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_filter.png");
+    private static final Icon ICON = org.jphototagger.resources.Icons.getIcon("icon_filter.png");
 
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

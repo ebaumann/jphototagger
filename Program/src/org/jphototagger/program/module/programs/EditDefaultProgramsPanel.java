@@ -30,6 +30,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -214,7 +215,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonRemoveDefaultPrograms.setIcon(AppLookAndFeel.getIcon("icon_delete.png"));
+        buttonRemoveDefaultPrograms.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveDefaultPrograms.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonRemoveDefaultPrograms.toolTipText")); // NOI18N
         buttonRemoveDefaultPrograms.setEnabled(false);
         buttonRemoveDefaultPrograms.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -227,7 +228,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelButtons.add(buttonRemoveDefaultPrograms, gridBagConstraints);
 
-        buttonSetDefaultPrograms.setIcon(AppLookAndFeel.getIcon("icon_edit.png"));
+        buttonSetDefaultPrograms.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
         buttonSetDefaultPrograms.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonSetDefaultPrograms.toolTipText")); // NOI18N
         buttonSetDefaultPrograms.setEnabled(false);
         buttonSetDefaultPrograms.setMargin(new java.awt.Insets(0, 0, 0, 0));

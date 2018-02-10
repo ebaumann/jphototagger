@@ -20,7 +20,6 @@ import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.iptc.IptcEntry;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -47,7 +46,7 @@ public class IptcPanel extends javax.swing.JPanel {
         tableIptc.setDefaultRenderer(Object.class, iptcTableCellRenderer);
         setIptcTableTextFilter();
         setIptcTableComparator();
-        buttonIptcToXmp.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_xmp.png"));
+        buttonIptcToXmp.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp.png"));
         MnemonicUtil.setMnemonics(this);
     }
 

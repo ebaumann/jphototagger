@@ -5,6 +5,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -15,7 +16,7 @@ public final class ShowRenameTemplatesDialogAction extends AbstractAction {
 
     public ShowRenameTemplatesDialogAction() {
         super(Bundle.getString(ShowRenameTemplatesDialogAction.class, "ShowRenameTemplatesDialogAction.Name"));
-        putValue(Action.SMALL_ICON, AppLookAndFeel.getIcon("icon_rename.png"));
+        putValue(Action.SMALL_ICON, Icons.getIcon("icon_rename.png"));
     }
 
     @Override

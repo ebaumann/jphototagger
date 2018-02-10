@@ -11,19 +11,20 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
  */
 public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
 
-    private static final Icon ICON_REAL = AppLookAndFeel.getIcon("icon_keyword.png");
-    private static final Icon ICON_HELPER = AppLookAndFeel.getIcon("icon_folder.png");
+    private static final long serialVersionUID = 1L;
+    private static final Icon ICON_REAL = Icons.getIcon("icon_keyword.png");
+    private static final Icon ICON_HELPER = Icons.getIcon("icon_folder.png");
     private static final Color TREE_FOREGROUND = AppLookAndFeel.getTreeForeground();
     private static final Color TREE_BACKGROUND = AppLookAndFeel.getTreeBackground();
     private static final Color TREE_SELECTION_FOREGROUND = AppLookAndFeel.getTreeSelectionForeground();
     private static final Color TREE_SELECTION_BACKGROUND = AppLookAndFeel.getTreeSelectionBackground();
-    private static final long serialVersionUID = 1L;
     private int tempSelectionRow = -1;
     private final Set<String> highlightKeywords = new HashSet<>();
 

@@ -18,6 +18,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter;
 import org.jphototagger.program.module.exportimport.exporter.ImageCollectionsExporter.CollectionWrapper;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -56,7 +57,7 @@ public final class ImageCollectionsImporter implements RepositoryDataImporter {
 
     @Override
     public Icon getIcon() {
-        return AppLookAndFeel.getIcon("icon_import.png");
+        return Icons.getIcon("icon_import.png");
     }
 
     @Override

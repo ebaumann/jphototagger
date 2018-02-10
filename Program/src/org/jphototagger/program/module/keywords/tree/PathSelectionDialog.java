@@ -17,6 +17,7 @@ import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.Icons;
 
 /**
  * Modal dialog to select a path.
@@ -148,7 +149,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     private static class Renderer extends DefaultListCellRenderer {
 
         private static final long serialVersionUID = 1L;
-        private final Icon ICON = AppLookAndFeel.getIcon("icon_keyword.png");
+        private final Icon ICON = Icons.getIcon("icon_keyword.png");
 
         @Override
         public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {

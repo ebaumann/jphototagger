@@ -10,14 +10,15 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
  */
 public final class ActionsListCellRenderer extends DefaultListCellRenderer {
 
-    private static final Icon ICON_ACTION = AppLookAndFeel.getIcon("icon_action.png");
-    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png");
+    private static final Icon ICON_ACTION = Icons.getIcon("icon_action.png");
+    private static final Icon ICON_ERROR = Icons.getIcon("icon_error.png");
     private static final long serialVersionUID = 1L;
 
     @Override

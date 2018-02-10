@@ -10,6 +10,7 @@ import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -25,7 +26,7 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
             @Override
             public JMenuItem getMenuItem() {
                 JMenu menuExport = new JMenu(Bundle.getString(MenuLayer.class, "MenuLayer.Name"));
-                menuExport.setIcon(AppLookAndFeel.getIcon("icon_export.png"));
+                menuExport.setIcon(Icons.getIcon("icon_export.png"));
                 MnemonicUtil.setMnemonics(menuExport);
                 JMenuItem itemExport = new JMenuItem(new JptExportAction());
                 MnemonicUtil.setMnemonics(itemExport);

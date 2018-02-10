@@ -5,6 +5,7 @@ import javax.swing.AbstractAction;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -15,7 +16,7 @@ final class SendIssueMailAction extends AbstractAction {
 
     SendIssueMailAction() {
         super(Bundle.getString(SendIssueMailAction.class, "SendIssueMailAction.Name"));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_mail.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_mail.png"));
     }
 
     @Override

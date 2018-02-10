@@ -11,6 +11,7 @@ import javax.swing.JList;
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -18,7 +19,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 public final class ProgramsListCellRenderer extends DefaultListCellRenderer {
 
     private static final FileSystemView FILE_SYSTEM_VIEW = FileSystemView.getFileSystemView();
-    private static final Icon ICON_ERROR = AppLookAndFeel.getIcon("icon_error.png");
+    private static final Icon ICON_ERROR = Icons.getIcon("icon_error.png");
     private static final long serialVersionUID = 1L;
 
     @Override

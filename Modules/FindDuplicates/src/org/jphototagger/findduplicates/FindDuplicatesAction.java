@@ -3,9 +3,7 @@ package org.jphototagger.findduplicates;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -17,7 +15,7 @@ public final class FindDuplicatesAction extends AbstractAction {
 
     FindDuplicatesAction() {
         super(Bundle.getString(FindDuplicatesAction.class, "FindDuplicatesAction.Name"));
-        putValue(Action.SMALL_ICON, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_duplicates.png"));
+        putValue(Action.SMALL_ICON, org.jphototagger.resources.Icons.getIcon("icon_duplicates.png"));
     }
 
     @Override

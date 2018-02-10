@@ -7,6 +7,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -139,7 +140,7 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
         gridBagConstraints.weighty = 1.0;
         add(progressBar, gridBagConstraints);
 
-        buttonCancelProgress.setIcon(AppLookAndFeel.getIcon("icon_cancel.png"));
+        buttonCancelProgress.setIcon(org.jphototagger.resources.Icons.getIcon("icon_cancel.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         buttonCancelProgress.setToolTipText(bundle.getString("ProgressBarPanel.buttonCancelProgress.toolTipText")); // NOI18N
         buttonCancelProgress.setBorder(null);

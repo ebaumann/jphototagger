@@ -55,6 +55,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.module.wordsets.WordsetsPanel;
 import org.jphototagger.program.module.wordsets.WordsetsPanelListener;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -877,7 +878,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         panelListButtons.setName("panelListButtons"); // NOI18N
         panelListButtons.setLayout(new java.awt.GridLayout(1, 1));
 
-        buttonRemoveSelection.setIcon(AppLookAndFeel.getIcon("icon_delete.png"));
+        buttonRemoveSelection.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveSelection.setMnemonic('-');
         buttonRemoveSelection.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
@@ -918,7 +919,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.weightx = 1.0;
         panelInput.add(textAreaInput, gridBagConstraints);
 
-        buttonAddInput.setIcon(AppLookAndFeel.getIcon("icon_add.png"));
+        buttonAddInput.setIcon(org.jphototagger.resources.Icons.getIcon("icon_add.png"));
         buttonAddInput.setMnemonic('+');
         buttonAddInput.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
@@ -934,7 +935,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelInput.add(buttonAddInput, gridBagConstraints);
 
-        buttonSuggestion.setIcon(AppLookAndFeel.getIcon("icon_keyword.png"));
+        buttonSuggestion.setIcon(org.jphototagger.resources.Icons.getIcon("icon_keyword.png"));
         buttonSuggestion.setMnemonic('k');
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);

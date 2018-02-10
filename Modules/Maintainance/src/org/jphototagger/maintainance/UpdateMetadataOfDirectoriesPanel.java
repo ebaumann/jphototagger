@@ -25,7 +25,6 @@ import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent;
 import org.jphototagger.domain.metadata.event.UpdateMetadataCheckEvent.Type;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
@@ -496,7 +495,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         });
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDelete.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
+        menuItemDelete.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         menuItemDelete.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N

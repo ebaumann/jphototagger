@@ -20,7 +20,6 @@ import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.openide.util.Lookup;
@@ -31,7 +30,7 @@ import org.openide.util.Lookup;
 public final class RepositoryMaintainancePanel extends JPanel implements ProgressListener {
 
     private static final long serialVersionUID = 1L;
-    private static final Icon ICON_FINISHED = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_finished.png");
+    private static final Icon ICON_FINISHED = org.jphototagger.resources.Icons.getIcon("icon_finished.png");
     private static final String KEY_DEL_RECORDS_OF_NOT_EX_FILES = "RepositoryMaintainancePanel.CheckBox.DeleteNotExistingFilesFromDb";
     private static final String KEY_COMPRESS_DB = "RepositoryMaintainancePanel.CheckBox.CompressDb";
     private static final String KEY_DEL_ORPHANED_THUMBS = "RepositoryMaintainancePanel.CheckBox.DeleteOrphanedThumbnails";

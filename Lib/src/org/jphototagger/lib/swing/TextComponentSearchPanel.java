@@ -13,9 +13,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
-import org.openide.util.Lookup;
 
 /**
  * Enhances a {@code JTextComponent} with search capabilities.
@@ -41,8 +39,8 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
 
     private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
-        buttonSearchDownwards.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_arrow_down.png")); // NOI18N
-        buttonSearchUpwards.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_arrow_up.png")); // NOI18N
+        buttonSearchDownwards.setIcon(org.jphototagger.resources.Icons.getIcon("icon_arrow_down.png")); // NOI18N
+        buttonSearchUpwards.setIcon(org.jphototagger.resources.Icons.getIcon("icon_arrow_up.png")); // NOI18N
         listen();
     }
 

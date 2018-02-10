@@ -20,6 +20,7 @@ import org.jphototagger.domain.metadata.search.SavedSearchPanel;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann, Tobias Stening
@@ -441,7 +442,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
 
-        buttonCalendar.setIcon(AppLookAndFeel.getIcon("icon_calendar.png"));
+        buttonCalendar.setIcon(org.jphototagger.resources.Icons.getIcon("icon_calendar.png"));
         buttonCalendar.setMnemonic('1');
         buttonCalendar.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonCalendar.setName("buttonCalendar"); // NOI18N
@@ -458,7 +459,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
         add(buttonCalendar, gridBagConstraints);
 
-        buttonRemoveColumn.setIcon(AppLookAndFeel.getIcon("icon_delete12.png"));
+        buttonRemoveColumn.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete12.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         buttonRemoveColumn.setToolTipText(bundle.getString("SearchMetaDataValuePanel.buttonRemoveColumn.toolTipText")); // NOI18N
         buttonRemoveColumn.setMargin(new java.awt.Insets(0, 0, 0, 0));

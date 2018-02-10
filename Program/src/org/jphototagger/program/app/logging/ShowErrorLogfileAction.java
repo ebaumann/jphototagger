@@ -11,6 +11,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.logging.LogfileDialog;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -21,7 +22,7 @@ final class ShowErrorLogfileAction extends AbstractAction {
 
     ShowErrorLogfileAction() {
         super(Bundle.getString(ShowErrorLogfileAction.class, "ShowErrorLogfileAction.Name"));
-        putValue(SMALL_ICON, AppLookAndFeel.getIcon("icon_error.png"));
+        putValue(SMALL_ICON, Icons.getIcon("icon_error.png"));
         putValue(ACCELERATOR_KEY, KeyEventUtil.getKeyStrokeMenuShortcutWithShiftDown(KeyEvent.VK_L));
     }
 

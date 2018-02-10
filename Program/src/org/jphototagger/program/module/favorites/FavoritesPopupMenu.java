@@ -15,6 +15,7 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -27,10 +28,10 @@ import org.openide.util.Lookup;
 public final class FavoritesPopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
-    private static final ImageIcon ICON_ARROW_DOWN = AppLookAndFeel.getIcon("icon_arrow_down.png");
-    private static final ImageIcon ICON_ARROW_UP = AppLookAndFeel.getIcon("icon_arrow_up.png");
-    private static final ImageIcon ICON_FOLDER = AppLookAndFeel.getIcon("icon_folder.png");
-    private static final ImageIcon ICON_FOLDER_NEW = AppLookAndFeel.getIcon("icon_folder_new.png");
+    private static final ImageIcon ICON_ARROW_DOWN = Icons.getIcon("icon_arrow_down.png");
+    private static final ImageIcon ICON_ARROW_UP = Icons.getIcon("icon_arrow_up.png");
+    private static final ImageIcon ICON_FOLDER = Icons.getIcon("icon_folder.png");
+    private static final ImageIcon ICON_FOLDER_NEW = Icons.getIcon("icon_folder_new.png");
     public static final FavoritesPopupMenu INSTANCE = new FavoritesPopupMenu();
     private final JMenuItem itemInsertFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.InsertFavorite"), AppLookAndFeel.ICON_NEW);
     private final JMenuItem itemUpdateFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.UpdateFavorite"), AppLookAndFeel.ICON_EDIT);

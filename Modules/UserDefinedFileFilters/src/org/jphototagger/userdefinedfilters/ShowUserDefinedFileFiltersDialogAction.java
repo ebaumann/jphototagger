@@ -2,9 +2,7 @@ package org.jphototagger.userdefinedfilters;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -15,7 +13,7 @@ public final class ShowUserDefinedFileFiltersDialogAction extends AbstractAction
 
     public ShowUserDefinedFileFiltersDialogAction() {
         super(Bundle.getString(ShowUserDefinedFileFiltersDialogAction.class, "ShowUserDefinedFileFiltersDialogAction.Name"));
-        putValue(SMALL_ICON, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_filter.png"));
+        putValue(SMALL_ICON, org.jphototagger.resources.Icons.getIcon("icon_filter.png"));
     }
 
     @Override

@@ -4,7 +4,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.image.ImagePreferencesKeys;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.swing.IconUtil;
@@ -84,7 +83,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
             labelFile.setText(file.getAbsolutePath());
             labelFile.setIcon(file.isFile()
                     ? IconUtil.getSystemIcon(file)
-                    : Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_error.png"));
+                    : org.jphototagger.resources.Icons.getIcon("icon_error.png"));
         }
     }
 
@@ -136,7 +135,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
         panelChooseFile.add(buttonChooseFile, gridBagConstraints);
 
-        buttonRemoveFile.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_delete.png"));
+        buttonRemoveFile.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveFile.setEnabled(false);
         buttonRemoveFile.setMargin(new java.awt.Insets(2, 2, 2, 2));
         buttonRemoveFile.setPreferredSize(new java.awt.Dimension(18, 18));

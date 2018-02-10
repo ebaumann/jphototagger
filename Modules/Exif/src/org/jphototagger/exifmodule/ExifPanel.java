@@ -20,7 +20,6 @@ import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.domain.metadata.exif.ExifTag;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.swing.TableButtonMouseListener;
 import org.jphototagger.lib.swing.TableMouseClicker;
 import org.jphototagger.lib.swing.TableTextFilter;
@@ -51,7 +50,7 @@ public class ExifPanel extends javax.swing.JPanel {
         setExifTableTextFilter();
         setExifTableComparator();
         addMouseListener(new TableButtonMouseListener(tableExif));
-        buttonExifToXmp.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_xmp.png"));
+        buttonExifToXmp.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp.png"));
         MnemonicUtil.setMnemonics(this);
     }
 

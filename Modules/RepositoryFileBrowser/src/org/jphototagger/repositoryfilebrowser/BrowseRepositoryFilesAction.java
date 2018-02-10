@@ -5,9 +5,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenuItem;
 import org.jphototagger.api.windows.MenuItemProvider;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -20,7 +18,7 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
 
     private BrowseRepositoryFilesAction() {
         super(Bundle.getString(BrowseRepositoryFilesAction.class, "DisplayFileBrowserAction.Name"));
-        putValue(Action.SMALL_ICON, Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_database.png"));
+        putValue(Action.SMALL_ICON, org.jphototagger.resources.Icons.getIcon("icon_database.png"));
     }
 
     @Override

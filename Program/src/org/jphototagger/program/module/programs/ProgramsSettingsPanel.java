@@ -18,6 +18,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -42,11 +43,11 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         setDefaultProgramsButtonEnabled();
         model.addListDataListener(buttonDefaultProgramsEnabler);
 
-        menuItemAddProgram.setIcon(AppLookAndFeel.getIcon("icon_new.png")); // NOI18N
-        menuItemEditProgram.setIcon(AppLookAndFeel.getIcon("icon_edit.png")); // NOI18N
-        menuItemRemoveProgram.setIcon(AppLookAndFeel.getIcon("icon_delete.png")); // NOI18N
-        menuItemMoveProgramUp.setIcon(AppLookAndFeel.getIcon("icon_arrow_up.png")); // NOI18N
-        menuItemMoveProgramDown.setIcon(AppLookAndFeel.getIcon("icon_arrow_down.png")); // NOI18N
+        menuItemAddProgram.setIcon(Icons.getIcon("icon_new.png")); // NOI18N
+        menuItemEditProgram.setIcon(Icons.getIcon("icon_edit.png")); // NOI18N
+        menuItemRemoveProgram.setIcon(Icons.getIcon("icon_delete.png")); // NOI18N
+        menuItemMoveProgramUp.setIcon(Icons.getIcon("icon_arrow_up.png")); // NOI18N
+        menuItemMoveProgramDown.setIcon(Icons.getIcon("icon_arrow_down.png")); // NOI18N
     }
 
     private void setAccelerators() {

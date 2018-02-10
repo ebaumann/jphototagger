@@ -31,14 +31,12 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.text.html.HTMLDocument;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 
 /**
  * Non modal dialog to display a logfile written by a
@@ -486,7 +484,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
-        buttonReload.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_refresh.png")); // NOI18N
+        buttonReload.setIcon(org.jphototagger.resources.Icons.getIcon("icon_refresh.png")); // NOI18N
         buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
         buttonReload.setBorder(null);
         buttonReload.setName("buttonReload"); // NOI18N
@@ -497,7 +495,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         });
         panelButtons.add(buttonReload);
 
-        buttonExit.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_exit.png")); // NOI18N
+        buttonExit.setIcon(org.jphototagger.resources.Icons.getIcon("icon_exit.png")); // NOI18N
         buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
         buttonExit.setBorder(null);
         buttonExit.setName("buttonExit"); // NOI18N
@@ -527,7 +525,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelFilterCheckBoxes.setName("panelFilterCheckBoxes"); // NOI18N
         panelFilterCheckBoxes.setLayout(new java.awt.GridBagLayout());
 
-        labelIconSevere.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_severe.png")); // NOI18N
+        labelIconSevere.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_severe.png")); // NOI18N
         labelIconSevere.setName("labelIconSevere"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
@@ -542,7 +540,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelFilterCheckBoxes.add(checkBoxSevere, gridBagConstraints);
 
-        labelIconWarning.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_warning.png")); // NOI18N
+        labelIconWarning.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_warning.png")); // NOI18N
         labelIconWarning.setName("labelIconWarning"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
@@ -558,7 +556,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelFilterCheckBoxes.add(checkBoxWarning, gridBagConstraints);
 
-        labelIconInfo.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_info.png")); // NOI18N
+        labelIconInfo.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_info.png")); // NOI18N
         labelIconInfo.setName("labelIconInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
@@ -574,7 +572,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelFilterCheckBoxes.add(checkBoxInfo, gridBagConstraints);
 
-        labelIconConfig.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_config.png")); // NOI18N
+        labelIconConfig.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_config.png")); // NOI18N
         labelIconConfig.setName("labelIconConfig"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
@@ -590,7 +588,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelFilterCheckBoxes.add(checkBoxConfig, gridBagConstraints);
 
-        labelIconFine.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_fine.png")); // NOI18N
+        labelIconFine.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_fine.png")); // NOI18N
         labelIconFine.setName("labelIconFine"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -607,7 +605,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelFilterCheckBoxes.add(checkBoxFine, gridBagConstraints);
 
-        labelIconFiner.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_finer.png")); // NOI18N
+        labelIconFiner.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_finer.png")); // NOI18N
         labelIconFiner.setName("labelIconFiner"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
@@ -624,7 +622,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
         panelFilterCheckBoxes.add(checkBoxFiner, gridBagConstraints);
 
-        labelIconFinest.setIcon(Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_logfiledialog_finest.png")); // NOI18N
+        labelIconFinest.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_finest.png")); // NOI18N
         labelIconFinest.setName("labelIconFinest"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;

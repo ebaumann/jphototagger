@@ -9,10 +9,8 @@ import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.MainWindowComponent;
 import org.jphototagger.api.windows.MainWindowComponentProvider;
-import org.jphototagger.lib.api.AppIconProvider;
 import org.jphototagger.lib.api.MainWindowComponentProviderAdapter;
 import org.jphototagger.lib.util.Bundle;
-import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;
 
@@ -25,7 +23,7 @@ import org.openide.util.lookup.ServiceProviders;
 })
 public final class ModuleInstaller extends MainWindowComponentProviderAdapter implements Module, ModuleDescription {
 
-    private static final Icon ICON = Lookup.getDefault().lookup(AppIconProvider.class).getIcon("icon_no_metadata.png");
+    private static final Icon ICON = org.jphototagger.resources.Icons.getIcon("icon_no_metadata.png");
     private static final String TITLE = Bundle.getString(ModuleInstaller.class, "Module.Title");
     private final FilesWithoutMetaDataPanel panel = new FilesWithoutMetaDataPanel();
 
