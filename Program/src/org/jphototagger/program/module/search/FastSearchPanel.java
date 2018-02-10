@@ -59,11 +59,11 @@ import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.Images;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -113,8 +113,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         if (font != null) {
             textAreaSearch.setFont(font);
         }
-        ((ImageTextArea) textAreaSearch).setImage(
-                AppLookAndFeel.getLocalizedImage("/org/jphototagger/program/resource/images/textfield_search.png"));
+        ((ImageTextArea) textAreaSearch).setImage(Images.getLocalizedImage("/org/jphototagger/resources/images/textfield_search.png"));
         ((ImageTextArea) textAreaSearch).setConsumeEnter(true);
     }
 

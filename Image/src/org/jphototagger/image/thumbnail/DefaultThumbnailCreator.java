@@ -90,7 +90,7 @@ public final class DefaultThumbnailCreator implements ThumbnailCreator {
         String suffix = FileUtil.getSuffix(file);
         UserDefinedFileType fileType = userDefinedFileTypesRepository.findUserDefinedFileTypeBySuffix(suffix);
         if (fileType == null || !fileType.isExternalThumbnailCreator()) {
-            return IconUtil.getIconImage("/org/jphototagger/program/resource/images/user_defined_file_type.jpg");
+            return IconUtil.getIconImage("/org/jphototagger/resources/images/user_defined_file_type.jpg");
         } else {
             int maxLength = ThumbnailCreatorService.readMaxThumbnailWidthFromPreferences();
             String createCommand = prefs.getString(ImagePreferencesKeys.KEY_THUMBNAIL_CREATION_EXTERNAL_COMMAND);

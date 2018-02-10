@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import org.jphototagger.api.preferences.CommonPreferences;
 
@@ -24,10 +22,10 @@ public final class Icons {
     private static final List<Image> APP_ICONS = new ArrayList<>();
 
     static {
-        APP_ICONS.add(getImage(SMALL_APP_ICON_PATH));
-        APP_ICONS.add(getImage(MEDIUM_APP_ICON_PATH));
-        APP_ICONS.add(getImage(LARGE_APP_ICON_PATH));
-        APP_ICONS.add(getImage(HUGE_APP_ICON_PATH));
+        APP_ICONS.add(ResourcesCommon.getImage(SMALL_APP_ICON_PATH));
+        APP_ICONS.add(ResourcesCommon.getImage(MEDIUM_APP_ICON_PATH));
+        APP_ICONS.add(ResourcesCommon.getImage(LARGE_APP_ICON_PATH));
+        APP_ICONS.add(ResourcesCommon.getImage(HUGE_APP_ICON_PATH));
     }
 
     public static List<Image> getAppIcons() {
@@ -35,39 +33,20 @@ public final class Icons {
     }
 
     public static Image getSmallAppIcon() {
-        return getImage(SMALL_APP_ICON_PATH);
+        return ResourcesCommon.getImage(SMALL_APP_ICON_PATH);
     }
 
     public static Image getMediumAppIcon() {
-        return getImage(MEDIUM_APP_ICON_PATH);
-    }
-
-    private static Image getImage(String path) {
-        ImageIcon imageIcon = getImageIcon(path);
-        return imageIcon == null
-                ? null
-                : imageIcon.getImage();
-    }
-
-    private static ImageIcon getImageIcon(String path) {
-        java.net.URL imgURL = Icons.class.getResource(path);
-
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            Logger.getLogger(Icons.class.getName()).log(Level.SEVERE, null, "Image path not found: " + path);
-        }
-
-        return null;
+        return ResourcesCommon.getImage(MEDIUM_APP_ICON_PATH);
     }
 
     public static ImageIcon getIcon(String name) {
         Objects.requireNonNull(name, "name == null");
 
-        ImageIcon icon = getImageIcon(ICONS_PATH + "/" + getScaledName(name));
+        ImageIcon icon = ResourcesCommon.getImageIcon(ICONS_PATH + "/" + getScaledName(name));
 
         return icon == null
-                ? getImageIcon(ICONS_PATH + "/" + name) // Trying to get unscaled icon
+                ? ResourcesCommon.getImageIcon(ICONS_PATH + "/" + name) // Trying to get unscaled icon
                 : icon;
     }
 

@@ -29,10 +29,10 @@ import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.RuntimeUtil;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.ImagePanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.Images;
 import org.openide.util.Lookup;
 
 /**
@@ -44,7 +44,7 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
     public static final String PROPERTY_FILE_SELECTED = "fileSelected";
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(FileDuplicatesPanel.class.getName());
-    private static final Image ERROR_THUMBNAIL = IconUtil.getIconImage("/org/jphototagger/findduplicates/thumbnail_not_rendered.png");
+    private static final Image ERROR_THUMBNAIL = Images.getLocalizedImage("/org/jphototagger/resources/images/thumbnail_not_rendered.png");
     private int fileSelectionCount;
     private int rowCount;
 
