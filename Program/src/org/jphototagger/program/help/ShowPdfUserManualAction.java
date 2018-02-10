@@ -10,7 +10,6 @@ import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.Main;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

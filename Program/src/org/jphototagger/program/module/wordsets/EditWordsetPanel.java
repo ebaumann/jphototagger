@@ -26,7 +26,6 @@ import org.jphototagger.lib.swing.util.DocumentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 

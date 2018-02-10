@@ -7,7 +7,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.logging.AppLoggingSystem;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

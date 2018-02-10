@@ -19,7 +19,6 @@ import org.jphototagger.domain.metadata.search.Operator;
 import org.jphototagger.domain.metadata.search.SavedSearchPanel;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

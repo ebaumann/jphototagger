@@ -3,7 +3,6 @@ package org.jphototagger.program.module.exportimport.exporter;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.exportimport.ExportImportContext;
 import org.jphototagger.program.module.exportimport.ExportImportDialog;
 import org.jphototagger.resources.Icons;

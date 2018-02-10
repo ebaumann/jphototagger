@@ -9,7 +9,6 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

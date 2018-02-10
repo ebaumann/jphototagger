@@ -23,7 +23,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.SelectProgramDialog;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.resources.Icons;

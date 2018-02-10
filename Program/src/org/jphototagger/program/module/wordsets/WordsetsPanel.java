@@ -28,8 +28,6 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
-import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**

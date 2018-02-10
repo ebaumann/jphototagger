@@ -7,7 +7,6 @@ import javax.swing.JPopupMenu.Separator;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

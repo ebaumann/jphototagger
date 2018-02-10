@@ -14,7 +14,6 @@ import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 

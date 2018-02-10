@@ -21,7 +21,6 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.api.MainWindowComponentProviderAdapter;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 import org.openide.util.lookup.ServiceProvider;
 import org.openide.util.lookup.ServiceProviders;

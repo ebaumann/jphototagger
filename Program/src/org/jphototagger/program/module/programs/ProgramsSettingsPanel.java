@@ -16,7 +16,6 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
 import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;

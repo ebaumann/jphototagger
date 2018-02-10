@@ -11,7 +11,6 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.repository.DcSubjectsStatistics;
 import org.jphototagger.lib.swing.util.ComponentUtil;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.ListCellRendererExt;
 import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;

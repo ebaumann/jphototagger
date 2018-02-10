@@ -7,7 +7,6 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann

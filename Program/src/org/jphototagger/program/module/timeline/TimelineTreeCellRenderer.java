@@ -6,7 +6,6 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 import org.jphototagger.domain.timeline.Timeline;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;
 import org.jphototagger.resources.Icons;
 

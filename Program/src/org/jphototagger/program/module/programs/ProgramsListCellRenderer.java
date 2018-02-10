@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

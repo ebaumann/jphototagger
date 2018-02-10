@@ -23,7 +23,6 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopHeadlineMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

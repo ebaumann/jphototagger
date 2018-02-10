@@ -13,7 +13,6 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.exif.ExifFocalLengthMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.app.ui.TreeCellRendererExt;
 import org.jphototagger.program.module.search.MetaDataValueIcons;
 import org.jphototagger.resources.Icons;

@@ -5,7 +5,6 @@ import javax.swing.AbstractAction;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

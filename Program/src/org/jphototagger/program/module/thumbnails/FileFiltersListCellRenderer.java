@@ -6,7 +6,6 @@ import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.api.component.DisplayNameProvider;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

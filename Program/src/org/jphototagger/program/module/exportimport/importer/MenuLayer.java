@@ -9,7 +9,6 @@ import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.tasks.AutoBackupJptDataImporter;
 import org.jphototagger.resources.Icons;
 import org.openide.util.lookup.ServiceProvider;

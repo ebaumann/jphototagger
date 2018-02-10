@@ -31,7 +31,6 @@ import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.module.actions.ActionsUtil;
 import org.jphototagger.program.module.programs.AddProgramController;

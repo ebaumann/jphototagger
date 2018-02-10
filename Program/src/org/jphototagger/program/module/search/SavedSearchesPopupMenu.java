@@ -6,7 +6,6 @@ import javax.swing.JPopupMenu;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 
 /**

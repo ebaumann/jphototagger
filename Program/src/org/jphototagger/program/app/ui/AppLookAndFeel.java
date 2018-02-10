@@ -2,20 +2,15 @@ package org.jphototagger.program.app.ui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Icon;
 import javax.swing.UIManager;
 import javax.swing.plaf.FontUIResource;
 import org.jphototagger.api.preferences.CommonPreferences;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.LookAndFeelProvider;
-import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.util.LookAndFeelUtil;
-import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemUtil;
-import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**

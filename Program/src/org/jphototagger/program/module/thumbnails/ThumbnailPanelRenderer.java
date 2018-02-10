@@ -25,7 +25,6 @@ import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.thumbnails.ThumbnailFlag;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.datatransfer.Flavor;
 import org.jphototagger.program.module.thumbnails.cache.RenderedThumbnailCacheIndirection;
 import org.jphototagger.program.module.thumbnails.cache.ThumbnailRenderer;

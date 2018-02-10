@@ -21,7 +21,6 @@ import org.jphototagger.api.windows.StatusLineElementProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;

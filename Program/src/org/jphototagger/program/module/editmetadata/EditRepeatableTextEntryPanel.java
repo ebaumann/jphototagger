@@ -51,11 +51,9 @@ import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.module.wordsets.WordsetsPanel;
 import org.jphototagger.program.module.wordsets.WordsetsPanelListener;
-import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**

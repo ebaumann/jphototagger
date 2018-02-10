@@ -14,7 +14,6 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.ProgramExecutorImpl;
 import org.jphototagger.program.module.programs.ProgramPropertiesDialog;
 import org.jphototagger.program.module.programs.ProgramsListModel;
