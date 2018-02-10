@@ -7874,6 +7874,14 @@ Ursache: {0}</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>ExifTool ist nicht passend konfiguriert!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180210T162028Z" creationid="elmar" creationdate="20180210T162028Z">
+        <seg>ExifTool is not correctly configured!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>ExifTool ist unureichend konfiguriert!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20180204T185347Z" creationid="elmar" creationdate="20180204T185347Z">
@@ -10440,6 +10448,22 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Kontextmenü-Eintrag: Plugins &gt; Metadaten der XMP-Filialdatei mit ExifTool in die Bilddatei schreiben.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180210T162452Z" creationid="elmar" creationdate="20180210T162452Z">
+        <seg>Context menu entry: Plugins &gt; Write metadata of XMP sidecar file into image file with ExifTool.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Kontextmenü-Eintrag: Plugins &gt; Metadaten mit ExifTool in die Datei schreiben.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180210T162113Z" creationid="elmar" creationdate="20180210T162113Z">
+        <seg>Context menu entry: Plugins &gt; Write metadata into file with ExifTool.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Kontrast</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -11288,6 +11312,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Metadaten der XMP-Filialdatei mit ExifTool in die Bilddatei schreiben</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180210T162502Z" creationid="elmar" creationdate="20180210T162502Z">
+        <seg>Write metadata of XMP sidecar file into image file with ExifTool</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Metadaten einfügen</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -11300,6 +11332,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Copy metadata</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Metadaten mit ExifTool in die Datei schreiben</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180210T162117Z" creationid="elmar" creationdate="20180210T162117Z">
+        <seg>Write metadata into file with ExifTool</seg>
       </tuv>
     </tu>
     <tu>
@@ -15532,6 +15572,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Do You want change the report settings and then try to create the report?</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Wollen Sie die Konfiguration durchführen?</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180210T162053Z" creationid="elmar" creationdate="20180210T162053Z">
+        <seg>Do you wish to configure?</seg>
       </tuv>
     </tu>
     <tu>

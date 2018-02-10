@@ -1,7 +1,6 @@
 package org.jphototagger.exiftoolxtiw;
 
 import java.awt.Component;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -331,15 +330,9 @@ public final class ExifTooolXmpToImageWriterController {
     private final ActionListener configListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            Frame frame = ComponentUtil.findFrameWithIcon();
-            InputDialog2 dlg = new InputDialog2(frame, true);
+            InputDialog2 dlg = ExifToolCommon.createSettingsDialog();
 
-            dlg.setTitle(Bundle.getString(ExifTooolXmpToImageWriterController.class, "ExifTooolXmpToImageWriterController.ConfigDlg.Title"));
-            dlg.setComponent(new SettingsPanel());
-            dlg.getButtonCancel().setVisible(false);
-            dlg.pack();
             dlg.setLocationRelativeTo(view);
-
             dlg.setVisible(true);
             setViewEnabled();
         }

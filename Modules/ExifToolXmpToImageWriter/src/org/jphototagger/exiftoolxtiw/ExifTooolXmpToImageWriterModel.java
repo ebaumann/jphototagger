@@ -53,7 +53,7 @@ public final class ExifTooolXmpToImageWriterModel {
         this.cancel = cancel;
     }
 
-    public void setImageFiles(Collection<File> imageFiles) {
+    public void setImageFiles(Collection<? extends File> imageFiles) {
         Objects.requireNonNull(imageFiles, "imageFiles == null");
 
         this.imageFiles.clear();
@@ -94,7 +94,7 @@ public final class ExifTooolXmpToImageWriterModel {
      * @return count of processed files
      */
     public int execute() {
-        if (!checkCanWrite()) {
+        if (!checkCanExecute(true)) {
             return 0;
         }
 
@@ -200,14 +200,18 @@ public final class ExifTooolXmpToImageWriterModel {
         return cmdList.toArray(new String[cmdList.size()]);
     }
 
-    private boolean checkCanWrite() {
+    boolean checkCanExecute(boolean log) {
         if (!settings.isSelfResponsible()) {
-            Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.WARNING, "User does not take self-responsibility of modifying image files. Cancelling.");
+            if (log) {
+                Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.WARNING, "User does not take self-responsibility of modifying image files. Cancelling.");
+            }
             return false;
         }
 
         if (getExifToolFilePath() == null) {
-            Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.WARNING, "Exif tool excecutable not accessible: {0}. Cancelling.", settings.getExifToolFilePath());
+            if (log) {
+                Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.WARNING, "Exif tool excecutable not accessible: {0}. Cancelling.", settings.getExifToolFilePath());
+            }
             return false;
         }
 

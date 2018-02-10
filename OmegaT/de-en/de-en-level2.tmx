@@ -7310,6 +7310,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>ExifTool ist nicht passend konfiguriert!</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180210T162028Z" creationid="elmar" creationdate="20180210T162028Z">
+        <seg>ExifTool is not correctly configured!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>ExifTool ist unureichend konfiguriert!</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20180204T185347Z" creationid="elmar" creationdate="20180204T185347Z">
@@ -9736,6 +9744,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Kontextmenü-Eintrag: Plugins &gt; Metadaten der XMP-Filialdatei mit ExifTool in die Bilddatei schreiben.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180210T162452Z" creationid="elmar" creationdate="20180210T162452Z">
+        <seg>Context menu entry: Plugins &gt; Write metadata of XMP sidecar file into image file with ExifTool.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Kontrast</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -10532,6 +10548,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Edit Metadata</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Metadaten der XMP-Filialdatei mit ExifTool in die Bilddatei schreiben</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180210T162502Z" creationid="elmar" creationdate="20180210T162502Z">
+        <seg>Write metadata of XMP sidecar file into image file with ExifTool</seg>
       </tuv>
     </tu>
     <tu>
@@ -14644,6 +14668,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Do You want change the report settings and then try to create the report?</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Wollen Sie die Konfiguration durchführen?</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180210T162053Z" creationid="elmar" creationdate="20180210T162053Z">
+        <seg>Do you wish to configure?</seg>
       </tuv>
     </tu>
     <tu>
