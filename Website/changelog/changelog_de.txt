@@ -10,6 +10,8 @@ Changelog JPhotoTagger https://jphototagger.org/
   Bildern ein Stichwort enthalten ist: Ansicht > Stichwortanzahl in
   Listenansichten anzeigen.
 * JPhotoTaggers Version wird in der Hauptfenster-Titelzeile angezeigt.
+* HSQLDB (HyperSQL Database Engine)-Version aktualisiert von 1.8.0.10
+  auf 2.4.0.
 
 0.36.0 2018-02-04
 ------------------

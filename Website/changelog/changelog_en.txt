@@ -11,6 +11,8 @@ Changelog JPhotoTagger https://jphototagger.org/
   views.
 * JPhotoTagger's version is displayed in the main window title
   bar.
+* Updated HSQLDB (HyperSQL Database Engine) version from
+  1.8.0.10 to 2.4.0.
 
 0.36.0 2018-02-04
 ------------------
