@@ -13,6 +13,7 @@ import org.openide.util.Lookup;
  */
 public final class CommonPreferences {
 
+    public static final String KEY_DISPLAY_DC_SUBJECT_COUNT = "UserSettings.DisplayDcSubjectCount";
     public static final String KEY_SAVE_INPUT_EARLY = "UserSettings.SaveInputEarly";
     public static final String PREF_KEY_FONT_SCALE = "JPhotoTaggerFontScale";
     private static final float RECOMMENDED_FONT_SCALE = calculateRecommendedFontScale();

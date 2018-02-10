@@ -29,6 +29,10 @@ public final class PreferencesChangedEvent {
         return propertyKey;
     }
 
+    public boolean isKey(String key) {
+        return propertyKey.equals(key);
+    }
+
     public Object getOldValue() {
         return oldValue;
     }

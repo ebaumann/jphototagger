@@ -12,9 +12,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -2579,4 +2581,54 @@ final class ImageFilesDatabase extends Database {
         }
         return count;
     }
+
+    public Map<String, Integer> getImageCountOfDcSubjects() {
+        Connection con = null;
+        Statement stmt= null;
+        ResultSet rs = null;
+        Map<String, Integer> result = new HashMap<>();
+        try {
+            con = getConnection();
+            stmt = con.createStatement();
+            con.setAutoCommit(false);
+            String sql = "SELECT s.SUBJECT, COUNT(s.SUBJECT) from DC_SUBJECTS s JOIN XMP_DC_SUBJECT x ON s.ID = x.ID_DC_SUBJECT GROUP BY s.SUBJECT";
+            LOGGER.log(Level.FINEST, sql);
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                result.put(rs.getString(1), rs.getInt(2));
+            }
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+        return result;
+    }
+
+    public int getImageCountOfDcSubject(String dcSubject) {
+        Connection con = null;
+        PreparedStatement stmt= null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            con = getConnection();
+            con.setAutoCommit(false);
+            String sql = "SELECT COUNT(s.SUBJECT) from DC_SUBJECTS s JOIN XMP_DC_SUBJECT x ON s.ID = x.ID_DC_SUBJECT WHERE s.SUBJECT = ? GROUP BY s.SUBJECT";
+            LOGGER.log(Level.FINEST, sql);
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, dcSubject);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+        return count;
+    }
+
 }

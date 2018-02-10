@@ -18,6 +18,10 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
     public Collection<? extends MenuItemProvider> getViewMenuItems() {
         MenuItemProviderImpl itemToggleMetaDataOverlay = new MenuItemProviderImpl(new ToggleMetaDataOverlayAction(), 100, false);
         MenuItemProviderImpl itemDisplaySidecarFileFlag = new MenuItemProviderImpl(new DisplaySidecarFlagAction(), 200, false);
-        return Arrays.asList(itemToggleMetaDataOverlay, itemDisplaySidecarFileFlag);
+        MenuItemProviderImpl itemDisplayDcSubjects = new MenuItemProviderImpl(new DisplayDcSubjectsAction(), 300, false);
+        return Arrays.asList(
+                itemToggleMetaDataOverlay,
+                itemDisplaySidecarFileFlag,
+                itemDisplayDcSubjects);
     }
 }

@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.0 2018-02-10
+------------------
+
+* In keywords list views can be displayed, in how many images
+  a keyword is contained: View > Display keyword count in
+  list views.
+
 0.36.0 2018-02-04
 ------------------
 

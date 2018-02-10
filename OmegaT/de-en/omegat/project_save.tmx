@@ -13888,6 +13888,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Stichwortanzahl in Listenansichten anzeigen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180210T002303Z" creationid="elmar" creationdate="20180210T002303Z">
+        <seg>Display keyword count in list views</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Stichwortbaum</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -15836,6 +15844,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Displays left in the program window a tab with metadata values. When selecting a metadata value, all files not containing that metadata will be displayed.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Zeigt in Stichwortlisten neben jedem Stichwort an, in wievielen Bildern es enthalten ist.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180210T002245Z" creationid="elmar" creationdate="20180210T002245Z">
+        <seg>Displays in keyword list views after each keyword in how many images it is contained.</seg>
       </tuv>
     </tu>
     <tu>
