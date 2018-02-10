@@ -22,6 +22,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.misc.SaveToOrUpdateFilesInRepositoryImpl;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.settings.SettingsDialog;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -57,8 +58,8 @@ public final class ScheduledTasks implements ActionListener {
     private static void init() {
         TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.START, Bundle.getString(ScheduledTasks.class, "ScheduledTasks.TooltipText.Start"));
         TOOLTIP_TEXT_OF_BUTTON_STATE.put(ButtonState.CANCEL, Bundle.getString(ScheduledTasks.class, "ScheduledTasks.TooltipText.Cancel"));
-        ICON_OF_BUTTON_STATE.put(ButtonState.START, AppLookAndFeel.ICON_START);
-        ICON_OF_BUTTON_STATE.put(ButtonState.CANCEL, AppLookAndFeel.ICON_CANCEL);
+        ICON_OF_BUTTON_STATE.put(ButtonState.START, Icons.ICON_START);
+        ICON_OF_BUTTON_STATE.put(ButtonState.CANCEL, Icons.ICON_CANCEL);
     }
 
     private void listen() {

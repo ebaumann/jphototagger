@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import org.jphototagger.api.preferences.CommonPreferences;
 
@@ -13,6 +14,18 @@ import org.jphototagger.api.preferences.CommonPreferences;
  */
 public final class Icons {
 
+    public static final Icon ICON_RENAME = getIcon("icon_rename.png");
+    public static final Icon ICON_REFRESH = getIcon("icon_refresh.png");
+    public static final Icon ICON_PASTE = getIcon("icon_paste.png");
+    public static final Icon ICON_NEW = getIcon("icon_new.png");
+    public static final Icon ICON_EDIT = getIcon("icon_edit.png");
+    public static final Icon ICON_DELETE = getIcon("icon_delete.png");
+    public static final Icon ICON_CUT = getIcon("icon_cut.png");
+    public static final Icon ICON_COPY = getIcon("icon_copy.png");
+    public static final Icon ICON_FILTER = getIcon("icon_filter.png");
+    public static final Icon ICON_START = getIcon("icon_start.png");
+    public static final Icon ICON_CANCEL = getIcon("icon_cancel.png");
+    public static final Image ERROR_THUMBNAIL = Images.getLocalizedImage("/org/jphototagger/resources/images/thumbnail_not_rendered.jpg");
     private static final float FONT_SCALE = CommonPreferences.getFontScale();
     private static final String ICONS_PATH = "/org/jphototagger/resources/icons";
     private static final String SMALL_APP_ICON_PATH = ICONS_PATH + "/icon_app_small.png";

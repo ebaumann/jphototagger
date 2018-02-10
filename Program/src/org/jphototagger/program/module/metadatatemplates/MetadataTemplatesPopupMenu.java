@@ -22,10 +22,10 @@ public final class MetadataTemplatesPopupMenu extends JPopupMenu {
     private static final ImageIcon ICON_IMAGE = Icons.getIcon("icon_image.png");
     public static final MetadataTemplatesPopupMenu INSTANCE = new MetadataTemplatesPopupMenu();
     private final JMenuItem itemSetToSelImages = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.SetToSelImages"), ICON_IMAGE);
-    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
-    private final JMenuItem itemEdit = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Edit"), AppLookAndFeel.ICON_EDIT);
-    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemAdd = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Add"), AppLookAndFeel.ICON_NEW);
+    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
+    private final JMenuItem itemEdit = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Edit"), Icons.ICON_EDIT);
+    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
+    private final JMenuItem itemAdd = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Add"), Icons.ICON_NEW);
     private JXList list;
     private int selIndex;
 

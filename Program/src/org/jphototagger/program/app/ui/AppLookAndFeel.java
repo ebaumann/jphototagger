@@ -36,18 +36,6 @@ public final class AppLookAndFeel {
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(255, 223, 181);
     public static final Color LIST_SEL_IMG_HAS_KEYWORD_FOREGROUND = TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND;
     public static final Color LIST_SEL_IMG_HAS_KEYWORD_BACKGROUND = TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND;
-    public static final Icon ICON_RENAME = Icons.getIcon("icon_rename.png");
-    public static final Icon ICON_REFRESH = Icons.getIcon("icon_refresh.png");
-    public static final Icon ICON_PASTE = Icons.getIcon("icon_paste.png");
-    public static final Icon ICON_NEW = Icons.getIcon("icon_new.png");
-    public static final Icon ICON_EDIT = Icons.getIcon("icon_edit.png");
-    public static final Icon ICON_DELETE = Icons.getIcon("icon_delete.png");
-    public static final Icon ICON_CUT = Icons.getIcon("icon_cut.png");
-    public static final Icon ICON_COPY = Icons.getIcon("icon_copy.png");
-    public static final Icon ICON_FILTER = Icons.getIcon("icon_filter.png");
-    public static final Icon ICON_START = Icons.getIcon("icon_start.png");
-    public static final Icon ICON_CANCEL = Icons.getIcon("icon_cancel.png");
-    public static final Image ERROR_THUMBNAIL = IconUtil.getIconImage(Bundle.getString(AppLookAndFeel.class, "ErrorThumbnailPath"));
     private static Color listBackground;
     private static Color listForeground;
     private static Color listSelectionBackground;

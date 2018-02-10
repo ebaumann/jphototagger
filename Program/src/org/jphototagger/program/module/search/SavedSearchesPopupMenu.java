@@ -7,6 +7,7 @@ import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -18,10 +19,10 @@ public final class SavedSearchesPopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
     public static final SavedSearchesPopupMenu INSTANCE = new SavedSearchesPopupMenu();
-    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemEdit = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.Edit"), AppLookAndFeel.ICON_EDIT);
-    private final JMenuItem itemCreate = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.New"), AppLookAndFeel.ICON_NEW);
-    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
+    private final JMenuItem itemEdit = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.Edit"), Icons.ICON_EDIT);
+    private final JMenuItem itemCreate = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.New"), Icons.ICON_NEW);
+    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(SavedSearchesPopupMenu.class, "SavedSearchesPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
     private transient SavedSearch savedSearch;
 
     private SavedSearchesPopupMenu() {

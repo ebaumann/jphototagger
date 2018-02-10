@@ -80,7 +80,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemRotateThumbnail270 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.270"), ICON_ROTATE_270);
     private final JMenuItem itemRotateThumbnai180 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.180"), ICON_ROTATE_180);
     private final JMenuItem itemReject = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Reject"), ICON_REJECTED);
-    private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
+    private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Refresh"), Icons.ICON_REFRESH);
     private final JMenuItem itemRating5 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating5"), ICON_XMP_RATING_5);
     private final JMenuItem itemRating4 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating4"), ICON_XMP_RATING_4);
     private final JMenuItem itemRating3 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating3"), ICON_XMP_RATING_3);
@@ -88,19 +88,19 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemRating1 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating1"), ICON_XMP_RATING_1);
     private final JMenuItem itemRating0 = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating0"), ICON_XMP_RATING_REMOVE);
     private final JMenuItem itemPick = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Pick"), ICON_PICKED);
-    private final JMenuItem itemPasteMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemPasteMetadata"), AppLookAndFeel.ICON_PASTE);
-    private final JMenuItem itemPasteFromClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemPasteFromClipboard"), AppLookAndFeel.ICON_PASTE);
+    private final JMenuItem itemPasteMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemPasteMetadata"), Icons.ICON_PASTE);
+    private final JMenuItem itemPasteFromClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemPasteFromClipboard"), Icons.ICON_PASTE);
     private final JMenuItem itemOpenFilesWithStandardApp = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.OpenFiles"));
     private final JMenuItem itemFileSystemRenameFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemRename"));
     private final JMenuItem itemFileSystemMoveFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemMove"));
-    private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemDeleteFiles"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemCopyToDirectory"), AppLookAndFeel.ICON_COPY);
+    private final JMenuItem itemFileSystemDeleteFiles = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemDeleteFiles"), Icons.ICON_DELETE);
+    private final JMenuItem itemFileSystemCopyToDirectory = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.FileSystemCopyToDirectory"), Icons.ICON_COPY);
     private final JMenuItem itemDeleteImageFromRepository = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteImageFromRepository"));
     private final JMenuItem itemDeleteFromImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.DeleteFromImageCollection"), ICON_IMAGE_COLLECTION_REMOVE_FROM);
-    private final JMenuItem itemCutToClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCutToClipboard"), AppLookAndFeel.ICON_CUT);
+    private final JMenuItem itemCutToClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCutToClipboard"), Icons.ICON_CUT);
     private final JMenuItem itemCreateImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.CreateImageCollection"), ICON_IMAGE_COLLECTION);
-    private final JMenuItem itemCopyToClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCopyToClipboard"), AppLookAndFeel.ICON_COPY);
-    private final JMenuItem itemCopyMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCopyMetadata"), AppLookAndFeel.ICON_COPY);
+    private final JMenuItem itemCopyToClipboard = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCopyToClipboard"), Icons.ICON_COPY);
+    private final JMenuItem itemCopyMetadata = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.ItemCopyMetadata"), Icons.ICON_COPY);
     private final JMenuItem itemAddToImageCollection = new JMenuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.AddToImageCollection"), ICON_IMAGE_COLLECTION_ADD_TO);
     // End menu items
     private final List<ActionListener> actionListenersOpenFilesWithOtherApp = new ArrayList<>();

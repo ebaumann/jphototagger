@@ -32,9 +32,9 @@ public final class DirectoriesPopupMenu extends JPopupMenu {
     public static final ImageIcon ICON_FOLDER_NEW = Icons.getIcon("icon_folder_new.png");
     private final JMenuItem itemAddToFavorites = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.AddToFavoriteDirectories"), ICON_FAVORITE);
     private final JMenuItem itemCreateDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.CreateDirectory"), ICON_FOLDER_NEW);
-    private final JMenuItem itemRenameDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.RenameDirectory"), AppLookAndFeel.ICON_RENAME);
-    private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.Refresh"), AppLookAndFeel.ICON_REFRESH);
-    private final JMenuItem itemDeleteDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.DeleteDirectory"), AppLookAndFeel.ICON_DELETE);
+    private final JMenuItem itemRenameDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.RenameDirectory"), Icons.ICON_RENAME);
+    private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.Refresh"), Icons.ICON_REFRESH);
+    private final JMenuItem itemDeleteDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.DeleteDirectory"), Icons.ICON_DELETE);
     private final JMenuItem itemExpandAllSubitems = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemExpand"));
     private final JMenuItem itemCollapseAllSubitems = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemCollapse"));
     private final JMenuItem itemOpenInDesktop = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.Action.OpenInDesktop"));

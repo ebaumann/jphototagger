@@ -20,8 +20,8 @@ public final class ImageCollectionsPopupMenu extends JPopupMenu {
     private static final long serialVersionUID = 1L;
     private static final ImageIcon ICON_IMAGE_COLLECTION = Icons.getIcon("icon_imagecollection.png");
     public static final ImageCollectionsPopupMenu INSTANCE = new ImageCollectionsPopupMenu();
-    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Delete"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Rename"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
+    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
     private final JMenuItem itemCreate = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Create"), ICON_IMAGE_COLLECTION);
     private int itemIndex;
 

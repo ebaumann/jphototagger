@@ -18,6 +18,7 @@ import org.jphototagger.lib.swing.PopupMenuTree;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -45,9 +46,9 @@ public final class MiscMetadataPopupMenu extends PopupMenuTree {
     }
 
     private void createMenuItems() {
-        itemDelete = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ItemDelete"), AppLookAndFeel.ICON_DELETE);
+        itemDelete = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ItemDelete"), Icons.ICON_DELETE);
         itemExpandAllSubitems = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.ItemExpand"));
-        itemRename = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ItemRename"), AppLookAndFeel.ICON_RENAME);
+        itemRename = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ItemRename"), Icons.ICON_RENAME);
         itemCollapseAllSubitems = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.ItemCollapse"));
         itemAddToEditPanel = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ActionAddToEditPanel"));
         itemRemoveFromEditPanel = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ActionRemoveFromEditPanel"));

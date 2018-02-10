@@ -43,6 +43,7 @@ import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.Icons;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
@@ -214,7 +215,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
         imageFile.setThumbnail(thumbnail);
         if (thumbnail == null) {
             logErrorNullThumbnail(file);
-            imageFile.setThumbnail(AppLookAndFeel.ERROR_THUMBNAIL);
+            imageFile.setThumbnail(Icons.ERROR_THUMBNAIL);
         }
     }
 

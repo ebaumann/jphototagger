@@ -10,6 +10,7 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -24,18 +25,18 @@ public final class KeywordsTreePopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
     public static final KeywordsTreePopupMenu INSTANCE = new KeywordsTreePopupMenu();
-    private final JMenuItem itemAdd = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionAddKeyword"), AppLookAndFeel.ICON_NEW);
+    private final JMenuItem itemAdd = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionAddKeyword"), Icons.ICON_NEW);
     private final JMenuItem itemAddToEditPanel = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionAddToEditPanel"));
-    private final JMenuItem itemRemove = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionRemoveKeyword"), AppLookAndFeel.ICON_DELETE);
-    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionRenameKeyword"), AppLookAndFeel.ICON_RENAME);
+    private final JMenuItem itemRemove = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionRemoveKeyword"), Icons.ICON_DELETE);
+    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionRenameKeyword"), Icons.ICON_RENAME);
     private final JMenuItem itemToggleReal = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionToggleReal"));
     private final JMenuItem itemRemoveFromEditPanel = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionRemoveFromEditPanel"));
-    private final JMenuItem itemPaste = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionPaste"), AppLookAndFeel.ICON_PASTE);
+    private final JMenuItem itemPaste = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionPaste"), Icons.ICON_PASTE);
     private final JMenuItem itemExpandAllSubitems = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.ItemExpand"));
     private final JMenuItem itemDisplayImagesKw = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionDisplayImagesKw"));
     private final JMenuItem itemDisplayImages = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionDisplayImages"));
-    private final JMenuItem itemCut = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionCut"), AppLookAndFeel.ICON_CUT);
-    private final JMenuItem itemCopy = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionCopy"), AppLookAndFeel.ICON_COPY);
+    private final JMenuItem itemCut = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionCut"), Icons.ICON_CUT);
+    private final JMenuItem itemCopy = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.ActionCopy"), Icons.ICON_COPY);
     private final JMenuItem itemCollapseAllSubitems = new JMenuItem(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.ItemCollapse"));
     private JTree tree;
     private TreePath treePathAtMouseCursor;

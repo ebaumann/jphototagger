@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.api.component.DisplayNameProvider;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 
 /**
  * @author Elmar Baumann
@@ -14,7 +15,7 @@ import org.jphototagger.program.app.ui.AppLookAndFeel;
 public final class FileFiltersListCellRenderer extends DefaultListCellRenderer {
 
     private static final long serialVersionUID = 1L;
-    private static final Icon ICON = AppLookAndFeel.ICON_FILTER;
+    private static final Icon ICON = Icons.ICON_FILTER;
 
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
