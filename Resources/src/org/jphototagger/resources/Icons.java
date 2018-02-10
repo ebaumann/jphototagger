@@ -1,5 +1,9 @@
 package org.jphototagger.resources;
 
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +17,37 @@ public final class Icons {
 
     private static final float FONT_SCALE = CommonPreferences.getFontScale();
     private static final String ICONS_PATH = "/org/jphototagger/resources/icons";
+    private static final String SMALL_APP_ICON_PATH = ICONS_PATH + "/icon_app_small.png";
+    private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH + "/icon_app_medium.png";
+    private static final String LARGE_APP_ICON_PATH = ICONS_PATH + "/icon_app-128.png";
+    private static final String HUGE_APP_ICON_PATH = ICONS_PATH + "/icon_app-256.png";
+    private static final List<Image> APP_ICONS = new ArrayList<>();
+
+    static {
+        APP_ICONS.add(getImage(SMALL_APP_ICON_PATH));
+        APP_ICONS.add(getImage(MEDIUM_APP_ICON_PATH));
+        APP_ICONS.add(getImage(LARGE_APP_ICON_PATH));
+        APP_ICONS.add(getImage(HUGE_APP_ICON_PATH));
+    }
+
+    public static List<Image> getAppIcons() {
+        return Collections.unmodifiableList(APP_ICONS);
+    }
+
+    public static Image getSmallAppIcon() {
+        return getImage(SMALL_APP_ICON_PATH);
+    }
+
+    public static Image getMediumAppIcon() {
+        return getImage(MEDIUM_APP_ICON_PATH);
+    }
+
+    private static Image getImage(String path) {
+        ImageIcon imageIcon = getImageIcon(path);
+        return imageIcon == null
+                ? null
+                : imageIcon.getImage();
+    }
 
     private static ImageIcon getImageIcon(String path) {
         java.net.URL imgURL = Icons.class.getResource(path);

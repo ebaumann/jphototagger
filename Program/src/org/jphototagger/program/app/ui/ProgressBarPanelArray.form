@@ -10,7 +10,7 @@
         </Property>
         <Property name="alwaysOnTop" type="boolean" value="true"/>
         <Property name="iconImages" type="java.util.List" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="AppLookAndFeel.getAppIcons()" type="code"/>
+          <Connection code="org.jphototagger.resources.Icons.getAppIcons()" type="code"/>
         </Property>
         <Property name="undecorated" type="boolean" value="true"/>
       </Properties>

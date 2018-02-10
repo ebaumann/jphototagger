@@ -233,7 +233,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
     }
 
     private void setDate() {
-        GregorianCalendar cal = DateChooserDialog.showDialog(this, AppLookAndFeel.getAppIcons());
+        GregorianCalendar cal = DateChooserDialog.showDialog(this, Icons.getAppIcons());
 
         if (cal != null) {
             String year  = Integer.toString(cal.get(Calendar.YEAR));

@@ -21,6 +21,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -53,7 +54,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
     private void initCheckDirtyDialog() {
         MnemonicUtil.setMnemonics(checkDirtyDialog);
-        checkDirtyDialog.setIconImages(AppLookAndFeel.getAppIcons());
+        checkDirtyDialog.setIconImages(Icons.getAppIcons());
         checkDirtyDialog.setModal(true);
         checkDirtyDialog.pack();
         checkDirtyDialog.setLocationRelativeTo(this);

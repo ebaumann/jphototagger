@@ -85,7 +85,7 @@ public final class AppFrame extends javax.swing.JFrame {
         lookupMenuItems();
         MenuUtil.setMnemonics(menuBar);
         initGotoMenuItemsMap();
-        setIconImages(AppLookAndFeel.getAppIcons());
+        setIconImages(Icons.getAppIcons());
         AnnotationProcessor.process(this);
         AppLifeCycle.INSTANCE.started(this);
     }
@@ -99,7 +99,6 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoTimeline.setIcon(Icons.getIcon("icon_timeline.png")); // NOI18N
         menuItemGotoMiscMetadata.setIcon(Icons.getIcon("icon_misc_metadata.png")); // NOI18N
         menuItemGotoKeywordsEdit.setIcon(Icons.getIcon("icon_keyword.png")); // NOI18N
-        setIconImages(AppLookAndFeel.getAppIcons());
     }
 
     public AppPanel getAppPanel() {

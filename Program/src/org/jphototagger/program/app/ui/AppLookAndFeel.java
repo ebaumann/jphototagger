@@ -3,7 +3,6 @@ package org.jphototagger.program.app.ui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +28,6 @@ import org.openide.util.Lookup;
 public final class AppLookAndFeel {
 
     private static final float FONT_SCALE = CommonPreferences.getFontScale();
-    private static final String ICONS_PATH = "/org/jphototagger/resources/icons";
     public static final String TABLE_CELL_CSS = "margin-left:3px;margin-right:3px;";
     public static final int TABLE_MAX_CHARS_CELL = 45;
     public static final int TABLE_MAX_CHARS_ROW_HEADER = 40;
@@ -42,10 +40,6 @@ public final class AppLookAndFeel {
     public static final Color TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND = new Color(255, 223, 181);
     public static final Color LIST_SEL_IMG_HAS_KEYWORD_FOREGROUND = TREE_SEL_IMG_HAS_KEYWORD_FOREGROUND;
     public static final Color LIST_SEL_IMG_HAS_KEYWORD_BACKGROUND = TREE_SEL_IMG_HAS_KEYWORD_BACKGROUND;
-    public static final String SMALL_APP_ICON_PATH = ICONS_PATH + "/icon_app_small.png";
-    public static final String MEDIUM_APP_ICON_PATH = ICONS_PATH + "/icon_app_medium.png";
-    public static final String LARGE_APP_ICON_PATH = ICONS_PATH + "/icon_app-128.png";
-    public static final String HUGE_APP_ICON_PATH = ICONS_PATH + "/icon_app-256.png";
     public static final Icon ICON_RENAME = Icons.getIcon("icon_rename.png");
     public static final Icon ICON_REFRESH = Icons.getIcon("icon_refresh.png");
     public static final Icon ICON_PASTE = Icons.getIcon("icon_paste.png");
@@ -58,7 +52,6 @@ public final class AppLookAndFeel {
     public static final Icon ICON_START = Icons.getIcon("icon_start.png");
     public static final Icon ICON_CANCEL = Icons.getIcon("icon_cancel.png");
     public static final Image ERROR_THUMBNAIL = IconUtil.getIconImage(Bundle.getString(AppLookAndFeel.class, "ErrorThumbnailPath"));
-    private static final List<Image> APP_ICONS = new ArrayList<>();
     private static Color listBackground;
     private static Color listForeground;
     private static Color listSelectionBackground;
@@ -68,16 +61,6 @@ public final class AppLookAndFeel {
     private static Color treeTextBackground;
     private static Color treeTextForeground;
 
-    static {
-        APP_ICONS.add(IconUtil.getIconImage(SMALL_APP_ICON_PATH));
-        APP_ICONS.add(IconUtil.getIconImage(MEDIUM_APP_ICON_PATH));
-        APP_ICONS.add(IconUtil.getIconImage(LARGE_APP_ICON_PATH));
-        APP_ICONS.add(IconUtil.getIconImage(HUGE_APP_ICON_PATH));
-    }
-
-    public static List<Image> getAppIcons() {
-        return Collections.unmodifiableList(APP_ICONS);
-    }
 
     /**
      * Converts a path to a localized path.

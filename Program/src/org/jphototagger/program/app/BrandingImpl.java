@@ -3,8 +3,7 @@ package org.jphototagger.program.app;
 import java.awt.Image;
 import java.util.List;
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.lib.swing.IconUtil;
-import org.jphototagger.program.app.ui.AppLookAndFeel;
+import org.jphototagger.resources.Icons;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -15,16 +14,16 @@ public final class BrandingImpl implements Branding {
 
     @Override
     public Image getSmallAppIcon() {
-        return IconUtil.getIconImage(AppLookAndFeel.SMALL_APP_ICON_PATH);
+        return Icons.getSmallAppIcon();
     }
 
     @Override
     public Image getMediumAppIcon() {
-        return IconUtil.getIconImage(AppLookAndFeel.SMALL_APP_ICON_PATH);
+        return Icons.getMediumAppIcon();
     }
 
     @Override
     public List<? extends Image> getAppIcons() {
-        return AppLookAndFeel.getAppIcons();
+        return Icons.getAppIcons();
     }
 }
