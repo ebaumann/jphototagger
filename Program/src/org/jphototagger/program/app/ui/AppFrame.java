@@ -120,9 +120,9 @@ public final class AppFrame extends javax.swing.JFrame {
     @Override
     public void setTitle(String title) {
         if (title.equals(AppInfo.APP_NAME)) {
-            super.setTitle(AppInfo.APP_NAME);
+            super.setTitle(AppInfo.APP_NAME + " " + AppInfo.APP_VERSION);
         } else {
-            super.setTitle(title + " - " + AppInfo.APP_NAME);
+            super.setTitle(title + " - " + AppInfo.APP_NAME + " " + AppInfo.APP_VERSION);
         }
     }
 

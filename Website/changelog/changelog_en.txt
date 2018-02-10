@@ -7,8 +7,10 @@ Changelog JPhotoTagger https://jphototagger.org/
 ------------------
 
 * In keywords list views can be displayed, in how many images
-  a keyword is contained: View > Display keyword count in
-  list views.
+  a keyword is contained: View > Display keyword count in list
+  views.
+* JPhotoTagger's version is displayed in the main window title
+  bar.
 
 0.36.0 2018-02-04
 ------------------
