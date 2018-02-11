@@ -141,45 +141,23 @@ public final class ExifTooolXmpToImageWriterModel {
         Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.INFO, "Writing contents of XMP file ''{0}'' into image file ''{1}''", new Object[]{xmp, imageFile});
 
         String[] command = getCommand(xmp.getAbsolutePath(), imageFile.getAbsolutePath());
-        Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.INFO, "Executing command {0}", toString(command));
+        Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.INFO, "Executing command {0}", ExifToolCommon.toString(command));
         ProcessResult processResult = External.executeWaitForTermination(command, maxMillisecondsUntilInterrupt);
 
         boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
         if (terminatedWithErrors) {
-            logError(toString(command), processResult);
+            ExifToolCommon.logError(getClass(), command, processResult);
         } else {
-            Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.INFO, "Successfully written contents of XMP file ''{0}'' into image file ''{1}''", new Object[]{xmp, imageFile});
+            ExifToolCommon.logSuccess(getClass(), command);
         }
 
         return true;
-    }
-
-    private String toString(String[] command) {
-        StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < command.length; i++) {
-            String cmdToken = command[i];
-            if (i == 0) {
-                sb.append(cmdToken);
-            } else {
-                sb.append(" \"").append(cmdToken).append("\"");
-            }
-        }
-
-        return sb.toString();
     }
 
     private boolean checkSuffix(File imageFile) {
         String filenameLc = FileUtil.getSuffix(imageFile).toLowerCase();
 
         return acceptedSuffixesLc.contains(filenameLc);
-    }
-
-    private void logError(String command, ProcessResult processResult) {
-        Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.WARNING, "Error executing command  ''{0}'': {1}!", new Object[]{
-                    command, (processResult == null)
-                    ? "?"
-                    : new String(processResult.getStdErrBytes())});
     }
 
     private String[] getCommand(String xmpFile, String imageFile) {
