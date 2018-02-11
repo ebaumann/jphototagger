@@ -10,9 +10,6 @@ import javax.swing.SwingWorker;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
-import org.jphototagger.lib.swing.InputDialog2;
-import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -26,7 +23,7 @@ public final class ExifToolProcessFilesPlugin implements FileProcessorPlugin {
     public void processFiles(Collection<? extends File> files) {
         try {
             ExifTooolXmpToImageWriterModel model = new ExifTooolXmpToImageWriterModel();
-            if (checkExecte(model)) {
+            if (ExifToolCommon.checkExecute(model)) {
                 model.setImageFiles(files);
                 Worker worker = new Worker(model);
                 worker.execute();
@@ -34,23 +31,6 @@ public final class ExifToolProcessFilesPlugin implements FileProcessorPlugin {
         } catch (Throwable t) {
             Logger.getLogger(ExifToolProcessFilesPlugin.class.getName()).log(Level.SEVERE, null, t);
         }
-    }
-
-    private boolean checkExecte(ExifTooolXmpToImageWriterModel model) {
-        if (!model.checkCanExecute(false)) {
-            if (MessageDisplayer.confirmYesNo(ComponentUtil.findFrameWithIcon(), Bundle.getString(ExifToolProcessFilesPlugin.class, "ExifToolProcessFilesPlugin.ConfirmConfigure"))) {
-                InputDialog2 dlg = ExifToolCommon.createSettingsDialog();
-
-                dlg.setLocationRelativeTo(ComponentUtil.findFrameWithIcon());
-                dlg.setVisible(true);
-
-                return dlg.isAccepted()
-                        ? model.checkCanExecute(true)
-                        : false;
-            }
-        }
-
-        return true;
     }
 
     private final class Worker extends SwingWorker<Void, Void> {
