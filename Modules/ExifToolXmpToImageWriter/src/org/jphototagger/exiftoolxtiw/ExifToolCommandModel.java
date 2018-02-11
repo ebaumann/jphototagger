@@ -11,10 +11,14 @@ import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ProcessResult;
 
 /**
+ * Executes a command with ExifTool where an image file is the last and only
+ * variable parameter.
+ *
  * @author Elmar Baumann
  */
 public final class ExifToolCommandModel {
 
+    private final Settings settings = new Settings();
     private final List<String> commandTokens = new ArrayList<>();
     private final Collection<File> files = new ArrayList<>();
     private long maxMillisecondsUntilInterrupt = 60000;
@@ -29,7 +33,7 @@ public final class ExifToolCommandModel {
         commandTokens.add(token);
     }
 
-    public void setFiles(Collection<File> files) {
+    public void setFiles(Collection<? extends File> files) {
         Objects.requireNonNull(files, "files == null");
 
         this.files.clear();
@@ -52,18 +56,19 @@ public final class ExifToolCommandModel {
         boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
 
         if (terminatedWithErrors) {
-            ExifToolCommon.logError(getClass(), command, processResult);
+            ExifToolCommon.logError(command, processResult);
         } else {
-            ExifToolCommon.logSuccess(getClass(), command);
+            ExifToolCommon.logSuccess(command);
         }
     }
 
     private String[] getCommand(File file) {
-        List<String> cmdList = new ArrayList<>(commandTokens);
+        List<String> cmdList = new ArrayList<>(commandTokens.size() + 2);
 
+        cmdList.add(settings.getExifToolFilePath());
+        cmdList.addAll(commandTokens);
         cmdList.add(file.getAbsolutePath());
 
         return cmdList.toArray(new String[cmdList.size()]);
     }
-
 }

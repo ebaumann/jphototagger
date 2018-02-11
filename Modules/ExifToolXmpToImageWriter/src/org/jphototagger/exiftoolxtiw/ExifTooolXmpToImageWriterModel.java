@@ -15,7 +15,6 @@ import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.ProcessResult;
-import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
 
 /**
@@ -94,7 +93,7 @@ public final class ExifTooolXmpToImageWriterModel {
      * @return count of processed files
      */
     public int execute() {
-        if (!checkCanExecute(true)) {
+        if (!ExifToolCommon.checkCanExecute(settings, true)) {
             return 0;
         }
 
@@ -134,7 +133,7 @@ public final class ExifTooolXmpToImageWriterModel {
                 : xmpFile;
 
         if (xmp == null) {
-            Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.INFO, "Image file ''{0}'' does not have a XMP sidecar file. Skipping.", imageFile);
+            Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.WARNING, "Image file ''{0}'' does not have a XMP sidecar file. Skipping.", imageFile);
             return false;
         }
 
@@ -146,9 +145,9 @@ public final class ExifTooolXmpToImageWriterModel {
 
         boolean terminatedWithErrors = processResult == null || processResult.getExitValue() != 0;
         if (terminatedWithErrors) {
-            ExifToolCommon.logError(getClass(), command, processResult);
+            ExifToolCommon.logError(command, processResult);
         } else {
-            ExifToolCommon.logSuccess(getClass(), command);
+            ExifToolCommon.logSuccess(command);
         }
 
         return true;
@@ -176,34 +175,5 @@ public final class ExifTooolXmpToImageWriterModel {
         cmdList.add(imageFile);
 
         return cmdList.toArray(new String[cmdList.size()]);
-    }
-
-    boolean checkCanExecute(boolean log) {
-        if (!settings.isSelfResponsible()) {
-            if (log) {
-                Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.WARNING, "User does not take self-responsibility of modifying image files. Cancelling.");
-            }
-            return false;
-        }
-
-        if (getExifToolFilePath() == null) {
-            if (log) {
-                Logger.getLogger(ExifTooolXmpToImageWriterModel.class.getName()).log(Level.WARNING, "Exif tool excecutable not accessible: {0}. Cancelling.", settings.getExifToolFilePath());
-            }
-            return false;
-        }
-
-        return true;
-    }
-
-    private String getExifToolFilePath() {
-        String exifToolFilePath = settings.getExifToolFilePath();
-        if (!StringUtil.hasContent(exifToolFilePath)) {
-            return null;
-        }
-        File et = new File(exifToolFilePath);
-        return et.isFile()
-                ? et.getAbsolutePath()
-                : null;
     }
 }

@@ -1,6 +1,7 @@
 package org.jphototagger.exiftoolxtiw;
 
 import java.awt.Component;
+import java.awt.Frame;
 import java.io.File;
 import java.util.Collection;
 import java.util.logging.Level;
@@ -11,40 +12,50 @@ import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingFinishedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessingStartedEvent;
 import org.jphototagger.api.plugin.fileprocessor.FileProcessorPlugin;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann
  */
-@ServiceProvider(service = FileProcessorPlugin.class, position = 1000000)
-public final class ExifToolProcessFilesPlugin implements FileProcessorPlugin {
+@ServiceProvider(service = FileProcessorPlugin.class, position = 1100000)
+public final class ExifToolRemoveAllMetaDataFileProcessorPlugin implements FileProcessorPlugin {
 
     private final Settings settings = new Settings();
+    private final ExifToolCommandModel model = new ExifToolCommandModel();
+
+    public ExifToolRemoveAllMetaDataFileProcessorPlugin() {
+        model.addToCommandTokens("-all=");
+    }
 
     @Override
     public void processFiles(Collection<? extends File> files) {
         try {
-            if (ExifToolCommon.checkExecute(settings)) {
-                ExifTooolXmpToImageWriterModel model = new ExifTooolXmpToImageWriterModel();
-
-                model.setImageFiles(files);
-
+            if (ExifToolCommon.checkExecute(settings) && confirmRemove()) {
                 Worker worker = new Worker(model);
 
+                model.setFiles(files);
                 EventBus.publish(new FileProcessingStartedEvent(this));
                 worker.execute();
             }
         } catch (Throwable t) {
-            Logger.getLogger(ExifToolProcessFilesPlugin.class.getName()).log(Level.SEVERE, null, t);
+            Logger.getLogger(ExifToolRemoveAllMetaDataFileProcessorPlugin.class.getName()).log(Level.SEVERE, null, t);
         }
     }
 
-    private final class Worker extends SwingWorker<Void, Void> {
+    private boolean confirmRemove() {
+        String message = Bundle.getString(ExifToolRemoveAllMetaDataFileProcessorPlugin.class, "ExifToolRemoveAllMetaDataFileProcessorPlugin.ConfirmRemove");
+        Frame frame = ComponentUtil.findFrameWithIcon();
+        return MessageDisplayer.confirmYesNo(frame, message);
+    }
 
-        private final ExifTooolXmpToImageWriterModel model;
+    private static final class Worker extends SwingWorker<Void, Void> {
 
-        private Worker(ExifTooolXmpToImageWriterModel model) {
+        private final ExifToolCommandModel model;
+
+        private Worker(ExifToolCommandModel model) {
             this.model = model;
         }
 
@@ -80,12 +91,12 @@ public final class ExifToolProcessFilesPlugin implements FileProcessorPlugin {
 
     @Override
     public String getDescription() {
-        return Bundle.getString(ExifToolProcessFilesPlugin.class, "ExifToolProcessFilesPlugin.Description");
+        return Bundle.getString(ExifToolRemoveAllMetaDataFileProcessorPlugin.class, "ExifToolRemoveAllMetaDataFileProcessorPlugin.Description");
     }
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(ExifToolProcessFilesPlugin.class, "ExifToolProcessFilesPlugin.DisplayName");
+        return Bundle.getString(ExifToolRemoveAllMetaDataFileProcessorPlugin.class, "ExifToolRemoveAllMetaDataFileProcessorPlugin.DisplayName");
     }
 
     @Override

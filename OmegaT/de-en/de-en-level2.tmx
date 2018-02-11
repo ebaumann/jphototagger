@@ -6086,6 +6086,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Dies ist beispielsweise sinnvoll für Bilder, die Sie weitergeben.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180211T185019Z" creationid="elmar" creationdate="20180211T185019Z">
+        <seg>This makes sense, for example, for give away images.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Dies kann einige Zeit dauern, während&lt;br/&gt;der Sie mit JPhotoTagger weiterarbeiten können.</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20140103T180444Z">
@@ -6106,6 +6114,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Close this dialog</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Dieser Befehl löscht alle Metadaten - EXIF (Kameradaten), IPTC und XMP - aus Bilddateien.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180211T184931Z" creationid="elmar" creationdate="20180211T184931Z">
+        <seg>This command deletes all metadata - EXIF (camera data), IPTC and XMP - from image files.</seg>
       </tuv>
     </tu>
     <tu>
@@ -6938,6 +6954,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Removes a selected pattern</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Entfernt mit ExifTool alle Metadaten aus einer Bilddatei (EXIF, IPTC, XMP)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180211T184855Z" creationid="elmar" creationdate="20180211T184855Z">
+        <seg>Removes with ExifTool all metadata from an image file (EXIF, IPTC, XMP)</seg>
       </tuv>
     </tu>
     <tu>
@@ -10568,6 +10592,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Metadaten löschen?</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180211T184832Z" creationid="elmar" creationdate="20180211T184832Z">
+        <seg>Delete metadata?</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Metadaten werden aktualisiert, falls zutreffend</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -10620,6 +10652,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20180204T190108Z" creationid="elmar" creationdate="20180204T190108Z">
         <seg>Write metadata wit ExifTool into images...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Mit ExifTool alle Metadaten aus Bilddatei entfernen (EXIF, IPTC, XMP)</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180211T184918Z" creationid="elmar" creationdate="20180211T184918Z">
+        <seg>Remove with ExifTool all metadata from image file (EXIF, IPTC, XMP)</seg>
       </tuv>
     </tu>
     <tu>
