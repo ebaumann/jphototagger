@@ -368,7 +368,9 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         labelDescription = new javax.swing.JLabel();
         panelOptions = new javax.swing.JPanel();
         checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
@@ -379,61 +381,110 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         progressBar = new javax.swing.JProgressBar();
         labelPromptCurrentFile = new javax.swing.JLabel();
         labelCurrentFile = new javax.swing.JLabel();
+        panelButtons = new javax.swing.JPanel();
         buttonSelectFiles = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelDescription.setText("Beschreibung"); // NOI18N
         labelDescription.setName("labelDescription"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(labelDescription, gridBagConstraints);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/xmpmodule/Bundle"); // NOI18N
         panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
         panelOptions.setName("panelOptions"); // NOI18N
+        panelOptions.setLayout(new java.awt.GridBagLayout());
 
         checkBoxIncludeSubdirectories.setText(bundle.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
         checkBoxIncludeSubdirectories.setName("checkBoxIncludeSubdirectories"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelOptions.add(checkBoxIncludeSubdirectories, gridBagConstraints);
 
         checkBoxReplaceExistingFiles.setText(bundle.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
         checkBoxReplaceExistingFiles.setName("checkBoxReplaceExistingFiles"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelOptions.add(checkBoxReplaceExistingFiles, gridBagConstraints);
 
-        javax.swing.GroupLayout panelOptionsLayout = new javax.swing.GroupLayout(panelOptions);
-        panelOptions.setLayout(panelOptionsLayout);
-        panelOptionsLayout.setHorizontalGroup(
-            panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelOptionsLayout.createSequentialGroup()
-                .addGroup(panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxReplaceExistingFiles)
-                    .addComponent(checkBoxIncludeSubdirectories))
-                .addContainerGap(80, Short.MAX_VALUE))
-        );
-        panelOptionsLayout.setVerticalGroup(
-            panelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelOptionsLayout.createSequentialGroup()
-                .addComponent(checkBoxIncludeSubdirectories)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkBoxReplaceExistingFiles)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(panelOptions, gridBagConstraints);
 
         labelInfoFiles.setText(bundle.getString("FileEditorPanel.labelInfoFiles.text")); // NOI18N
         labelInfoFiles.setName("labelInfoFiles"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(labelInfoFiles, gridBagConstraints);
 
         scrollPaneListFiles.setName("scrollPaneListFiles"); // NOI18N
+        scrollPaneListFiles.setPreferredSize(new java.awt.Dimension(400, 200));
 
         listFiles.setCellRenderer(new org.jphototagger.lib.swing.FileSystemListCellRenderer(true));
         listFiles.setEnabled(false);
         listFiles.setName("listFiles"); // NOI18N
         scrollPaneListFiles.setViewportView(listFiles);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(scrollPaneListFiles, gridBagConstraints);
+
         progressBar.setName("progressBar"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(progressBar, gridBagConstraints);
 
         labelPromptCurrentFile.setText(bundle.getString("FileEditorPanel.labelPromptCurrentFile.text")); // NOI18N
         labelPromptCurrentFile.setName("labelPromptCurrentFile"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(labelPromptCurrentFile, gridBagConstraints);
 
         labelCurrentFile.setForeground(new java.awt.Color(0, 0, 255));
         labelCurrentFile.setName("labelCurrentFile"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        panelContent.add(labelCurrentFile, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonSelectFiles.setText(bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
         buttonSelectFiles.setName("buttonSelectFiles"); // NOI18N
@@ -442,6 +493,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 buttonSelectFilesActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonSelectFiles, new java.awt.GridBagConstraints());
 
         buttonCancel.setText(bundle.getString("FileEditorPanel.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
@@ -451,6 +503,9 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 buttonCancelActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonCancel, gridBagConstraints);
 
         buttonStart.setText(bundle.getString("FileEditorPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
@@ -460,56 +515,24 @@ public final class FileEditorPanel extends javax.swing.JPanel {
                 buttonStartActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonStart, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneListFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
-                    .addComponent(panelOptions, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
-                    .addComponent(labelDescription, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
-                    .addComponent(labelInfoFiles)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelPromptCurrentFile)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonSelectFiles)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonCancel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonStart))
-                            .addComponent(labelCurrentFile, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelDescription)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelInfoFiles)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneListFiles, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelPromptCurrentFile)
-                    .addComponent(labelCurrentFile, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCancel)
-                    .addComponent(buttonSelectFiles)
-                    .addComponent(buttonStart))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(panelButtons, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        add(panelContent, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonSelectFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectFilesActionPerformed
@@ -534,6 +557,8 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private javax.swing.JLabel labelInfoFiles;
     private javax.swing.JLabel labelPromptCurrentFile;
     private org.jdesktop.swingx.JXList listFiles;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelOptions;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JScrollPane scrollPaneListFiles;
