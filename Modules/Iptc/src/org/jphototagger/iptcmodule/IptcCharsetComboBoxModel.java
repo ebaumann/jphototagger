@@ -8,10 +8,10 @@ import javax.swing.DefaultComboBoxModel;
  * @author Elmar Baumann
  */
 public final class IptcCharsetComboBoxModel extends DefaultComboBoxModel<Object> {
+
     private static final long serialVersionUID = 1L;
 
     public IptcCharsetComboBoxModel() {
-        super(new String[] { "ISO-8859-1", "UTF-8" });
+        super(new String[] { "UTF-8", "ISO-8859-1" });
     }
-
 }
