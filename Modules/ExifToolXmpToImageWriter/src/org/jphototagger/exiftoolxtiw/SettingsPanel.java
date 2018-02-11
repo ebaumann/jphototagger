@@ -39,7 +39,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private static final String EXIF_TOOL_FILE_PATH_DOES_NOT_EXIST = Bundle.getString(SettingsPanel.class, "SettingsPanel.NoExifToolFilePath");
     private static final String EXIF_TOOL_FILE_PATH_IS_FALSE = Bundle.getString(SettingsPanel.class, "SettingsPanel.ExifToolFilePathFalse");
     private final Settings settings = new Settings();
-    private final DefaultListModel<String> fileSuffixesListModel = new DefaultListModel<String>();
+    private final DefaultListModel<String> fileSuffixesListModel = new DefaultListModel<>();
 
     public SettingsPanel() {
         initComponents();
@@ -183,7 +183,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     }
 
     private void persistFileSuffixes() {
-        Collection<String> fileSuffixes = new ArrayList<String>();
+        Collection<String> fileSuffixes = new ArrayList<>();
         for (Enumeration<String> e = fileSuffixesListModel.elements(); e.hasMoreElements(); ) {
             fileSuffixes.add(e.nextElement().trim());
         }

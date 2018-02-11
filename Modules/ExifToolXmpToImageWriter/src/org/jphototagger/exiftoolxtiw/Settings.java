@@ -198,7 +198,7 @@ public final class Settings {
      */
     public Collection<String> getFileSuffixesLcNoDot() {
         Collection<String> fileSuffixes = getFileSuffixes();
-        Collection<String> lcSuffixes = new HashSet<String>();
+        Collection<String> lcSuffixes = new HashSet<>();
 
         for (String suffix : fileSuffixes) {
             String sfx = suffix.toLowerCase().trim();

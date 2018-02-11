@@ -24,7 +24,7 @@ import org.openide.util.Lookup;
 public final class ExifTooolXmpToImageWriterModel {
 
     private final Settings settings = new Settings();
-    private final Collection<File> imageFiles = new LinkedHashSet<File>();
+    private final Collection<File> imageFiles = new LinkedHashSet<>();
     private final XmpSidecarFileResolver sidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final Collection<String> acceptedSuffixesLc = settings.getFileSuffixesLcNoDot();
     private final ProgressListenerSupport pls = new ProgressListenerSupport();
@@ -98,7 +98,7 @@ public final class ExifTooolXmpToImageWriterModel {
             return 0;
         }
 
-        List<File> imageFilesCopy = new ArrayList<File>(imageFiles);
+        List<File> imageFilesCopy = new ArrayList<>(imageFiles);
         final int count = imageFilesCopy.size();
         int current = 1;
         int countProcessed = 0;
@@ -183,7 +183,7 @@ public final class ExifTooolXmpToImageWriterModel {
     }
 
     private String[] getCommand(String xmpFile, String imageFile) {
-        List<String> cmdList = new ArrayList<String>();
+        List<String> cmdList = new ArrayList<>();
 
         cmdList.add(settings.getExifToolFilePath());
         cmdList.add("-tagsfromfile");

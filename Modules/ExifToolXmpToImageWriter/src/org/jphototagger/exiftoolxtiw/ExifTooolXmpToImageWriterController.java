@@ -45,7 +45,7 @@ public final class ExifTooolXmpToImageWriterController {
     private final ExifTooolXmpToImageWriterModel model = new ExifTooolXmpToImageWriterModel();
     private final InputDialog2 viewDlg = new InputDialog2(ComponentUtil.findFrameWithIcon(), true);
     private final ExifTooolXmpToImageWriterPanel view = new ExifTooolXmpToImageWriterPanel();
-    private final DefaultListModel<File> selDirsListModel = new DefaultListModel<File>();
+    private final DefaultListModel<File> selDirsListModel = new DefaultListModel<>();
 
     public ExifTooolXmpToImageWriterController() {
         initView();
@@ -105,8 +105,8 @@ public final class ExifTooolXmpToImageWriterController {
 
     private void setFiles() {
         boolean subDirs = view.getCheckBoxIncludeSubDirs().isSelected();
-        Collection<File> allDirs = new HashSet<File>();
-        Collection<File> allFiles = new HashSet<File>();
+        Collection<File> allDirs = new HashSet<>();
+        Collection<File> allFiles = new HashSet<>();
         Settings settings = new Settings();
         FileFilter filter = settings.createFilenameFilter();
 
