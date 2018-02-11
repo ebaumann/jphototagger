@@ -1,16 +1,18 @@
 package org.jphototagger.iptcmodule;
 
 import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JPanel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.preferences.Preferences;
@@ -37,20 +39,25 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     private void postInitComponents() {
         setIptcCharsetFromPreferences();
         setDisplayIptcFromPreferences();
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         AnnotationProcessor.process(this);
     }
 
     private void setSelectedIptcCharsetToPreferences() {
         String charset = comboBoxIptcCharset.getSelectedItem().toString();
-        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-        preferences.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        if (prefs != null) {
+            prefs.setString(IptcPreferencesKeys.KEY_IPTC_CHARSET, charset);
+        }
     }
 
     private void setIptcCharsetFromPreferences() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        String charset = prefs.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
+        String charset = prefs == null
+                ? ""
+                : prefs.getString(IptcPreferencesKeys.KEY_IPTC_CHARSET);
         String iptcCharSet = charset.isEmpty()
-                ? "ISO-8859-1"
+                ? "UTF-8"
                 : charset;
         comboBoxIptcCharset.getModel().setSelectedItem(iptcCharSet);
     }
@@ -71,9 +78,9 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     }
 
     private void setDisplayIptcFromPreferences() {
-        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-        boolean isPreferred = preferences.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
-                ? preferences.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        boolean isPreferred = prefs != null && prefs.containsKey(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
+                ? prefs.getBoolean(IptcPreferencesKeys.KEY_DISPLAY_IPTC)
                 : false;
         checkBoxDisplayIptc.setSelected(isPreferred);
     }
@@ -110,12 +117,34 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        GridBagConstraints gridBagConstraints;
 
-        comboBoxIptcCharset = new JComboBox<>();
-        labelIptcCharset = new JLabel();
         checkBoxDisplayIptc = new JCheckBox();
+        labelIptcCharset = new JLabel();
+        comboBoxIptcCharset = new JComboBox<>();
+        panelVfill = new JPanel();
 
         setName("Form"); // NOI18N
+        setLayout(new GridBagLayout());
+
+        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
+        checkBoxDisplayIptc.setText(bundle.getString("IptcSettingsPanel.checkBoxDisplayIptc.text")); // NOI18N
+        checkBoxDisplayIptc.setName("checkBoxDisplayIptc"); // NOI18N
+        checkBoxDisplayIptc.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                checkBoxDisplayIptcActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        add(checkBoxDisplayIptc, gridBagConstraints);
+
+        labelIptcCharset.setText(bundle.getString("IptcSettingsPanel.labelIptcCharset.text")); // NOI18N
+        labelIptcCharset.setName("labelIptcCharset"); // NOI18N
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.insets = new Insets(0, 10, 0, 0);
+        add(labelIptcCharset, gridBagConstraints);
 
         comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
         comboBoxIptcCharset.setName("comboBoxIptcCharset"); // NOI18N
@@ -124,46 +153,21 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
                 comboBoxIptcCharsetActionPerformed(evt);
             }
         });
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(0, 5, 0, 0);
+        add(comboBoxIptcCharset, gridBagConstraints);
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
-        labelIptcCharset.setText(bundle.getString("IptcSettingsPanel.labelIptcCharset.text")); // NOI18N
-        labelIptcCharset.setName("labelIptcCharset"); // NOI18N
-
-        checkBoxDisplayIptc.setText(bundle.getString("IptcSettingsPanel.checkBoxDisplayIptc.text")); // NOI18N
-        checkBoxDisplayIptc.setName("checkBoxDisplayIptc"); // NOI18N
-        checkBoxDisplayIptc.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                checkBoxDisplayIptcActionPerformed(evt);
-            }
-        });
-
-        GroupLayout layout = new GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelIptcCharset)
-                        .addGap(5, 5, 5)
-                        .addComponent(comboBoxIptcCharset, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(checkBoxDisplayIptc))
-                .addContainerGap(94, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(labelIptcCharset))
-                    .addComponent(comboBoxIptcCharset, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(ComponentPlacement.UNRELATED)
-                .addComponent(checkBoxDisplayIptc)
-                .addContainerGap(148, Short.MAX_VALUE))
-        );
+        panelVfill.setName("panelVfill"); // NOI18N
+        panelVfill.setLayout(new GridBagLayout());
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = GridBagConstraints.VERTICAL;
+        gridBagConstraints.weighty = 1.0;
+        add(panelVfill, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void comboBoxIptcCharsetActionPerformed(ActionEvent evt) {//GEN-FIRST:event_comboBoxIptcCharsetActionPerformed
@@ -177,5 +181,6 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     private JCheckBox checkBoxDisplayIptc;
     private JComboBox<Object> comboBoxIptcCharset;
     private JLabel labelIptcCharset;
+    private JPanel panelVfill;
     // End of variables declaration//GEN-END:variables
 }

@@ -1574,6 +1574,22 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>/org/jphototagger/resources/images/loading.png</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180211T161005Z" creationid="elmar" creationdate="20180211T161005Z">
+        <seg>/org/jphototagger/resources/images/loading.png</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>/org/jphototagger/resources/images/no_preview.png</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180211T161014Z" creationid="elmar" creationdate="20180211T161014Z">
+        <seg>/org/jphototagger/resources/images/no_preview.png</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>1 Stern</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -9564,6 +9580,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>IPTC lesen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180211T160952Z" creationid="elmar" creationdate="20180211T160952Z">
+        <seg>Read IPTC</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>IPTC-Daten ausgewählter Bilder in XMP-Filialdateien schreiben</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -15828,6 +15852,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Op&amp;tional parameters after file name:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Zeichensatz:</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180211T160943Z" creationid="elmar" creationdate="20180211T160943Z">
+        <seg>Charset::</seg>
       </tuv>
     </tu>
     <tu>

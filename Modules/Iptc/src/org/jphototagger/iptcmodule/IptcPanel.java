@@ -225,6 +225,9 @@ public class IptcPanel extends javax.swing.JPanel {
         textFieldTableIptcFilter = new JTextField();
         scrollPaneIptc = new JScrollPane();
         tableIptc = new JTable();
+        panelActions = new JPanel();
+        panelIptcSettings = new IptcSettingsPanel();
+        panelIptcSettings.setBorder(null);
         buttonIptcToXmp = new JButton();
 
         setName("Form"); // NOI18N
@@ -279,21 +282,33 @@ public class IptcPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         add(scrollPaneIptc, gridBagConstraints);
 
+        panelActions.setName("panelActions"); // NOI18N
+        panelActions.setLayout(new GridBagLayout());
+
+        panelIptcSettings.setName("panelIptcSettings"); // NOI18N
+        panelActions.add(panelIptcSettings, new GridBagConstraints());
+
         buttonIptcToXmp.setAction(new ExportIptcToXmpOfSelectedFilesAction());
         buttonIptcToXmp.setText(bundle.getString("IptcPanel.buttonIptcToXmp.text")); // NOI18N
         buttonIptcToXmp.setToolTipText(bundle.getString("IptcPanel.buttonIptcToXmp.toolTipText")); // NOI18N
         buttonIptcToXmp.setMargin(new Insets(2, 2, 2, 2));
         buttonIptcToXmp.setName("buttonIptcToXmp"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.insets = new Insets(0, 15, 0, 0);
+        panelActions.add(buttonIptcToXmp, gridBagConstraints);
+
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new Insets(2, 0, 2, 2);
-        add(buttonIptcToXmp, gridBagConstraints);
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(7, 7, 7, 7);
+        add(panelActions, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton buttonIptcToXmp;
     private JLabel labeTTableIptcFilter;
+    private JPanel panelActions;
+    private IptcSettingsPanel panelIptcSettings;
     private JPanel panelTableIptcFilter;
     private JScrollPane scrollPaneIptc;
     private JTable tableIptc;

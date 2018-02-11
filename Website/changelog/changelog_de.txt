@@ -6,6 +6,8 @@ Changelog JPhotoTagger https://jphototagger.org/
 0.37.2 2018-02-11
 ------------------
 
+* IPTC-Einstellungen können auch im Programmfenster-Kartenreiter "IPTC"
+  durchgeführt werden.
 * Im Kartenreiter "Bearbeiten" ruft Doppelklick oder Enter auf ein
   Stichwort den Bearbeiten-Dialog auf zum Umbenennen eines Stichworts
 

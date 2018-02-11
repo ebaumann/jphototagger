@@ -6,6 +6,7 @@ Changelog JPhotoTagger https://jphototagger.org/
 0.37.2 2018-02-11
 ------------------
 
+* IPTC settings also accessible in the main window's "IPTC" tab.
 * In the tab "Edit" Enter or double click on a keyword triggers
   the edit dialog for renaming a keyword.
 
