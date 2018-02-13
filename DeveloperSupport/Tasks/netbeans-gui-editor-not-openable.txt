@@ -1,0 +1,36 @@
+Not openable in NetBeans GUI editor (2018-02-13)
+------------------------------------------------
+
+Often: java.lang.NoClassDefFoundError: Could not initialize class org.jphototagger.resources.Icons
+
+[ ] org.jphototagger.fileeventhooks.SettingsPanel
+[ ] org.jphototagger.lib.swing.LongMessageDialog
+[ ] org.jphototagger.lib.swing.SystemOutputDialog
+[ ] org.jphototagger.lib.swing.SystemOutputPanel
+[ ] org.jphototagger.maintainance.RepositoryMaintainanceDialog
+[ ] org.jphototagger.maintainance.UpdateMetadataOfDirectoriesDialog
+[ ] org.jphototagger.plugin.htmlreports.HtmlReportsSettingsDialog
+[ ] org.jphototagger.plugin.htmlreports.HtmlReportsSettingsPanel
+[ ] org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanels
+[ ] org.jphototagger.program.app.ui.AppPanel
+[ ] org.jphototagger.program.app.ui.ProgressBarPanelArray
+[ ] org.jphototagger.program.misc.InputHelperDialog
+[ ] org.jphototagger.program.module.actions.ActionsDialog
+[ ] org.jphototagger.program.module.filesystem.RenameDialog
+[ ] org.jphototagger.program.module.filesystem.RenameTemplatesDialog
+[ ] org.jphototagger.program.module.metadatatemplates.EditMetaDataTemplateDialog
+[ ] org.jphototagger.program.module.metadatatemplates.EditXmpDialog
+[ ] org.jphototagger.program.module.metadatatemplates.EditXmpPanel
+[ ] org.jphototagger.program.module.programs.EditDefaultProgramsDialog
+[ ] org.jphototagger.program.module.search.AdvancedSearchDialog
+[ ] org.jphototagger.program.module.search.AdvancedSearchPanel
+[ ] org.jphototagger.program.module.thumbnails.ThumbnailsAreaPanel
+[ ] org.jphototagger.program.module.wordsets.EditWordsetDialog
+[ ] org.jphototagger.program.settings.SettingsDialog
+[ ] org.jphototagger.repositoryfilebrowser.RepositoryFileBrowserDialog
+[ ] org.jphototagger.synonyms.SynonymsDialog
+[ ] org.jphototagger.userdefinedfilters.UserDefinedFileFiltersDialog
+[ ] org.jphototagger.userdefinedfilters.UserDefinedFileFiltersDialog
+[ ] org.jphototagger.xmpmodule.FileEditorDialog
+
+Tested by opening 82 panels and 51 dialogs defined in JPhotoTagger's project.
