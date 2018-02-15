@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.3 2018-02-15
+------------------
+
+* Im Kartenreiter "XMP" kann ausgewählt werden, ob in einer Datei
+  nach XMP gesacannt werden soll, falls keine XMP-Filialdatei
+  existiert.
+
 0.37.2 2018-02-11
 ------------------
 

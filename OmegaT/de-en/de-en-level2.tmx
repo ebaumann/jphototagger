@@ -9168,6 +9168,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>In Datei nach XMP scannen, falls keine Filialdatei existiert</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180215T195739Z" creationid="elmar" creationdate="20180215T195739Z">
+        <seg>Scan in file for XMP if no sidecar file exists</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>In Graustufen konvertieren</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">

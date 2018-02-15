@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.3 2018-02-15
+------------------
+
+* In XMP tab is selectable, whether to scan for embedded XMP
+  if no XMP sidecar file exists.
+
 0.37.2 2018-02-11
 ------------------
 

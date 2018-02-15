@@ -6,6 +6,8 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,6 +18,7 @@ import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,13 +31,17 @@ import javax.swing.table.TableRowSorter;
 import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.jphototagger.xmp.EmbeddedXmpCache;
@@ -94,6 +101,21 @@ public class XmpPanel extends javax.swing.JPanel {
         setRenderer();
         setTableTextFilters();
         setTableComparators();
+        checkBoxScanForEmbeddedXmp.setSelected(isScanForEmbeddedXmp());
+        AnnotationProcessor.process(this);
+    }
+
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void preferencesChanged(PreferencesChangedEvent evt) {
+        if (DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP.equals(evt.getKey())) {
+            checkBoxScanForEmbeddedXmp.setSelected((boolean) evt.getNewValue());
+        }
+    }
+
+    private void persistScanForEmbeddedXmp() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        boolean scanForEmbeddedXmpSelected = checkBoxScanForEmbeddedXmp.isSelected();
+        prefs.setBoolean(DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP, scanForEmbeddedXmpSelected);
     }
 
     private void setModels() {
@@ -435,6 +457,7 @@ public class XmpPanel extends javax.swing.JPanel {
         textFieldTableXmpCameraRawSettingsFilter = new JTextField();
         scrollPaneXmpCameraRawSettings = new JScrollPane();
         tableXmpCameraRawSettings = new JTable();
+        checkBoxScanForEmbeddedXmp = new JCheckBox();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());
@@ -869,14 +892,33 @@ public class XmpPanel extends javax.swing.JPanel {
 
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-        gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
         gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         add(tabbedPaneXmp, gridBagConstraints);
+
+        checkBoxScanForEmbeddedXmp.setText(Bundle.getString(XmpPanel.class, "XmpPanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
+        checkBoxScanForEmbeddedXmp.setName("checkBoxScanForEmbeddedXmp"); // NOI18N
+        checkBoxScanForEmbeddedXmp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                checkBoxScanForEmbeddedXmpActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(5, 5, 5, 5);
+        add(checkBoxScanForEmbeddedXmp, gridBagConstraints);
     }//GEN-END:initComponents
+
+    private void checkBoxScanForEmbeddedXmpActionPerformed(ActionEvent evt) {//GEN-FIRST:event_checkBoxScanForEmbeddedXmpActionPerformed
+        persistScanForEmbeddedXmp();
+    }//GEN-LAST:event_checkBoxScanForEmbeddedXmpActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JCheckBox checkBoxScanForEmbeddedXmp;
     private JLabel labelTableXmpCameraRawSettingsFilter;
     private JLabel labelTableXmpDcFilter;
     private JLabel labelTableXmpExifFilter;

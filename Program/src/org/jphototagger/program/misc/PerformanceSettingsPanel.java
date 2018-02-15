@@ -2,8 +2,11 @@ package org.jphototagger.program.misc;
 
 import java.awt.Container;
 import javax.swing.SpinnerModel;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.preferences.CommonPreferences;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
@@ -23,7 +26,12 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
     public PerformanceSettingsPanel() {
         initComponents();
+        postInitComponents();
+    }
+
+    private void postInitComponents() {
         MnemonicUtil.setMnemonics((Container) this);
+        AnnotationProcessor.process(this);
     }
 
     @Override
@@ -62,6 +70,13 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         return prefs.containsKey(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                 ? prefs.getInt(ImagePreferencesKeys.KEY_MAX_SECONDS_TO_TERMINATE_EXTERNAL_PROGRAMS)
                 : 60;
+    }
+
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void preferencesChanged(PreferencesChangedEvent evt) {
+        if (DomainPreferencesKeys.KEY_SCAN_FOR_EMBEDDED_XMP.equals(evt.getKey())) {
+            checkBoxScanForEmbeddedXmp.setSelected((boolean) evt.getNewValue());
+        }
     }
 
     private void persistScanForEmbeddedXmp() {
