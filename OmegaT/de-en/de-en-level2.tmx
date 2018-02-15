@@ -9160,10 +9160,10 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
-        <seg>In Bildern nach eingebetteten &amp;IPTC-/&amp;XMP-Metadaten suchen, falls keine Filialdatei existiert</seg>
+        <seg>In Bildern nach eingebetteten &amp;XMP-Metadaten suchen, falls keine Filialdatei existiert</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Scan for embedded &amp;IPTC-/&amp;XMP metadata if no sidecar file exists</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180215T191506Z" creationid="elmar" creationdate="20180215T191506Z">
+        <seg>Scan for embedded &amp;XMP metadata if no sidecar file exists</seg>
       </tuv>
     </tu>
     <tu>
