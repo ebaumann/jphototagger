@@ -141,7 +141,7 @@
 
     <target name="5-upload">
         <echo message="Uploading JPhotoTagger Distribution"/>
-        <antcall target="-upload-sourceforge"/>
+        <!--<antcall target="-upload-sourceforge"/>-->
         <antcall target="-create-html-manual-index"/>
         <antcall target="-upload-website"/>
     </target>
