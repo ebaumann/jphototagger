@@ -74,6 +74,10 @@
                        encoding="Cp1252"
                        match="AppVersion=.*"
                        replace="AppVersion=${Version}"/>
+        <replaceregexp file="InnoSetup/JPhotoTagger.iss"
+                       encoding="Cp1252"
+                       match="OutputBaseFilename=.*"
+                       replace="OutputBaseFilename=JPhotoTagger-setup-${Version}"/>
     </target>
 
     <target name="2-create-pdf-manual">
@@ -86,7 +90,7 @@
     <target name="3-create-zip">
         <echo message="Creating ZIP distribution"/>
         <property name="program.dist.dir" value="${repo.root}/Program/dist"/>
-        <property name="zipfile" value="${upload.dir}/JPhotoTagger.zip"/>
+        <property name="zipfile" value="${upload.dir}/JPhotoTagger-${Version}.zip"/>
         <mkdir dir="${upload.dir}"/>
         <delete file="${program.dist.dir}/README.TXT" failonerror="false"/>
         <mkdir dir="${program.dist.dir}/scripts"/>
@@ -155,13 +159,13 @@
         <property file="${private.confdir}/sourceforge.properties"/>
         <property name="dist.src" location="${repo.root}/dist_files/upload"/>
         <scp
-            file="${dist.src}/JPhotoTagger.zip"
+            file="${dist.src}/JPhotoTagger-${Version}.zip"
             remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/downloads/JPhotoTagger-${Version}.zip"
             trust="true"
             password="${password}"
         />
         <scp
-            file="${dist.src}/JPhotoTagger-setup.exe"
+            file="${dist.src}/JPhotoTagger-setup-${Version}.exe"
             remoteTofile="${username}@frs.sourceforge.net:/home/frs/project/jphototagger/downloads/JPhotoTagger-setup-${Version}.exe"
             trust="true"
             password="${password}"
