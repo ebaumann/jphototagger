@@ -42,8 +42,10 @@
 
     <target name="-delete-upload-files">
         <echo message="Deleting upload Setup/ZIP files"/>
-        <delete file="${upload.dir}/JPhotoTagger-setup.exe" failonerror="false"/>
-        <delete file="${upload.dir}/JPhotoTagger.zip" failonerror="false"/>
+        <delete>
+            <fileset dir="${upload.dir}" includes="JPhotoTagger-setup-*.exe"/>
+            <fileset dir="${upload.dir}" includes="JPhotoTagger-*.zip"/>
+        </delete>
     </target>
 
     <target name="1-set-version-info" >
@@ -141,7 +143,7 @@
 
     <target name="5-upload">
         <echo message="Uploading JPhotoTagger Distribution"/>
-        <!--<antcall target="-upload-sourceforge"/>-->
+        <antcall target="-upload-sourceforge"/>
         <antcall target="-create-html-manual-index"/>
         <antcall target="-upload-website"/>
     </target>
