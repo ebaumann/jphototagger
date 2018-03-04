@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.4 2018-03-04
+------------------
+
+* Added file type filters for images with an exact star rating
+  count (1 - 5).
+
 0.37.3 2018-02-15
 ------------------
 

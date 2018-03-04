@@ -4134,10 +4134,114 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Bewertung höchstens 0 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180304T135700Z" creationid="elmar" creationdate="20180304T135700Z">
+        <seg>Rating no more than 0 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung höchstens 1 Stern</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T213947Z" creationid="elmar" creationdate="20180225T213829Z">
+        <seg>Rating no more than 1 Star</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung höchstens 2 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T213950Z" creationid="elmar" creationdate="20180225T213835Z">
+        <seg>Rating no more than 2 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung höchstens 3 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T213953Z" creationid="elmar" creationdate="20180225T213838Z">
+        <seg>Rating no more than 3 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung höchstens 4 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214015Z" creationid="elmar" creationdate="20180225T213846Z">
+        <seg>Rating no more than 4 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung höchstens 5 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180304T135549Z" creationid="elmar" creationdate="20180304T135549Z">
+        <seg>Rating no more than 5 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Bewertung löschen</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Remove rating</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung mehr als 0 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180304T135617Z" creationid="elmar" creationdate="20180304T135617Z">
+        <seg>Rating more than 0 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung mehr als 1 Stern</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214022Z" creationid="elmar" creationdate="20180225T213659Z">
+        <seg>Rating more than 1 Star</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung mehr als 2 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214025Z" creationid="elmar" creationdate="20180225T213706Z">
+        <seg>Rating more than 2 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung mehr als 3 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214028Z" creationid="elmar" creationdate="20180225T213714Z">
+        <seg>Rating more than 3 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung mehr als 4 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214030Z" creationid="elmar" creationdate="20180225T213718Z">
+        <seg>Rating more than 4 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung mehr als 5 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180304T135629Z" creationid="elmar" creationdate="20180304T135629Z">
+        <seg>Rating more than 5 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung mindestens 0 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180304T135640Z" creationid="elmar" creationdate="20180304T135640Z">
+        <seg>Rating at least 0 Stars</seg>
       </tuv>
     </tu>
     <tu>
@@ -4186,6 +4290,62 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Rating undefined</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung ohne Stern</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180304T135603Z" creationid="elmar" creationdate="20180304T135603Z">
+        <seg>Rating without Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung weniger als 0 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180304T135650Z" creationid="elmar" creationdate="20180304T135650Z">
+        <seg>Rating less than 0 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung weniger als 1 Stern</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214032Z" creationid="elmar" creationdate="20180225T213731Z">
+        <seg>Rating less than 1 Star</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung weniger als 2 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214035Z" creationid="elmar" creationdate="20180225T213738Z">
+        <seg>Rating less than 2 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung weniger als 3 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214037Z" creationid="elmar" creationdate="20180225T213742Z">
+        <seg>Rating less than 3 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung weniger als 4 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214040Z" creationid="elmar" creationdate="20180225T213746Z">
+        <seg>Rating less than 4 Stars</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Bewertung weniger als 5 Sterne</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180225T214042Z" creationid="elmar" creationdate="20180225T213750Z">
+        <seg>Rating less than 5 Stars</seg>
       </tuv>
     </tu>
     <tu>

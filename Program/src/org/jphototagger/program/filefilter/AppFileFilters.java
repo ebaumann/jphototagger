@@ -16,6 +16,7 @@ import org.jphototagger.domain.repository.event.userdefinedfiletypes.UserDefined
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.filefilter.XmpRatingFileFilter.Compare;
 import org.openide.util.Lookup;
 
 /**
@@ -26,11 +27,17 @@ import org.openide.util.Lookup;
 public final class AppFileFilters {
 
     public static final NoXmpFileFilter NO_XMP = NoXmpFileFilter.INSTANCE;
-    public static final FileFilter XMP_RATING_1_STAR = new XmpRatingFileFilter(1);
-    public static final FileFilter XMP_RATING_2_STARS = new XmpRatingFileFilter(2);
-    public static final FileFilter XMP_RATING_3_STARS = new XmpRatingFileFilter(3);
-    public static final FileFilter XMP_RATING_4_STARS = new XmpRatingFileFilter(4);
-    public static final FileFilter XMP_RATING_5_STARS = new XmpRatingFileFilter(5);
+    public static final FileFilter XMP_RATING_GREATER_OR_EQUALS_1_STAR = new XmpRatingFileFilter(Compare.GREATER_OR_EQUALS, 1);
+    public static final FileFilter XMP_RATING_GREATER_OR_EQUALS_2_STARS = new XmpRatingFileFilter(Compare.GREATER_OR_EQUALS, 2);
+    public static final FileFilter XMP_RATING_GREATER_OR_EQUALS_3_STARS = new XmpRatingFileFilter(Compare.GREATER_OR_EQUALS, 3);
+    public static final FileFilter XMP_RATING_GREATER_OR_EQUALS_4_STARS = new XmpRatingFileFilter(Compare.GREATER_OR_EQUALS, 4);
+    public static final FileFilter XMP_RATING_GREATER_OR_EQUALS_5_STARS = new XmpRatingFileFilter(Compare.GREATER_OR_EQUALS, 5);
+    public static final FileFilter XMP_RATING_EQUALS_0_STARS = new XmpRatingFileFilter(Compare.EQUALS, 0);
+    public static final FileFilter XMP_RATING_EQUALS_1_STAR = new XmpRatingFileFilter(Compare.EQUALS, 1);
+    public static final FileFilter XMP_RATING_EQUALS_2_STARS = new XmpRatingFileFilter(Compare.EQUALS, 2);
+    public static final FileFilter XMP_RATING_EQUALS_3_STARS = new XmpRatingFileFilter(Compare.EQUALS, 3);
+    public static final FileFilter XMP_RATING_EQUALS_4_STARS = new XmpRatingFileFilter(Compare.EQUALS, 4);
+    public static final FileFilter XMP_RATING_EQUALS_5_STARS = new XmpRatingFileFilter(Compare.EQUALS, 5);
     private final Set<String> allAcceptedSuffixes = new HashSet<>();
     private final Set<String> acceptedRawSuffixes = new HashSet<>();
     private final Set<String> userDefinedFileTypesSuffixes = new HashSet<>();

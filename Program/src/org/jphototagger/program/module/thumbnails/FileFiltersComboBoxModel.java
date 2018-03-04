@@ -60,11 +60,17 @@ public final class FileFiltersComboBoxModel extends DefaultComboBoxModel<Object>
         }
 
         addElement(AppFileFilters.NO_XMP);
-        addElement(AppFileFilters.XMP_RATING_1_STAR);
-        addElement(AppFileFilters.XMP_RATING_2_STARS);
-        addElement(AppFileFilters.XMP_RATING_3_STARS);
-        addElement(AppFileFilters.XMP_RATING_4_STARS);
-        addElement(AppFileFilters.XMP_RATING_5_STARS);
+        addElement(AppFileFilters.XMP_RATING_GREATER_OR_EQUALS_1_STAR);
+        addElement(AppFileFilters.XMP_RATING_GREATER_OR_EQUALS_2_STARS);
+        addElement(AppFileFilters.XMP_RATING_GREATER_OR_EQUALS_3_STARS);
+        addElement(AppFileFilters.XMP_RATING_GREATER_OR_EQUALS_4_STARS);
+        addElement(AppFileFilters.XMP_RATING_GREATER_OR_EQUALS_5_STARS);
+        addElement(AppFileFilters.XMP_RATING_EQUALS_0_STARS);
+        addElement(AppFileFilters.XMP_RATING_EQUALS_1_STAR);
+        addElement(AppFileFilters.XMP_RATING_EQUALS_2_STARS);
+        addElement(AppFileFilters.XMP_RATING_EQUALS_3_STARS);
+        addElement(AppFileFilters.XMP_RATING_EQUALS_4_STARS);
+        addElement(AppFileFilters.XMP_RATING_EQUALS_5_STARS);
 
         for (UserDefinedFileFilter filter : udffRepo.findAllUserDefinedFileFilters()) {
             addElement(filter);

@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.4 2018-03-04
+------------------
+
+* Dateitypfilter hinzugefügt für Bilder mit einer genauen Anzahl an
+  Sternbewertungen (1 - 5).
+
 0.37.3 2018-02-15
 ------------------
 
