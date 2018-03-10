@@ -10,6 +10,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.windows.MainWindowManager;
 import org.jphototagger.api.windows.WaitDisplayer;
+import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.repository.ImageCollectionsRepository;
 import org.jphototagger.domain.thumbnails.OriginOfDisplayedThumbnails;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelSettings;
@@ -90,7 +91,7 @@ public final class ImageCollectionSelectedController implements ListSelectionLis
             }
 
             private void setTitle() {
-                String title = Bundle.getString(ImageCollectionSelectedController.class, "ImageCollectionSelectedController.AppFrame.Title.Collection", collectionName);
+                String title = Bundle.getString(ImageCollectionSelectedController.class, "ImageCollectionSelectedController.AppFrame.Title.Collection", ImageCollection.getLocalizedName(collectionName));
                 MainWindowManager mainWindowManager = Lookup.getDefault().lookup(MainWindowManager.class);
                 mainWindowManager.setMainWindowTitle(title);
             }

@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.6 2018-03-10
+------------------
+
+* Fixed window title when choosing the special album
+  "Previous import", "Picked" and "Rejected".
+
 0.37.5 2018-03-10
 ------------------
 
