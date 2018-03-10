@@ -148,6 +148,7 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         scrollPaneTable.setPreferredSize(new java.awt.Dimension(800, 400));
 
         table.setAutoCreateRowSorter(true);
+        table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         scrollPaneTable.setViewportView(table);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

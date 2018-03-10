@@ -2,11 +2,16 @@ package org.jphototagger.lib.swing.util;
 
 import java.awt.Component;
 import java.util.List;
+import java.util.Objects;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.table.TableStringConverter;
+import javax.swing.text.Document;
+import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
@@ -123,6 +128,33 @@ public final class TableUtil {
      */
     private static void setColumnWidth(int width, TableColumn column) {
         column.setPreferredWidth(width);
+    }
+
+    /**
+     * Adds a document as row filter for a table. When the document changes, the
+     * table will be filtered to fit it's contents.
+     *
+     * @param table    table
+     * @param document document, usually from a text field
+     */
+    public static void addDefaultRowFilter(JTable table, Document document) {
+        Objects.requireNonNull(table, "table == null");
+        Objects.requireNonNull(document, "document == null");
+
+        TableRowSorter<?> rowSorter = (TableRowSorter<?>) table.getRowSorter();
+        TableStringConverterImpl stringConverter = new TableStringConverterImpl();
+        TableTextFilter tableTextFilter = new TableTextFilter(table, stringConverter);
+        rowSorter.setStringConverter(stringConverter);
+        document.addDocumentListener(tableTextFilter);
+    }
+
+    private static class TableStringConverterImpl extends TableStringConverter {
+
+        @Override
+        public String toString(TableModel model, int row, int column) {
+            Object value = model.getValueAt(row, column);
+            return StringUtil.toStringNullToEmptyString(value);
+        }
     }
 
     private TableUtil() {

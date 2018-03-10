@@ -2,19 +2,18 @@ package org.jphototagger.maintainance.browse;
 
 import java.awt.Component;
 import java.awt.Frame;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.JLabel;
-import javax.swing.JTable;
+import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
-import javax.swing.table.TableStringConverter;
-import javax.swing.text.Document;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.repository.browse.ResultSetBrowser;
@@ -23,10 +22,10 @@ import org.jphototagger.lib.swing.DocumentChangeListener;
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.InputDialog2;
 import org.jphototagger.lib.swing.MessageDisplayer;
-import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil.DisposeWindowAction;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
@@ -49,7 +48,7 @@ public final class ResultSetBrowserController {
     private LoadSqlAction loadSqlAction;
     private SaveSqlAction saveSqlAction;
     private DisposeWindowAction disposeWindowAction;
-    private TableTextFilter tableTextFilter; // Holds a reference to get not garbage collected
+    private DialogCloseListener closeListener;
 
     public ResultSetBrowserController() {
         initView();
@@ -68,16 +67,26 @@ public final class ResultSetBrowserController {
             view.getButtonSave().setAction(saveSqlAction);
             view.getTextAreaSql().getDocument().addDocumentListener(sqlListener);
 
-            JTable table = view.getTable();
-            Document document = view.getTextFieldFilter().getDocument();
-            TableRowSorter<?> rowSorter = (TableRowSorter<?>) table.getRowSorter();
-            TableStringConverterImpl stringConverter = new TableStringConverterImpl();
-            tableTextFilter = new TableTextFilter(table, stringConverter);
-            rowSorter.setStringConverter(stringConverter);
-            document.addDocumentListener(tableTextFilter);
-
+            TableUtil.addDefaultRowFilter(view.getTable(), view.getTextFieldFilter().getDocument());
             MnemonicUtil.setMnemonics(view);
             sqlListener.changedUpdate(null);
+        }
+    }
+
+    private final class DialogCloseListener extends WindowAdapter {
+
+        private boolean isRunning;
+        private final Window window;
+
+        private DialogCloseListener(Window window) {
+            this.window = window;
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            if (!isRunning) {
+                window.dispose();
+            }
         }
     }
 
@@ -85,16 +94,23 @@ public final class ResultSetBrowserController {
      * Displays the view.
      */
     public void execute() {
+        if (closeListener != null && closeListener.isRunning) {
+            return;
+        }
+
         Frame parent = ComponentUtil.findFrameWithIcon();
         InputDialog2 dlg = new InputDialog2(parent, true);
 
         disposeWindowAction = new DisposeWindowAction(dlg);
+        closeListener = new DialogCloseListener(dlg);
         ComponentUtil.registerForEscape(dlg, disposeWindowAction);
 
         dlg.setTitle(Bundle.getString(ResultSetBrowserController.class, "ResultSetBrowserController.Dlg.Title"));
         dlg.setShowCancelButton(false);
-        dlg.setOkButtonText(Bundle.getString(ResultSetBrowserController.class, "ResultSetBrowserController.Dlg.OkButtonText"));
+        dlg.setShowOkButton(false);
+        dlg.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         dlg.setComponent(view);
+        dlg.addWindowListener(closeListener);
         dlg.pack();
         dlg.setLocationRelativeTo(parent);
 
@@ -175,11 +191,18 @@ public final class ResultSetBrowserController {
 
             view.getTextFieldFilter().setText("");
             view.getTable().setModel(tableModel);
-            view.getProgressBar().setVisible(true);
-            disposeWindowAction.setEnabled(false);
-
+            setIsExecuting(true);
             swingBrowser.execute();
         }
+    }
+
+    private void setIsExecuting(boolean isExecuting) {
+        view.getProgressBar().setVisible(isExecuting);
+        view.getButtonLoad().setEnabled(!isExecuting);
+        view.getButtonExecuteSql().setEnabled(!isExecuting);
+        view.getButtonSave().setEnabled(!isExecuting);
+        disposeWindowAction.setEnabled(!isExecuting);
+        closeListener.isRunning = isExecuting;
     }
 
     private final class Browser extends SwingWorkerResultSetBrowser {
@@ -191,7 +214,8 @@ public final class ResultSetBrowserController {
         @Override
         protected void done() {
             view.getTextFieldFilter().requestFocusInWindow();
-            disposeWindowAction.setEnabled(true);
+            TableUtil.resizeColumnWidthsToFit(view.getTable());
+            setIsExecuting(false);
         }
     }
 
@@ -289,15 +313,6 @@ public final class ResultSetBrowserController {
             } catch (Throwable t) {
                 Logger.getLogger(LoadSqlAction.class.getName()).log(Level.SEVERE, null, t);
             }
-        }
-    }
-
-    private static class TableStringConverterImpl extends TableStringConverter {
-
-        @Override
-        public String toString(TableModel model, int row, int column) {
-            Object value = model.getValueAt(row, column);
-            return StringUtil.toStringNullToEmptyString(value);
         }
     }
 
