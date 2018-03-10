@@ -4,13 +4,13 @@ Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
 0.37.6 2018-03-10
-------------------
+-----------------
 
 * Fenstertitel korrigiert bei der Auswahl der Spezial-Fotoalben
   "Zuletzt importiert", "Ausgewählt" und "Verworfen"
 
 0.37.5 2018-03-10
-------------------
+-----------------
 
 * SQL-Abfrage-Browser hinzugefügt: Werkzeuge > Datenbank-SQL-Abfrage
 
