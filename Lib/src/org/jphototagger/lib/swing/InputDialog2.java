@@ -54,6 +54,22 @@ public class InputDialog2 extends javax.swing.JDialog {
         panelComponent.add(component, gbc);
     }
 
+    public void setShowCancelButton(boolean show) {
+        buttonCancel.setVisible(show);
+    }
+
+    public void setShowOkButton(boolean show) {
+        buttonOk.setVisible(show);
+    }
+
+    public void setCancelButtonText(String text) {
+        buttonCancel.setText(text);
+    }
+
+    public void setOkButtonText(String text) {
+        buttonOk.setText(text);
+    }
+
     /**
      * @return true if the OK button was clicked by it's default action, which
      *         closes this dialog

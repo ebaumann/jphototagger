@@ -5,6 +5,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -17,11 +18,13 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.applifecycle.generics.Functor;
+import org.jphototagger.api.function.Consumer;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.domain.image.ImageFile;
@@ -54,6 +57,11 @@ import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.RepositoryStatistics;
 import org.jphototagger.domain.repository.SynonymsRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
+import org.jphototagger.domain.repository.browse.ResultSetBrowser;
+import org.jphototagger.domain.repository.browse.ResultSetBrowserEvent;
+import org.jphototagger.domain.repository.browse.RsColumnNamesEvent;
+import org.jphototagger.domain.repository.browse.RsFinishedEvent;
+import org.jphototagger.domain.repository.browse.RsRowEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectDeletedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEvent;
 import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectRenamedEvent;
@@ -2631,4 +2639,65 @@ final class ImageFilesDatabase extends Database {
         return count;
     }
 
+    public void browse(String sql, Consumer<ResultSetBrowserEvent> consumer) {
+        Objects.requireNonNull(sql, "sql == null");
+        Objects.requireNonNull(consumer, "consumer == null");
+
+        long start = System.currentTimeMillis();
+
+        if (!checkBrowseSql(sql)) {
+            consumer.accept(new RsFinishedEvent(new ResultSetBrowser.Result(ResultSetBrowser.Result.Value.NOT_SUPPORTED, null, getDuration(start))));
+            return;
+        }
+
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            con = getConnection();
+            con.setAutoCommit(false);
+            stmt = con.createStatement();
+
+            LOGGER.log(Level.FINEST, sql);
+            rs = stmt.executeQuery(sql);
+            ResultSetMetaData md = rs.getMetaData();
+
+            consumer.accept(new RsColumnNamesEvent(createColumnNames(md)));
+
+            int columnCount = md.getColumnCount();
+            while (rs.next()) {
+                Object[] rowData = new Object[columnCount];
+                for (int i = 0; i < columnCount; i++) {
+                    rowData[i] = rs.getObject(i + 1);
+                }
+                consumer.accept(new RsRowEvent(rowData));
+            }
+
+            consumer.accept(new RsFinishedEvent(new ResultSetBrowser.Result(ResultSetBrowser.Result.Value.SUCCESS, null, getDuration(start))));
+        } catch (Throwable t) {
+            Logger.getLogger(ImageFilesDatabase.class.getName()).log(Level.SEVERE, null, t);
+            consumer.accept(new RsFinishedEvent(new ResultSetBrowser.Result(ResultSetBrowser.Result.Value.THRWON, t, getDuration(start))));
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+    }
+
+    private boolean checkBrowseSql(String sql) {
+        return sql.toLowerCase().trim().startsWith("select");
+    }
+
+    private static long getDuration(long start) {
+        return System.currentTimeMillis() - start;
+    }
+
+    private Object[] createColumnNames(ResultSetMetaData md) throws SQLException {
+        int columnCount = md.getColumnCount();
+        Object[] columnNames = new Object[columnCount];
+        for (int i = 0; i < columnCount; i++) {
+            columnNames[i] = md.getColumnName(i + 1);
+        }
+        return columnNames;
+    }
 }

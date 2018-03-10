@@ -7,9 +7,16 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 /**
  * @author Elmar Baumann
@@ -216,6 +223,46 @@ public final class ComponentUtil {
                 return;
             }
             parent = parent.getParent();
+        }
+    }
+
+    /**
+     * Disposes the Window on
+     * {@link #actionPerformed(java.awt.event.ActionEvent)}.
+     */
+    public static final class DisposeWindowAction extends AbstractAction {
+
+        private static final long serialVersionUID = 1L;
+        private final Window window;
+
+        public DisposeWindowAction(Window window) {
+            this.window = Objects.requireNonNull(window, "window == null");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (isEnabled()) {
+                window.dispose();
+            }
+        }
+    }
+
+    /**
+     * Performs an action if the ESC key was pressed.
+     *
+     * @param container    container
+     * @param escapeAction action to perform if ESC was pressed
+     */
+    public static void registerForEscape(Container container, Action escapeAction) {
+        Objects.requireNonNull(container, "container == null");
+        Objects.requireNonNull(escapeAction, "escapeAction == null");
+
+        KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
+        for (Component component : container.getComponents()) {
+            if (component instanceof JComponent) {
+                JComponent jComponent = (JComponent) component;
+                jComponent.registerKeyboardAction(escapeAction, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
+            }
         }
     }
 

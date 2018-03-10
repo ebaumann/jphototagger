@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.5 2018-03-10
+------------------
+
+* Added SQL query browser: Tools > Database SQL query
+
 0.37.4 2018-03-04
 ------------------
 

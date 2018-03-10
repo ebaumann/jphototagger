@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.5 2018-03-10
+------------------
+
+* SQL-Abfrage-Browser hinzugefügt: Werkzeuge > Datenbank-SQL-Abfrage
+
 0.37.4 2018-03-04
 ------------------
 

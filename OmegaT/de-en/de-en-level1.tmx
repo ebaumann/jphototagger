@@ -614,6 +614,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&amp;Laden...</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185358Z" creationid="elmar" creationdate="20180310T185358Z">
+        <seg>&amp;Load...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&amp;Lange XMP-Filialdateinamen benutzen</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -822,6 +830,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&amp;SQL:</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185340Z" creationid="elmar" creationdate="20180310T185340Z">
+        <seg>&amp;SQL:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&amp;Schablone benutzen</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -850,6 +866,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>&amp;Save</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&amp;Speichern...</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185552Z" creationid="elmar" creationdate="20180310T185552Z">
+        <seg>&amp;Save...</seg>
       </tuv>
     </tu>
     <tu>
@@ -3390,6 +3414,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Ausgewählte SQL-Befehle entfernen?</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185612Z" creationid="elmar" creationdate="20180310T185612Z">
+        <seg>Remove selected SQL commands?</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Ausgewählte Schablone &amp;aktualisieren</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -4006,6 +4038,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Benutzung auf eigene Verantwortung.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185427Z" creationid="elmar" creationdate="20180310T185427Z">
+        <seg>Usage at own risk.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Beschreibung</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -4014,10 +4054,26 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Beschreibung des SQL-Befehls</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185603Z" creationid="elmar" creationdate="20180310T185603Z">
+        <seg>Description of the SQL command</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Beschreibung des ausgewählten Moduls</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Description of selected Module</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Beschreibung:</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
+        <seg>Description:</seg>
       </tuv>
     </tu>
     <tu>
@@ -5342,6 +5398,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Das eingegebene SQL wird nicht unterstützt!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185535Z" creationid="elmar" creationdate="20180310T185535Z">
+        <seg>The entered SQL is not supported!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Das ganze Handbuch liegt als druckbares PDF-Dokument vor.</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T185222Z">
@@ -5754,6 +5818,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Database Browser</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Datenbank-SQL-Abfrage...</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185439Z" creationid="elmar" creationdate="20180310T185439Z">
+        <seg>Database SQL query...</seg>
       </tuv>
     </tu>
     <tu>
@@ -7822,6 +7894,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Fehler beim Ausführen der SQL-Abfrage!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185548Z" creationid="elmar" creationdate="20180310T185548Z">
+        <seg>Error while executing the SQL query!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Fehler beim Einfügen des Stichworts ''{0}''!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -8354,6 +8434,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Adds to the word list all not defined keywords</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Führe SQL aus</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185507Z" creationid="elmar" creationdate="20180310T185507Z">
+        <seg>Executing SQL</seg>
       </tuv>
     </tu>
     <tu>
@@ -12756,6 +12844,46 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>S&amp;ynonyms:</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>SQL bearbeiten</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185352Z" creationid="elmar" creationdate="20180310T185352Z">
+        <seg>Edit SQL</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>SQL-Abfrage (SELECT) ausführen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185451Z" creationid="elmar" creationdate="20180310T185451Z">
+        <seg>Execute SQL query (SELECT)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>SQL-Befehle</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185621Z" creationid="elmar" creationdate="20180310T185621Z">
+        <seg>SQL commands</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>SQL-Befehle könnten die Datenbank beschädigen!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185412Z" creationid="elmar" creationdate="20180310T185412Z">
+        <seg>SQL commands can damage the database!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>SQL:</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180310T185456Z" creationid="elmar" creationdate="20180310T185456Z">
+        <seg>SQL:</seg>
       </tuv>
     </tu>
     <tu>
