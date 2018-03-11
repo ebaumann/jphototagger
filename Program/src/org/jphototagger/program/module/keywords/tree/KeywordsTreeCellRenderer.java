@@ -9,9 +9,18 @@ import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+import org.bushe.swing.event.annotation.AnnotationProcessor;
+import org.bushe.swing.event.annotation.EventSubscriber;
+import org.jphototagger.api.preferences.CommonPreferences;
+import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.metadata.keywords.Keyword;
+import org.jphototagger.domain.repository.DcSubjectsStatistics;
 import org.jphototagger.program.app.ui.AppLookAndFeel;
 import org.jphototagger.resources.Icons;
+import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
@@ -25,15 +34,20 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
     private static final Color TREE_BACKGROUND = AppLookAndFeel.getTreeBackground();
     private static final Color TREE_SELECTION_FOREGROUND = AppLookAndFeel.getTreeSelectionForeground();
     private static final Color TREE_SELECTION_BACKGROUND = AppLookAndFeel.getTreeSelectionBackground();
+    private static final DcSubjectsStatistics STATISTICS = Lookup.getDefault().lookup(DcSubjectsStatistics.class);
+    private boolean isDisplayCount = Lookup.getDefault().lookup(Preferences.class).getBoolean(CommonPreferences.KEY_DISPLAY_DC_SUBJECT_COUNT);
+    private JTree tree;
     private int tempSelectionRow = -1;
     private final Set<String> highlightKeywords = new HashSet<>();
 
     public KeywordsTreeCellRenderer() {
         setOpaque(true);
+        AnnotationProcessor.process(this);
     }
 
     @Override
     public Component getTreeCellRendererComponent(JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+        this.tree = tree;
         super.getTreeCellRendererComponent(tree, value, sel, expanded, false, row, hasFocus);
         render(((DefaultMutableTreeNode) value).getUserObject(), tree, row, sel);
 
@@ -48,8 +62,11 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
             Keyword keyword = (Keyword) userObject;
             real = keyword.isReal();
             helper = !real;
-            selImgHasKeyword = real && isHighlightKeyword(keyword.getName());
-            setText(keyword.getName());
+            String name = keyword.getName();
+            selImgHasKeyword = real && isHighlightKeyword(name);
+            setText(isDisplayCount
+                    ? name + "   [" + STATISTICS.getImageCountOfDcSubject(name) + "]"
+                    : name);
         }
         boolean tempSelRowIsSelected = tempSelectionRow < 0 ? false : tree.isRowSelected(tempSelectionRow);
         boolean tempSelExists = tempSelectionRow >= 0;
@@ -134,5 +151,19 @@ public final class KeywordsTreeCellRenderer extends DefaultTreeCellRenderer {
 
     public void setTempSelectionRow(int index) {
         tempSelectionRow = index;
+    }
+
+    @EventSubscriber(eventClass = PreferencesChangedEvent.class)
+    public void preferencesChanged(PreferencesChangedEvent evt) {
+        if (evt.isKey(CommonPreferences.KEY_DISPLAY_DC_SUBJECT_COUNT)) {
+            isDisplayCount = (boolean) evt.getNewValue();
+            if (tree != null) {
+                TreeModel tm = tree.getModel();
+                if (tm instanceof DefaultTreeModel) {
+                    DefaultTreeModel dtm = (DefaultTreeModel) tm;
+                    dtm.reload();
+                }
+            }
+        }
     }
 }

@@ -30,14 +30,6 @@ public final class KeywordsListCellRenderer extends ListCellRendererExt {
         AnnotationProcessor.process(this);
     }
 
-    /**
-     * @param component Component, which shall be repainted if the keywords
-     *                  display value is changed in the preferences
-     */
-    public void setComponent(Component component) {
-        this.component = component;
-    }
-
     @Override
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         component = list;

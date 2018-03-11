@@ -13416,10 +13416,10 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
-        <seg>Stichwortanzahl in Listenansichten anzeigen</seg>
+        <seg>Stichwortanzahl in Baum-/Listenansichten anzeigen</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20180210T002303Z" creationid="elmar" creationdate="20180210T002303Z">
-        <seg>Display keyword count in list views</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20180311T200927Z" creationid="elmar" creationdate="20180311T200927Z">
+        <seg>Display keyword count in tree/list views</seg>
       </tuv>
     </tu>
     <tu>

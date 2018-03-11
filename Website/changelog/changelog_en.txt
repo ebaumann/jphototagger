@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.7 2018-03-18
+-----------------
+
+* In keywords tree views can be displayed, in how many images
+  a keyword is contained: View > Display keyword count in
+  tree/list views.
+
 0.37.6 2018-03-10
 -----------------
 
@@ -15,19 +22,19 @@ Changelog JPhotoTagger https://jphototagger.org/
 * Added SQL query browser: Tools > Database SQL query
 
 0.37.4 2018-03-04
-------------------
+-----------------
 
 * Added file type filters for images with an exact star rating
   count (1 - 5).
 
 0.37.3 2018-02-15
-------------------
+-----------------
 
 * In XMP tab is selectable, whether to scan for embedded XMP
   if no XMP sidecar file exists.
 
 0.37.2 2018-02-11
-------------------
+-----------------
 
 * Added action to thumbnails' context menu: Plugins > Remove with
   ExifTool all metadata from image file (EXIF, IPTC, XMP).
@@ -36,7 +43,7 @@ Changelog JPhotoTagger https://jphototagger.org/
   the edit dialog for renaming a keyword.
 
 0.37.1 2018-02-10
-------------------
+-----------------
 
 * New menu item in the thumbnails' context menu: Plugins >
   Write metadata of XMP sidecar file into image file with ExifTool
@@ -47,7 +54,7 @@ Changelog JPhotoTagger https://jphototagger.org/
   bar.
 
 0.36.0 2018-02-04
-------------------
+-----------------
 
 * When starting, JPhotoTagger checks, if it can get sufficient maximum
   memory. If not, an error message will be displayed.
@@ -56,12 +63,12 @@ Changelog JPhotoTagger https://jphototagger.org/
   "Edit > Settings > ExifTool metadata writer".
 
 0.35.2 2018-01-30
-------------------
+-----------------
 
 * In the Settings "5. Exclude" folders can be added via a dialog.
 
 0.35.1 2018-01-29
-------------------
+-----------------
 
 * Fixed Bug: Directory chooser can be opened again (throwed Exception due
   a missing icon).
@@ -70,7 +77,7 @@ Changelog JPhotoTagger https://jphototagger.org/
   the list view.
 
 0.35.0 2018-01-28
-------------------
+-----------------
 
 * Scaled remaining icons, see 0.34.12.
 
@@ -92,7 +99,7 @@ Changelog JPhotoTagger https://jphototagger.org/
   EXIF metadata into the XMP sidecar file as "Iptc4xmpCore:DateCreated"
   when it's not present in XMP file or the user has not input this value.
 
-* 0.34.10 2017-10-02
+0.34.10 2017-10-02
 ------------------
 
 * Check for newer versions does not try to download. Instead it offers to

@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.7 2018-03-18
+-----------------
+
+* In den Stichwort-Baumansichten kann angezeigt werden, in wievielen
+  Bildern ein Stichwort enthalten ist: Ansicht > Stichwortanzahl in
+  Baum-/Listenansichten anzeigen.
+
 0.37.6 2018-03-10
 -----------------
 
@@ -15,20 +22,20 @@ Changelog JPhotoTagger https://jphototagger.org/
 * SQL-Abfrage-Browser hinzugefügt: Werkzeuge > Datenbank-SQL-Abfrage
 
 0.37.4 2018-03-04
-------------------
+-----------------
 
 * Dateitypfilter hinzugefügt für Bilder mit einer genauen Anzahl an
   Sternbewertungen (1 - 5).
 
 0.37.3 2018-02-15
-------------------
+-----------------
 
 * Im Kartenreiter "XMP" kann ausgewählt werden, ob in einer Datei
   nach XMP gesacannt werden soll, falls keine XMP-Filialdatei
   existiert.
 
 0.37.2 2018-02-11
-------------------
+-----------------
 
 * Neue Aktion im Kontextmenü der Vorschaubilder: Plugins > Mit ExifTool
   alle Metadaten aus Bilddatei entfernen (EXIF, IPTC, XMP).
@@ -38,7 +45,7 @@ Changelog JPhotoTagger https://jphototagger.org/
   Stichwort den Bearbeiten-Dialog auf zum Umbenennen eines Stichworts
 
  0.37.1 2018-02-10
-------------------
+ -----------------
 
 * Neuer Menüpunkt im Kontextmenü der Vorschaubilder: Plugins >
   Metadaten der XMP-Filialdatei mit ExifTool in die Bilddatei schreiben
@@ -48,7 +55,7 @@ Changelog JPhotoTagger https://jphototagger.org/
 * JPhotoTaggers Version wird in der Hauptfenster-Titelzeile angezeigt.
 
 0.36.0 2018-02-04
-------------------
+-----------------
 
 * Beim Start prüft JPhotoTagger, ob es ausreichend maximalen Speicher
   erhalten kann. Andernfalls wird eine Warnung angezeigt.
@@ -58,13 +65,13 @@ Changelog JPhotoTagger https://jphototagger.org/
   > ExifTool-Metadatenschreiber"
 
 0.35.2 2018-01-30
-------------------
+-----------------
 
 * In den Einstellungen können unter "5. Ausschließen" Ordner hinzugefügt
   werden durch Auswahl mittels eines Dialogs.
 
 0.35.1 2018-01-29
-------------------
+-----------------
 
 * Bugfix: Ordnerauswahl-Dialog lässt sich wieder öffnen (warf Exception wegen
   eines fehlenden Icons).
@@ -73,7 +80,7 @@ Changelog JPhotoTagger https://jphototagger.org/
   ist, z.B. "BAUM" -> "Baum" und erscheint auch so in der Listenansicht.
 
 0.35.0 2018-01-28
-------------------
+-----------------
 
 * Restliche Icons auch skaliert, siehe 0.34.12.
 
@@ -4144,8 +4151,8 @@ Changelog JPhotoTagger https://jphototagger.org/
 * Bearbeiten-Schaltflächen unter die Bearbeiten-Feldern verschoben. So sind
   mehr Bearbeiten-Felder sichtbar
 
-* 0.5.9 2008/10/05
-------------------
+0.5.9 2008/10/05
+----------------
 
 * Datenbankstruktur geändert (alte Datenbank kann Probleme bereiten)
 * Neues Autocomplete-Textfeld
