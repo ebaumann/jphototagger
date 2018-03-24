@@ -367,16 +367,16 @@ public class ImportImageFilesDialog extends Dialog {
         if (prefs.containsKey(KEY_SCRIPT_FILE)) {
             String scriptFilePath = prefs.getString(KEY_SCRIPT_FILE);
             File persistedScriptFile = new File(scriptFilePath);
-            scriptFileLabel.setText(scriptFilePath);
+            textFieldScriptFile.setText(scriptFilePath);
             boolean scriptFileExists = persistedScriptFile.isFile();
             if (scriptFileExists) {
                 scriptFile = persistedScriptFile;
                 buttonRemoveScriptFile.setEnabled(true);
             }
-            scriptFileLabel.setIcon(scriptFileExists
+            labelScriptFileIcon.setIcon(scriptFileExists
                     ? fileSystemView.getSystemIcon(scriptFile)
                     : ERROR_ICON);
-            scriptFileLabel.setForeground(scriptFileExists ? LABEL_FOREGROUND : Color.RED);
+            textFieldScriptFile.setForeground(scriptFileExists ? LABEL_FOREGROUND : Color.RED);
         }
         setScriptFileWarningText();
     }
@@ -389,8 +389,8 @@ public class ImportImageFilesDialog extends Dialog {
         scriptFile = choosenScriptFile;
         String scriptFilePath = scriptFile.getAbsolutePath();
         persistScriptFile(scriptFilePath);
-        scriptFileLabel.setText(scriptFilePath);
-        scriptFileLabel.setIcon(fileSystemView.getSystemIcon(scriptFile));
+        textFieldScriptFile.setText(scriptFilePath);
+        labelScriptFileIcon.setIcon(fileSystemView.getSystemIcon(scriptFile));
         buttonRemoveScriptFile.setEnabled(true);
         setScriptFileWarningText();
     }
@@ -435,9 +435,8 @@ public class ImportImageFilesDialog extends Dialog {
         boolean scriptFileExists = scriptFile != null; // physical existence check is done, else scriptFile would be null
         String text = scriptFileExists
                 ? Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.ScriptFileWarning", ImageCollection.getLocalizedName(ImageCollection.PREVIOUS_IMPORT_NAME))
-                : "";
+                : " ";
         labelWarning.setText(text);
-        labelWarning.setVisible(scriptFileExists);
     }
 
     private void lookupSubdirectoryCreateStrategy() {
@@ -479,8 +478,8 @@ public class ImportImageFilesDialog extends Dialog {
     }
     private void removeScriptFile() {
         scriptFile = null;
-        scriptFileLabel.setText("");
-        scriptFileLabel.setIcon(null);
+        textFieldScriptFile.setText("");
+        labelScriptFileIcon.setIcon(null);
         buttonRemoveScriptFile.setEnabled(false);
         prefs.removeKey(KEY_SCRIPT_FILE);
         setScriptFileWarningText();
@@ -670,7 +669,8 @@ public class ImportImageFilesDialog extends Dialog {
         dialogExpertSettings = new Dialog(ComponentUtil.findFrameWithIcon(), true);
         panelExpertSettingsContent = new javax.swing.JPanel();
         panelScriptFile = new org.jdesktop.swingx.JXPanel();
-        scriptFileLabel = new javax.swing.JLabel();
+        labelScriptFileIcon = new javax.swing.JLabel();
+        textFieldScriptFile = new javax.swing.JTextField();
         buttonRemoveScriptFile = new javax.swing.JButton();
         buttonChooseScriptFile = new javax.swing.JButton();
         labelScriptFileInfo = new javax.swing.JLabel();
@@ -687,12 +687,12 @@ public class ImportImageFilesDialog extends Dialog {
         panelFileRenameStrategy = new javax.swing.JPanel();
         comboBoxFileRenameStrategy = new javax.swing.JComboBox<>();
         buttonEditRenameTemplates = new javax.swing.JButton();
+        labelWarning = new javax.swing.JLabel();
         panelDialogControlButtons = new org.jdesktop.swingx.JXPanel();
         buttonEditMetadata = new javax.swing.JButton();
         buttonExpertSettings = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
-        labelWarning = new javax.swing.JLabel();
 
         panelSourceDirectory.setLayout(new java.awt.GridBagLayout());
 
@@ -746,15 +746,19 @@ public class ImportImageFilesDialog extends Dialog {
 
         panelScriptFile.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.panelScriptFile.border.title"))); // NOI18N
         panelScriptFile.setLayout(new java.awt.GridBagLayout());
-
-        scriptFileLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        scriptFileLabel.setPreferredSize(new java.awt.Dimension(400, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        panelScriptFile.add(labelScriptFileIcon, gridBagConstraints);
+
+        textFieldScriptFile.setEditable(false);
+        textFieldScriptFile.setColumns(15);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
-        panelScriptFile.add(scriptFileLabel, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelScriptFile.add(textFieldScriptFile, gridBagConstraints);
 
         buttonRemoveScriptFile.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFile.setToolTipText(bundle.getString("ImportImageFilesDialog.buttonRemoveScriptFile.toolTipText")); // NOI18N
@@ -805,17 +809,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         dialogExpertSettings.getContentPane().add(panelExpertSettingsContent, gridBagConstraints);
 
-        javax.swing.GroupLayout panelExpertSettingsFillLayout = new javax.swing.GroupLayout(panelExpertSettingsFill);
-        panelExpertSettingsFill.setLayout(panelExpertSettingsFillLayout);
-        panelExpertSettingsFillLayout.setHorizontalGroup(
-            panelExpertSettingsFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelExpertSettingsFillLayout.setVerticalGroup(
-            panelExpertSettingsFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        panelExpertSettingsFill.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
@@ -959,6 +953,14 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelContent.add(panelFileRenameStrategy, gridBagConstraints);
 
+        labelWarning.setForeground(java.awt.Color.RED);
+        labelWarning.setText("WARNING"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(labelWarning, gridBagConstraints);
+
         panelDialogControlButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonEditMetadata.setAction(new EditXmpAction());
@@ -1010,14 +1012,6 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         panelContent.add(panelDialogControlButtons, gridBagConstraints);
-
-        labelWarning.setForeground(java.awt.Color.RED);
-        labelWarning.setText("WARNING"); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
-        panelContent.add(labelWarning, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1110,6 +1104,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JComboBox<Object> comboBoxSubdirectoryCreateStrategy;
     private javax.swing.JDialog dialogExpertSettings;
     private javax.swing.JLabel labelChoosenFiles;
+    private javax.swing.JLabel labelScriptFileIcon;
     private javax.swing.JLabel labelScriptFileInfo;
     private javax.swing.JLabel labelSourceDir;
     private javax.swing.JLabel labelTargetDir;
@@ -1124,6 +1119,6 @@ public class ImportImageFilesDialog extends Dialog {
     private org.jdesktop.swingx.JXPanel panelSourceDirectory;
     private javax.swing.JPanel panelSourceStrategy;
     private org.jdesktop.swingx.JXPanel panelTargetDir;
-    private javax.swing.JLabel scriptFileLabel;
+    private javax.swing.JTextField textFieldScriptFile;
     // End of variables declaration//GEN-END:variables
 }
