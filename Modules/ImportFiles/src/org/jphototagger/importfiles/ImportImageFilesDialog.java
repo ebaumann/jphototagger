@@ -28,6 +28,7 @@ import org.jphototagger.api.file.SubdirectoryCreateStrategy;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.editors.RenameTemplatesEditor;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
+import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpEditor;
 import org.jphototagger.importfiles.filerenamers.FileRenameStrategyComboBoxModel;
@@ -377,6 +378,7 @@ public class ImportImageFilesDialog extends Dialog {
                     : ERROR_ICON);
             scriptFileLabel.setForeground(scriptFileExists ? LABEL_FOREGROUND : Color.RED);
         }
+        setScriptFileWarningText();
     }
 
     private void chooseAndSetScriptFile() {
@@ -390,6 +392,7 @@ public class ImportImageFilesDialog extends Dialog {
         scriptFileLabel.setText(scriptFilePath);
         scriptFileLabel.setIcon(fileSystemView.getSystemIcon(scriptFile));
         buttonRemoveScriptFile.setEnabled(true);
+        setScriptFileWarningText();
     }
 
     private void persistScriptFile(String scriptFilePath) {
@@ -426,6 +429,15 @@ public class ImportImageFilesDialog extends Dialog {
         if (prefs.containsKey(KEY_LAST_SCRIPT_DIR)) {
             lastChoosenScriptDir = prefs.getString(KEY_LAST_SCRIPT_DIR);
         }
+    }
+
+    private void setScriptFileWarningText() {
+        boolean scriptFileExists = scriptFile != null; // physical existence check is done, else scriptFile would be null
+        String text = scriptFileExists
+                ? Bundle.getString(ImportImageFilesDialog.class, "ImportImageFilesDialog.ScriptFileWarning", ImageCollection.getLocalizedName(ImageCollection.PREVIOUS_IMPORT_NAME))
+                : "";
+        labelWarning.setText(text);
+        labelWarning.setVisible(scriptFileExists);
     }
 
     private void lookupSubdirectoryCreateStrategy() {
@@ -471,6 +483,7 @@ public class ImportImageFilesDialog extends Dialog {
         scriptFileLabel.setIcon(null);
         buttonRemoveScriptFile.setEnabled(false);
         prefs.removeKey(KEY_SCRIPT_FILE);
+        setScriptFileWarningText();
     }
 
     /**
@@ -679,6 +692,7 @@ public class ImportImageFilesDialog extends Dialog {
         buttonExpertSettings = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
+        labelWarning = new javax.swing.JLabel();
 
         panelSourceDirectory.setLayout(new java.awt.GridBagLayout());
 
@@ -997,6 +1011,14 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         panelContent.add(panelDialogControlButtons, gridBagConstraints);
 
+        labelWarning.setForeground(java.awt.Color.RED);
+        labelWarning.setText("WARNING"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(labelWarning, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1091,6 +1113,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JLabel labelScriptFileInfo;
     private javax.swing.JLabel labelSourceDir;
     private javax.swing.JLabel labelTargetDir;
+    private javax.swing.JLabel labelWarning;
     private javax.swing.JPanel panelContent;
     private org.jdesktop.swingx.JXPanel panelDialogControlButtons;
     private javax.swing.JPanel panelExpertSettingsContent;

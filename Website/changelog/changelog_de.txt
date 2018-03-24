@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.8 2018-03-24
+-----------------
+
+* Der Import-Dialog zeigt eine Warnung, dass die importierten
+  Bilder nicht dem Album "Zuletzt importiert" hinzugefügt werden,
+  falls ein Skript nach dem Import ausgeführt wird.
+
 0.37.7 2018-03-18
 -----------------
 

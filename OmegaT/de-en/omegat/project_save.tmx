@@ -2736,8 +2736,8 @@
       <tuv lang="DE">
         <seg>A&amp;bbrechen</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&amp;Cancel</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20180324T002223Z">
+        <seg>'&amp;Cancel</seg>
       </tuv>
     </tu>
     <tu>
@@ -5590,6 +5590,14 @@ Would You input a new name?</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>DNG files</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Da eine Skriptdatei existiert, werden die Bilder nicht dem Album "{0}" hinzugefügt!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20180324T002239Z" creationid="elmar" creationdate="20180324T000320Z">
+        <seg>Because a script file exists, the images won''t be added to the album "{0}"!</seg>
       </tuv>
     </tu>
     <tu>

@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.8 2018-03-24
+-----------------
+
+* The import dialog displays a warning, that the imported images
+  won't be added to the album "Previous imported", if a script will
+  be executed after import.
+
 0.37.7 2018-03-18
 -----------------
 
