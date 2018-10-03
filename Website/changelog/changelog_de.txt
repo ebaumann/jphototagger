@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.9 2018-10-03
+-----------------
+
+* Bugfix: Brennweite und ISO wurden nicht mehr aus den EXIF-Daten
+  der Bilder eingelesen.
+
 0.37.8 2018-03-24
 -----------------
 

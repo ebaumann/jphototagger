@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.9 2018-10-03
+-----------------
+
+* Bugfix: Focal length and ISO were not extracted from the image's
+  EXIF metadata.
+
 0.37.8 2018-03-24
 -----------------
 

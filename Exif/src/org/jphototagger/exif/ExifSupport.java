@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.StringTokenizer;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +25,8 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.metadata.exif.Exif;
 import org.jphototagger.exif.cache.ExifCache;
 import org.jphototagger.exif.datatype.ExifAscii;
+import org.jphototagger.exif.datatype.ExifRational;
+import org.jphototagger.exif.datatype.ExifShort;
 import org.jphototagger.exif.formatter.ExifFormatterAscii;
 import org.jphototagger.exif.tag.ExifGpsLatitude;
 import org.jphototagger.exif.tag.ExifGpsLongitude;
@@ -298,31 +299,16 @@ public final class ExifSupport {
 
     private void setExifFocalLength(Exif exif, ExifTag focalLengthTag) {
         try {
-            String exifTagStringValue = focalLengthTag.getStringValue();
-            StringTokenizer tokenizer = exifTagStringValue == null
-                    ? new StringTokenizer("")
-                    : new StringTokenizer(exifTagStringValue.trim(), "/:");
-            if (tokenizer.countTokens() >= 1) {
-                String denominatorString = tokenizer.nextToken();
-                String numeratorString = null;
-
-                if (tokenizer.hasMoreTokens()) {
-                    numeratorString = tokenizer.nextToken();
-                }
-                if (!NumberUtil.isDouble(denominatorString)) {
-                    return;
-                }
-                double denominator = Double.parseDouble(denominatorString);
-                double focalLength = denominator;
-                if (NumberUtil.isDouble(numeratorString)) {
-                    double numerator = Double.parseDouble(numeratorString);
-                    if (numerator != 0) {
-                        focalLength = denominator / numerator;
-                    }
-                }
-                if (focalLength > 0) {
-                    exif.setFocalLength(focalLength);
-                }
+            byte[] rawValue = focalLengthTag.getRawValue();
+            ExifRational er = new ExifRational(rawValue, focalLengthTag.convertByteOrderIdToByteOrder());
+            double numerator = (double) er.getNumerator();
+            double denominator = (double) er.getDenominator();
+            double focalLength = numerator;
+            if (denominator > 0) {
+                focalLength = numerator / denominator;
+            }
+            if (focalLength > 0) {
+                exif.setFocalLength(focalLength);
             }
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
@@ -331,15 +317,11 @@ public final class ExifSupport {
 
     private void setExifIsoSpeedRatings(Exif exif, ExifTag isoSpeedRatingsTag) {
         try {
-            String exifTagStringValue = isoSpeedRatingsTag.getStringValue();
-            String isoSpeedRatingsString = exifTagStringValue == null
-                    ? null
-                    : exifTagStringValue.trim();
-            if (NumberUtil.isShort(isoSpeedRatingsString)) {
-                short isoSpeedRatings = Short.parseShort(isoSpeedRatingsString);
-                if (isoSpeedRatings > 0) {
-                    exif.setIsoSpeedRatings(isoSpeedRatings);
-                }
+            byte[] rawValue = isoSpeedRatingsTag.getRawValue();
+            ExifShort es = new ExifShort(rawValue, isoSpeedRatingsTag.convertByteOrderIdToByteOrder());
+            short isoSpeedRatings = es.getValue();
+            if (isoSpeedRatings > 0) {
+                exif.setIsoSpeedRatings(isoSpeedRatings);
             }
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
