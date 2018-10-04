@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.10 2018-10-04
+------------------
+
+* Bugfix: EXIF-Makernotes (weniger Kameras) werden wieder eingelesen
+
 0.37.9 2018-10-03
 -----------------
 

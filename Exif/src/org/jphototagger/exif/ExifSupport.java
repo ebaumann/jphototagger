@@ -153,7 +153,7 @@ public final class ExifSupport {
                             new Object[]{file, file.length(), provider.getClass()});
                     int countAdded = provider.addToExifTags(file, exifTags);
                     if (countAdded > 0) {
-                        return exifTags;
+                        break; // In future it may be better merging tags: Unread tags of one reader mabye read by another reader
                     }
                 } catch (Throwable t) {
                     LOGGER.log(Level.SEVERE, null, t);
