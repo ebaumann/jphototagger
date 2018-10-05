@@ -10,6 +10,7 @@ import org.jphototagger.api.preferences.CommonPreferences;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.LookAndFeelProvider;
 import org.jphototagger.lib.swing.util.LookAndFeelUtil;
+import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.SystemUtil;
 import org.openide.util.Lookup;
 
@@ -85,18 +86,18 @@ public final class AppLookAndFeel {
     }
 
     private static void takeFromUiColors() {
-        treeSelectionForeground = LookAndFeelUtil.getUiColor("Tree.selectionForeground");
-        treeSelectionBackground = LookAndFeelUtil.getUiColor("Tree.selectionBackground");
-        treeTextBackground = LookAndFeelUtil.getUiColor("Tree.textBackground");
-        treeTextForeground = LookAndFeelUtil.getUiColor("Tree.textForeground");
-        listSelectionForeground = LookAndFeelUtil.getUiColor("List.selectionForeground");
-        listSelectionBackground = LookAndFeelUtil.getUiColor("List.selectionBackground");
-        listBackground = LookAndFeelUtil.getUiColor("List.background");
-        listForeground = LookAndFeelUtil.getUiColor("List.foreground");
-        tableForeground = LookAndFeelUtil.getUiColor("Table.foreground");
-        tableBackground = LookAndFeelUtil.getUiColor("Table.background ");
-        tableSelectionForeground = LookAndFeelUtil.getUiColor("Table.selectionForeground");
-        tableSelectionBackground = LookAndFeelUtil.getUiColor("Table.selectionBackground ");
+        treeSelectionForeground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("Tree.selectionForeground"), treeSelectionForeground);
+        treeSelectionBackground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("Tree.selectionBackground"), treeSelectionBackground);
+        treeTextBackground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("Tree.textBackground"), treeTextBackground);
+        treeTextForeground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("Tree.textForeground"), treeTextForeground);
+        listSelectionForeground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("List.selectionForeground"), listSelectionForeground);
+        listSelectionBackground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("List.selectionBackground"), listSelectionBackground);
+        listBackground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("List.background"), listBackground);
+        listForeground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("List.foreground"), listForeground);
+        tableForeground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("Table.foreground"), tableForeground);
+        tableBackground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("Table.background"), tableBackground);
+        tableSelectionForeground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("Table.selectionForeground"), tableSelectionForeground);
+        tableSelectionBackground = ObjectUtil.firstNonNull(LookAndFeelUtil.getUiColor("Table.selectionBackground"), tableSelectionBackground);
     }
 
     public static Color getListBackground() {

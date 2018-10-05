@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.11 2018-10-05
+------------------
+
+* Dark Look & Feel: Selection in tables will not make text invisible
+
 0.37.10 2018-10-04
 ------------------
 

@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.37.11 2018-10-05
+------------------
+
+* Dunkles Look & Feel: Auswahl in Tabellen lässt Text nicht unsichtbar
+  werden.
+
 0.37.10 2018-10-04
 ------------------
 
