@@ -33,7 +33,7 @@ public final class AppDatabase {
 
         if (!init) {
             try {
-                ConnectionPool.INSTANCE.init();
+                RepositoryImpl.INSTANCE.init();
                 ensureAppIsNotTooOld();
                 ensureThumbnailDirExists();
                 DatabaseUpdate databaseUpdate = new DatabaseUpdate();

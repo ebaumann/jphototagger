@@ -52,7 +52,7 @@ public class Database {
      * @throws SQLException
      */
     protected Connection getConnection() throws SQLException {
-        return ConnectionPool.INSTANCE.getConnection();
+        return RepositoryImpl.INSTANCE.getConnection();
     }
 
     /**
@@ -67,7 +67,7 @@ public class Database {
             return;
         }
         try {
-            ConnectionPool.INSTANCE.free(con);
+            RepositoryImpl.INSTANCE.free(con);
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
         }

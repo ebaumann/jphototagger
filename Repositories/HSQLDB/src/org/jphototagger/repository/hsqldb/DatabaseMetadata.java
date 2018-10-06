@@ -162,7 +162,6 @@ public final class DatabaseMetadata extends Database {
                 colInfo.NUM_PREC_RADIX = rs.getInt("NUM_PREC_RADIX");
                 colInfo.ORDINAL_POSITION = rs.getInt("ORDINAL_POSITION");
                 colInfo.REMARKS = rs.getString("REMARKS");
-                colInfo.SCOPE_CATLOG = rs.getString("SCOPE_CATLOG");
                 colInfo.SCOPE_SCHEMA = rs.getString("SCOPE_SCHEMA");
                 colInfo.SCOPE_TABLE = rs.getString("SCOPE_TABLE");
                 colInfo.SOURCE_DATA_TYPE = rs.getShort("SOURCE_DATA_TYPE");
@@ -198,7 +197,6 @@ public final class DatabaseMetadata extends Database {
         public int NUM_PREC_RADIX;
         public int ORDINAL_POSITION;
         public String REMARKS;
-        public String SCOPE_CATLOG;
         public String SCOPE_SCHEMA;
         public String SCOPE_TABLE;
         public short SOURCE_DATA_TYPE;
