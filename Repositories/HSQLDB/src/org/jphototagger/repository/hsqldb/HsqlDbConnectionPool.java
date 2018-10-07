@@ -31,7 +31,6 @@ public final class HsqlDbConnectionPool {
     private String password = "";
     private String username = "sa";
     private volatile boolean init;
-    private int usedConnections;
     private JDBCPool pool;
 
     /**
@@ -67,11 +66,23 @@ public final class HsqlDbConnectionPool {
 
     private void createPool() {
         LOGGER.log(Level.INFO, "Creating database connection pool");
+
+        // If this property is not set, HSQLDB removes all existing log handlers
+        // i.e. JPhotoTagger's log handlers.
+        System.setProperty("hsqldb.reconfig_logging", "false");
+
         pool = new JDBCPool(size);
         pool.setUrl(url);
         pool.setPassword(password);
         pool.setUser(username);
+        setProperties();
         LOGGER.log(Level.INFO, "Created database connection pool. Driver: {0}, URL: {1}, Username: {2}", new Object[]{driver, url, username});
+    }
+
+    private void setProperties() {
+//        Properties props = new Properties();
+//        props.put("hsqldb.applog", "3");
+//        pool.setProperties(props);
     }
 
     /**
@@ -86,7 +97,7 @@ public final class HsqlDbConnectionPool {
     public static String createFileUrl(String filePath) {
         Objects.requireNonNull(filePath, "filePath == null");
 
-        return "jdbc:hsqldb:file:" + filePath + ";shutdown=true";
+        return "jdbc:hsqldb:file:" + filePath;
     }
 
     /**
@@ -127,9 +138,8 @@ public final class HsqlDbConnectionPool {
      */
     synchronized Connection getConnection() throws SQLException {
         ensureInit();
-        usedConnections++;
-        LOGGER.log(Level.FINEST, "Retrieved a database connection. Currently used connections: {0}", usedConnections);
-        return pool.getConnection();
+        Connection connection = pool.getConnection();
+        return connection;
     }
 
     private synchronized void ensureInit() {
@@ -145,13 +155,7 @@ public final class HsqlDbConnectionPool {
      * @param con The connection to be released.
      */
     synchronized void free(Connection con) {
-        try {
-            con.close();
-            usedConnections--;
-            LOGGER.log(Level.FINEST, "Closed a database connection. Currently used connections: {0}", usedConnections);
-        } catch (Throwable t) {
-            LOGGER.log(Level.SEVERE, null, t);
-        }
+        // Nothing to do
     }
 
     /**
@@ -160,7 +164,6 @@ public final class HsqlDbConnectionPool {
     synchronized void closeAllConnections() {
         try {
             pool.close(1);
-            usedConnections = 0;
             LOGGER.info("Closed database connection pool");
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, "Error while closing pool", t);
@@ -176,8 +179,6 @@ public final class HsqlDbConnectionPool {
                 .append(url)
                 .append(", username: ")
                 .append(username)
-                .append(" used Connections: ")
-                .append(usedConnections)
                 .append(", size: ")
                 .append(size)
                 .append(")")
