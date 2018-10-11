@@ -3,6 +3,7 @@ package org.jphototagger.repository.hsqldb;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hsqldb.jdbc.JDBCPool;
@@ -32,6 +33,7 @@ public final class HsqlDbConnectionPool {
     private String username = "sa";
     private volatile boolean init;
     private JDBCPool pool;
+    private Connection con = null;
 
     /**
      * Creates a pool with the default size
@@ -80,9 +82,9 @@ public final class HsqlDbConnectionPool {
     }
 
     private void setProperties() {
-//        Properties props = new Properties();
-//        props.put("hsqldb.applog", "3");
-//        pool.setProperties(props);
+        Properties props = new Properties();
+        props.put("hsqldb.applog", "3");
+        pool.setProperties(props);
     }
 
     /**
@@ -138,8 +140,10 @@ public final class HsqlDbConnectionPool {
      */
     synchronized Connection getConnection() throws SQLException {
         ensureInit();
-        Connection connection = pool.getConnection();
-        return connection;
+        if (con == null) {
+            con = pool.getConnection();
+        }
+        return con;
     }
 
     private synchronized void ensureInit() {
