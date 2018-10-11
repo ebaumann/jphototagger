@@ -3,7 +3,6 @@ package org.jphototagger.repository.hsqldb;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hsqldb.jdbc.JDBCPool;
@@ -82,9 +81,9 @@ public final class HsqlDbConnectionPool {
     }
 
     private void setProperties() {
-        Properties props = new Properties();
-        props.put("hsqldb.applog", "3");
-        pool.setProperties(props);
+//        Properties props = new Properties();
+//        props.put("hsqldb.applog", "3");
+//        pool.setProperties(props);
     }
 
     /**
