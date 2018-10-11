@@ -196,6 +196,6 @@ final class ApplicationPropertiesDatabase extends Database {
             free(con);
         }
 
-        return string;
+        return string.trim();
     }
 }
