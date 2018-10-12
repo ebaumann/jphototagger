@@ -45,8 +45,8 @@ final class DatabaseMaintainance extends Database {
             if (shutdown) {
                 ConnectionPool.INSTANCE.closeAllConnections();
                 ConnectionPool.INSTANCE.setShutdown();
+            }
         }
-    }
     }
 
     /**

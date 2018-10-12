@@ -489,7 +489,7 @@ final class ProgramsDatabase extends Database {
      */
     int getProgramCount(boolean actions) {
         int count = 0;
-        Connection con;
+        Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -506,6 +506,7 @@ final class ProgramsDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
+            free(con);
         }
         return count;
     }
