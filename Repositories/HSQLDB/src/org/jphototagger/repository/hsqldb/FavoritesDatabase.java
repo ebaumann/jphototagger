@@ -101,12 +101,13 @@ final class FavoritesDatabase extends Database {
         if (toFavoriteName == null) {
             throw new NullPointerException("toFavoriteName == null");
         }
+        Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         int count = 0;
         try {
             Favorite oldFavorite = find(fromFavoriteName);
-            Connection con = getConnection();
+            con = getConnection();
             con.setAutoCommit(true);
             String sql = "UPDATE favorite_directories SET favorite_name = ? WHERE favorite_name = ?";
             stmt = con.prepareStatement(sql);
@@ -121,6 +122,7 @@ final class FavoritesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
+            free(con);
         }
         return count > 0;
     }
