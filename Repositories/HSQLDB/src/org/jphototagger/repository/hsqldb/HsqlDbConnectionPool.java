@@ -3,6 +3,7 @@ package org.jphototagger.repository.hsqldb;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.hsqldb.jdbc.JDBCPool;
@@ -25,26 +26,29 @@ import org.hsqldb.jdbc.JDBCPool;
 public final class HsqlDbConnectionPool {
 
     private static final Logger LOGGER = Logger.getLogger(HsqlDbConnectionPool.class.getName());
+    private static final int DEFAULT_SIZE = 8;
     private final int size;
-    private final String driver = "org.hsqldb.jdbcDriver";
     private String url;
     private String password = "";
     private String username = "sa";
+    private Properties properties;
     private volatile boolean init;
     private JDBCPool pool;
-    private Connection con = null;
 
     /**
      * Creates a pool with the default size
      */
     public HsqlDbConnectionPool() {
-        this(8);
+        this(DEFAULT_SIZE);
     }
 
     /**
      * @param size Default: 8
      */
     public HsqlDbConnectionPool(int size) {
+        if (size < 1) {
+            throw new IllegalArgumentException("Pool size less than 1: " + size);
+        }
         this.size = size;
     }
 
@@ -68,8 +72,8 @@ public final class HsqlDbConnectionPool {
     private void createPool() {
         LOGGER.log(Level.INFO, "Creating database connection pool");
 
-        // If this property is not set, HSQLDB removes all existing log handlers
-        // i.e. JPhotoTagger's log handlers.
+        // DO NOT DELETE: If this property is not set, HSQLDB removes all
+        // existing log handlers, esp. JPhotoTagger's log handlers.
         System.setProperty("hsqldb.reconfig_logging", "false");
 
         pool = new JDBCPool(size);
@@ -77,13 +81,13 @@ public final class HsqlDbConnectionPool {
         pool.setPassword(password);
         pool.setUser(username);
         setProperties();
-        LOGGER.log(Level.INFO, "Created database connection pool. Driver: {0}, URL: {1}, Username: {2}", new Object[]{driver, url, username});
+        LOGGER.log(Level.INFO, "Created database connection pool. URL: {0}, Username: {1}", new Object[]{url, username});
     }
 
     private void setProperties() {
-//        Properties props = new Properties();
-//        props.put("hsqldb.applog", "3");
-//        pool.setProperties(props);
+        if (properties != null) {
+            pool.setProperties(properties);
+        }
     }
 
     /**
@@ -102,7 +106,17 @@ public final class HsqlDbConnectionPool {
     }
 
     /**
-     * Sets the database URL and have to be called before {@link #init()}.
+     * If not null, these Connection properties will used. has to be called
+     * before {@link #init()}.
+       *
+     * @param properties See HSQLDB documentation
+     */
+    public void setProperties(Properties properties) {
+        this.properties = new Properties(properties);
+    }
+
+    /**
+     * Sets the database URL and has to be called before {@link #init()}.
      *
      * @param url Database URL, see {@link #createFileUrl(java.lang.String)}
      */
@@ -111,7 +125,7 @@ public final class HsqlDbConnectionPool {
     }
 
     /**
-     * Sets an <em>optional</em> user's database password and have to be called
+     * Sets an <em>optional</em> user's database password and has to be called
      * before {@link #init()}.
      *
      * @param password Default: ""
@@ -121,7 +135,7 @@ public final class HsqlDbConnectionPool {
     }
 
     /**
-     * Sets an <em>optional</em> user's name and have to be called before
+     * Sets an <em>optional</em> user's name and has to be called before
      * {@link #init()}.
      *
      * @param username Default: "sa"
@@ -139,10 +153,7 @@ public final class HsqlDbConnectionPool {
      */
     synchronized Connection getConnection() throws SQLException {
         ensureInit();
-        if (con == null) {
-            con = pool.getConnection();
-        }
-        return con;
+        return pool.getConnection();
     }
 
     private synchronized void ensureInit() {
@@ -158,7 +169,11 @@ public final class HsqlDbConnectionPool {
      * @param con The connection to be released.
      */
     synchronized void free(Connection con) {
-        // Nothing to do
+        try {
+            con.close();
+        } catch (Throwable t) {
+            Logger.getLogger(HsqlDbConnectionPool.class.getName()).log(Level.SEVERE, null, t);
+        }
     }
 
     /**
@@ -169,7 +184,7 @@ public final class HsqlDbConnectionPool {
             pool.close(1);
             LOGGER.info("Closed database connection pool");
         } catch (Throwable t) {
-            LOGGER.log(Level.SEVERE, "Error while closing pool", t);
+            LOGGER.log(Level.SEVERE, "Error while closing connection pool", t);
         }
     }
 

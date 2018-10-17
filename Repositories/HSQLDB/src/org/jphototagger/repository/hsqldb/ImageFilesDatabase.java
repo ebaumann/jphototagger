@@ -824,7 +824,7 @@ final class ImageFilesDatabase extends Database {
             if (idDcSubject == null) {
                 throw new SQLException("Couldn't ensure ID of DC subject!");
             }
-            if (!existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
+            if (!existsXmpDcSubjectsLink(con, idXmp, idDcSubject)) {
                 insertXmpDcSubjectsLink(con, idXmp, idDcSubject);
             }
         }
@@ -844,10 +844,10 @@ final class ImageFilesDatabase extends Database {
     }
 
     private Long ensureDcSubjectExists(Connection con, String dcSubject) throws SQLException {
-        Long idDcSubject = getIdDcSubject(dcSubject);
+        Long idDcSubject = getIdDcSubject(con, dcSubject);
         if (idDcSubject == null) {
             insertDcSubject(con, dcSubject);
-            idDcSubject = getIdDcSubject(dcSubject);
+            idDcSubject = getIdDcSubject(con, dcSubject);
         }
         return idDcSubject;
     }
@@ -2432,10 +2432,22 @@ final class ImageFilesDatabase extends Database {
         }
         Long id = null;
         Connection con = null;
+        try {
+            con = getConnection();
+            id = getIdDcSubject(con, dcSubject);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            free(con);
+        }
+        return id;
+    }
+
+    private Long getIdDcSubject(Connection con, String dcSubject) {
+        Long id = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement("SELECT id FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, dcSubject);
             LOGGER.log(Level.FINEST, stmt.toString());
@@ -2447,7 +2459,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return id;
     }
@@ -2455,10 +2466,22 @@ final class ImageFilesDatabase extends Database {
     public boolean existsXmpDcSubjectsLink(long idXmp, long idDcSubject) {
         boolean exists = false;
         Connection con = null;
+        try {
+            con = getConnection();
+            exists = existsXmpDcSubjectsLink(con, idXmp, idDcSubject);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            free(con);
+        }
+        return exists;
+    }
+
+    private boolean existsXmpDcSubjectsLink(Connection con, long idXmp, long idDcSubject) {
+        boolean exists = false;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM xmp_dc_subject WHERE id_xmp = ? AND id_dc_subject = ?");
             stmt.setLong(1, idXmp);
             stmt.setLong(2, idDcSubject);
@@ -2471,7 +2494,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return exists;
     }

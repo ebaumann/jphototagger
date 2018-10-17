@@ -18,7 +18,7 @@ public final class RepositoryImpl implements Repository {
     public static final HsqlDbConnectionPool INSTANCE;
 
     static {
-        INSTANCE = new HsqlDbConnectionPool();
+        INSTANCE = new HsqlDbConnectionPool(25);
         INSTANCE.setUrl(createUrl());
     }
 
