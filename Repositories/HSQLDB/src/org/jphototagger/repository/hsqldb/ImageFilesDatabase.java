@@ -597,12 +597,26 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-        boolean exists = false;
         Connection con = null;
+        try {
+            con = getConnection();
+            return existsImageFile(con, imageFile);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+            return false;
+        } finally {
+            free(con);
+        }
+    }
+
+    boolean existsImageFile(Connection con, File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+        boolean exists = false;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM files WHERE filename = ?");
             stmt.setString(1, imageFile.getAbsolutePath());
             LOGGER.log(Level.FINEST, stmt.toString());
@@ -614,7 +628,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return exists;
     }

@@ -182,10 +182,9 @@ final class ImageCollectionsDatabase extends Database {
             int sequence_number = 0;
             for (File imageFile : imageFiles) {
                 long idImageFile = repo.findIdImageFile(con, imageFile);
-                if (!repo.existsImageFile(imageFile)) {
+                if (!repo.existsImageFile(con, imageFile)) {
                     LOGGER.log(Level.WARNING, "File ''{0}'' is not in the database! No photo album will be created!", imageFile);
                     rollback(con);
-
                     return false;
                 }
                 stmtColl.setLong(1, idCollectionName);
