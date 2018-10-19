@@ -22,6 +22,7 @@ import org.jphototagger.domain.repository.event.programs.DefaultProgramUpdatedEv
 import org.jphototagger.domain.repository.event.programs.ProgramDeletedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
+import org.jphototagger.domain.repository.event.repoupdates.ActionAfterRepoUpdateDeletedEvent;
 import org.openide.util.Lookup;
 
 /**
@@ -226,8 +227,12 @@ final class ProgramsDatabase extends Database {
             countAffectedRows = stmt.executeUpdate();
             con.commit();
             // Hack because of dirty design of this table (no cascade possible)
-            repo.deleteAction(program);
+            boolean actionDeleted = repo.deleteAction(con, program);
             deleteProgramFromDefaultPrograms(con, program.getId());
+            con.commit();
+            if (actionDeleted) {
+                EventBus.publish(new ActionAfterRepoUpdateDeletedEvent(this, program));
+            }
             notifyDeleted(program);
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
@@ -488,13 +493,30 @@ final class ProgramsDatabase extends Database {
      * @return number of programs or actions
      */
     int getProgramCount(boolean actions) {
-        int count = 0;
         Connection con = null;
+        try {
+            con = getConnection();
+            return getProgramCount(con, actions);
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, null, ex);
+            return 0;
+        } finally {
+            free(con);
+        }
+    }
+
+    /**
+     * Returns the number of programs or actions.
+     *
+     * @param actions true if the number of actions shall be returned, false, if the number of actions shall be returned
+     * @return number of programs or actions
+     */
+    int getProgramCount(Connection con, boolean actions) {
+        int count = 0;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
             String sql = "SELECT COUNT(*) FROM programs WHERE action = ?";
-            con = getConnection();
             stmt = con.prepareStatement(sql);
             stmt.setBoolean(1, actions);
             LOGGER.log(Level.FINEST, stmt.toString());
@@ -506,7 +528,6 @@ final class ProgramsDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, ex);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return count;
     }
@@ -515,7 +536,7 @@ final class ProgramsDatabase extends Database {
         if (program.getSequenceNumber() >= 0) {
             return;
         }
-        int count = getProgramCount(program.isAction());
+        int count = getProgramCount(con, program.isAction());
         if (count <= 0) {
             program.setSequenceNumber(0);
             return;
@@ -590,6 +611,7 @@ final class ProgramsDatabase extends Database {
             stmt.setString(2, filenameSuffix);
             LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
+            con.commit();
             if (countAffectedRows == 1) {
                 EventBus.publish(new DefaultProgramInsertedEvent(this, filenameSuffix, idProgram));
             }
@@ -616,6 +638,7 @@ final class ProgramsDatabase extends Database {
             stmt.setString(2, filenameSuffix);
             LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
+            con.commit();
             if (countAffectedRows == 1) {
                 EventBus.publish(new DefaultProgramUpdatedEvent(this, filenameSuffix, idProgram));
             }
@@ -641,6 +664,7 @@ final class ProgramsDatabase extends Database {
             stmt.setString(1, filenameSuffix);
             LOGGER.log(Level.FINER, stmt.toString());
             countAffectedRows = stmt.executeUpdate();
+            con.commit();
             if (countAffectedRows == 1) {
                 EventBus.publish(new DefaultProgramDeletedEvent(this, filenameSuffix));
             }
@@ -658,7 +682,6 @@ final class ProgramsDatabase extends Database {
         PreparedStatement stmt = null;
         int countAffected;
         try {
-            con.setAutoCommit(false);
             String sql = "DELETE FROM default_programs WHERE id_program = ?";
             stmt = con.prepareStatement(sql);
             stmt.setLong(1, idProgram);
@@ -671,7 +694,6 @@ final class ProgramsDatabase extends Database {
             }
         } finally {
             close(stmt);
-            free(con);
         }
     }
 

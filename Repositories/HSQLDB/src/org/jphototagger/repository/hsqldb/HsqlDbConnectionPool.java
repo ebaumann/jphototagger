@@ -170,7 +170,7 @@ public final class HsqlDbConnectionPool {
      */
     synchronized void free(Connection con) {
         try {
-            con.close();
+            con.close(); // Does not really close the connection, but makes it available within the pool
         } catch (Throwable t) {
             Logger.getLogger(HsqlDbConnectionPool.class.getName()).log(Level.SEVERE, null, t);
         }

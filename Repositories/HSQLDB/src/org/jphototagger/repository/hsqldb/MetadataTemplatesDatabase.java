@@ -200,12 +200,32 @@ final class MetadataTemplatesDatabase extends Database {
         if (name == null) {
             throw new NullPointerException("name == null");
         }
-        MetadataTemplate template = null;
         Connection con = null;
+        try {
+            con = getConnection();
+            return findMetadataTemplate(con, name);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+            return null;
+        } finally {
+            free(con);
+        }
+    }
+
+    /**
+     * Returns a template with a specific name.
+     *
+     * @param  name template name
+     * @return      template or null if no template has that name or on errors
+     */
+    MetadataTemplate findMetadataTemplate(Connection con, String name) {
+        if (name == null) {
+            throw new NullPointerException("name == null");
+        }
+        MetadataTemplate template = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             String sql = getSelectForSetValues() + " WHERE name = ?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, name);
@@ -219,7 +239,6 @@ final class MetadataTemplatesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return template;
     }
@@ -390,7 +409,7 @@ final class MetadataTemplatesDatabase extends Database {
                     + " WHERE name = ?";    // -- 20 --
             con = getConnection();
             con.setAutoCommit(false);
-            MetadataTemplate oldTemplate = findMetadataTemplate(template.getName());
+            MetadataTemplate oldTemplate = findMetadataTemplate(con, template.getName());
             stmt = con.prepareStatement(sql);
             set(stmt, template);
             stmt.setString(20, template.getName());
@@ -457,7 +476,7 @@ final class MetadataTemplatesDatabase extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            MetadataTemplate template = findMetadataTemplate(name);
+            MetadataTemplate template = findMetadataTemplate(con, name);
             stmt = con.prepareStatement("DELETE FROM metadata_edit_templates WHERE name = ?");
             stmt.setString(1, name);
             LOGGER.log(Level.FINER, stmt.toString());

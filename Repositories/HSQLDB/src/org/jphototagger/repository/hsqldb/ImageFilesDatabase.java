@@ -333,6 +333,7 @@ final class ImageFilesDatabase extends Database {
             setLastModifiedToXmpSidecarFileOfImageFile(imageFile, xmp.contains(XmpLastModifiedMetaDataValue.INSTANCE)
                     ? (Long) xmp.getValue(XmpLastModifiedMetaDataValue.INSTANCE)
                     : -1);
+            con.commit();
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
@@ -2609,7 +2610,6 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             stmt = con.createStatement();
-            con.setAutoCommit(false);
             String sql = "SELECT COUNT(*) FROM files";
             LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
@@ -2633,7 +2633,6 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             stmt = con.createStatement();
-            con.setAutoCommit(false);
             String sql = "SELECT s.SUBJECT, COUNT(s.SUBJECT) from DC_SUBJECTS s JOIN XMP_DC_SUBJECT x ON s.ID = x.ID_DC_SUBJECT GROUP BY s.SUBJECT";
             LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
@@ -2656,7 +2655,6 @@ final class ImageFilesDatabase extends Database {
         int count = 0;
         try {
             con = getConnection();
-            con.setAutoCommit(false);
             String sql = "SELECT COUNT(s.SUBJECT) from DC_SUBJECTS s JOIN XMP_DC_SUBJECT x ON s.ID = x.ID_DC_SUBJECT WHERE s.SUBJECT = ? GROUP BY s.SUBJECT";
             LOGGER.log(Level.FINEST, sql);
             stmt = con.prepareStatement(sql);
@@ -2691,7 +2689,6 @@ final class ImageFilesDatabase extends Database {
 
         try {
             con = getConnection();
-            con.setAutoCommit(false);
             stmt = con.createStatement();
 
             LOGGER.log(Level.FINEST, sql);

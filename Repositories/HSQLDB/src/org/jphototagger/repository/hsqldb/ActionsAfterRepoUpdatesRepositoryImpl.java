@@ -1,5 +1,6 @@
 package org.jphototagger.repository.hsqldb;
 
+import java.sql.Connection;
 import java.util.List;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.repository.ActionsAfterRepoUpdatesRepository;
@@ -14,6 +15,11 @@ public final class ActionsAfterRepoUpdatesRepositoryImpl implements ActionsAfter
     @Override
     public boolean deleteAction(Program program) {
         return ActionsAfterDbInsertionDatabase.INSTANCE.deleteAction(program);
+    }
+
+    @Override
+    public boolean deleteAction(Connection con, Program program) {
+        return ActionsAfterDbInsertionDatabase.INSTANCE.deleteAction(con, program);
     }
 
     @Override
