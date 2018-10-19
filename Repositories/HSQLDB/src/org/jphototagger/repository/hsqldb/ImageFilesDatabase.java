@@ -982,7 +982,7 @@ final class ImageFilesDatabase extends Database {
             if (idXmp > 0) {
                 PreparedStatement stmt = null;
                 try {
-                    Xmp oldXmp = getXmpOfImageFile(imageFile);
+                    Xmp oldXmp = getXmpOfImageFile(con, imageFile);
                     stmt = con.prepareStatement(getUpdateXmpStatement());
                     setXmpValues(stmt, idFile, xmp);
                     stmt.setLong(19, idXmp);
@@ -1334,10 +1334,25 @@ final class ImageFilesDatabase extends Database {
         }
         Xmp xmp = new Xmp();
         Connection con = null;
+        try {
+            con = getConnection();
+            return getXmpOfImageFile(con, imageFile);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            free(con);
+        }
+        return xmp;
+    }
+
+    public Xmp getXmpOfImageFile(Connection con, File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+        Xmp xmp = new Xmp();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement(getXmpOfStatement());
             stmt.setString(1, imageFile.getAbsolutePath());
             LOGGER.log(Level.FINEST, stmt.toString());
@@ -1370,7 +1385,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return xmp;
     }
