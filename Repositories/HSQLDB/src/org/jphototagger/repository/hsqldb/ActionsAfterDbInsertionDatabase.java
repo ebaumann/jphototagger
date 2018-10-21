@@ -80,28 +80,45 @@ final class ActionsAfterDbInsertionDatabase extends Database {
         if (program == null) {
             throw new NullPointerException("action == null");
         }
-        int countAffectedRows = 0;
         Connection con = null;
-        PreparedStatement stmt = null;
         try {
             con = getConnection();
-            con.setAutoCommit(false);
+            con.setAutoCommit(true);
+            boolean deleted = deleteAction(con, program);
+            if (deleted) {
+                EventBus.publish(new ActionAfterRepoUpdateDeletedEvent(this, program));
+            }
+            return deleted;
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+            return false;
+        } finally {
+            free(con);
+        }
+    }
+
+    /**
+     * Deletes an action. <em>The ID {@code Program#getId()} must exist!</em>
+     *
+     * @param  program action to deleteAction
+     * @return         true if deleted
+     */
+    boolean deleteAction(Connection con, Program program) {
+        if (program == null) {
+            throw new NullPointerException("action == null");
+        }
+        PreparedStatement stmt = null;
+        try {
             stmt = con.prepareStatement("DELETE FROM actions_after_db_insertion WHERE id_program = ?");
             stmt.setLong(1, program.getId());
             LOGGER.log(Level.FINER, stmt.toString());
-            countAffectedRows = stmt.executeUpdate();
-            con.commit();
-            if (countAffectedRows > 0) {
-                EventBus.publish(new ActionAfterRepoUpdateDeletedEvent(this, program));
-            }
+            return stmt.executeUpdate() == 1;
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
-            rollback(con);
+            return false;
         } finally {
             close(stmt);
-            free(con);
         }
-        return countAffectedRows == 1;
     }
 
     /**

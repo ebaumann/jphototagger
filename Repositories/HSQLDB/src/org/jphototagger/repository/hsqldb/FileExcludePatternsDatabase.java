@@ -177,15 +177,6 @@ final class FileExcludePatternsDatabase extends Database {
         Statement stmtQuery = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
-            con.setAutoCommit(false);
-            List<String> deletedFiles = new LinkedList<>();
-            String sqlUpdate = "DELETE FROM files WHERE filename = ?";
-            String sqlQuery = "SELECT filename FROM files";
-            stmtQuery = con.createStatement();
-            stmtUpdate = con.prepareStatement(sqlUpdate);
-            LOGGER.log(Level.FINEST, sqlQuery);
-            rs = stmtQuery.executeQuery(sqlQuery);
             int patternCount = patterns.size();
             int progress = 0;
             RepositoryStatistics repoStatistics = Lookup.getDefault().lookup(RepositoryStatistics.class);
@@ -195,7 +186,15 @@ final class FileExcludePatternsDatabase extends Database {
                     .maximum(repoStatistics.getFileCount() * patternCount)
                     .value(0)
                     .build();
-            ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class);
+            con = getConnection();
+            con.setAutoCommit(false);
+            String sqlUpdate = "DELETE FROM files WHERE filename = ?";
+            String sqlQuery = "SELECT filename FROM files";
+            stmtQuery = con.createStatement();
+            stmtUpdate = con.prepareStatement(sqlUpdate);
+            LOGGER.log(Level.FINEST, sqlQuery);
+            rs = stmtQuery.executeQuery(sqlQuery);
+            ThumbnailsRepository tnRepo = Lookup.getDefault().lookup(ThumbnailsRepository.class); // NO AUTOCOMMIT: ThumbnailsRepository should be a different database
             notifyProgressListenerStart(listener, event);
             boolean cancel = event.isCancel();
             while (!cancel && rs.next()) {
@@ -205,7 +204,6 @@ final class FileExcludePatternsDatabase extends Database {
                     String pattern = patterns.get(i);
                     if (filepath.matches(pattern)) {
                         stmtUpdate.setString(1, filepath);
-                        deletedFiles.add(filepath);
                         LOGGER.log(Level.FINER, stmtUpdate.toString());
                         int affectedRows = stmtUpdate.executeUpdate();
                         count += affectedRows;

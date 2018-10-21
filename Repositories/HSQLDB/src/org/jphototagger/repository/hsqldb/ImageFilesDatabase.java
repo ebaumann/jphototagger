@@ -333,6 +333,7 @@ final class ImageFilesDatabase extends Database {
             setLastModifiedToXmpSidecarFileOfImageFile(imageFile, xmp.contains(XmpLastModifiedMetaDataValue.INSTANCE)
                     ? (Long) xmp.getValue(XmpLastModifiedMetaDataValue.INSTANCE)
                     : -1);
+            con.commit();
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
             rollback(con);
@@ -597,12 +598,26 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-        boolean exists = false;
         Connection con = null;
+        try {
+            con = getConnection();
+            return existsImageFile(con, imageFile);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+            return false;
+        } finally {
+            free(con);
+        }
+    }
+
+    boolean existsImageFile(Connection con, File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+        boolean exists = false;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM files WHERE filename = ?");
             stmt.setString(1, imageFile.getAbsolutePath());
             LOGGER.log(Level.FINEST, stmt.toString());
@@ -614,7 +629,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return exists;
     }
@@ -824,7 +838,7 @@ final class ImageFilesDatabase extends Database {
             if (idDcSubject == null) {
                 throw new SQLException("Couldn't ensure ID of DC subject!");
             }
-            if (!existsXmpDcSubjectsLink(idXmp, idDcSubject)) {
+            if (!existsXmpDcSubjectsLink(con, idXmp, idDcSubject)) {
                 insertXmpDcSubjectsLink(con, idXmp, idDcSubject);
             }
         }
@@ -844,10 +858,10 @@ final class ImageFilesDatabase extends Database {
     }
 
     private Long ensureDcSubjectExists(Connection con, String dcSubject) throws SQLException {
-        Long idDcSubject = getIdDcSubject(dcSubject);
+        Long idDcSubject = getIdDcSubject(con, dcSubject);
         if (idDcSubject == null) {
             insertDcSubject(con, dcSubject);
-            idDcSubject = getIdDcSubject(dcSubject);
+            idDcSubject = getIdDcSubject(con, dcSubject);
         }
         return idDcSubject;
     }
@@ -968,7 +982,7 @@ final class ImageFilesDatabase extends Database {
             if (idXmp > 0) {
                 PreparedStatement stmt = null;
                 try {
-                    Xmp oldXmp = getXmpOfImageFile(imageFile);
+                    Xmp oldXmp = getXmpOfImageFile(con, imageFile);
                     stmt = con.prepareStatement(getUpdateXmpStatement());
                     setXmpValues(stmt, idFile, xmp);
                     stmt.setLong(19, idXmp);
@@ -1320,10 +1334,25 @@ final class ImageFilesDatabase extends Database {
         }
         Xmp xmp = new Xmp();
         Connection con = null;
+        try {
+            con = getConnection();
+            return getXmpOfImageFile(con, imageFile);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            free(con);
+        }
+        return xmp;
+    }
+
+    public Xmp getXmpOfImageFile(Connection con, File imageFile) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+        Xmp xmp = new Xmp();
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement(getXmpOfStatement());
             stmt.setString(1, imageFile.getAbsolutePath());
             LOGGER.log(Level.FINEST, stmt.toString());
@@ -1356,7 +1385,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return xmp;
     }
@@ -2432,10 +2460,22 @@ final class ImageFilesDatabase extends Database {
         }
         Long id = null;
         Connection con = null;
+        try {
+            con = getConnection();
+            id = getIdDcSubject(con, dcSubject);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            free(con);
+        }
+        return id;
+    }
+
+    private Long getIdDcSubject(Connection con, String dcSubject) {
+        Long id = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement("SELECT id FROM dc_subjects WHERE subject = ?");
             stmt.setString(1, dcSubject);
             LOGGER.log(Level.FINEST, stmt.toString());
@@ -2447,7 +2487,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return id;
     }
@@ -2455,10 +2494,22 @@ final class ImageFilesDatabase extends Database {
     public boolean existsXmpDcSubjectsLink(long idXmp, long idDcSubject) {
         boolean exists = false;
         Connection con = null;
+        try {
+            con = getConnection();
+            exists = existsXmpDcSubjectsLink(con, idXmp, idDcSubject);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            free(con);
+        }
+        return exists;
+    }
+
+    private boolean existsXmpDcSubjectsLink(Connection con, long idXmp, long idDcSubject) {
+        boolean exists = false;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement("SELECT COUNT(*) FROM xmp_dc_subject WHERE id_xmp = ? AND id_dc_subject = ?");
             stmt.setLong(1, idXmp);
             stmt.setLong(2, idDcSubject);
@@ -2471,7 +2522,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return exists;
     }
@@ -2574,7 +2624,6 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             stmt = con.createStatement();
-            con.setAutoCommit(false);
             String sql = "SELECT COUNT(*) FROM files";
             LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
@@ -2598,7 +2647,6 @@ final class ImageFilesDatabase extends Database {
         try {
             con = getConnection();
             stmt = con.createStatement();
-            con.setAutoCommit(false);
             String sql = "SELECT s.SUBJECT, COUNT(s.SUBJECT) from DC_SUBJECTS s JOIN XMP_DC_SUBJECT x ON s.ID = x.ID_DC_SUBJECT GROUP BY s.SUBJECT";
             LOGGER.log(Level.FINEST, sql);
             rs = stmt.executeQuery(sql);
@@ -2621,7 +2669,6 @@ final class ImageFilesDatabase extends Database {
         int count = 0;
         try {
             con = getConnection();
-            con.setAutoCommit(false);
             String sql = "SELECT COUNT(s.SUBJECT) from DC_SUBJECTS s JOIN XMP_DC_SUBJECT x ON s.ID = x.ID_DC_SUBJECT WHERE s.SUBJECT = ? GROUP BY s.SUBJECT";
             LOGGER.log(Level.FINEST, sql);
             stmt = con.prepareStatement(sql);
@@ -2656,7 +2703,6 @@ final class ImageFilesDatabase extends Database {
 
         try {
             con = getConnection();
-            con.setAutoCommit(false);
             stmt = con.createStatement();
 
             LOGGER.log(Level.FINEST, sql);

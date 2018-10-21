@@ -1,5 +1,6 @@
 package org.jphototagger.domain.repository;
 
+import java.sql.Connection;
 import java.util.List;
 import org.jphototagger.domain.programs.Program;
 
@@ -9,6 +10,8 @@ import org.jphototagger.domain.programs.Program;
 public interface ActionsAfterRepoUpdatesRepository {
 
     boolean deleteAction(Program program);
+
+    boolean deleteAction(Connection con, Program program);
 
     boolean existsAction(Program action);
 

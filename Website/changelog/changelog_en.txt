@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.40.0 2018-10-20
+-----------------
+
+* HSQL database updated to version 2.4.1. When starting,
+  old databases will be converted into the new format and
+  can't be used by previous JPhotoTagger versions anymore.
+
 0.37.11 2018-10-05
 ------------------
 

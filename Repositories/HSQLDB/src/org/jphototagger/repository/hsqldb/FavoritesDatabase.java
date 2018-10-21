@@ -147,7 +147,7 @@ final class FavoritesDatabase extends Database {
         try {
             con = getConnection();
             con.setAutoCommit(false);
-            Favorite oldFavorite = find(favorite.getId());
+            Favorite oldFavorite = find(con, favorite.getId());
             stmt = con.prepareStatement("UPDATE favorite_directories SET"
                     + " favorite_name = ?, directory_name = ?, favorite_index = ?"
                     + " WHERE id = ?");
@@ -202,13 +202,11 @@ final class FavoritesDatabase extends Database {
         return favorites;
     }
 
-    private Favorite find(Long id) {
+    private Favorite find(Connection con, Long id) {
         Favorite favorite = null;
-        Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement("SELECT id, favorite_name, directory_name, favorite_index"
                     + " FROM favorite_directories WHERE id = ?");
             stmt.setLong(1, id);
@@ -225,7 +223,6 @@ final class FavoritesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return favorite;
     }
