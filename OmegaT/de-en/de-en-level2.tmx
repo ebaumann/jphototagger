@@ -2472,8 +2472,8 @@
       <tuv xml:lang="DE">
         <seg>A&amp;bbrechen</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&amp;Cancel</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180324T002223Z">
+        <seg>'&amp;Cancel</seg>
       </tuv>
     </tu>
     <tu>
@@ -3122,6 +3122,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Checking for new Version</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Aufgrund von Problemen wird diese zurückgesetzt (Dateien nach *.2x.bak umbenannt).</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181124T192709Z" creationid="elmar" creationdate="20181124T191351Z">
+        <seg>Due problems, it will be reverted (files renamed to *.2x.bak).</seg>
       </tuv>
     </tu>
     <tu>
@@ -4830,6 +4838,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Bitte lassen Sie anschließend alle Bilder erneut einlesen: Datei &gt; Ordner einlesen.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181124T191602Z" creationid="elmar" creationdate="20181124T191602Z">
+        <seg>Please let re read all images again: File &gt; Scan Folders.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Bitte prüfen Sie die Logdatei (Schaltfläche am Fensterrand unten).&lt;/html&gt;</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T191601Z">
@@ -5232,8 +5248,8 @@
       <tuv xml:lang="DE">
         <seg>Da eine Skriptdatei existiert, werden die Bilder nicht dem Album "{0}" hinzugefügt!</seg>
       </tuv>
-      <tuv xml:lang="EN" changeid="elmar" changedate="20180324T000320Z" creationid="elmar" creationdate="20180324T000320Z">
-        <seg>Because a script file exists, the images won't be added to the album "{0}"!</seg>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20180324T002239Z" creationid="elmar" creationdate="20180324T000320Z">
+        <seg>Because a script file exists, the images won''t be added to the album "{0}"!</seg>
       </tuv>
     </tu>
     <tu>
@@ -5418,6 +5434,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T185222Z">
         <seg>The complete manual is available as PDF document.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Das heißt, es wird eine leere Datenbank erstellt.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181124T191520Z" creationid="elmar" creationdate="20181124T191520Z">
+        <seg>This means, an empty database will be created.</seg>
       </tuv>
     </tu>
     <tu>
@@ -6218,6 +6242,14 @@
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T192821Z">
         <seg>The database couldn't be closed!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Die Datenbank wurde mit einer neueren Version ({0}) von HSQLDB erstellt.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181124T191300Z" creationid="elmar" creationdate="20181124T191300Z">
+        <seg>This database was created with a newer version ({0}) of HSQLDB.</seg>
       </tuv>
     </tu>
     <tu>
@@ -9240,6 +9272,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Ihre Stichwörter etc. bleiben erhalten, da diese neben den Bilddateien in XMP-Dateien gespeichert sind.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181124T192854Z" creationid="elmar" creationdate="20181124T192702Z">
+        <seg>Your keywords etc. will be kept, because they are stored in XMP sidecar files.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Im Baum finden...</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -10388,6 +10428,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Creates a new action</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Leider kann JPhotoTagger die bisherige Datenbank nicht auslesen.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181124T191443Z" creationid="elmar" creationdate="20181124T191443Z">
+        <seg>Unfortunately JPhotoTagger can't read the previous database.</seg>
       </tuv>
     </tu>
     <tu>
@@ -14988,6 +15036,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Windows Classic</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Wir bitten um Entschuldigung.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181124T192935Z" creationid="elmar" creationdate="20181124T192935Z">
+        <seg>Please apologize for that.</seg>
       </tuv>
     </tu>
     <tu>

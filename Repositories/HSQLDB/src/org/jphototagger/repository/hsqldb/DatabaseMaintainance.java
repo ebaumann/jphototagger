@@ -22,7 +22,7 @@ final class DatabaseMaintainance extends Database {
     }
 
     void shutdown() {
-        if (!RepositoryImpl.INSTANCE.isInit()) {
+        if (!ConnectionPool.INSTANCE.isInit()) {
             return;
         }
         Connection con = null;
@@ -43,8 +43,8 @@ final class DatabaseMaintainance extends Database {
             close(stmt);
             free(con);
             if (shutdown) {
-                RepositoryImpl.INSTANCE.closeAllConnections();
-                RepositoryImpl.INSTANCE.setShutdown();
+                ConnectionPool.INSTANCE.closeAllConnections();
+                ConnectionPool.INSTANCE.setShutdown();
             }
         }
     }

@@ -1,7 +1,6 @@
 package org.jphototagger.repository.hsqldb;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.api.branding.AppProperties;
@@ -32,8 +31,10 @@ public final class AppDatabase {
         assert !init;
 
         if (!init) {
+            DatabaseFixes dbFixes = new DatabaseFixes();
             try {
-                RepositoryImpl.INSTANCE.init();
+                dbFixes.preConnect();
+                ConnectionPool.INSTANCE.init();
                 ensureAppIsNotTooOld();
                 ensureThumbnailDirExists();
                 DatabaseUpdate databaseUpdate = new DatabaseUpdate();
@@ -41,9 +42,10 @@ public final class AppDatabase {
                 DatabaseTables.INSTANCE.createTables();
                 databaseUpdate.postCreateTables();
                 persistDatabaseVersion();
+                dbFixes.postConnect();
                 init = true;
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+            } catch (Throwable t) {
+                throw new RuntimeException(t);
             }
         }
     }

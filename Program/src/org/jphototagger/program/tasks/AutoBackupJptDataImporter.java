@@ -16,6 +16,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import org.jphototagger.domain.backup.ImportNewestAutoBackup;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
 import org.jphototagger.domain.repository.RepositoryDataImporter;
 import org.jphototagger.lib.comparator.FileLastModifiedDescendingComparator;
@@ -26,6 +27,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * @author Elmar Baumann
@@ -38,6 +40,8 @@ public final class AutoBackupJptDataImporter {
 
         private static final long serialVersionUID = 1L;
         private final List<File> files;
+        private boolean skipConfirm;
+        private boolean message = true;
 
         private ImportAction(List<File> files) {
             this.files = new ArrayList<>(files);
@@ -54,7 +58,7 @@ public final class AutoBackupJptDataImporter {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (confirmImport()) {
+            if (skipConfirm || confirmImport()) {
                 importFiles();
                 messageImported();
             }
@@ -92,9 +96,11 @@ public final class AutoBackupJptDataImporter {
         }
 
         private void messageImported() {
-            Frame parent = ComponentUtil.findFrameWithIcon();
-            String message = Bundle.getString(ImportAction.class, "ImportAction.MessageImported");
-            MessageDisplayer.information(parent, message);
+            if (message) {
+                Frame parent = ComponentUtil.findFrameWithIcon();
+                String message = Bundle.getString(ImportAction.class, "ImportAction.MessageImported");
+                MessageDisplayer.information(parent, message);
+            }
         }
     }
 
@@ -174,7 +180,32 @@ public final class AutoBackupJptDataImporter {
         return patterns;
     }
 
-    private AutoBackupJptDataImporter() {
+    @ServiceProvider(service = ImportNewestAutoBackup.class)
+    public static final class ImportNewestAutoBackupImpl implements ImportNewestAutoBackup {
+
+        @Override
+        public void doImport() {
+            List<File> newestFileset = null;
+            long newestLastModified = 0;
+            for (List<File> fs : getFilesets()) {
+                if (!fs.isEmpty()) {
+                    long lastModified = fs.get(0).lastModified();
+                    if (lastModified > newestLastModified) {
+                        newestLastModified = lastModified;
+                        newestFileset = fs;
+                    }
+                }
+            }
+            if (newestFileset != null) {
+                ImportAction action = new ImportAction(newestFileset);
+
+                action.skipConfirm = true;
+                action.message = false;
+                action.actionPerformed(new ActionEvent(this, 1, "import"));
+            }
+        }
     }
 
+    private AutoBackupJptDataImporter() {
+    }
 }
