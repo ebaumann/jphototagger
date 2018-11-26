@@ -646,7 +646,7 @@ final class ImageFilesDatabase extends Database {
             stmt = con.prepareStatement("DELETE FROM files WHERE filename = ?");
             for (File imageFile : imageFiles) {
                 Xmp xmp = getXmpOfImageFile(imageFile);
-                Exif exif = getExifOfImageFile(imageFile);
+                Exif exif = getExifOfImageFile(imageFile, con);
                 stmt.setString(1, imageFile.getAbsolutePath());
                 LOGGER.log(Level.FINER, stmt.toString());
                 int countAffectedRows = stmt.executeUpdate();
@@ -691,7 +691,7 @@ final class ImageFilesDatabase extends Database {
                 event.setInfo(null);
                 if (!imgFile.exists()) {
                     Xmp xmp = getXmpOfImageFile(imgFile);
-                    Exif exif = getExifOfImageFile(imgFile);
+                    Exif exif = getExifOfImageFile(imgFile, con);
                     int deletedRows = deleteRowWithFilename(con, imgFile);
                     countDeleted += deletedRows;
                     if (deletedRows > 0) {
@@ -1745,7 +1745,7 @@ final class ImageFilesDatabase extends Database {
             if (idExif > 0) {
                 PreparedStatement stmt = null;
                 try {
-                    Exif oldExif = getExifOfImageFile(imageFile);
+                    Exif oldExif = getExifOfImageFile(imageFile, con);
                     stmt = con.prepareStatement(getUpdateExifStatement());
                     setExifValues(stmt, idFile, exif);
                     stmt.setLong(10, idFile);
@@ -2174,12 +2174,26 @@ final class ImageFilesDatabase extends Database {
         if (imageFile == null) {
             throw new NullPointerException("imageFile == null");
         }
-        Exif exif = null;
         Connection con = null;
+        try {
+            con = getConnection();
+            return getExifOfImageFile(imageFile, con);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+            return null;
+        } finally {
+            free(con);
+        }
+    }
+
+    private Exif getExifOfImageFile(File imageFile, Connection con) {
+        if (imageFile == null) {
+            throw new NullPointerException("imageFile == null");
+        }
+        Exif exif = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            con = getConnection();
             stmt = con.prepareStatement(getExifOfStatement());
             stmt.setString(1, imageFile.getAbsolutePath());
             LOGGER.log(Level.FINEST, stmt.toString());
