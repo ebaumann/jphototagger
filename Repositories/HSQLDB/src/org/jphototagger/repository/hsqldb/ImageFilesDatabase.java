@@ -2219,7 +2219,6 @@ final class ImageFilesDatabase extends Database {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
             close(rs, stmt);
-            free(con);
         }
         return exif;
     }
