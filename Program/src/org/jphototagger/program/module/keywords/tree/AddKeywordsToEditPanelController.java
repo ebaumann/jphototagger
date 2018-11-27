@@ -47,19 +47,20 @@ public class AddKeywordsToEditPanelController extends KeywordsController impleme
 
     @Override
     protected boolean canHandleMultipleNodes() {
-        return false;
+        return true;
     }
 
     @Override
-    protected void localAction(List<DefaultMutableTreeNode> nodes) {
-        final DefaultMutableTreeNode node = nodes.get(0);
+    protected void localAction(final List<DefaultMutableTreeNode> nodes) {
         final List<String> keywordNames = new ArrayList<>();
 
         EventQueueUtil.invokeInDispatchThread(new Runnable() {
 
             @Override
             public void run() {
-                addParentKeywords(node, keywordNames);
+                for(final DefaultMutableTreeNode node: nodes) {
+                    addParentKeywords(node, keywordNames);
+                }
                 addToEditPanel(keywordNames);
             }
         });
