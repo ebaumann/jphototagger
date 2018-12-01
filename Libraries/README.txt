@@ -2,7 +2,7 @@ beansbinding.jar -> Beansbinding 1.2.1 Release 2007/11/02 https://svn.java.net/s
 eventbus.jar -> eventbus-1.4.jar EventBus 1.4 http://java.net/projects/eventbus https://svn.java.net/svn/eventbus~svn
 hsqldb.jar -> HSQLDB 2.4.1 HyperSQL Database Engine, http://hsqldb.org/
 ImgrRdr.jar -> ImgrRdr200_RC10.jar (http://reader.imagero.com/)
-javax-activation.jar -> activation-1.1.1.jar JavaBeans Activation Framework (https://mvnrepository.com/artifact/javax.activation/activation/1.1.1)
+jaxb-activation.jar -> activation-1.1.1.jar JavaBeans Activation Framework (https://mvnrepository.com/artifact/javax.activation/activation/1.1.1)
 jaxb-api.jar -> jaxb-api-2.2.11.jar JAXB API (https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api/2.2.11)
 jaxb-core.jar -> jaxb-core-2.2.11.jar Old JAXB Core module (https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core/2.2.11)
 jaxb-impl.jar -> jaxb-impl-2.2.11.jar Old JAXB Runtime module (https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl/2.2.11)
