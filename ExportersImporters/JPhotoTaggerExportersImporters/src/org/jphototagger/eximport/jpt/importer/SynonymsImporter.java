@@ -30,7 +30,6 @@ import org.xml.sax.SAXException;
 @ServiceProvider(service = RepositoryDataImporter.class)
 public final class SynonymsImporter implements RepositoryDataImporter, EntityResolver {
 
-    private static final long serialVersionUID = 1L;
     private final SynonymsRepository repo = Lookup.getDefault().lookup(SynonymsRepository.class);
 
     @Override
@@ -98,7 +97,7 @@ public final class SynonymsImporter implements RepositoryDataImporter, EntityRes
         if (systemId.endsWith(dtd)) {
             String name = "/org/jphototagger/program/resource/dtd/" + dtd;
 
-            stream = EntityResolver.class.getResourceAsStream(name);
+            stream = SynonymsImporter.class.getResourceAsStream(name);
             assert stream != null : name;
         }
 

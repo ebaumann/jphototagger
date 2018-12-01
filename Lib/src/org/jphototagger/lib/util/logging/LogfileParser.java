@@ -158,7 +158,7 @@ public final class LogfileParser implements EntityResolver {
         InputStream stream = null;
 
         if (systemId.endsWith("logger.dtd")) {
-            stream = EntityResolver.class.getResourceAsStream("/org/jphototagger/lib/util/logging/logger.dtd");
+            stream = LogfileParser.class.getResourceAsStream("/org/jphototagger/lib/util/logging/logger.dtd");
         }
 
         return new InputSource(new InputStreamReader(stream));

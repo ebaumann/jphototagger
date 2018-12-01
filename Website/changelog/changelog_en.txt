@@ -3,11 +3,16 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
-0.41.1 2018-11-29
+0.41.1 2018-12-01
 -----------------
 
 * In the keywords tree right and input helper multiple keywords
   can be selected and applied to images via drag & drop.
+* Integrated JAXB libraries. These were removed in Java 9.
+  Hence parts of JPhotoTagger imports and exports wouldn't
+  work, if JPhotoTagger runs with Java 9 or higher.
+* Increased count of automatically saved JPhotoTagger data
+  from 5 to 9.
 
 0.41.0 2018-11-24
 -----------------

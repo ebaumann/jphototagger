@@ -164,7 +164,7 @@ public final class KeywordsImporterJpt extends KeywordsImporter implements Repos
         if (systemId.endsWith(dtd)) {
             String name = "/org/jphototagger/program/resource/dtd/" + dtd;
 
-            stream = EntityResolver.class.getResourceAsStream(name);
+            stream = KeywordsImporterJpt.class.getResourceAsStream(name);
             assert stream != null : name;
         }
 

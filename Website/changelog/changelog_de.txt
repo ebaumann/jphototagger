@@ -3,13 +3,18 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
-0.41.1 2018-11-29
+0.41.1 2018-12-01
 -----------------
 
 * Im Stichwortbaum rechts und in den Eingabehilfen können
   mehrere Stichwörter ausgewählt werden und von dort aus per
   Drag & Drop auf die Bilder übertragen statt bislang nur
   ein einziges Stichwort.
+* JAXB-Bibliotheken eingebunden. Diese wurden in Java 9 entfernt.
+  Damit funktionierten Teile des JPhotoTagger-Exports und -Imports
+  nicht mehr, falls JPhotoTagger mit Java 9 oder höher läuft.
+* Anzahl automatisch gesicherter JPhotoTagger-Daten von 5 auf 9
+  erhöht.
 
 0.41.0 2018-11-24
 -----------------

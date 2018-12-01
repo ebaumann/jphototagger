@@ -23,7 +23,7 @@ public final class AutoBackupJptData implements AppExitTask {
 
     public static final String AUTO_BACKUP_DIRNAME = "Autobackup";
     private static final Logger LOGGER = Logger.getLogger(AutoBackupJptData.class.getName());
-    private static final int MAX_VERSIONS = 5;
+    private static final int MAX_VERSIONS = 9;
 
     @Override
     public void execute() {
