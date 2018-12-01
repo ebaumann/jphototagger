@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.41.2 2018-12-01
+-----------------
+
+* Increased maximum thumbnail size from 400 pixels per side
+  to 800 pixels.
+
 0.41.1 2018-12-01
 -----------------
 
