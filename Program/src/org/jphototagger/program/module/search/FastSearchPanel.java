@@ -122,7 +122,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
         return prefs.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 ? prefs.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                : false;
+                : true;
     }
 
     private boolean getPersistedAutocomplete() {

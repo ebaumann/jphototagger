@@ -66,7 +66,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         return prefs.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 ? prefs.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                : false;
+                : true;
     }
 
     private boolean isAutocomplete() {

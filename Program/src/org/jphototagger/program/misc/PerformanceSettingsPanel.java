@@ -142,7 +142,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
         return prefs.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 ? prefs.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                : false;
+                : true;
     }
 
     private void persistAutoscanDirectories() {

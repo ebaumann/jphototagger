@@ -82,7 +82,7 @@ public final class AutoCompleteData {
 
         return prefs.containsKey(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
                 ? prefs.getBoolean(DomainPreferencesKeys.KEY_AUTOCOMPLETE_FAST_SEARCH_IGNORE_CASE)
-                : false;
+                : true;
     }
 
     private boolean isUpdateAutocomplete() {

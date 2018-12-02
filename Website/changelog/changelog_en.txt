@@ -8,6 +8,8 @@ Changelog JPhotoTagger https://jphototagger.org/
 
 * User can define up to 10 Shortcuts for applying specific
   keywords: Windows > Shortcuts for applying keywords fast...
+* Autocomplete in fast search text field is cases insensitive
+  by default
 
 0.41.2 2018-12-01
 -----------------
