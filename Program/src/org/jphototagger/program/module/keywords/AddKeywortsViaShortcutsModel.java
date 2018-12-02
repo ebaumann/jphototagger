@@ -71,7 +71,6 @@ public final class AddKeywortsViaShortcutsModel {
      */
     public void save(KeywordNumber keywordNumber, String keywords) {
         Objects.requireNonNull(keywordNumber, "keywordNumber == null");
-        Objects.requireNonNull(keywords, "keywords == null");
 
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
@@ -79,6 +78,20 @@ public final class AddKeywortsViaShortcutsModel {
             prefs.setString(keywordNumber.persistenceKey, keywords);
         } else {
             prefs.removeKey(keywordNumber.persistenceKey);
+        }
+    }
+
+    public void save(KeywordNumber keywordNumber, Collection<String> keywords) {
+        Objects.requireNonNull(keywordNumber, "keywordNumber == null");
+        Objects.requireNonNull(keywords, "keywords == null");
+
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+
+        if (keywords.isEmpty()) {
+            prefs.removeKey(keywordNumber.persistenceKey);
+        } else {
+            String keywordsString = CollectionUtil.toTokenString(keywords,  DELIMITER, DELIMITER);
+            save(keywordNumber, keywordsString);
         }
     }
 
@@ -117,5 +130,12 @@ public final class AddKeywortsViaShortcutsModel {
         return keywords.isEmpty()
                 ? null
                 : CollectionUtil.toTokenString(keywords, DELIMITER, DELIMITER);
+    }
+
+    public boolean existsKeyword(KeywordNumber keywordNumber) {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        return keywordNumber == null
+                ? false
+                : prefs.containsKey(keywordNumber.persistenceKey);
     }
 }
