@@ -268,7 +268,7 @@ public final class ComponentUtil {
         }
     }
 
-    public static void registerForSetUnvisibleOnEscape(JDialog dialog) {
+    public static void registerForSetInvisibleOnEscape(JDialog dialog) {
         Objects.requireNonNull(dialog, "dialog == null");
 
         KeyStroke keyStrokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
