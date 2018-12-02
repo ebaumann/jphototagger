@@ -77,6 +77,8 @@ public final class AddKeywortsViaShortcutsModel {
 
         if (StringUtil.hasContent(keywords)) {
             prefs.setString(keywordNumber.persistenceKey, keywords);
+        } else {
+            prefs.removeKey(keywordNumber.persistenceKey);
         }
     }
 
