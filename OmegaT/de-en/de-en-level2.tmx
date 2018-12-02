@@ -2214,6 +2214,14 @@
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>&lt;html&gt;Fügt Bildern definierte Stichwörter über Tastenkombinationen hinzu, falls das Vorschaubildfenster ausgewählt ist.&lt;p&gt;Mehrere Stichwörter durch Strichpunkt ({0}) trennen.</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181202T172712Z" creationid="elmar" creationdate="20181202T172712Z">
+        <seg>&lt;html&gt;Adds to images defined keywords through keyboard shortcuts, if the thumbnails window is selected.&lt;p&gt;Delimit multiple keywords through a semicolon ({0}).</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>&lt;html&gt;Fügt unbekannte Stichwörter automatisch in den Stichwortbaum ein,&lt;br/&gt;die im Bearbeiten-Kartenreiter eingegeben oder aus XMP-Dateien gelesen werden.</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20131104T174021Z">
@@ -13472,6 +13480,22 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="DE">
+        <seg>Stichwort-Schnellzuordnungs-Tastenkombinationen</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181202T172556Z" creationid="elmar" creationdate="20181202T172556Z">
+        <seg>Shortcuts for applying keywords fast</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Stichwort-Schnellzuordnungs-Tastenkombinationen...</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181202T172552Z" creationid="elmar" creationdate="20181202T172552Z">
+        <seg>Shortcuts for applying keywords fast...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
         <seg>Stichwortanzahl in Baum-/Listenansichten anzeigen</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20180311T200927Z" creationid="elmar" creationdate="20180311T200927Z">
@@ -13812,6 +13836,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv xml:lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Tabulator</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="DE">
+        <seg>Tastenkombination</seg>
+      </tuv>
+      <tuv xml:lang="EN" changeid="elmar" changedate="20181202T173852Z" creationid="elmar" creationdate="20181202T172724Z">
+        <seg>Keyboard Shortcut</seg>
       </tuv>
     </tu>
     <tu>
