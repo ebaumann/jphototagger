@@ -72,7 +72,8 @@ public final class SetRatingController implements ActionListener, KeyListener {
     }
 
     private boolean isRatingKey(KeyEvent evt) {
-        return RATING_OF_KEY_CODE.containsKey(evt.getKeyCode());
+        return evt.getModifiers() == 0
+                && RATING_OF_KEY_CODE.containsKey(evt.getKeyCode());
     }
 
     @Override
