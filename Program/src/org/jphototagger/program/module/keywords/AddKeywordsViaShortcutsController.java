@@ -105,6 +105,7 @@ public final class AddKeywordsViaShortcutsController {
         panel.getTable().setModel(tm);
         panel.getTable().setDefaultRenderer(KeywordNumber.class, new KeywordNumberRenderer());
         panel.getTable().setCellEditor(new DefaultCellEditor(new JTextField()));
+        panel.getTable().putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         dlg.setTitle(Bundle.getString(AddKeywordsViaShortcutsController.class, "AddKeywordsViaShortcutsController.InputDlg.Title"));
         dlg.setComponent(panel);
         dlg.setLocationRelativeTo(frame);
