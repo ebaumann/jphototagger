@@ -3,7 +3,7 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
-0.41.3 2018-12-02
+0.41.3 2018-12-04
 -----------------
 
 * Es können bis zu 10 Tastenkombinationen definiert werden

@@ -3,7 +3,7 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
-0.41.3 2018-12-02
+0.41.3 2018-12-04
 -----------------
 
 * User can define up to 10 Shortcuts for applying specific
