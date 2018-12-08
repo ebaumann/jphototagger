@@ -30,6 +30,9 @@ public class Dialog extends JDialog {
     private String preferencesKey;
     private boolean ignorePersistedSizeAndLocation;
 
+    public Dialog() {
+    }
+
     public Dialog(Frame owner, boolean modal) {
         super(owner, modal);
         init();
