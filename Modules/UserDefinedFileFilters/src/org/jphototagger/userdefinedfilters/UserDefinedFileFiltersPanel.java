@@ -164,6 +164,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenu = new javax.swing.JPopupMenu();
         menuItemInsert = new javax.swing.JMenuItem();
@@ -171,18 +172,19 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         menuItemDelete = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
+        panelButtons = new javax.swing.JPanel();
         buttonInsert = new javax.swing.JButton();
         buttonUpdate = new javax.swing.JButton();
         buttonDelete = new javax.swing.JButton();
 
         popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                popupMenuPopupMenuWillBecomeVisible(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-                popupMenuPopupMenuWillBecomeVisible(evt);
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
 
@@ -218,6 +220,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         popupMenu.add(menuItemDelete);
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
 
@@ -237,6 +240,16 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         });
         scrollPane.setViewportView(list);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(scrollPane, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
+
         buttonInsert.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonInsert.text")); // NOI18N
         buttonInsert.setName("buttonInsert"); // NOI18N
         buttonInsert.addActionListener(new java.awt.event.ActionListener() {
@@ -244,6 +257,11 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
                 buttonInsertActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        panelButtons.add(buttonInsert, gridBagConstraints);
 
         buttonUpdate.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonUpdate.text")); // NOI18N
         buttonUpdate.setEnabled(false);
@@ -253,6 +271,12 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
                 buttonUpdateActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonUpdate, gridBagConstraints);
 
         buttonDelete.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
@@ -262,30 +286,17 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
                 buttonDeleteActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonDelete, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(buttonInsert)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonUpdate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonDelete))
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonInsert)
-                    .addComponent(buttonUpdate)
-                    .addComponent(buttonDelete)))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInsertActionPerformed
@@ -331,6 +342,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
     private javax.swing.JMenuItem menuItemDelete;
     private javax.swing.JMenuItem menuItemInsert;
     private javax.swing.JMenuItem menuItemUpdate;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
