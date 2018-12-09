@@ -106,27 +106,45 @@ public class SystemOutputPanel extends JPanel {
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
+        panelButttons = new javax.swing.JPanel();
         searchPanel = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         searchPanel.setSearchableTextComponent(textArea);
         buttonDelete = new javax.swing.JButton();
         buttonCopyToClipboard = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
+        scrollPane.setPreferredSize(new java.awt.Dimension(300, 200));
 
-        textArea.setColumns(1);
         textArea.setEditable(false);
+        textArea.setColumns(1);
         textArea.setLineWrap(true);
         textArea.setTabSize(4);
         textArea.setWrapStyleWord(true);
         textArea.setName("textArea"); // NOI18N
         scrollPane.setViewportView(textArea);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(scrollPane, gridBagConstraints);
+
+        panelButttons.setName("panelButttons"); // NOI18N
+        panelButttons.setLayout(new java.awt.GridBagLayout());
+
         searchPanel.setName("searchPanel"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        panelButttons.add(searchPanel, gridBagConstraints);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
@@ -137,6 +155,9 @@ public class SystemOutputPanel extends JPanel {
                 buttonDeleteActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        panelButttons.add(buttonDelete, gridBagConstraints);
 
         buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
         buttonCopyToClipboard.setToolTipText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
@@ -146,36 +167,16 @@ public class SystemOutputPanel extends JPanel {
                 buttonCopyToClipboardActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButttons.add(buttonCopyToClipboard, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-                .addComponent(buttonDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCopyToClipboard))
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCopyToClipboard, buttonDelete});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonCopyToClipboard)
-                        .addComponent(buttonDelete))
-                    .addComponent(searchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCopyToClipboard, buttonDelete, searchPanel});
-
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelButttons, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonCopyToClipboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyToClipboardActionPerformed
@@ -189,6 +190,7 @@ public class SystemOutputPanel extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCopyToClipboard;
     private javax.swing.JButton buttonDelete;
+    private javax.swing.JPanel panelButttons;
     private javax.swing.JScrollPane scrollPane;
     private org.jphototagger.lib.swing.TextComponentSearchPanel searchPanel;
     private javax.swing.JTextArea textArea;

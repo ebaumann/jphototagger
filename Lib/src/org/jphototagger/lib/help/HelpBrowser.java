@@ -584,7 +584,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         buttonSearchInCurrentPage = new javax.swing.JButton();
         buttonGotoPreviousUrl = new javax.swing.JButton();
         buttonGotoNextUrl = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        menuBar = new javax.swing.JMenuBar();
         menuView = new javax.swing.JMenu();
         menuItemTextFontSizeSmall = new javax.swing.JRadioButtonMenuItem();
         menuItemTextFontSizeNormal = new javax.swing.JRadioButtonMenuItem();
@@ -604,6 +604,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/help/Bundle"); // NOI18N
         setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
         setName("Form"); // NOI18N
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         splitPane.setDividerLocation(250);
         splitPane.setDividerSize(2);
@@ -687,7 +688,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         scrollPanePage.setPreferredSize(new java.awt.Dimension(200, 24));
 
         editorPanePage.setEditable(false);
-        editorPanePage.setFont(new java.awt.Font("Verdana", 0, 14));
+        editorPanePage.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
         editorPanePage.setComponentPopupMenu(popupMenuEditorPane);
         editorPanePage.setName("editorPanePage"); // NOI18N
         scrollPanePage.setViewportView(editorPanePage);
@@ -733,7 +734,16 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
         splitPane.setRightComponent(panelPage);
 
-        jMenuBar1.setName("jMenuBar1"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(splitPane, gridBagConstraints);
+
+        menuBar.setName("menuBar"); // NOI18N
 
         menuView.setText(bundle.getString("HelpBrowser.menuView.text")); // NOI18N
         menuView.setName("menuView"); // NOI18N
@@ -779,26 +789,9 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         });
         menuView.add(menuItemTextFontSizeHuge);
 
-        jMenuBar1.add(menuView);
+        menuBar.add(menuView);
 
-        setJMenuBar(jMenuBar1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        setJMenuBar(menuBar);
 
         bindingGroup.bind();
 
@@ -832,9 +825,9 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     private javax.swing.JButton buttonPrint;
     private javax.swing.JButton buttonSearchInCurrentPage;
     private org.jdesktop.swingx.JXEditorPane editorPanePage;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel labelSearch;
     private org.jdesktop.swingx.JXList listSearchResults;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuItemGotNextUrl;
     private javax.swing.JMenuItem menuItemGotoPreviousUrl;
     private javax.swing.JRadioButtonMenuItem menuItemTextFontSizeHuge;

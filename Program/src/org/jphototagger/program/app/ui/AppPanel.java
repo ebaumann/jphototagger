@@ -1141,6 +1141,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         panelThumbnailsMetadata.setMinimumSize(new java.awt.Dimension(100, 200));
         panelThumbnailsMetadata.setName("panelThumbnailsMetadata"); // NOI18N
+        panelThumbnailsMetadata.setLayout(new java.awt.GridBagLayout());
 
         splitPaneThumbnailsMetadata.setDividerSize(6);
         splitPaneThumbnailsMetadata.setName("splitPaneThumbnailsMetadata"); // NOI18N
@@ -1173,20 +1174,13 @@ public final class AppPanel extends javax.swing.JPanel {
 
         splitPaneThumbnailsMetadata.setRightComponent(panelMetadata);
 
-        javax.swing.GroupLayout panelThumbnailsMetadataLayout = new javax.swing.GroupLayout(panelThumbnailsMetadata);
-        panelThumbnailsMetadata.setLayout(panelThumbnailsMetadataLayout);
-        panelThumbnailsMetadataLayout.setHorizontalGroup(
-            panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
-            .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
-        );
-        panelThumbnailsMetadataLayout.setVerticalGroup(
-            panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 367, Short.MAX_VALUE)
-            .addGroup(panelThumbnailsMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(splitPaneThumbnailsMetadata, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelThumbnailsMetadata.add(splitPaneThumbnailsMetadata, gridBagConstraints);
 
         splitPaneMain.setRightComponent(panelThumbnailsMetadata);
 

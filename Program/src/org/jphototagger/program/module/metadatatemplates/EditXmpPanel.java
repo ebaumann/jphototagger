@@ -397,17 +397,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         add(panelPhotoshopCaptionwriter, gridBagConstraints);
 
-        javax.swing.GroupLayout panelFillLayout = new javax.swing.GroupLayout(panelFill);
-        panelFill.setLayout(panelFillLayout);
-        panelFillLayout.setHorizontalGroup(
-            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelFillLayout.setVerticalGroup(
-            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        panelFill.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;

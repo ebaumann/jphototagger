@@ -29,6 +29,7 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
@@ -36,6 +37,7 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
         tree.setShowsRootHandles(true);
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
 
@@ -47,16 +49,12 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
         tree.setRootVisible(false);
         scrollPane.setViewportView(tree);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(scrollPane, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane scrollPane;

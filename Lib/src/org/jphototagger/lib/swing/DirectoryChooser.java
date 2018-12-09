@@ -499,6 +499,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         panelContents.add(panelDialogButtons, gridBagConstraints);

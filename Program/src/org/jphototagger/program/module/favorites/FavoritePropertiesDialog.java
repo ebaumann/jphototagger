@@ -226,11 +226,14 @@ public final class FavoritePropertiesDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         labelPromptFavoriteName = new javax.swing.JLabel();
         textFieldFavoriteName = new javax.swing.JTextField();
         buttonChooseDirectory = new javax.swing.JButton();
         labelDirectoryname = new javax.swing.JLabel();
+        panelButtons = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
 
@@ -243,23 +246,40 @@ public final class FavoritePropertiesDialog extends Dialog {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelPromptFavoriteName.setLabelFor(textFieldFavoriteName);
         labelPromptFavoriteName.setText(bundle.getString("FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
         labelPromptFavoriteName.setName("labelPromptFavoriteName"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(labelPromptFavoriteName, gridBagConstraints);
 
+        textFieldFavoriteName.setColumns(10);
         textFieldFavoriteName.setName("textFieldFavoriteName"); // NOI18N
         textFieldFavoriteName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldFavoriteNameKeyTyped(evt);
+            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldFavoriteNameKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldFavoriteNameKeyReleased(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                textFieldFavoriteNameKeyTyped(evt);
-            }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(textFieldFavoriteName, gridBagConstraints);
 
         buttonChooseDirectory.setText(bundle.getString("FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
@@ -268,9 +288,26 @@ public final class FavoritePropertiesDialog extends Dialog {
                 buttonChooseDirectoryActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(buttonChooseDirectory, gridBagConstraints);
 
+        labelDirectoryname.setText(" "); // NOI18N
         labelDirectoryname.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelDirectoryname.setName("labelDirectoryname"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(labelDirectoryname, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonCancel.setText(bundle.getString("FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
@@ -279,6 +316,7 @@ public final class FavoritePropertiesDialog extends Dialog {
                 buttonCancelActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonCancel, new java.awt.GridBagConstraints());
 
         buttonOk.setText(bundle.getString("FavoritePropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
@@ -288,43 +326,26 @@ public final class FavoritePropertiesDialog extends Dialog {
                 buttonOkActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonOk, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDirectoryname, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                    .addComponent(textFieldFavoriteName, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                    .addComponent(labelPromptFavoriteName)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonOk))
-                    .addComponent(buttonChooseDirectory, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(labelPromptFavoriteName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldFavoriteName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonChooseDirectory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDirectoryname, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonOk)
-                    .addComponent(buttonCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(panelButtons, gridBagConstraints);
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelDirectoryname, textFieldFavoriteName});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -363,6 +384,8 @@ public final class FavoritePropertiesDialog extends Dialog {
     private javax.swing.JButton buttonOk;
     private javax.swing.JLabel labelDirectoryname;
     private javax.swing.JLabel labelPromptFavoriteName;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JTextField textFieldFavoriteName;
     // End of variables declaration//GEN-END:variables
 }

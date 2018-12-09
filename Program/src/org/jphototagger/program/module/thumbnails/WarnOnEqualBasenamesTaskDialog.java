@@ -1,16 +1,16 @@
 package org.jphototagger.program.module.thumbnails;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Collection;
 import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
@@ -109,6 +109,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        GridBagConstraints gridBagConstraints;
 
         labelInfo = new JXLabel();
         scrollPanlFiles = new JScrollPane();
@@ -119,10 +120,18 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         setTitle(bundle.getString("WarnOnEqualBasenamesTaskDialog.title")); // NOI18N
         setName("Form"); // NOI18N
+        getContentPane().setLayout(new GridBagLayout());
 
         labelInfo.setText(bundle.getString("WarnOnEqualBasenamesTaskDialog.labelInfo.text")); // NOI18N
         labelInfo.setLineWrap(true);
         labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.2;
+        getContentPane().add(labelInfo, gridBagConstraints);
 
         scrollPanlFiles.setName("scrollPanlFiles"); // NOI18N
 
@@ -131,6 +140,15 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         listFiles.setName("listFiles"); // NOI18N
         scrollPanlFiles.setViewportView(listFiles);
 
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.8;
+        gridBagConstraints.insets = new Insets(7, 0, 0, 0);
+        getContentPane().add(scrollPanlFiles, gridBagConstraints);
+
         checkBoxDisplayInFuture.setText(bundle.getString("WarnOnEqualBasenamesTaskDialog.checkBoxDisplayInFuture.text")); // NOI18N
         checkBoxDisplayInFuture.setName("checkBoxDisplayInFuture"); // NOI18N
         checkBoxDisplayInFuture.addActionListener(new ActionListener() {
@@ -138,30 +156,12 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
                 checkBoxDisplayInFutureActionPerformed(evt);
             }
         });
-
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                    .addComponent(checkBoxDisplayInFuture)
-                    .addComponent(scrollPanlFiles, GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-                    .addComponent(labelInfo, GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(scrollPanlFiles, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                .addGap(10, 10, 10)
-                .addComponent(checkBoxDisplayInFuture)
-                .addContainerGap())
-        );
+        gridBagConstraints = new GridBagConstraints();
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new Insets(7, 0, 0, 0);
+        getContentPane().add(checkBoxDisplayInFuture, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents

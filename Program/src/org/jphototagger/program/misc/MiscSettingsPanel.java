@@ -337,6 +337,8 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         labelRepositoryDirectory = new javax.swing.JLabel();
         panelFill = new javax.swing.JPanel();
 
+        setLayout(new java.awt.GridBagLayout());
+
         panelDefault.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
@@ -571,17 +573,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
         panelDefault.add(panelRepositoryDirectory, gridBagConstraints);
 
-        javax.swing.GroupLayout panelFillLayout = new javax.swing.GroupLayout(panelFill);
-        panelFill.setLayout(panelFillLayout);
-        panelFillLayout.setHorizontalGroup(
-            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelFillLayout.setVerticalGroup(
-            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        panelFill.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
@@ -590,22 +582,13 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         tabbedPane.addTab(bundle.getString("MiscSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabbedPane)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabbedPane)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(tabbedPane, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void checkBoxCheckForUpdatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxCheckForUpdatesActionPerformed

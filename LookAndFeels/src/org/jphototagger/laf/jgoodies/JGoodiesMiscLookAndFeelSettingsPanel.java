@@ -100,13 +100,20 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         labelClassNames = new javax.swing.JLabel();
         comboBoxClassNames = new javax.swing.JComboBox<>();
 
+        setLayout(new java.awt.GridBagLayout());
+
         labelClassNames.setLabelFor(comboBoxClassNames);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/laf/jgoodies/Bundle"); // NOI18N
         labelClassNames.setText(bundle.getString("JGoodiesMiscLookAndFeelSettingsPanel.labelClassNames.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        add(labelClassNames, gridBagConstraints);
 
         comboBoxClassNames.setModel(classnamesComboBoxModel);
         comboBoxClassNames.setRenderer(classnamesListCellRenderer);
@@ -115,27 +122,11 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
                 comboBoxClassNamesActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelClassNames)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(comboBoxClassNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxClassNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelClassNames))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        add(comboBoxClassNames, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void comboBoxClassNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxClassNamesActionPerformed

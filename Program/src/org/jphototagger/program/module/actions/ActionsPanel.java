@@ -372,6 +372,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         add(scrollPane, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonDelete.setText(bundle.getString("ActionsPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setToolTipText(bundle.getString("ActionsPanel.buttonDelete.toolTipText")); // NOI18N
@@ -382,6 +383,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 buttonDeleteActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonDelete, new java.awt.GridBagConstraints());
 
         buttonEdit.setText(bundle.getString("ActionsPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setToolTipText(bundle.getString("ActionsPanel.buttonEdit.toolTipText")); // NOI18N
@@ -392,6 +394,9 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 buttonEditActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonEdit, gridBagConstraints);
 
         buttonCreate.setText(bundle.getString("ActionsPanel.buttonCreate.text")); // NOI18N
         buttonCreate.setToolTipText(bundle.getString("ActionsPanel.buttonCreate.toolTipText")); // NOI18N
@@ -401,6 +406,9 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 buttonCreateActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonCreate, gridBagConstraints);
 
         buttonExecute.setText(bundle.getString("ActionsPanel.buttonExecute.text")); // NOI18N
         buttonExecute.setToolTipText(bundle.getString("ActionsPanel.buttonExecute.toolTipText")); // NOI18N
@@ -411,28 +419,9 @@ public final class ActionsPanel extends javax.swing.JPanel {
                 buttonExecuteActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panelButtonsLayout = new javax.swing.GroupLayout(panelButtons);
-        panelButtons.setLayout(panelButtonsLayout);
-        panelButtonsLayout.setHorizontalGroup(
-            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelButtonsLayout.createSequentialGroup()
-                .addComponent(buttonDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCreate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonExecute))
-        );
-        panelButtonsLayout.setVerticalGroup(
-            panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(buttonExecute)
-                .addComponent(buttonCreate)
-                .addComponent(buttonEdit)
-                .addComponent(buttonDelete))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonExecute, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

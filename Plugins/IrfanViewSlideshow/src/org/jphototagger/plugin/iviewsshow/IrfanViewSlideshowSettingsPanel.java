@@ -4,8 +4,6 @@ import org.jphototagger.api.preferences.Preferences;
 import org.openide.util.Lookup;
 
 /**
- *
- *
  * @author  Elmar Baumann
  */
 public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
@@ -41,7 +39,6 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
 
         checkBoxReloadOnLoop = new javax.swing.JCheckBox();
         panelFill = new javax.swing.JPanel();
-        panelVersion = new javax.swing.JPanel();
         labelVersion = new javax.swing.JLabel();
 
         setName("Form"); // NOI18N
@@ -63,18 +60,7 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
         add(checkBoxReloadOnLoop, gridBagConstraints);
 
         panelFill.setName("panelFill"); // NOI18N
-
-        javax.swing.GroupLayout panelFillLayout = new javax.swing.GroupLayout(panelFill);
-        panelFill.setLayout(panelFillLayout);
-        panelFillLayout.setHorizontalGroup(
-            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelFillLayout.setVerticalGroup(
-            panelFillLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        panelFill.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -83,23 +69,14 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         add(panelFill, gridBagConstraints);
 
-        panelVersion.setName("panelVersion"); // NOI18N
-        panelVersion.setLayout(new java.awt.GridBagLayout());
-
         labelVersion.setText(bundle.getString("IrfanViewSlideshowSettingsPanel.labelVersion.text")); // NOI18N
         labelVersion.setName("labelVersion"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        panelVersion.add(labelVersion, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
-        add(panelVersion, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        add(labelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void checkBoxReloadOnLoopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxReloadOnLoopActionPerformed
@@ -109,6 +86,5 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkBoxReloadOnLoop;
     private javax.swing.JLabel labelVersion;
     private javax.swing.JPanel panelFill;
-    private javax.swing.JPanel panelVersion;
     // End of variables declaration//GEN-END:variables
 }

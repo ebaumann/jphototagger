@@ -386,6 +386,8 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         buttonCancelAction = new javax.swing.JButton();
         buttonStartMaintain = new javax.swing.JButton();
 
+        setLayout(new java.awt.GridBagLayout());
+
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         panelTasks.setLayout(new java.awt.GridBagLayout());
@@ -506,6 +508,8 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelMessages.add(labelMessages, gridBagConstraints);
 
+        scrollPaneMessages.setPreferredSize(new java.awt.Dimension(200, 150));
+
         textPaneMessages.setEditable(false);
         textPaneMessages.setContentType("text/html"); // NOI18N
         scrollPaneMessages.setViewportView(textPaneMessages);
@@ -588,22 +592,14 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelContent, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        add(panelContent, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed

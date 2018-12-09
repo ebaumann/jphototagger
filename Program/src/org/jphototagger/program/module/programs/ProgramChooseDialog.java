@@ -57,6 +57,7 @@ public class ProgramChooseDialog extends Dialog {
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         scrollPanePrograms = new javax.swing.JScrollPane();
@@ -66,6 +67,7 @@ public class ProgramChooseDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         setTitle(bundle.getString("ProgramChooseDialog.title")); // NOI18N
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         listPrograms.setModel(model);
         listPrograms.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -86,35 +88,26 @@ public class ProgramChooseDialog extends Dialog {
         });
         scrollPanePrograms.setViewportView(listPrograms);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 0, 7);
+        getContentPane().add(scrollPanePrograms, gridBagConstraints);
+
         buttonChooseProgram.setText(bundle.getString("ProgramChooseDialog.buttonChooseProgram.text")); // NOI18N
         buttonChooseProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseProgramActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanePrograms)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 264, Short.MAX_VALUE)
-                        .addComponent(buttonChooseProgram)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPanePrograms, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonChooseProgram)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(buttonChooseProgram, gridBagConstraints);
 
         bindingGroup.bind();
 

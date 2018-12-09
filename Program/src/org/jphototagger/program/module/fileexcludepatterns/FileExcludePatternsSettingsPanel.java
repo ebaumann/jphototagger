@@ -235,8 +235,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
      */
     @SuppressWarnings("unchecked")
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenu = new javax.swing.JPopupMenu();
@@ -279,6 +278,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         popupMenu.add(menuItemDeletePattern);
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         tabbedPane.setName("tabbedPane"); // NOI18N
 
@@ -352,7 +352,6 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonChooseDirs.setName("buttonChooseDirs"); // NOI18N
         buttonChooseDirs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirsActionPerformed(evt);
@@ -473,49 +472,40 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         tabbedPane.addTab(bundle.getString("FileExcludePatternsSettingsPanel.panelFiles.TabConstraints.tabTitle"), panelFiles); // NOI18N
 
         panelDirectoryFolder.setName("panelDirectoryFolder"); // NOI18N
+        panelDirectoryFolder.setLayout(new java.awt.GridBagLayout());
 
         labelInfopanelDirectoryFolder.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelInfopanelDirectoryFolder.text")); // NOI18N
         labelInfopanelDirectoryFolder.setName("labelInfopanelDirectoryFolder"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelDirectoryFolder.add(labelInfopanelDirectoryFolder, gridBagConstraints);
 
         scrollPanePanelDirectoryFolder.setName("scrollPanePanelDirectoryFolder"); // NOI18N
 
         panelSelectRootFiles.setName("panelSelectRootFiles"); // NOI18N
         scrollPanePanelDirectoryFolder.setViewportView(panelSelectRootFiles);
 
-        javax.swing.GroupLayout panelDirectoryFolderLayout = new javax.swing.GroupLayout(panelDirectoryFolder);
-        panelDirectoryFolder.setLayout(panelDirectoryFolderLayout);
-        panelDirectoryFolderLayout.setHorizontalGroup(
-            panelDirectoryFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDirectoryFolderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelDirectoryFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)
-                    .addComponent(labelInfopanelDirectoryFolder))
-                .addContainerGap())
-        );
-        panelDirectoryFolderLayout.setVerticalGroup(
-            panelDirectoryFolderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDirectoryFolderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfopanelDirectoryFolder)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanePanelDirectoryFolder, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelDirectoryFolder.add(scrollPanePanelDirectoryFolder, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("FileExcludePatternsSettingsPanel.panelDirectoryFolder.TabConstraints.tabTitle"), panelDirectoryFolder); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
-        );
-    }// </editor-fold>//GEN-END:initComponents
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(tabbedPane, gridBagConstraints);
+    }//GEN-END:initComponents
 
     private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged
         handleListValueChanged(evt);

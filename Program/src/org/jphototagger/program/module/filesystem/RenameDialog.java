@@ -402,18 +402,7 @@ public final class RenameDialog extends Dialog {
         panelThumbnail.setEnabled(false);
         panelThumbnail.setFocusable(false);
         panelThumbnail.setPreferredSize(new java.awt.Dimension(250, 250));
-
-        javax.swing.GroupLayout panelThumbnailLayout = new javax.swing.GroupLayout(panelThumbnail);
-        panelThumbnail.setLayout(panelThumbnailLayout);
-        panelThumbnailLayout.setHorizontalGroup(
-            panelThumbnailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 246, Short.MAX_VALUE)
-        );
-        panelThumbnailLayout.setVerticalGroup(
-            panelThumbnailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 246, Short.MAX_VALUE)
-        );
-
+        panelThumbnail.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

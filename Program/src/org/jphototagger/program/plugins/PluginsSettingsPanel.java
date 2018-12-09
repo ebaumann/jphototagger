@@ -140,6 +140,7 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
@@ -149,15 +150,22 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         panelExcludeCheckboxes = new javax.swing.JPanel();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelExclude.setName("panelExclude"); // NOI18N
+        panelExclude.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/plugins/Bundle"); // NOI18N
         labelInfoExclude.setText(bundle.getString("PluginsSettingsPanel.labelInfoExclude.text")); // NOI18N
         labelInfoExclude.setName("labelInfoExclude"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelExclude.add(labelInfoExclude, gridBagConstraints);
 
         scrollPaneExclude.setAlignmentX(0.0F);
         scrollPaneExclude.setAlignmentY(0.0F);
@@ -167,39 +175,24 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         panelExcludeCheckboxes.setLayout(new java.awt.GridBagLayout());
         scrollPaneExclude.setViewportView(panelExcludeCheckboxes);
 
-        javax.swing.GroupLayout panelExcludeLayout = new javax.swing.GroupLayout(panelExclude);
-        panelExclude.setLayout(panelExcludeLayout);
-        panelExcludeLayout.setHorizontalGroup(
-            panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelExcludeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                    .addComponent(labelInfoExclude))
-                .addContainerGap())
-        );
-        panelExcludeLayout.setVerticalGroup(
-            panelExcludeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelExcludeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfoExclude)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneExclude, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelExclude.add(scrollPaneExclude, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("PluginsSettingsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(tabbedPane, gridBagConstraints);
     }//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

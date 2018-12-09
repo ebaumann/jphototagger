@@ -114,6 +114,7 @@ public class LongMessageDialog extends Dialog {
         panelControls = new javax.swing.JPanel();
         panelSearch = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         panelSearch.setSearchableTextComponent(textArea);
+        panelButtons = new javax.swing.JPanel();
         buttonMail = new javax.swing.JButton();
         buttonCopy = new javax.swing.JButton();
         buttonClose = new javax.swing.JButton();
@@ -163,8 +164,18 @@ public class LongMessageDialog extends Dialog {
         getContentPane().add(scrollPane, gridBagConstraints);
 
         panelControls.setName("panelControls"); // NOI18N
+        panelControls.setLayout(new java.awt.GridBagLayout());
 
         panelSearch.setName("panelSearch"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelControls.add(panelSearch, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonMail.setText(bundle.getString("LongMessageDialog.buttonMail.text")); // NOI18N
         buttonMail.setToolTipText(bundle.getString("LongMessageDialog.buttonMail.toolTipText")); // NOI18N
@@ -175,6 +186,7 @@ public class LongMessageDialog extends Dialog {
                 buttonMailActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonMail, new java.awt.GridBagConstraints());
 
         buttonCopy.setText(bundle.getString("LongMessageDialog.buttonCopy.text")); // NOI18N
         buttonCopy.setToolTipText(bundle.getString("LongMessageDialog.buttonCopy.toolTipText")); // NOI18N
@@ -184,6 +196,9 @@ public class LongMessageDialog extends Dialog {
                 buttonCopyActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonCopy, gridBagConstraints);
 
         buttonClose.setText(bundle.getString("LongMessageDialog.buttonClose.text")); // NOI18N
         buttonClose.setToolTipText(bundle.getString("LongMessageDialog.buttonClose.toolTipText")); // NOI18N
@@ -193,35 +208,16 @@ public class LongMessageDialog extends Dialog {
                 buttonCloseActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonClose, gridBagConstraints);
 
-        javax.swing.GroupLayout panelControlsLayout = new javax.swing.GroupLayout(panelControls);
-        panelControls.setLayout(panelControlsLayout);
-        panelControlsLayout.setHorizontalGroup(
-            panelControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelControlsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(buttonMail)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonCopy)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonClose))
-        );
-
-        panelControlsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonClose, buttonCopy, buttonMail});
-
-        panelControlsLayout.setVerticalGroup(
-            panelControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelControlsLayout.createSequentialGroup()
-                .addComponent(panelSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelControlsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonClose)
-                    .addComponent(buttonCopy)
-                    .addComponent(buttonMail)))
-        );
-
-        panelControlsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonClose, buttonCopy, buttonMail, panelSearch});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelControls.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -253,6 +249,7 @@ public class LongMessageDialog extends Dialog {
     private javax.swing.JButton buttonMail;
     private javax.swing.JLabel labelIcon;
     private javax.swing.JLabel labelShortMessage;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JPanel panelControls;
     private org.jphototagger.lib.swing.TextComponentSearchPanel panelSearch;
     private javax.swing.JScrollPane scrollPane;

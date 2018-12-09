@@ -50,8 +50,11 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel();
+        panelButtons = new javax.swing.JPanel();
         buttonClose = new javax.swing.JButton();
         buttonFurtherSettings = new javax.swing.JButton();
 
@@ -64,8 +67,20 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         panelSettingsThumbnailDimensions.setName("panelSettingsThumbnailDimensions"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelContent.add(panelSettingsThumbnailDimensions, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonClose.setText(bundle.getString("ThumbnailDimensionsSettingsDialog.buttonClose.text")); // NOI18N
         buttonClose.setName("buttonClose"); // NOI18N
@@ -74,6 +89,7 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
                 buttonCloseActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonClose, new java.awt.GridBagConstraints());
 
         buttonFurtherSettings.setText(bundle.getString("ThumbnailDimensionsSettingsDialog.buttonFurtherSettings.text")); // NOI18N
         buttonFurtherSettings.setName("buttonFurtherSettings"); // NOI18N
@@ -82,29 +98,25 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
                 buttonFurtherSettingsActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonFurtherSettings, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(262, Short.MAX_VALUE)
-                .addComponent(buttonFurtherSettings)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonClose)
-                .addContainerGap())
-            .addComponent(panelSettingsThumbnailDimensions, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(panelSettingsThumbnailDimensions, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonClose)
-                    .addComponent(buttonFurtherSettings))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(panelButtons, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -124,6 +136,8 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonClose;
     private javax.swing.JButton buttonFurtherSettings;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelContent;
     private org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel panelSettingsThumbnailDimensions;
     // End of variables declaration//GEN-END:variables
 }

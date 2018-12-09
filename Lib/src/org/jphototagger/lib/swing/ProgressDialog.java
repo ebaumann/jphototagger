@@ -169,7 +169,9 @@ public final class ProgressDialog extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
         buttonStop = new javax.swing.JButton();
@@ -184,11 +186,25 @@ public final class ProgressDialog extends javax.swing.JDialog {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelInfo.setText("Info"); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(labelInfo, gridBagConstraints);
 
         progressBar.setName("progressBar"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        panelContent.add(progressBar, gridBagConstraints);
 
         buttonStop.setText(bundle.getString("ProgressDialog.buttonStop.text")); // NOI18N
         buttonStop.setName("buttonStop"); // NOI18N
@@ -197,40 +213,30 @@ public final class ProgressDialog extends javax.swing.JDialog {
                 buttonStopActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        panelContent.add(buttonStop, gridBagConstraints);
 
+        labelProgressInfo.setText(" "); // NOI18N
         labelProgressInfo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelProgressInfo.setName("labelProgressInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(labelProgressInfo, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStop))
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonStop)
-                    .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelProgressInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonStop, progressBar});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -247,6 +253,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
     private javax.swing.JButton buttonStop;
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelProgressInfo;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
 }

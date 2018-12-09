@@ -116,13 +116,16 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
+        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
 
         list.setModel(listModel);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -130,20 +133,13 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
         list.setName("list"); // NOI18N
         scrollPane.setViewportView(list);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(scrollPane, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdesktop.swingx.JXList list;

@@ -6,8 +6,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -56,7 +54,6 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
 
         checkBoxAddFilenameToGpsLocationExport = new JCheckBox();
         panelFill = new JPanel();
-        panelVersion = new JPanel();
         labelVersion = new JLabel();
 
         setName("Form"); // NOI18N
@@ -78,18 +75,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         add(checkBoxAddFilenameToGpsLocationExport, gridBagConstraints);
 
         panelFill.setName("panelFill"); // NOI18N
-
-        GroupLayout panelFillLayout = new GroupLayout(panelFill);
-        panelFill.setLayout(panelFillLayout);
-        panelFillLayout.setHorizontalGroup(
-            panelFillLayout.createParallelGroup(Alignment.LEADING)
-            .addGap(0, 552, Short.MAX_VALUE)
-        );
-        panelFillLayout.setVerticalGroup(
-            panelFillLayout.createParallelGroup(Alignment.LEADING)
-            .addGap(0, 61, Short.MAX_VALUE)
-        );
-
+        panelFill.setLayout(new GridBagLayout());
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = GridBagConstraints.BOTH;
@@ -98,23 +84,15 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         add(panelFill, gridBagConstraints);
 
-        panelVersion.setName("panelVersion"); // NOI18N
-        panelVersion.setLayout(new GridBagLayout());
-
         labelVersion.setText(bundle.getString("ExportGPSToKMLSettingsPanel.panelVersion.text")); // NOI18N
         labelVersion.setName("panelVersion"); // NOI18N
-        gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.weightx = 1.0;
-        panelVersion.add(labelVersion, gridBagConstraints);
-
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new Insets(10, 10, 10, 10);
-        add(panelVersion, gridBagConstraints);
+        add(labelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void checkBoxAddFilenameToGpsLocationExportActionPerformed(ActionEvent evt) {//GEN-FIRST:event_checkBoxAddFilenameToGpsLocationExportActionPerformed
@@ -124,6 +102,5 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
     private JCheckBox checkBoxAddFilenameToGpsLocationExport;
     private JLabel labelVersion;
     private JPanel panelFill;
-    private JPanel panelVersion;
     // End of variables declaration//GEN-END:variables
 }

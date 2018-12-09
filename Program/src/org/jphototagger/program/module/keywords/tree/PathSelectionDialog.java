@@ -186,10 +186,13 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
+        panelButtons = new javax.swing.JPanel();
         buttonSelectNothing = new javax.swing.JButton();
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectSelected = new javax.swing.JButton();
@@ -202,9 +205,19 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelInfo.setLabelFor(list);
         labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(labelInfo, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
 
@@ -213,6 +226,17 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         list.setName("list"); // NOI18N
         scrollPane.setViewportView(list);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(scrollPane, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
+
         buttonSelectNothing.setText(bundle.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
         buttonSelectNothing.setName("buttonSelectNothing"); // NOI18N
         buttonSelectNothing.addActionListener(new java.awt.event.ActionListener() {
@@ -220,6 +244,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
                 buttonSelectNothingActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonSelectNothing, new java.awt.GridBagConstraints());
 
         buttonSelectAll.setText(bundle.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.setName("buttonSelectAll"); // NOI18N
@@ -228,6 +253,9 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
                 buttonSelectAllActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonSelectAll, gridBagConstraints);
 
         buttonSelectSelected.setText(bundle.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
         buttonSelectSelected.setEnabled(false);
@@ -237,38 +265,25 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
                 buttonSelectSelectedActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonSelectSelected, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonSelectNothing)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSelectAll)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSelectSelected)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonSelectSelected)
-                    .addComponent(buttonSelectAll)
-                    .addComponent(buttonSelectNothing))
-                .addGap(12, 12, 12))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(panelButtons, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -295,6 +310,8 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     private javax.swing.JButton buttonSelectSelected;
     private javax.swing.JLabel labelInfo;
     private org.jdesktop.swingx.JXList list;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JScrollPane scrollPane;
     // End of variables declaration//GEN-END:variables
 }

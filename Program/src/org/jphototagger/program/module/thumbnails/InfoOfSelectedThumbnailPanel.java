@@ -258,17 +258,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         gridBagConstraints.weightx = 1.0;
         panelContent.add(panelThumbnailInfoProviders, gridBagConstraints);
 
-        javax.swing.GroupLayout panelPaddingLayout = new javax.swing.GroupLayout(panelPadding);
-        panelPadding.setLayout(panelPaddingLayout);
-        panelPaddingLayout.setHorizontalGroup(
-            panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelPaddingLayout.setVerticalGroup(
-            panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        panelPadding.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;

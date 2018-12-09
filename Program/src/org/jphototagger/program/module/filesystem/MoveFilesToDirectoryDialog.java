@@ -317,14 +317,18 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
         buttonChooseDirectory = new javax.swing.JButton();
         labelDirectoryName = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
+        panelCurrentFile = new javax.swing.JPanel();
         labelInfoCurrentFilename = new javax.swing.JLabel();
         labelCurrentFilename = new javax.swing.JLabel();
         labelInfoIsThread = new javax.swing.JLabel();
+        panelCancelStart = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
@@ -337,9 +341,16 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelInfo.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelContent.add(labelInfo, gridBagConstraints);
 
         buttonChooseDirectory.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
@@ -348,21 +359,62 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
                 buttonChooseDirectoryActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(buttonChooseDirectory, gridBagConstraints);
 
+        labelDirectoryName.setText(" "); // NOI18N
         labelDirectoryName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelDirectoryName.setName("labelDirectoryName"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(labelDirectoryName, gridBagConstraints);
 
         progressBar.setName("progressBar"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(progressBar, gridBagConstraints);
+
+        panelCurrentFile.setName("panelCurrentFile"); // NOI18N
+        panelCurrentFile.setLayout(new java.awt.GridBagLayout());
 
         labelInfoCurrentFilename.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
         labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
+        panelCurrentFile.add(labelInfoCurrentFilename, new java.awt.GridBagConstraints());
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
+        labelCurrentFilename.setText(" "); // NOI18N
         labelCurrentFilename.setName("labelCurrentFilename"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelCurrentFile.add(labelCurrentFilename, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(panelCurrentFile, gridBagConstraints);
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
         labelInfoIsThread.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
         labelInfoIsThread.setName("labelInfoIsThread"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelContent.add(labelInfoIsThread, gridBagConstraints);
+
+        panelCancelStart.setName("panelCancelStart"); // NOI18N
+        panelCancelStart.setLayout(new java.awt.GridBagLayout());
 
         buttonCancel.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
@@ -372,6 +424,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
                 buttonCancelActionPerformed(evt);
             }
         });
+        panelCancelStart.add(buttonCancel, new java.awt.GridBagConstraints());
 
         buttonStart.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
@@ -381,56 +434,25 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
                 buttonStartActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelCancelStart.add(buttonStart, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                        .addComponent(buttonChooseDirectory))
-                    .addComponent(labelDirectoryName, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelInfoIsThread)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStart))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelInfoCurrentFilename)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonChooseDirectory)
-                    .addComponent(labelInfo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelDirectoryName, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCurrentFilename)
-                    .addComponent(labelInfoCurrentFilename))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonStart)
-                    .addComponent(buttonCancel)
-                    .addComponent(labelInfoIsThread))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(panelCancelStart, gridBagConstraints);
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelCurrentFilename, labelInfo});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -460,6 +482,9 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
     private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelInfoCurrentFilename;
     private javax.swing.JLabel labelInfoIsThread;
+    private javax.swing.JPanel panelCancelStart;
+    private javax.swing.JPanel panelContent;
+    private javax.swing.JPanel panelCurrentFile;
     private javax.swing.JProgressBar progressBar;
     // End of variables declaration//GEN-END:variables
 }

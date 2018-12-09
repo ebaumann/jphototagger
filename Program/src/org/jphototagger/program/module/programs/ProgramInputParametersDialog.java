@@ -81,8 +81,10 @@ public final class ProgramInputParametersDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
+        panelContent = new javax.swing.JPanel();
         panelContext = new javax.swing.JPanel();
         labelContextProgramPrompt = new javax.swing.JLabel();
         labelContextProgram = new javax.swing.JLabel();
@@ -93,6 +95,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         textAreaParameter = new javax.swing.JTextArea();
         radioButtonParametersBeforeFilename = new javax.swing.JRadioButton();
         radioButtonParametersAfterFilename = new javax.swing.JRadioButton();
+        panelCancelOk = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();
 
@@ -100,71 +103,101 @@ public final class ProgramInputParametersDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         setTitle(bundle.getString("ProgramInputParametersDialog.title")); // NOI18N
         setName("Form"); // NOI18N
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
         panelContext.setName("panelContext"); // NOI18N
+        panelContext.setLayout(new java.awt.GridBagLayout());
 
         labelContextProgramPrompt.setText(bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
         labelContextProgramPrompt.setName("labelContextProgramPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        panelContext.add(labelContextProgramPrompt, gridBagConstraints);
 
+        labelContextProgram.setText(" "); // NOI18N
         labelContextProgram.setName("labelContextProgram"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelContext.add(labelContextProgram, gridBagConstraints);
 
         labelContextFilePrompt.setText(bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
         labelContextFilePrompt.setName("labelContextFilePrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        panelContext.add(labelContextFilePrompt, gridBagConstraints);
 
+        labelContextFile.setText(org.jphototagger.lib.util.Bundle.getString(ProgramInputParametersDialog.class, "ProgramInputParametersDialog.labelContextFile.text")); // NOI18N
         labelContextFile.setName("labelContextFile"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelContext.add(labelContextFile, gridBagConstraints);
 
-        javax.swing.GroupLayout panelContextLayout = new javax.swing.GroupLayout(panelContext);
-        panelContext.setLayout(panelContextLayout);
-        panelContextLayout.setHorizontalGroup(
-            panelContextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContextLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelContextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelContextProgramPrompt)
-                    .addComponent(labelContextFilePrompt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelContextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelContextFile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
-                    .addComponent(labelContextProgram, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelContextLayout.setVerticalGroup(
-            panelContextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelContextLayout.createSequentialGroup()
-                .addGroup(panelContextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelContextProgram)
-                    .addComponent(labelContextProgramPrompt))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelContextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelContextFile)
-                    .addComponent(labelContextFilePrompt))
-                .addContainerGap())
-        );
-
-        panelContextLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelContextProgram, labelContextProgramPrompt});
-
-        panelContextLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {labelContextFile, labelContextFilePrompt});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(panelContext, gridBagConstraints);
 
         labelPrompt.setLabelFor(textAreaParameter);
         labelPrompt.setText(bundle.getString("ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
         labelPrompt.setName("labelPrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(labelPrompt, gridBagConstraints);
 
         scrollPaneAreaParameter.setName("scrollPaneAreaParameter"); // NOI18N
+        scrollPaneAreaParameter.setPreferredSize(new java.awt.Dimension(300, 100));
 
         textAreaParameter.setColumns(20);
         textAreaParameter.setRows(2);
         textAreaParameter.setName("textAreaParameter"); // NOI18N
         scrollPaneAreaParameter.setViewportView(textAreaParameter);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(scrollPaneAreaParameter, gridBagConstraints);
+
         buttonGroup.add(radioButtonParametersBeforeFilename);
         radioButtonParametersBeforeFilename.setSelected(true);
         radioButtonParametersBeforeFilename.setText(bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
         radioButtonParametersBeforeFilename.setName("radioButtonParametersBeforeFilename"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(radioButtonParametersBeforeFilename, gridBagConstraints);
 
         buttonGroup.add(radioButtonParametersAfterFilename);
         radioButtonParametersAfterFilename.setText(bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
         radioButtonParametersAfterFilename.setName("radioButtonParametersAfterFilename"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(radioButtonParametersAfterFilename, gridBagConstraints);
+
+        panelCancelOk.setName("panelCancelOk"); // NOI18N
+        panelCancelOk.setLayout(new java.awt.GridBagLayout());
 
         buttonCancel.setText(bundle.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
@@ -173,6 +206,7 @@ public final class ProgramInputParametersDialog extends Dialog {
                 buttonCancelActionPerformed(evt);
             }
         });
+        panelCancelOk.add(buttonCancel, new java.awt.GridBagConstraints());
 
         buttonOk.setText(bundle.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
@@ -181,47 +215,25 @@ public final class ProgramInputParametersDialog extends Dialog {
                 buttonOkActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelCancelOk.add(buttonOk, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(radioButtonParametersBeforeFilename)
-                    .addComponent(panelContext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelPrompt)
-                    .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
-                    .addComponent(radioButtonParametersAfterFilename)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonOk)))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(panelCancelOk, gridBagConstraints);
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonCancel, buttonOk});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelContext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelPrompt)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneAreaParameter, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonParametersBeforeFilename)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonParametersAfterFilename)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonOk)
-                    .addComponent(buttonCancel))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -244,6 +256,8 @@ public final class ProgramInputParametersDialog extends Dialog {
     private javax.swing.JLabel labelContextProgram;
     private javax.swing.JLabel labelContextProgramPrompt;
     private javax.swing.JLabel labelPrompt;
+    private javax.swing.JPanel panelCancelOk;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JPanel panelContext;
     private javax.swing.JRadioButton radioButtonParametersAfterFilename;
     private javax.swing.JRadioButton radioButtonParametersBeforeFilename;

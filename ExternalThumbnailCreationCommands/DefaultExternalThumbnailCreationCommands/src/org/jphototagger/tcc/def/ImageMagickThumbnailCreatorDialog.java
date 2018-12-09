@@ -39,8 +39,11 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         labelInfo = new org.jdesktop.swingx.JXLabel();
+        panelButtons = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonBrowse = new javax.swing.JButton();
         buttonChooseConvert = new javax.swing.JButton();
@@ -49,9 +52,19 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/tcc/def/Bundle"); // NOI18N
         setTitle(bundle.getString("ImageMagickThumbnailCreatorDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setLineWrap(true);
+        panelContent.setLayout(new java.awt.GridBagLayout());
+
         labelInfo.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.labelInfo.text")); // NOI18N
+        labelInfo.setLineWrap(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(labelInfo, gridBagConstraints);
+
+        panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonCancel.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -59,6 +72,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
                 buttonCancelActionPerformed(evt);
             }
         });
+        panelButtons.add(buttonCancel, new java.awt.GridBagConstraints());
 
         buttonBrowse.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.buttonBrowse.text")); // NOI18N
         buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +80,9 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
                 buttonBrowseActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonBrowse, gridBagConstraints);
 
         buttonChooseConvert.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
         buttonChooseConvert.addActionListener(new java.awt.event.ActionListener() {
@@ -73,35 +90,24 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
                 buttonChooseConvertActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelButtons.add(buttonChooseConvert, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonBrowse)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonChooseConvert))
-                    .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonChooseConvert)
-                    .addComponent(buttonBrowse)
-                    .addComponent(buttonCancel))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(panelButtons, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -125,5 +131,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonChooseConvert;
     private org.jdesktop.swingx.JXLabel labelInfo;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelContent;
     // End of variables declaration//GEN-END:variables
 }

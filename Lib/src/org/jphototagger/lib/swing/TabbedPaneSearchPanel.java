@@ -590,6 +590,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         labelSearch = new javax.swing.JLabel();
         textFieldSearch = new javax.swing.JTextField();
@@ -597,15 +598,23 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
         list = new javax.swing.JList<>();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         labelSearch.setDisplayedMnemonic('s');
         labelSearch.setLabelFor(textFieldSearch);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         labelSearch.setText(bundle.getString("TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
+        add(labelSearch, new java.awt.GridBagConstraints());
 
         textFieldSearch.setColumns(10);
         textFieldSearch.setName("textFieldSearch"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        add(textFieldSearch, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
 
@@ -620,25 +629,13 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
         });
         scrollPane.setViewportView(list);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(labelSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
-            .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelSearch)
-                    .addComponent(textFieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(scrollPane, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void listValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listValueChanged

@@ -2078,6 +2078,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;Bereits erstellte Vorschaubilder werden bei Änderungen der Seitenlänge vielleicht langsamer&lt;br/&gt;und in schlechterer Qualität dargestellt!&lt;p&gt;Sie sollten nach jeder Änderung neu berechnet werden.&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181209T201158Z" creationid="elmar" creationdate="20181209T201158Z">
+        <seg>&lt;html&gt;Already created thumbnails probably will be displayed slower and with less quality,&lt;br/&gt;if you change their width! They should be calculated again after each modification of their width.&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;Bitte füllen Sie (mindestens) ein Textfeld aus und überprüen, ob die Anzahl offener Klammern gleich ist mit der geschlossener!&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -2494,6 +2502,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;Genauer Aufruf des eigenen Programms.&lt;br/&gt;In &lt;strong&gt;%s&lt;/strong&gt; wird der Dateiname eingesetzt, in &lt;strong&gt;%i&lt;/strong&gt; die maximale Seitenlänge des Vorschaubilds.&lt;p&gt;Das Programm sollte die Vorschaubilder im &lt;strong&gt;JPEG&lt;/strong&gt;-Format erzeugen und ausgeben auf die &lt;strong&gt;Standardausgabe&lt;/strong&gt;.&lt;p&gt;Es muss mit mehreren Aufrufen zur gleichen Zeit umgehen können.&lt;p&gt;Programmname und Bildname (%s) sollten in Hochkommas (") eingeschlossen werden:&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181209T201327Z" creationid="elmar" creationdate="20181209T201327Z">
+        <seg>&lt;html&gt;Precise call of the external program.&lt;br/&gt;In &lt;strong&gt;%s&lt;/strong&gt; will be replaced with the file name, &lt;strong&gt;%i&lt;/strong&gt; will be replaced with th maximum length of the thumbnail.&lt;p&gt;The program should create the thumbnails in &lt;strong&gt;JPEG&lt;/strong&gt; format an write to the &lt;strong&gt;system's standard output&lt;/strong&gt;.&lt;p&gt;It has to handle more calls at the same time. Program name and image name (%s) should be enclosed in double quotes ("):&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;Gibt Speicherplatz gelöschter Vorschaubilder frei.&lt;br/&gt;Kann bei einige Zeit dauern bei vielen Vorschaubildern.&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20140102T162700Z">
@@ -2618,6 +2634,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>&lt;html&gt;After starting &lt;strong&gt;JPhotoTagger&lt;/strong&gt; these folders will be scanned while You are working. New and updated metadata and thumbnails will be written into the database.&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&lt;html&gt;Nach jedem Start von &lt;strong&gt;JPhotoTagger&lt;/strong&gt; werden die hier hinzugefügten Ordner durchsucht, während Sie weiterarbeiten.&lt;br/&gt;Neue und aktualisierte Metadaten und Vorschaubilder werden in die Datenbank geschrieben.&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181209T201446Z" creationid="elmar" creationdate="20181209T201446Z">
+        <seg>&lt;html&gt;After every &lt;strong&gt;JPhotoTagger&lt;/strong&gt; start the here added folders will be scanned while you are working.&lt;br/&gt;New and updated metadata and thumbnails will be written into the database.&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>

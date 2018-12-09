@@ -2,6 +2,7 @@ package org.jphototagger.program.module.search;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -598,37 +599,32 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         });
 
         panelKeywords.setName("panelKeywords"); // NOI18N
+        panelKeywords.setLayout(new java.awt.GridBagLayout());
+        panelKeywords.setPreferredSize(new Dimension(250, 150));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         labelInfoKeywords.setText(bundle.getString("AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
         labelInfoKeywords.setName("labelInfoKeywords"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelKeywords.add(labelInfoKeywords, gridBagConstraints);
 
         panelKeywordsInput.setName("panelKeywordsInput"); // NOI18N
-
-        javax.swing.GroupLayout panelKeywordsLayout = new javax.swing.GroupLayout(panelKeywords);
-        panelKeywords.setLayout(panelKeywordsLayout);
-        panelKeywordsLayout.setHorizontalGroup(
-            panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelKeywordsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
-                    .addComponent(labelInfoKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        panelKeywordsLayout.setVerticalGroup(
-            panelKeywordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelKeywordsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelInfoKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelKeywordsInput, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelKeywords.add(panelKeywordsInput, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
 
         panelSimpleSql.setName("panelSimpleSql"); // NOI18N
+        panelSimpleSql.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneColumns.setBorder(null);
         scrollPaneColumns.setName("scrollPaneColumns"); // NOI18N
@@ -637,8 +633,19 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         panelColumns.setLayout(new java.awt.GridBagLayout());
         scrollPaneColumns.setViewportView(panelColumns);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        panelSimpleSql.add(scrollPaneColumns, gridBagConstraints);
+
         labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
         labelInfoDelete.setName("labelInfoDelete"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        panelSimpleSql.add(labelInfoDelete, gridBagConstraints);
 
         buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
         buttonAddColumn.setName("buttonAddColumn"); // NOI18N
@@ -647,32 +654,12 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
                 buttonAddColumnActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout panelSimpleSqlLayout = new javax.swing.GroupLayout(panelSimpleSql);
-        panelSimpleSql.setLayout(panelSimpleSqlLayout);
-        panelSimpleSqlLayout.setHorizontalGroup(
-            panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSimpleSqlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneColumns, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSimpleSqlLayout.createSequentialGroup()
-                        .addComponent(labelInfoDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 341, Short.MAX_VALUE)
-                        .addComponent(buttonAddColumn)))
-                .addContainerGap())
-        );
-        panelSimpleSqlLayout.setVerticalGroup(
-            panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSimpleSqlLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPaneColumns, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSimpleSqlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAddColumn)
-                    .addComponent(labelInfoDelete))
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelSimpleSql.add(buttonAddColumn, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
 

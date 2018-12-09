@@ -284,7 +284,6 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
         labelIsCreateThumbnailsWithExternalApp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         labelIsCreateThumbnailsWithExternalApp.setLabelFor(textFieldExternalThumbnailCreationCommand);
         labelIsCreateThumbnailsWithExternalApp.setText(bundle.getString("ThumbnailsSettingsPanel.labelIsCreateThumbnailsWithExternalApp.text")); // NOI18N
-        labelIsCreateThumbnailsWithExternalApp.setPreferredSize(new java.awt.Dimension(1694, 60));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -369,17 +368,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
         add(panelFurtherSettings, gridBagConstraints);
 
-        javax.swing.GroupLayout panelPaddingLayout = new javax.swing.GroupLayout(panelPadding);
-        panelPadding.setLayout(panelPaddingLayout);
-        panelPaddingLayout.setHorizontalGroup(
-            panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 802, Short.MAX_VALUE)
-        );
-        panelPaddingLayout.setVerticalGroup(
-            panelPaddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 114, Short.MAX_VALUE)
-        );
-
+        panelPadding.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;

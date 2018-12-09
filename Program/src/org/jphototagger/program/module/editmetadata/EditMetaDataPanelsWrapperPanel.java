@@ -32,17 +32,7 @@ class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
         setName("Edit Metadata Container"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout panelEditMetadataLayout = new javax.swing.GroupLayout(panelEditMetadata);
-        panelEditMetadata.setLayout(panelEditMetadataLayout);
-        panelEditMetadataLayout.setHorizontalGroup(
-            panelEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 923, Short.MAX_VALUE)
-        );
-        panelEditMetadataLayout.setVerticalGroup(
-            panelEditMetadataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 499, Short.MAX_VALUE)
-        );
-
+        panelEditMetadata.setLayout(new java.awt.GridBagLayout());
         scrollPaneEditMetadata.setViewportView(panelEditMetadata);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

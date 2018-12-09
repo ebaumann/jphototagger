@@ -369,10 +369,12 @@ public final class ProgramPropertiesDialog extends Dialog {
         radioButtonSingleFileProcessingYes = new javax.swing.JRadioButton();
         radioButtonSingleFileProcessingNo = new javax.swing.JRadioButton();
         panelProgram = new javax.swing.JPanel();
+        panelPrg = new javax.swing.JPanel();
         labelFilePrompt = new javax.swing.JLabel();
         labelErrorFileDoesNotExist = new javax.swing.JLabel();
-        buttonChooseFile = new javax.swing.JButton();
         labelFile = new javax.swing.JLabel();
+        buttonChooseFile = new javax.swing.JButton();
+        panelAlias = new javax.swing.JPanel();
         labelAlias = new javax.swing.JLabel();
         textFieldAlias = new javax.swing.JTextField();
         toggleButtonExpertSettings = new javax.swing.JToggleButton();
@@ -614,14 +616,38 @@ public final class ProgramPropertiesDialog extends Dialog {
 
         panelProgram.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ProgramPropertiesDialog.panelProgram.border.title"))); // NOI18N
         panelProgram.setName("panelProgram"); // NOI18N
+        panelProgram.setLayout(new java.awt.GridBagLayout());
+
+        panelPrg.setName("panelPrg"); // NOI18N
+        panelPrg.setLayout(new java.awt.GridBagLayout());
 
         labelFilePrompt.setForeground(new java.awt.Color(255, 0, 0));
         labelFilePrompt.setText(bundle.getString("ProgramPropertiesDialog.labelFilePrompt.text")); // NOI18N
         labelFilePrompt.setName("labelFilePrompt"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelPrg.add(labelFilePrompt, gridBagConstraints);
 
         labelErrorFileDoesNotExist.setForeground(new java.awt.Color(255, 0, 0));
         labelErrorFileDoesNotExist.setText("<html> </html>"); // NOI18N
         labelErrorFileDoesNotExist.setName("labelErrorFileDoesNotExist"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelPrg.add(labelErrorFileDoesNotExist, gridBagConstraints);
+
+        labelFile.setForeground(new java.awt.Color(0, 0, 255));
+        labelFile.setText(" "); // NOI18N
+        labelFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        labelFile.setName("labelFile"); // NOI18N
+        labelFile.setOpaque(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelPrg.add(labelFile, gridBagConstraints);
 
         buttonChooseFile.setText(bundle.getString("ProgramPropertiesDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.setName("buttonChooseFile"); // NOI18N
@@ -630,62 +656,48 @@ public final class ProgramPropertiesDialog extends Dialog {
                 buttonChooseFileActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        panelPrg.add(buttonChooseFile, gridBagConstraints);
 
-        labelFile.setForeground(new java.awt.Color(0, 0, 255));
-        labelFile.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelFile.setName("labelFile"); // NOI18N
-        labelFile.setOpaque(true);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        panelProgram.add(panelPrg, gridBagConstraints);
+
+        panelAlias.setName("panelAlias"); // NOI18N
+        panelAlias.setLayout(new java.awt.GridBagLayout());
 
         labelAlias.setForeground(new java.awt.Color(255, 0, 0));
         labelAlias.setLabelFor(textFieldAlias);
         labelAlias.setText(bundle.getString("ProgramPropertiesDialog.labelAlias.text")); // NOI18N
         labelAlias.setName("labelAlias"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelAlias.add(labelAlias, gridBagConstraints);
 
+        textFieldAlias.setColumns(10);
         textFieldAlias.setName("textFieldAlias"); // NOI18N
         textFieldAlias.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldAliasKeyPressed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelAlias.add(textFieldAlias, gridBagConstraints);
 
-        javax.swing.GroupLayout panelProgramLayout = new javax.swing.GroupLayout(panelProgram);
-        panelProgram.setLayout(panelProgramLayout);
-        panelProgramLayout.setHorizontalGroup(
-            panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProgramLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelProgramLayout.createSequentialGroup()
-                        .addComponent(labelFilePrompt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelErrorFileDoesNotExist, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-                        .addGap(3, 3, 3))
-                    .addGroup(panelProgramLayout.createSequentialGroup()
-                        .addComponent(labelAlias)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldAlias, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE))
-                    .addComponent(labelFile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE))
-                .addGap(9, 9, 9)
-                .addComponent(buttonChooseFile)
-                .addContainerGap())
-        );
-        panelProgramLayout.setVerticalGroup(
-            panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelProgramLayout.createSequentialGroup()
-                .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelProgramLayout.createSequentialGroup()
-                        .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelErrorFileDoesNotExist, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFilePrompt))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelFile, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(buttonChooseFile))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelProgramLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textFieldAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelAlias))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelProgram.add(panelAlias, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -808,10 +820,12 @@ public final class ProgramPropertiesDialog extends Dialog {
     private javax.swing.JLabel labelInfoRequiredInputs;
     private javax.swing.JLabel labelParametersAfterFilename;
     private javax.swing.JLabel labelParametersBeforeFilename;
+    private javax.swing.JPanel panelAlias;
     private javax.swing.JPanel panelExpertSettings;
     private javax.swing.JPanel panelInputBeforeExecute;
     private javax.swing.JPanel panelMultipleSelection;
     private javax.swing.JPanel panelParameter;
+    private javax.swing.JPanel panelPrg;
     private javax.swing.JPanel panelProgram;
     private javax.swing.JRadioButton radioButtonSingleFileProcessingNo;
     private javax.swing.JRadioButton radioButtonSingleFileProcessingYes;

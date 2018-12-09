@@ -341,6 +341,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelThumbnail.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelThumbnail.border.title"))); // NOI18N
         panelThumbnail.setName("panelThumbnail"); // NOI18N
         panelThumbnail.setPreferredSize(new java.awt.Dimension(150, 150));
+        panelThumbnail.setLayout(new java.awt.GridBagLayout());
 
         imagePanel.setImageIsAbsentText(bundle.getString("RepositoryFileBrowserDialog.imagePanel.imageIsAbsentText")); // NOI18N
         imagePanel.setName("imagePanel"); // NOI18N
@@ -348,32 +349,14 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.thumbnail}"), imagePanel, org.jdesktop.beansbinding.BeanProperty.create("image"));
         bindingGroup.addBinding(binding);
 
-        javax.swing.GroupLayout imagePanelLayout = new javax.swing.GroupLayout(imagePanel);
-        imagePanel.setLayout(imagePanelLayout);
-        imagePanelLayout.setHorizontalGroup(
-            imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
-        );
-        imagePanelLayout.setVerticalGroup(
-            imagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 219, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout panelThumbnailLayout = new javax.swing.GroupLayout(panelThumbnail);
-        panelThumbnail.setLayout(panelThumbnailLayout);
-        panelThumbnailLayout.setHorizontalGroup(
-            panelThumbnailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelThumbnailLayout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        panelThumbnailLayout.setVerticalGroup(
-            panelThumbnailLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelThumbnailLayout.createSequentialGroup()
-                .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        imagePanel.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        panelThumbnail.add(imagePanel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;

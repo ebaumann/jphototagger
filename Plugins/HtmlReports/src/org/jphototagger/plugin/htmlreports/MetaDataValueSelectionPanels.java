@@ -147,17 +147,7 @@ public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements 
         firstSelectionPanel = new org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanel();
 
         fillPanel.setName("fillPanel"); // NOI18N
-
-        javax.swing.GroupLayout fillPanelLayout = new javax.swing.GroupLayout(fillPanel);
-        fillPanel.setLayout(fillPanelLayout);
-        fillPanelLayout.setHorizontalGroup(
-            fillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        fillPanelLayout.setVerticalGroup(
-            fillPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        fillPanel.setLayout(new java.awt.GridBagLayout());
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

@@ -211,7 +211,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPane = new javax.swing.JTabbedPane();
         panelMisc = new javax.swing.JPanel();
         panelMiscContent = new javax.swing.JPanel();
         panelLogLevel = new javax.swing.JPanel();
@@ -265,17 +265,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         gridBagConstraints.weightx = 1.0;
         panelMiscContent.add(panelLogLevel, gridBagConstraints);
 
-        javax.swing.GroupLayout panelFillMiscLayout = new javax.swing.GroupLayout(panelFillMisc);
-        panelFillMisc.setLayout(panelFillMiscLayout);
-        panelFillMiscLayout.setHorizontalGroup(
-            panelFillMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        panelFillMiscLayout.setVerticalGroup(
-            panelFillMiscLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 229, Short.MAX_VALUE)
-        );
-
+        panelFillMisc.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
@@ -292,7 +282,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panelMisc.add(panelMiscContent, gridBagConstraints);
 
-        jTabbedPane1.addTab(bundle.getString("AppLoggingSystemSettingsPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+        tabbedPane.addTab(bundle.getString("AppLoggingSystemSettingsPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
 
         panelIgnoreMessages.setLayout(new java.awt.GridBagLayout());
 
@@ -401,7 +391,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         panelIgnoreMessages.add(panelIgnoreMessagesContent, gridBagConstraints);
 
-        jTabbedPane1.addTab(bundle.getString("AppLoggingSystemSettingsPanel.panelIgnoreMessages.TabConstraints.tabTitle"), panelIgnoreMessages); // NOI18N
+        tabbedPane.addTab(bundle.getString("AppLoggingSystemSettingsPanel.panelIgnoreMessages.TabConstraints.tabTitle"), panelIgnoreMessages); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -409,7 +399,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        add(jTabbedPane1, gridBagConstraints);
+        add(tabbedPane, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonAddErrorTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddErrorTextActionPerformed
@@ -434,7 +424,6 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
     private javax.swing.JButton buttonEditErrorText;
     private javax.swing.JButton buttonRemoveErrorText;
     private javax.swing.JComboBox<Object> comboBoxLogLevel;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labelErrorText;
     private org.jdesktop.swingx.JXLabel labelInfoErrorTexts;
     private javax.swing.JLabel labelLogLevel;
@@ -448,6 +437,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
     private javax.swing.JPanel panelMisc;
     private javax.swing.JPanel panelMiscContent;
     private javax.swing.JScrollPane scrollPaneErrorTexts;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTextField textFieldErrorText;
     // End of variables declaration//GEN-END:variables
 }

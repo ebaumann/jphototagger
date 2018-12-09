@@ -252,6 +252,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         label = new javax.swing.JLabel();
         searchTextField = new javax.swing.JTextField();
@@ -259,14 +260,21 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         buttonSearchUpwards = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         label.setLabelFor(searchTextField);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         label.setText(bundle.getString("TextComponentSearchPanel.label.text")); // NOI18N
         label.setName("label"); // NOI18N
+        add(label, new java.awt.GridBagConstraints());
 
         searchTextField.setColumns(10);
         searchTextField.setName("searchTextField"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        add(searchTextField, gridBagConstraints);
 
         buttonSearchDownwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchDownwards.text")); // NOI18N
         buttonSearchDownwards.setEnabled(false);
@@ -276,6 +284,9 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
                 buttonSearchDownwardsActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        add(buttonSearchDownwards, gridBagConstraints);
 
         buttonSearchUpwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchUpwards.text")); // NOI18N
         buttonSearchUpwards.setEnabled(false);
@@ -285,34 +296,10 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
                 buttonSearchUpwardsActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSearchDownwards)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSearchUpwards))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonSearchDownwards, buttonSearchUpwards});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(label)
-                .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(buttonSearchDownwards)
-                .addComponent(buttonSearchUpwards))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonSearchDownwards, buttonSearchUpwards});
-
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        add(buttonSearchUpwards, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonSearchDownwardsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchDownwardsActionPerformed

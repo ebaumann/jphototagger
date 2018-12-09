@@ -72,7 +72,9 @@ public final class ImageCollectionsDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
+        panelContent = new javax.swing.JPanel();
         labelSelectImageCollection = new javax.swing.JLabel();
         scrollPaneImageCollectionNames = new javax.swing.JScrollPane();
         listImageCollectionNames = new org.jdesktop.swingx.JXList();
@@ -82,10 +84,19 @@ public final class ImageCollectionsDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/imagecollections/Bundle"); // NOI18N
         setTitle(bundle.getString("ImageCollectionsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelSelectImageCollection.setLabelFor(listImageCollectionNames);
         labelSelectImageCollection.setText(bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
         labelSelectImageCollection.setName("labelSelectImageCollection"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(labelSelectImageCollection, gridBagConstraints);
 
         scrollPaneImageCollectionNames.setName("scrollPaneImageCollectionNames"); // NOI18N
 
@@ -100,6 +111,14 @@ public final class ImageCollectionsDialog extends Dialog {
         });
         scrollPaneImageCollectionNames.setViewportView(listImageCollectionNames);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(scrollPaneImageCollectionNames, gridBagConstraints);
+
         buttonOk.setText(bundle.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -107,30 +126,21 @@ public final class ImageCollectionsDialog extends Dialog {
                 buttonOkActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(buttonOk, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneImageCollectionNames, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                    .addComponent(labelSelectImageCollection, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-                    .addComponent(buttonOk, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelSelectImageCollection)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneImageCollectionNames, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonOk)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -147,6 +157,7 @@ public final class ImageCollectionsDialog extends Dialog {
     private javax.swing.JButton buttonOk;
     private javax.swing.JLabel labelSelectImageCollection;
     private org.jdesktop.swingx.JXList listImageCollectionNames;
+    private javax.swing.JPanel panelContent;
     private javax.swing.JScrollPane scrollPaneImageCollectionNames;
     // End of variables declaration//GEN-END:variables
 }

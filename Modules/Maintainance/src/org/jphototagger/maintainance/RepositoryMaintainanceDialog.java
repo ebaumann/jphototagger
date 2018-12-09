@@ -79,6 +79,7 @@ public final class RepositoryMaintainanceDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelCount = new org.jphototagger.maintainance.RepositoryInfoCountPanel();
@@ -94,6 +95,7 @@ public final class RepositoryMaintainanceDialog extends Dialog {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         tabbedPane.setName("tabbedPane"); // NOI18N
 
@@ -106,22 +108,14 @@ public final class RepositoryMaintainanceDialog extends Dialog {
         panelRepositoryUpdate.setName("panelRepositoryUpdate"); // NOI18N
         tabbedPane.addTab(bundle.getString("RepositoryMaintainanceDialog.panelRepositoryUpdate.TabConstraints.tabTitle"), panelRepositoryUpdate); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(tabbedPane)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(tabbedPane, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents

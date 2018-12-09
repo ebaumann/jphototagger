@@ -343,8 +343,10 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupFileExists = new javax.swing.ButtonGroup();
+        panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
         buttonChooseDirectory = new javax.swing.JButton();
         labelTargetDirectory = new javax.swing.JLabel();
@@ -352,9 +354,11 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         radioButtonRenameIfTargetFileExists = new javax.swing.JRadioButton();
         checkBoxCopyXmp = new javax.swing.JCheckBox();
         progressBar = new javax.swing.JProgressBar();
+        panelCurrentFile = new javax.swing.JPanel();
         labelInfoCurrentFilename = new javax.swing.JLabel();
         labelCurrentFilename = new javax.swing.JLabel();
         labelInfoIsThread = new javax.swing.JLabel();
+        panelStartCancelButton = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonStart = new javax.swing.JButton();
 
@@ -367,9 +371,17 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        panelContent.setName("panelContent"); // NOI18N
+        panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelInfo.setText(bundle.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelContent.add(labelInfo, gridBagConstraints);
 
         buttonChooseDirectory.setText(bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
@@ -378,33 +390,95 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                 buttonChooseDirectoryActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(buttonChooseDirectory, gridBagConstraints);
 
+        labelTargetDirectory.setText(" "); // NOI18N
         labelTargetDirectory.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         labelTargetDirectory.setName("labelTargetDirectory"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(labelTargetDirectory, gridBagConstraints);
 
         buttonGroupFileExists.add(radioButtonForceOverwrite);
         radioButtonForceOverwrite.setText(bundle.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text")); // NOI18N
         radioButtonForceOverwrite.setName("radioButtonForceOverwrite"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelContent.add(radioButtonForceOverwrite, gridBagConstraints);
 
         buttonGroupFileExists.add(radioButtonRenameIfTargetFileExists);
         radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
         radioButtonRenameIfTargetFileExists.setName("radioButtonRenameIfTargetFileExists"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(radioButtonRenameIfTargetFileExists, gridBagConstraints);
 
         checkBoxCopyXmp.setSelected(true);
         checkBoxCopyXmp.setText(bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
         checkBoxCopyXmp.setName("checkBoxCopyXmp"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(checkBoxCopyXmp, gridBagConstraints);
 
         progressBar.setName("progressBar"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(progressBar, gridBagConstraints);
+
+        panelCurrentFile.setName("panelCurrentFile"); // NOI18N
+        panelCurrentFile.setLayout(new java.awt.GridBagLayout());
 
         labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
         labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelCurrentFile.add(labelInfoCurrentFilename, gridBagConstraints);
 
         labelCurrentFilename.setForeground(new java.awt.Color(0, 0, 255));
+        labelCurrentFilename.setText(" "); // NOI18N
         labelCurrentFilename.setName("labelCurrentFilename"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelCurrentFile.add(labelCurrentFilename, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        panelContent.add(panelCurrentFile, gridBagConstraints);
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
         labelInfoIsThread.setText(bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
         labelInfoIsThread.setName("labelInfoIsThread"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelContent.add(labelInfoIsThread, gridBagConstraints);
+
+        panelStartCancelButton.setName("panelStartCancelButton"); // NOI18N
+        panelStartCancelButton.setLayout(new java.awt.GridBagLayout());
 
         buttonCancel.setText(bundle.getString("CopyToDirectoryDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
@@ -414,6 +488,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                 buttonCancelActionPerformed(evt);
             }
         });
+        panelStartCancelButton.add(buttonCancel, new java.awt.GridBagConstraints());
 
         buttonStart.setText(bundle.getString("CopyToDirectoryDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
@@ -423,65 +498,26 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
                 buttonStartActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        panelStartCancelButton.add(buttonStart, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxCopyXmp)
-                    .addComponent(radioButtonRenameIfTargetFileExists)
-                    .addComponent(radioButtonForceOverwrite)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                        .addComponent(buttonChooseDirectory))
-                    .addComponent(labelTargetDirectory, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelInfoCurrentFilename)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelCurrentFilename, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
-                    .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelInfoIsThread)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                        .addComponent(buttonCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStart)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelInfo)
-                    .addComponent(buttonChooseDirectory))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelTargetDirectory, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonForceOverwrite)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonRenameIfTargetFileExists)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxCopyXmp)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelInfoCurrentFilename)
-                    .addComponent(labelCurrentFilename, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelInfoIsThread)
-                    .addComponent(buttonStart)
-                    .addComponent(buttonCancel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.weightx = 1.0;
+        panelContent.add(panelStartCancelButton, gridBagConstraints);
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {buttonCancel, buttonStart, progressBar});
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        getContentPane().add(panelContent, gridBagConstraints);
 
         pack();
     }//GEN-END:initComponents
@@ -513,6 +549,9 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
     private javax.swing.JLabel labelInfoCurrentFilename;
     private javax.swing.JLabel labelInfoIsThread;
     private javax.swing.JLabel labelTargetDirectory;
+    private javax.swing.JPanel panelContent;
+    private javax.swing.JPanel panelCurrentFile;
+    private javax.swing.JPanel panelStartCancelButton;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JRadioButton radioButtonForceOverwrite;
     private javax.swing.JRadioButton radioButtonRenameIfTargetFileExists;

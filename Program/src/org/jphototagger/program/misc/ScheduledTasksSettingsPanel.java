@@ -205,11 +205,13 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         checkBoxIsAutoscanIncludeSubdirectories = new javax.swing.JCheckBox();
         buttonRemoveAutoscanDirectories = new javax.swing.JButton();
         buttonAddAutoscanDirectories = new javax.swing.JButton();
-        buttonScheduledTasks = new javax.swing.JButton();
+        panelTime = new javax.swing.JPanel();
         labelTasksMinutesToStartScheduledTasks = new javax.swing.JLabel();
         spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
+        buttonScheduledTasks = new javax.swing.JButton();
 
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
         panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ScheduledTasksSettingsPanel.panelTasksAutoscan.border.title"))); // NOI18N
@@ -218,7 +220,6 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
 
         labelAutoscanDirectoriesInfo.setText(bundle.getString("ScheduledTasksSettingsPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
         labelAutoscanDirectoriesInfo.setName("labelAutoscanDirectoriesInfo"); // NOI18N
-        labelAutoscanDirectoriesInfo.setPreferredSize(new java.awt.Dimension(978, 48));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -315,16 +316,26 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
         panelTasksAutoscan.add(buttonAddAutoscanDirectories, gridBagConstraints);
 
-        buttonScheduledTasks.setIcon(org.jphototagger.resources.Icons.getIcon("icon_start.png"));
-        buttonScheduledTasks.setToolTipText(bundle.getString("ScheduledTasksSettingsPanel.buttonScheduledTasks.toolTipText")); // NOI18N
-        buttonScheduledTasks.setAlignmentY(0.0F);
-        buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        buttonScheduledTasks.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonScheduledTasks.setName("buttonScheduledTasks"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(panelTasksAutoscan, gridBagConstraints);
+
+        panelTime.setName("panelTime"); // NOI18N
+        panelTime.setLayout(new java.awt.GridBagLayout());
 
         labelTasksMinutesToStartScheduledTasks.setLabelFor(spinnerMinutesToStartScheduledTasks);
         labelTasksMinutesToStartScheduledTasks.setText(bundle.getString("ScheduledTasksSettingsPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
         labelTasksMinutesToStartScheduledTasks.setName("labelTasksMinutesToStartScheduledTasks"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(8, 12, 0, 0);
+        panelTime.add(labelTasksMinutesToStartScheduledTasks, gridBagConstraints);
 
         spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
         spinnerMinutesToStartScheduledTasks.setName("spinnerMinutesToStartScheduledTasks"); // NOI18N
@@ -333,35 +344,34 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
                 spinnerMinutesToStartScheduledTasksStateChanged(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 3;
+        gridBagConstraints.ipadx = 24;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 12, 12, 0);
+        panelTime.add(spinnerMinutesToStartScheduledTasks, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelTasksMinutesToStartScheduledTasks)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonScheduledTasks)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelTasksAutoscan, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(spinnerMinutesToStartScheduledTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelTasksMinutesToStartScheduledTasks)
-                    .addComponent(buttonScheduledTasks))
-                .addContainerGap())
-        );
+        buttonScheduledTasks.setIcon(org.jphototagger.resources.Icons.getIcon("icon_start.png"));
+        buttonScheduledTasks.setToolTipText(bundle.getString("ScheduledTasksSettingsPanel.buttonScheduledTasks.toolTipText")); // NOI18N
+        buttonScheduledTasks.setAlignmentY(0.0F);
+        buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        buttonScheduledTasks.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonScheduledTasks.setName("buttonScheduledTasks"); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(13, 6, 0, 0);
+        panelTime.add(buttonScheduledTasks, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(panelTime, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void listAutoscanDirectoriesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAutoscanDirectoriesValueChanged
@@ -397,6 +407,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
     private javax.swing.JLabel labelTasksMinutesToStartScheduledTasks;
     private org.jdesktop.swingx.JXList listAutoscanDirectories;
     private javax.swing.JPanel panelTasksAutoscan;
+    private javax.swing.JPanel panelTime;
     private javax.swing.JScrollPane scrollPaneListAutoscanDirectories;
     private javax.swing.JSpinner spinnerMinutesToStartScheduledTasks;
     // End of variables declaration//GEN-END:variables

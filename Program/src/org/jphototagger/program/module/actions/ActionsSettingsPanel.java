@@ -272,6 +272,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
     @SuppressWarnings("unchecked")
 
     private void initComponents() {//GEN-BEGIN:initComponents
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupExecute = new javax.swing.ButtonGroup();
         popupMenu = new javax.swing.JPopupMenu();
@@ -284,6 +285,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         menuItemShowActions = new javax.swing.JMenuItem();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
+        panelButtons = new javax.swing.JPanel();
         buttonMoveUpAction = new javax.swing.JButton();
         buttonMoveDownAction = new javax.swing.JButton();
         buttonAddAction = new javax.swing.JButton();
@@ -353,6 +355,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ActionsSettingsPanel.border.title"))); // NOI18N
         setName("Form"); // NOI18N
+        setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
 
@@ -368,6 +371,15 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         });
         scrollPane.setViewportView(list);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(scrollPane, gridBagConstraints);
+
+        panelButtons.setName("panelButtons"); // NOI18N
+        panelButtons.setLayout(new java.awt.GridBagLayout());
+
         buttonMoveUpAction.setText(bundle.getString("ActionsSettingsPanel.buttonMoveUpAction.text")); // NOI18N
         buttonMoveUpAction.setEnabled(false);
         buttonMoveUpAction.setName("buttonMoveUpAction"); // NOI18N
@@ -376,6 +388,11 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                 buttonMoveUpActionActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        panelButtons.add(buttonMoveUpAction, gridBagConstraints);
 
         buttonMoveDownAction.setText(bundle.getString("ActionsSettingsPanel.buttonMoveDownAction.text")); // NOI18N
         buttonMoveDownAction.setEnabled(false);
@@ -385,6 +402,12 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                 buttonMoveDownActionActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelButtons.add(buttonMoveDownAction, gridBagConstraints);
 
         buttonAddAction.setText(bundle.getString("ActionsSettingsPanel.buttonAddAction.text")); // NOI18N
         buttonAddAction.setEnabled(false);
@@ -394,6 +417,12 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                 buttonAddActionActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelButtons.add(buttonAddAction, gridBagConstraints);
 
         buttonDeleteAction.setText(bundle.getString("ActionsSettingsPanel.buttonDeleteAction.text")); // NOI18N
         buttonDeleteAction.setEnabled(false);
@@ -403,6 +432,12 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                 buttonDeleteActionActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelButtons.add(buttonDeleteAction, gridBagConstraints);
 
         buttonShowActions.setText(bundle.getString("ActionsSettingsPanel.buttonShowActions.text")); // NOI18N
         buttonShowActions.setName("buttonShowActions"); // NOI18N
@@ -411,6 +446,18 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                 buttonShowActionsActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        panelButtons.add(buttonShowActions, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 7, 0, 0);
+        add(panelButtons, gridBagConstraints);
 
         buttonGroupExecute.add(radioButtonExecuteAlways);
         radioButtonExecuteAlways.setText(bundle.getString("ActionsSettingsPanel.radioButtonExecuteAlways.text")); // NOI18N
@@ -420,6 +467,12 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                 radioButtonExecuteAlwaysActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        add(radioButtonExecuteAlways, gridBagConstraints);
 
         buttonGroupExecute.add(radioButtonExecuteIfImageHasXmp);
         radioButtonExecuteIfImageHasXmp.setText(bundle.getString("ActionsSettingsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
@@ -429,59 +482,11 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
                 radioButtonExecuteIfImageHasXmpActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(radioButtonExecuteIfImageHasXmp)
-                        .addContainerGap())
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(radioButtonExecuteAlways)
-                            .addContainerGap())
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(buttonDeleteAction)
-                                    .addComponent(buttonMoveUpAction)
-                                    .addComponent(buttonMoveDownAction)
-                                    .addComponent(buttonAddAction))
-                                .addComponent(buttonShowActions, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addGap(12, 12, 12)))))
-        );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {buttonAddAction, buttonDeleteAction, buttonMoveDownAction, buttonMoveUpAction, buttonShowActions});
-
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonMoveUpAction)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonMoveDownAction)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAddAction)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonDeleteAction)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonShowActions)
-                        .addGap(8, 8, 8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(scrollPane)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(radioButtonExecuteAlways)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radioButtonExecuteIfImageHasXmp)
-                .addContainerGap())
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        add(radioButtonExecuteIfImageHasXmp, gridBagConstraints);
     }//GEN-END:initComponents
 
     private void buttonShowActionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowActionsActionPerformed
@@ -552,6 +557,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
     private javax.swing.JMenuItem menuItemMoveDownAction;
     private javax.swing.JMenuItem menuItemMoveUpAction;
     private javax.swing.JMenuItem menuItemShowActions;
+    private javax.swing.JPanel panelButtons;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JRadioButton radioButtonExecuteAlways;
     private javax.swing.JRadioButton radioButtonExecuteIfImageHasXmp;
