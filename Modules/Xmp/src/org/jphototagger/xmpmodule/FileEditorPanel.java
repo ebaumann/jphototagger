@@ -401,7 +401,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         panelContent.add(labelDescription, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/xmpmodule/Bundle"); // NOI18N
         panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "FileEditorPanel.panelOptions.border.title"))); // NOI18N
         panelOptions.setName("panelOptions"); // NOI18N
         panelOptions.setLayout(new java.awt.GridBagLayout());

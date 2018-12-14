@@ -148,7 +148,6 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/info/Bundle"); // NOI18N
         labelInfo.setText(Bundle.getString(getClass(), "SidecarSuffixesInfoSettingsPanel.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

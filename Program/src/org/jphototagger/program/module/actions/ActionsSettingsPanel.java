@@ -296,7 +296,6 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
 
         popupMenu.setName("popupMenu"); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/actions/Bundle"); // NOI18N
         menuItemAddAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.menuItemAddAction.text")); // NOI18N
         menuItemAddAction.setEnabled(false);
         menuItemAddAction.setName("menuItemAddAction"); // NOI18N

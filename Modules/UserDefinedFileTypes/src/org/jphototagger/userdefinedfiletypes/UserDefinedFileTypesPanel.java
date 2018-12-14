@@ -149,7 +149,6 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
         buttonAdd.setText(Bundle.getString(getClass(), "UserDefinedFileTypesPanel.buttonAdd.text")); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             @Override

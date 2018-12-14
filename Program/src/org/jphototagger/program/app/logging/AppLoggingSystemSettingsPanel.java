@@ -239,7 +239,6 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
 
         panelLogLevel.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/logging/Bundle"); // NOI18N
         labelLogLevel.setText(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.labelLogLevel.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

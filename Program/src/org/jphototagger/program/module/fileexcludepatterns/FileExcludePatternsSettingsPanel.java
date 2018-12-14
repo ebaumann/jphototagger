@@ -267,7 +267,6 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
 
         menuItemDeletePattern.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDeletePattern.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/fileexcludepatterns/Bundle"); // NOI18N
         menuItemDeletePattern.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.menuItemDeletePattern.text")); // NOI18N
         menuItemDeletePattern.setName("menuItemDeletePattern"); // NOI18N
         menuItemDeletePattern.addActionListener(new java.awt.event.ActionListener() {

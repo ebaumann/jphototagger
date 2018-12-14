@@ -217,7 +217,6 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonAddProgram = new javax.swing.JButton();
         buttonEditProgram = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         menuItemAddProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemAddProgram.text")); // NOI18N
         menuItemAddProgram.addActionListener(new java.awt.event.ActionListener() {
             @Override

@@ -233,7 +233,6 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/fileeventhooks/Bundle"); // NOI18N
         labelInfoJPhotoTaggerFilenameSuffixes.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.labelInfoJPhotoTaggerFilenameSuffixes.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

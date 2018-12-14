@@ -216,7 +216,6 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
 
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         panelSettingsThumbnailDimensions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.panelSettingsThumbnailDimensions.border.title"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

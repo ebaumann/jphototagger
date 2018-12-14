@@ -108,7 +108,6 @@ public class EditXmpDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/metadatatemplates/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "EditXmpDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 

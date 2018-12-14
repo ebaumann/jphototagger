@@ -101,7 +101,6 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         buttonChooseFile = new javax.swing.JButton();
         buttonRemoveFile = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/image/thumbnail/Bundle"); // NOI18N
         setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "DcrawThumbnailCreatorSettingsPanel.border.title"))); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 

@@ -46,7 +46,6 @@ public class ThumbnailCreatorSettingsDialog extends Dialog {
         tabbedPane = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "ThumbnailCreatorSettingsDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 

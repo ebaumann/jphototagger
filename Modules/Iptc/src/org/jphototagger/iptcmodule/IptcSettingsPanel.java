@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
@@ -126,7 +125,6 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
         checkBoxDisplayIptc.setText(Bundle.getString(getClass(), "IptcSettingsPanel.checkBoxDisplayIptc.text")); // NOI18N
         checkBoxDisplayIptc.setName("checkBoxDisplayIptc"); // NOI18N
         checkBoxDisplayIptc.addActionListener(new ActionListener() {

@@ -193,7 +193,6 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         thumbnailSizeSlider.setMajorTickSpacing(5);
         thumbnailSizeSlider.setMinimum(10);
         thumbnailSizeSlider.setSnapToTicks(true);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         thumbnailSizeSlider.setToolTipText(Bundle.getString(getClass(), "ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
         thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
         thumbnailSizeSlider.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 20));

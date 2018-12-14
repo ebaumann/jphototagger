@@ -59,7 +59,6 @@ public class SystemOutputDialog extends Dialog {
         panelSystemOutput = new org.jphototagger.lib.swing.SystemOutputPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "SystemOutputDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {

@@ -493,7 +493,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         add(textAreaSearch, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         searchButton.setText(Bundle.getString(getClass(), "FastSearchPanel.searchButton.text")); // NOI18N
         searchButton.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         searchButton.setName("searchButton"); // NOI18N

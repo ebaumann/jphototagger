@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Collection;
-import java.util.ResourceBundle;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
@@ -117,7 +116,6 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         checkBoxDisplayInFuture = new JCheckBox();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new GridBagLayout());

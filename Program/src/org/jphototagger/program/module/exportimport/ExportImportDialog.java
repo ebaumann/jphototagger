@@ -72,7 +72,6 @@ public class ExportImportDialog extends Dialog implements ExportImportListener {
         panelExportImport = new org.jphototagger.program.module.exportimport.ExportImportPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/exportimport/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "ExportImportDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());

@@ -369,7 +369,6 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
 
         buttonNoRating.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_remove_not_set.png"));
         buttonNoRating.setMnemonic('0');
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/editmetadata/Bundle"); // NOI18N
         buttonNoRating.setToolTipText(Bundle.getString(getClass(), "RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);

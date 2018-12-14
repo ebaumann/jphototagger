@@ -265,7 +265,6 @@ public final class AppFrame extends javax.swing.JFrame {
 
         menuBar.setName("menuBar"); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         menuFile.setText(Bundle.getString(getClass(), "AppFrame.menuFile.text")); // NOI18N
         menuFile.setName("menuFile"); // NOI18N
         menuBar.add(menuFile);

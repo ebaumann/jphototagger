@@ -703,7 +703,6 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.weightx = 1.0;
         panelSourceDirectory.add(labelSourceDir, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/importfiles/Bundle"); // NOI18N
         buttonChooseSourceDir.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonChooseSourceDir.text")); // NOI18N
         buttonChooseSourceDir.addActionListener(new java.awt.event.ActionListener() {
             @Override

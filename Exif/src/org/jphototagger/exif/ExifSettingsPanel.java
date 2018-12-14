@@ -197,7 +197,6 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
 
         panelExifCharset.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exif/Bundle"); // NOI18N
         labelExifCharset.setText(Bundle.getString(getClass(), "ExifSettingsPanel.labelExifCharset.text")); // NOI18N
         panelExifCharset.add(labelExifCharset, new java.awt.GridBagConstraints());
 

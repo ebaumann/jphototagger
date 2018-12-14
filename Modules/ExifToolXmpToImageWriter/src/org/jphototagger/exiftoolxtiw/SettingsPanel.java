@@ -362,7 +362,6 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         paneContents.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exiftoolxtiw/Bundle"); // NOI18N
         checkBoxSelfResponsible.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxSelfResponsible.text")); // NOI18N
         checkBoxSelfResponsible.addActionListener(new java.awt.event.ActionListener() {
             @Override

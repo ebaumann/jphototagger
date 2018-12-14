@@ -158,7 +158,6 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         panelExclude.setName("panelExclude"); // NOI18N
         panelExclude.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/plugins/Bundle"); // NOI18N
         labelInfoExclude.setText(Bundle.getString(getClass(), "PluginsSettingsPanel.labelInfoExclude.text")); // NOI18N
         labelInfoExclude.setName("labelInfoExclude"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

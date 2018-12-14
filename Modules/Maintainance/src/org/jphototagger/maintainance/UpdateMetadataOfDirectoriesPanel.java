@@ -499,7 +499,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         menuItemDelete.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {

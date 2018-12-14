@@ -461,7 +461,6 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelSearchSimple = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         panelSearchSimple.setSearchableTextComponent(textAreaSimple);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/util/logging/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "LogfileDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {

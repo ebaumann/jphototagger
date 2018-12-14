@@ -39,7 +39,6 @@ public class UserDefinedFileTypesDialog extends Dialog {
         panelUserDefinedFileTypes = new org.jphototagger.userdefinedfiletypes.UserDefinedFileTypesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "UserDefinedFileTypesDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

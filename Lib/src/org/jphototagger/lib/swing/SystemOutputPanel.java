@@ -147,7 +147,6 @@ public class SystemOutputPanel extends JPanel {
         gridBagConstraints.weightx = 1.0;
         panelButttons.add(searchPanel, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         buttonDelete.setText(Bundle.getString(getClass(), "SystemOutputPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setToolTipText(Bundle.getString(getClass(), "SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.setName("buttonDelete"); // NOI18N

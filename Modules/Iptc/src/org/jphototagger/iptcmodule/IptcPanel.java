@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.File;
 import java.util.Comparator;
-import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -236,7 +235,6 @@ public class IptcPanel extends javax.swing.JPanel {
         panelTableIptcFilter.setName("panelTableIptcFilter"); // NOI18N
         panelTableIptcFilter.setLayout(new GridBagLayout());
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
         labeTTableIptcFilter.setText(Bundle.getString(getClass(), "IptcPanel.labeTTableIptcFilter.text")); // NOI18N
         labeTTableIptcFilter.setName("labeTTableIptcFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();

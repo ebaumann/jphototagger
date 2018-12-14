@@ -276,7 +276,6 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         panelBottomComponents.setName("panelBottomComponents"); // NOI18N
         panelBottomComponents.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         labelInfo.setText(Bundle.getString(getClass(), "ThumbnailsAreaPanel.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

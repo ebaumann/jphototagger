@@ -172,7 +172,6 @@ public class EditMetaDataTemplateDialog extends Dialog {
         buttonSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/metadatatemplates/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         setPreferredSize(org.jphototagger.resources.UiFactory.dimension(500, 500));

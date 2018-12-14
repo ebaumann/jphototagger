@@ -197,7 +197,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/keywords/Bundle"); // NOI18N
         buttonToggleExpandAllNodes.setText(Bundle.getString(getClass(), "KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
         buttonToggleExpandAllNodes.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonToggleExpandAllNodes.setName("buttonToggleExpandAllNodes"); // NOI18N

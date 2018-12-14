@@ -66,7 +66,6 @@ public class ProgramChooseDialog extends Dialog {
         buttonChooseProgram = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "ProgramChooseDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 

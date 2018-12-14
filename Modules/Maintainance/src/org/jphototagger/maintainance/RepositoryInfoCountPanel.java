@@ -267,7 +267,6 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         labelTable.setText(Bundle.getString(getClass(), "RepositoryInfoCountPanel.labelTable.text")); // NOI18N
         labelTable.setName("labelTable"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

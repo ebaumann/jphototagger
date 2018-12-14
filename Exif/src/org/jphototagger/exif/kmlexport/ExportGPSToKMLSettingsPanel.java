@@ -4,7 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ResourceBundle;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -59,7 +58,6 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/exif/kmlexport/Bundle"); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.setText(Bundle.getString(getClass(), "ExportGPSToKMLSettingsPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.setName("checkBoxAddFilenameToGpsLocationExport"); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.addActionListener(new ActionListener() {

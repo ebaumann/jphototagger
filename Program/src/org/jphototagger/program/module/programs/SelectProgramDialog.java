@@ -141,7 +141,6 @@ public class SelectProgramDialog extends Dialog {
         gridBagConstraints.weighty = 1.0;
         panelContent.add(scrollPanePrograms, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         buttonSelect.setText(Bundle.getString(getClass(), "SelectProgramDialog.buttonSelect.text")); // NOI18N
         buttonSelect.setEnabled(false);
         buttonSelect.setName("buttonSelect"); // NOI18N

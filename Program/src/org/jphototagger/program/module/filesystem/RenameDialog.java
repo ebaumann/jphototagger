@@ -347,7 +347,6 @@ public final class RenameDialog extends Dialog {
         buttonRenameViaTemplate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "RenameDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

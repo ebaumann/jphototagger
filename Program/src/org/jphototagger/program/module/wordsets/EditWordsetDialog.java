@@ -63,7 +63,6 @@ public class EditWordsetDialog extends Dialog {
         panelEditWordset = new EditWordsetPanel(wordset);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/wordsets/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "EditWordsetDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

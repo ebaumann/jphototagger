@@ -603,7 +603,6 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
 
         labelSearch.setDisplayedMnemonic('s');
         labelSearch.setLabelFor(textFieldSearch);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         labelSearch.setText(Bundle.getString(getClass(), "TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
         add(labelSearch, new java.awt.GridBagConstraints());

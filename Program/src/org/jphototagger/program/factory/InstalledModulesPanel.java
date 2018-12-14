@@ -94,7 +94,6 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/factory/Bundle"); // NOI18N
         labelInfo.setText(Bundle.getString(getClass(), "InstalledModulesPanel.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

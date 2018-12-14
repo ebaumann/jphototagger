@@ -45,7 +45,6 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/iviewsshow/Bundle"); // NOI18N
         checkBoxReloadOnLoop.setText(Bundle.getString(getClass(), "IrfanViewSlideshowSettingsPanel.checkBoxReloadOnLoop.text")); // NOI18N
         checkBoxReloadOnLoop.setName("checkBoxReloadOnLoop"); // NOI18N
         checkBoxReloadOnLoop.addActionListener(new java.awt.event.ActionListener() {

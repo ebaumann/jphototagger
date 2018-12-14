@@ -171,7 +171,6 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         labelTitle.setText(Bundle.getString(getClass(), "RenameFilenamesInRepositoryPanel.labelTitle.text")); // NOI18N
         labelTitle.setName("labelTitle"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -213,7 +213,6 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         panelTemplateNameInfo.setName("panelTemplateNameInfo"); // NOI18N
         panelTemplateNameInfo.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/editmetadata/Bundle"); // NOI18N
         labelPromptInfoCurrentTemplate.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.labelPromptInfoCurrentTemplate.text")); // NOI18N
         labelPromptInfoCurrentTemplate.setName("labelPromptInfoCurrentTemplate"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

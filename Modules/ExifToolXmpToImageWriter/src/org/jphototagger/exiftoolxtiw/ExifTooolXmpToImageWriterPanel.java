@@ -89,7 +89,6 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
 
         panelConfigure.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exiftoolxtiw/Bundle"); // NOI18N
         buttonConfigure.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.buttonConfigure.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

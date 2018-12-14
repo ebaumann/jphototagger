@@ -341,7 +341,6 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         panelVfill = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "IptcToXmpDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {

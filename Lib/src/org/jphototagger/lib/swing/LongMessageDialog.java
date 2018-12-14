@@ -132,7 +132,6 @@ public class LongMessageDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         getContentPane().add(labelIcon, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         labelShortMessage.setText(Bundle.getString(getClass(), "LongMessageDialog.labelShortMessage.text")); // NOI18N
         labelShortMessage.setName("labelShortMessage"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -345,7 +345,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
         panelDirectory.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/exportimport/Bundle"); // NOI18N
         labelPromptDir.setText(Bundle.getString(getClass(), "ExportImportPanel.labelPromptDir.text")); // NOI18N
         labelPromptDir.setName("labelPromptDir"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -131,7 +131,6 @@ public class ObjectsSelectionDialog<T> extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         getContentPane().add(scrollPane, gridBagConstraints);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         buttonOk.setText(Bundle.getString(getClass(), "ObjectsSelectionDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {

@@ -281,7 +281,6 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         panelName.setLayout(new java.awt.GridBagLayout());
 
         labelName.setLabelFor(textFieldName);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/wordsets/Bundle"); // NOI18N
         labelName.setText(Bundle.getString(getClass(), "EditWordsetPanel.labelName.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

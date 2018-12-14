@@ -129,7 +129,6 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         label.setDisplayedMnemonic('t');
         label.setLabelFor(comboBoxDelimiter);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/cftc/Bundle"); // NOI18N
         label.setText(Bundle.getString(getClass(), "SettingsPanel.label.text")); // NOI18N
         label.setName("label"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ResourceBundle;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -62,7 +61,6 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         setName("MaintainanceCachesPanel"); // NOI18N
         setLayout(new GridBagLayout());
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         panelInfo.setBorder(BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MaintainanceCachesPanel.panelInfo.border.title"))); // NOI18N
         panelInfo.setName("panelInfo"); // NOI18N
         panelInfo.setLayout(new GridBagLayout());

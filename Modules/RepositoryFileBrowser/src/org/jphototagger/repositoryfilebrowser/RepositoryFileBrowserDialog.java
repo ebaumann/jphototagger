@@ -209,7 +209,6 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelThumbnailSizeInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/repositoryfilebrowser/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
         setName("Form"); // NOI18N

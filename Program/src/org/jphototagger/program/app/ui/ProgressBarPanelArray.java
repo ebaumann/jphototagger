@@ -205,7 +205,6 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         buttonToggleVisibilityOfHiddenProgressBars = new javax.swing.JButton();
 
         dialogHiddenProgressBars.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         dialogHiddenProgressBars.setTitle(Bundle.getString(getClass(), "ProgressBarPanelArray.dialogHiddenProgressBars.title")); // NOI18N
         dialogHiddenProgressBars.setAlwaysOnTop(true);
         dialogHiddenProgressBars.setIconImages(org.jphototagger.resources.Icons.getAppIcons());

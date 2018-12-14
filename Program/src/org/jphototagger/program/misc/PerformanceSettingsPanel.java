@@ -186,7 +186,6 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         panelMaximumSecondsToTerminateExternalPrograms.setLayout(new java.awt.GridBagLayout());
 
         labelMaximumSecondsToTerminateExternalPrograms.setLabelFor(spinnerMaximumSecondsToTerminateExternalPrograms);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
         labelMaximumSecondsToTerminateExternalPrograms.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

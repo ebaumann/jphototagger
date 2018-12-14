@@ -183,7 +183,6 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
 
         panelNoPreferences.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         labelNoPreferences.setText(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.labelNoPreferences.text")); // NOI18N
         panelNoPreferences.add(labelNoPreferences, new java.awt.GridBagConstraints());
 

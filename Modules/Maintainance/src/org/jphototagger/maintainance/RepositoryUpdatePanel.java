@@ -190,7 +190,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         panelTasks.setLayout(new java.awt.GridBagLayout());
 
         labelRefreshExif.setIcon(org.jphototagger.resources.Icons.getIcon("icon_exif.png"));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         labelRefreshExif.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.labelRefreshExif.text")); // NOI18N
         labelRefreshExif.setName("labelRefreshExif"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

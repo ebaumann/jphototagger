@@ -60,7 +60,6 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
         buttonFurtherSettings = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {

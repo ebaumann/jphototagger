@@ -344,7 +344,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuWords.setName("popupMenuWords"); // NOI18N
 
         menuItemChangeWord.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/synonyms/Bundle"); // NOI18N
         menuItemChangeWord.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemChangeWord.text")); // NOI18N
         menuItemChangeWord.setName("menuItemChangeWord"); // NOI18N
         menuItemChangeWord.addActionListener(new java.awt.event.ActionListener() {

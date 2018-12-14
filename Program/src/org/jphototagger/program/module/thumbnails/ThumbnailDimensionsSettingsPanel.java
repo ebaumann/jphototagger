@@ -84,7 +84,6 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
         setLayout(new java.awt.GridBagLayout());
 
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         labelMaxThumbnailWidth.setText(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsPanel.labelMaxThumbnailWidth.text")); // NOI18N
         labelMaxThumbnailWidth.setName("labelMaxThumbnailWidth"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

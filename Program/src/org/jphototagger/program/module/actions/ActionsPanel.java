@@ -257,7 +257,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
         popupMenu.setName("popupMenu"); // NOI18N
 
         menuItemExecute.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/actions/Bundle"); // NOI18N
         menuItemExecute.setText(Bundle.getString(getClass(), "ActionsPanel.menuItemExecute.text")); // NOI18N
         menuItemExecute.setName("menuItemExecute"); // NOI18N
         menuItemExecute.addActionListener(new java.awt.event.ActionListener() {

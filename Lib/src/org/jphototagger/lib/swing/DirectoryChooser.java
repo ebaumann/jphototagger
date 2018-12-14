@@ -344,7 +344,6 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
 
         popupMenu.setName("popupMenu"); // NOI18N
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         menuItemAdd.setText(Bundle.getString(getClass(), "DirectoryChooser.menuItemAdd.text")); // NOI18N
         menuItemAdd.setName("menuItemAdd"); // NOI18N
         menuItemAdd.addActionListener(new java.awt.event.ActionListener() {

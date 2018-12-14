@@ -13,7 +13,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -470,7 +469,6 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpTiffFilter.setName("panelTableXmpTiffFilter"); // NOI18N
         panelTableXmpTiffFilter.setLayout(new GridBagLayout());
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/xmpmodule/Bundle"); // NOI18N
         labelTableXmpTiffFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpTiffFilter.text")); // NOI18N
         labelTableXmpTiffFilter.setName("labelTableXmpTiffFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();

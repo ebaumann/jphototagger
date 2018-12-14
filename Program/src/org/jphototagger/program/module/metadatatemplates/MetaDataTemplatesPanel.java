@@ -122,7 +122,6 @@ public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListe
         panelModifyButtons.setName("panelModifyButtons"); // NOI18N
         panelModifyButtons.setLayout(new java.awt.GridLayout(2, 0));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/metadatatemplates/Bundle"); // NOI18N
         buttonRename.setText(Bundle.getString(getClass(), "MetaDataTemplatesPanel.buttonRename.text")); // NOI18N
         buttonRename.setEnabled(false);
         buttonRename.setName("buttonRename"); // NOI18N

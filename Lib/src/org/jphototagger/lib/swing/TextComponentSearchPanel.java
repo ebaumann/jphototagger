@@ -264,7 +264,6 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         setLayout(new java.awt.GridBagLayout());
 
         label.setLabelFor(searchTextField);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
         label.setText(Bundle.getString(getClass(), "TextComponentSearchPanel.label.text")); // NOI18N
         label.setName("label"); // NOI18N
         add(label, new java.awt.GridBagConstraints());

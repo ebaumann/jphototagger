@@ -198,7 +198,6 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
         });
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/fileeventhooks/Bundle"); // NOI18N
         labelGeneralInfo.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.labelGeneralInfo.text")); // NOI18N
         labelGeneralInfo.setLineWrap(true);
         gridBagConstraints = new java.awt.GridBagConstraints();

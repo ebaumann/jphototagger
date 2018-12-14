@@ -603,7 +603,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         panelKeywords.setLayout(new java.awt.GridBagLayout());
         panelKeywords.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 150));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         labelInfoKeywords.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
         labelInfoKeywords.setName("labelInfoKeywords"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

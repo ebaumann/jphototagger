@@ -393,7 +393,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         panelTasks.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInRepository.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.addActionListener(new java.awt.event.ActionListener() {
             @Override

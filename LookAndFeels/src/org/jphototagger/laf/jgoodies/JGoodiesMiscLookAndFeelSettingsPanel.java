@@ -108,7 +108,6 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         labelClassNames.setLabelFor(comboBoxClassNames);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/laf/jgoodies/Bundle"); // NOI18N
         labelClassNames.setText(Bundle.getString(getClass(), "JGoodiesMiscLookAndFeelSettingsPanel.labelClassNames.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

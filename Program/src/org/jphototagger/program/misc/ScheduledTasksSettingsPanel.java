@@ -213,7 +213,6 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
         panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.panelTasksAutoscan.border.title"))); // NOI18N
         panelTasksAutoscan.setName("panelTasksAutoscan"); // NOI18N
         panelTasksAutoscan.setLayout(new java.awt.GridBagLayout());

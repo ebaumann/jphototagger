@@ -122,7 +122,6 @@ public class InputHelperDialog extends Dialog {
         labelInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "InputHelperDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N

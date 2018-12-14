@@ -341,7 +341,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         panelDefault.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
         checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             @Override

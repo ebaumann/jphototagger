@@ -59,7 +59,6 @@ public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
         panel = new org.jphototagger.maintainance.UpdateMetadataOfDirectoriesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {

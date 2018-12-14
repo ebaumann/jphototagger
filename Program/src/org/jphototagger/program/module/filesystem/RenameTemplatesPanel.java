@@ -502,7 +502,6 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         buttonUpdateRenameTemplate = new javax.swing.JButton();
 
         checkDirtyDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
         checkDirtyDialog.setTitle(Bundle.getString(getClass(), "RenameTemplatesPanel.checkDirtyDialog.title")); // NOI18N
         checkDirtyDialog.getContentPane().setLayout(new java.awt.GridBagLayout());
 

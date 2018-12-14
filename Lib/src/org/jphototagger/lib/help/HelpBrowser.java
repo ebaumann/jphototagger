@@ -601,7 +601,6 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         menuItemGotoPreviousUrl.setName("menuItemGotoPreviousUrl"); // NOI18N
         popupMenuEditorPane.add(menuItemGotoPreviousUrl);
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/help/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "HelpBrowser.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());

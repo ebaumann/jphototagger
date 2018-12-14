@@ -204,7 +204,6 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         labelListFilenameSuffixes.setLabelFor(listFilenameSuffixes);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         labelListFilenameSuffixes.setText(Bundle.getString(getClass(), "EditDefaultProgramsPanel.labelListFilenameSuffixes.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

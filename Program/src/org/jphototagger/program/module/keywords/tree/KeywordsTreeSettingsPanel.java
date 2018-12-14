@@ -76,7 +76,6 @@ public class KeywordsTreeSettingsPanel extends javax.swing.JPanel implements Opt
 
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/keywords/tree/Bundle"); // NOI18N
         checkBoxAutoInsertUnknownKeywords.setText(Bundle.getString(getClass(), "KeywordsTreeSettingsPanel.checkBoxAutoInsertUnknownKeywords.text")); // NOI18N
         checkBoxAutoInsertUnknownKeywords.setToolTipText(Bundle.getString(getClass(), "KeywordsTreeSettingsPanel.checkBoxAutoInsertUnknownKeywords.toolTipText")); // NOI18N
         checkBoxAutoInsertUnknownKeywords.addActionListener(new java.awt.event.ActionListener() {

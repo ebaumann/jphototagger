@@ -168,7 +168,6 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         buttonOk = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/tcc/def/scripts/unix/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
         getContentPane().setLayout(new java.awt.GridBagLayout());

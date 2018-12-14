@@ -4,7 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ResourceBundle;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 import org.jphototagger.lib.swing.Dialog;
@@ -30,13 +29,12 @@ public class MaintainanceDialog extends Dialog {
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
-        GridBagConstraints gridBagConstraints; 
+        GridBagConstraints gridBagConstraints;
 
         tabbedPane = new JTabbedPane();
         panelMaintainanceCaches = new MaintainanceCachesPanel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "MaintainanceDialog.title")); // NOI18N
         setIconImage(null);
         setName("MaintainanceDialog"); // NOI18N

@@ -174,7 +174,6 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
 
         setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         panelContent.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "InfoOfSelectedThumbnailPanel.panelContent.border.title"))); // NOI18N
         panelContent.setLayout(new java.awt.GridBagLayout());
 

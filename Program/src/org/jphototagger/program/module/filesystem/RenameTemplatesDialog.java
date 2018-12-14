@@ -47,7 +47,6 @@ public class RenameTemplatesDialog extends Dialog {
         panelRenameTemplates = new org.jphototagger.program.module.filesystem.RenameTemplatesPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "RenameTemplatesDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

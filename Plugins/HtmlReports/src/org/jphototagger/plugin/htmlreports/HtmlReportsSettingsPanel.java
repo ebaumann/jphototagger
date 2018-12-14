@@ -125,7 +125,6 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         labelDefaultValues.setLabelFor(panelColumns);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/htmlreports/Bundle"); // NOI18N
         labelDefaultValues.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.labelDefaultValues.text")); // NOI18N
         labelDefaultValues.setName("labelDefaultValues"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -184,7 +184,6 @@ public final class SettingsDialog extends Dialog {
         panelDisplayMessagesInFuture = new org.jphototagger.program.settings.DisplayMessagesInFutureSettingsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/settings/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "SettingsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {

@@ -364,7 +364,6 @@ public class WordsetsPanel extends javax.swing.JPanel {
         buttonEraseAutomaticWords = new javax.swing.JButton();
         panelWords = new javax.swing.JPanel();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/wordsets/Bundle"); // NOI18N
         setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.toolTipText")); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 

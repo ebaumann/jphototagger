@@ -5,7 +5,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.File;
 import java.util.Comparator;
-import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -210,7 +209,6 @@ public class ExifPanel extends javax.swing.JPanel {
         panelTableExifFilter.setName("panelTableExifFilter"); // NOI18N
         panelTableExifFilter.setLayout(new GridBagLayout());
 
-        ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/exifmodule/Bundle"); // NOI18N
         labelTableExifFilter.setText(Bundle.getString(getClass(), "ExifPanel.labelTableExifFilter.text")); // NOI18N
         labelTableExifFilter.setName("labelTableExifFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();

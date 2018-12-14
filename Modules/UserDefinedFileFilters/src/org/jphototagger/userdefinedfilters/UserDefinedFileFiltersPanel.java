@@ -192,7 +192,6 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         });
 
         menuItemInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_INSERT, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfilters/Bundle"); // NOI18N
         menuItemInsert.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.menuItemInsert.text")); // NOI18N
         menuItemInsert.setName("menuItemInsert"); // NOI18N
         menuItemInsert.addActionListener(new java.awt.event.ActionListener() {

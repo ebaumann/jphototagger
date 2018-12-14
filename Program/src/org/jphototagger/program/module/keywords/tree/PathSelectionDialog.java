@@ -198,7 +198,6 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         buttonSelectAll = new javax.swing.JButton();
         buttonSelectSelected = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/keywords/tree/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "PathSelectionDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {

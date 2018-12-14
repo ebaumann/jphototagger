@@ -477,7 +477,6 @@ public class FindDuplicatesDialog extends Dialog {
         panelResultActions = new javax.swing.JPanel();
         buttonDeleteSelectedFiles = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/findduplicates/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "FindDuplicatesDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 

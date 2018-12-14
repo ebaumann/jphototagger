@@ -141,7 +141,6 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
         add(progressBar, gridBagConstraints);
 
         buttonCancelProgress.setIcon(org.jphototagger.resources.Icons.getIcon("icon_cancel.png"));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
         buttonCancelProgress.setToolTipText(Bundle.getString(getClass(), "ProgressBarPanel.buttonCancelProgress.toolTipText")); // NOI18N
         buttonCancelProgress.setBorder(null);
         buttonCancelProgress.setContentAreaFilled(false);

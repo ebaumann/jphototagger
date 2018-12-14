@@ -93,7 +93,6 @@ public final class AdvancedSearchDialog extends Dialog implements NameListener {
         panel = new org.jphototagger.program.module.search.AdvancedSearchPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "AdvancedSearchDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {

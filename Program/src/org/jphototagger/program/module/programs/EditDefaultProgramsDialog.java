@@ -27,7 +27,6 @@ public class EditDefaultProgramsDialog extends Dialog {
         panelEditDefaultPrograms = new org.jphototagger.program.module.programs.EditDefaultProgramsPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "EditDefaultProgramsDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();

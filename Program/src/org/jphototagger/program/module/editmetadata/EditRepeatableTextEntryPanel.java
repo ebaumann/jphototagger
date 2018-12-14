@@ -836,7 +836,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         popupMenuList.setName("popupMenuList"); // NOI18N
 
         menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/editmetadata/Bundle"); // NOI18N
         menuItemRename.setText(Bundle.getString(getClass(), "EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
         menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {

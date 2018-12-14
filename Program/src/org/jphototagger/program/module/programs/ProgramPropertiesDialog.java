@@ -384,7 +384,6 @@ public final class ProgramPropertiesDialog extends Dialog {
         panelExpertSettings.setName("panelExpertSettings"); // NOI18N
         panelExpertSettings.setLayout(new java.awt.GridBagLayout());
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         checkBoxChangeFile.setText(Bundle.getString(getClass(), "ProgramPropertiesDialog.checkBoxChangeFile.text")); // NOI18N
         checkBoxChangeFile.setToolTipText(Bundle.getString(getClass(), "ProgramPropertiesDialog.checkBoxChangeFile.toolTipText")); // NOI18N
         checkBoxChangeFile.setName("checkBoxChangeFile"); // NOI18N
