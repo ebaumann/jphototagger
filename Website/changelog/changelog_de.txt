@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.0 2018-12-14
+-----------------
+
+* Falls ein anderer Font-Skalierungsfaktor als 1 eingestellt
+  ist, wird das GUI besser skaliert als bislang.
+
 0.41.3 2018-12-04
 -----------------
 

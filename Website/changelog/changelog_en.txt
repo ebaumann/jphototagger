@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.0 2018-12-14
+-----------------
+
+* If a font scale factor other than 1 is set, the GUI
+  will be better scaled than previously.
+
 0.41.3 2018-12-04
 -----------------
 
