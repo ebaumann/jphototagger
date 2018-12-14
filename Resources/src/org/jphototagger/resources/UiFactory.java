@@ -1,9 +1,7 @@
 package org.jphototagger.resources;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.Objects;
 import org.jphototagger.api.preferences.CommonPreferences;
 
 /**
@@ -60,38 +58,6 @@ public final class UiFactory {
         return IS_SCALE
                 ? (int) ((double) width * SCALE_FACTOR)
                 : width;
-    }
-
-    /**
-     * Scales GridBagConstraints.
-     *
-     * @param constraints
-     *
-     * @return Scaled clone. Same not cloned object, if nothing have to be
-     *         scaled.
-     */
-    public static GridBagConstraints scale(GridBagConstraints constraints) {
-        Objects.requireNonNull(constraints, "constraints == null");
-
-        if (!IS_SCALE) {
-            return constraints;
-        }
-
-        GridBagConstraints clone = constraints;
-        if (constraints != null) {
-            clone = (GridBagConstraints) constraints.clone();
-            clone.fill = scale(constraints.fill);
-            clone.ipadx = scale(constraints.ipadx);
-            clone.ipady = scale(constraints.ipady);
-            if (constraints.insets != null) {
-                clone.insets = new Insets(
-                        scale(constraints.insets.top),
-                        scale(constraints.insets.left),
-                        scale(constraints.insets.bottom),
-                        scale(constraints.insets.right));
-            }
-        }
-        return clone;
     }
 
     private UiFactory() {
