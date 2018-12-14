@@ -208,6 +208,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         thumbnailDimensionsButton.setContentAreaFilled(false);
         thumbnailDimensionsButton.setName("thumbnailDimensionsButton"); // NOI18N
         thumbnailDimensionsButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 thumbnailDimensionsButtonActionPerformed(evt);
             }
