@@ -1,12 +1,12 @@
 package org.jphototagger.maintainance.browse;
 
-import org.jphototagger.domain.repository.browse.ResultSetBrowser;
-import org.jphototagger.domain.repository.browse.ResultSetBrowserEvent;
 import java.util.List;
 import java.util.Objects;
 import javax.swing.SwingWorker;
 import org.jphototagger.api.function.Consumer;
 import org.jphototagger.domain.repository.RepositoryMaintainance;
+import org.jphototagger.domain.repository.browse.ResultSetBrowser;
+import org.jphototagger.domain.repository.browse.ResultSetBrowserEvent;
 import org.openide.util.Lookup;
 
 /**

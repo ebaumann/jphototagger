@@ -3,7 +3,6 @@ package org.jphototagger.program.module.programs;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import javax.swing.JFileChooser;

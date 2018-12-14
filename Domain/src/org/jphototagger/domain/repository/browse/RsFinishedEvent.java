@@ -1,7 +1,5 @@
 package org.jphototagger.domain.repository.browse;
 
-import org.jphototagger.domain.repository.browse.ResultSetBrowser;
-import org.jphototagger.domain.repository.browse.ResultSetBrowserEvent;
 import java.util.Objects;
 
 /**

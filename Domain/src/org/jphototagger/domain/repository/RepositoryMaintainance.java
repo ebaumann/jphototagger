@@ -1,7 +1,7 @@
 package org.jphototagger.domain.repository;
 
-import org.jphototagger.domain.repository.browse.ResultSetBrowserEvent;
 import org.jphototagger.api.function.Consumer;
+import org.jphototagger.domain.repository.browse.ResultSetBrowserEvent;
 
 /**
  * @author Elmar Baumann

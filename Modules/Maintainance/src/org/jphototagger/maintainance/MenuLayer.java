@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
-import org.jphototagger.maintainance.browse.ResultSetBrowserAction;
 import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
+import org.jphototagger.maintainance.browse.ResultSetBrowserAction;
 import org.openide.util.lookup.ServiceProvider;
 
 /**

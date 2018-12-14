@@ -1,7 +1,6 @@
 package org.jphototagger.repositoryfilebrowser;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;

@@ -1,7 +1,6 @@
 package org.jphototagger.lib.swing;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;

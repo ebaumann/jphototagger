@@ -1,8 +1,8 @@
 package org.jphototagger.maintainance.browse;
 
-import org.jphototagger.domain.repository.browse.ResultSetBrowser;
 import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
+import org.jphototagger.domain.repository.browse.ResultSetBrowser;
 
 /**
  * Populates a table model while browsing a ResultSet. A derived class handles
