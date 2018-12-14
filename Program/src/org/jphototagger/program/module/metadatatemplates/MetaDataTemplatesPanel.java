@@ -87,7 +87,7 @@ public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListe
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
         panelModifyButtons = new javax.swing.JPanel();

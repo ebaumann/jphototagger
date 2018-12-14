@@ -333,7 +333,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         labelDir = org.jphototagger.resources.UiFactory.label();
         buttonSelDir = org.jphototagger.resources.UiFactory.button();
         labelSelectInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         panelSelectObjects = new org.jphototagger.lib.swing.SelectObjectsPanel();
         panelButtons = new javax.swing.JPanel();
         buttonSelectAll = org.jphototagger.resources.UiFactory.button();

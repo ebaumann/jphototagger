@@ -114,7 +114,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
         buttonAdd = org.jphototagger.resources.UiFactory.button();

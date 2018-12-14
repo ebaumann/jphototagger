@@ -163,7 +163,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
                 }
             }
         }
-        labelFill = new JLabel();
+        labelFill = org.jphototagger.resources.UiFactory.label();
     }
 
     private void addAsFocusListener() {

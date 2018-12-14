@@ -376,7 +376,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         checkBoxIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxReplaceExistingFiles = org.jphototagger.resources.UiFactory.checkBox();
         labelInfoFiles = org.jphototagger.resources.UiFactory.label();
-        scrollPaneListFiles = new javax.swing.JScrollPane();
+        scrollPaneListFiles = org.jphototagger.resources.UiFactory.scrollPane();
         listFiles = new org.jdesktop.swingx.JXList();
         progressBar = new javax.swing.JProgressBar();
         labelPromptCurrentFile = org.jphototagger.resources.UiFactory.label();

@@ -161,7 +161,7 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
             gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
             add(imagePanel, gbc);
             gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
-            JLabel labelFilepath = new JLabel();
+            JLabel labelFilepath = org.jphototagger.resources.UiFactory.label();
             labelFilepath.setText(getShortFilepath());
             labelFilepath.setToolTipText(file.getAbsolutePath());
             add(labelFilepath, gbc);

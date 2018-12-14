@@ -452,12 +452,12 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelSearchXml = new javax.swing.JPanel();
         labelSearch = org.jphototagger.resources.UiFactory.label();
         textFieldSearch = new javax.swing.JTextField();
-        scrollPaneTableLogfileRecords = new javax.swing.JScrollPane();
+        scrollPaneTableLogfileRecords = org.jphototagger.resources.UiFactory.scrollPane();
         tableLogfileRecords = new javax.swing.JTable();
-        scrollPaneTextPaneDetails = new javax.swing.JScrollPane();
+        scrollPaneTextPaneDetails = org.jphototagger.resources.UiFactory.scrollPane();
         textPaneDetails = new javax.swing.JTextPane();
         panelSimple = new javax.swing.JPanel();
-        scrollPanePanelSimple = new javax.swing.JScrollPane();
+        scrollPanePanelSimple = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaSimple = new javax.swing.JTextArea();
         panelSearchSimple = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         panelSearchSimple.setSearchableTextComponent(textAreaSimple);

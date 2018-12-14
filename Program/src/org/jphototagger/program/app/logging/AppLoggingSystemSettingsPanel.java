@@ -222,7 +222,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         panelIgnoreMessagesContent = new javax.swing.JPanel();
         labelInfoErrorTexts = new org.jdesktop.swingx.JXLabel();
         panelErrorTexts = new javax.swing.JPanel();
-        scrollPaneErrorTexts = new javax.swing.JScrollPane();
+        scrollPaneErrorTexts = org.jphototagger.resources.UiFactory.scrollPane();
         listErrorTexts = new javax.swing.JList<>();
         buttonRemoveErrorText = org.jphototagger.resources.UiFactory.button();
         buttonEditErrorText = org.jphototagger.resources.UiFactory.button();

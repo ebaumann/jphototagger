@@ -89,7 +89,7 @@ public class ExifPanel extends javax.swing.JPanel {
     private static class ExifTableCellRenderer implements TableCellRenderer {
 
         private final TableLookAndFeel lookAndFeel = Lookup.getDefault().lookup(TableLookAndFeel.class);
-        private final JLabel cellLabel = new JLabel();
+        private final JLabel cellLabel = org.jphototagger.resources.UiFactory.label();
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -198,9 +198,9 @@ public class ExifPanel extends javax.swing.JPanel {
         GridBagConstraints gridBagConstraints;
 
         panelTableExifFilter = new JPanel();
-        labelTableExifFilter = new JLabel();
+        labelTableExifFilter = org.jphototagger.resources.UiFactory.label();
         textFieldTableExifFilter = new JTextField();
-        scrollPaneExif = new JScrollPane();
+        scrollPaneExif = org.jphototagger.resources.UiFactory.scrollPane();
         tableExif = new JTable();
         buttonExifToXmp = org.jphototagger.resources.UiFactory.button();
 

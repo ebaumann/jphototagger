@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToggleButton;
@@ -246,6 +247,20 @@ public final class UiFactory {
 
     private static void configure(JSplitPane sp) {
         // For future usage
+    }
+
+    public static JScrollPane scrollPane() {
+        JScrollPane sp = new JScrollPane();
+
+        configure(sp);
+
+        return sp;
+    }
+
+    private static void configure(JScrollPane sp) {
+        int inc = scale(16);
+        sp.getHorizontalScrollBar().setUnitIncrement(inc);
+        sp.getVerticalScrollBar().setUnitIncrement(inc);
     }
 
     private UiFactory() {

@@ -353,14 +353,14 @@ public final class ProgramPropertiesDialog extends Dialog {
         checkBoxChangeFile = org.jphototagger.resources.UiFactory.checkBox();
         panelParameter = new javax.swing.JPanel();
         labelParametersBeforeFilename = org.jphototagger.resources.UiFactory.label();
-        scrollPaneParametersBeforeFilename = new javax.swing.JScrollPane();
+        scrollPaneParametersBeforeFilename = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaParametersBeforeFilename = new TabOrEnterLeavingTextArea();
         labelParametersAfterFilename = org.jphototagger.resources.UiFactory.label();
-        scrollPaneParametersAfterFilename = new javax.swing.JScrollPane();
+        scrollPaneParametersAfterFilename = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaParametersAfterFilename = new TabOrEnterLeavingTextArea();
         checkBoxUsePattern = org.jphototagger.resources.UiFactory.checkBox();
         buttonInfoUsePattern = org.jphototagger.resources.UiFactory.button();
-        scrollPaneUsePattern = new javax.swing.JScrollPane();
+        scrollPaneUsePattern = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaUsePattern = new TabOrEnterLeavingTextArea();
         panelInputBeforeExecute = new javax.swing.JPanel();
         checkBoxInputBeforeExecute = org.jphototagger.resources.UiFactory.checkBox();
@@ -377,7 +377,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         panelAlias = new javax.swing.JPanel();
         labelAlias = org.jphototagger.resources.UiFactory.label();
         textFieldAlias = new javax.swing.JTextField();
-        toggleButtonExpertSettings = new javax.swing.JToggleButton();
+        toggleButtonExpertSettings = org.jphototagger.resources.UiFactory.toggleButton();
         labelInfoRequiredInputs = org.jphototagger.resources.UiFactory.label();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();

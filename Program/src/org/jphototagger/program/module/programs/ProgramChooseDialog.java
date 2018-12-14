@@ -61,7 +61,7 @@ public class ProgramChooseDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        scrollPanePrograms = new javax.swing.JScrollPane();
+        scrollPanePrograms = org.jphototagger.resources.UiFactory.scrollPane();
         listPrograms = new org.jdesktop.swingx.JXList();
         buttonChooseProgram = org.jphototagger.resources.UiFactory.button();
 

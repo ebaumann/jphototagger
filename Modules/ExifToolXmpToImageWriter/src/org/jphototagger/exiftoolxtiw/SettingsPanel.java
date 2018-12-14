@@ -351,7 +351,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         labelErrorInputsSavedEarly = org.jphototagger.resources.UiFactory.label();
         checkBoxCreateBackupFile = org.jphototagger.resources.UiFactory.checkBox();
         labelFileSuffixes = org.jphototagger.resources.UiFactory.label();
-        scrollPaneFileSuffixes = new javax.swing.JScrollPane();
+        scrollPaneFileSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
         listFileSuffixes = new javax.swing.JList<String>();
         panelButtonsFileSuffixes = new javax.swing.JPanel();
         buttonSetDefaultFileSuffixes = org.jphototagger.resources.UiFactory.button();

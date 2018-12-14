@@ -109,7 +109,7 @@ public class SystemOutputPanel extends JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         textArea = new javax.swing.JTextArea();
         panelButttons = new javax.swing.JPanel();
         searchPanel = new org.jphototagger.lib.swing.TextComponentSearchPanel();

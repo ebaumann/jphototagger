@@ -330,7 +330,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         menuItemRename = org.jphototagger.resources.UiFactory.menuItem();
         menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
         panelContents = new javax.swing.JPanel();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         tree = new javax.swing.JTree();
         labelUsage = org.jphototagger.resources.UiFactory.label();
         panelActionButtons = new javax.swing.JPanel();

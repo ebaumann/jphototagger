@@ -137,7 +137,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
 
         panelContent = new javax.swing.JPanel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPaneSuffixes = new javax.swing.JScrollPane();
+        scrollPaneSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
         listSuffixes = new javax.swing.JList<>();
         labelSuffix = org.jphototagger.resources.UiFactory.label();
         textFieldSuffix = new javax.swing.JTextField();

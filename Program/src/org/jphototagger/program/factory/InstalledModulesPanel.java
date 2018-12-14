@@ -86,7 +86,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         labelInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPaneModules = new javax.swing.JScrollPane();
+        scrollPaneModules = org.jphototagger.resources.UiFactory.scrollPane();
         listModules = new javax.swing.JList<>();
         panelModuleDescription = new javax.swing.JPanel();
         labelModuleDescription = new org.jdesktop.swingx.JXLabel();

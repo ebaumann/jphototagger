@@ -53,7 +53,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
 
         checkBoxAddFilenameToGpsLocationExport = org.jphototagger.resources.UiFactory.checkBox();
         panelFill = new JPanel();
-        labelVersion = new JLabel();
+        labelVersion = org.jphototagger.resources.UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());

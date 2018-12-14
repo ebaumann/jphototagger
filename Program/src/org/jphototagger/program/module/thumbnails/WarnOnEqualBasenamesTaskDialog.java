@@ -111,7 +111,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         GridBagConstraints gridBagConstraints;
 
         labelInfo = new JXLabel();
-        scrollPanlFiles = new JScrollPane();
+        scrollPanlFiles = org.jphototagger.resources.UiFactory.scrollPane();
         listFiles = new JXList();
         checkBoxDisplayInFuture = org.jphototagger.resources.UiFactory.checkBox();
 

@@ -243,7 +243,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelFiles = new javax.swing.JPanel();
         labelInfoList = org.jphototagger.resources.UiFactory.label();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
         labelTextFieldInputPattern = org.jphototagger.resources.UiFactory.label();
         textFieldInputPattern = new javax.swing.JTextField();
@@ -260,7 +260,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         buttonUpdateRepository = org.jphototagger.resources.UiFactory.button();
         panelDirectoryFolder = new javax.swing.JPanel();
         labelInfopanelDirectoryFolder = org.jphototagger.resources.UiFactory.label();
-        scrollPanePanelDirectoryFolder = new javax.swing.JScrollPane();
+        scrollPanePanelDirectoryFolder = org.jphototagger.resources.UiFactory.scrollPane();
         panelSelectRootFiles = new org.jphototagger.lib.swing.SelectRootFilesPanel();
 
         popupMenu.setName("popupMenu"); // NOI18N

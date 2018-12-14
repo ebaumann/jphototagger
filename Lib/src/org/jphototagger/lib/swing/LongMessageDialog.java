@@ -110,7 +110,7 @@ public class LongMessageDialog extends Dialog {
 
         labelIcon = org.jphototagger.resources.UiFactory.label();
         labelShortMessage = org.jphototagger.resources.UiFactory.label();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         textArea = new javax.swing.JTextArea();
         panelControls = new javax.swing.JPanel();
         panelSearch = new org.jphototagger.lib.swing.TextComponentSearchPanel();

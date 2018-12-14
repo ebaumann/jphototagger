@@ -87,7 +87,7 @@ public class IptcPanel extends javax.swing.JPanel {
 
         private final Translation TRANSLATION = new Translation(IptcPanel.class, "IptcRecordDataSetNumberTranslations");
         private final TableLookAndFeel lookAndFeel = Lookup.getDefault().lookup(TableLookAndFeel.class);
-        private final JLabel cellLabel = new JLabel();
+        private final JLabel cellLabel = org.jphototagger.resources.UiFactory.label();
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -221,9 +221,9 @@ public class IptcPanel extends javax.swing.JPanel {
         GridBagConstraints gridBagConstraints;
 
         panelTableIptcFilter = new JPanel();
-        labeTTableIptcFilter = new JLabel();
+        labeTTableIptcFilter = org.jphototagger.resources.UiFactory.label();
         textFieldTableIptcFilter = new JTextField();
-        scrollPaneIptc = new JScrollPane();
+        scrollPaneIptc = org.jphototagger.resources.UiFactory.scrollPane();
         tableIptc = new JTable();
         panelActions = new JPanel();
         panelIptcSettings = new IptcSettingsPanel();

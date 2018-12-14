@@ -102,7 +102,7 @@ public class SelectProgramDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        scrollPanePrograms = new javax.swing.JScrollPane();
+        scrollPanePrograms = org.jphototagger.resources.UiFactory.scrollPane();
         listPrograms = new org.jdesktop.swingx.JXList();
         buttonSelect = org.jphototagger.resources.UiFactory.button();
 

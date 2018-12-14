@@ -379,7 +379,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         labelFinishedDeleteNotReferenced1n = org.jphototagger.resources.UiFactory.label();
         panelMessages = new javax.swing.JPanel();
         labelMessages = org.jphototagger.resources.UiFactory.label();
-        scrollPaneMessages = new javax.swing.JScrollPane();
+        scrollPaneMessages = org.jphototagger.resources.UiFactory.scrollPane();
         textPaneMessages = new javax.swing.JTextPane();
         progressBar = new javax.swing.JProgressBar();
         panelButtons = new javax.swing.JPanel();

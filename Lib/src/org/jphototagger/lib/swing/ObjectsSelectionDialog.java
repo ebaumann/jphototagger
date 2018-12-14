@@ -113,7 +113,7 @@ public class ObjectsSelectionDialog<T> extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new javax.swing.JList<>();
         buttonOk = org.jphototagger.resources.UiFactory.button();
 

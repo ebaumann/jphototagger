@@ -142,7 +142,7 @@ public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements 
         java.awt.GridBagConstraints gridBagConstraints;
 
         fillPanel = new javax.swing.JPanel();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         panels = new javax.swing.JPanel();
         firstSelectionPanel = new org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanel();
 

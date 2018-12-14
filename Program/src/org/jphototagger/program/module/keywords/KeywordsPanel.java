@@ -154,18 +154,18 @@ public class KeywordsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelTree = new javax.swing.JPanel();
-        scrollPaneTree = new javax.swing.JScrollPane();
+        scrollPaneTree = org.jphototagger.resources.UiFactory.scrollPane();
         tree = new JXTree();
         tree.setShowsRootHandles(true);
         panelButtons = new javax.swing.JPanel();
-        buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
+        buttonToggleExpandAllNodes = org.jphototagger.resources.UiFactory.toggleButton();
         buttonSearchInTree = org.jphototagger.resources.UiFactory.button();
         buttonAsList = org.jphototagger.resources.UiFactory.button();
         panelList = new javax.swing.JPanel();
         panelListFilter = new javax.swing.JPanel();
         labelListFilter = org.jphototagger.resources.UiFactory.label();
         textFieldListFilter = new javax.swing.JTextField();
-        scrollPaneList = new javax.swing.JScrollPane();
+        scrollPaneList = org.jphototagger.resources.UiFactory.scrollPane();
         list = new JXList();
         list.setTransferHandler(new org.jphototagger.program.datatransfer.DragListItemsTransferHandler(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
         buttonSearchInList = org.jphototagger.resources.UiFactory.button();

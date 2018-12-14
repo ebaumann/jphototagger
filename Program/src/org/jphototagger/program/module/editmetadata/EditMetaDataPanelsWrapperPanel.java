@@ -26,7 +26,7 @@ class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPaneEditMetadata = new javax.swing.JScrollPane();
+        scrollPaneEditMetadata = org.jphototagger.resources.UiFactory.scrollPane();
         panelEditMetadata = new javax.swing.JPanel();
 
         setName("Edit Metadata Container"); // NOI18N

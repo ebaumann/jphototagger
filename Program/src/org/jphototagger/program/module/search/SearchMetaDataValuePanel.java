@@ -331,14 +331,14 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        toggleButtonBracketLeft1 = new javax.swing.JToggleButton();
+        toggleButtonBracketLeft1 = org.jphototagger.resources.UiFactory.toggleButton();
         comboBoxOperators = new javax.swing.JComboBox<>();
-        toggleButtonBracketLeft2 = new javax.swing.JToggleButton();
+        toggleButtonBracketLeft2 = org.jphototagger.resources.UiFactory.toggleButton();
         comboBoxColumns = new javax.swing.JComboBox<>();
         comboBoxComparators = new javax.swing.JComboBox<>();
         textFieldValue = new javax.swing.JFormattedTextField();
         textFieldValue.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
-        toggleButtonBracketRight = new javax.swing.JToggleButton();
+        toggleButtonBracketRight = org.jphototagger.resources.UiFactory.toggleButton();
         buttonCalendar = org.jphototagger.resources.UiFactory.button();
         buttonRemoveColumn = org.jphototagger.resources.UiFactory.button();
 

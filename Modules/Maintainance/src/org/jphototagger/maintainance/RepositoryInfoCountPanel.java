@@ -260,7 +260,7 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelTable = org.jphototagger.resources.UiFactory.label();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         table = new javax.swing.JTable();
         labelFilename = org.jphototagger.resources.UiFactory.label();
 

@@ -191,7 +191,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
 
         panelContent = new javax.swing.JPanel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPane = new javax.swing.JScrollPane();
+        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
         buttonSelectNothing = org.jphototagger.resources.UiFactory.button();

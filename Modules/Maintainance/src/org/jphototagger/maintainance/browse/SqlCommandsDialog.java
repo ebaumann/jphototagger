@@ -151,7 +151,7 @@ public class SqlCommandsDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        scrollPaneCommands = new javax.swing.JScrollPane();
+        scrollPaneCommands = org.jphototagger.resources.UiFactory.scrollPane();
         listCommands = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
         buttonEdit = org.jphototagger.resources.UiFactory.button();

@@ -200,7 +200,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         panelTasksAutoscan = new javax.swing.JPanel();
         labelAutoscanDirectoriesInfo = org.jphototagger.resources.UiFactory.label();
         labelAutoscanDirectoriesPrompt = org.jphototagger.resources.UiFactory.label();
-        scrollPaneListAutoscanDirectories = new javax.swing.JScrollPane();
+        scrollPaneListAutoscanDirectories = org.jphototagger.resources.UiFactory.scrollPane();
         listAutoscanDirectories = new org.jdesktop.swingx.JXList();
         checkBoxIsAutoscanIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
         buttonRemoveAutoscanDirectories = org.jphototagger.resources.UiFactory.button();
