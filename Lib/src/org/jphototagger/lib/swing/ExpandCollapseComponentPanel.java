@@ -51,7 +51,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         addComponent(component);
         decorateButton();
         Dimension buttonSize = buttonExpandCollapse.getPreferredSize();
-        buttonSize = new Dimension((int) (buttonSize.width * 0.66), (int) (buttonSize.height * 0.66));
+        buttonSize = org.jphototagger.resources.UiFactory.dimension((int) (buttonSize.width * 0.66), (int) (buttonSize.height * 0.66));
         buttonExpandCollapse.setPreferredSize(buttonSize);
     }
 
@@ -208,7 +208,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         buttonExpandCollapse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(125, 125, 125)));
         buttonExpandCollapse.setContentAreaFilled(false);
         buttonExpandCollapse.setFocusable(false);
-        buttonExpandCollapse.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonExpandCollapse.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonExpandCollapse.setName("buttonExpandCollapse"); // NOI18N
         buttonExpandCollapse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,7 +219,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 5);
         add(buttonExpandCollapse, gridBagConstraints);
     }//GEN-END:initComponents
 

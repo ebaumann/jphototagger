@@ -146,7 +146,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.8;
-        gridBagConstraints.insets = new Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         getContentPane().add(scrollPanlFiles, gridBagConstraints);
 
         checkBoxDisplayInFuture.setText(bundle.getString("WarnOnEqualBasenamesTaskDialog.checkBoxDisplayInFuture.text")); // NOI18N
@@ -160,7 +160,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         getContentPane().add(checkBoxDisplayInFuture, gridBagConstraints);
 
         pack();

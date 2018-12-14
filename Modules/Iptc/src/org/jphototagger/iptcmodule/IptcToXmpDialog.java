@@ -358,14 +358,14 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 0, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 0, 7);
         getContentPane().add(labelInfo, gridBagConstraints);
 
         labelDirectoryPrompt.setText(bundle.getString("IptcToXmpDialog.labelDirectoryPrompt.text")); // NOI18N
         labelDirectoryPrompt.setName("labelDirectoryPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 7, 0, 0);
         getContentPane().add(labelDirectoryPrompt, gridBagConstraints);
 
         buttonChooseDirectory.setText(bundle.getString("IptcToXmpDialog.buttonChooseDirectory.text")); // NOI18N
@@ -378,7 +378,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 7, 0, 7);
         getContentPane().add(buttonChooseDirectory, gridBagConstraints);
 
         labelDirectoryName.setText(" "); // NOI18N
@@ -389,7 +389,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 7, 0, 7);
         getContentPane().add(labelDirectoryName, gridBagConstraints);
 
         checkBoxIncludeSubdirectories.setText(bundle.getString("IptcToXmpDialog.checkBoxIncludeSubdirectories.text")); // NOI18N
@@ -397,7 +397,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 7, 0, 0);
         getContentPane().add(checkBoxIncludeSubdirectories, gridBagConstraints);
 
         labelIptcCharset.setLabelFor(comboBoxIptcCharset);
@@ -405,7 +405,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 7, 0, 0);
         getContentPane().add(labelIptcCharset, gridBagConstraints);
 
         comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
@@ -418,7 +418,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         getContentPane().add(comboBoxIptcCharset, gridBagConstraints);
 
         progressBar.setName("progressBar"); // NOI18N
@@ -427,7 +427,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 7, 0, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 7, 0, 7);
         getContentPane().add(progressBar, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -443,7 +443,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonCancel, gridBagConstraints);
 
         buttonStart.setText(bundle.getString("IptcToXmpDialog.buttonStart.text")); // NOI18N
@@ -456,13 +456,13 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonStart, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 7, 7, 7);
         getContentPane().add(panelButtons, gridBagConstraints);
 
         panelVfill.setName("panelVfill"); // NOI18N

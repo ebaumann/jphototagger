@@ -99,7 +99,7 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelConfigure.add(labelConfigError, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -112,7 +112,7 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         add(labelDirs, gridBagConstraints);
 
         scrollPaneDirs.setViewportView(listDirs);
@@ -122,14 +122,14 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(scrollPaneDirs, gridBagConstraints);
 
         checkBoxIncludeSubDirs.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.checkBoxIncludeSubDirs.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(checkBoxIncludeSubDirs, gridBagConstraints);
 
         panelDirsButtons.setLayout(new java.awt.GridBagLayout());
@@ -139,13 +139,13 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
 
         buttonAddDirs.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.buttonAddDirs.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDirsButtons.add(buttonAddDirs, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         add(panelDirsButtons, gridBagConstraints);
 
         panelExecute.setLayout(new java.awt.GridBagLayout());
@@ -162,14 +162,14 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
 
         buttonExecute.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.buttonExecute.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelExecuteButtons.add(buttonExecute, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelExecute.add(panelExecuteButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -177,7 +177,7 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
         add(panelExecute, gridBagConstraints);
     }//GEN-END:initComponents
 

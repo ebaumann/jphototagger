@@ -79,7 +79,7 @@ public class FindDuplicatesDialog extends Dialog {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.NORTHWEST;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         gbc.weightx = 1.0;
         panel.add(panelFileDuplicates, gbc);
         gbc.fill = GridBagConstraints.VERTICAL;
@@ -504,7 +504,7 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelSourceDirectories.add(scrollPaneSourceDirectories, gridBagConstraints);
 
         panelSourceDirectoriesActions.setLayout(new java.awt.GridBagLayout());
@@ -512,7 +512,7 @@ public class FindDuplicatesDialog extends Dialog {
         checkBoxSourceDirsRecursive.setText(bundle.getString("FindDuplicatesDialog.checkBoxSourceDirsRecursive.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSourceDirectoriesActions.add(checkBoxSourceDirsRecursive, gridBagConstraints);
 
         buttonAddSourceDirectory.setText(bundle.getString("FindDuplicatesDialog.buttonAddSourceDirectory.text")); // NOI18N
@@ -523,19 +523,19 @@ public class FindDuplicatesDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSourceDirectoriesActions.add(buttonAddSourceDirectory, gridBagConstraints);
 
         buttonRemoveSourceDirectories.setEnabled(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSourceDirectoriesActions.add(buttonRemoveSourceDirectories, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelSourceDirectories.add(panelSourceDirectoriesActions, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -544,7 +544,7 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelSourceDirectories, gridBagConstraints);
 
         panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("FindDuplicatesDialog.panelOptions.border.title"))); // NOI18N
@@ -569,7 +569,7 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelOptions, gridBagConstraints);
 
         panelSearchActions.setLayout(new java.awt.GridBagLayout());
@@ -579,12 +579,12 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSearchActions.add(progressBarSearch, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSearchActions.add(buttonSearch, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -592,7 +592,7 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelSearchActions, gridBagConstraints);
 
         panelResult.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("FindDuplicatesDialog.panelResult.border.title"))); // NOI18N
@@ -614,7 +614,7 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelResult.add(panelResultActions, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -628,7 +628,7 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

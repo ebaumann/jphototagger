@@ -62,7 +62,7 @@ public class RenameTemplatesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         getContentPane().add(panelRenameTemplates, gridBagConstraints);
 
         pack();

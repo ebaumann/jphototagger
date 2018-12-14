@@ -49,14 +49,14 @@ public class ThumbnailCreatorSettingsDialog extends Dialog {
         setTitle(bundle.getString("ThumbnailCreatorSettingsDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        tabbedPane.setPreferredSize(new java.awt.Dimension(300, 200));
+        tabbedPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(300, 200));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(tabbedPane, gridBagConstraints);
 
         pack();

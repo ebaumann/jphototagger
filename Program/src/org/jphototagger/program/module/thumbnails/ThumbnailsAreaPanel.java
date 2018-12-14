@@ -237,7 +237,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         gbc.weightx = 1.0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(0, 5, 5, 5);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 5, 5);
         return gbc;
     }
 
@@ -295,7 +295,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         labelFileFilters.setName("labelFileFilters"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDisplayedThumbnailFilters.add(labelFileFilters, gridBagConstraints);
 
         comboBoxFileFilters.setModel(fileFiltersComboBoxModel);
@@ -303,14 +303,14 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         comboBoxFileFilters.setRenderer(new org.jphototagger.program.module.thumbnails.FileFiltersListCellRenderer());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDisplayedThumbnailFilters.add(comboBoxFileFilters, gridBagConstraints);
 
         labelFileSort.setText(bundle.getString("ThumbnailsAreaPanel.labelFileSort.text")); // NOI18N
         labelFileSort.setName("labelFileSort"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelDisplayedThumbnailFilters.add(labelFileSort, gridBagConstraints);
 
         comboBoxFileSort.setModel(thumbnailsSortComboBoxModel);
@@ -319,7 +319,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDisplayedThumbnailFilters.add(comboBoxFileSort, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -327,7 +327,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 5, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 5, 0);
         add(panelDisplayedThumbnailFilters, gridBagConstraints);
 
         thumbnailsPanelScrollPane.setName("thumbnailsPanelScrollPane"); // NOI18N

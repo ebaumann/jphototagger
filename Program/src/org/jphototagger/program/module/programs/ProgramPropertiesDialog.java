@@ -315,7 +315,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gbc.weightx = 1;
         gbc.weighty = 1;
         gbc.anchor = GridBagConstraints.NORTHWEST;
-        gbc.insets = new Insets(5, 5, 0, 5);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         gbc.fill = GridBagConstraints.BOTH;
         return gbc;
     }
@@ -395,7 +395,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelExpertSettings.add(checkBoxChangeFile, gridBagConstraints);
 
         panelParameter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ProgramPropertiesDialog.panelParameter.border.title"))); // NOI18N
@@ -411,7 +411,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelParameter.add(labelParametersBeforeFilename, gridBagConstraints);
 
         scrollPaneParametersBeforeFilename.setName("scrollPaneParametersBeforeFilename"); // NOI18N
@@ -430,7 +430,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.33;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelParameter.add(scrollPaneParametersBeforeFilename, gridBagConstraints);
 
         labelParametersAfterFilename.setLabelFor(textAreaParametersAfterFilename);
@@ -442,7 +442,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelParameter.add(labelParametersAfterFilename, gridBagConstraints);
 
         scrollPaneParametersAfterFilename.setName("scrollPaneParametersAfterFilename"); // NOI18N
@@ -461,7 +461,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.33;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelParameter.add(scrollPaneParametersAfterFilename, gridBagConstraints);
 
         checkBoxUsePattern.setText(bundle.getString("ProgramPropertiesDialog.checkBoxUsePattern.text")); // NOI18N
@@ -476,7 +476,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelParameter.add(checkBoxUsePattern, gridBagConstraints);
 
         buttonInfoUsePattern.setText(bundle.getString("ProgramPropertiesDialog.buttonInfoUsePattern.text")); // NOI18N
@@ -490,7 +490,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelParameter.add(buttonInfoUsePattern, gridBagConstraints);
 
         scrollPaneUsePattern.setName("scrollPaneUsePattern"); // NOI18N
@@ -509,7 +509,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.33;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelParameter.add(scrollPaneUsePattern, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -520,7 +520,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelExpertSettings.add(panelParameter, gridBagConstraints);
 
         panelInputBeforeExecute.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ProgramPropertiesDialog.panelInputBeforeExecute.border.title"))); // NOI18N
@@ -540,7 +540,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelInputBeforeExecute.add(checkBoxInputBeforeExecute, gridBagConstraints);
 
         checkBoxInputBeforeExecutePerFile.setText(bundle.getString("ProgramPropertiesDialog.checkBoxInputBeforeExecutePerFile.text")); // NOI18N
@@ -552,7 +552,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelInputBeforeExecute.add(checkBoxInputBeforeExecutePerFile, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -562,7 +562,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelExpertSettings.add(panelInputBeforeExecute, gridBagConstraints);
 
         panelMultipleSelection.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ProgramPropertiesDialog.panelMultipleSelection.border.title"))); // NOI18N
@@ -579,7 +579,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelMultipleSelection.add(radioButtonSingleFileProcessingYes, gridBagConstraints);
 
         buttonGroupSingleFileProcessing.add(radioButtonSingleFileProcessingNo);
@@ -591,7 +591,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelMultipleSelection.add(radioButtonSingleFileProcessingNo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -601,7 +601,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelExpertSettings.add(panelMultipleSelection, gridBagConstraints);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -646,7 +646,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelPrg.add(labelFile, gridBagConstraints);
 
         buttonChooseFile.setText(bundle.getString("ProgramPropertiesDialog.buttonChooseFile.text")); // NOI18N
@@ -658,7 +658,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelPrg.add(buttonChooseFile, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -689,14 +689,14 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelAlias.add(textFieldAlias, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         panelProgram.add(panelAlias, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -706,7 +706,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         getContentPane().add(panelProgram, gridBagConstraints);
 
         toggleButtonExpertSettings.setText(BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS);
@@ -721,7 +721,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(8, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(8, 10, 0, 0);
         getContentPane().add(toggleButtonExpertSettings, gridBagConstraints);
 
         labelInfoRequiredInputs.setForeground(new java.awt.Color(255, 0, 0));
@@ -731,7 +731,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 10, 0);
         getContentPane().add(labelInfoRequiredInputs, gridBagConstraints);
 
         buttonCancel.setText(bundle.getString("ProgramPropertiesDialog.buttonCancel.text")); // NOI18N
@@ -746,7 +746,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 10, 0);
         getContentPane().add(buttonCancel, gridBagConstraints);
 
         buttonOk.setText(bundle.getString("ProgramPropertiesDialog.buttonOk.text")); // NOI18N
@@ -761,7 +761,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 10, 10);
         getContentPane().add(buttonOk, gridBagConstraints);
 
         pack();

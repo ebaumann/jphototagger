@@ -273,7 +273,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(searchTextField, gridBagConstraints);
 
         buttonSearchDownwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchDownwards.text")); // NOI18N
@@ -285,7 +285,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(buttonSearchDownwards, gridBagConstraints);
 
         buttonSearchUpwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchUpwards.text")); // NOI18N
@@ -298,7 +298,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(buttonSearchUpwards, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -421,7 +421,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(checkBoxCompressRepository, gridBagConstraints);
 
         labelFinishedCompressRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -429,7 +429,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedCompressRepository, gridBagConstraints);
 
         checkBoxDeleteOrphanedThumbnails.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
@@ -441,7 +441,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(checkBoxDeleteOrphanedThumbnails, gridBagConstraints);
 
         labelFinishedDeleteOrphanedThumbnails.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -449,7 +449,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteOrphanedThumbnails, gridBagConstraints);
 
         checkBoxDeleteUnusedKeywords.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
@@ -461,7 +461,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(checkBoxDeleteUnusedKeywords, gridBagConstraints);
 
         labelFinishedDeleteUnusedKeywords.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -469,7 +469,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteUnusedKeywords, gridBagConstraints);
 
         checkBoxDeleteNotReferenced1n.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
@@ -481,7 +481,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(checkBoxDeleteNotReferenced1n, gridBagConstraints);
 
         labelFinishedDeleteNotReferenced1n.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -489,7 +489,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteNotReferenced1n, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -508,7 +508,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelMessages.add(labelMessages, gridBagConstraints);
 
-        scrollPaneMessages.setPreferredSize(new java.awt.Dimension(200, 150));
+        scrollPaneMessages.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 150));
 
         textPaneMessages.setEditable(false);
         textPaneMessages.setContentType("text/html"); // NOI18N
@@ -521,7 +521,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelMessages.add(scrollPaneMessages, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -530,14 +530,14 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelMessages, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
@@ -581,7 +581,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 3, 0, 0);
         panelButtons.add(buttonStartMaintain, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -589,7 +589,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -598,7 +598,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         add(panelContent, gridBagConstraints);
     }//GEN-END:initComponents
 

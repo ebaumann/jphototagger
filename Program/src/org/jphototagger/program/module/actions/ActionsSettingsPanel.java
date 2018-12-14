@@ -406,7 +406,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonMoveDownAction, gridBagConstraints);
 
         buttonAddAction.setText(bundle.getString("ActionsSettingsPanel.buttonAddAction.text")); // NOI18N
@@ -421,7 +421,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonAddAction, gridBagConstraints);
 
         buttonDeleteAction.setText(bundle.getString("ActionsSettingsPanel.buttonDeleteAction.text")); // NOI18N
@@ -436,7 +436,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonDeleteAction, gridBagConstraints);
 
         buttonShowActions.setText(bundle.getString("ActionsSettingsPanel.buttonShowActions.text")); // NOI18N
@@ -450,13 +450,13 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonShowActions, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 7, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 7, 0, 0);
         add(panelButtons, gridBagConstraints);
 
         buttonGroupExecute.add(radioButtonExecuteAlways);
@@ -471,7 +471,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         add(radioButtonExecuteAlways, gridBagConstraints);
 
         buttonGroupExecute.add(radioButtonExecuteIfImageHasXmp);

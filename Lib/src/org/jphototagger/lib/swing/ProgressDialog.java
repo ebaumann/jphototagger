@@ -203,7 +203,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
         buttonStop.setText(bundle.getString("ProgressDialog.buttonStop.text")); // NOI18N
@@ -215,7 +215,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 5, 0, 0);
         panelContent.add(buttonStop, gridBagConstraints);
 
         labelProgressInfo.setText(" "); // NOI18N
@@ -225,7 +225,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         panelContent.add(labelProgressInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -235,7 +235,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

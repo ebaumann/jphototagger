@@ -382,7 +382,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 6);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 6);
         add(buttonNoRating, gridBagConstraints);
 
         buttonStar1.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -400,7 +400,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
         add(buttonStar1, gridBagConstraints);
 
         buttonStar2.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -418,7 +418,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
         add(buttonStar2, gridBagConstraints);
 
         buttonStar3.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -436,7 +436,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
         add(buttonStar3, gridBagConstraints);
 
         buttonStar4.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -454,7 +454,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
         add(buttonStar4, gridBagConstraints);
 
         buttonStar5.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -472,7 +472,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 1, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
         add(buttonStar5, gridBagConstraints);
     }//GEN-END:initComponents
 

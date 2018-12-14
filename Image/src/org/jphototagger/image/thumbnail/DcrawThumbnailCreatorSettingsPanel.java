@@ -111,7 +111,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(labelInfo, gridBagConstraints);
 
         panelChooseFile.setLayout(new java.awt.GridBagLayout());
@@ -132,13 +132,13 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelChooseFile.add(buttonChooseFile, gridBagConstraints);
 
         buttonRemoveFile.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveFile.setEnabled(false);
-        buttonRemoveFile.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonRemoveFile.setPreferredSize(new java.awt.Dimension(18, 18));
+        buttonRemoveFile.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonRemoveFile.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(18, 18));
         buttonRemoveFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveFileActionPerformed(evt);
@@ -146,7 +146,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelChooseFile.add(buttonRemoveFile, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -155,7 +155,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 5, 5, 5);
         add(panelChooseFile, gridBagConstraints);
     }//GEN-END:initComponents
 

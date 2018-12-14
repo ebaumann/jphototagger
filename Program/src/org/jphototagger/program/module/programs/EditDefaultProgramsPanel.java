@@ -216,7 +216,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         buttonRemoveDefaultPrograms.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveDefaultPrograms.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonRemoveDefaultPrograms.toolTipText")); // NOI18N
         buttonRemoveDefaultPrograms.setEnabled(false);
-        buttonRemoveDefaultPrograms.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonRemoveDefaultPrograms.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemoveDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveDefaultProgramsActionPerformed(evt);
@@ -229,7 +229,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         buttonSetDefaultPrograms.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
         buttonSetDefaultPrograms.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonSetDefaultPrograms.toolTipText")); // NOI18N
         buttonSetDefaultPrograms.setEnabled(false);
-        buttonSetDefaultPrograms.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonSetDefaultPrograms.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonSetDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetDefaultProgramsActionPerformed(evt);
@@ -237,13 +237,13 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonSetDefaultPrograms, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(panelButtons, gridBagConstraints);
 
         listFilenameSuffixes.setModel(new FilenameSuffixesListModel());
@@ -266,7 +266,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(scrollPaneFilenameSuffixes, gridBagConstraints);
     }//GEN-END:initComponents
 

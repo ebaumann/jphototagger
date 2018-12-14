@@ -143,7 +143,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = new Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         add(labelIptcCharset, gridBagConstraints);
 
         comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
@@ -157,7 +157,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(comboBoxIptcCharset, gridBagConstraints);
 
         panelVfill.setName("panelVfill"); // NOI18N

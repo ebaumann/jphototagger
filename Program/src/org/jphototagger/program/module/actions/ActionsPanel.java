@@ -330,7 +330,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(labelActionList, gridBagConstraints);
 
         scrollPane.setFocusable(false);
@@ -368,7 +368,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(scrollPane, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -395,7 +395,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonEdit, gridBagConstraints);
 
         buttonCreate.setText(bundle.getString("ActionsPanel.buttonCreate.text")); // NOI18N
@@ -407,7 +407,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonCreate, gridBagConstraints);
 
         buttonExecute.setText(bundle.getString("ActionsPanel.buttonExecute.text")); // NOI18N
@@ -420,14 +420,14 @@ public final class ActionsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonExecute, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 3, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 3, 5);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

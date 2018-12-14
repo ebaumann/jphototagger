@@ -132,7 +132,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         add(labelDefaultValues, gridBagConstraints);
 
         panelColumns.setName("panelColumns"); // NOI18N
@@ -142,7 +142,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         add(panelColumns, gridBagConstraints);
 
         panelDirectory.setName("panelDirectory"); // NOI18N
@@ -163,7 +163,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelDirectory.add(labelDirectory, gridBagConstraints);
 
         buttonChooseDirectory.setText(bundle.getString("HtmlReportsSettingsPanel.buttonChooseDirectory.text")); // NOI18N
@@ -176,7 +176,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 5, 0, 0);
         panelDirectory.add(buttonChooseDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -184,7 +184,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         add(panelDirectory, gridBagConstraints);
 
         checkBoxShowSettings.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxShowSettings.text")); // NOI18N
@@ -198,7 +198,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         add(checkBoxShowSettings, gridBagConstraints);
 
         checkBoxInputFilename.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxInputFilename.text")); // NOI18N
@@ -212,7 +212,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         add(checkBoxInputFilename, gridBagConstraints);
 
         checkBoxOpenReport.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxOpenReport.text")); // NOI18N
@@ -226,7 +226,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         add(checkBoxOpenReport, gridBagConstraints);
 
         panelVersion.setName("panelVersion"); // NOI18N
@@ -249,7 +249,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelVersion.add(buttonHelp, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -257,7 +257,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         add(panelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 

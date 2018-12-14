@@ -199,7 +199,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/keywords/Bundle"); // NOI18N
         buttonToggleExpandAllNodes.setText(bundle.getString("KeywordsPanel.buttonToggleExpandAllNodes.text")); // NOI18N
-        buttonToggleExpandAllNodes.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonToggleExpandAllNodes.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonToggleExpandAllNodes.setName("buttonToggleExpandAllNodes"); // NOI18N
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,21 +210,21 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 0, 2, 2);
         panelButtons.add(buttonToggleExpandAllNodes, gridBagConstraints);
 
         buttonSearchInTree.setAction(new SearchInJxTreeAction((JXTree)tree));
         buttonSearchInTree.setText(bundle.getString("KeywordsPanel.buttonSearchInTree.text")); // NOI18N
-        buttonSearchInTree.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInTree.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonSearchInTree.setName("buttonSearchInTree"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 2);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 0, 2, 2);
         panelButtons.add(buttonSearchInTree, gridBagConstraints);
 
         buttonAsList.setText(bundle.getString("KeywordsPanel.buttonAsList.text")); // NOI18N
-        buttonAsList.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonAsList.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonAsList.setName("buttonAsList"); // NOI18N
         buttonAsList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -235,7 +235,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 2, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 0, 2, 0);
         panelButtons.add(buttonAsList, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -267,7 +267,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelListFilter.add(textFieldListFilter, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -277,7 +277,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelList.add(panelListFilter, gridBagConstraints);
 
         scrollPaneList.setName("scrollPaneList"); // NOI18N
@@ -299,18 +299,18 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         buttonSearchInList.setAction(new SearchInJxListAction(list));
         buttonSearchInList.setText(bundle.getString("KeywordsPanel.buttonSearchInList.text")); // NOI18N
-        buttonSearchInList.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInList.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonSearchInList.setName("buttonSearchInList"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
         panelList.add(buttonSearchInList, gridBagConstraints);
 
         buttonAsTree.setText(bundle.getString("KeywordsPanel.buttonAsTree.text")); // NOI18N
-        buttonAsTree.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonAsTree.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonAsTree.setName("buttonAsTree"); // NOI18N
         buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -321,7 +321,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 2, 2, 2);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
         panelList.add(buttonAsTree, gridBagConstraints);
 
         add(panelList, "List");

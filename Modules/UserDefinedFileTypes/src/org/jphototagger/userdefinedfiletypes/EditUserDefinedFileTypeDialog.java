@@ -285,14 +285,14 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelContent.add(textFieldSuffix, gridBagConstraints);
 
         labelDescription.setLabelFor(textFieldDescription);
         labelDescription.setText(bundle.getString("EditUserDefinedFileTypeDialog.labelDescription.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(labelDescription, gridBagConstraints);
 
         textFieldDescription.setColumns(5);
@@ -301,7 +301,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelContent.add(textFieldDescription, gridBagConstraints);
 
         checkBoxExternalThumbnailCreator.setText(bundle.getString("EditUserDefinedFileTypeDialog.checkBoxExternalThumbnailCreator.text")); // NOI18N
@@ -309,7 +309,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(checkBoxExternalThumbnailCreator, gridBagConstraints);
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
@@ -332,14 +332,14 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonSave, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -349,7 +349,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

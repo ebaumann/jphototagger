@@ -842,7 +842,7 @@ public final class Settings {
                 if (height < preferredSize.height) {
                     height = preferredSize.height;
                 }
-                Dimension dimension = new Dimension(width, height);
+                Dimension dimension = org.jphototagger.resources.UiFactory.dimension(width, height);
                 component.setPreferredSize(dimension);
                 component.setSize(dimension);
             } catch (Throwable t) {

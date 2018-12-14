@@ -600,7 +600,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
         panelKeywords.setName("panelKeywords"); // NOI18N
         panelKeywords.setLayout(new java.awt.GridBagLayout());
-        panelKeywords.setPreferredSize(new Dimension(250, 150));
+        panelKeywords.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 150));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         labelInfoKeywords.setText(bundle.getString("AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
@@ -609,7 +609,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelKeywords.add(labelInfoKeywords, gridBagConstraints);
 
         panelKeywordsInput.setName("panelKeywordsInput"); // NOI18N
@@ -618,7 +618,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelKeywords.add(panelKeywordsInput, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
@@ -638,13 +638,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelSimpleSql.add(scrollPaneColumns, gridBagConstraints);
 
         labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
         labelInfoDelete.setName("labelInfoDelete"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
         panelSimpleSql.add(labelInfoDelete, gridBagConstraints);
 
         buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
@@ -658,7 +658,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelSimpleSql.add(buttonAddColumn, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
@@ -675,7 +675,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelCustomSql.add(labelCustomSqlInfo, gridBagConstraints);
 
         scrollPaneCustomSqlQuery.setName("scrollPaneCustomSqlQuery"); // NOI18N
@@ -693,7 +693,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelCustomSql.add(scrollPaneCustomSqlQuery, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql); // NOI18N
@@ -706,7 +706,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 5, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 5, 0);
         add(tabbedPane, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -747,7 +747,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 10, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 10, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -275,7 +275,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonUpdate, gridBagConstraints);
 
         buttonDelete.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonDelete.text")); // NOI18N
@@ -290,12 +290,12 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonDelete, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

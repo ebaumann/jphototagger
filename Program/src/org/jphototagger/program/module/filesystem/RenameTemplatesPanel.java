@@ -511,7 +511,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         checkDirtyDialog.getContentPane().add(labelDirtyConfirmSaveChanges, gridBagConstraints);
 
         panelDirtyButtons.setLayout(new java.awt.GridBagLayout());
@@ -534,7 +534,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDirtyButtons.add(buttonCheckDirtyDialogUpdate, gridBagConstraints);
 
         buttonCheckDirtyDialogReject.setText(bundle.getString("RenameTemplatesPanel.buttonCheckDirtyDialogReject.text")); // NOI18N
@@ -545,14 +545,14 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDirtyButtons.add(buttonCheckDirtyDialogReject, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 10, 10);
         checkDirtyDialog.getContentPane().add(panelDirtyButtons, gridBagConstraints);
 
         setLayout(new java.awt.GridBagLayout());
@@ -578,14 +578,14 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelNumbersContents.add(spinnerStartNumber, gridBagConstraints);
 
         labelNumberStepWidth.setLabelFor(spinnerNumberStepWidth);
         labelNumberStepWidth.setText(bundle.getString("RenameTemplatesPanel.labelNumberStepWidth.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelNumbersContents.add(labelNumberStepWidth, gridBagConstraints);
 
         spinnerNumberStepWidth.setModel(new SpinnerNumberModel(1, 1, 99, 1));
@@ -598,14 +598,14 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelNumbersContents.add(spinnerNumberStepWidth, gridBagConstraints);
 
         labelNumberCount.setLabelFor(spinnerNumberCount);
         labelNumberCount.setText(bundle.getString("RenameTemplatesPanel.labelNumberCount.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelNumbersContents.add(labelNumberCount, gridBagConstraints);
 
         spinnerNumberCount.setModel(new SpinnerNumberModel(3, 1, 7, 1));
@@ -618,14 +618,14 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelNumbersContents.add(spinnerNumberCount, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelNumbers.add(panelNumbersContents, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -642,7 +642,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         labelDateDelim.setText(bundle.getString("RenameTemplatesPanel.labelDateDelim.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelDateDelimiter.add(labelDateDelim, gridBagConstraints);
 
         comboBoxDateDelimiter.setModel(new DefaultComboBoxModel<>(new Object[] {"", "-", ".", "/"}));
@@ -654,7 +654,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelDateDelimiter.add(comboBoxDateDelimiter, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -662,7 +662,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelDateDelimiter, gridBagConstraints);
 
         panelDefineName.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelDefineName.border.title"))); // NOI18N
@@ -682,7 +682,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelDefineNameContents.add(labelDelim1, gridBagConstraints);
 
         labelInTheMid.setLabelFor(comboBoxInTheMiddle);
@@ -690,7 +690,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelDefineNameContents.add(labelInTheMid, gridBagConstraints);
 
         labelDelim2.setLabelFor(textFieldDelim2);
@@ -698,7 +698,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelDefineNameContents.add(labelDelim2, gridBagConstraints);
 
         labelAtEnd.setLabelFor(comboBoxAtEnd);
@@ -707,7 +707,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelDefineNameContents.add(labelAtEnd, gridBagConstraints);
 
         comboBoxAtBegin.addActionListener(new java.awt.event.ActionListener() {
@@ -720,7 +720,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelDefineNameContents.add(comboBoxAtBegin, gridBagConstraints);
 
         textFieldDelim1.setColumns(1);
@@ -734,7 +734,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 0);
         panelDefineNameContents.add(textFieldDelim1, gridBagConstraints);
 
         comboBoxInTheMiddle.addActionListener(new java.awt.event.ActionListener() {
@@ -747,7 +747,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 0);
         panelDefineNameContents.add(comboBoxInTheMiddle, gridBagConstraints);
 
         textFieldDelim2.setColumns(1);
@@ -761,7 +761,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 0);
         panelDefineNameContents.add(textFieldDelim2, gridBagConstraints);
 
         comboBoxAtEnd.addActionListener(new java.awt.event.ActionListener() {
@@ -775,7 +775,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 0);
         panelDefineNameContents.add(comboBoxAtEnd, gridBagConstraints);
 
         textFieldAtBegin.setColumns(15);
@@ -790,7 +790,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelDefineNameContents.add(textFieldAtBegin, gridBagConstraints);
 
         textFieldInTheMiddle.setColumns(15);
@@ -805,7 +805,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 0);
         panelDefineNameContents.add(textFieldInTheMiddle, gridBagConstraints);
 
         textFieldAtEnd.setColumns(15);
@@ -820,7 +820,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 0.3;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 0);
         panelDefineNameContents.add(textFieldAtEnd, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -829,7 +829,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelDefineName.add(panelDefineNameContents, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -837,7 +837,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelDefineName, gridBagConstraints);
 
         panelExample.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelExample.border.title"))); // NOI18N
@@ -860,7 +860,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelExampleContents.add(labelBeforeFilename, gridBagConstraints);
 
         labelAfter.setText(bundle.getString("RenameTemplatesPanel.labelAfter.text")); // NOI18N
@@ -868,7 +868,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelExampleContents.add(labelAfter, gridBagConstraints);
 
         labelAfterFilename.setText(" "); // NOI18N
@@ -879,7 +879,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelExampleContents.add(labelAfterFilename, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -888,7 +888,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelExample.add(panelExampleContents, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -896,7 +896,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelExample, gridBagConstraints);
 
         panelRenameTemplates.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelRenameTemplates.border.title"))); // NOI18N
@@ -962,7 +962,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
         panelRenameTemplatesContents.add(panelButtonsRenameTemplates, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -971,7 +971,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelRenameTemplates.add(panelRenameTemplatesContents, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -979,7 +979,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelRenameTemplates, gridBagConstraints);
     }//GEN-END:initComponents
 

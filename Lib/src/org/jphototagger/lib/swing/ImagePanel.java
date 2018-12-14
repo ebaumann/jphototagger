@@ -104,7 +104,7 @@ public class ImagePanel extends JPanel {
             }
         }
 
-        return new Dimension(imageWidth, imageHeight);
+        return org.jphototagger.resources.UiFactory.dimension(imageWidth, imageHeight);
     }
 
     private double getMaxScaleFactor(Image image) {

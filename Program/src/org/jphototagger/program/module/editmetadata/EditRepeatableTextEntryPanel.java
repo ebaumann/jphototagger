@@ -140,7 +140,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gbc.weightx = 1.0;
-        gbc.insets = new java.awt.Insets(5, 0, 5, 0);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 5, 0);
         add(panelWordsets, gbc);
         panelWordsets.setPersistenceKeyPrefix(metaDataValue.getCategory());
         panelWordsets.addWordsetsPanelListener(wordsetsPanelListener);
@@ -904,7 +904,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonRemoveSelection.setMnemonic('-');
         buttonRemoveSelection.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
-        buttonRemoveSelection.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonRemoveSelection.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemoveSelection.setName("buttonRemoveSelection"); // NOI18N
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -918,7 +918,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2);
         add(panelListButtons, gridBagConstraints);
 
         panelInput.setLayout(new java.awt.GridBagLayout());
@@ -945,7 +945,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonAddInput.setMnemonic('+');
         buttonAddInput.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
-        buttonAddInput.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonAddInput.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonAddInput.setName("buttonAddInput"); // NOI18N
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -954,14 +954,14 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelInput.add(buttonAddInput, gridBagConstraints);
 
         buttonSuggestion.setIcon(org.jphototagger.resources.Icons.getIcon("icon_keyword.png"));
         buttonSuggestion.setMnemonic('k');
         buttonSuggestion.setContentAreaFilled(false);
         buttonSuggestion.setEnabled(false);
-        buttonSuggestion.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonSuggestion.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonSuggestion.setName("buttonSuggestion"); // NOI18N
         buttonSuggestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -970,7 +970,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelInput.add(buttonSuggestion, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -979,7 +979,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         add(panelInput, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

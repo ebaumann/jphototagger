@@ -142,7 +142,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         add(metaDataValuesComboBox, gridBagConstraints);
 
         buttonAdd.setIcon(org.jphototagger.resources.Icons.getIcon("icon_add.png"));
-        buttonAdd.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonAdd.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonAdd.setName("buttonAdd"); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,12 +151,12 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(buttonAdd, gridBagConstraints);
 
         buttonRemove.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemove.setEnabled(false);
-        buttonRemove.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonRemove.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemove.setName("buttonRemove"); // NOI18N
         buttonRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,7 +165,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(buttonRemove, gridBagConstraints);
     }//GEN-END:initComponents
 

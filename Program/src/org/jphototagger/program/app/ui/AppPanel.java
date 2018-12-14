@@ -499,7 +499,7 @@ public final class AppPanel extends javax.swing.JPanel {
         boolean isFirst = true;
         for (StatusLineElementProvider provider : providers) {
             GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = new Insets(0, isFirst ? 0 : 10, 0, 0);
+            gbc.insets = org.jphototagger.resources.UiFactory.insets(0, isFirst ? 0 : 10, 0, 0);
             isFirst = false;
             statusLineElementsPanel.add(provider.getStatusLineElement(), gbc);
         }
@@ -613,7 +613,7 @@ public final class AppPanel extends javax.swing.JPanel {
         splitPaneMain.setName("splitPaneMain"); // NOI18N
         splitPaneMain.setOneTouchExpandable(true);
 
-        panelSelection.setMinimumSize(new java.awt.Dimension(100, 200));
+        panelSelection.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(100, 200));
         panelSelection.setName("panelSelection"); // NOI18N
         panelSelection.setLayout(new java.awt.GridBagLayout());
 
@@ -798,7 +798,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         buttonSearchInImageCollections.setAction(new SearchInJxListAction(listImageCollections));
         buttonSearchInImageCollections.setText(Bundle.getString(getClass(), "AppPanel.buttonSearchInImageCollections.text")); // NOI18N
-        buttonSearchInImageCollections.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInImageCollections.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonSearchInImageCollections.setName("buttonSearchInImageCollections"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -893,7 +893,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSelKeywordsTree.add(buttonDisplaySelKeywordsList, gridBagConstraints);
 
         toggleButtonExpandAllNodesSelKeywords.setText(Bundle.getString(getClass(), "AppPanel.toggleButtonExpandAllNodesSelKeywords.text")); // NOI18N
-        toggleButtonExpandAllNodesSelKeywords.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        toggleButtonExpandAllNodesSelKeywords.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         toggleButtonExpandAllNodesSelKeywords.setName("toggleButtonExpandAllNodesSelKeywords"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -1065,7 +1065,7 @@ public final class AppPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(1, 1, 1, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(1, 1, 1, 0);
         panelTimeline.add(toggleButtonExpandCollapseTreeTimeline, gridBagConstraints);
 
         buttonSearchInTreeTimeline.setAction(new SearchInJxTreeAction((JXTree)treeTimeline));
@@ -1105,7 +1105,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         toggleButtonExpandCollapseTreeMiscMetadata.setAction(new TreeExpandCollapseAllAction(toggleButtonExpandCollapseTreeMiscMetadata, treeMiscMetadata));
         toggleButtonExpandCollapseTreeMiscMetadata.setText(TreeExpandCollapseAllAction.NOT_SELECTED_TEXT);
-        toggleButtonExpandCollapseTreeMiscMetadata.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        toggleButtonExpandCollapseTreeMiscMetadata.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         toggleButtonExpandCollapseTreeMiscMetadata.setName("toggleButtonExpandCollapseTreeMiscMetadata"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1116,7 +1116,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         buttonSearchInTreeMiscMetadata.setAction(new SearchInJxTreeAction((JXTree)treeMiscMetadata));
         buttonSearchInTreeMiscMetadata.setText(Bundle.getString(getClass(), "AppPanel.buttonSearchInTreeMiscMetadata.text")); // NOI18N
-        buttonSearchInTreeMiscMetadata.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        buttonSearchInTreeMiscMetadata.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonSearchInTreeMiscMetadata.setName("buttonSearchInTreeMiscMetadata"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -1139,7 +1139,7 @@ public final class AppPanel extends javax.swing.JPanel {
 
         splitPaneMain.setLeftComponent(panelSelection);
 
-        panelThumbnailsMetadata.setMinimumSize(new java.awt.Dimension(100, 200));
+        panelThumbnailsMetadata.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(100, 200));
         panelThumbnailsMetadata.setName("panelThumbnailsMetadata"); // NOI18N
         panelThumbnailsMetadata.setLayout(new java.awt.GridBagLayout());
 

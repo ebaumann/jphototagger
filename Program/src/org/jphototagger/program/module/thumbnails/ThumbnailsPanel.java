@@ -1248,7 +1248,7 @@ public class ThumbnailsPanel extends JPanel
                 ? parent.getWidth()
                 : getWidth();
         int heigth = getCalculatedHeight();
-        return new Dimension(width, heigth);
+        return org.jphototagger.resources.UiFactory.dimension(width, heigth);
     }
 
     private int getCalculatedHeight() {
@@ -1686,7 +1686,7 @@ public class ThumbnailsPanel extends JPanel
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(15, 15, 15, 15);
 
         panel.add(label, gbc);
 

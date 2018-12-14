@@ -131,9 +131,9 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        progressBar.setMaximumSize(new java.awt.Dimension(300, 14));
+        progressBar.setMaximumSize(org.jphototagger.resources.UiFactory.dimension(300, 14));
         progressBar.setName("progressBar"); // NOI18N
-        progressBar.setPreferredSize(new java.awt.Dimension(250, 20));
+        progressBar.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
@@ -155,7 +155,7 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(buttonCancelProgress, gridBagConstraints);
     }//GEN-END:initComponents
 

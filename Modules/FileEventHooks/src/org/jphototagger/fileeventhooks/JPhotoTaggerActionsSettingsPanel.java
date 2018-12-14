@@ -240,7 +240,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         add(labelInfoJPhotoTaggerFilenameSuffixes, gridBagConstraints);
 
         panelSuffixes.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("JPhotoTaggerActionsSettingsPanel.panelSuffixes.border.title"))); // NOI18N
@@ -289,7 +289,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelEditFilenameSuffix.add(textFieldFilenameSuffix, gridBagConstraints);
 
         buttonAddFilenameSuffix.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.buttonAddFilenameSuffix.text")); // NOI18N
@@ -302,7 +302,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelEditFilenameSuffix.add(buttonAddFilenameSuffix, gridBagConstraints);
 
         labelFilenameSuffixExample.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.labelFilenameSuffixExample.text")); // NOI18N
@@ -311,7 +311,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelEditFilenameSuffix.add(labelFilenameSuffixExample, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -319,7 +319,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelListFilenameSuffixes.add(panelEditFilenameSuffix, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -327,7 +327,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
         panelSuffixes.add(panelListFilenameSuffixes, gridBagConstraints);
 
         panelButtonsFilenameSuffixes.setLayout(new java.awt.GridLayout(2, 0, 0, 5));
@@ -353,7 +353,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelSuffixes.add(panelButtonsFilenameSuffixes, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -362,7 +362,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         add(panelSuffixes, gridBagConstraints);
 
         labelAttentionJptActions.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.labelAttentionJptActions.text")); // NOI18N
@@ -371,7 +371,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         add(labelAttentionJptActions, gridBagConstraints);
 
         bindingGroup.bind();

@@ -101,7 +101,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(labelInfo, gridBagConstraints);
 
         scrollPaneModules.setName("scrollPaneModules"); // NOI18N
@@ -121,12 +121,12 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(scrollPaneModules, gridBagConstraints);
 
         panelModuleDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("InstalledModulesPanel.panelModuleDescription.border.title"))); // NOI18N
         panelModuleDescription.setName("panelModuleDescription"); // NOI18N
-        panelModuleDescription.setPreferredSize(new java.awt.Dimension(100, 75));
+        panelModuleDescription.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(100, 75));
         panelModuleDescription.setLayout(new java.awt.GridBagLayout());
 
         labelModuleDescription.setLineWrap(true);
@@ -137,7 +137,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelModuleDescription.add(labelModuleDescription, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -145,7 +145,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         add(panelModuleDescription, gridBagConstraints);
 
         bindingGroup.bind();

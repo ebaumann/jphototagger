@@ -152,7 +152,7 @@ public class ImportImageFilesDialog extends Dialog {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.gridy = 1;
         gbc.weightx = 1.0;
-        gbc.insets = new Insets(5, 5, 0, 5);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         return gbc;
     }
@@ -697,7 +697,7 @@ public class ImportImageFilesDialog extends Dialog {
         panelSourceDirectory.setLayout(new java.awt.GridBagLayout());
 
         labelSourceDir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelSourceDir.setPreferredSize(new java.awt.Dimension(400, 16));
+        labelSourceDir.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -714,13 +714,13 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSourceDirectory.add(buttonChooseSourceDir, gridBagConstraints);
 
         panelSelectedFiles.setLayout(new java.awt.GridBagLayout());
 
         labelChoosenFiles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelChoosenFiles.setPreferredSize(new java.awt.Dimension(400, 16));
+        labelChoosenFiles.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -736,7 +736,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSelectedFiles.add(buttonChooseFiles, gridBagConstraints);
 
         dialogExpertSettings.setTitle(bundle.getString("ImportImageFilesDialog.dialogExpertSettings.title")); // NOI18N
@@ -748,7 +748,7 @@ public class ImportImageFilesDialog extends Dialog {
         panelScriptFile.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelScriptFile.add(labelScriptFileIcon, gridBagConstraints);
 
         textFieldScriptFile.setEditable(false);
@@ -757,13 +757,13 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelScriptFile.add(textFieldScriptFile, gridBagConstraints);
 
         buttonRemoveScriptFile.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFile.setToolTipText(bundle.getString("ImportImageFilesDialog.buttonRemoveScriptFile.toolTipText")); // NOI18N
         buttonRemoveScriptFile.setEnabled(false);
-        buttonRemoveScriptFile.setPreferredSize(new java.awt.Dimension(16, 16));
+        buttonRemoveScriptFile.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(16, 16));
         buttonRemoveScriptFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveScriptFileActionPerformed(evt);
@@ -771,7 +771,7 @@ public class ImportImageFilesDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelScriptFile.add(buttonRemoveScriptFile, gridBagConstraints);
 
         buttonChooseScriptFile.setText(bundle.getString("ImportImageFilesDialog.buttonChooseScriptFile.text")); // NOI18N
@@ -783,14 +783,14 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelScriptFile.add(buttonChooseScriptFile, gridBagConstraints);
 
         labelScriptFileInfo.setText(bundle.getString("ImportImageFilesDialog.labelScriptFileInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelScriptFile.add(labelScriptFileInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -806,7 +806,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         dialogExpertSettings.getContentPane().add(panelExpertSettingsContent, gridBagConstraints);
 
         panelExpertSettingsFill.setLayout(new java.awt.GridBagLayout());
@@ -835,7 +835,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 5, 0, 5);
         panelSourceStrategy.add(comboBoxSourceStrategy, gridBagConstraints);
 
         checkBoxDeleteAfterCopy.setText(bundle.getString("ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
@@ -848,7 +848,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelSourceStrategy.add(checkBoxDeleteAfterCopy, gridBagConstraints);
 
         checkBoxSkipDuplicates.setText(bundle.getString("ImportImageFilesDialog.checkBoxSkipDuplicates.text")); // NOI18N
@@ -860,7 +860,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelSourceStrategy.add(checkBoxSkipDuplicates, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -874,12 +874,12 @@ public class ImportImageFilesDialog extends Dialog {
         panelTargetDir.setLayout(new java.awt.GridBagLayout());
 
         labelTargetDir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelTargetDir.setPreferredSize(new java.awt.Dimension(400, 16));
+        labelTargetDir.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 5, 0, 0);
         panelTargetDir.add(labelTargetDir, gridBagConstraints);
 
         buttonChooseTargetDir.setText(bundle.getString("ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
@@ -891,7 +891,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 5, 0, 5);
         panelTargetDir.add(buttonChooseTargetDir, gridBagConstraints);
 
         comboBoxSubdirectoryCreateStrategy.setModel(new org.jphototagger.importfiles.subdircreators.SubdirectoryCreateStrategyComboBoxModel());
@@ -905,7 +905,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelTargetDir.add(comboBoxSubdirectoryCreateStrategy, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -913,7 +913,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelTargetDir, gridBagConstraints);
 
         panelFileRenameStrategy.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImportImageFilesDialog.panelFileRenameStrategy.border.title"))); // NOI18N
@@ -929,12 +929,12 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 5, 5, 0);
         panelFileRenameStrategy.add(comboBoxFileRenameStrategy, gridBagConstraints);
 
         buttonEditRenameTemplates.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
         buttonEditRenameTemplates.setToolTipText(bundle.getString("ImportImageFilesDialog.buttonEditRenameTemplates.toolTipText")); // NOI18N
-        buttonEditRenameTemplates.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        buttonEditRenameTemplates.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEditRenameTemplates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditRenameTemplatesActionPerformed(evt);
@@ -942,7 +942,7 @@ public class ImportImageFilesDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 5, 5, 5);
         panelFileRenameStrategy.add(buttonEditRenameTemplates, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -950,7 +950,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelFileRenameStrategy, gridBagConstraints);
 
         labelWarning.setForeground(java.awt.Color.RED);
@@ -958,7 +958,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(labelWarning, gridBagConstraints);
 
         panelDialogControlButtons.setLayout(new java.awt.GridBagLayout());
@@ -978,7 +978,7 @@ public class ImportImageFilesDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDialogControlButtons.add(buttonExpertSettings, gridBagConstraints);
 
         buttonCancel.setText(bundle.getString("ImportImageFilesDialog.buttonCancel.text")); // NOI18N
@@ -990,7 +990,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDialogControlButtons.add(buttonCancel, gridBagConstraints);
 
         buttonOk.setText(bundle.getString("ImportImageFilesDialog.buttonOk.text")); // NOI18N
@@ -1002,7 +1002,7 @@ public class ImportImageFilesDialog extends Dialog {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDialogControlButtons.add(buttonOk, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1010,7 +1010,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
         panelContent.add(panelDialogControlButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1022,7 +1022,7 @@ public class ImportImageFilesDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

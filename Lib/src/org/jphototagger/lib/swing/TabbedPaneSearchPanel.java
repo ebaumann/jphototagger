@@ -613,7 +613,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(textFieldSearch, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -634,7 +634,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -422,13 +422,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelEditInputWord.add(scrollPaneTextAreaWords, gridBagConstraints);
 
         buttonAddWord.setText("+"); // NOI18N
         buttonAddWord.setToolTipText(bundle.getString("SynonymsPanel.buttonAddWord.toolTipText")); // NOI18N
         buttonAddWord.setEnabled(false);
-        buttonAddWord.setMargin(new java.awt.Insets(0, 2, 0, 2));
+        buttonAddWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonAddWord.setName("buttonAddWord"); // NOI18N
         buttonAddWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,7 +438,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
         panelEditInputWord.add(buttonAddWord, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -483,13 +483,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelAddedWords.add(scrollPaneListWords, gridBagConstraints);
 
         buttonRemoveWord.setText("-"); // NOI18N
         buttonRemoveWord.setToolTipText(bundle.getString("SynonymsPanel.buttonRemoveWord.toolTipText")); // NOI18N
         buttonRemoveWord.setEnabled(false);
-        buttonRemoveWord.setMargin(new java.awt.Insets(0, 2, 0, 2));
+        buttonRemoveWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonRemoveWord.setName("buttonRemoveWord"); // NOI18N
         buttonRemoveWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -500,13 +500,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
         panelAddedWords.add(buttonRemoveWord, gridBagConstraints);
 
         buttonChangeWord.setText("C"); // NOI18N
         buttonChangeWord.setToolTipText(bundle.getString("SynonymsPanel.buttonChangeWord.toolTipText")); // NOI18N
         buttonChangeWord.setEnabled(false);
-        buttonChangeWord.setMargin(new java.awt.Insets(0, 2, 0, 2));
+        buttonChangeWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonChangeWord.setName("buttonChangeWord"); // NOI18N
         buttonChangeWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -517,7 +517,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
         panelAddedWords.add(buttonChangeWord, gridBagConstraints);
 
         buttonAddAllKeywords.setText(bundle.getString("SynonymsPanel.buttonAddAllKeywords.text")); // NOI18N
@@ -531,7 +531,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelAddedWords.add(buttonAddAllKeywords, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -540,7 +540,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelWords.add(panelAddedWords, gridBagConstraints);
 
         add(panelWords);
@@ -570,13 +570,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelEditInputSynonyms.add(textFieldSynonyms, gridBagConstraints);
 
         buttonAddSynonym.setText("+"); // NOI18N
         buttonAddSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonAddSynonym.toolTipText")); // NOI18N
         buttonAddSynonym.setEnabled(false);
-        buttonAddSynonym.setMargin(new java.awt.Insets(0, 2, 0, 2));
+        buttonAddSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonAddSynonym.setName("buttonAddSynonym"); // NOI18N
         buttonAddSynonym.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -586,7 +586,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
         panelEditInputSynonyms.add(buttonAddSynonym, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -631,13 +631,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelAddedSynonyms.add(scrollPaneListSynonyms, gridBagConstraints);
 
         buttonRemoveSynonym.setText("-"); // NOI18N
         buttonRemoveSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonRemoveSynonym.toolTipText")); // NOI18N
         buttonRemoveSynonym.setEnabled(false);
-        buttonRemoveSynonym.setMargin(new java.awt.Insets(0, 2, 0, 2));
+        buttonRemoveSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonRemoveSynonym.setName("buttonRemoveSynonym"); // NOI18N
         buttonRemoveSynonym.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -648,13 +648,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
         panelAddedSynonyms.add(buttonRemoveSynonym, gridBagConstraints);
 
         buttonChangeSynonym.setText("C"); // NOI18N
         buttonChangeSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonChangeSynonym.toolTipText")); // NOI18N
         buttonChangeSynonym.setEnabled(false);
-        buttonChangeSynonym.setMargin(new java.awt.Insets(0, 2, 0, 2));
+        buttonChangeSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonChangeSynonym.setName("buttonChangeSynonym"); // NOI18N
         buttonChangeSynonym.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -665,7 +665,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
         panelAddedSynonyms.add(buttonChangeSynonym, gridBagConstraints);
 
         labelInfoAddSynonym.setText(bundle.getString("SynonymsPanel.labelInfoAddSynonym.text")); // NOI18N
@@ -675,7 +675,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelAddedSynonyms.add(labelInfoAddSynonym, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -684,7 +684,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelSynonyms.add(panelAddedSynonyms, gridBagConstraints);
 
         add(panelSynonyms);

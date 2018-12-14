@@ -252,7 +252,7 @@ public class IptcPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelTableIptcFilter.add(textFieldTableIptcFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -262,7 +262,7 @@ public class IptcPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(3, 3, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         add(panelTableIptcFilter, gridBagConstraints);
 
         scrollPaneIptc.setName("scrollPaneIptc"); // NOI18N
@@ -291,17 +291,17 @@ public class IptcPanel extends javax.swing.JPanel {
         buttonIptcToXmp.setAction(new ExportIptcToXmpOfSelectedFilesAction());
         buttonIptcToXmp.setText(bundle.getString("IptcPanel.buttonIptcToXmp.text")); // NOI18N
         buttonIptcToXmp.setToolTipText(bundle.getString("IptcPanel.buttonIptcToXmp.toolTipText")); // NOI18N
-        buttonIptcToXmp.setMargin(new Insets(2, 2, 2, 2));
+        buttonIptcToXmp.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonIptcToXmp.setName("buttonIptcToXmp"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = new Insets(0, 15, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 15, 0, 0);
         panelActions.add(buttonIptcToXmp, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         add(panelActions, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -198,8 +198,8 @@ public final class SettingsDialog extends Dialog {
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         panelSearch.setName("panelSearch"); // NOI18N
-        panelSearch.setMinimumSize(new java.awt.Dimension(175, 200));
-        panelSearch.setPreferredSize(new java.awt.Dimension(175, 200));
+        panelSearch.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(175, 200));
+        panelSearch.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(175, 200));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.2;
@@ -239,7 +239,7 @@ public final class SettingsDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.8;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelContent.add(tabbedPane, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -248,7 +248,7 @@ public final class SettingsDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

@@ -783,7 +783,7 @@ final class EditMetaDataPanels implements FocusListener {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = new Insets(0, 10, 0, 10);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         gbc.weightx = 1;
         return gbc;
     }

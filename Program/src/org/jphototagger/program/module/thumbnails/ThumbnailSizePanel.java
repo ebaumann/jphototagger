@@ -195,7 +195,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
         thumbnailSizeSlider.setToolTipText(bundle.getString("ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
         thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
-        thumbnailSizeSlider.setPreferredSize(new java.awt.Dimension(200, 20));
+        thumbnailSizeSlider.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
@@ -215,7 +215,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(thumbnailDimensionsButton, gridBagConstraints);
     }//GEN-END:initComponents
 

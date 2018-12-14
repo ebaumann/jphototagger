@@ -345,7 +345,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         toggleButtonBracketLeft1.setText("("); // NOI18N
-        toggleButtonBracketLeft1.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        toggleButtonBracketLeft1.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         toggleButtonBracketLeft1.setName("toggleButtonBracketLeft1"); // NOI18N
         toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,11 +367,11 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 6, 0, 0);
         add(comboBoxOperators, gridBagConstraints);
 
         toggleButtonBracketLeft2.setText("("); // NOI18N
-        toggleButtonBracketLeft2.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        toggleButtonBracketLeft2.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         toggleButtonBracketLeft2.setName("toggleButtonBracketLeft2"); // NOI18N
         toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -381,7 +381,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 6, 0, 0);
         add(toggleButtonBracketLeft2, gridBagConstraints);
 
         comboBoxColumns.setModel(new DefaultComboBoxModel<>(org.jphototagger.domain.metadata.search.AdvancedSearchMetaDataValues.get().toArray()));
@@ -395,7 +395,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 6, 0, 0);
         add(comboBoxColumns, gridBagConstraints);
 
         comboBoxComparators.setModel(new DefaultComboBoxModel<Object>(Comparator.values()));
@@ -408,7 +408,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 6, 0, 0);
         add(comboBoxComparators, gridBagConstraints);
 
         textFieldValue.setColumns(10);
@@ -424,11 +424,11 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 6, 0, 0);
         add(textFieldValue, gridBagConstraints);
 
         toggleButtonBracketRight.setText(")"); // NOI18N
-        toggleButtonBracketRight.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        toggleButtonBracketRight.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         toggleButtonBracketRight.setName("toggleButtonBracketRight"); // NOI18N
         toggleButtonBracketRight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -438,12 +438,12 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 6, 0, 0);
         add(toggleButtonBracketRight, gridBagConstraints);
 
         buttonCalendar.setIcon(org.jphototagger.resources.Icons.getIcon("icon_calendar.png"));
         buttonCalendar.setMnemonic('1');
-        buttonCalendar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonCalendar.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonCalendar.setName("buttonCalendar"); // NOI18N
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -455,20 +455,20 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 6, 0, 0);
         add(buttonCalendar, gridBagConstraints);
 
         buttonRemoveColumn.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete12.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
         buttonRemoveColumn.setToolTipText(bundle.getString("SearchMetaDataValuePanel.buttonRemoveColumn.toolTipText")); // NOI18N
-        buttonRemoveColumn.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonRemoveColumn.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemoveColumn.setName("buttonRemoveColumn"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 6, 0, 0);
         add(buttonRemoveColumn, gridBagConstraints);
     }//GEN-END:initComponents
 

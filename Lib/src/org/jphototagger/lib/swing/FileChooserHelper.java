@@ -143,7 +143,7 @@ public final class FileChooserHelper {
             int height = settings.getInt(p.getPropertyKeyPrefix() + Settings.KEY_POSTFIX_HEIGHT);
 
             if ((width > 0) && (height > 0)) {
-                fc.setPreferredSize(new Dimension(width, height));
+                fc.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(width, height));
             }
         }
     }

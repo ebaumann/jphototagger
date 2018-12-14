@@ -122,7 +122,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         setLayout(new java.awt.GridBagLayout());
 
-        scrollPane.setPreferredSize(new java.awt.Dimension(300, 200));
+        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(300, 200));
 
         list.setModel(new org.jphototagger.userdefinedfiletypes.UserDefinedFileTypesListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,7 +179,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

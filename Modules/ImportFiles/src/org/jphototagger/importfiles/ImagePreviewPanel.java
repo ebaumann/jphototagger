@@ -34,7 +34,7 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     private final ThumbnailProvider tnProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
 
     public ImagePreviewPanel() {
-        setPreferredSize(new Dimension(SIZE, -1));
+        setPreferredSize(org.jphototagger.resources.UiFactory.dimension(SIZE, -1));
         bg = getBackground();
     }
 

@@ -81,7 +81,7 @@ public class DisplayMessagesInFutureSettingsPanel extends javax.swing.JPanel {
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.weightx = 1.0;
         gbc.weighty = isLast ? 1.0 : 0.0;
-        gbc.insets = new Insets(0, 5, 3, 5);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 3, 5);
 
         add(checkBox, gbc);
     }

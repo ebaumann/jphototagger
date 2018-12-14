@@ -34,7 +34,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
     private FileNode selectedFileNode;
     private final NodesListModel nodesListModel = new NodesListModel();
     private ListTextFilter listTextFilter;
-    private final BusyPanel busyPanel = new BusyPanel(new Dimension(200, 200));
+    private final BusyPanel busyPanel = new BusyPanel(org.jphototagger.resources.UiFactory.dimension(200, 200));
 
     public RepositoryFileBrowserDialog(java.awt.Frame parent) {
         super(parent, true);
@@ -242,14 +242,14 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFilter.add(textFieldFilter, gridBagConstraints);
 
         buttonApplyFilter.setText(bundle.getString("RepositoryFileBrowserDialog.buttonApplyFilter.text")); // NOI18N
         buttonApplyFilter.setName("buttonApplyFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFilter.add(buttonApplyFilter, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -259,7 +259,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelContent.getContentPane().add(panelFilter, gridBagConstraints);
 
         scrollPaneFiles.setName("scrollPaneFiles"); // NOI18N
-        scrollPaneFiles.setPreferredSize(new java.awt.Dimension(400, 131));
+        scrollPaneFiles.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 131));
 
         listFiles.setModel(nodesListModel);
         listFiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -274,7 +274,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.6;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.getContentPane().add(scrollPaneFiles, gridBagConstraints);
 
         panelListInfo.setName("panelListInfo"); // NOI18N
@@ -304,7 +304,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelListInfo.add(labelSelectedFilepath, gridBagConstraints);
 
         labelFileCountPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelFileCountPrompt.text")); // NOI18N
@@ -316,7 +316,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelFileCount.setName("labelFileCount"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelListInfo.add(labelFileCount, gridBagConstraints);
 
         progressBarGetFiles.setName("progressBarGetFiles"); // NOI18N
@@ -325,14 +325,14 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelListInfo.add(progressBarGetFiles, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.getContentPane().add(panelListInfo, gridBagConstraints);
 
         panelInfo.setName("panelInfo"); // NOI18N
@@ -340,7 +340,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
         panelThumbnail.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelThumbnail.border.title"))); // NOI18N
         panelThumbnail.setName("panelThumbnail"); // NOI18N
-        panelThumbnail.setPreferredSize(new java.awt.Dimension(150, 150));
+        panelThumbnail.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(150, 150));
         panelThumbnail.setLayout(new java.awt.GridBagLayout());
 
         imagePanel.setImageIsAbsentText(bundle.getString("RepositoryFileBrowserDialog.imagePanel.imageIsAbsentText")); // NOI18N
@@ -355,7 +355,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelThumbnail.add(imagePanel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -367,7 +367,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
         panelDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelDetails.border.title"))); // NOI18N
         panelDetails.setName("panelDetails"); // NOI18N
-        panelDetails.setPreferredSize(new java.awt.Dimension(325, 229));
+        panelDetails.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(325, 229));
         panelDetails.setLayout(new java.awt.GridBagLayout());
 
         panelImageFile.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelImageFile.border.title"))); // NOI18N
@@ -385,14 +385,14 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelImageFile.add(booleanLabelImageFileExists, gridBagConstraints);
 
         labelimeImageFileInRepositoryPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelimeImageFileInRepositoryPrompt.text")); // NOI18N
         labelimeImageFileInRepositoryPrompt.setName("labelimeImageFileInRepositoryPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 0);
         panelImageFile.add(labelimeImageFileInRepositoryPrompt, gridBagConstraints);
 
         labelimeImageFileInRepository.setName("labelimeImageFileInRepository"); // NOI18N
@@ -406,14 +406,14 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelImageFile.add(labelimeImageFileInRepository, gridBagConstraints);
 
         labelimeImageFileInFileSystemPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelimeImageFileInFileSystemPrompt.text")); // NOI18N
         labelimeImageFileInFileSystemPrompt.setName("labelimeImageFileInFileSystemPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 0);
         panelImageFile.add(labelimeImageFileInFileSystemPrompt, gridBagConstraints);
 
         labelimeImageFileInFileSystem.setName("labelimeImageFileInFileSystem"); // NOI18N
@@ -425,7 +425,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 0);
         panelImageFile.add(labelimeImageFileInFileSystem, gridBagConstraints);
 
         labelTimeImageFileWarning.setForeground(new java.awt.Color(255, 0, 51));
@@ -439,7 +439,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 10, 3, 3);
         panelImageFile.add(labelTimeImageFileWarning, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -447,7 +447,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 3);
         panelDetails.add(panelImageFile, gridBagConstraints);
 
         panelXMPFile.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelXMPFile.border.title"))); // NOI18N
@@ -465,14 +465,14 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelXMPFile.add(booleanLabelXmpFileExists, gridBagConstraints);
 
         labelPromptTimeXmpFileInRepository.setText(bundle.getString("RepositoryFileBrowserDialog.labelPromptTimeXmpFileInRepository.text")); // NOI18N
         labelPromptTimeXmpFileInRepository.setName("labelPromptTimeXmpFileInRepository"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 0);
         panelXMPFile.add(labelPromptTimeXmpFileInRepository, gridBagConstraints);
 
         labelTimeXmpFileInRepository.setName("labelTimeXmpFileInRepository"); // NOI18N
@@ -486,14 +486,14 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelXMPFile.add(labelTimeXmpFileInRepository, gridBagConstraints);
 
         labelPromptTimeXmpFileInFileSystem.setText(bundle.getString("RepositoryFileBrowserDialog.labelPromptTimeXmpFileInFileSystem.text")); // NOI18N
         labelPromptTimeXmpFileInFileSystem.setName("labelPromptTimeXmpFileInFileSystem"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 0);
         panelXMPFile.add(labelPromptTimeXmpFileInFileSystem, gridBagConstraints);
 
         labelTimeXmpFileInFileSystem.setName("labelTimeXmpFileInFileSystem"); // NOI18N
@@ -505,7 +505,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 3, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 0);
         panelXMPFile.add(labelTimeXmpFileInFileSystem, gridBagConstraints);
 
         labelTimeXmpFileWarning.setForeground(new java.awt.Color(255, 0, 51));
@@ -519,7 +519,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 10, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 10, 3, 3);
         panelXMPFile.add(labelTimeXmpFileWarning, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -527,7 +527,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 3, 0, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 3);
         panelDetails.add(panelXMPFile, gridBagConstraints);
 
         labelThumbnailSizeInfo.setName("labelThumbnailSizeInfo"); // NOI18N
@@ -540,7 +540,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelDetails.add(labelThumbnailSizeInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -548,7 +548,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 0.6;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelInfo.add(panelDetails, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -556,7 +556,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.4;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.getContentPane().add(panelInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -565,7 +565,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         bindingGroup.bind();

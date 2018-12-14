@@ -45,7 +45,7 @@ public class AddKeywortsViaShortcutsPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         add(labelInfo, gridBagConstraints);
 
-        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
+        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 300));
         scrollPane.setViewportView(table);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -54,7 +54,7 @@ public class AddKeywortsViaShortcutsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -403,7 +403,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(labelTargetDirectory, gridBagConstraints);
 
         buttonGroupFileExists.add(radioButtonForceOverwrite);
@@ -413,7 +413,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(radioButtonForceOverwrite, gridBagConstraints);
 
         buttonGroupFileExists.add(radioButtonRenameIfTargetFileExists);
@@ -440,7 +440,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
         panelCurrentFile.setName("panelCurrentFile"); // NOI18N
@@ -459,14 +459,14 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelCurrentFile.add(labelCurrentFilename, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         panelContent.add(panelCurrentFile, gridBagConstraints);
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
@@ -500,7 +500,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelStartCancelButton.add(buttonStart, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -516,7 +516,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

@@ -209,11 +209,11 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(comboBoxLaf, gridBagConstraints);
 
         scrollPaneDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppLookAndFeelSettingsPanel.scrollPaneDescription.border.title"))); // NOI18N
-        scrollPaneDescription.setPreferredSize(new java.awt.Dimension(250, 100));
+        scrollPaneDescription.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 100));
 
         editorPaneDescription.setEditable(false);
         editorPaneDescription.setContentType("text/html"); // NOI18N
@@ -225,11 +225,11 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.2;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(scrollPaneDescription, gridBagConstraints);
 
         panelPreferences.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppLookAndFeelSettingsPanel.panelPreferences.border.title"))); // NOI18N
-        panelPreferences.setPreferredSize(new java.awt.Dimension(250, 200));
+        panelPreferences.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 200));
         panelPreferences.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -255,19 +255,19 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         comboBoxFontScale.setModel(new javax.swing.DefaultComboBoxModel<>(CommonPreferences.getValidFontScales()));
         comboBoxFontScale.setRenderer(fontScaleRenderer);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFontScale.add(comboBoxFontScale, gridBagConstraints);
 
         labelFontScaleInfo.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelFontScaleInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFontScale.add(labelFontScaleInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelFontScale, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -276,7 +276,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         add(panelContent, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

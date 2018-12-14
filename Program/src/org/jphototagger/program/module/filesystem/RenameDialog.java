@@ -383,7 +383,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelFolderPathname.add(labelDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -391,17 +391,17 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         panelInputName.add(panelFolderPathname, gridBagConstraints);
 
         panelThumbnailBorder.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        panelThumbnailBorder.setMinimumSize(new java.awt.Dimension(260, 260));
-        panelThumbnailBorder.setPreferredSize(new java.awt.Dimension(260, 260));
+        panelThumbnailBorder.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(260, 260));
+        panelThumbnailBorder.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(260, 260));
         panelThumbnailBorder.setLayout(new java.awt.GridBagLayout());
 
         panelThumbnail.setEnabled(false);
         panelThumbnail.setFocusable(false);
-        panelThumbnail.setPreferredSize(new java.awt.Dimension(250, 250));
+        panelThumbnail.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 250));
         panelThumbnail.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -410,12 +410,12 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelThumbnailBorder.add(panelThumbnail, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 15, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 15, 0, 0);
         panelInputName.add(panelThumbnailBorder, gridBagConstraints);
 
         panelFromNameToName.setLayout(new java.awt.GridBagLayout());
@@ -433,14 +433,14 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFromNameToName.add(labelFromName, gridBagConstraints);
 
         labelToNamePrompt.setLabelFor(textFieldToName);
         labelToNamePrompt.setText(bundle.getString("RenameDialog.labelToNamePrompt.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelFromNameToName.add(labelToNamePrompt, gridBagConstraints);
 
         textFieldToName.setColumns(25);
@@ -454,7 +454,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelFromNameToName.add(textFieldToName, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -462,7 +462,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         panelInputName.add(panelFromNameToName, gridBagConstraints);
 
         panelRenameButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
@@ -488,7 +488,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHEAST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 10, 10);
         panelInputName.add(panelRenameButtons, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("RenameDialog.panelInputName.TabConstraints.tabTitle"), panelInputName); // NOI18N
@@ -503,7 +503,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         panelTemplatesContents.add(panelRenameTemplates, gridBagConstraints);
 
         buttonRenameViaTemplate.setText(bundle.getString("RenameDialog.buttonRenameViaTemplate.text")); // NOI18N
@@ -516,7 +516,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 10, 10);
         panelTemplatesContents.add(buttonRenameViaTemplate, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("RenameDialog.panelTemplatesContents.TabConstraints.tabTitle"), panelTemplatesContents); // NOI18N
@@ -528,7 +528,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContents.add(tabbedPane, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -538,7 +538,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContents, gridBagConstraints);
 
         pack();

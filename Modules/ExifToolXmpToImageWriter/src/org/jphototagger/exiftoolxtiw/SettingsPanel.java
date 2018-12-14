@@ -372,7 +372,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(checkBoxSelfResponsible, gridBagConstraints);
 
         panelExifToolGeneral.setLayout(new java.awt.GridBagLayout());
@@ -404,7 +404,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(panelExifToolGeneral, gridBagConstraints);
 
         textAreaInfo.setEditable(false);
@@ -419,7 +419,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(textAreaInfo, gridBagConstraints);
 
         labelErrorCanWrite.setForeground(java.awt.Color.RED);
@@ -427,7 +427,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         paneContents.add(labelErrorCanWrite, gridBagConstraints);
 
         panelChooseExifTool.setLayout(new java.awt.GridBagLayout());
@@ -447,7 +447,7 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelChooseExifTool.add(buttonChooseExifTool, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -455,7 +455,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(panelChooseExifTool, gridBagConstraints);
 
         panelWriteOnSaveXmp.setLayout(new java.awt.GridBagLayout());
@@ -474,14 +474,14 @@ public class SettingsPanel extends javax.swing.JPanel {
         labelErrorInputsSavedEarly.setText(bundle.getString("SettingsPanel.labelErrorInputsSavedEarly.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
         panelWriteOnSaveXmp.add(labelErrorInputsSavedEarly, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(panelWriteOnSaveXmp, gridBagConstraints);
 
         checkBoxCreateBackupFile.setText(bundle.getString("SettingsPanel.checkBoxCreateBackupFile.text")); // NOI18N
@@ -500,10 +500,10 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(labelFileSuffixes, gridBagConstraints);
 
-        scrollPaneFileSuffixes.setPreferredSize(new java.awt.Dimension(200, 100));
+        scrollPaneFileSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 100));
 
         listFileSuffixes.setModel(fileSuffixesListModel);
         listFileSuffixes.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
@@ -514,7 +514,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(scrollPaneFileSuffixes, gridBagConstraints);
 
         panelButtonsFileSuffixes.setLayout(new java.awt.GridBagLayout());
@@ -534,7 +534,7 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtonsFileSuffixes.add(buttonAddFileSuffix, gridBagConstraints);
 
         buttonRemoveFileSuffix.setText(bundle.getString("SettingsPanel.buttonRemoveFileSuffix.text")); // NOI18N
@@ -544,14 +544,14 @@ public class SettingsPanel extends javax.swing.JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtonsFileSuffixes.add(buttonRemoveFileSuffix, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(panelButtonsFileSuffixes, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -560,7 +560,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         add(paneContents, gridBagConstraints);
     }//GEN-END:initComponents
 

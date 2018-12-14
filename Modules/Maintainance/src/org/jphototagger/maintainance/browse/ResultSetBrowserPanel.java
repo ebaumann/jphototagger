@@ -95,24 +95,24 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(labelDescription, gridBagConstraints);
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
         panelButtons.add(buttonLoad, new java.awt.GridBagConstraints());
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonSave, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonExecuteSql, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(panelButtons, gridBagConstraints);
 
-        srollPaneSql.setPreferredSize(new java.awt.Dimension(600, 150));
+        srollPaneSql.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(600, 150));
 
         textAreaSql.setColumns(40);
         textAreaSql.setRows(5);
@@ -123,7 +123,7 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.15;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         add(srollPaneSql, gridBagConstraints);
 
         panelFilter.setLayout(new java.awt.GridBagLayout());
@@ -134,7 +134,7 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFilter.add(textFieldFilter, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -142,10 +142,10 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelFilter, gridBagConstraints);
 
-        scrollPaneTable.setPreferredSize(new java.awt.Dimension(800, 400));
+        scrollPaneTable.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(800, 400));
 
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -156,7 +156,7 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.85;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(scrollPaneTable, gridBagConstraints);
 
         progressBar.setIndeterminate(true);
@@ -166,7 +166,7 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(progressBar, gridBagConstraints);
     }//GEN-END:initComponents
 

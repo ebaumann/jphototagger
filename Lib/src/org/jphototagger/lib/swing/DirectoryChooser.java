@@ -386,7 +386,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         panelContents.setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(new java.awt.Dimension(400, 400));
+        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 400));
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -408,7 +408,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContents.add(labelUsage, gridBagConstraints);
 
         panelActionButtons.setName("panelActionButtons"); // NOI18N
@@ -436,7 +436,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelActionButtons.add(buttonAdd, gridBagConstraints);
 
         buttonDelete.setText(bundle.getString("DirectoryChooser.buttonDelete.text")); // NOI18N
@@ -449,7 +449,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelActionButtons.add(buttonDelete, gridBagConstraints);
 
         buttonRename.setText(bundle.getString("DirectoryChooser.buttonRename.text")); // NOI18N
@@ -462,14 +462,14 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelActionButtons.add(buttonRename, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContents.add(panelActionButtons, gridBagConstraints);
 
         panelDialogButtons.setName("panelDialogButtons"); // NOI18N
@@ -494,14 +494,14 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDialogButtons.add(buttonChoose, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
         panelContents.add(panelDialogButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -510,7 +510,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContents, gridBagConstraints);
 
         pack();

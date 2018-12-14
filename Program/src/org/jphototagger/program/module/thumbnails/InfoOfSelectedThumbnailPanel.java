@@ -189,12 +189,12 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSelectedFilePath.add(labelSelectedFilePathName, gridBagConstraints);
 
         buttonOpenDirectoryOfSelectedFile.setText(bundle.getString("InfoOfSelectedThumbnailPanel.buttonOpenDirectoryOfSelectedFile.text")); // NOI18N
         buttonOpenDirectoryOfSelectedFile.setEnabled(false);
-        buttonOpenDirectoryOfSelectedFile.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        buttonOpenDirectoryOfSelectedFile.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonOpenDirectoryOfSelectedFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOpenDirectoryOfSelectedFileActionPerformed(evt);
@@ -202,14 +202,14 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSelectedFilePath.add(buttonOpenDirectoryOfSelectedFile, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 5);
         panelContent.add(panelSelectedFilePath, gridBagConstraints);
 
         panelSelectedFileDateSizeXmpExists.setLayout(new java.awt.GridBagLayout());
@@ -222,19 +222,19 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         labelSelectedFileDate.setText(bundle.getString("InfoOfSelectedThumbnailPanel.labelSelectedFileDate.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSelectedFileDateSizeXmpExists.add(labelSelectedFileDate, gridBagConstraints);
 
         labelSelectedFileSizePrompt.setText(bundle.getString("InfoOfSelectedThumbnailPanel.labelSelectedFileSizePrompt.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSelectedFileDateSizeXmpExists.add(labelSelectedFileSizePrompt, gridBagConstraints);
 
         labelSelectedFileSize.setText(bundle.getString("InfoOfSelectedThumbnailPanel.labelSelectedFileSize.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSelectedFileDateSizeXmpExists.add(labelSelectedFileSize, gridBagConstraints);
 
         checkBoxSelectedFileHasSidecarFile.setText(bundle.getString("InfoOfSelectedThumbnailPanel.checkBoxSelectedFileHasSidecarFile.text")); // NOI18N
@@ -242,13 +242,13 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSelectedFileDateSizeXmpExists.add(checkBoxSelectedFileHasSidecarFile, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelContent.add(panelSelectedFileDateSizeXmpExists, gridBagConstraints);
 
         panelThumbnailInfoProviders.setLayout(new java.awt.GridBagLayout());

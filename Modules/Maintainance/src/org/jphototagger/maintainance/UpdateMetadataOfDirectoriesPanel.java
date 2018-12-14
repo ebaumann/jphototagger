@@ -538,26 +538,26 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
 
         labelInfoFilecount.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
         labelInfoFilecount.setName("labelInfoFilecount"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(labelInfoFilecount, gridBagConstraints);
 
         labelFilecount.setForeground(new java.awt.Color(0, 153, 0));
         labelFilecount.setText("0"); // NOI18N
         labelFilecount.setName("labelFilecount"); // NOI18N
-        labelFilecount.setPreferredSize(new java.awt.Dimension(4, 20));
+        labelFilecount.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(4, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         add(labelFilecount, gridBagConstraints);
 
         checkBoxForce.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
@@ -566,7 +566,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(checkBoxForce, gridBagConstraints);
 
         checkBoxIncludeSubdirectories.setSelected(true);
@@ -576,7 +576,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         add(checkBoxIncludeSubdirectories, gridBagConstraints);
 
         panelCurrentFile.setName("panelCurrentFile"); // NOI18N
@@ -591,21 +591,21 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
         labelCurrentFilename.setForeground(new java.awt.Color(51, 51, 255));
         labelCurrentFilename.setName("labelCurrentFilename"); // NOI18N
-        labelCurrentFilename.setPreferredSize(new java.awt.Dimension(4, 20));
+        labelCurrentFilename.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(4, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelCurrentFile.add(labelCurrentFilename, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelCurrentFile, gridBagConstraints);
 
         progressBar.setFocusable(false);
@@ -615,7 +615,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(progressBar, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -663,7 +663,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -334,7 +334,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(2, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 0, 0, 0);
         add(textAreaEdit, gridBagConstraints);
         textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
     }//GEN-END:initComponents

@@ -203,7 +203,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
 
         comboBoxExifCharset.setModel(new DefaultComboBoxModel<>(ExifAscii.getValidCharsets()));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelExifCharset.add(comboBoxExifCharset, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -225,7 +225,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         panelDefault.add(panelDefaultContent, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("ExifSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
@@ -239,7 +239,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelExcludeSuffixesContent.add(labelExcludeSuffixes, gridBagConstraints);
 
         listExcludeSuffixes.setModel(excludeSuffixesListModel);
@@ -251,13 +251,13 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
         panelExcludeSuffixesContent.add(scrollPaneExcludeSuffixes, gridBagConstraints);
 
         buttonAddExcludeSuffixes.setText("+"); // NOI18N
         buttonAddExcludeSuffixes.setToolTipText(bundle.getString("ExifSettingsPanel.buttonAddExcludeSuffixes.toolTipText")); // NOI18N
-        buttonAddExcludeSuffixes.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonAddExcludeSuffixes.setPreferredSize(new java.awt.Dimension(22, 22));
+        buttonAddExcludeSuffixes.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonAddExcludeSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
         buttonAddExcludeSuffixes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddExcludeSuffixesActionPerformed(evt);
@@ -266,14 +266,14 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 5, 0, 0);
         panelExcludeSuffixesContent.add(buttonAddExcludeSuffixes, gridBagConstraints);
 
         buttonRemoveExcludeSuffixes.setText("-"); // NOI18N
         buttonRemoveExcludeSuffixes.setToolTipText(bundle.getString("ExifSettingsPanel.buttonRemoveExcludeSuffixes.toolTipText")); // NOI18N
         buttonRemoveExcludeSuffixes.setEnabled(false);
-        buttonRemoveExcludeSuffixes.setMargin(new java.awt.Insets(2, 2, 2, 2));
-        buttonRemoveExcludeSuffixes.setPreferredSize(new java.awt.Dimension(22, 22));
+        buttonRemoveExcludeSuffixes.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonRemoveExcludeSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
         buttonRemoveExcludeSuffixes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveExcludeSuffixesActionPerformed(evt);
@@ -282,7 +282,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelExcludeSuffixesContent.add(buttonRemoveExcludeSuffixes, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -291,7 +291,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         panelExcludeSuffixes.add(panelExcludeSuffixesContent, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("ExifSettingsPanel.panelExcludeSuffixes.TabConstraints.tabTitle"), panelExcludeSuffixes); // NOI18N

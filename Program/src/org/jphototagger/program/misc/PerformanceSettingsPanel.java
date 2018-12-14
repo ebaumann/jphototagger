@@ -190,7 +190,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("PerformanceSettingsPanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         panelMaximumSecondsToTerminateExternalPrograms.add(labelMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
@@ -203,7 +203,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 2, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 2, 0, 10);
         panelMaximumSecondsToTerminateExternalPrograms.add(spinnerMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -224,7 +224,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         add(checkBoxScanForEmbeddedXmp, gridBagConstraints);
 
         checkBoxAutoscanDirectories.setText(bundle.getString("PerformanceSettingsPanel.checkBoxAutoscanDirectories.text")); // NOI18N
@@ -238,7 +238,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         add(checkBoxAutoscanDirectories, gridBagConstraints);
 
         checkBoxSaveInputEarly.setText(bundle.getString("PerformanceSettingsPanel.checkBoxSaveInputEarly.text")); // NOI18N
@@ -252,7 +252,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         add(checkBoxSaveInputEarly, gridBagConstraints);
 
         panelAutocomplete.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("PerformanceSettingsPanel.panelAutocomplete.border.title"))); // NOI18N
@@ -269,7 +269,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelAutocomplete.add(checkBoxEnableAutocomplete, gridBagConstraints);
 
         checkBoxUpdateAutocomplete.setText(bundle.getString("PerformanceSettingsPanel.checkBoxUpdateAutocomplete.text")); // NOI18N
@@ -283,7 +283,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 5);
         panelAutocomplete.add(checkBoxUpdateAutocomplete, gridBagConstraints);
 
         checkBoxAutocompleteFastSearchIgnoreCase.setText(bundle.getString("PerformanceSettingsPanel.checkBoxAutocompleteFastSearchIgnoreCase.text")); // NOI18N
@@ -297,7 +297,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 5, 5);
         panelAutocomplete.add(checkBoxAutocompleteFastSearchIgnoreCase, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -306,7 +306,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         add(panelAutocomplete, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

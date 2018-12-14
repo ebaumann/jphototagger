@@ -71,7 +71,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         add(checkBoxAddFilenameToGpsLocationExport, gridBagConstraints);
 
         panelFill.setName("panelFill"); // NOI18N
@@ -91,7 +91,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         add(labelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 

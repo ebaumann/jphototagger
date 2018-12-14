@@ -181,7 +181,7 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelExclude.add(scrollPaneExclude, gridBagConstraints);
 
         tabbedPane.addTab(bundle.getString("PluginsSettingsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N

@@ -123,7 +123,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     private void repaintHiddenProgressBars() {
         ComponentUtil.forceRepaint(panelHiddenProgressBars);
         Dimension size = panelHiddenProgressBars.getPreferredSize();
-        scrollPaneHiddenProgressBars.setPreferredSize(new Dimension(size.width + 2, size.height + 2));
+        scrollPaneHiddenProgressBars.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(size.width + 2, size.height + 2));
         ComponentUtil.forceRepaint(dialogHiddenProgressBars);
         setProgressBarDialogLocation();
     }
@@ -242,14 +242,14 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         buttonToggleVisibilityOfHiddenProgressBars.setToolTipText(bundle.getString("ProgressBarPanelArray.buttonToggleVisibilityOfHiddenProgressBars.toolTipText")); // NOI18N
         buttonToggleVisibilityOfHiddenProgressBars.setBorder(null);
         buttonToggleVisibilityOfHiddenProgressBars.setEnabled(false);
-        buttonToggleVisibilityOfHiddenProgressBars.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        buttonToggleVisibilityOfHiddenProgressBars.setPreferredSize(new java.awt.Dimension(18, 18));
+        buttonToggleVisibilityOfHiddenProgressBars.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
+        buttonToggleVisibilityOfHiddenProgressBars.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(18, 18));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(buttonToggleVisibilityOfHiddenProgressBars, gridBagConstraints);
     }//GEN-END:initComponents
 

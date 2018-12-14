@@ -226,7 +226,7 @@ public class ExifPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelTableExifFilter.add(textFieldTableExifFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -236,7 +236,7 @@ public class ExifPanel extends javax.swing.JPanel {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new Insets(3, 3, 3, 3);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         add(panelTableExifFilter, gridBagConstraints);
 
         scrollPaneExif.setName("scrollPaneExif"); // NOI18N
@@ -260,13 +260,13 @@ public class ExifPanel extends javax.swing.JPanel {
         buttonExifToXmp.setAction(new SetExifToXmpAction());
         buttonExifToXmp.setText(bundle.getString("ExifPanel.buttonExifToXmp.text")); // NOI18N
         buttonExifToXmp.setToolTipText(bundle.getString("ExifPanel.buttonExifToXmp.toolTipText")); // NOI18N
-        buttonExifToXmp.setMargin(new Insets(2, 2, 2, 2));
+        buttonExifToXmp.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonExifToXmp.setName("buttonExifToXmp"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = new Insets(2, 0, 2, 2);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 0, 2, 2);
         add(buttonExifToXmp, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

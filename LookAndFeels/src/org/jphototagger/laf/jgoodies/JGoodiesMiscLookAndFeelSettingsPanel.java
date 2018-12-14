@@ -112,7 +112,7 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
         labelClassNames.setText(bundle.getString("JGoodiesMiscLookAndFeelSettingsPanel.labelClassNames.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
         add(labelClassNames, gridBagConstraints);
 
         comboBoxClassNames.setModel(classnamesComboBoxModel);
@@ -125,7 +125,7 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         add(comboBoxClassNames, gridBagConstraints);
     }//GEN-END:initComponents
 

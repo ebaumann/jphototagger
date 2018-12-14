@@ -177,7 +177,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(labelTitle, gridBagConstraints);
 
         labelSearch.setLabelFor(textFieldSearch);
@@ -185,7 +185,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         labelSearch.setName("labelSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         add(labelSearch, gridBagConstraints);
 
         textFieldSearch.setColumns(20);
@@ -200,7 +200,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(textFieldSearch, gridBagConstraints);
 
         labelReplacement.setLabelFor(textFieldReplacement);
@@ -208,7 +208,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         labelReplacement.setName("labelReplacement"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         add(labelReplacement, gridBagConstraints);
 
         textFieldReplacement.setColumns(20);
@@ -223,7 +223,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(textFieldReplacement, gridBagConstraints);
 
         progressBar.setName("progressBar"); // NOI18N
@@ -232,7 +232,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(progressBar, gridBagConstraints);
 
         buttonReplace.setText(bundle.getString("RenameFilenamesInRepositoryPanel.buttonReplace.text")); // NOI18N
@@ -246,7 +246,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         add(buttonReplace, gridBagConstraints);
     }//GEN-END:initComponents
 

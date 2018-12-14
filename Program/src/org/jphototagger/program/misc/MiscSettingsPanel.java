@@ -353,7 +353,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         panelDefault.add(checkBoxIsAcceptHiddenDirectories, gridBagConstraints);
 
         checkBoxEnableDeleteDirectories.setText(bundle.getString("MiscSettingsPanel.checkBoxEnableDeleteDirectories.text")); // NOI18N
@@ -365,7 +365,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxEnableDeleteDirectories, gridBagConstraints);
 
         panelCheckForUpdates.setLayout(new java.awt.GridBagLayout());
@@ -386,7 +386,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(panelCheckForUpdates, gridBagConstraints);
 
         checkBoxDisplaySearchButton.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
@@ -400,7 +400,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxDisplaySearchButton, gridBagConstraints);
 
         checkBoxUseLongXmpSidecarFileNames.setText(bundle.getString("MiscSettingsPanel.checkBoxUseLongXmpSidecarFileNames.text")); // NOI18N
@@ -414,7 +414,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxUseLongXmpSidecarFileNames, gridBagConstraints);
 
         panelEditMetadata.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelEditMetadata.border.title"))); // NOI18N
@@ -437,7 +437,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelMdTextAreasColumns.add(spinnerMdTextAreasColumns, gridBagConstraints);
 
         labelMdTextAreasColumnsInfo.setText(bundle.getString("MiscSettingsPanel.labelMdTextAreasColumnsInfo.text")); // NOI18N
@@ -446,7 +446,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelMdTextAreasColumns.add(labelMdTextAreasColumnsInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -454,7 +454,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelEditMetadata.add(panelMdTextAreasColumns, gridBagConstraints);
 
         checkBoxDisplayWordsetsEditPanel.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.text")); // NOI18N
@@ -468,7 +468,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelEditMetadata.add(checkBoxDisplayWordsetsEditPanel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -476,7 +476,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         panelDefault.add(panelEditMetadata, gridBagConstraints);
 
         panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelCopyMoveFiles.border.title"))); // NOI18N
@@ -494,7 +494,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite, gridBagConstraints);
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
@@ -509,7 +509,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 5, 5);
         panelCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -517,7 +517,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         panelDefault.add(panelCopyMoveFiles, gridBagConstraints);
 
         panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelRepositoryDirectory.border.title"))); // NOI18N
@@ -528,7 +528,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelRepositoryDirectory.add(labelInfoRepositoryDirectory, gridBagConstraints);
 
         panelButtonsRepositoryDirectory.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
@@ -552,7 +552,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelRepositoryDirectory.add(panelButtonsRepositoryDirectory, gridBagConstraints);
 
         labelRepositoryDirectory.setText(" "); // NOI18N
@@ -562,7 +562,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelRepositoryDirectory.add(labelRepositoryDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -570,7 +570,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 10, 0, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         panelDefault.add(panelRepositoryDirectory, gridBagConstraints);
 
         panelFill.setLayout(new java.awt.GridBagLayout());

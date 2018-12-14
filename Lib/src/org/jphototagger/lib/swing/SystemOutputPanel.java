@@ -120,7 +120,7 @@ public class SystemOutputPanel extends JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(new java.awt.Dimension(300, 200));
+        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(300, 200));
 
         textArea.setEditable(false);
         textArea.setColumns(1);
@@ -156,7 +156,7 @@ public class SystemOutputPanel extends JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 30, 0, 0);
         panelButttons.add(buttonDelete, gridBagConstraints);
 
         buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
@@ -168,14 +168,14 @@ public class SystemOutputPanel extends JPanel {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButttons.add(buttonCopyToClipboard, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelButttons, gridBagConstraints);
     }//GEN-END:initComponents
 

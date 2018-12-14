@@ -17,7 +17,7 @@ import org.jdesktop.swingx.JXBusyLabel;
  * </ol>
  * <pre>
  * public final class MyDialog extends JDialog {
- *     private final BusyPanel busyPanel = new BusyPanel(new Dimension(200, 200));
+ *     private final BusyPanel busyPanel = new BusyPanel(org.jphototagger.resources.UiFactory.dimension(200, 200));
  *     private final JXRootPane rootPane = new JXRootPane();
  *     public MyDialog {
  *         initComponents();
@@ -39,7 +39,7 @@ public final class BusyPanel extends JPanel {
     private final Dimension dimension;
 
     public BusyPanel() {
-        this(new Dimension(16, 16));
+        this(org.jphototagger.resources.UiFactory.dimension(16, 16));
     }
 
     /**

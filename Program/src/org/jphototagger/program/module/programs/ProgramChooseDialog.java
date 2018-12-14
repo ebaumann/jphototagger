@@ -93,7 +93,7 @@ public class ProgramChooseDialog extends Dialog {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 0, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 0, 7);
         getContentPane().add(scrollPanePrograms, gridBagConstraints);
 
         buttonChooseProgram.setText(bundle.getString("ProgramChooseDialog.buttonChooseProgram.text")); // NOI18N
@@ -106,7 +106,7 @@ public class ProgramChooseDialog extends Dialog {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(buttonChooseProgram, gridBagConstraints);
 
         bindingGroup.bind();

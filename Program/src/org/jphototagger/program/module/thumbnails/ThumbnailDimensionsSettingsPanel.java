@@ -90,7 +90,7 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(6, 6, 0, 0);
         add(labelMaxThumbnailWidth, gridBagConstraints);
 
         spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(ThumbnailDefaults.DEFAULT_THUMBNAIL_WIDTH, ThumbnailDefaults.MIN_THUMBNAIL_WIDTH, ThumbnailDefaults.MAX_THUMBNAIL_WIDTH, 50));
@@ -104,7 +104,7 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(6, 6, 0, 0);
         add(spinnerMaxThumbnailWidth, gridBagConstraints);
 
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -118,7 +118,7 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 6, 6, 6);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 6, 6, 6);
         add(labelUpdateAllThumbnails, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -72,7 +72,7 @@ public class EditWordsetDialog extends Dialog {
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        panelEditWordset.setPreferredSize(new java.awt.Dimension(300, 200));
+        panelEditWordset.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(300, 200));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -80,7 +80,7 @@ public class EditWordsetDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelEditWordset, gridBagConstraints);
 
         pack();

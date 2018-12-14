@@ -107,7 +107,7 @@ public final class DateChooserDialog extends JComponent {
         GridBagConstraints c = new GridBagConstraints();
 
         c.gridx = c.gridy = 0;
-        c.insets = new Insets(2, 2, 2, 2);
+        c.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
         c.weightx = 1.0;
         c.anchor = GridBagConstraints.WEST;
         previousButton = new JButton();
@@ -287,7 +287,7 @@ public final class DateChooserDialog extends JComponent {
         GridBagConstraints c = new GridBagConstraints();
 
         c.gridx = c.gridy = 0;
-        c.insets = new Insets(2, 2, 2, 2);
+        c.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
         c.gridwidth = 2;
 
         JFrame f = new JFrame();

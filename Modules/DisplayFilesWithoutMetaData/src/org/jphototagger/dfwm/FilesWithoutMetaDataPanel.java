@@ -125,7 +125,7 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
+        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 300));
 
         list.setModel(listModel);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

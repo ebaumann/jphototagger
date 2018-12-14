@@ -616,7 +616,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         panelContents.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneTree.setName("scrollPaneTree"); // NOI18N
-        scrollPaneTree.setPreferredSize(new java.awt.Dimension(150, 10));
+        scrollPaneTree.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(150, 10));
 
         tree.setModel(null);
         tree.setCellRenderer(new HelpContentsTreeCellRenderer());
@@ -641,7 +641,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         labelSearch.setName("labelSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 0);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelSearch.add(labelSearch, gridBagConstraints);
 
         textFieldSearch.setColumns(15);
@@ -651,7 +651,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelSearch.add(textFieldSearch, gridBagConstraints);
 
         scrollPaneSearchResults.setName("scrollPaneSearchResults"); // NOI18N
@@ -674,7 +674,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelSearch.add(scrollPaneSearchResults, gridBagConstraints);
 
         tabbedPaneContents.addTab(bundle.getString("HelpBrowser.panelSearch.TabConstraints.tabTitle"), panelSearch); // NOI18N
@@ -685,7 +685,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         panelPage.setLayout(new java.awt.GridBagLayout());
 
         scrollPanePage.setName("scrollPanePage"); // NOI18N
-        scrollPanePage.setPreferredSize(new java.awt.Dimension(200, 24));
+        scrollPanePage.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 24));
 
         editorPanePage.setEditable(false);
         editorPanePage.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -729,7 +729,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = new java.awt.Insets(5, 5, 5, 5);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelPage.add(panelButtons, gridBagConstraints);
 
         splitPane.setRightComponent(panelPage);
@@ -740,7 +740,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(7, 7, 7, 7);
+        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(splitPane, gridBagConstraints);
 
         menuBar.setName("menuBar"); // NOI18N

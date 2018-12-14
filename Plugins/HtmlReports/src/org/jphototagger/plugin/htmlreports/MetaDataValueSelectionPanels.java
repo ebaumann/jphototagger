@@ -47,7 +47,7 @@ public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements 
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.weightx = 1.0;
-        gbc.insets = new java.awt.Insets(5, 0, 0, 0);
+        gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panels.remove(fillPanel);
         panels.add(selectionPanel, gbc);
         addFillPanel();
