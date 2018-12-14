@@ -1,11 +1,11 @@
 package org.jphototagger.lib.api;
 
 import javax.swing.Action;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import org.jphototagger.api.component.Selectable;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.swing.util.MenuUtil;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -25,8 +25,8 @@ public final class MenuItemProviderImpl implements MenuItemProvider {
     @Override
     public JMenuItem getMenuItem() {
         JMenuItem item = isSelectable()
-                ? new JCheckBoxMenuItem(action)
-                : new JMenuItem(action);
+                ? UiFactory.checkBoxMenuItem(action)
+                : UiFactory.menuItem(action);
         MenuUtil.setMnemonics(item);
         return item;
     }

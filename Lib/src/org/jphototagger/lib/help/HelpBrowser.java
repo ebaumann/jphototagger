@@ -564,8 +564,8 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         popupMenuEditorPane = new javax.swing.JPopupMenu();
-        menuItemGotNextUrl = new javax.swing.JMenuItem();
-        menuItemGotoPreviousUrl = new javax.swing.JMenuItem();
+        menuItemGotNextUrl = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemGotoPreviousUrl = org.jphototagger.resources.UiFactory.menuItem();
         buttonGroupTextSize = new javax.swing.ButtonGroup();
         splitPane = new javax.swing.JSplitPane();
         tabbedPaneContents = new javax.swing.JTabbedPane();
@@ -587,10 +587,10 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         buttonGotoNextUrl = org.jphototagger.resources.UiFactory.button();
         menuBar = new javax.swing.JMenuBar();
         menuView = new javax.swing.JMenu();
-        menuItemTextFontSizeSmall = new javax.swing.JRadioButtonMenuItem();
-        menuItemTextFontSizeNormal = new javax.swing.JRadioButtonMenuItem();
-        menuItemTextFontSizeLarge = new javax.swing.JRadioButtonMenuItem();
-        menuItemTextFontSizeHuge = new javax.swing.JRadioButtonMenuItem();
+        menuItemTextFontSizeSmall = UiFactory.radioButtonMenuItem();
+        menuItemTextFontSizeNormal = UiFactory.radioButtonMenuItem();
+        menuItemTextFontSizeLarge = UiFactory.radioButtonMenuItem();
+        menuItemTextFontSizeHuge = UiFactory.radioButtonMenuItem();
 
         popupMenuEditorPane.setName("popupMenuEditorPane"); // NOI18N
 

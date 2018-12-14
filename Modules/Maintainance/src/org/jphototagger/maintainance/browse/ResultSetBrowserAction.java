@@ -9,6 +9,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -33,7 +34,7 @@ public final class ResultSetBrowserAction extends AbstractAction implements Menu
 
     @Override
     public JMenuItem getMenuItem() {
-        return new JMenuItem(this);
+        return UiFactory.menuItem(this);
     }
 
     @Override

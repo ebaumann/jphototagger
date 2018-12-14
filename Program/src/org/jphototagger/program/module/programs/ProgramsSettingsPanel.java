@@ -198,13 +198,13 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenu = new javax.swing.JPopupMenu();
-        menuItemAddProgram = new javax.swing.JMenuItem();
+        menuItemAddProgram = org.jphototagger.resources.UiFactory.menuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemEditProgram = new javax.swing.JMenuItem();
-        menuItemRemoveProgram = new javax.swing.JMenuItem();
+        menuItemEditProgram = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemRemoveProgram = org.jphototagger.resources.UiFactory.menuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        menuItemMoveProgramUp = new javax.swing.JMenuItem();
-        menuItemMoveProgramDown = new javax.swing.JMenuItem();
+        menuItemMoveProgramUp = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemMoveProgramDown = org.jphototagger.resources.UiFactory.menuItem();
         labelPrograms = org.jphototagger.resources.UiFactory.label();
         buttonDefaultPrograms = org.jphototagger.resources.UiFactory.button();
         scrollPanePrograms = new javax.swing.JScrollPane();

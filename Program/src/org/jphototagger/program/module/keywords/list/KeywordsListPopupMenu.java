@@ -8,6 +8,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -19,13 +20,13 @@ public final class KeywordsListPopupMenu extends JPopupMenu {
 
     private static final long serialVersionUID = 1L;
     public static final KeywordsListPopupMenu INSTANCE = new KeywordsListPopupMenu();
-    private final JMenuItem itemInsert = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.Insert"), Icons.ICON_NEW);
-    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
-    private final JMenuItem itemRemoveFromEditPanel = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.ActionRemoveFromEditPanel"));
-    private final JMenuItem itemEditSynonyms = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.EditSynonyms"), Icons.ICON_EDIT);
-    private final JMenuItem itemDisplayImages = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.DisplayImages"));
-    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
-    private final JMenuItem itemAddToEditPanel = new JMenuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.ActionAddToEditPanel"));
+    private final JMenuItem itemInsert = UiFactory.menuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.Insert"), Icons.ICON_NEW);
+    private final JMenuItem itemRename = UiFactory.menuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
+    private final JMenuItem itemRemoveFromEditPanel = UiFactory.menuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.ActionRemoveFromEditPanel"));
+    private final JMenuItem itemEditSynonyms = UiFactory.menuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.EditSynonyms"), Icons.ICON_EDIT);
+    private final JMenuItem itemDisplayImages = UiFactory.menuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.DisplayImages"));
+    private final JMenuItem itemDelete = UiFactory.menuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
+    private final JMenuItem itemAddToEditPanel = UiFactory.menuItem(Bundle.getString(KeywordsListPopupMenu.class, "KeywordsListPopupMenu.DisplayName.ActionAddToEditPanel"));
     private JXList list;
     private int selIndex;
 

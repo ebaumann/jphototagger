@@ -15,6 +15,7 @@ import org.jphototagger.program.module.programs.AddProgramAction;
 import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -22,7 +23,7 @@ import org.openide.util.Lookup;
  */
 public final class ActionsUtil {
 
-    private static final JMenuItem ADD_ACTION_MENU_ITEM = new JMenuItem(new AddProgramAction());
+    private static final JMenuItem ADD_ACTION_MENU_ITEM = UiFactory.menuItem(new AddProgramAction());
 
     public static JMenu actionsAsMenu() {
         JMenu menu = new JMenu(Bundle.getString(ActionsUtil.class, "ActionsUtil.ActionMenu.DisplayName"));
@@ -32,7 +33,7 @@ public final class ActionsUtil {
             List<Program> actions = repo.findAllPrograms(ProgramType.ACTION);
 
             for (Program action : actions) {
-                menu.add(new JMenuItem(new ActionStarter(action)));
+                menu.add(UiFactory.menuItem(new ActionStarter(action)));
             }
         }
 
@@ -48,7 +49,7 @@ public final class ActionsUtil {
         List<Program> actions = repo.findAllPrograms(ProgramType.ACTION);
 
         for (Program action : actions) {
-            actionsMenu.add(new JMenuItem(new ActionStarter(action)));
+            actionsMenu.add(UiFactory.menuItem(new ActionStarter(action)));
         }
 
         actionsMenu.add(ADD_ACTION_MENU_ITEM);

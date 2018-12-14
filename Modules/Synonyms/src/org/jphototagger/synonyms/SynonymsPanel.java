@@ -311,11 +311,11 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenuWords = new javax.swing.JPopupMenu();
-        menuItemChangeWord = new javax.swing.JMenuItem();
-        menuItemRemoveWord = new javax.swing.JMenuItem();
+        menuItemChangeWord = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemRemoveWord = org.jphototagger.resources.UiFactory.menuItem();
         popupMenuSynonyms = new javax.swing.JPopupMenu();
-        menuItemChangeSynonym = new javax.swing.JMenuItem();
-        menuItemRemoveSynonym = new javax.swing.JMenuItem();
+        menuItemChangeSynonym = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemRemoveSynonym = org.jphototagger.resources.UiFactory.menuItem();
         panelWords = new javax.swing.JPanel();
         panelEditInputWord = new javax.swing.JPanel();
         labelTextAreaWord = org.jphototagger.resources.UiFactory.label();

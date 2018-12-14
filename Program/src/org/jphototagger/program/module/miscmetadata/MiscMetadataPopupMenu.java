@@ -18,6 +18,7 @@ import org.jphototagger.lib.swing.PopupMenuTree;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -45,12 +46,12 @@ public final class MiscMetadataPopupMenu extends PopupMenuTree {
     }
 
     private void createMenuItems() {
-        itemDelete = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ItemDelete"), Icons.ICON_DELETE);
-        itemExpandAllSubitems = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.ItemExpand"));
-        itemRename = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ItemRename"), Icons.ICON_RENAME);
-        itemCollapseAllSubitems = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.ItemCollapse"));
-        itemAddToEditPanel = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ActionAddToEditPanel"));
-        itemRemoveFromEditPanel = new JMenuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ActionRemoveFromEditPanel"));
+        itemDelete = UiFactory.menuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ItemDelete"), Icons.ICON_DELETE);
+        itemExpandAllSubitems = UiFactory.menuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.ItemExpand"));
+        itemRename = UiFactory.menuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ItemRename"), Icons.ICON_RENAME);
+        itemCollapseAllSubitems = UiFactory.menuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.ItemCollapse"));
+        itemAddToEditPanel = UiFactory.menuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ActionAddToEditPanel"));
+        itemRemoveFromEditPanel = UiFactory.menuItem(Bundle.getString(MiscMetadataPopupMenu.class, "MiscMetadataPopupMenu.DisplayName.ActionRemoveFromEditPanel"));
     }
 
     @Override

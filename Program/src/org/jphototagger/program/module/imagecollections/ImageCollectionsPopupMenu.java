@@ -7,6 +7,7 @@ import javax.swing.JPopupMenu;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -19,9 +20,9 @@ public final class ImageCollectionsPopupMenu extends JPopupMenu {
     private static final long serialVersionUID = 1L;
     private static final ImageIcon ICON_IMAGE_COLLECTION = Icons.getIcon("icon_imagecollection.png");
     public static final ImageCollectionsPopupMenu INSTANCE = new ImageCollectionsPopupMenu();
-    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
-    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
-    private final JMenuItem itemCreate = new JMenuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Create"), ICON_IMAGE_COLLECTION);
+    private final JMenuItem itemDelete = UiFactory.menuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
+    private final JMenuItem itemRename = UiFactory.menuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
+    private final JMenuItem itemCreate = UiFactory.menuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Create"), ICON_IMAGE_COLLECTION);
     private int itemIndex;
 
     private ImageCollectionsPopupMenu() {

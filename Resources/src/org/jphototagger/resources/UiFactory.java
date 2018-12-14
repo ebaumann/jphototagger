@@ -4,10 +4,14 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import javax.swing.AbstractButton;
 import javax.swing.Action;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 import org.jphototagger.api.preferences.CommonPreferences;
 
 /**
@@ -131,6 +135,54 @@ public final class UiFactory {
         configure(b);
 
         return b;
+    }
+
+    public static JMenuItem menuItem() {
+        JMenuItem mi = new JMenuItem();
+
+        configure(mi);
+
+        return mi;
+    }
+
+    public static JMenuItem menuItem(String text) {
+        JMenuItem mi = new JMenuItem(text);
+
+        configure(mi);
+
+        return mi;
+    }
+
+    public static JMenuItem menuItem(String text, Icon icon) {
+        JMenuItem mi = new JMenuItem(text, icon);
+
+        configure(mi);
+
+        return mi;
+    }
+
+    public static JMenuItem menuItem(Action a) {
+        JMenuItem mi = new JMenuItem(a);
+
+        configure(mi);
+
+        return mi;
+    }
+
+    public static JMenuItem checkBoxMenuItem(Action a) {
+        JCheckBoxMenuItem mi = new JCheckBoxMenuItem(a);
+
+        configure(mi);
+
+        return mi;
+    }
+
+    public static JRadioButtonMenuItem radioButtonMenuItem() {
+        JRadioButtonMenuItem mi = new JRadioButtonMenuItem();
+
+        configure(mi);
+
+        return mi;
     }
 
     public static JLabel label() {

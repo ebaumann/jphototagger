@@ -239,7 +239,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenu = new javax.swing.JPopupMenu();
-        menuItemDeletePattern = new javax.swing.JMenuItem();
+        menuItemDeletePattern = org.jphototagger.resources.UiFactory.menuItem();
         tabbedPane = new javax.swing.JTabbedPane();
         panelFiles = new javax.swing.JPanel();
         labelInfoList = org.jphototagger.resources.UiFactory.label();

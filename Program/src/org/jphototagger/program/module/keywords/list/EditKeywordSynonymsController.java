@@ -21,6 +21,7 @@ import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -30,7 +31,7 @@ public final class EditKeywordSynonymsController extends KeywordsListController 
 
     private static final String DELIM = ";";
     private static final String DISPLAYNAME = Bundle.getString(EditKeywordSynonymsController.class, "EditKeywordSynonymsController.MenuItemEditSynonyms.DisplayName");
-    private final JMenuItem itemEditSynonyms = new JMenuItem(DISPLAYNAME);
+    private final JMenuItem itemEditSynonyms = UiFactory.menuItem(DISPLAYNAME);
     private final SynonymsRepository repo = Lookup.getDefault().lookup(SynonymsRepository.class);
 
     public EditKeywordSynonymsController() {

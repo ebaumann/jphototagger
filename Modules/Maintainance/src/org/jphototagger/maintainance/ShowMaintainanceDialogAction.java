@@ -7,6 +7,7 @@ import javax.swing.JMenuItem;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -28,7 +29,7 @@ public final class ShowMaintainanceDialogAction extends AbstractAction implement
 
     @Override
     public JMenuItem getMenuItem() {
-        JMenuItem menuItem = new JMenuItem(this);
+        JMenuItem menuItem = UiFactory.menuItem(this);
         MenuUtil.setMnemonics(menuItem);
         return menuItem;
     }

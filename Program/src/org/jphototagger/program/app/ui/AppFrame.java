@@ -32,6 +32,7 @@ import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -184,7 +185,7 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     void addGotoMenuItemForSelectionWindow(Action action) {
-        JMenuItem item = new JMenuItem(action);
+        JMenuItem item = UiFactory.menuItem(action);
 
         if (!hasAccelerator(action) && lastSelectionGotoItemAcceleratorKeyCode > 0x30 && lastSelectionGotoItemAcceleratorKeyCode <= 0x39) { // 0x30: TN-Panel
             KeyStroke keyStroke = KeyEventUtil.getKeyStrokeMenuShortcut(lastSelectionGotoItemAcceleratorKeyCode + 1);
@@ -199,7 +200,7 @@ public final class AppFrame extends javax.swing.JFrame {
         if (separatorBefore) {
             menuGoto.add(new Separator(), index);
         }
-        JMenuItem item = new JMenuItem(action);
+        JMenuItem item = UiFactory.menuItem(action);
         MnemonicUtil.setMnemonics(item);
         menuGoto.insert(item, separatorBefore ? index + 1 : index);
     }
@@ -214,7 +215,7 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     void addGotoMenuItemForEditWindow(Action action) {
-        JMenuItem item = new JMenuItem(action);
+        JMenuItem item = UiFactory.menuItem(action);
         if (!hasAccelerator(action) && lastEditGotoItemAcceleratorKeyCode >= 0x30 && lastEditGotoItemAcceleratorKeyCode <= 0x39) {
             KeyStroke keyStroke = KeyStroke.getKeyStroke(lastEditGotoItemAcceleratorKeyCode + 1, InputEvent.ALT_MASK);
             item.setAccelerator(keyStroke);
@@ -246,15 +247,15 @@ public final class AppFrame extends javax.swing.JFrame {
         menuView = new javax.swing.JMenu();
         menuGoto = new javax.swing.JMenu();
         sep17 = new javax.swing.JPopupMenu.Separator();
-        menuItemGotoDirectories = new javax.swing.JMenuItem();
-        menuItemGotoSavedSearches = new javax.swing.JMenuItem();
-        menuItemGotoCollections = new javax.swing.JMenuItem();
-        menuItemGotoFavorites = new javax.swing.JMenuItem();
-        menuItemGotoKeywordsSel = new javax.swing.JMenuItem();
-        menuItemGotoTimeline = new javax.swing.JMenuItem();
-        menuItemGotoMiscMetadata = new javax.swing.JMenuItem();
+        menuItemGotoDirectories = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemGotoSavedSearches = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemGotoCollections = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemGotoFavorites = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemGotoKeywordsSel = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemGotoTimeline = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemGotoMiscMetadata = org.jphototagger.resources.UiFactory.menuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
-        menuItemGotoKeywordsEdit = new javax.swing.JMenuItem();
+        menuItemGotoKeywordsEdit = org.jphototagger.resources.UiFactory.menuItem();
         menuTools = new javax.swing.JMenu();
         menuWindow = new javax.swing.JMenu();
         menuHelp = new javax.swing.JMenu();

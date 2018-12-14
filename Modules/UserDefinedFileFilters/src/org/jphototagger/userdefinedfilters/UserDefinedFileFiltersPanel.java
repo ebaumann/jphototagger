@@ -167,9 +167,9 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenu = new javax.swing.JPopupMenu();
-        menuItemInsert = new javax.swing.JMenuItem();
-        menuItemUpdate = new javax.swing.JMenuItem();
-        menuItemDelete = new javax.swing.JMenuItem();
+        menuItemInsert = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemUpdate = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();

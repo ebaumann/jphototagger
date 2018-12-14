@@ -8,6 +8,7 @@ import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -29,7 +30,7 @@ public final class ImportImageFilesAction extends AbstractAction implements Menu
 
     @Override
     public JMenuItem getMenuItem() {
-        JMenuItem item = new JMenuItem(this);
+        JMenuItem item = UiFactory.menuItem(this);
         MenuUtil.setMnemonics(item);
         return item;
     }

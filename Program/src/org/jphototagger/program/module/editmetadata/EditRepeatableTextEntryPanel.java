@@ -821,8 +821,8 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenuList = new javax.swing.JPopupMenu();
-        menuItemRename = new javax.swing.JMenuItem();
-        menuItemRemove = new javax.swing.JMenuItem();
+        menuItemRename = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemRemove = org.jphototagger.resources.UiFactory.menuItem();
         labelPrompt = org.jphototagger.resources.UiFactory.label();
         list = new org.jdesktop.swingx.JXList();
         panelListButtons = new javax.swing.JPanel();

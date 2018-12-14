@@ -6,6 +6,7 @@ import javax.swing.Action;
 import javax.swing.JMenuItem;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -14,7 +15,7 @@ public final class BrowseRepositoryFilesAction extends AbstractAction implements
 
     private static final long serialVersionUID = 1L;
     public static final BrowseRepositoryFilesAction INSTANCE = new BrowseRepositoryFilesAction();
-    public static final JMenuItem MENU_ITEM = new JMenuItem(new BrowseRepositoryFilesAction());
+    public static final JMenuItem MENU_ITEM = UiFactory.menuItem(new BrowseRepositoryFilesAction());
 
     private BrowseRepositoryFilesAction() {
         super(Bundle.getString(BrowseRepositoryFilesAction.class, "DisplayFileBrowserAction.Name"));

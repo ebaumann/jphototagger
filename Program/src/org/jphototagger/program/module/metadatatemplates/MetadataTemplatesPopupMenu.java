@@ -9,6 +9,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Popup menu for {@code MetadataTemplate}s.
@@ -20,11 +21,11 @@ public final class MetadataTemplatesPopupMenu extends JPopupMenu {
     private static final long serialVersionUID = 1L;
     private static final ImageIcon ICON_IMAGE = Icons.getIcon("icon_image.png");
     public static final MetadataTemplatesPopupMenu INSTANCE = new MetadataTemplatesPopupMenu();
-    private final JMenuItem itemSetToSelImages = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.SetToSelImages"), ICON_IMAGE);
-    private final JMenuItem itemRename = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
-    private final JMenuItem itemEdit = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Edit"), Icons.ICON_EDIT);
-    private final JMenuItem itemDelete = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
-    private final JMenuItem itemAdd = new JMenuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Add"), Icons.ICON_NEW);
+    private final JMenuItem itemSetToSelImages = UiFactory.menuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.SetToSelImages"), ICON_IMAGE);
+    private final JMenuItem itemRename = UiFactory.menuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
+    private final JMenuItem itemEdit = UiFactory.menuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Edit"), Icons.ICON_EDIT);
+    private final JMenuItem itemDelete = UiFactory.menuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
+    private final JMenuItem itemAdd = UiFactory.menuItem(Bundle.getString(MetadataTemplatesPopupMenu.class, "MetadataTemplatesPopupMenu.DisplayName.Action.Add"), Icons.ICON_NEW);
     private JXList list;
     private int selIndex;
 

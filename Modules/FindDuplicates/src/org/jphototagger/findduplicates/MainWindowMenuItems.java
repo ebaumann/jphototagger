@@ -6,6 +6,7 @@ import javax.swing.JMenuItem;
 import org.jphototagger.api.windows.MainWindowMenuProvider;
 import org.jphototagger.api.windows.MenuItemProvider;
 import org.jphototagger.lib.api.MainWindowMenuProviderAdapter;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -20,7 +21,7 @@ public final class MainWindowMenuItems extends MainWindowMenuProviderAdapter {
 
             @Override
             public JMenuItem getMenuItem() {
-                return new JMenuItem(new FindDuplicatesAction());
+                return UiFactory.menuItem(new FindDuplicatesAction());
             }
 
             @Override

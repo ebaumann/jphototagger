@@ -237,14 +237,14 @@ public final class ActionsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         popupMenu = new javax.swing.JPopupMenu();
-        menuItemExecute = new javax.swing.JMenuItem();
+        menuItemExecute = org.jphototagger.resources.UiFactory.menuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemCreate = new javax.swing.JMenuItem();
-        menuItemEdit = new javax.swing.JMenuItem();
-        menuItemDelete = new javax.swing.JMenuItem();
+        menuItemCreate = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemEdit = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        menuItemMoveActionUp = new javax.swing.JMenuItem();
-        menuItemMoveActionDown = new javax.swing.JMenuItem();
+        menuItemMoveActionUp = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemMoveActionDown = org.jphototagger.resources.UiFactory.menuItem();
         labelActionList = org.jphototagger.resources.UiFactory.label();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();

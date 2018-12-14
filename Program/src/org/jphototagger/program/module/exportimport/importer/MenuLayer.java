@@ -11,6 +11,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.tasks.AutoBackupJptDataImporter;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -28,7 +29,7 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
                 JMenu menuImport = new JMenu(Bundle.getString(MenuLayer.class, "MenuLayer.Name"));
                 menuImport.setIcon(Icons.getIcon("icon_import.png"));
                 MnemonicUtil.setMnemonics(menuImport);
-                JMenuItem itemImport = new JMenuItem(new JptImportAction());
+                JMenuItem itemImport = UiFactory.menuItem(new JptImportAction());
                 MnemonicUtil.setMnemonics(itemImport);
                 menuImport.add(itemImport);
                 menuImport.add(AutoBackupJptDataImporter.getMenuItem());

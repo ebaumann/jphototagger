@@ -15,6 +15,7 @@ import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -32,19 +33,19 @@ public final class FavoritesPopupMenu extends JPopupMenu {
     private static final ImageIcon ICON_FOLDER = Icons.getIcon("icon_folder.png");
     private static final ImageIcon ICON_FOLDER_NEW = Icons.getIcon("icon_folder_new.png");
     public static final FavoritesPopupMenu INSTANCE = new FavoritesPopupMenu();
-    private final JMenuItem itemInsertFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.InsertFavorite"), Icons.ICON_NEW);
-    private final JMenuItem itemUpdateFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.UpdateFavorite"), Icons.ICON_EDIT);
-    private final JMenuItem itemRenameFilesystemFolder = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.RenameFilesystemFolder"), Icons.ICON_RENAME);
-    private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.Refresh"), Icons.ICON_REFRESH);
-    private final JMenuItem itemOpenInFolders = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.OpenInFolders"), ICON_FOLDER);
-    private final JMenuItem itemMoveUp = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.MoveUp"), ICON_ARROW_UP);
-    private final JMenuItem itemMoveDown = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.MoveDown"), ICON_ARROW_DOWN);
-    private final JMenuItem itemExpandAllSubitems = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.ItemExpand"));
-    private final JMenuItem itemDeleteFilesystemFolder = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.DeleteFilesystemFolder"), Icons.ICON_DELETE);
-    private final JMenuItem itemDeleteFavorite = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.DeleteFavorite"), Icons.ICON_DELETE);
-    private final JMenuItem itemCollapseAllSubitems = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.ItemCollapse"));
-    private final JMenuItem itemAddFilesystemFolder = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.AddFilesystemFolder"), ICON_FOLDER_NEW);
-    private final JMenuItem itemOpenInDesktop = new JMenuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.Action.OpenInDesktop"));
+    private final JMenuItem itemInsertFavorite = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.InsertFavorite"), Icons.ICON_NEW);
+    private final JMenuItem itemUpdateFavorite = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.UpdateFavorite"), Icons.ICON_EDIT);
+    private final JMenuItem itemRenameFilesystemFolder = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.RenameFilesystemFolder"), Icons.ICON_RENAME);
+    private final JMenuItem itemRefresh = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.Refresh"), Icons.ICON_REFRESH);
+    private final JMenuItem itemOpenInFolders = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.OpenInFolders"), ICON_FOLDER);
+    private final JMenuItem itemMoveUp = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.MoveUp"), ICON_ARROW_UP);
+    private final JMenuItem itemMoveDown = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.MoveDown"), ICON_ARROW_DOWN);
+    private final JMenuItem itemExpandAllSubitems = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.ItemExpand"));
+    private final JMenuItem itemDeleteFilesystemFolder = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.DeleteFilesystemFolder"), Icons.ICON_DELETE);
+    private final JMenuItem itemDeleteFavorite = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.DeleteFavorite"), Icons.ICON_DELETE);
+    private final JMenuItem itemCollapseAllSubitems = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.ItemCollapse"));
+    private final JMenuItem itemAddFilesystemFolder = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.DisplayName.Action.AddFilesystemFolder"), ICON_FOLDER_NEW);
+    private final JMenuItem itemOpenInDesktop = UiFactory.menuItem(Bundle.getString(FavoritesPopupMenu.class, "FavoritesPopupMenu.Action.OpenInDesktop"));
     private transient Favorite favoriteDirectory;
     private TreePath treePath;
 

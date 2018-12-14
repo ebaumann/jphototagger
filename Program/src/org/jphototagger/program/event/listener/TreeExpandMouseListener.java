@@ -6,6 +6,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JTree;
 import javax.swing.tree.TreePath;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Do not use this class as template for implemention! Instead extend
@@ -17,8 +18,8 @@ import org.jphototagger.lib.util.Bundle;
 public final class TreeExpandMouseListener extends TreeMouseListener implements ActionListener {
 
     private final JPopupMenu popupMenu = new JPopupMenu();
-    private final JMenuItem itemExpand = new JMenuItem(Bundle.getString(TreeExpandMouseListener.class, "TreeExpandMouseListener.ItemExpand"));
-    private final JMenuItem itemCollapse = new JMenuItem(Bundle.getString(TreeExpandMouseListener.class, "TreeExpandMouseListener.ItemCollapse"));
+    private final JMenuItem itemExpand = UiFactory.menuItem(Bundle.getString(TreeExpandMouseListener.class, "TreeExpandMouseListener.ItemExpand"));
+    private final JMenuItem itemCollapse = UiFactory.menuItem(Bundle.getString(TreeExpandMouseListener.class, "TreeExpandMouseListener.ItemCollapse"));
 
     public TreeExpandMouseListener() {
         popupMenu.add(itemExpand);

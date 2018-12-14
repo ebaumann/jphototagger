@@ -15,6 +15,7 @@ import org.jphototagger.api.preferences.PreferencesKeys;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -29,14 +30,14 @@ public final class DirectoriesPopupMenu extends JPopupMenu {
     private static final long serialVersionUID = 1L;
     public static final ImageIcon ICON_FAVORITE = Icons.getIcon("icon_favorite.png");
     public static final ImageIcon ICON_FOLDER_NEW = Icons.getIcon("icon_folder_new.png");
-    private final JMenuItem itemAddToFavorites = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.AddToFavoriteDirectories"), ICON_FAVORITE);
-    private final JMenuItem itemCreateDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.CreateDirectory"), ICON_FOLDER_NEW);
-    private final JMenuItem itemRenameDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.RenameDirectory"), Icons.ICON_RENAME);
-    private final JMenuItem itemRefresh = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.Refresh"), Icons.ICON_REFRESH);
-    private final JMenuItem itemDeleteDirectory = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.DeleteDirectory"), Icons.ICON_DELETE);
-    private final JMenuItem itemExpandAllSubitems = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemExpand"));
-    private final JMenuItem itemCollapseAllSubitems = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemCollapse"));
-    private final JMenuItem itemOpenInDesktop = new JMenuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.Action.OpenInDesktop"));
+    private final JMenuItem itemAddToFavorites = UiFactory.menuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.AddToFavoriteDirectories"), ICON_FAVORITE);
+    private final JMenuItem itemCreateDirectory = UiFactory.menuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.CreateDirectory"), ICON_FOLDER_NEW);
+    private final JMenuItem itemRenameDirectory = UiFactory.menuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.RenameDirectory"), Icons.ICON_RENAME);
+    private final JMenuItem itemRefresh = UiFactory.menuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.Refresh"), Icons.ICON_REFRESH);
+    private final JMenuItem itemDeleteDirectory = UiFactory.menuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.DisplayName.Action.DeleteDirectory"), Icons.ICON_DELETE);
+    private final JMenuItem itemExpandAllSubitems = UiFactory.menuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemExpand"));
+    private final JMenuItem itemCollapseAllSubitems = UiFactory.menuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.ItemCollapse"));
+    private final JMenuItem itemOpenInDesktop = UiFactory.menuItem(Bundle.getString(DirectoriesPopupMenu.class, "DirectoriesPopupMenu.Action.OpenInDesktop"));
     private boolean treeSelected = false;
     private File directory;
     private TreePath path;

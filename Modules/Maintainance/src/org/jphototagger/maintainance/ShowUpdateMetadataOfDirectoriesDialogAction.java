@@ -9,6 +9,7 @@ import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -30,7 +31,7 @@ public final class ShowUpdateMetadataOfDirectoriesDialogAction extends AbstractA
 
     @Override
     public JMenuItem getMenuItem() {
-        JMenuItem menuItem = new JMenuItem(this);
+        JMenuItem menuItem = UiFactory.menuItem(this);
         MenuUtil.setMnemonics(menuItem);
         return menuItem;
     }

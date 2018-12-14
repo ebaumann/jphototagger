@@ -26,6 +26,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -109,7 +110,7 @@ public final class AutoBackupJptDataImporter {
         menu.setIcon(Icons.getIcon("icon_save.png"));
         for (List<File> fileset : getFilesets()) {
             if (!fileset.isEmpty()) {
-                menu.add(new JMenuItem(new ImportAction(fileset)));
+                menu.add(UiFactory.menuItem(new ImportAction(fileset)));
             }
         }
         return menu;
