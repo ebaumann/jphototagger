@@ -195,7 +195,8 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         thumbnailSizeSlider.setSnapToTicks(true);
         thumbnailSizeSlider.setToolTipText(Bundle.getString(getClass(), "ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
         thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
-        thumbnailSizeSlider.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 20));
+        thumbnailSizeSlider.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(50, 20));
+        thumbnailSizeSlider.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(50, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
