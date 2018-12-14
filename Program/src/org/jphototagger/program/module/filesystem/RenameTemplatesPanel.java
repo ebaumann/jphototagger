@@ -21,6 +21,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -932,7 +933,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.weightx = 1.0;
         panelRenameTemplatesContents.add(comboBoxRenameTemplates, gridBagConstraints);
 
-        panelButtonsRenameTemplates.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+        panelButtonsRenameTemplates.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(5), 0));
 
         buttonSaveRenameTemplate.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonSaveRenameTemplate.text")); // NOI18N
         buttonSaveRenameTemplate.setToolTipText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonSaveRenameTemplate.toolTipText")); // NOI18N

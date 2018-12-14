@@ -38,6 +38,7 @@ import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -623,7 +624,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         add(progressBar, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
-        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(5), 0));
 
         buttonCancelChooseDirectories.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.buttonCancelChooseDirectories.text")); // NOI18N
         buttonCancelChooseDirectories.setEnabled(false);

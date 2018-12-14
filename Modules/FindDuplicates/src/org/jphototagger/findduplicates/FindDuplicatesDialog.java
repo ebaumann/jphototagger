@@ -41,6 +41,7 @@ import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemProperties;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -482,7 +483,7 @@ public class FindDuplicatesDialog extends Dialog {
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelInfo.setFont(new java.awt.Font("Tahoma", 1, UiFactory.scale(12))); // NOI18N
         labelInfo.setText(Bundle.getString(getClass(), "FindDuplicatesDialog.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

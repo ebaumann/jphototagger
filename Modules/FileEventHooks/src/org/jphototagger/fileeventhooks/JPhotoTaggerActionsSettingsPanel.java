@@ -20,6 +20,7 @@ import org.jphototagger.lib.swing.util.DocumentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -332,7 +333,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
         panelSuffixes.add(panelListFilenameSuffixes, gridBagConstraints);
 
-        panelButtonsFilenameSuffixes.setLayout(new java.awt.GridLayout(2, 0, 0, 5));
+        panelButtonsFilenameSuffixes.setLayout(new java.awt.GridLayout(2, 0, UiFactory.scale(0), UiFactory.scale(5)));
 
         buttonRenameSelectedFilenameSuffix.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.buttonRenameSelectedFilenameSuffix.text")); // NOI18N
         buttonRenameSelectedFilenameSuffix.setEnabled(false);

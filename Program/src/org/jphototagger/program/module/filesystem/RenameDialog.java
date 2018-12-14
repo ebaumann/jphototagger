@@ -22,6 +22,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -467,7 +468,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         panelInputName.add(panelFromNameToName, gridBagConstraints);
 
-        panelRenameButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+        panelRenameButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(5), 0));
 
         buttonNextFile.setText(Bundle.getString(getClass(), "RenameDialog.buttonNextFile.text")); // NOI18N
         buttonNextFile.addActionListener(new java.awt.event.ActionListener() {

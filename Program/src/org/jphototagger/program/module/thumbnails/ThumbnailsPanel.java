@@ -88,6 +88,7 @@ import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.tasks.ReplaceableThread;
 import org.jphototagger.program.types.ByteSizeUnit;
 import org.jphototagger.program.types.FileAction;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -1680,7 +1681,7 @@ public class ThumbnailsPanel extends JPanel
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
         JLabel label = new JLabel(text);
-        label.setFont(label.getFont().deriveFont(Font.BOLD, 24));
+        label.setFont(label.getFont().deriveFont(Font.BOLD, UiFactory.scale(24)));
         label.setForeground(Color.LIGHT_GRAY);
 
         GridBagConstraints gbc = new GridBagConstraints();

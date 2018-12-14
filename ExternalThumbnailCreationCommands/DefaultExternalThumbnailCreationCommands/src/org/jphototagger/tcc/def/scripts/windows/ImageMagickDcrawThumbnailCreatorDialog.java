@@ -10,6 +10,7 @@ import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.jphototagger.tcc.def.FileChooser;
 import org.jphototagger.tcc.def.SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction;
 import org.jphototagger.tcc.def.Util;
@@ -287,7 +288,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         panelContent.add(panelVideo, gridBagConstraints);
 
-        panelOkCancelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
+        panelOkCancelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(3), 0));
 
         buttonOk.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);

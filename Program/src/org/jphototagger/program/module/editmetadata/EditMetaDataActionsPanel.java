@@ -14,6 +14,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.metadatatemplates.EditMetaDataTemplateDialog;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplateUtil;
 import org.jphototagger.program.module.metadatatemplates.MetadataTemplatesComboBoxModel;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -341,7 +342,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         panelGroupMetadataTemplates.add(panelComboBox, gridBagConstraints);
 
         panelTemplateButtons.setName("panelTemplateButtons"); // NOI18N
-        panelTemplateButtons.setLayout(new java.awt.GridLayout(3, 0, 5, 5));
+        panelTemplateButtons.setLayout(new java.awt.GridLayout(3, 0, UiFactory.scale(5), UiFactory.scale(5)));
 
         buttonMetadataTemplateRename.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateRename.text")); // NOI18N
         buttonMetadataTemplateRename.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateRename.toolTipText")); // NOI18N

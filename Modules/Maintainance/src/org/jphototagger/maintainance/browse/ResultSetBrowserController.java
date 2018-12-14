@@ -19,6 +19,7 @@ import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.domain.repository.browse.ResultSetBrowser;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DocumentChangeListener;
+import org.jphototagger.lib.swing.HeightAdjustTableCellRenderer;
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.InputDialog2;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -68,6 +69,7 @@ public final class ResultSetBrowserController {
             view.getTextAreaSql().getDocument().addDocumentListener(sqlListener);
 
             TableUtil.addDefaultRowFilter(view.getTable(), view.getTextFieldFilter().getDocument());
+            view.getTable().setDefaultRenderer(Object.class, new HeightAdjustTableCellRenderer());
             MnemonicUtil.setMnemonics(view);
             sqlListener.changedUpdate(null);
         }
@@ -207,7 +209,7 @@ public final class ResultSetBrowserController {
 
     private final class Browser extends SwingWorkerResultSetBrowser {
 
-        public Browser(String sql, ResultSetBrowser browser) {
+        private Browser(String sql, ResultSetBrowser browser) {
             super(sql, browser);
         }
 

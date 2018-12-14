@@ -12,6 +12,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -147,7 +148,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         add(scrollPane, gridBagConstraints);
 
-        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(3), 0));
 
         buttonAdd.setText(Bundle.getString(getClass(), "UserDefinedFileTypesPanel.buttonAdd.text")); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {

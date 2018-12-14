@@ -15,6 +15,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -140,7 +141,7 @@ public class SidecarSuffixesInfoPanel extends javax.swing.JPanel implements Thum
     @SuppressWarnings("unchecked")
     private void initComponents() {//GEN-BEGIN:initComponents
 
-        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
+        setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, UiFactory.scale(5), 0));
     }//GEN-END:initComponents
 
 

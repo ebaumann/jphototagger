@@ -33,6 +33,7 @@ import org.jphototagger.program.module.wordsets.WordsetPreferences;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesDefaults;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.UiFactory;
 import org.jphototagger.xmp.XmpPreferences;
 import org.openide.util.Lookup;
 
@@ -539,7 +540,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelRepositoryDirectory.add(labelInfoRepositoryDirectory, gridBagConstraints);
 
-        panelButtonsRepositoryDirectory.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+        panelButtonsRepositoryDirectory.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(5), 0));
 
         buttonChooseRepositoryDirectory.setText(Bundle.getString(getClass(), "MiscSettingsPanel.buttonChooseRepositoryDirectory.text")); // NOI18N
         buttonChooseRepositoryDirectory.addActionListener(new java.awt.event.ActionListener() {

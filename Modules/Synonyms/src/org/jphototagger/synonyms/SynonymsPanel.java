@@ -17,6 +17,7 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -390,7 +391,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuSynonyms.add(menuItemRemoveSynonym);
 
         setName("Form"); // NOI18N
-        setLayout(new java.awt.GridLayout(1, 2, 10, 0));
+        setLayout(new java.awt.GridLayout(1, 2, UiFactory.scale(10), 0));
 
         panelWords.setName("panelWords"); // NOI18N
         panelWords.setLayout(new java.awt.GridBagLayout());

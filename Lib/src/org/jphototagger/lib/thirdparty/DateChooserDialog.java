@@ -28,6 +28,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Code geringfügig modifiziert Elmar Baumann:
@@ -174,7 +175,7 @@ public final class DateChooserDialog extends JComponent {
         c.gridwidth = 3;
         c.anchor = GridBagConstraints.CENTER;
 
-        JPanel panel = new JPanel(new GridLayout(7, 7, 1, 1));
+        JPanel panel = new JPanel(new GridLayout(7, 7, UiFactory.scale(1), UiFactory.scale(1)));
 
         dayStr = dfs.getShortWeekdays();
 

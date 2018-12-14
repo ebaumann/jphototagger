@@ -53,6 +53,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.SearchInComponentAction;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -113,10 +114,10 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
     }
 
     private void initTextFontSizeOfMenuItem() {
-        textFontSizeOfMenuItem.put(menuItemTextFontSizeSmall, 10);
-        textFontSizeOfMenuItem.put(menuItemTextFontSizeNormal, 14);
-        textFontSizeOfMenuItem.put(menuItemTextFontSizeLarge, 18);
-        textFontSizeOfMenuItem.put(menuItemTextFontSizeHuge, 28);
+        textFontSizeOfMenuItem.put(menuItemTextFontSizeSmall, UiFactory.scale(10));
+        textFontSizeOfMenuItem.put(menuItemTextFontSizeNormal, UiFactory.scale(14));
+        textFontSizeOfMenuItem.put(menuItemTextFontSizeLarge, UiFactory.scale(18));
+        textFontSizeOfMenuItem.put(menuItemTextFontSizeHuge, UiFactory.scale(28));
     }
 
     private void initPreviousNextShortcuts() {
@@ -687,7 +688,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         scrollPanePage.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 24));
 
         editorPanePage.setEditable(false);
-        editorPanePage.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
+        editorPanePage.setFont(new java.awt.Font("Verdana", 0, UiFactory.scale(14))); // NOI18N
         editorPanePage.setComponentPopupMenu(popupMenuEditorPane);
         editorPanePage.setName("editorPanePage"); // NOI18N
         scrollPanePage.setViewportView(editorPanePage);
@@ -701,7 +702,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         panelPage.add(scrollPanePage, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
-        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(5), 0));
 
         buttonPrint.setText(Bundle.getString(getClass(), "HelpBrowser.buttonPrint.text")); // NOI18N
         buttonPrint.setToolTipText(Bundle.getString(getClass(), "HelpBrowser.buttonPrint.toolTipText")); // NOI18N

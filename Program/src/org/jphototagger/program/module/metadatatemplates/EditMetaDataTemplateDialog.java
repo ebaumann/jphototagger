@@ -13,6 +13,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.InputHelperDialog;
 import org.jphototagger.program.view.ViewUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -225,7 +226,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
         panelContent.add(scrollPane, gridBagConstraints);
 
-        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(5), 0));
 
         buttonCancel.setText(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N

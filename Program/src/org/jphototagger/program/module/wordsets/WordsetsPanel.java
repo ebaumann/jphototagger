@@ -28,6 +28,7 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -450,7 +451,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(panelWordsets, gridBagConstraints);
 
-        panelWords.setLayout(new java.awt.GridLayout(0, 3, 2, 2));
+        panelWords.setLayout(new java.awt.GridLayout(0, 3, UiFactory.scale(2), UiFactory.scale(2)));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;

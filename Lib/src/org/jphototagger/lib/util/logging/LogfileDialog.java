@@ -37,6 +37,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Non modal dialog to display a logfile written by a
@@ -482,7 +483,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelContent.add(labelLogfileName, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
-        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(10), 0));
 
         buttonReload.setIcon(org.jphototagger.resources.Icons.getIcon("icon_refresh.png")); // NOI18N
         buttonReload.setToolTipText(Bundle.getString(getClass(), "LogfileDialog.buttonReload.toolTipText")); // NOI18N

@@ -32,6 +32,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ControllerFactory;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -711,7 +712,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         add(tabbedPane, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
-        panelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
+        panelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(3), 0));
 
         buttonSaveSearch.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.setName("buttonSaveSearch"); // NOI18N
