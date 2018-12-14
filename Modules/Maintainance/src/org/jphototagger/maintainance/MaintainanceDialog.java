@@ -31,7 +31,7 @@ public class MaintainanceDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelMaintainanceCaches = new MaintainanceCachesPanel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

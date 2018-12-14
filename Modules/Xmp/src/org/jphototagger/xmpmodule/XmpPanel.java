@@ -407,7 +407,7 @@ public class XmpPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        tabbedPaneXmp = new JTabbedPane();
+        tabbedPaneXmp = org.jphototagger.resources.UiFactory.tabbedPane();
         panelTableXmpTiff = new JPanel();
         panelTableXmpTiffFilter = new JPanel();
         labelTableXmpTiffFilter = org.jphototagger.resources.UiFactory.label();
