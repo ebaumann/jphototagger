@@ -12,7 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JToggleButton;
 import org.jphototagger.api.preferences.CommonPreferences;
 
 /**
@@ -138,6 +140,14 @@ public final class UiFactory {
         return b;
     }
 
+    public static JToggleButton toggleButton() {
+        JToggleButton tb = new JToggleButton();
+
+        configure(tb);
+
+        return tb;
+    }
+
     public static JMenuItem menuItem() {
         JMenuItem mi = new JMenuItem();
 
@@ -223,6 +233,18 @@ public final class UiFactory {
     }
 
     private static void configure(JTabbedPane tp) {
+        // For future usage
+    }
+
+    public static JSplitPane splitPane() {
+        JSplitPane sp = new JSplitPane();
+
+        configure(sp);
+
+        return sp;
+    }
+
+    private static void configure(JSplitPane sp) {
         // For future usage
     }
 
