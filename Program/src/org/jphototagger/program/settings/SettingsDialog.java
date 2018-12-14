@@ -172,7 +172,7 @@ public final class SettingsDialog extends Dialog {
 
         panelContent = new javax.swing.JPanel();
         panelSearch = new org.jphototagger.lib.swing.TabbedPaneSearchPanel();
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelPrograms = new org.jphototagger.program.module.programs.ProgramsSettingsPanel();
         panelThumbnails = new org.jphototagger.program.module.thumbnails.ThumbnailsSettingsPanel();
         panelTasks = new org.jphototagger.program.misc.ScheduledTasksSettingsPanel();

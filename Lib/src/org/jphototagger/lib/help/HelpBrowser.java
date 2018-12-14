@@ -568,7 +568,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         menuItemGotoPreviousUrl = org.jphototagger.resources.UiFactory.menuItem();
         buttonGroupTextSize = new javax.swing.ButtonGroup();
         splitPane = new javax.swing.JSplitPane();
-        tabbedPaneContents = new javax.swing.JTabbedPane();
+        tabbedPaneContents = org.jphototagger.resources.UiFactory.tabbedPane();
         panelContents = new javax.swing.JPanel();
         scrollPaneTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();

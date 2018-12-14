@@ -144,7 +144,7 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelExclude = new javax.swing.JPanel();
         labelInfoExclude = org.jphototagger.resources.UiFactory.label();
         scrollPaneExclude = new javax.swing.JScrollPane();

@@ -21,7 +21,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelJPhotoTaggerActionsSettings = new org.jphototagger.fileeventhooks.JPhotoTaggerActionsSettingsPanel();
         userScriptsSettingsPanel1 = new org.jphototagger.fileeventhooks.UserScriptsSettingsPanel();
 

@@ -329,7 +329,7 @@ public final class RenameDialog extends Dialog {
 
         panelContents = new javax.swing.JPanel();
         labelInfoTemplatesTab = org.jphototagger.resources.UiFactory.label();
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelInputName = new javax.swing.JPanel();
         panelFolderPathname = new javax.swing.JPanel();
         labelDirectory = org.jphototagger.resources.UiFactory.label();

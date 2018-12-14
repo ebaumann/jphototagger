@@ -532,7 +532,7 @@ public final class AppPanel extends javax.swing.JPanel {
         splitPaneMain.setDividerLocation(getDividerLocationMain());
         panelSelection = new javax.swing.JPanel();
         panelSearch = new javax.swing.JPanel();
-        tabbedPaneSelection = new javax.swing.JTabbedPane();
+        tabbedPaneSelection = UiFactory.tabbedPane();
         panelDirectories = new javax.swing.JPanel();
         scrollPaneDirectories = new javax.swing.JScrollPane();
         treeDirectories = new JXTree();
@@ -599,7 +599,7 @@ public final class AppPanel extends javax.swing.JPanel {
         splitPaneThumbnailsMetadata.setDividerLocation(getDividerLocationThumbnails());
         thumbnailPanelComponent = new javax.swing.JPanel();
         panelMetadata = new javax.swing.JPanel();
-        tabbedPaneMetadata = new javax.swing.JTabbedPane();
+        tabbedPaneMetadata = org.jphototagger.resources.UiFactory.tabbedPane();
         panelEditKeywords = new org.jphototagger.program.module.keywords.KeywordsPanel();
         panelStatusbar = new javax.swing.JPanel();
         labelStatusbarText = org.jphototagger.resources.UiFactory.label();

@@ -313,7 +313,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupCopyMoveFiles = new javax.swing.ButtonGroup();
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelDefault = new javax.swing.JPanel();
         checkBoxIsAcceptHiddenDirectories = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxEnableDeleteDirectories = org.jphototagger.resources.UiFactory.checkBox();

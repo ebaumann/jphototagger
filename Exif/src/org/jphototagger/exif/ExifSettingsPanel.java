@@ -173,7 +173,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelDefault = new javax.swing.JPanel();
         panelDefaultContent = new javax.swing.JPanel();
         panelExifCharset = new javax.swing.JPanel();

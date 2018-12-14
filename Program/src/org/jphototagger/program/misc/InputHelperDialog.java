@@ -114,7 +114,7 @@ public class InputHelperDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelKeywords = new org.jphototagger.program.module.keywords.KeywordsPanel();
         panelMiscXmpMetadata = new org.jphototagger.program.misc.MiscXmpMetadataPanel();
         panelMetaDataTemplates = new org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel();

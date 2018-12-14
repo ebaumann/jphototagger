@@ -81,7 +81,7 @@ public final class RepositoryMaintainanceDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelCount = new org.jphototagger.maintainance.RepositoryInfoCountPanel();
         panelMaintainance = new org.jphototagger.maintainance.RepositoryMaintainancePanel();
         panelRepositoryUpdate = new org.jphototagger.maintainance.RepositoryUpdatePanel();

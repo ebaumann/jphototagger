@@ -559,7 +559,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelKeywords = new javax.swing.JPanel();
         labelInfoKeywords = org.jphototagger.resources.UiFactory.label();
         panelKeywordsInput = new org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel();

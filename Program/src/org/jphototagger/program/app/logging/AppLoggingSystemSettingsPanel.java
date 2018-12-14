@@ -211,7 +211,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelMisc = new javax.swing.JPanel();
         panelMiscContent = new javax.swing.JPanel();
         panelLogLevel = new javax.swing.JPanel();

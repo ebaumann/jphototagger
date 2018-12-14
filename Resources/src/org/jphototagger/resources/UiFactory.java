@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JTabbedPane;
 import org.jphototagger.api.preferences.CommonPreferences;
 
 /**
@@ -211,6 +212,18 @@ public final class UiFactory {
 
     private static void configure(JLabel l) {
         l.setIconTextGap(scale(l.getIconTextGap()));
+    }
+
+    public static JTabbedPane tabbedPane() {
+        JTabbedPane tp = new JTabbedPane();
+
+        configure(tp);
+
+        return tp;
+    }
+
+    private static void configure(JTabbedPane tp) {
+        // For future usage
     }
 
     private UiFactory() {

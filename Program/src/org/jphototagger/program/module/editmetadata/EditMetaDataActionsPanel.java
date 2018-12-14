@@ -183,7 +183,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelGroupMetadataEdit = new javax.swing.JPanel();
         panelTemplateNameInfo = new javax.swing.JPanel();
         labelPromptInfoCurrentTemplate = org.jphototagger.resources.UiFactory.label();
