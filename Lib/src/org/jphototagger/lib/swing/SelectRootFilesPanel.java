@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -45,7 +46,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
         for (int index = 0; index < rootFileCount; index++) {
             File rootFile = roots[index];
             String rootFilePath = rootFile.getAbsolutePath();
-            JCheckBox rootFileCheckBox = new JCheckBox(rootFilePath);
+            JCheckBox rootFileCheckBox = UiFactory.checkBox(rootFilePath);
 
             ROOT_FILE_OF_CHECKBOX.put(rootFileCheckBox, rootFile);
             add(rootFileCheckBox, getCheckboxConstraints(index == rootFileCount - 1));

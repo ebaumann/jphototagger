@@ -464,12 +464,12 @@ public class FindDuplicatesDialog extends Dialog {
         scrollPaneSourceDirectories = new javax.swing.JScrollPane();
         listSourceDirectories = new javax.swing.JList<>();
         panelSourceDirectoriesActions = new javax.swing.JPanel();
-        checkBoxSourceDirsRecursive = new javax.swing.JCheckBox();
+        checkBoxSourceDirsRecursive = org.jphototagger.resources.UiFactory.checkBox();
         buttonAddSourceDirectory = new javax.swing.JButton();
         buttonRemoveSourceDirectories = new javax.swing.JButton();
         panelOptions = new javax.swing.JPanel();
-        checkBoxCompareOnlyEqualFilenames = new javax.swing.JCheckBox();
-        checkBoxCompareOnlyEqualDates = new javax.swing.JCheckBox();
+        checkBoxCompareOnlyEqualFilenames = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxCompareOnlyEqualDates = org.jphototagger.resources.UiFactory.checkBox();
         panelSearchActions = new javax.swing.JPanel();
         progressBarSearch = new javax.swing.JProgressBar();
         buttonSearch = new javax.swing.JToggleButton();

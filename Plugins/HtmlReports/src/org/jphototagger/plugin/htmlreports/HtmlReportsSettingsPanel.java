@@ -114,9 +114,9 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         labelDirectoryPrompt = new javax.swing.JLabel();
         labelDirectory = new javax.swing.JLabel();
         buttonChooseDirectory = new javax.swing.JButton();
-        checkBoxShowSettings = new javax.swing.JCheckBox();
-        checkBoxInputFilename = new javax.swing.JCheckBox();
-        checkBoxOpenReport = new javax.swing.JCheckBox();
+        checkBoxShowSettings = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxInputFilename = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxOpenReport = org.jphototagger.resources.UiFactory.checkBox();
         panelVersion = new javax.swing.JPanel();
         labelVersion = new javax.swing.JLabel();
         buttonHelp = new javax.swing.JButton();

@@ -7,6 +7,7 @@ import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -94,8 +95,8 @@ public final class ProgramInputParametersDialog extends Dialog {
         labelPrompt = new javax.swing.JLabel();
         scrollPaneAreaParameter = new javax.swing.JScrollPane();
         textAreaParameter = new javax.swing.JTextArea();
-        radioButtonParametersBeforeFilename = new javax.swing.JRadioButton();
-        radioButtonParametersAfterFilename = new javax.swing.JRadioButton();
+        radioButtonParametersBeforeFilename = UiFactory.radioButton();
+        radioButtonParametersAfterFilename = UiFactory.radioButton();
         panelCancelOk = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();

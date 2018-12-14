@@ -72,7 +72,7 @@ public class KeywordsTreeSettingsPanel extends javax.swing.JPanel implements Opt
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        checkBoxAutoInsertUnknownKeywords = new javax.swing.JCheckBox();
+        checkBoxAutoInsertUnknownKeywords = org.jphototagger.resources.UiFactory.checkBox();
 
         setLayout(new java.awt.GridBagLayout());
 

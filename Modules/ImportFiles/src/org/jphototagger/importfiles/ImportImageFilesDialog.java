@@ -677,8 +677,8 @@ public class ImportImageFilesDialog extends Dialog {
         panelContent = new javax.swing.JPanel();
         panelSourceStrategy = new javax.swing.JPanel();
         comboBoxSourceStrategy = new javax.swing.JComboBox<>();
-        checkBoxDeleteAfterCopy = new javax.swing.JCheckBox();
-        checkBoxSkipDuplicates = new javax.swing.JCheckBox();
+        checkBoxDeleteAfterCopy = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxSkipDuplicates = org.jphototagger.resources.UiFactory.checkBox();
         panelTargetDir = new org.jdesktop.swingx.JXPanel();
         labelTargetDir = new javax.swing.JLabel();
         buttonChooseTargetDir = new javax.swing.JButton();

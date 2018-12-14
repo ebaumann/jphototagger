@@ -331,7 +331,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         labelDirectoryPrompt = new javax.swing.JLabel();
         buttonChooseDirectory = new javax.swing.JButton();
         labelDirectoryName = new javax.swing.JLabel();
-        checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
+        checkBoxIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
         labelIptcCharset = new javax.swing.JLabel();
         comboBoxIptcCharset = new javax.swing.JComboBox<>();
         progressBar = new javax.swing.JProgressBar();

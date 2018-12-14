@@ -367,15 +367,15 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         panelContent = new javax.swing.JPanel();
         panelTasks = new javax.swing.JPanel();
-        checkBoxDeleteRecordsOfNotExistingFilesInRepository = new javax.swing.JCheckBox();
+        checkBoxDeleteRecordsOfNotExistingFilesInRepository = org.jphototagger.resources.UiFactory.checkBox();
         labelFinishedDeleteRecordsOfNotExistingFilesInRepository = new javax.swing.JLabel();
-        checkBoxCompressRepository = new javax.swing.JCheckBox();
+        checkBoxCompressRepository = org.jphototagger.resources.UiFactory.checkBox();
         labelFinishedCompressRepository = new javax.swing.JLabel();
-        checkBoxDeleteOrphanedThumbnails = new javax.swing.JCheckBox();
+        checkBoxDeleteOrphanedThumbnails = org.jphototagger.resources.UiFactory.checkBox();
         labelFinishedDeleteOrphanedThumbnails = new javax.swing.JLabel();
-        checkBoxDeleteUnusedKeywords = new javax.swing.JCheckBox();
+        checkBoxDeleteUnusedKeywords = org.jphototagger.resources.UiFactory.checkBox();
         labelFinishedDeleteUnusedKeywords = new javax.swing.JLabel();
-        checkBoxDeleteNotReferenced1n = new javax.swing.JCheckBox();
+        checkBoxDeleteNotReferenced1n = org.jphototagger.resources.UiFactory.checkBox();
         labelFinishedDeleteNotReferenced1n = new javax.swing.JLabel();
         panelMessages = new javax.swing.JPanel();
         labelMessages = new javax.swing.JLabel();

@@ -173,13 +173,13 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         panelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JPanel();
         labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
-        checkBoxScanForEmbeddedXmp = new javax.swing.JCheckBox();
-        checkBoxAutoscanDirectories = new javax.swing.JCheckBox();
-        checkBoxSaveInputEarly = new javax.swing.JCheckBox();
+        checkBoxScanForEmbeddedXmp = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxAutoscanDirectories = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxSaveInputEarly = org.jphototagger.resources.UiFactory.checkBox();
         panelAutocomplete = new javax.swing.JPanel();
-        checkBoxEnableAutocomplete = new javax.swing.JCheckBox();
-        checkBoxUpdateAutocomplete = new javax.swing.JCheckBox();
-        checkBoxAutocompleteFastSearchIgnoreCase = new javax.swing.JCheckBox();
+        checkBoxEnableAutocomplete = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxUpdateAutocomplete = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxAutocompleteFastSearchIgnoreCase = org.jphototagger.resources.UiFactory.checkBox();
 
         setLayout(new java.awt.GridBagLayout());
 

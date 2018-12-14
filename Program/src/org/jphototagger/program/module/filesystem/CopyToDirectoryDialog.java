@@ -28,6 +28,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -350,9 +351,9 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         labelInfo = new javax.swing.JLabel();
         buttonChooseDirectory = new javax.swing.JButton();
         labelTargetDirectory = new javax.swing.JLabel();
-        radioButtonForceOverwrite = new javax.swing.JRadioButton();
-        radioButtonRenameIfTargetFileExists = new javax.swing.JRadioButton();
-        checkBoxCopyXmp = new javax.swing.JCheckBox();
+        radioButtonForceOverwrite = UiFactory.radioButton();
+        radioButtonRenameIfTargetFileExists = UiFactory.radioButton();
+        checkBoxCopyXmp = org.jphototagger.resources.UiFactory.checkBox();
         progressBar = new javax.swing.JProgressBar();
         panelCurrentFile = new javax.swing.JPanel();
         labelInfoCurrentFilename = new javax.swing.JLabel();

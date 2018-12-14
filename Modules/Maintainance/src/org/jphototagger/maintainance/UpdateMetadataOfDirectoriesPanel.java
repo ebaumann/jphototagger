@@ -472,8 +472,8 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         list = new org.jdesktop.swingx.JXList();
         labelInfoFilecount = new javax.swing.JLabel();
         labelFilecount = new javax.swing.JLabel();
-        checkBoxForce = new javax.swing.JCheckBox();
-        checkBoxIncludeSubdirectories = new javax.swing.JCheckBox();
+        checkBoxForce = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
         panelCurrentFile = new javax.swing.JPanel();
         labelInfoCurrentFilename = new javax.swing.JLabel();
         labelCurrentFilename = new javax.swing.JLabel();

@@ -168,7 +168,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         labelSelectedFileSizePrompt = new javax.swing.JLabel();
         labelSelectedFileSizePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileSizePrompt.getFont()));
         labelSelectedFileSize = new javax.swing.JLabel();
-        checkBoxSelectedFileHasSidecarFile = new javax.swing.JCheckBox();
+        checkBoxSelectedFileHasSidecarFile = org.jphototagger.resources.UiFactory.checkBox();
         panelThumbnailInfoProviders = new javax.swing.JPanel();
         panelPadding = new javax.swing.JPanel();
 

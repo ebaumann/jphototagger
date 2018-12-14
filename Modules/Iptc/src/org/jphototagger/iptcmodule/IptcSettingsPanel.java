@@ -117,7 +117,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        checkBoxDisplayIptc = new JCheckBox();
+        checkBoxDisplayIptc = org.jphototagger.resources.UiFactory.checkBox();
         labelIptcCharset = new JLabel();
         comboBoxIptcCharset = new JComboBox<>();
         panelVfill = new JPanel();

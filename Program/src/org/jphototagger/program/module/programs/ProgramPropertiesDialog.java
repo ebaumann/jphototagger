@@ -21,6 +21,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.SystemUtil;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -349,7 +350,7 @@ public final class ProgramPropertiesDialog extends Dialog {
 
         buttonGroupSingleFileProcessing = new javax.swing.ButtonGroup();
         panelExpertSettings = new javax.swing.JPanel();
-        checkBoxChangeFile = new javax.swing.JCheckBox();
+        checkBoxChangeFile = org.jphototagger.resources.UiFactory.checkBox();
         panelParameter = new javax.swing.JPanel();
         labelParametersBeforeFilename = new javax.swing.JLabel();
         scrollPaneParametersBeforeFilename = new javax.swing.JScrollPane();
@@ -357,16 +358,16 @@ public final class ProgramPropertiesDialog extends Dialog {
         labelParametersAfterFilename = new javax.swing.JLabel();
         scrollPaneParametersAfterFilename = new javax.swing.JScrollPane();
         textAreaParametersAfterFilename = new TabOrEnterLeavingTextArea();
-        checkBoxUsePattern = new javax.swing.JCheckBox();
+        checkBoxUsePattern = org.jphototagger.resources.UiFactory.checkBox();
         buttonInfoUsePattern = new javax.swing.JButton();
         scrollPaneUsePattern = new javax.swing.JScrollPane();
         textAreaUsePattern = new TabOrEnterLeavingTextArea();
         panelInputBeforeExecute = new javax.swing.JPanel();
-        checkBoxInputBeforeExecute = new javax.swing.JCheckBox();
-        checkBoxInputBeforeExecutePerFile = new javax.swing.JCheckBox();
+        checkBoxInputBeforeExecute = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxInputBeforeExecutePerFile = org.jphototagger.resources.UiFactory.checkBox();
         panelMultipleSelection = new javax.swing.JPanel();
-        radioButtonSingleFileProcessingYes = new javax.swing.JRadioButton();
-        radioButtonSingleFileProcessingNo = new javax.swing.JRadioButton();
+        radioButtonSingleFileProcessingYes = UiFactory.radioButton();
+        radioButtonSingleFileProcessingNo = UiFactory.radioButton();
         panelProgram = new javax.swing.JPanel();
         panelPrg = new javax.swing.JPanel();
         labelFilePrompt = new javax.swing.JLabel();

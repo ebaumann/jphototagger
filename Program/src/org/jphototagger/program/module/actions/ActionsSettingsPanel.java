@@ -26,6 +26,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.SelectProgramDialog;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -291,8 +292,8 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         buttonAddAction = new javax.swing.JButton();
         buttonDeleteAction = new javax.swing.JButton();
         buttonShowActions = new javax.swing.JButton();
-        radioButtonExecuteAlways = new javax.swing.JRadioButton();
-        radioButtonExecuteIfImageHasXmp = new javax.swing.JRadioButton();
+        radioButtonExecuteAlways = UiFactory.radioButton();
+        radioButtonExecuteIfImageHasXmp = UiFactory.radioButton();
 
         popupMenu.setName("popupMenu"); // NOI18N
 

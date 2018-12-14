@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -169,7 +170,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     }
 
     private void addCheckBox(Object object, String displayName) {
-        JCheckBox checkBox = new JCheckBox(displayName);
+        JCheckBox checkBox = UiFactory.checkBox(displayName);
 
         checkBox.addActionListener(this);
         checkBoxes.add(checkBox);

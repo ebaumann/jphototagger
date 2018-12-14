@@ -51,7 +51,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        checkBoxAddFilenameToGpsLocationExport = new JCheckBox();
+        checkBoxAddFilenameToGpsLocationExport = org.jphototagger.resources.UiFactory.checkBox();
         panelFill = new JPanel();
         labelVersion = new JLabel();
 

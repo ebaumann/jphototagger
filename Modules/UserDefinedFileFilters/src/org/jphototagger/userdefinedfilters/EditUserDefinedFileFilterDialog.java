@@ -118,7 +118,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         textFieldName = new javax.swing.JTextField();
         comboBoxType = new javax.swing.JComboBox<>();
         textFieldExpression = new javax.swing.JTextField();
-        checkBoxNot = new javax.swing.JCheckBox();
+        checkBoxNot = org.jphototagger.resources.UiFactory.checkBox();
         panelButtons = new javax.swing.JPanel();
         buttonCancel = new javax.swing.JButton();
         buttonOk = new javax.swing.JButton();

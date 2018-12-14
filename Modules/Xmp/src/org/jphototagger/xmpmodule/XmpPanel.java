@@ -455,7 +455,7 @@ public class XmpPanel extends javax.swing.JPanel {
         textFieldTableXmpCameraRawSettingsFilter = new JTextField();
         scrollPaneXmpCameraRawSettings = new JScrollPane();
         tableXmpCameraRawSettings = new JTable();
-        checkBoxScanForEmbeddedXmp = new JCheckBox();
+        checkBoxScanForEmbeddedXmp = org.jphototagger.resources.UiFactory.checkBox();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());

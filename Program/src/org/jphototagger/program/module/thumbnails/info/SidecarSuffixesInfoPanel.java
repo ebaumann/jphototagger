@@ -52,7 +52,7 @@ public class SidecarSuffixesInfoPanel extends javax.swing.JPanel implements Thum
         if (suffixCount == 0) {
             add(infoLabel);
         }
-        JCheckBox checkBox = new JCheckBox(suffix);
+        JCheckBox checkBox = UiFactory.checkBox(suffix);
         checkBox.setEnabled(false);
         add(checkBox);
         suffixCount++;

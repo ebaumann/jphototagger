@@ -538,7 +538,7 @@ public final class AppPanel extends javax.swing.JPanel {
         treeDirectories = new JXTree();
         treeDirectories.setShowsRootHandles(true);
         buttonSearchInDirectories = new javax.swing.JButton();
-        checkBoxDirectoriesRecursive = new javax.swing.JCheckBox();
+        checkBoxDirectoriesRecursive = org.jphototagger.resources.UiFactory.checkBox();
         panelSavedSearches = new javax.swing.JPanel();
         panelListSavedSearchesFilter = new javax.swing.JPanel();
         labelListSavedSearchesFilter = new javax.swing.JLabel();
@@ -559,7 +559,7 @@ public final class AppPanel extends javax.swing.JPanel {
         treeFavorites.setTransferHandler(new org.jphototagger.program.module.directories.DirectoryTreeTransferHandler());
         treeFavorites.setShowsRootHandles(true);
         buttonSearchInTreeFavorites = new javax.swing.JButton();
-        checkBoxFavoritesRecursive = new javax.swing.JCheckBox();
+        checkBoxFavoritesRecursive = org.jphototagger.resources.UiFactory.checkBox();
         panelSelKeywords = new javax.swing.JPanel();
         panelSelKeywordsTree = new javax.swing.JPanel();
         scrollPaneSelKeywordsTree = new javax.swing.JScrollPane();
@@ -577,8 +577,8 @@ public final class AppPanel extends javax.swing.JPanel {
         listSelKeywords = new JXList();
         listSelKeywords.setTransferHandler(new org.jphototagger.program.module.keywords.list.KeywordsListTransferHandler());
         panelSelKeywordsListMultipleSelection = new javax.swing.JPanel();
-        radioButtonSelKeywordsMultipleSelAll = new javax.swing.JRadioButton();
-        radioButtonSelKeywordsMultipleSelOne = new javax.swing.JRadioButton();
+        radioButtonSelKeywordsMultipleSelAll = UiFactory.radioButton();
+        radioButtonSelKeywordsMultipleSelOne = UiFactory.radioButton();
         buttonDisplaySelKeywordsTree = new javax.swing.JButton();
         buttonSearchInListSelKeywords = new javax.swing.JButton();
         panelTimeline = new javax.swing.JPanel();

@@ -38,7 +38,7 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        checkBoxReloadOnLoop = new javax.swing.JCheckBox();
+        checkBoxReloadOnLoop = org.jphototagger.resources.UiFactory.checkBox();
         panelFill = new javax.swing.JPanel();
         labelVersion = new javax.swing.JLabel();
 

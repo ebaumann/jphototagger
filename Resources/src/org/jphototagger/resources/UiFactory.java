@@ -2,6 +2,10 @@ package org.jphototagger.resources;
 
 import java.awt.Dimension;
 import java.awt.Insets;
+import javax.swing.AbstractButton;
+import javax.swing.Action;
+import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 import org.jphototagger.api.preferences.CommonPreferences;
 
 /**
@@ -58,6 +62,42 @@ public final class UiFactory {
         return IS_SCALE
                 ? (int) ((double) width * SCALE_FACTOR)
                 : width;
+    }
+
+    public static JCheckBox checkBox() {
+        JCheckBox cb = new JCheckBox();
+
+        configure(cb);
+
+        return cb;
+    }
+
+    public static JCheckBox checkBox(String text) {
+        JCheckBox cb = new JCheckBox(text);
+
+        configure(cb);
+
+        return cb;
+    }
+
+    public static JCheckBox checkBox(Action a) {
+        JCheckBox cb = new JCheckBox(a);
+
+        configure(cb);
+
+        return cb;
+    }
+
+    private static void configure(AbstractButton cb) {
+        cb.setIconTextGap(scale(cb.getIconTextGap()));
+    }
+
+    public static JRadioButton radioButton() {
+        JRadioButton rb = new JRadioButton();
+
+        configure(rb);
+
+        return rb;
     }
 
     private UiFactory() {

@@ -256,7 +256,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         textFieldSuffix = new javax.swing.JTextField();
         labelDescription = new javax.swing.JLabel();
         textFieldDescription = new javax.swing.JTextField();
-        checkBoxExternalThumbnailCreator = new javax.swing.JCheckBox();
+        checkBoxExternalThumbnailCreator = org.jphototagger.resources.UiFactory.checkBox();
         panelButtons = new javax.swing.JPanel();
         buttonHelp = new javax.swing.JButton();
         buttonSave = new javax.swing.JButton();

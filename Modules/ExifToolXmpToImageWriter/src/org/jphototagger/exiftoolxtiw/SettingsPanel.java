@@ -337,9 +337,9 @@ public class SettingsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         paneContents = new javax.swing.JPanel();
-        checkBoxSelfResponsible = new javax.swing.JCheckBox();
+        checkBoxSelfResponsible = org.jphototagger.resources.UiFactory.checkBox();
         panelExifToolGeneral = new javax.swing.JPanel();
-        checkBoxExifToolEnabled = new javax.swing.JCheckBox();
+        checkBoxExifToolEnabled = org.jphototagger.resources.UiFactory.checkBox();
         buttonBrowseExifToolWebsite = new javax.swing.JButton();
         textAreaInfo = new javax.swing.JTextArea();
         labelErrorCanWrite = new javax.swing.JLabel();
@@ -347,9 +347,9 @@ public class SettingsPanel extends javax.swing.JPanel {
         textFieldExifToolFilePath = new javax.swing.JTextField();
         buttonChooseExifTool = new javax.swing.JButton();
         panelWriteOnSaveXmp = new javax.swing.JPanel();
-        checkBoxWriteOnSaveXmp = new javax.swing.JCheckBox();
+        checkBoxWriteOnSaveXmp = org.jphototagger.resources.UiFactory.checkBox();
         labelErrorInputsSavedEarly = new javax.swing.JLabel();
-        checkBoxCreateBackupFile = new javax.swing.JCheckBox();
+        checkBoxCreateBackupFile = org.jphototagger.resources.UiFactory.checkBox();
         labelFileSuffixes = new javax.swing.JLabel();
         scrollPaneFileSuffixes = new javax.swing.JScrollPane();
         listFileSuffixes = new javax.swing.JList<String>();

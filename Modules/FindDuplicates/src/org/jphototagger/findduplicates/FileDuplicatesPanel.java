@@ -31,6 +31,7 @@ import org.jphototagger.lib.swing.ImagePanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Images;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -131,7 +132,7 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
     private final class FilePanel extends JPanel {
 
         private static final long serialVersionUID = 1L;
-        private final JCheckBox checkBoxFileSelected = new JCheckBox(fileSelectedAction);
+        private final JCheckBox checkBoxFileSelected = UiFactory.checkBox(fileSelectedAction);
         private final File file;
 
         private FilePanel(File file) {

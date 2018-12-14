@@ -16,6 +16,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
 import org.jphototagger.program.factory.PluginManager;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -63,7 +64,7 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements Persiste
 
     private <T extends Plugin> void addPluginEnableCheckBox(PluginManager<T> pluginManager, T plugin) {
         ActionExcludePlugin<T> actionExcludePlugin = new ActionExcludePlugin<>(pluginManager, plugin);
-        JCheckBox checkBox = new JCheckBox(actionExcludePlugin);
+        JCheckBox checkBox = UiFactory.checkBox(actionExcludePlugin);
 
         checkBox.setSelected(pluginManager.isEnabled(plugin));
         panelExcludeCheckboxes.add(checkBox, getGbcCheckBox());

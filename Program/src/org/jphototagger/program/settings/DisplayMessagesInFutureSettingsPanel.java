@@ -16,6 +16,7 @@ import org.jphototagger.api.preferences.DisplayMessageInFuturePreferencesKeys.Ke
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -46,7 +47,7 @@ public class DisplayMessagesInFutureSettingsPanel extends javax.swing.JPanel {
         int index = 0;
 
         for (KeyInfo keyInfo : keyInfos) {
-            JCheckBox checkBox = new JCheckBox(keyInfo.getLocalizedDisplayName());
+            JCheckBox checkBox = UiFactory.checkBox(keyInfo.getLocalizedDisplayName());
             String key = keyInfo.getKey();
 
             checkBox.addActionListener(changeListener);

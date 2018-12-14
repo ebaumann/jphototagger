@@ -21,6 +21,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -202,14 +203,14 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
         buttonGroupThumbnailCreator = new javax.swing.ButtonGroup();
         panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel();
         panelThumbnailCreator = new javax.swing.JPanel();
-        radioButtonCreateThumbnailsWithJPhotoTagger = new javax.swing.JRadioButton();
-        radioButtonCreateThumbnailsWithExternalApp = new javax.swing.JRadioButton();
+        radioButtonCreateThumbnailsWithJPhotoTagger = UiFactory.radioButton();
+        radioButtonCreateThumbnailsWithExternalApp = UiFactory.radioButton();
         buttonChooseExternalThumbnailCreator = new javax.swing.JButton();
         panelExternalThumbnailApp = new javax.swing.JPanel();
         labelIsCreateThumbnailsWithExternalApp = new javax.swing.JLabel();
         textFieldExternalThumbnailCreationCommand = new javax.swing.JTextField();
-        checkBoxDisplayThumbnailTooltip = new javax.swing.JCheckBox();
-        checkBoxDisplayThumbnailsBottomPanel = new javax.swing.JCheckBox();
+        checkBoxDisplayThumbnailTooltip = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxDisplayThumbnailsBottomPanel = org.jphototagger.resources.UiFactory.checkBox();
         panelFurtherSettings = new javax.swing.JPanel();
         buttonThumbnailCreatorsSettings = new javax.swing.JButton();
         panelPadding = new javax.swing.JPanel();
