@@ -232,6 +232,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
         textFieldFilter.setName("textFieldFilter"); // NOI18N
         textFieldFilter.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldFilterKeyPressed(evt);
             }

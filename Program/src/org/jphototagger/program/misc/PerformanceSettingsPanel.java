@@ -195,6 +195,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
         spinnerMaximumSecondsToTerminateExternalPrograms.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spinnerMaximumSecondsToTerminateExternalProgramsStateChanged(evt);
             }
@@ -215,6 +216,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         checkBoxScanForEmbeddedXmp.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
         checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxScanForEmbeddedXmpActionPerformed(evt);
             }
@@ -229,6 +231,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         checkBoxAutoscanDirectories.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxAutoscanDirectories.text")); // NOI18N
         checkBoxAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAutoscanDirectoriesActionPerformed(evt);
             }
@@ -243,6 +246,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         checkBoxSaveInputEarly.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxSaveInputEarly.text")); // NOI18N
         checkBoxSaveInputEarly.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSaveInputEarlyActionPerformed(evt);
             }
@@ -260,6 +264,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         checkBoxEnableAutocomplete.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxEnableAutocomplete.text")); // NOI18N
         checkBoxEnableAutocomplete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxEnableAutocompleteActionPerformed(evt);
             }
@@ -274,6 +279,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         checkBoxUpdateAutocomplete.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxUpdateAutocomplete.text")); // NOI18N
         checkBoxUpdateAutocomplete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxUpdateAutocompleteActionPerformed(evt);
             }
@@ -288,6 +294,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         checkBoxAutocompleteFastSearchIgnoreCase.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxAutocompleteFastSearchIgnoreCase.text")); // NOI18N
         checkBoxAutocompleteFastSearchIgnoreCase.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAutocompleteFastSearchIgnoreCaseActionPerformed(evt);
             }

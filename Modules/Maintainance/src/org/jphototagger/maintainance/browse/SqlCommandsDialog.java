@@ -179,6 +179,7 @@ public class SqlCommandsDialog extends Dialog {
 
         buttonEdit.setText(org.jphototagger.lib.util.Bundle.getString(SqlCommandsDialog.class, "SqlCommandsDialog.buttonEdit.text")); // NOI18N
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditActionPerformed(evt);
             }
@@ -187,6 +188,7 @@ public class SqlCommandsDialog extends Dialog {
 
         buttonRemove.setText(org.jphototagger.lib.util.Bundle.getString(SqlCommandsDialog.class, "SqlCommandsDialog.buttonRemove.text")); // NOI18N
         buttonRemove.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveActionPerformed(evt);
             }
@@ -197,6 +199,7 @@ public class SqlCommandsDialog extends Dialog {
 
         buttonOk.setText(org.jphototagger.lib.util.Bundle.getString(SqlCommandsDialog.class, "SqlCommandsDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }
@@ -207,6 +210,7 @@ public class SqlCommandsDialog extends Dialog {
 
         buttonCancel.setText(org.jphototagger.lib.util.Bundle.getString(SqlCommandsDialog.class, "SqlCommandsDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }

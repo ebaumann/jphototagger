@@ -64,6 +64,7 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
         setTitle(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -86,6 +87,7 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
         buttonClose.setText(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsDialog.buttonClose.text")); // NOI18N
         buttonClose.setName("buttonClose"); // NOI18N
         buttonClose.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCloseActionPerformed(evt);
             }
@@ -95,6 +97,7 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
         buttonFurtherSettings.setText(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsDialog.buttonFurtherSettings.text")); // NOI18N
         buttonFurtherSettings.setName("buttonFurtherSettings"); // NOI18N
         buttonFurtherSettings.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonFurtherSettingsActionPerformed(evt);
             }

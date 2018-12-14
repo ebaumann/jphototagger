@@ -140,6 +140,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         comboBoxDelimiter.setName("comboBoxDelimiter"); // NOI18N
         comboBoxDelimiter.setRenderer(renderer);
         comboBoxDelimiter.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxDelimiterActionPerformed(evt);
             }
@@ -178,6 +179,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         buttonHelp.setText(Bundle.getString(getClass(), "SettingsPanel.buttonHelp.text")); // NOI18N
         buttonHelp.setName("buttonHelp"); // NOI18N
         buttonHelp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHelpActionPerformed(evt);
             }

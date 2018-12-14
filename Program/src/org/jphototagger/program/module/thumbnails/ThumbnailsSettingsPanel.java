@@ -232,6 +232,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
         buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithJPhotoTagger);
         radioButtonCreateThumbnailsWithJPhotoTagger.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.radioButtonCreateThumbnailsWithJPhotoTagger.text")); // NOI18N
         radioButtonCreateThumbnailsWithJPhotoTagger.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCreateThumbnailsWithJPhotoTaggerActionPerformed(evt);
             }
@@ -246,6 +247,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
         buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithExternalApp);
         radioButtonCreateThumbnailsWithExternalApp.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.radioButtonCreateThumbnailsWithExternalApp.text")); // NOI18N
         radioButtonCreateThumbnailsWithExternalApp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCreateThumbnailsWithExternalAppActionPerformed(evt);
             }
@@ -259,6 +261,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
         buttonChooseExternalThumbnailCreator.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.buttonChooseExternalThumbnailCreator.text")); // NOI18N
         buttonChooseExternalThumbnailCreator.setEnabled(false);
         buttonChooseExternalThumbnailCreator.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseExternalThumbnailCreatorActionPerformed(evt);
             }
@@ -294,6 +297,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
 
         textFieldExternalThumbnailCreationCommand.setEnabled(false);
         textFieldExternalThumbnailCreationCommand.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldExternalThumbnailCreationCommandKeyReleased(evt);
             }
@@ -317,6 +321,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
 
         checkBoxDisplayThumbnailTooltip.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.checkBoxDisplayThumbnailTooltip.text")); // NOI18N
         checkBoxDisplayThumbnailTooltip.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplayThumbnailTooltipActionPerformed(evt);
             }
@@ -331,6 +336,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
 
         checkBoxDisplayThumbnailsBottomPanel.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.checkBoxDisplayThumbnailsBottomPanel.text")); // NOI18N
         checkBoxDisplayThumbnailsBottomPanel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplayThumbnailsBottomPanelActionPerformed(evt);
             }
@@ -349,6 +355,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
         buttonThumbnailCreatorsSettings.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.buttonThumbnailCreatorsSettings.text")); // NOI18N
         buttonThumbnailCreatorsSettings.setName("buttonThumbnailCreatorsSettings"); // NOI18N
         buttonThumbnailCreatorsSettings.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonThumbnailCreatorsSettingsActionPerformed(evt);
             }

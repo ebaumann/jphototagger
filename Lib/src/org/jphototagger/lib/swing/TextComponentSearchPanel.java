@@ -281,6 +281,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         buttonSearchDownwards.setEnabled(false);
         buttonSearchDownwards.setName("buttonSearchDownwards"); // NOI18N
         buttonSearchDownwards.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSearchDownwardsActionPerformed(evt);
             }
@@ -293,6 +294,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         buttonSearchUpwards.setEnabled(false);
         buttonSearchUpwards.setName("buttonSearchUpwards"); // NOI18N
         buttonSearchUpwards.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSearchUpwardsActionPerformed(evt);
             }

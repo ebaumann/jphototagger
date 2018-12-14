@@ -374,6 +374,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         comboBoxWordsetNames.setFocusable(false);
         comboBoxWordsetNames.setRenderer(wordsetNamesComboBoxRenderer);
         comboBoxWordsetNames.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxWordsetNamesActionPerformed(evt);
             }
@@ -387,6 +388,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         buttonRemoveWordset.setFocusable(false);
         buttonRemoveWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonRemoveWordset.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveWordsetActionPerformed(evt);
             }
@@ -401,6 +403,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         buttonEditWordset.setFocusable(false);
         buttonEditWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEditWordset.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditWordsetActionPerformed(evt);
             }
@@ -415,6 +418,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         buttonAddWordset.setFocusable(false);
         buttonAddWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonAddWordset.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddWordsetActionPerformed(evt);
             }
@@ -429,6 +433,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         buttonEraseAutomaticWords.setFocusable(false);
         buttonEraseAutomaticWords.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEraseAutomaticWords.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEraseAutomaticWordsActionPerformed(evt);
             }

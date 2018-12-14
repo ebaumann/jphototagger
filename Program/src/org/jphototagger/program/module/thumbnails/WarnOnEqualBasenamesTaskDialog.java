@@ -152,6 +152,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         checkBoxDisplayInFuture.setText(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.checkBoxDisplayInFuture.text")); // NOI18N
         checkBoxDisplayInFuture.setName("checkBoxDisplayInFuture"); // NOI18N
         checkBoxDisplayInFuture.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 checkBoxDisplayInFutureActionPerformed(evt);
             }

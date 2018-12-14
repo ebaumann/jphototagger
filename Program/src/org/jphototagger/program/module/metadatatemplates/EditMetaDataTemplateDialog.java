@@ -177,6 +177,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         setName("Form"); // NOI18N
         setPreferredSize(org.jphototagger.resources.UiFactory.dimension(500, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -230,6 +231,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         buttonCancel.setText(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -239,6 +241,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         buttonSave.setText(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.buttonSave.text")); // NOI18N
         buttonSave.setName("buttonSave"); // NOI18N
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveActionPerformed(evt);
             }

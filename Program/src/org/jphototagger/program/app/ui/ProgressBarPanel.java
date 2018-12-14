@@ -148,6 +148,7 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
         buttonCancelProgress.setEnabled(cancelable != null);
         buttonCancelProgress.setName("buttonCancelProgress"); // NOI18N
         buttonCancelProgress.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelProgressActionPerformed(evt);
             }

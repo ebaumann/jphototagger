@@ -244,6 +244,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateInsert.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateInsert.setName("buttonMetadataTemplateInsert"); // NOI18N
         buttonMetadataTemplateInsert.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMetadataTemplateInsertActionPerformed(evt);
             }
@@ -258,6 +259,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateCreate.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateCreate.setName("buttonMetadataTemplateCreate"); // NOI18N
         buttonMetadataTemplateCreate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMetadataTemplateCreateActionPerformed(evt);
             }
@@ -274,6 +276,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         buttonEmptyMetadata.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEmptyMetadata.setName("buttonEmptyMetadata"); // NOI18N
         buttonEmptyMetadata.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEmptyMetadataActionPerformed(evt);
             }
@@ -313,11 +316,13 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         comboBoxMetadataTemplates.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.comboBoxMetadataTemplates.toolTipText")); // NOI18N
         comboBoxMetadataTemplates.setName("comboBoxMetadataTemplates"); // NOI18N
         comboBoxMetadataTemplates.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxMetadataTemplatesActionPerformed(evt);
             }
         });
         comboBoxMetadataTemplates.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            @Override
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 comboBoxMetadataTemplatesPropertyChange(evt);
             }
@@ -345,6 +350,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateRename.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateRename.setName("buttonMetadataTemplateRename"); // NOI18N
         buttonMetadataTemplateRename.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMetadataTemplateRenameActionPerformed(evt);
             }
@@ -357,6 +363,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateUpdate.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateUpdate.setName("buttonMetadataTemplateUpdate"); // NOI18N
         buttonMetadataTemplateUpdate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMetadataTemplateUpdateActionPerformed(evt);
             }
@@ -369,6 +376,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateDelete.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateDelete.setName("buttonMetadataTemplateDelete"); // NOI18N
         buttonMetadataTemplateDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMetadataTemplateDeleteActionPerformed(evt);
             }
@@ -380,6 +388,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateEdit.setEnabled(false);
         buttonMetadataTemplateEdit.setName("buttonMetadataTemplateEdit"); // NOI18N
         buttonMetadataTemplateEdit.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMetadataTemplateEditActionPerformed(evt);
             }
@@ -391,6 +400,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         buttonMetadataTemplateAdd.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateAdd.setName("buttonMetadataTemplateAdd"); // NOI18N
         buttonMetadataTemplateAdd.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMetadataTemplateAddActionPerformed(evt);
             }

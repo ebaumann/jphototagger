@@ -218,6 +218,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         buttonRemoveDefaultPrograms.setEnabled(false);
         buttonRemoveDefaultPrograms.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemoveDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveDefaultProgramsActionPerformed(evt);
             }
@@ -231,6 +232,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         buttonSetDefaultPrograms.setEnabled(false);
         buttonSetDefaultPrograms.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonSetDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetDefaultProgramsActionPerformed(evt);
             }
@@ -249,11 +251,13 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         listFilenameSuffixes.setModel(new FilenameSuffixesListModel());
         listFilenameSuffixes.setCellRenderer(suffixProgramListCellRenderer);
         listFilenameSuffixes.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listFilenameSuffixesMouseClicked(evt);
             }
         });
         listFilenameSuffixes.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listFilenameSuffixesKeyPressed(evt);
             }

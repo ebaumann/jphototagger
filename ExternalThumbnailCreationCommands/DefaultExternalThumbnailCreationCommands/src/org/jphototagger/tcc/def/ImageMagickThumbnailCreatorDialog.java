@@ -69,6 +69,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
 
         buttonCancel.setText(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -77,6 +78,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
 
         buttonBrowse.setText(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.buttonBrowse.text")); // NOI18N
         buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseActionPerformed(evt);
             }
@@ -87,6 +89,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
 
         buttonChooseConvert.setText(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
         buttonChooseConvert.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseConvertActionPerformed(evt);
             }

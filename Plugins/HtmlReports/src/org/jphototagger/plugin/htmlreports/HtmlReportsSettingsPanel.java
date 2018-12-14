@@ -169,6 +169,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         buttonChooseDirectory.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
             }
@@ -190,6 +191,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         checkBoxShowSettings.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxShowSettings.text")); // NOI18N
         checkBoxShowSettings.setName("checkBoxShowSettings"); // NOI18N
         checkBoxShowSettings.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxShowSettingsActionPerformed(evt);
             }
@@ -204,6 +206,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         checkBoxInputFilename.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxInputFilename.text")); // NOI18N
         checkBoxInputFilename.setName("checkBoxInputFilename"); // NOI18N
         checkBoxInputFilename.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxInputFilenameActionPerformed(evt);
             }
@@ -218,6 +221,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         checkBoxOpenReport.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxOpenReport.text")); // NOI18N
         checkBoxOpenReport.setName("checkBoxOpenReport"); // NOI18N
         checkBoxOpenReport.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxOpenReportActionPerformed(evt);
             }
@@ -242,6 +246,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         buttonHelp.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.buttonHelp.text")); // NOI18N
         buttonHelp.setName("buttonHelp"); // NOI18N
         buttonHelp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHelpActionPerformed(evt);
             }

@@ -516,6 +516,7 @@ public class FindDuplicatesDialog extends Dialog {
 
         buttonAddSourceDirectory.setText(Bundle.getString(getClass(), "FindDuplicatesDialog.buttonAddSourceDirectory.text")); // NOI18N
         buttonAddSourceDirectory.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddSourceDirectoryActionPerformed(evt);
             }

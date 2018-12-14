@@ -191,6 +191,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
         labelPathInfo = new org.jdesktop.swingx.JXLabel();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
             }
@@ -222,6 +223,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
 
         buttonChooseScriptFileCopied.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonChooseScriptFileCopied.text")); // NOI18N
         buttonChooseScriptFileCopied.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseScriptFileCopiedActionPerformed(evt);
             }
@@ -273,6 +275,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
 
         buttonChooseScriptFileRenamed.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonChooseScriptFileRenamed.text")); // NOI18N
         buttonChooseScriptFileRenamed.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseScriptFileRenamedActionPerformed(evt);
             }
@@ -324,6 +327,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
 
         buttonChooseScriptFileMoved.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonChooseScriptFileMoved.text")); // NOI18N
         buttonChooseScriptFileMoved.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseScriptFileMovedActionPerformed(evt);
             }
@@ -375,6 +379,7 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
 
         buttonChooseScriptFileDeleted.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonChooseScriptFileDeleted.text")); // NOI18N
         buttonChooseScriptFileDeleted.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseScriptFileDeletedActionPerformed(evt);
             }

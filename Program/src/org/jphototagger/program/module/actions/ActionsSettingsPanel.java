@@ -301,6 +301,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         menuItemAddAction.setEnabled(false);
         menuItemAddAction.setName("menuItemAddAction"); // NOI18N
         menuItemAddAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddActionActionPerformed(evt);
             }
@@ -312,6 +313,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         menuItemDeleteAction.setEnabled(false);
         menuItemDeleteAction.setName("menuItemDeleteAction"); // NOI18N
         menuItemDeleteAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionActionPerformed(evt);
             }
@@ -325,6 +327,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         menuItemMoveUpAction.setEnabled(false);
         menuItemMoveUpAction.setName("menuItemMoveUpAction"); // NOI18N
         menuItemMoveUpAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveUpActionActionPerformed(evt);
             }
@@ -335,6 +338,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         menuItemMoveDownAction.setEnabled(false);
         menuItemMoveDownAction.setName("menuItemMoveDownAction"); // NOI18N
         menuItemMoveDownAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveDownActionActionPerformed(evt);
             }
@@ -347,6 +351,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         menuItemShowActions.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.menuItemShowActions.text")); // NOI18N
         menuItemShowActions.setName("menuItemShowActions"); // NOI18N
         menuItemShowActions.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemShowActionsActionPerformed(evt);
             }
@@ -365,6 +370,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listKeyPressed(evt);
             }
@@ -384,6 +390,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         buttonMoveUpAction.setEnabled(false);
         buttonMoveUpAction.setName("buttonMoveUpAction"); // NOI18N
         buttonMoveUpAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMoveUpActionActionPerformed(evt);
             }
@@ -398,6 +405,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         buttonMoveDownAction.setEnabled(false);
         buttonMoveDownAction.setName("buttonMoveDownAction"); // NOI18N
         buttonMoveDownAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMoveDownActionActionPerformed(evt);
             }
@@ -413,6 +421,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         buttonAddAction.setEnabled(false);
         buttonAddAction.setName("buttonAddAction"); // NOI18N
         buttonAddAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionActionPerformed(evt);
             }
@@ -428,6 +437,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         buttonDeleteAction.setEnabled(false);
         buttonDeleteAction.setName("buttonDeleteAction"); // NOI18N
         buttonDeleteAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionActionPerformed(evt);
             }
@@ -442,6 +452,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         buttonShowActions.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonShowActions.text")); // NOI18N
         buttonShowActions.setName("buttonShowActions"); // NOI18N
         buttonShowActions.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonShowActionsActionPerformed(evt);
             }
@@ -463,6 +474,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         radioButtonExecuteAlways.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.radioButtonExecuteAlways.text")); // NOI18N
         radioButtonExecuteAlways.setName("radioButtonExecuteAlways"); // NOI18N
         radioButtonExecuteAlways.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonExecuteAlwaysActionPerformed(evt);
             }
@@ -478,6 +490,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         radioButtonExecuteIfImageHasXmp.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
         radioButtonExecuteIfImageHasXmp.setName("radioButtonExecuteIfImageHasXmp"); // NOI18N
         radioButtonExecuteIfImageHasXmp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonExecuteIfImageHasXmpActionPerformed(evt);
             }

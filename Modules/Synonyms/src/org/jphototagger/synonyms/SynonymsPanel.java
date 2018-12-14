@@ -348,6 +348,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         menuItemChangeWord.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemChangeWord.text")); // NOI18N
         menuItemChangeWord.setName("menuItemChangeWord"); // NOI18N
         menuItemChangeWord.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemChangeWordActionPerformed(evt);
             }
@@ -358,6 +359,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         menuItemRemoveWord.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemRemoveWord.text")); // NOI18N
         menuItemRemoveWord.setName("menuItemRemoveWord"); // NOI18N
         menuItemRemoveWord.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRemoveWordActionPerformed(evt);
             }
@@ -370,6 +372,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         menuItemChangeSynonym.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemChangeSynonym.text")); // NOI18N
         menuItemChangeSynonym.setName("menuItemChangeSynonym"); // NOI18N
         menuItemChangeSynonym.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemChangeSynonymActionPerformed(evt);
             }
@@ -380,6 +383,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         menuItemRemoveSynonym.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemRemoveSynonym.text")); // NOI18N
         menuItemRemoveSynonym.setName("menuItemRemoveSynonym"); // NOI18N
         menuItemRemoveSynonym.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRemoveSynonymActionPerformed(evt);
             }
@@ -412,6 +416,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         textAreaWords.setRows(1);
         textAreaWords.setName("JPhotoTagger text area for a word with a synonym"); // NOI18N
         textAreaWords.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textAreaWordsKeyPressed(evt);
             }
@@ -431,6 +436,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonAddWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonAddWord.setName("buttonAddWord"); // NOI18N
         buttonAddWord.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddWordActionPerformed(evt);
             }
@@ -466,11 +472,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         listWords.setComponentPopupMenu(popupMenuWords);
         listWords.setName("listWords"); // NOI18N
         listWords.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listWordsMouseClicked(evt);
             }
         });
         listWords.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listWordsKeyPressed(evt);
             }
@@ -492,6 +500,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonRemoveWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonRemoveWord.setName("buttonRemoveWord"); // NOI18N
         buttonRemoveWord.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveWordActionPerformed(evt);
             }
@@ -509,6 +518,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonChangeWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonChangeWord.setName("buttonChangeWord"); // NOI18N
         buttonChangeWord.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChangeWordActionPerformed(evt);
             }
@@ -524,6 +534,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonAddAllKeywords.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonAddAllKeywords.toolTipText")); // NOI18N
         buttonAddAllKeywords.setName("buttonAddAllKeywords"); // NOI18N
         buttonAddAllKeywords.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddAllKeywordsActionPerformed(evt);
             }
@@ -562,6 +573,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         textFieldSynonyms.setName("JPhotoTagger text area for a synonym of a word"); // NOI18N
         textFieldSynonyms.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldSynonymsKeyPressed(evt);
             }
@@ -579,6 +591,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonAddSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonAddSynonym.setName("buttonAddSynonym"); // NOI18N
         buttonAddSynonym.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddSynonymActionPerformed(evt);
             }
@@ -614,11 +627,13 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         listSynonyms.setComponentPopupMenu(popupMenuSynonyms);
         listSynonyms.setName("listSynonyms"); // NOI18N
         listSynonyms.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listSynonymsMouseClicked(evt);
             }
         });
         listSynonyms.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listSynonymsKeyPressed(evt);
             }
@@ -640,6 +655,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonRemoveSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonRemoveSynonym.setName("buttonRemoveSynonym"); // NOI18N
         buttonRemoveSynonym.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSynonymActionPerformed(evt);
             }
@@ -657,6 +673,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonChangeSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonChangeSynonym.setName("buttonChangeSynonym"); // NOI18N
         buttonChangeSynonym.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChangeSynonymActionPerformed(evt);
             }

@@ -183,6 +183,7 @@ public class LongMessageDialog extends Dialog {
         buttonMail.setEnabled(false);
         buttonMail.setName("buttonMail"); // NOI18N
         buttonMail.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMailActionPerformed(evt);
             }
@@ -193,6 +194,7 @@ public class LongMessageDialog extends Dialog {
         buttonCopy.setToolTipText(Bundle.getString(getClass(), "LongMessageDialog.buttonCopy.toolTipText")); // NOI18N
         buttonCopy.setName("buttonCopy"); // NOI18N
         buttonCopy.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopyActionPerformed(evt);
             }
@@ -205,6 +207,7 @@ public class LongMessageDialog extends Dialog {
         buttonClose.setToolTipText(Bundle.getString(getClass(), "LongMessageDialog.buttonClose.toolTipText")); // NOI18N
         buttonClose.setName("buttonClose"); // NOI18N
         buttonClose.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCloseActionPerformed(evt);
             }

@@ -465,6 +465,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         setTitle(Bundle.getString(getClass(), "LogfileDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -489,6 +490,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         buttonReload.setBorder(null);
         buttonReload.setName("buttonReload"); // NOI18N
         buttonReload.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonReloadActionPerformed(evt);
             }
@@ -500,6 +502,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         buttonExit.setBorder(null);
         buttonExit.setName("buttonExit"); // NOI18N
         buttonExit.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExitActionPerformed(evt);
             }
@@ -655,6 +658,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
 
         textFieldSearch.setName("textFieldSearch"); // NOI18N
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldSearchKeyReleased(evt);
             }
@@ -683,6 +687,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         scrollPaneTableLogfileRecords.setName("scrollPaneTableLogfileRecords"); // NOI18N
         scrollPaneTableLogfileRecords.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(50, 50));
         scrollPaneTableLogfileRecords.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 scrollPaneTableLogfileRecordsComponentResized(evt);
             }

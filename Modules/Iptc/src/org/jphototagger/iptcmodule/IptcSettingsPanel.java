@@ -130,6 +130,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         checkBoxDisplayIptc.setText(Bundle.getString(getClass(), "IptcSettingsPanel.checkBoxDisplayIptc.text")); // NOI18N
         checkBoxDisplayIptc.setName("checkBoxDisplayIptc"); // NOI18N
         checkBoxDisplayIptc.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 checkBoxDisplayIptcActionPerformed(evt);
             }
@@ -148,6 +149,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
         comboBoxIptcCharset.setName("comboBoxIptcCharset"); // NOI18N
         comboBoxIptcCharset.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 comboBoxIptcCharsetActionPerformed(evt);
             }

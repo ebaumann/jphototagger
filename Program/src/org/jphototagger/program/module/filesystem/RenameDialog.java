@@ -350,6 +350,7 @@ public final class RenameDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "RenameDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -365,6 +366,7 @@ public final class RenameDialog extends Dialog {
         panelContents.add(labelInfoTemplatesTab, gridBagConstraints);
 
         panelInputName.addComponentListener(new java.awt.event.ComponentAdapter() {
+            @Override
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 panelInputNameComponentShown(evt);
             }
@@ -445,6 +447,7 @@ public final class RenameDialog extends Dialog {
 
         textFieldToName.setColumns(25);
         textFieldToName.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldToNameKeyPressed(evt);
             }
@@ -469,6 +472,7 @@ public final class RenameDialog extends Dialog {
 
         buttonNextFile.setText(Bundle.getString(getClass(), "RenameDialog.buttonNextFile.text")); // NOI18N
         buttonNextFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNextFileActionPerformed(evt);
             }
@@ -477,6 +481,7 @@ public final class RenameDialog extends Dialog {
 
         buttonRename.setText(Bundle.getString(getClass(), "RenameDialog.buttonRename.text")); // NOI18N
         buttonRename.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameActionPerformed(evt);
             }
@@ -508,6 +513,7 @@ public final class RenameDialog extends Dialog {
 
         buttonRenameViaTemplate.setText(Bundle.getString(getClass(), "RenameDialog.buttonRenameViaTemplate.text")); // NOI18N
         buttonRenameViaTemplate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameViaTemplateActionPerformed(evt);
             }

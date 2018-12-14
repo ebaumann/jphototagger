@@ -249,6 +249,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         comboBoxLogLevel.setModel(new org.jphototagger.program.app.logging.LogLevelComboBoxModel());
         comboBoxLogLevel.setRenderer(org.jphototagger.program.app.logging.LogLevelComboBoxModel.createRenderer());
         comboBoxLogLevel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxLogLevelActionPerformed(evt);
             }
@@ -313,6 +314,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         buttonRemoveErrorText.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonRemoveErrorText.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
         buttonRemoveErrorText.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveErrorTextActionPerformed(evt);
             }
@@ -328,6 +330,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         buttonEditErrorText.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEditErrorText.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
         buttonEditErrorText.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditErrorTextActionPerformed(evt);
             }
@@ -365,6 +368,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         buttonAddErrorText.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonAddErrorText.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
         buttonAddErrorText.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddErrorTextActionPerformed(evt);
             }

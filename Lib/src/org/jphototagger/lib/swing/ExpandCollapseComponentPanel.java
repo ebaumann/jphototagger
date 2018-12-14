@@ -211,6 +211,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         buttonExpandCollapse.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonExpandCollapse.setName("buttonExpandCollapse"); // NOI18N
         buttonExpandCollapse.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExpandCollapseActionPerformed(evt);
             }

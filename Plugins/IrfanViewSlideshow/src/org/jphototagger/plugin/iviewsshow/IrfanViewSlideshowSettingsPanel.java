@@ -49,6 +49,7 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
         checkBoxReloadOnLoop.setText(Bundle.getString(getClass(), "IrfanViewSlideshowSettingsPanel.checkBoxReloadOnLoop.text")); // NOI18N
         checkBoxReloadOnLoop.setName("checkBoxReloadOnLoop"); // NOI18N
         checkBoxReloadOnLoop.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxReloadOnLoopActionPerformed(evt);
             }

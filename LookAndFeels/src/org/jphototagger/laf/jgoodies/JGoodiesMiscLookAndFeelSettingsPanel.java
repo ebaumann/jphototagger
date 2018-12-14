@@ -118,6 +118,7 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
         comboBoxClassNames.setModel(classnamesComboBoxModel);
         comboBoxClassNames.setRenderer(classnamesListCellRenderer);
         comboBoxClassNames.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxClassNamesActionPerformed(evt);
             }

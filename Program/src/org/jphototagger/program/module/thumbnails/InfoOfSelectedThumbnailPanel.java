@@ -196,6 +196,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         buttonOpenDirectoryOfSelectedFile.setEnabled(false);
         buttonOpenDirectoryOfSelectedFile.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonOpenDirectoryOfSelectedFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOpenDirectoryOfSelectedFileActionPerformed(evt);
             }

@@ -105,6 +105,7 @@ public final class ImageCollectionsDialog extends Dialog {
         listImageCollectionNames.setCellRenderer(new org.jphototagger.program.module.imagecollections.ImageCollectionsListCellRenderer());
         listImageCollectionNames.setName("listImageCollectionNames"); // NOI18N
         listImageCollectionNames.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listImageCollectionNamesMouseClicked(evt);
             }
@@ -122,6 +123,7 @@ public final class ImageCollectionsDialog extends Dialog {
         buttonOk.setText(Bundle.getString(getClass(), "ImageCollectionsDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }

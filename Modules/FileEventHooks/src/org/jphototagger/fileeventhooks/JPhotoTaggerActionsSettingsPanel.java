@@ -257,6 +257,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         bindingGroup.addBinding(binding);
 
         listFilenameSuffixes.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listFilenameSuffixesKeyPressed(evt);
             }
@@ -281,6 +282,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
 
         textFieldFilenameSuffix.setColumns(5);
         textFieldFilenameSuffix.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textFieldFilenameSuffixKeyTyped(evt);
             }
@@ -295,6 +297,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         buttonAddFilenameSuffix.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.buttonAddFilenameSuffix.text")); // NOI18N
         buttonAddFilenameSuffix.setEnabled(false);
         buttonAddFilenameSuffix.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddFilenameSuffixActionPerformed(evt);
             }
@@ -335,6 +338,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         buttonRenameSelectedFilenameSuffix.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.buttonRenameSelectedFilenameSuffix.text")); // NOI18N
         buttonRenameSelectedFilenameSuffix.setEnabled(false);
         buttonRenameSelectedFilenameSuffix.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameSelectedFilenameSuffixActionPerformed(evt);
             }
@@ -344,6 +348,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         buttonRemoveSelectedFilenameSuffix.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.buttonRemoveSelectedFilenameSuffix.text")); // NOI18N
         buttonRemoveSelectedFilenameSuffix.setEnabled(false);
         buttonRemoveSelectedFilenameSuffix.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSelectedFilenameSuffixActionPerformed(evt);
             }

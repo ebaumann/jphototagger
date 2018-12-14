@@ -131,6 +131,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         metaDataValuesComboBox.setName("metaDataValuesComboBox"); // NOI18N
         metaDataValuesComboBox.setRenderer(listCellRenderer);
         metaDataValuesComboBox.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 metaDataValuesComboBoxActionPerformed(evt);
             }
@@ -145,6 +146,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         buttonAdd.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonAdd.setName("buttonAdd"); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionPerformed(evt);
             }
@@ -159,6 +161,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         buttonRemove.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemove.setName("buttonRemove"); // NOI18N
         buttonRemove.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveActionPerformed(evt);
             }

@@ -126,11 +126,13 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         list.setModel(new org.jphototagger.userdefinedfiletypes.UserDefinedFileTypesListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
             }
         });
         list.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listKeyPressed(evt);
             }
@@ -150,6 +152,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
         buttonAdd.setText(Bundle.getString(getClass(), "UserDefinedFileTypesPanel.buttonAdd.text")); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionPerformed(evt);
             }
@@ -159,6 +162,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         buttonEdit.setText(Bundle.getString(getClass(), "UserDefinedFileTypesPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setEnabled(false);
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditActionPerformed(evt);
             }
@@ -168,6 +172,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         buttonDelete.setText(Bundle.getString(getClass(), "UserDefinedFileTypesPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }

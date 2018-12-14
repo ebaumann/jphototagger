@@ -201,6 +201,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         buttonCancel.setText(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -214,6 +215,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         buttonOk.setText(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }

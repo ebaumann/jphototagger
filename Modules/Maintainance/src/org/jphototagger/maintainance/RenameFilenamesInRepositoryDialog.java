@@ -69,6 +69,7 @@ public class RenameFilenamesInRepositoryDialog extends Dialog {
         setTitle(Bundle.getString(getClass(), "RenameFilenamesInRepositoryDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }

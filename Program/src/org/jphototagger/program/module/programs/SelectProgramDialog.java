@@ -109,6 +109,7 @@ public class SelectProgramDialog extends Dialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -126,6 +127,7 @@ public class SelectProgramDialog extends Dialog {
         listPrograms.setCellRenderer(type.equals(ProgramType.ACTION) ? new org.jphototagger.program.module.actions.ActionsListCellRenderer() : new org.jphototagger.program.module.programs.ProgramsListCellRenderer());
         listPrograms.setName("listPrograms"); // NOI18N
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listProgramsMouseClicked(evt);
             }
@@ -144,6 +146,7 @@ public class SelectProgramDialog extends Dialog {
         buttonSelect.setEnabled(false);
         buttonSelect.setName("buttonSelect"); // NOI18N
         buttonSelect.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSelectActionPerformed(evt);
             }

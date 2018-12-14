@@ -135,6 +135,7 @@ public class ObjectsSelectionDialog<T> extends Dialog {
         buttonOk.setText(Bundle.getString(getClass(), "ObjectsSelectionDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }

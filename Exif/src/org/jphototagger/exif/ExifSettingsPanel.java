@@ -259,6 +259,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         buttonAddExcludeSuffixes.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonAddExcludeSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
         buttonAddExcludeSuffixes.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddExcludeSuffixesActionPerformed(evt);
             }
@@ -275,6 +276,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         buttonRemoveExcludeSuffixes.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonRemoveExcludeSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
         buttonRemoveExcludeSuffixes.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveExcludeSuffixesActionPerformed(evt);
             }

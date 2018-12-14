@@ -365,6 +365,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exiftoolxtiw/Bundle"); // NOI18N
         checkBoxSelfResponsible.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxSelfResponsible.text")); // NOI18N
         checkBoxSelfResponsible.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSelfResponsibleActionPerformed(evt);
             }
@@ -379,6 +380,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         checkBoxExifToolEnabled.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxExifToolEnabled.text")); // NOI18N
         checkBoxExifToolEnabled.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxExifToolEnabledActionPerformed(evt);
             }
@@ -390,6 +392,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         buttonBrowseExifToolWebsite.setText(Bundle.getString(getClass(), "SettingsPanel.buttonBrowseExifToolWebsite.text")); // NOI18N
         buttonBrowseExifToolWebsite.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseExifToolWebsiteActionPerformed(evt);
             }
@@ -442,6 +445,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         buttonChooseExifTool.setText(Bundle.getString(getClass(), "SettingsPanel.buttonChooseExifTool.text")); // NOI18N
         buttonChooseExifTool.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseExifToolActionPerformed(evt);
             }
@@ -462,6 +466,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         checkBoxWriteOnSaveXmp.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxWriteOnSaveXmp.text")); // NOI18N
         checkBoxWriteOnSaveXmp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxWriteOnSaveXmpActionPerformed(evt);
             }
@@ -486,6 +491,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         checkBoxCreateBackupFile.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxCreateBackupFile.text")); // NOI18N
         checkBoxCreateBackupFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCreateBackupFileActionPerformed(evt);
             }
@@ -521,6 +527,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         buttonSetDefaultFileSuffixes.setText(Bundle.getString(getClass(), "SettingsPanel.buttonSetDefaultFileSuffixes.text")); // NOI18N
         buttonSetDefaultFileSuffixes.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetDefaultFileSuffixesActionPerformed(evt);
             }
@@ -529,6 +536,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         buttonAddFileSuffix.setText(Bundle.getString(getClass(), "SettingsPanel.buttonAddFileSuffix.text")); // NOI18N
         buttonAddFileSuffix.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddFileSuffixActionPerformed(evt);
             }
@@ -539,6 +547,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         buttonRemoveFileSuffix.setText(Bundle.getString(getClass(), "SettingsPanel.buttonRemoveFileSuffix.text")); // NOI18N
         buttonRemoveFileSuffix.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveFileSuffixActionPerformed(evt);
             }

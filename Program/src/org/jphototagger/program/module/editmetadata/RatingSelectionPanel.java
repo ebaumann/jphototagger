@@ -375,6 +375,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonNoRating.setContentAreaFilled(false);
         buttonNoRating.setName("buttonNoRating"); // NOI18N
         buttonNoRating.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonNoRatingMousePressed(evt);
             }
@@ -393,6 +394,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonStar1.setContentAreaFilled(false);
         buttonStar1.setName("buttonStar1"); // NOI18N
         buttonStar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar1MousePressed(evt);
             }
@@ -411,6 +413,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonStar2.setContentAreaFilled(false);
         buttonStar2.setName("buttonStar2"); // NOI18N
         buttonStar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar2MousePressed(evt);
             }
@@ -429,6 +432,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonStar3.setContentAreaFilled(false);
         buttonStar3.setName("buttonStar3"); // NOI18N
         buttonStar3.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar3MousePressed(evt);
             }
@@ -447,6 +451,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonStar4.setContentAreaFilled(false);
         buttonStar4.setName("buttonStar4"); // NOI18N
         buttonStar4.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar4MousePressed(evt);
             }
@@ -465,6 +470,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonStar5.setContentAreaFilled(false);
         buttonStar5.setName("buttonStar5"); // NOI18N
         buttonStar5.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 buttonStar5MousePressed(evt);
             }

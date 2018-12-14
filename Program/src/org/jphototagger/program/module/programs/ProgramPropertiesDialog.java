@@ -466,6 +466,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         checkBoxUsePattern.setText(Bundle.getString(getClass(), "ProgramPropertiesDialog.checkBoxUsePattern.text")); // NOI18N
         checkBoxUsePattern.setName("checkBoxUsePattern"); // NOI18N
         checkBoxUsePattern.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxUsePatternActionPerformed(evt);
             }
@@ -481,6 +482,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonInfoUsePattern.setText(Bundle.getString(getClass(), "ProgramPropertiesDialog.buttonInfoUsePattern.text")); // NOI18N
         buttonInfoUsePattern.setName("buttonInfoUsePattern"); // NOI18N
         buttonInfoUsePattern.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInfoUsePatternActionPerformed(evt);
             }
@@ -529,6 +531,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         checkBoxInputBeforeExecute.setText(Bundle.getString(getClass(), "ProgramPropertiesDialog.checkBoxInputBeforeExecute.text")); // NOI18N
         checkBoxInputBeforeExecute.setName("checkBoxInputBeforeExecute"); // NOI18N
         checkBoxInputBeforeExecute.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxInputBeforeExecuteActionPerformed(evt);
             }
@@ -607,6 +610,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         setTitle(Bundle.getString(getClass(), "ProgramPropertiesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -651,6 +655,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonChooseFile.setText(Bundle.getString(getClass(), "ProgramPropertiesDialog.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.setName("buttonChooseFile"); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
@@ -680,6 +685,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         textFieldAlias.setColumns(10);
         textFieldAlias.setName("textFieldAlias"); // NOI18N
         textFieldAlias.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldAliasKeyPressed(evt);
             }
@@ -711,6 +717,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         toggleButtonExpertSettings.setText(BUTTON_TEXT_TOGGLE_TO_EXPERT_SETTINGS);
         toggleButtonExpertSettings.setName("toggleButtonExpertSettings"); // NOI18N
         toggleButtonExpertSettings.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonExpertSettingsActionPerformed(evt);
             }
@@ -736,6 +743,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonCancel.setText(Bundle.getString(getClass(), "ProgramPropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -752,6 +760,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonOk.setEnabled(false);
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }

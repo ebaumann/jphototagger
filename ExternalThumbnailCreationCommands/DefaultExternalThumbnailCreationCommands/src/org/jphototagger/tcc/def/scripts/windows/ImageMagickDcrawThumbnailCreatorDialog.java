@@ -169,6 +169,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         buttonChooseDcraw.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseDcraw.text")); // NOI18N
         buttonChooseDcraw.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDcrawActionPerformed(evt);
             }
@@ -180,6 +181,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         buttonBrowseDcraw.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseDcraw.text")); // NOI18N
         buttonBrowseDcraw.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseDcrawActionPerformed(evt);
             }
@@ -197,6 +199,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         buttonChooseConvert.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
         buttonChooseConvert.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseConvertActionPerformed(evt);
             }
@@ -208,6 +211,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         buttonBrowseConvert.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseConvert.text")); // NOI18N
         buttonBrowseConvert.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseConvertActionPerformed(evt);
             }
@@ -254,6 +258,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         buttonChooseMPlayer.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseMPlayer.text")); // NOI18N
         buttonChooseMPlayer.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseMPlayerActionPerformed(evt);
             }
@@ -265,6 +270,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         buttonBrowserMPlayer.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowserMPlayer.text")); // NOI18N
         buttonBrowserMPlayer.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowserMPlayerActionPerformed(evt);
             }
@@ -287,6 +293,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         buttonOk.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }
@@ -295,6 +302,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         buttonCancel.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }

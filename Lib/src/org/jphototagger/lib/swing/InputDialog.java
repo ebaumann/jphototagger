@@ -117,6 +117,7 @@ public final class InputDialog extends Dialog {
         textFieldInput.setColumns(20);
         textFieldInput.setName("textFieldInput"); // NOI18N
         textFieldInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldInputKeyPressed(evt);
             }
@@ -135,6 +136,7 @@ public final class InputDialog extends Dialog {
         buttonCancel.setText(Bundle.getString(getClass(), "InputDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -145,6 +147,7 @@ public final class InputDialog extends Dialog {
         buttonOk.setText(Bundle.getString(getClass(), "InputDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }

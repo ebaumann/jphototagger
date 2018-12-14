@@ -249,11 +249,13 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         listAutoscanDirectories.setCellRenderer(new org.jphototagger.lib.swing.FileSystemListCellRenderer(true));
         listAutoscanDirectories.setName("listAutoscanDirectories"); // NOI18N
         listAutoscanDirectories.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            @Override
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listAutoscanDirectoriesValueChanged(evt);
             }
         });
         listAutoscanDirectories.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 listAutoscanDirectoriesKeyReleased(evt);
             }
@@ -274,6 +276,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         checkBoxIsAutoscanIncludeSubdirectories.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.setName("checkBoxIsAutoscanIncludeSubdirectories"); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAutoscanIncludeSubdirectoriesActionPerformed(evt);
             }
@@ -291,6 +294,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         buttonRemoveAutoscanDirectories.setEnabled(false);
         buttonRemoveAutoscanDirectories.setName("buttonRemoveAutoscanDirectories"); // NOI18N
         buttonRemoveAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveAutoscanDirectoriesActionPerformed(evt);
             }
@@ -305,6 +309,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         buttonAddAutoscanDirectories.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.buttonAddAutoscanDirectories.text")); // NOI18N
         buttonAddAutoscanDirectories.setName("buttonAddAutoscanDirectories"); // NOI18N
         buttonAddAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddAutoscanDirectoriesActionPerformed(evt);
             }
@@ -340,6 +345,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
         spinnerMinutesToStartScheduledTasks.setName("spinnerMinutesToStartScheduledTasks"); // NOI18N
         spinnerMinutesToStartScheduledTasks.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spinnerMinutesToStartScheduledTasksStateChanged(evt);
             }

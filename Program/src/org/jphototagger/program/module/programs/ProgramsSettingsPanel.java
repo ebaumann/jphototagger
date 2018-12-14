@@ -220,6 +220,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
         menuItemAddProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemAddProgram.text")); // NOI18N
         menuItemAddProgram.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddProgramActionPerformed(evt);
             }
@@ -231,6 +232,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         menuItemEditProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemEditProgram.text")); // NOI18N
         menuItemEditProgram.setEnabled(false);
         menuItemEditProgram.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemEditProgramActionPerformed(evt);
             }
@@ -241,6 +243,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         menuItemRemoveProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemRemoveProgram.text")); // NOI18N
         menuItemRemoveProgram.setEnabled(false);
         menuItemRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRemoveProgramActionPerformed(evt);
             }
@@ -251,6 +254,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         menuItemMoveProgramUp.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemMoveProgramUp.text")); // NOI18N
         menuItemMoveProgramUp.setEnabled(false);
         menuItemMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveProgramUpActionPerformed(evt);
             }
@@ -260,6 +264,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         menuItemMoveProgramDown.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemMoveProgramDown.text")); // NOI18N
         menuItemMoveProgramDown.setEnabled(false);
         menuItemMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveProgramDownActionPerformed(evt);
             }
@@ -279,6 +284,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonDefaultPrograms.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonDefaultPrograms.text")); // NOI18N
         buttonDefaultPrograms.setEnabled(false);
         buttonDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDefaultProgramsActionPerformed(evt);
             }
@@ -297,16 +303,19 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         listPrograms.setDropMode(javax.swing.DropMode.INSERT);
         listPrograms.setTransferHandler(new org.jphototagger.program.datatransfer.ReorderListItemsTransferHandler(listPrograms));
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listProgramsMouseClicked(evt);
             }
         });
         listPrograms.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            @Override
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listProgramsValueChanged(evt);
             }
         });
         listPrograms.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listProgramsKeyPressed(evt);
             }
@@ -336,6 +345,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonMoveProgramUp.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonMoveProgramUp.text")); // NOI18N
         buttonMoveProgramUp.setEnabled(false);
         buttonMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMoveProgramUpActionPerformed(evt);
             }
@@ -348,6 +358,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonMoveProgramDown.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonMoveProgramDown.text")); // NOI18N
         buttonMoveProgramDown.setEnabled(false);
         buttonMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMoveProgramDownActionPerformed(evt);
             }
@@ -362,6 +373,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonRemoveProgram.setToolTipText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonRemoveProgram.toolTipText")); // NOI18N
         buttonRemoveProgram.setEnabled(false);
         buttonRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveProgramActionPerformed(evt);
             }
@@ -375,6 +387,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonAddProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonAddProgram.text")); // NOI18N
         buttonAddProgram.setToolTipText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonAddProgram.toolTipText")); // NOI18N
         buttonAddProgram.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddProgramActionPerformed(evt);
             }
@@ -389,6 +402,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonEditProgram.setToolTipText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonEditProgram.toolTipText")); // NOI18N
         buttonEditProgram.setEnabled(false);
         buttonEditProgram.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditProgramActionPerformed(evt);
             }

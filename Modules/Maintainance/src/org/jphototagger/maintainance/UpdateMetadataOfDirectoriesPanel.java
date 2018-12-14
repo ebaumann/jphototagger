@@ -485,11 +485,14 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
         popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            @Override
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
                 popupMenuPopupMenuWillBecomeVisible(evt);
             }
+            @Override
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
+            @Override
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
@@ -500,6 +503,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         menuItemDelete.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
             }
@@ -526,6 +530,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 listKeyReleased(evt);
             }
@@ -625,6 +630,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         buttonCancelChooseDirectories.setEnabled(false);
         buttonCancelChooseDirectories.setName("buttonCancelChooseDirectories"); // NOI18N
         buttonCancelChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelChooseDirectoriesActionPerformed(evt);
             }
@@ -635,6 +641,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -644,6 +651,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         buttonChooseDirectories.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
         buttonChooseDirectories.setName("buttonChooseDirectories"); // NOI18N
         buttonChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoriesActionPerformed(evt);
             }
@@ -654,6 +662,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStartActionPerformed(evt);
             }

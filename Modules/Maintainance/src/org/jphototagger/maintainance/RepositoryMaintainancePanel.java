@@ -396,6 +396,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInRepository.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed(evt);
             }
@@ -415,6 +416,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         checkBoxCompressRepository.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxCompressRepository.text")); // NOI18N
         checkBoxCompressRepository.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCompressRepositoryActionPerformed(evt);
             }
@@ -435,6 +437,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         checkBoxDeleteOrphanedThumbnails.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
         checkBoxDeleteOrphanedThumbnails.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteOrphanedThumbnailsActionPerformed(evt);
             }
@@ -455,6 +458,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         checkBoxDeleteUnusedKeywords.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
         checkBoxDeleteUnusedKeywords.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteUnusedKeywordsActionPerformed(evt);
             }
@@ -475,6 +479,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         checkBoxDeleteNotReferenced1n.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
         checkBoxDeleteNotReferenced1n.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteNotReferenced1nActionPerformed(evt);
             }
@@ -546,6 +551,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         buttonDeleteMessages.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
         buttonDeleteMessages.setEnabled(false);
         buttonDeleteMessages.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteMessagesActionPerformed(evt);
             }
@@ -560,6 +566,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         buttonCancelAction.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.buttonCancelAction.text")); // NOI18N
         buttonCancelAction.setEnabled(false);
         buttonCancelAction.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionActionPerformed(evt);
             }
@@ -573,6 +580,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         buttonStartMaintain.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
         buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStartMaintainActionPerformed(evt);
             }

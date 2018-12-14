@@ -512,6 +512,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         buttonRestoreSelection.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRestoreSelection.setName("buttonRestoreSelection"); // NOI18N
         buttonRestoreSelection.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRestoreSelectionActionPerformed(evt);
             }

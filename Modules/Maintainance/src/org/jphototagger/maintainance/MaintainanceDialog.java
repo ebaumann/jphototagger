@@ -41,6 +41,7 @@ public class MaintainanceDialog extends Dialog {
         setIconImage(null);
         setName("MaintainanceDialog"); // NOI18N
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent evt) {
                 formWindowClosing(evt);
             }

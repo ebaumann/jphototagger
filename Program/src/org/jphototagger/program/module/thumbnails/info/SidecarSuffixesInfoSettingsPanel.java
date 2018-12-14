@@ -159,6 +159,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
 
         listSuffixes.setModel(suffixesListModel);
         listSuffixes.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listSuffixesKeyPressed(evt);
             }
@@ -182,6 +183,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         panelContent.add(labelSuffix, gridBagConstraints);
 
         textFieldSuffix.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldSuffixKeyPressed(evt);
             }
@@ -196,6 +198,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         buttonAddSuffix.setText(Bundle.getString(getClass(), "SidecarSuffixesInfoSettingsPanel.buttonAddSuffix.text")); // NOI18N
         buttonAddSuffix.setEnabled(false);
         buttonAddSuffix.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddSuffixActionPerformed(evt);
             }
@@ -207,6 +210,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         buttonRemoveSuffix.setText(Bundle.getString(getClass(), "SidecarSuffixesInfoSettingsPanel.buttonRemoveSuffix.text")); // NOI18N
         buttonRemoveSuffix.setEnabled(false);
         buttonRemoveSuffix.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSuffixActionPerformed(evt);
             }

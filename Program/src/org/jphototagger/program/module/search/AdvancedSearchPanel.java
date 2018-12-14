@@ -587,11 +587,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
         tabbedPane.setName("tabbedPane"); // NOI18N
         tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 tabbedPaneStateChanged(evt);
             }
         });
         tabbedPane.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
             public void focusGained(java.awt.event.FocusEvent evt) {
                 tabbedPaneFocusGained(evt);
             }
@@ -649,6 +651,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         buttonAddColumn.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
         buttonAddColumn.setName("buttonAddColumn"); // NOI18N
         buttonAddColumn.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddColumnActionPerformed(evt);
             }
@@ -714,6 +717,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         buttonSaveSearch.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.setName("buttonSaveSearch"); // NOI18N
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveSearchActionPerformed(evt);
             }
@@ -723,6 +727,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         buttonSaveAs.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
         buttonSaveAs.setName("buttonSaveAs"); // NOI18N
         buttonSaveAs.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveAsActionPerformed(evt);
             }
@@ -732,6 +737,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         buttonResetColumns.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
         buttonResetColumns.setName("buttonResetColumns"); // NOI18N
         buttonResetColumns.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonResetColumnsActionPerformed(evt);
             }

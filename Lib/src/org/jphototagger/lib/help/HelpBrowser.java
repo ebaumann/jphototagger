@@ -708,6 +708,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         buttonPrint.setToolTipText(Bundle.getString(getClass(), "HelpBrowser.buttonPrint.toolTipText")); // NOI18N
         buttonPrint.setName("buttonPrint"); // NOI18N
         buttonPrint.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPrintActionPerformed(evt);
             }
@@ -752,6 +753,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         menuItemTextFontSizeSmall.setText(Bundle.getString(getClass(), "HelpBrowser.menuItemTextFontSizeSmall.text")); // NOI18N
         menuItemTextFontSizeSmall.setName("menuItemTextFontSizeSmall"); // NOI18N
         menuItemTextFontSizeSmall.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemTextFontSizeSmallActionPerformed(evt);
             }
@@ -763,6 +765,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         menuItemTextFontSizeNormal.setText(Bundle.getString(getClass(), "HelpBrowser.menuItemTextFontSizeNormal.text")); // NOI18N
         menuItemTextFontSizeNormal.setName("menuItemTextFontSizeNormal"); // NOI18N
         menuItemTextFontSizeNormal.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemTextFontSizeNormalActionPerformed(evt);
             }
@@ -773,6 +776,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         menuItemTextFontSizeLarge.setText(Bundle.getString(getClass(), "HelpBrowser.menuItemTextFontSizeLarge.text")); // NOI18N
         menuItemTextFontSizeLarge.setName("menuItemTextFontSizeLarge"); // NOI18N
         menuItemTextFontSizeLarge.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemTextFontSizeLargeActionPerformed(evt);
             }
@@ -783,6 +787,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         menuItemTextFontSizeHuge.setText(Bundle.getString(getClass(), "HelpBrowser.menuItemTextFontSizeHuge.text")); // NOI18N
         menuItemTextFontSizeHuge.setName("menuItemTextFontSizeHuge"); // NOI18N
         menuItemTextFontSizeHuge.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemTextFontSizeHugeActionPerformed(evt);
             }

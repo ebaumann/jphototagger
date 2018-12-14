@@ -349,6 +349,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         toggleButtonBracketLeft1.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         toggleButtonBracketLeft1.setName("toggleButtonBracketLeft1"); // NOI18N
         toggleButtonBracketLeft1.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketLeft1ActionPerformed(evt);
             }
@@ -361,6 +362,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         comboBoxOperators.setModel(new DefaultComboBoxModel<Object>(Operator.values()));
         comboBoxOperators.setName("comboBoxOperators"); // NOI18N
         comboBoxOperators.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxOperatorsActionPerformed(evt);
             }
@@ -375,6 +377,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         toggleButtonBracketLeft2.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         toggleButtonBracketLeft2.setName("toggleButtonBracketLeft2"); // NOI18N
         toggleButtonBracketLeft2.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketLeft2ActionPerformed(evt);
             }
@@ -389,6 +392,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         comboBoxColumns.setName("comboBoxColumns"); // NOI18N
         comboBoxColumns.setRenderer(columnRenderer);
         comboBoxColumns.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxColumnsActionPerformed(evt);
             }
@@ -402,6 +406,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         comboBoxComparators.setModel(new DefaultComboBoxModel<Object>(Comparator.values()));
         comboBoxComparators.setName("comboBoxComparators"); // NOI18N
         comboBoxComparators.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxComparatorsActionPerformed(evt);
             }
@@ -416,6 +421,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         textFieldValue.setFocusLostBehavior(javax.swing.JFormattedTextField.PERSIST);
         textFieldValue.setName("textFieldValue"); // NOI18N
         textFieldValue.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textFieldValueKeyTyped(evt);
             }
@@ -432,6 +438,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         toggleButtonBracketRight.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         toggleButtonBracketRight.setName("toggleButtonBracketRight"); // NOI18N
         toggleButtonBracketRight.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonBracketRightActionPerformed(evt);
             }
@@ -447,6 +454,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         buttonCalendar.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonCalendar.setName("buttonCalendar"); // NOI18N
         buttonCalendar.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCalendarActionPerformed(evt);
             }

@@ -191,6 +191,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         textFieldSearch.setColumns(20);
         textFieldSearch.setName("textFieldSearch"); // NOI18N
         textFieldSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldSearchKeyReleased(evt);
             }
@@ -214,6 +215,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         textFieldReplacement.setColumns(20);
         textFieldReplacement.setName("textFieldReplacement"); // NOI18N
         textFieldReplacement.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldReplacementKeyReleased(evt);
             }
@@ -239,6 +241,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         buttonReplace.setEnabled(false);
         buttonReplace.setName("buttonReplace"); // NOI18N
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonReplaceActionPerformed(evt);
             }

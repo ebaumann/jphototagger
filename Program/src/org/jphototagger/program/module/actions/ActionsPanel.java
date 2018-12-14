@@ -261,6 +261,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemExecute.setText(Bundle.getString(getClass(), "ActionsPanel.menuItemExecute.text")); // NOI18N
         menuItemExecute.setName("menuItemExecute"); // NOI18N
         menuItemExecute.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemExecuteActionPerformed(evt);
             }
@@ -273,6 +274,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemCreate.setText(Bundle.getString(getClass(), "ActionsPanel.menuItemCreate.text")); // NOI18N
         menuItemCreate.setName("menuItemCreate"); // NOI18N
         menuItemCreate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemCreateActionPerformed(evt);
             }
@@ -282,6 +284,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemEdit.setText(Bundle.getString(getClass(), "ActionsPanel.menuItemEdit.text")); // NOI18N
         menuItemEdit.setName("menuItemEdit"); // NOI18N
         menuItemEdit.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemEditActionPerformed(evt);
             }
@@ -292,6 +295,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemDelete.setText(Bundle.getString(getClass(), "ActionsPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
             }
@@ -304,6 +308,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemMoveActionUp.setText(Bundle.getString(getClass(), "ActionsPanel.menuItemMoveActionUp.text")); // NOI18N
         menuItemMoveActionUp.setName("menuItemMoveActionUp"); // NOI18N
         menuItemMoveActionUp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveActionUpActionPerformed(evt);
             }
@@ -313,6 +318,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemMoveActionDown.setText(Bundle.getString(getClass(), "ActionsPanel.menuItemMoveActionDown.text")); // NOI18N
         menuItemMoveActionDown.setName("menuItemMoveActionDown"); // NOI18N
         menuItemMoveActionDown.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemMoveActionDownActionPerformed(evt);
             }
@@ -345,16 +351,19 @@ public final class ActionsPanel extends javax.swing.JPanel {
         list.setName("list"); // NOI18N
         list.setTransferHandler(new org.jphototagger.program.datatransfer.ReorderListItemsTransferHandler(list));
         list.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
             }
         });
         list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            @Override
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listValueChanged(evt);
             }
         });
         list.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listKeyPressed(evt);
             }
@@ -379,6 +388,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonDelete.setEnabled(false);
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }
@@ -390,6 +400,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonEdit.setEnabled(false);
         buttonEdit.setName("buttonEdit"); // NOI18N
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditActionPerformed(evt);
             }
@@ -402,6 +413,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonCreate.setToolTipText(Bundle.getString(getClass(), "ActionsPanel.buttonCreate.toolTipText")); // NOI18N
         buttonCreate.setName("buttonCreate"); // NOI18N
         buttonCreate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCreateActionPerformed(evt);
             }
@@ -415,6 +427,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         buttonExecute.setEnabled(false);
         buttonExecute.setName("buttonExecute"); // NOI18N
         buttonExecute.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExecuteActionPerformed(evt);
             }

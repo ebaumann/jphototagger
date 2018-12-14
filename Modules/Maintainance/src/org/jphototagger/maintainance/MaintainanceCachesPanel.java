@@ -121,6 +121,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         buttonCompactThumbnailsRepository.setText(Bundle.getString(getClass(), "MaintainanceCachesPanel.buttonCompactThumbnailsRepository.text")); // NOI18N
         buttonCompactThumbnailsRepository.setName("buttonCompactThumbnailsRepository"); // NOI18N
         buttonCompactThumbnailsRepository.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 buttonCompactThumbnailsRepositoryActionPerformed(evt);
             }

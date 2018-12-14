@@ -303,6 +303,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         buttonSave.setText(Bundle.getString(getClass(), "EditWordsetPanel.buttonSave.text")); // NOI18N
         buttonSave.setEnabled(false);
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveActionPerformed(evt);
             }
@@ -330,6 +331,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         bindingGroup.addBinding(binding);
 
         listWords.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listWordsKeyPressed(evt);
             }
@@ -362,6 +364,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         bindingGroup.addBinding(binding);
 
         textAreaWord.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textAreaWordKeyPressed(evt);
             }
@@ -378,6 +381,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         buttonAddWord.setToolTipText(Bundle.getString(getClass(), "EditWordsetPanel.buttonAddWord.toolTipText")); // NOI18N
         buttonAddWord.setEnabled(false);
         buttonAddWord.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddWordActionPerformed(evt);
             }
@@ -392,6 +396,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         buttonRemoveSelectedWords.setToolTipText(Bundle.getString(getClass(), "EditWordsetPanel.buttonRemoveSelectedWords.toolTipText")); // NOI18N
         buttonRemoveSelectedWords.setEnabled(false);
         buttonRemoveSelectedWords.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSelectedWordsActionPerformed(evt);
             }

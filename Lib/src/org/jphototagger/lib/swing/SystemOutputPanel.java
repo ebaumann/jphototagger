@@ -152,6 +152,7 @@ public class SystemOutputPanel extends JPanel {
         buttonDelete.setToolTipText(Bundle.getString(getClass(), "SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }
@@ -164,6 +165,7 @@ public class SystemOutputPanel extends JPanel {
         buttonCopyToClipboard.setToolTipText(Bundle.getString(getClass(), "SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
         buttonCopyToClipboard.setName("buttonCopyToClipboard"); // NOI18N
         buttonCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCopyToClipboardActionPerformed(evt);
             }

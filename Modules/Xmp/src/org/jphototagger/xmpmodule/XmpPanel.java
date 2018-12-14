@@ -900,6 +900,7 @@ public class XmpPanel extends javax.swing.JPanel {
         checkBoxScanForEmbeddedXmp.setText(Bundle.getString(XmpPanel.class, "XmpPanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
         checkBoxScanForEmbeddedXmp.setName("checkBoxScanForEmbeddedXmp"); // NOI18N
         checkBoxScanForEmbeddedXmp.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 checkBoxScanForEmbeddedXmpActionPerformed(evt);
             }

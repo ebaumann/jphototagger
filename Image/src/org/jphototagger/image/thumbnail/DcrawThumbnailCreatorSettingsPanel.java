@@ -126,6 +126,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
 
         buttonChooseFile.setText(Bundle.getString(getClass(), "DcrawThumbnailCreatorSettingsPanel.buttonChooseFile.text")); // NOI18N
         buttonChooseFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFileActionPerformed(evt);
             }
@@ -140,6 +141,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         buttonRemoveFile.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonRemoveFile.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(18, 18));
         buttonRemoveFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveFileActionPerformed(evt);
             }

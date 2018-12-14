@@ -201,6 +201,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         comboBoxLaf.setModel(lafComboBoxModel);
         comboBoxLaf.setRenderer(lafListCellRenderer);
         comboBoxLaf.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxLafActionPerformed(evt);
             }

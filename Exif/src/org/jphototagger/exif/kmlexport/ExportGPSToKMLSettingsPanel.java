@@ -63,6 +63,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         checkBoxAddFilenameToGpsLocationExport.setText(Bundle.getString(getClass(), "ExportGPSToKMLSettingsPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.setName("checkBoxAddFilenameToGpsLocationExport"); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent evt) {
                 checkBoxAddFilenameToGpsLocationExportActionPerformed(evt);
             }

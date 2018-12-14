@@ -202,6 +202,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         buttonToggleExpandAllNodes.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonToggleExpandAllNodes.setName("buttonToggleExpandAllNodes"); // NOI18N
         buttonToggleExpandAllNodes.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonToggleExpandAllNodesActionPerformed(evt);
             }
@@ -227,6 +228,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         buttonAsList.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonAsList.setName("buttonAsList"); // NOI18N
         buttonAsList.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAsListActionPerformed(evt);
             }
@@ -313,6 +315,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         buttonAsTree.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         buttonAsTree.setName("buttonAsTree"); // NOI18N
         buttonAsTree.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAsTreeActionPerformed(evt);
             }

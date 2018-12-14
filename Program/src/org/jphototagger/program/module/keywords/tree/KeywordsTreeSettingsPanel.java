@@ -80,6 +80,7 @@ public class KeywordsTreeSettingsPanel extends javax.swing.JPanel implements Opt
         checkBoxAutoInsertUnknownKeywords.setText(Bundle.getString(getClass(), "KeywordsTreeSettingsPanel.checkBoxAutoInsertUnknownKeywords.text")); // NOI18N
         checkBoxAutoInsertUnknownKeywords.setToolTipText(Bundle.getString(getClass(), "KeywordsTreeSettingsPanel.checkBoxAutoInsertUnknownKeywords.toolTipText")); // NOI18N
         checkBoxAutoInsertUnknownKeywords.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAutoInsertUnknownKeywordsActionPerformed(evt);
             }

@@ -344,6 +344,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
         checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
             }
@@ -358,6 +359,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         checkBoxEnableDeleteDirectories.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxEnableDeleteDirectories.text")); // NOI18N
         checkBoxEnableDeleteDirectories.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxEnableDeleteDirectoriesActionPerformed(evt);
             }
@@ -372,6 +374,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         checkBoxCheckForUpdates.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxCheckForUpdates.text")); // NOI18N
         checkBoxCheckForUpdates.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCheckForUpdatesActionPerformed(evt);
             }
@@ -391,6 +394,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         checkBoxDisplaySearchButton.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplaySearchButtonActionPerformed(evt);
             }
@@ -405,6 +409,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         checkBoxUseLongXmpSidecarFileNames.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxUseLongXmpSidecarFileNames.text")); // NOI18N
         checkBoxUseLongXmpSidecarFileNames.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxUseLongXmpSidecarFileNamesActionPerformed(evt);
             }
@@ -429,6 +434,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         spinnerMdTextAreasColumns.setModel(new javax.swing.SpinnerNumberModel(AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_DEFAULT, AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MINIMUM, AppPreferencesDefaults.UI_COLUMNS_MD_TEXT_AREAS_MAXIMUM, 5));
         spinnerMdTextAreasColumns.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spinnerMdTextAreasColumnsStateChanged(evt);
             }
@@ -459,6 +465,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         checkBoxDisplayWordsetsEditPanel.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.text")); // NOI18N
         checkBoxDisplayWordsetsEditPanel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplayWordsetsEditPanelActionPerformed(evt);
             }
@@ -485,6 +492,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite);
         radioButtonCopyMoveFileConfirmOverwrite.setText(Bundle.getString(getClass(), "MiscSettingsPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
         radioButtonCopyMoveFileConfirmOverwrite.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCopyMoveFileConfirmOverwriteActionPerformed(evt);
             }
@@ -500,6 +508,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
         radioButtonCopyMoveFileRenameIfExists.setText(Bundle.getString(getClass(), "MiscSettingsPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
         radioButtonCopyMoveFileRenameIfExists.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCopyMoveFileRenameIfExistsActionPerformed(evt);
             }
@@ -535,6 +544,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         buttonChooseRepositoryDirectory.setText(Bundle.getString(getClass(), "MiscSettingsPanel.buttonChooseRepositoryDirectory.text")); // NOI18N
         buttonChooseRepositoryDirectory.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseRepositoryDirectoryActionPerformed(evt);
             }
@@ -543,6 +553,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         buttonSetDefaultRepositoryDirectoryName.setText(Bundle.getString(getClass(), "MiscSettingsPanel.buttonSetDefaultRepositoryDirectoryName.text")); // NOI18N
         buttonSetDefaultRepositoryDirectoryName.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetDefaultRepositoryDirectoryNameActionPerformed(evt);
             }

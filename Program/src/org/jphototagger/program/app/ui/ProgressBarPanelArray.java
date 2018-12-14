@@ -211,6 +211,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         dialogHiddenProgressBars.setIconImages(org.jphototagger.resources.Icons.getAppIcons());
         dialogHiddenProgressBars.setUndecorated(true);
         dialogHiddenProgressBars.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 dialogHiddenProgressBarsWindowClosing(evt);
             }

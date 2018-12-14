@@ -78,11 +78,13 @@ public class ProgramChooseDialog extends Dialog {
         bindingGroup.addBinding(binding);
 
         listPrograms.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listProgramsMouseClicked(evt);
             }
         });
         listPrograms.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listProgramsKeyPressed(evt);
             }
@@ -99,6 +101,7 @@ public class ProgramChooseDialog extends Dialog {
 
         buttonChooseProgram.setText(Bundle.getString(getClass(), "ProgramChooseDialog.buttonChooseProgram.text")); // NOI18N
         buttonChooseProgram.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseProgramActionPerformed(evt);
             }

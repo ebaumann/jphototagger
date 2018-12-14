@@ -624,6 +624,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
         list.setCellRenderer(new TabTitleRenderer());
         list.setName("list"); // NOI18N
         list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            @Override
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listValueChanged(evt);
             }

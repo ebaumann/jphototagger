@@ -205,6 +205,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         toggleButtonRefreshExif.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshExif.setName("toggleButtonRefreshExif"); // NOI18N
         toggleButtonRefreshExif.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonRefreshExifActionPerformed(evt);
             }
@@ -230,6 +231,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         toggleButtonRefreshXmp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshXmp.setName("toggleButtonRefreshXmp"); // NOI18N
         toggleButtonRefreshXmp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 toggleButtonRefreshXmpActionPerformed(evt);
             }
@@ -255,6 +257,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         buttonUpdateThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonUpdateThumbnails.setName("buttonUpdateThumbnails"); // NOI18N
         buttonUpdateThumbnails.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateThumbnailsActionPerformed(evt);
             }
@@ -280,6 +283,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         buttonRenameFiles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonRenameFiles.setName("buttonRenameFiles"); // NOI18N
         buttonRenameFiles.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameFilesActionPerformed(evt);
             }

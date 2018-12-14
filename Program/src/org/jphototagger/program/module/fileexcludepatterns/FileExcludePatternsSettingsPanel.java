@@ -271,6 +271,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         menuItemDeletePattern.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.menuItemDeletePattern.text")); // NOI18N
         menuItemDeletePattern.setName("menuItemDeletePattern"); // NOI18N
         menuItemDeletePattern.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeletePatternActionPerformed(evt);
             }
@@ -302,11 +303,13 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            @Override
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listValueChanged(evt);
             }
         });
         list.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listKeyPressed(evt);
             }
@@ -332,11 +335,13 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
 
         textFieldInputPattern.setName("textFieldInputPattern"); // NOI18N
         textFieldInputPattern.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textFieldInputPatternFocusGained(evt);
             }
         });
         textFieldInputPattern.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldInputPatternKeyReleased(evt);
             }
@@ -353,6 +358,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonChooseDirs.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirsActionPerformed(evt);
             }
@@ -366,6 +372,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         buttonDeletePattern.setEnabled(false);
         buttonDeletePattern.setName("buttonDeletePattern"); // NOI18N
         buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeletePatternActionPerformed(evt);
             }
@@ -380,6 +387,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         buttonInsertPattern.setEnabled(false);
         buttonInsertPattern.setName("buttonInsertPattern"); // NOI18N
         buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInsertPatternActionPerformed(evt);
             }
@@ -434,6 +442,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         buttonCancelUpdateRepository.setEnabled(false);
         buttonCancelUpdateRepository.setName("buttonCancelUpdateRepository"); // NOI18N
         buttonCancelUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelUpdateRepositoryActionPerformed(evt);
             }
@@ -445,6 +454,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         buttonUpdateRepository.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.buttonUpdateRepository.text")); // NOI18N
         buttonUpdateRepository.setName("buttonUpdateRepository"); // NOI18N
         buttonUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateRepositoryActionPerformed(evt);
             }

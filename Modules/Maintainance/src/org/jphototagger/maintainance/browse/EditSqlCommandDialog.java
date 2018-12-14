@@ -139,6 +139,7 @@ public class EditSqlCommandDialog extends Dialog {
 
         buttonOk.setText(org.jphototagger.lib.util.Bundle.getString(EditSqlCommandDialog.class, "EditSqlCommandDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }
@@ -147,6 +148,7 @@ public class EditSqlCommandDialog extends Dialog {
 
         buttonCancel.setText(org.jphototagger.lib.util.Bundle.getString(EditSqlCommandDialog.class, "EditSqlCommandDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }

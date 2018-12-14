@@ -125,6 +125,7 @@ public class EditXmpDialog extends Dialog {
 
         comboBoxTemplates.setModel(new MetadataTemplatesComboBoxModel());
         comboBoxTemplates.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxTemplatesActionPerformed(evt);
             }
@@ -138,6 +139,7 @@ public class EditXmpDialog extends Dialog {
         buttonEditMetadataTemplates.setToolTipText(Bundle.getString(getClass(), "EditXmpDialog.buttonEditMetadataTemplates.toolTipText")); // NOI18N
         buttonEditMetadataTemplates.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEditMetadataTemplates.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditMetadataTemplatesActionPerformed(evt);
             }
@@ -150,6 +152,7 @@ public class EditXmpDialog extends Dialog {
         buttonInsertTemplate.setText(Bundle.getString(getClass(), "EditXmpDialog.buttonInsertTemplate.text")); // NOI18N
         buttonInsertTemplate.setEnabled(false);
         buttonInsertTemplate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInsertTemplateActionPerformed(evt);
             }
@@ -181,6 +184,7 @@ public class EditXmpDialog extends Dialog {
 
         buttonCancel.setText(Bundle.getString(getClass(), "EditXmpDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -191,6 +195,7 @@ public class EditXmpDialog extends Dialog {
 
         buttonOk.setText(Bundle.getString(getClass(), "EditXmpDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }

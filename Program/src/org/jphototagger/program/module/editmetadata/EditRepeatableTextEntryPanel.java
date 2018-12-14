@@ -840,6 +840,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         menuItemRename.setText(Bundle.getString(getClass(), "EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
         menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRenameActionPerformed(evt);
             }
@@ -850,6 +851,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         menuItemRemove.setText(Bundle.getString(getClass(), "EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
         menuItemRemove.setName("menuItemRemove"); // NOI18N
         menuItemRemove.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemRemoveActionPerformed(evt);
             }
@@ -878,11 +880,13 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         list.setName("list"); // NOI18N
         list.setVisibleRowCount(-1);
         list.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            @Override
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listValueChanged(evt);
             }
         });
         list.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listKeyPressed(evt);
             }
@@ -907,6 +911,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonRemoveSelection.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemoveSelection.setName("buttonRemoveSelection"); // NOI18N
         buttonRemoveSelection.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveSelectionActionPerformed(evt);
             }
@@ -927,9 +932,11 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         textAreaInput.setRows(1);
         textAreaInput.setName("textAreaInput"); // NOI18N
         textAreaInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textAreaInputKeyPressed(evt);
             }
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textAreaInputKeyReleased(evt);
             }
@@ -948,6 +955,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonAddInput.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonAddInput.setName("buttonAddInput"); // NOI18N
         buttonAddInput.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddInputActionPerformed(evt);
             }
@@ -964,6 +972,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         buttonSuggestion.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonSuggestion.setName("buttonSuggestion"); // NOI18N
         buttonSuggestion.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSuggestionActionPerformed(evt);
             }

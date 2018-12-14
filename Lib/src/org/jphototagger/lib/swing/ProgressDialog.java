@@ -183,6 +183,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         setTitle(Bundle.getString(getClass(), "ProgressDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -210,6 +211,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         buttonStop.setText(Bundle.getString(getClass(), "ProgressDialog.buttonStop.text")); // NOI18N
         buttonStop.setName("buttonStop"); // NOI18N
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStopActionPerformed(evt);
             }

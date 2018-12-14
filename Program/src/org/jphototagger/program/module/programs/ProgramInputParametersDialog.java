@@ -203,6 +203,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         buttonCancel.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -212,6 +213,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         buttonOk.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }

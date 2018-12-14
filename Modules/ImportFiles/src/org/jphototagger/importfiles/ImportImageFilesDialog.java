@@ -706,6 +706,7 @@ public class ImportImageFilesDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/importfiles/Bundle"); // NOI18N
         buttonChooseSourceDir.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonChooseSourceDir.text")); // NOI18N
         buttonChooseSourceDir.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseSourceDirActionPerformed(evt);
             }
@@ -728,6 +729,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         buttonChooseFiles.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonChooseFiles.text")); // NOI18N
         buttonChooseFiles.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseFilesActionPerformed(evt);
             }
@@ -764,6 +766,7 @@ public class ImportImageFilesDialog extends Dialog {
         buttonRemoveScriptFile.setEnabled(false);
         buttonRemoveScriptFile.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(16, 16));
         buttonRemoveScriptFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveScriptFileActionPerformed(evt);
             }
@@ -775,6 +778,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         buttonChooseScriptFile.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonChooseScriptFile.text")); // NOI18N
         buttonChooseScriptFile.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseScriptFileActionPerformed(evt);
             }
@@ -825,6 +829,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         comboBoxSourceStrategy.setModel(new ComboBoxModelSourceStrategy());
         comboBoxSourceStrategy.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSourceStrategyActionPerformed(evt);
             }
@@ -839,6 +844,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         checkBoxDeleteAfterCopy.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.checkBoxDeleteAfterCopy.text")); // NOI18N
         checkBoxDeleteAfterCopy.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteAfterCopyActionPerformed(evt);
             }
@@ -852,6 +858,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         checkBoxSkipDuplicates.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.checkBoxSkipDuplicates.text")); // NOI18N
         checkBoxSkipDuplicates.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSkipDuplicatesActionPerformed(evt);
             }
@@ -883,6 +890,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         buttonChooseTargetDir.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonChooseTargetDir.text")); // NOI18N
         buttonChooseTargetDir.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseTargetDirActionPerformed(evt);
             }
@@ -896,6 +904,7 @@ public class ImportImageFilesDialog extends Dialog {
         comboBoxSubdirectoryCreateStrategy.setModel(new org.jphototagger.importfiles.subdircreators.SubdirectoryCreateStrategyComboBoxModel());
         comboBoxSubdirectoryCreateStrategy.setRenderer(new DisplayNameListCellRenderer());
         comboBoxSubdirectoryCreateStrategy.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSubdirectoryCreateStrategyActionPerformed(evt);
             }
@@ -921,6 +930,7 @@ public class ImportImageFilesDialog extends Dialog {
         comboBoxFileRenameStrategy.setModel(new FileRenameStrategyComboBoxModel());
         comboBoxFileRenameStrategy.setRenderer(new DisplayNameListCellRenderer());
         comboBoxFileRenameStrategy.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxFileRenameStrategyActionPerformed(evt);
             }
@@ -935,6 +945,7 @@ public class ImportImageFilesDialog extends Dialog {
         buttonEditRenameTemplates.setToolTipText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonEditRenameTemplates.toolTipText")); // NOI18N
         buttonEditRenameTemplates.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEditRenameTemplates.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEditRenameTemplatesActionPerformed(evt);
             }
@@ -971,6 +982,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         buttonExpertSettings.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonExpertSettings.text")); // NOI18N
         buttonExpertSettings.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExpertSettingsActionPerformed(evt);
             }
@@ -982,6 +994,7 @@ public class ImportImageFilesDialog extends Dialog {
 
         buttonCancel.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -995,6 +1008,7 @@ public class ImportImageFilesDialog extends Dialog {
         buttonOk.setText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }

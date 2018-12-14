@@ -179,11 +179,14 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
 
         popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            @Override
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
                 popupMenuPopupMenuWillBecomeVisible(evt);
             }
+            @Override
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
+            @Override
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
             }
         });
@@ -193,6 +196,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         menuItemInsert.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.menuItemInsert.text")); // NOI18N
         menuItemInsert.setName("menuItemInsert"); // NOI18N
         menuItemInsert.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemInsertActionPerformed(evt);
             }
@@ -203,6 +207,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         menuItemUpdate.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.menuItemUpdate.text")); // NOI18N
         menuItemUpdate.setName("menuItemUpdate"); // NOI18N
         menuItemUpdate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemUpdateActionPerformed(evt);
             }
@@ -213,6 +218,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         menuItemDelete.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemDeleteActionPerformed(evt);
             }
@@ -229,11 +235,13 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         list.setComponentPopupMenu(popupMenu);
         list.setName("list"); // NOI18N
         list.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listMouseClicked(evt);
             }
         });
         list.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listKeyPressed(evt);
             }
@@ -253,6 +261,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         buttonInsert.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.buttonInsert.text")); // NOI18N
         buttonInsert.setName("buttonInsert"); // NOI18N
         buttonInsert.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonInsertActionPerformed(evt);
             }
@@ -267,6 +276,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         buttonUpdate.setEnabled(false);
         buttonUpdate.setName("buttonUpdate"); // NOI18N
         buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonUpdateActionPerformed(evt);
             }
@@ -282,6 +292,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         buttonDelete.setEnabled(false);
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonDeleteActionPerformed(evt);
             }

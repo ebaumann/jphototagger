@@ -97,6 +97,7 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
         spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(ThumbnailDefaults.DEFAULT_THUMBNAIL_WIDTH, ThumbnailDefaults.MIN_THUMBNAIL_WIDTH, ThumbnailDefaults.MAX_THUMBNAIL_WIDTH, 50));
         spinnerMaxThumbnailWidth.setName("spinnerMaxThumbnailWidth"); // NOI18N
         spinnerMaxThumbnailWidth.addChangeListener(new javax.swing.event.ChangeListener() {
+            @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 spinnerMaxThumbnailWidthStateChanged(evt);
             }

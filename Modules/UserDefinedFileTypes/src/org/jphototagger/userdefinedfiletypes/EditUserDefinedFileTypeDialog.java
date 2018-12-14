@@ -265,6 +265,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -316,6 +317,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
         buttonHelp.setText(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.buttonHelp.text")); // NOI18N
         buttonHelp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHelpActionPerformed(evt);
             }
@@ -326,6 +328,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
         buttonSave.setText(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.buttonSave.text")); // NOI18N
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveActionPerformed(evt);
             }

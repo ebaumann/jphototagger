@@ -337,6 +337,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         setTitle(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -355,6 +356,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         buttonChooseDirectory.setText(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
             }
@@ -420,6 +422,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -430,6 +433,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonStartActionPerformed(evt);
             }

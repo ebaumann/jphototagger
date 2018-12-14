@@ -242,6 +242,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         setTitle(Bundle.getString(getClass(), "FavoritePropertiesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
@@ -263,12 +264,15 @@ public final class FavoritePropertiesDialog extends Dialog {
         textFieldFavoriteName.setColumns(10);
         textFieldFavoriteName.setName("textFieldFavoriteName"); // NOI18N
         textFieldFavoriteName.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 textFieldFavoriteNameKeyTyped(evt);
             }
+            @Override
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 textFieldFavoriteNameKeyPressed(evt);
             }
+            @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 textFieldFavoriteNameKeyReleased(evt);
             }
@@ -284,6 +288,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         buttonChooseDirectory.setText(Bundle.getString(getClass(), "FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDirectoryActionPerformed(evt);
             }
@@ -312,6 +317,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         buttonCancel.setText(Bundle.getString(getClass(), "FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
             }
@@ -322,6 +328,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         buttonOk.setEnabled(false);
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);
             }
