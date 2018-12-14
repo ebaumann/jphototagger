@@ -26,6 +26,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.AddKeywortsViaShortcutsModel.KeywordNumber;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -134,6 +135,11 @@ public final class AddKeywordsViaShortcutsController {
             if (value instanceof KeywordNumber) {
                 KeywordNumber keywordNumber = (KeywordNumber) value;
                 label.setText(keywordNumber.getDisplayName());
+            }
+
+            int lh = label.getPreferredSize().height;
+            if (table.getRowHeight() < lh) {
+                table.setRowHeight(lh + UiFactory.scale(2));
             }
 
             return label;
