@@ -35,7 +35,7 @@ public class AddKeywortsViaShortcutsPanel extends javax.swing.JPanel {
 
         labelInfo = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        table = new javax.swing.JTable();
+        table = org.jphototagger.resources.UiFactory.table();
 
         setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();

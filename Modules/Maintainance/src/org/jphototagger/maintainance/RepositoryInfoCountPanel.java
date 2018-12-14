@@ -261,7 +261,7 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
 
         labelTable = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        table = new javax.swing.JTable();
+        table = org.jphototagger.resources.UiFactory.table();
         labelFilename = org.jphototagger.resources.UiFactory.label();
 
         setName("Form"); // NOI18N

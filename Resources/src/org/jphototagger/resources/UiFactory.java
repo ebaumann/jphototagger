@@ -15,6 +15,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.JToggleButton;
 import org.jphototagger.api.preferences.CommonPreferences;
 
@@ -261,6 +262,18 @@ public final class UiFactory {
         int inc = scale(16);
         sp.getHorizontalScrollBar().setUnitIncrement(inc);
         sp.getVerticalScrollBar().setUnitIncrement(inc);
+    }
+
+    public static JTable table() {
+        JTable table = new JTable();
+
+        configure(table);
+
+        return table;
+    }
+
+    private static void configure(JTable table) {
+        // For future usage
     }
 
     private UiFactory() {
