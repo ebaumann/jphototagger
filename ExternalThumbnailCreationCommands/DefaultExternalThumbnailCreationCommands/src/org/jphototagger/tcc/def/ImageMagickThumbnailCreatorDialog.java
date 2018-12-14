@@ -45,9 +45,9 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
         panelContent = new javax.swing.JPanel();
         labelInfo = new org.jdesktop.swingx.JXLabel();
         panelButtons = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonBrowse = new javax.swing.JButton();
-        buttonChooseConvert = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonBrowse = org.jphototagger.resources.UiFactory.button();
+        buttonChooseConvert = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.title")); // NOI18N

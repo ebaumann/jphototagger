@@ -257,8 +257,8 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
 
         label = new javax.swing.JLabel();
         searchTextField = new javax.swing.JTextField();
-        buttonSearchDownwards = new javax.swing.JButton();
-        buttonSearchUpwards = new javax.swing.JButton();
+        buttonSearchDownwards = org.jphototagger.resources.UiFactory.button();
+        buttonSearchUpwards = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

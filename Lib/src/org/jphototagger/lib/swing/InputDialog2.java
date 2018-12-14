@@ -130,8 +130,8 @@ public class InputDialog2 extends javax.swing.JDialog {
         panelContents = new javax.swing.JPanel();
         panelComponent = new javax.swing.JPanel();
         panelButtons = new javax.swing.JPanel();
-        buttonOk = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());

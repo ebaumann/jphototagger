@@ -479,10 +479,10 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         labelCurrentFilename = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
         panelButtons = new javax.swing.JPanel();
-        buttonCancelChooseDirectories = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
-        buttonChooseDirectories = new javax.swing.JButton();
-        buttonStart = new javax.swing.JButton();
+        buttonCancelChooseDirectories = org.jphototagger.resources.UiFactory.button();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonChooseDirectories = org.jphototagger.resources.UiFactory.button();
+        buttonStart = org.jphototagger.resources.UiFactory.button();
 
         popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import javax.swing.AbstractButton;
 import javax.swing.Action;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import org.jphototagger.api.preferences.CommonPreferences;
@@ -88,8 +89,15 @@ public final class UiFactory {
         return cb;
     }
 
-    private static void configure(AbstractButton cb) {
-        cb.setIconTextGap(scale(cb.getIconTextGap()));
+    private static void configure(AbstractButton b) {
+        b.setIconTextGap(scale(b.getIconTextGap()));
+
+        Insets margin = b.getMargin();
+        b.setMargin(new Insets(
+                scale(margin.top),
+                scale(margin.left),
+                scale(margin.bottom),
+                scale(margin.right)));
     }
 
     public static JRadioButton radioButton() {
@@ -98,6 +106,30 @@ public final class UiFactory {
         configure(rb);
 
         return rb;
+    }
+
+    public static JButton button() {
+        JButton b = new JButton();
+
+        configure(b);
+
+        return b;
+    }
+
+    public static JButton button(String text) {
+        JButton b = new JButton(text);
+
+        configure(b);
+
+        return b;
+    }
+
+    public static JButton button(Action a) {
+        JButton b = new JButton(a);
+
+        configure(b);
+
+        return b;
     }
 
     private UiFactory() {

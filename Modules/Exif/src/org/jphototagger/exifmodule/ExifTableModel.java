@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.util.Collection;
 import javax.swing.AbstractAction;
-import javax.swing.JButton;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.metadata.exif.ExifTag;
@@ -14,6 +13,7 @@ import org.jphototagger.domain.metadata.exif.event.ExifCacheFileDeletedEvent;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann, Tobias Stening
@@ -54,11 +54,11 @@ public final class ExifTableModel extends TableModelExt {
             if (isGoogleMapsUrl) {
                 String name = Bundle.getString(ExifTableModel.class, "ExifTableModel.Button.GoogleMaps");
                 GpsButtonListener action = new GpsButtonListener(name, exifTag.getDisplayValue());
-                super.addRow(new Object[]{exifTag, new JButton(action)});
+                super.addRow(new Object[]{exifTag, UiFactory.button(action)});
             } else if (isOpenStreetMapUrl) {
                 String name = Bundle.getString(ExifTableModel.class, "ExifTableModel.Button.OpenStreetMap");
                 GpsButtonListener action = new GpsButtonListener(name, exifTag.getDisplayValue());
-                super.addRow(new Object[]{exifTag, new JButton(action)});
+                super.addRow(new Object[]{exifTag, UiFactory.button(action)});
             } else {
                 super.addRow(new Object[]{exifTag, exifTag});
             }

@@ -131,20 +131,20 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         labelInfo = new org.jdesktop.swingx.JXLabel();
         panelImageButtons = new javax.swing.JPanel();
         labelDcrawOk = new javax.swing.JLabel();
-        buttonChooseDcraw = new javax.swing.JButton();
-        buttonBrowseDcraw = new javax.swing.JButton();
+        buttonChooseDcraw = org.jphototagger.resources.UiFactory.button();
+        buttonBrowseDcraw = org.jphototagger.resources.UiFactory.button();
         labelConvertOk = new javax.swing.JLabel();
-        buttonChooseConvert = new javax.swing.JButton();
-        buttonBrowseConvert = new javax.swing.JButton();
+        buttonChooseConvert = org.jphototagger.resources.UiFactory.button();
+        buttonBrowseConvert = org.jphototagger.resources.UiFactory.button();
         panelVideo = new javax.swing.JPanel();
         labelInfoVideo = new org.jdesktop.swingx.JXLabel();
-        buttonAddUserDefinedFileTypes = new javax.swing.JButton();
+        buttonAddUserDefinedFileTypes = org.jphototagger.resources.UiFactory.button();
         labelMPlayerOk = new javax.swing.JLabel();
-        buttonChooseMPlayer = new javax.swing.JButton();
-        buttonBrowserMPlayer = new javax.swing.JButton();
+        buttonChooseMPlayer = org.jphototagger.resources.UiFactory.button();
+        buttonBrowserMPlayer = org.jphototagger.resources.UiFactory.button();
         panelOkCancelButtons = new javax.swing.JPanel();
-        buttonOk = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.title")); // NOI18N

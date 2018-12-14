@@ -206,16 +206,16 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         menuItemMoveProgramUp = new javax.swing.JMenuItem();
         menuItemMoveProgramDown = new javax.swing.JMenuItem();
         labelPrograms = new javax.swing.JLabel();
-        buttonDefaultPrograms = new javax.swing.JButton();
+        buttonDefaultPrograms = org.jphototagger.resources.UiFactory.button();
         scrollPanePrograms = new javax.swing.JScrollPane();
         listPrograms = new org.jdesktop.swingx.JXList();
         labelInfoDefaultProgramFirstInList = new javax.swing.JLabel();
         panelProgramButtons = new javax.swing.JPanel();
-        buttonMoveProgramUp = new javax.swing.JButton();
-        buttonMoveProgramDown = new javax.swing.JButton();
-        buttonRemoveProgram = new javax.swing.JButton();
-        buttonAddProgram = new javax.swing.JButton();
-        buttonEditProgram = new javax.swing.JButton();
+        buttonMoveProgramUp = org.jphototagger.resources.UiFactory.button();
+        buttonMoveProgramDown = org.jphototagger.resources.UiFactory.button();
+        buttonRemoveProgram = org.jphototagger.resources.UiFactory.button();
+        buttonAddProgram = org.jphototagger.resources.UiFactory.button();
+        buttonEditProgram = org.jphototagger.resources.UiFactory.button();
 
         menuItemAddProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemAddProgram.text")); // NOI18N
         menuItemAddProgram.addActionListener(new java.awt.event.ActionListener() {

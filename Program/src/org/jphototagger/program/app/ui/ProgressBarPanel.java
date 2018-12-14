@@ -127,7 +127,7 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
         java.awt.GridBagConstraints gridBagConstraints;
 
         progressBar = new javax.swing.JProgressBar();
-        buttonCancelProgress = new javax.swing.JButton();
+        buttonCancelProgress = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

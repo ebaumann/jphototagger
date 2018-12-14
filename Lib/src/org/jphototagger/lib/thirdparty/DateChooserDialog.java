@@ -110,7 +110,7 @@ public final class DateChooserDialog extends JComponent {
         c.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
         c.weightx = 1.0;
         c.anchor = GridBagConstraints.WEST;
-        previousButton = new JButton();
+        previousButton = org.jphototagger.resources.UiFactory.button();
         previousButton.setIcon(org.jphototagger.resources.Icons.getIcon("icon_datechooser_prev.png"));
         previousButton.setBorder(BorderFactory.createEmptyBorder());
         previousButton.addActionListener(new ActionListener() {
@@ -133,7 +133,7 @@ public final class DateChooserDialog extends JComponent {
         add(monthYearLabel, c);
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
-        nextButton = new JButton();
+        nextButton = org.jphototagger.resources.UiFactory.button();
         nextButton.setIcon(org.jphototagger.resources.Icons.getIcon("icon_datechooser_next.png"));
         nextButton.setBorder(BorderFactory.createEmptyBorder());
         nextButton.addActionListener(new ActionListener() {
@@ -314,7 +314,7 @@ public final class DateChooserDialog extends JComponent {
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.WEST;
 
-        JButton okButton = new JButton(Bundle.getString(DateChooserDialog.class, "DateChooserDialog.okButton"));
+        JButton okButton = UiFactory.button(Bundle.getString(DateChooserDialog.class, "DateChooserDialog.okButton"));
 
         okButton.addActionListener(new ActionListener() {
 
@@ -328,7 +328,7 @@ public final class DateChooserDialog extends JComponent {
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
 
-        JButton cancelButton = new JButton(Bundle.getString(DateChooserDialog.class, "DateChooserDialog.cancelButton"));
+        JButton cancelButton = UiFactory.button(Bundle.getString(DateChooserDialog.class, "DateChooserDialog.cancelButton"));
 
         cancelButton.addActionListener(new ActionListener() {
 

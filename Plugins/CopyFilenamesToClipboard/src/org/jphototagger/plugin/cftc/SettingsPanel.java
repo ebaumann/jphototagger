@@ -119,7 +119,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         panelFill = new javax.swing.JPanel();
         panelVersion = new javax.swing.JPanel();
         labelVersion = new javax.swing.JLabel();
-        buttonHelp = new javax.swing.JButton();
+        buttonHelp = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

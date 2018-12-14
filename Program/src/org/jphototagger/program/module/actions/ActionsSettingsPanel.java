@@ -287,11 +287,11 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
-        buttonMoveUpAction = new javax.swing.JButton();
-        buttonMoveDownAction = new javax.swing.JButton();
-        buttonAddAction = new javax.swing.JButton();
-        buttonDeleteAction = new javax.swing.JButton();
-        buttonShowActions = new javax.swing.JButton();
+        buttonMoveUpAction = org.jphototagger.resources.UiFactory.button();
+        buttonMoveDownAction = org.jphototagger.resources.UiFactory.button();
+        buttonAddAction = org.jphototagger.resources.UiFactory.button();
+        buttonDeleteAction = org.jphototagger.resources.UiFactory.button();
+        buttonShowActions = org.jphototagger.resources.UiFactory.button();
         radioButtonExecuteAlways = UiFactory.radioButton();
         radioButtonExecuteIfImageHasXmp = UiFactory.radioButton();
 

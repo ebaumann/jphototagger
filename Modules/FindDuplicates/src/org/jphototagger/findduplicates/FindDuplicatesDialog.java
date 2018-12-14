@@ -465,8 +465,8 @@ public class FindDuplicatesDialog extends Dialog {
         listSourceDirectories = new javax.swing.JList<>();
         panelSourceDirectoriesActions = new javax.swing.JPanel();
         checkBoxSourceDirsRecursive = org.jphototagger.resources.UiFactory.checkBox();
-        buttonAddSourceDirectory = new javax.swing.JButton();
-        buttonRemoveSourceDirectories = new javax.swing.JButton();
+        buttonAddSourceDirectory = org.jphototagger.resources.UiFactory.button();
+        buttonRemoveSourceDirectories = org.jphototagger.resources.UiFactory.button();
         panelOptions = new javax.swing.JPanel();
         checkBoxCompareOnlyEqualFilenames = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxCompareOnlyEqualDates = org.jphototagger.resources.UiFactory.checkBox();
@@ -476,7 +476,7 @@ public class FindDuplicatesDialog extends Dialog {
         panelResult = new javax.swing.JPanel();
         scrollPaneResult = new javax.swing.JScrollPane();
         panelResultActions = new javax.swing.JPanel();
-        buttonDeleteSelectedFiles = new javax.swing.JButton();
+        buttonDeleteSelectedFiles = org.jphototagger.resources.UiFactory.button();
 
         setTitle(Bundle.getString(getClass(), "FindDuplicatesDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());

@@ -227,7 +227,7 @@ public class IptcPanel extends javax.swing.JPanel {
         panelActions = new JPanel();
         panelIptcSettings = new IptcSettingsPanel();
         panelIptcSettings.setBorder(null);
-        buttonIptcToXmp = new JButton();
+        buttonIptcToXmp = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());

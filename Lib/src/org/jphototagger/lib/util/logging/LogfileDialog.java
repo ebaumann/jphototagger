@@ -429,8 +429,8 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelContent = new javax.swing.JPanel();
         labelLogfileName = new javax.swing.JLabel();
         panelButtons = new javax.swing.JPanel();
-        buttonReload = new javax.swing.JButton();
-        buttonExit = new javax.swing.JButton();
+        buttonReload = org.jphototagger.resources.UiFactory.button();
+        buttonExit = org.jphototagger.resources.UiFactory.button();
         panelCards = new javax.swing.JPanel();
         panelXml = new javax.swing.JPanel();
         panelFilter = new javax.swing.JPanel();

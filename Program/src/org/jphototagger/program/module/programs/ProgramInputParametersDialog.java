@@ -98,8 +98,8 @@ public final class ProgramInputParametersDialog extends Dialog {
         radioButtonParametersBeforeFilename = UiFactory.radioButton();
         radioButtonParametersAfterFilename = UiFactory.radioButton();
         panelCancelOk = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonOk = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ProgramInputParametersDialog.title")); // NOI18N

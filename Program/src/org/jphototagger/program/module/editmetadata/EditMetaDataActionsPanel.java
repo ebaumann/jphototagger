@@ -189,19 +189,19 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         labelPromptInfoCurrentTemplate = new javax.swing.JLabel();
         labelTemplateName = new javax.swing.JLabel();
         panelEditButtons = new javax.swing.JPanel();
-        buttonMetadataTemplateInsert = new javax.swing.JButton();
-        buttonMetadataTemplateCreate = new javax.swing.JButton();
-        buttonEmptyMetadata = new javax.swing.JButton();
+        buttonMetadataTemplateInsert = org.jphototagger.resources.UiFactory.button();
+        buttonMetadataTemplateCreate = org.jphototagger.resources.UiFactory.button();
+        buttonEmptyMetadata = org.jphototagger.resources.UiFactory.button();
         panelGroupMetadataTemplates = new javax.swing.JPanel();
         panelComboBox = new javax.swing.JPanel();
         labelPromptCurrentTemplate = new javax.swing.JLabel();
         comboBoxMetadataTemplates = new javax.swing.JComboBox<>();
         panelTemplateButtons = new javax.swing.JPanel();
-        buttonMetadataTemplateRename = new javax.swing.JButton();
-        buttonMetadataTemplateUpdate = new javax.swing.JButton();
-        buttonMetadataTemplateDelete = new javax.swing.JButton();
-        buttonMetadataTemplateEdit = new javax.swing.JButton();
-        buttonMetadataTemplateAdd = new javax.swing.JButton();
+        buttonMetadataTemplateRename = org.jphototagger.resources.UiFactory.button();
+        buttonMetadataTemplateUpdate = org.jphototagger.resources.UiFactory.button();
+        buttonMetadataTemplateDelete = org.jphototagger.resources.UiFactory.button();
+        buttonMetadataTemplateEdit = org.jphototagger.resources.UiFactory.button();
+        buttonMetadataTemplateAdd = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

@@ -333,8 +333,8 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelRepositoryDirectory = new javax.swing.JPanel();
         labelInfoRepositoryDirectory = new javax.swing.JLabel();
         panelButtonsRepositoryDirectory = new javax.swing.JPanel();
-        buttonChooseRepositoryDirectory = new javax.swing.JButton();
-        buttonSetDefaultRepositoryDirectoryName = new javax.swing.JButton();
+        buttonChooseRepositoryDirectory = org.jphototagger.resources.UiFactory.button();
+        buttonSetDefaultRepositoryDirectoryName = org.jphototagger.resources.UiFactory.button();
         labelRepositoryDirectory = new javax.swing.JLabel();
         panelFill = new javax.swing.JPanel();
 

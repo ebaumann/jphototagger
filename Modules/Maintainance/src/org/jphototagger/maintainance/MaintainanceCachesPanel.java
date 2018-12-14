@@ -48,13 +48,13 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
 
         panelInfo = new JPanel();
         labelInfo = new JXLabel();
-        buttonClearExifCache = new JButton();
+        buttonClearExifCache = org.jphototagger.resources.UiFactory.button();
         buttonClearExifCache.setAction(ClearExifCacheAction.INSTANCE);
         labelInfoClearExifCache = new JXLabel();
-        buttonClearIptcIgnoreCache = new JButton();
+        buttonClearIptcIgnoreCache = org.jphototagger.resources.UiFactory.button();
         buttonClearIptcIgnoreCache.setAction(ClearIptcIgnoreCacheAction.INSTANCE);
         labelInfoClearIptcIgnoreCache = new JXLabel();
-        buttonCompactThumbnailsRepository = new JButton();
+        buttonCompactThumbnailsRepository = org.jphototagger.resources.UiFactory.button();
         labelInfoCompactThumbnailsRepository = new JXLabel();
         panelPadding = new JPanel();
 

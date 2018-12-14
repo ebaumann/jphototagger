@@ -349,7 +349,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         buttonGroupFileExists = new javax.swing.ButtonGroup();
         panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
-        buttonChooseDirectory = new javax.swing.JButton();
+        buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         labelTargetDirectory = new javax.swing.JLabel();
         radioButtonForceOverwrite = UiFactory.radioButton();
         radioButtonRenameIfTargetFileExists = UiFactory.radioButton();
@@ -360,8 +360,8 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         labelCurrentFilename = new javax.swing.JLabel();
         labelInfoIsThread = new javax.swing.JLabel();
         panelStartCancelButton = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonStart = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonStart = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "CopyToDirectoryDialog.title")); // NOI18N

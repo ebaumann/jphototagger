@@ -258,8 +258,8 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         textFieldDescription = new javax.swing.JTextField();
         checkBoxExternalThumbnailCreator = org.jphototagger.resources.UiFactory.checkBox();
         panelButtons = new javax.swing.JPanel();
-        buttonHelp = new javax.swing.JButton();
-        buttonSave = new javax.swing.JButton();
+        buttonHelp = org.jphototagger.resources.UiFactory.button();
+        buttonSave = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.title")); // NOI18N

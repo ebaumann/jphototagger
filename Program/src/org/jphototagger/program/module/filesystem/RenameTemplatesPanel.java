@@ -458,9 +458,9 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         checkDirtyDialog = new javax.swing.JDialog();
         labelDirtyConfirmSaveChanges = new javax.swing.JLabel();
         panelDirtyButtons = new javax.swing.JPanel();
-        buttonCheckDirtyDialogCreateNew = new javax.swing.JButton();
-        buttonCheckDirtyDialogUpdate = new javax.swing.JButton();
-        buttonCheckDirtyDialogReject = new javax.swing.JButton();
+        buttonCheckDirtyDialogCreateNew = org.jphototagger.resources.UiFactory.button();
+        buttonCheckDirtyDialogUpdate = org.jphototagger.resources.UiFactory.button();
+        buttonCheckDirtyDialogReject = org.jphototagger.resources.UiFactory.button();
         panelNumbers = new javax.swing.JPanel();
         panelNumbersContents = new javax.swing.JPanel();
         labelStartNumber = new javax.swing.JLabel();
@@ -497,10 +497,10 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelRenameTemplatesContents = new javax.swing.JPanel();
         comboBoxRenameTemplates = new javax.swing.JComboBox<>();
         panelButtonsRenameTemplates = new javax.swing.JPanel();
-        buttonSaveRenameTemplate = new javax.swing.JButton();
-        buttonRenameRenameTemplate = new javax.swing.JButton();
-        buttonDeleteRenameTemplate = new javax.swing.JButton();
-        buttonUpdateRenameTemplate = new javax.swing.JButton();
+        buttonSaveRenameTemplate = org.jphototagger.resources.UiFactory.button();
+        buttonRenameRenameTemplate = org.jphototagger.resources.UiFactory.button();
+        buttonDeleteRenameTemplate = org.jphototagger.resources.UiFactory.button();
+        buttonUpdateRenameTemplate = org.jphototagger.resources.UiFactory.button();
 
         checkDirtyDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         checkDirtyDialog.setTitle(Bundle.getString(getClass(), "RenameTemplatesPanel.checkDirtyDialog.title")); // NOI18N

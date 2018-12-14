@@ -115,7 +115,7 @@ public class ObjectsSelectionDialog<T> extends Dialog {
 
         scrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();
-        buttonOk = new javax.swing.JButton();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());

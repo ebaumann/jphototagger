@@ -159,8 +159,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
         tree.setShowsRootHandles(true);
         panelButtons = new javax.swing.JPanel();
         buttonToggleExpandAllNodes = new javax.swing.JToggleButton();
-        buttonSearchInTree = new javax.swing.JButton();
-        buttonAsList = new javax.swing.JButton();
+        buttonSearchInTree = org.jphototagger.resources.UiFactory.button();
+        buttonAsList = org.jphototagger.resources.UiFactory.button();
         panelList = new javax.swing.JPanel();
         panelListFilter = new javax.swing.JPanel();
         labelListFilter = new javax.swing.JLabel();
@@ -168,8 +168,8 @@ public class KeywordsPanel extends javax.swing.JPanel {
         scrollPaneList = new javax.swing.JScrollPane();
         list = new JXList();
         list.setTransferHandler(new org.jphototagger.program.datatransfer.DragListItemsTransferHandler(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
-        buttonSearchInList = new javax.swing.JButton();
-        buttonAsTree = new javax.swing.JButton();
+        buttonSearchInList = org.jphototagger.resources.UiFactory.button();
+        buttonAsTree = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.CardLayout());

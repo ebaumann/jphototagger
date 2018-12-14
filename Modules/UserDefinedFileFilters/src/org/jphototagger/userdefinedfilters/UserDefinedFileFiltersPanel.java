@@ -173,9 +173,9 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
-        buttonInsert = new javax.swing.JButton();
-        buttonUpdate = new javax.swing.JButton();
-        buttonDelete = new javax.swing.JButton();
+        buttonInsert = org.jphototagger.resources.UiFactory.button();
+        buttonUpdate = org.jphototagger.resources.UiFactory.button();
+        buttonDelete = org.jphototagger.resources.UiFactory.button();
 
         popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {

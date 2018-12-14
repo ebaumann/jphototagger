@@ -334,13 +334,13 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         tree = new javax.swing.JTree();
         labelUsage = new javax.swing.JLabel();
         panelActionButtons = new javax.swing.JPanel();
-        buttonRefresh = new javax.swing.JButton();
-        buttonAdd = new javax.swing.JButton();
-        buttonDelete = new javax.swing.JButton();
-        buttonRename = new javax.swing.JButton();
+        buttonRefresh = org.jphototagger.resources.UiFactory.button();
+        buttonAdd = org.jphototagger.resources.UiFactory.button();
+        buttonDelete = org.jphototagger.resources.UiFactory.button();
+        buttonRename = org.jphototagger.resources.UiFactory.button();
         panelDialogButtons = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonChoose = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonChoose = org.jphototagger.resources.UiFactory.button();
 
         popupMenu.setName("popupMenu"); // NOI18N
 

@@ -661,17 +661,17 @@ public class ImportImageFilesDialog extends Dialog {
 
         panelSourceDirectory = new org.jdesktop.swingx.JXPanel();
         labelSourceDir = new javax.swing.JLabel();
-        buttonChooseSourceDir = new javax.swing.JButton();
+        buttonChooseSourceDir = org.jphototagger.resources.UiFactory.button();
         panelSelectedFiles = new org.jdesktop.swingx.JXPanel();
         labelChoosenFiles = new javax.swing.JLabel();
-        buttonChooseFiles = new javax.swing.JButton();
+        buttonChooseFiles = org.jphototagger.resources.UiFactory.button();
         dialogExpertSettings = new Dialog(ComponentUtil.findFrameWithIcon(), true);
         panelExpertSettingsContent = new javax.swing.JPanel();
         panelScriptFile = new org.jdesktop.swingx.JXPanel();
         labelScriptFileIcon = new javax.swing.JLabel();
         textFieldScriptFile = new javax.swing.JTextField();
-        buttonRemoveScriptFile = new javax.swing.JButton();
-        buttonChooseScriptFile = new javax.swing.JButton();
+        buttonRemoveScriptFile = org.jphototagger.resources.UiFactory.button();
+        buttonChooseScriptFile = org.jphototagger.resources.UiFactory.button();
         labelScriptFileInfo = new javax.swing.JLabel();
         panelExpertSettingsFill = new javax.swing.JPanel();
         panelContent = new javax.swing.JPanel();
@@ -681,17 +681,17 @@ public class ImportImageFilesDialog extends Dialog {
         checkBoxSkipDuplicates = org.jphototagger.resources.UiFactory.checkBox();
         panelTargetDir = new org.jdesktop.swingx.JXPanel();
         labelTargetDir = new javax.swing.JLabel();
-        buttonChooseTargetDir = new javax.swing.JButton();
+        buttonChooseTargetDir = org.jphototagger.resources.UiFactory.button();
         comboBoxSubdirectoryCreateStrategy = new javax.swing.JComboBox<>();
         panelFileRenameStrategy = new javax.swing.JPanel();
         comboBoxFileRenameStrategy = new javax.swing.JComboBox<>();
-        buttonEditRenameTemplates = new javax.swing.JButton();
+        buttonEditRenameTemplates = org.jphototagger.resources.UiFactory.button();
         labelWarning = new javax.swing.JLabel();
         panelDialogControlButtons = new org.jdesktop.swingx.JXPanel();
-        buttonEditMetadata = new javax.swing.JButton();
-        buttonExpertSettings = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
-        buttonOk = new javax.swing.JButton();
+        buttonEditMetadata = org.jphototagger.resources.UiFactory.button();
+        buttonExpertSettings = org.jphototagger.resources.UiFactory.button();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         panelSourceDirectory.setLayout(new java.awt.GridBagLayout());
 

@@ -169,8 +169,8 @@ public class EditMetaDataTemplateDialog extends Dialog {
         scrollPane = new javax.swing.JScrollPane();
         panelXmpEdit = new org.jphototagger.program.module.metadatatemplates.EditXmpPanel();
         panelButtons = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonSave = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonSave = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.title")); // NOI18N

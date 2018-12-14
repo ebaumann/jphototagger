@@ -463,8 +463,8 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
 
         fastSearchComboBox = new javax.swing.JComboBox<>();
         textAreaSearch = new ImageTextArea();
-        searchButton = new javax.swing.JButton();
-        buttonRestoreSelection = new javax.swing.JButton();
+        searchButton = org.jphototagger.resources.UiFactory.button();
+        buttonRestoreSelection = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

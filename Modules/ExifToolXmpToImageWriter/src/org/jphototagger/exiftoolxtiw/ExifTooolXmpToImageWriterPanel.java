@@ -70,20 +70,20 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelConfigure = new javax.swing.JPanel();
-        buttonConfigure = new javax.swing.JButton();
+        buttonConfigure = org.jphototagger.resources.UiFactory.button();
         labelConfigError = new javax.swing.JLabel();
         labelDirs = new javax.swing.JLabel();
         scrollPaneDirs = new javax.swing.JScrollPane();
         listDirs = new javax.swing.JList<java.io.File>();
         checkBoxIncludeSubDirs = org.jphototagger.resources.UiFactory.checkBox();
         panelDirsButtons = new javax.swing.JPanel();
-        buttonRemoveSelectedDirs = new javax.swing.JButton();
-        buttonAddDirs = new javax.swing.JButton();
+        buttonRemoveSelectedDirs = org.jphototagger.resources.UiFactory.button();
+        buttonAddDirs = org.jphototagger.resources.UiFactory.button();
         panelExecute = new javax.swing.JPanel();
         progressBarExecute = new javax.swing.JProgressBar();
         panelExecuteButtons = new javax.swing.JPanel();
-        buttonCancelExecute = new javax.swing.JButton();
-        buttonExecute = new javax.swing.JButton();
+        buttonCancelExecute = org.jphototagger.resources.UiFactory.button();
+        buttonExecute = org.jphototagger.resources.UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());
 

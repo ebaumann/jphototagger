@@ -202,7 +202,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         scrollPaneHiddenProgressBars = new javax.swing.JScrollPane();
         panelHiddenProgressBars = new javax.swing.JPanel();
         initProgressBarPanel = new org.jphototagger.program.app.ui.ProgressBarPanel();
-        buttonToggleVisibilityOfHiddenProgressBars = new javax.swing.JButton();
+        buttonToggleVisibilityOfHiddenProgressBars = org.jphototagger.resources.UiFactory.button();
 
         dialogHiddenProgressBars.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         dialogHiddenProgressBars.setTitle(Bundle.getString(getClass(), "ProgressBarPanelArray.dialogHiddenProgressBars.title")); // NOI18N

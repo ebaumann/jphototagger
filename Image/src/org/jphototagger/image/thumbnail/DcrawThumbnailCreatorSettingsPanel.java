@@ -98,8 +98,8 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         labelInfo = new javax.swing.JLabel();
         panelChooseFile = new javax.swing.JPanel();
         labelFile = new javax.swing.JLabel();
-        buttonChooseFile = new javax.swing.JButton();
-        buttonRemoveFile = new javax.swing.JButton();
+        buttonChooseFile = org.jphototagger.resources.UiFactory.button();
+        buttonRemoveFile = org.jphototagger.resources.UiFactory.button();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "DcrawThumbnailCreatorSettingsPanel.border.title"))); // NOI18N
         setLayout(new java.awt.GridBagLayout());

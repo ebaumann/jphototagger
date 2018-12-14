@@ -175,7 +175,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
-        buttonStop = new javax.swing.JButton();
+        buttonStop = org.jphototagger.resources.UiFactory.button();
         labelProgressInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);

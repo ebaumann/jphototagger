@@ -249,10 +249,10 @@ public final class ActionsPanel extends javax.swing.JPanel {
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
-        buttonDelete = new javax.swing.JButton();
-        buttonEdit = new javax.swing.JButton();
-        buttonCreate = new javax.swing.JButton();
-        buttonExecute = new javax.swing.JButton();
+        buttonDelete = org.jphototagger.resources.UiFactory.button();
+        buttonEdit = org.jphototagger.resources.UiFactory.button();
+        buttonCreate = org.jphototagger.resources.UiFactory.button();
+        buttonExecute = org.jphototagger.resources.UiFactory.button();
 
         popupMenu.setName("popupMenu"); // NOI18N
 

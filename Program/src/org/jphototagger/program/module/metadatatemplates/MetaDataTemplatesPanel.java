@@ -91,11 +91,11 @@ public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListe
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
         panelModifyButtons = new javax.swing.JPanel();
-        buttonRename = new javax.swing.JButton();
-        buttonAdd = new javax.swing.JButton();
-        buttonEdit = new javax.swing.JButton();
-        buttonDelete = new javax.swing.JButton();
-        buttonAddToSelImages = new javax.swing.JButton();
+        buttonRename = org.jphototagger.resources.UiFactory.button();
+        buttonAdd = org.jphototagger.resources.UiFactory.button();
+        buttonEdit = org.jphototagger.resources.UiFactory.button();
+        buttonDelete = org.jphototagger.resources.UiFactory.button();
+        buttonAddToSelImages = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

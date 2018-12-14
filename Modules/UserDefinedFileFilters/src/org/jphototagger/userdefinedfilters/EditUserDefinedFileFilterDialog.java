@@ -120,8 +120,8 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         textFieldExpression = new javax.swing.JTextField();
         checkBoxNot = org.jphototagger.resources.UiFactory.checkBox();
         panelButtons = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonOk = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.title")); // NOI18N

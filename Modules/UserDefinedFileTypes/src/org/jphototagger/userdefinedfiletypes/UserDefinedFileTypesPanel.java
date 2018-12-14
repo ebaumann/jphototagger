@@ -117,9 +117,9 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
-        buttonAdd = new javax.swing.JButton();
-        buttonEdit = new javax.swing.JButton();
-        buttonDelete = new javax.swing.JButton();
+        buttonAdd = org.jphototagger.resources.UiFactory.button();
+        buttonEdit = org.jphototagger.resources.UiFactory.button();
+        buttonDelete = org.jphototagger.resources.UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());
 

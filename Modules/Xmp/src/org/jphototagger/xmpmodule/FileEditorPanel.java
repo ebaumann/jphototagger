@@ -382,9 +382,9 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         labelPromptCurrentFile = new javax.swing.JLabel();
         labelCurrentFile = new javax.swing.JLabel();
         panelButtons = new javax.swing.JPanel();
-        buttonSelectFiles = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
-        buttonStart = new javax.swing.JButton();
+        buttonSelectFiles = org.jphototagger.resources.UiFactory.button();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonStart = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

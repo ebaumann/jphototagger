@@ -141,8 +141,8 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         listSuffixes = new javax.swing.JList<>();
         labelSuffix = new javax.swing.JLabel();
         textFieldSuffix = new javax.swing.JTextField();
-        buttonAddSuffix = new javax.swing.JButton();
-        buttonRemoveSuffix = new javax.swing.JButton();
+        buttonAddSuffix = org.jphototagger.resources.UiFactory.button();
+        buttonRemoveSuffix = org.jphototagger.resources.UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());
 

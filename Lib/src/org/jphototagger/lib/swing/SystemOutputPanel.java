@@ -114,8 +114,8 @@ public class SystemOutputPanel extends JPanel {
         panelButttons = new javax.swing.JPanel();
         searchPanel = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         searchPanel.setSearchableTextComponent(textArea);
-        buttonDelete = new javax.swing.JButton();
-        buttonCopyToClipboard = new javax.swing.JButton();
+        buttonDelete = org.jphototagger.resources.UiFactory.button();
+        buttonCopyToClipboard = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

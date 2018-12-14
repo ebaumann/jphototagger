@@ -340,12 +340,12 @@ public class SettingsPanel extends javax.swing.JPanel {
         checkBoxSelfResponsible = org.jphototagger.resources.UiFactory.checkBox();
         panelExifToolGeneral = new javax.swing.JPanel();
         checkBoxExifToolEnabled = org.jphototagger.resources.UiFactory.checkBox();
-        buttonBrowseExifToolWebsite = new javax.swing.JButton();
+        buttonBrowseExifToolWebsite = org.jphototagger.resources.UiFactory.button();
         textAreaInfo = new javax.swing.JTextArea();
         labelErrorCanWrite = new javax.swing.JLabel();
         panelChooseExifTool = new javax.swing.JPanel();
         textFieldExifToolFilePath = new javax.swing.JTextField();
-        buttonChooseExifTool = new javax.swing.JButton();
+        buttonChooseExifTool = org.jphototagger.resources.UiFactory.button();
         panelWriteOnSaveXmp = new javax.swing.JPanel();
         checkBoxWriteOnSaveXmp = org.jphototagger.resources.UiFactory.checkBox();
         labelErrorInputsSavedEarly = new javax.swing.JLabel();
@@ -354,9 +354,9 @@ public class SettingsPanel extends javax.swing.JPanel {
         scrollPaneFileSuffixes = new javax.swing.JScrollPane();
         listFileSuffixes = new javax.swing.JList<String>();
         panelButtonsFileSuffixes = new javax.swing.JPanel();
-        buttonSetDefaultFileSuffixes = new javax.swing.JButton();
-        buttonAddFileSuffix = new javax.swing.JButton();
-        buttonRemoveFileSuffix = new javax.swing.JButton();
+        buttonSetDefaultFileSuffixes = org.jphototagger.resources.UiFactory.button();
+        buttonAddFileSuffix = org.jphototagger.resources.UiFactory.button();
+        buttonRemoveFileSuffix = org.jphototagger.resources.UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());
 

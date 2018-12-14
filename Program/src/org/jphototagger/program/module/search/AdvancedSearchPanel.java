@@ -570,7 +570,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         scrollPaneColumns = new javax.swing.JScrollPane();
         panelColumns = new javax.swing.JPanel();
         labelInfoDelete = new javax.swing.JLabel();
-        buttonAddColumn = new javax.swing.JButton();
+        buttonAddColumn = org.jphototagger.resources.UiFactory.button();
         panelCustomSql = new javax.swing.JPanel();
         labelCustomSqlInfo = new javax.swing.JLabel();
         scrollPaneCustomSqlQuery = new javax.swing.JScrollPane();
@@ -578,10 +578,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         textAreaCustomSqlQuery.getDocument().addDocumentListener(new CustomSqlChangeListener());
         panelButtons = new javax.swing.JPanel();
-        buttonSaveSearch = new javax.swing.JButton();
-        buttonSaveAs = new javax.swing.JButton();
-        buttonResetColumns = new javax.swing.JButton();
-        buttonSearch = new javax.swing.JButton();
+        buttonSaveSearch = org.jphototagger.resources.UiFactory.button();
+        buttonSaveAs = org.jphototagger.resources.UiFactory.button();
+        buttonResetColumns = org.jphototagger.resources.UiFactory.button();
+        buttonSearch = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

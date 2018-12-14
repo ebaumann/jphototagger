@@ -104,7 +104,7 @@ public class SelectProgramDialog extends Dialog {
         panelContent = new javax.swing.JPanel();
         scrollPanePrograms = new javax.swing.JScrollPane();
         listPrograms = new org.jdesktop.swingx.JXList();
-        buttonSelect = new javax.swing.JButton();
+        buttonSelect = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N

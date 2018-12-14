@@ -359,10 +359,10 @@ public class WordsetsPanel extends javax.swing.JPanel {
 
         panelWordsets = new javax.swing.JPanel();
         comboBoxWordsetNames = new javax.swing.JComboBox<>();
-        buttonRemoveWordset = new javax.swing.JButton();
-        buttonEditWordset = new javax.swing.JButton();
-        buttonAddWordset = new javax.swing.JButton();
-        buttonEraseAutomaticWords = new javax.swing.JButton();
+        buttonRemoveWordset = org.jphototagger.resources.UiFactory.button();
+        buttonEditWordset = org.jphototagger.resources.UiFactory.button();
+        buttonAddWordset = org.jphototagger.resources.UiFactory.button();
+        buttonEraseAutomaticWords = org.jphototagger.resources.UiFactory.button();
         panelWords = new javax.swing.JPanel();
 
         setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.toolTipText")); // NOI18N

@@ -154,10 +154,10 @@ public class SqlCommandsDialog extends Dialog {
         scrollPaneCommands = new javax.swing.JScrollPane();
         listCommands = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();
-        buttonEdit = new javax.swing.JButton();
-        buttonRemove = new javax.swing.JButton();
-        buttonOk = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
+        buttonEdit = org.jphototagger.resources.UiFactory.button();
+        buttonRemove = org.jphototagger.resources.UiFactory.button();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(org.jphototagger.lib.util.Bundle.getString(SqlCommandsDialog.class, "SqlCommandsDialog.title")); // NOI18N

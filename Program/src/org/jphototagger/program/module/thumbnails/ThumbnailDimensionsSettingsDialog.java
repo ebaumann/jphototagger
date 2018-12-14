@@ -56,8 +56,8 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
         panelContent = new javax.swing.JPanel();
         panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel();
         panelButtons = new javax.swing.JPanel();
-        buttonClose = new javax.swing.JButton();
-        buttonFurtherSettings = new javax.swing.JButton();
+        buttonClose = org.jphototagger.resources.UiFactory.button();
+        buttonFurtherSettings = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsDialog.title")); // NOI18N

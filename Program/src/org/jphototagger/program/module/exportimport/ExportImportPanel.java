@@ -331,14 +331,14 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         panelDirectory = new javax.swing.JPanel();
         labelPromptDir = new javax.swing.JLabel();
         labelDir = new javax.swing.JLabel();
-        buttonSelDir = new javax.swing.JButton();
+        buttonSelDir = org.jphototagger.resources.UiFactory.button();
         labelSelectInfo = new javax.swing.JLabel();
         scrollPane = new javax.swing.JScrollPane();
         panelSelectObjects = new org.jphototagger.lib.swing.SelectObjectsPanel();
         panelButtons = new javax.swing.JPanel();
-        buttonSelectAll = new javax.swing.JButton();
-        buttonSelectNone = new javax.swing.JButton();
-        buttonExportImport = new javax.swing.JButton();
+        buttonSelectAll = org.jphototagger.resources.UiFactory.button();
+        buttonSelectNone = org.jphototagger.resources.UiFactory.button();
+        buttonExportImport = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

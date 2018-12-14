@@ -73,9 +73,9 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         labelSql = new javax.swing.JLabel();
         labelDescription = new javax.swing.JLabel();
         panelButtons = new javax.swing.JPanel();
-        buttonLoad = new javax.swing.JButton();
-        buttonSave = new javax.swing.JButton();
-        buttonExecuteSql = new javax.swing.JButton();
+        buttonLoad = org.jphototagger.resources.UiFactory.button();
+        buttonSave = org.jphototagger.resources.UiFactory.button();
+        buttonExecuteSql = org.jphototagger.resources.UiFactory.button();
         srollPaneSql = new javax.swing.JScrollPane();
         textAreaSql = new javax.swing.JTextArea();
         panelFilter = new javax.swing.JPanel();

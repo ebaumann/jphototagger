@@ -172,10 +172,10 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
             gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
             add(checkBoxFileSelected, gbc);
             gbc.anchor = GridBagConstraints.EAST;
-            JButton buttonOpenFile = new JButton(new OpenFileAction(file));
+            JButton buttonOpenFile = UiFactory.button(new OpenFileAction(file));
             gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
             add(buttonOpenFile, gbc);
-            JButton buttonOpenDir = new JButton(new OpenDirectoryAction(file.getParentFile()));
+            JButton buttonOpenDir = UiFactory.button(new OpenDirectoryAction(file.getParentFile()));
             gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
             add(buttonOpenDir, gbc);
         }

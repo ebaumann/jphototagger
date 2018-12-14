@@ -200,7 +200,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        buttonExpandCollapse = new javax.swing.JButton();
+        buttonExpandCollapse = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

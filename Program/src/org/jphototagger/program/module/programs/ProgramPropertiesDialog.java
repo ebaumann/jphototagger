@@ -359,7 +359,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         scrollPaneParametersAfterFilename = new javax.swing.JScrollPane();
         textAreaParametersAfterFilename = new TabOrEnterLeavingTextArea();
         checkBoxUsePattern = org.jphototagger.resources.UiFactory.checkBox();
-        buttonInfoUsePattern = new javax.swing.JButton();
+        buttonInfoUsePattern = org.jphototagger.resources.UiFactory.button();
         scrollPaneUsePattern = new javax.swing.JScrollPane();
         textAreaUsePattern = new TabOrEnterLeavingTextArea();
         panelInputBeforeExecute = new javax.swing.JPanel();
@@ -373,14 +373,14 @@ public final class ProgramPropertiesDialog extends Dialog {
         labelFilePrompt = new javax.swing.JLabel();
         labelErrorFileDoesNotExist = new javax.swing.JLabel();
         labelFile = new javax.swing.JLabel();
-        buttonChooseFile = new javax.swing.JButton();
+        buttonChooseFile = org.jphototagger.resources.UiFactory.button();
         panelAlias = new javax.swing.JPanel();
         labelAlias = new javax.swing.JLabel();
         textFieldAlias = new javax.swing.JTextField();
         toggleButtonExpertSettings = new javax.swing.JToggleButton();
         labelInfoRequiredInputs = new javax.swing.JLabel();
-        buttonCancel = new javax.swing.JButton();
-        buttonOk = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         panelExpertSettings.setName("panelExpertSettings"); // NOI18N
         panelExpertSettings.setLayout(new java.awt.GridBagLayout());

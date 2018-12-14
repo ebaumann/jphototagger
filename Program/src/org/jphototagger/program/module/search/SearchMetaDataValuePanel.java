@@ -339,8 +339,8 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         textFieldValue = new javax.swing.JFormattedTextField();
         textFieldValue.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         toggleButtonBracketRight = new javax.swing.JToggleButton();
-        buttonCalendar = new javax.swing.JButton();
-        buttonRemoveColumn = new javax.swing.JButton();
+        buttonCalendar = org.jphototagger.resources.UiFactory.button();
+        buttonRemoveColumn = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

@@ -121,8 +121,8 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         metaDataValuesComboBox = new javax.swing.JComboBox<>();
-        buttonAdd = new javax.swing.JButton();
-        buttonRemove = new javax.swing.JButton();
+        buttonAdd = org.jphototagger.resources.UiFactory.button();
+        buttonRemove = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

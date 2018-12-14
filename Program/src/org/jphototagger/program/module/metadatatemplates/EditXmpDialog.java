@@ -99,13 +99,13 @@ public class EditXmpDialog extends Dialog {
         panelTemplates = new javax.swing.JPanel();
         labelTemplates = new javax.swing.JLabel();
         comboBoxTemplates = new javax.swing.JComboBox<>();
-        buttonEditMetadataTemplates = new javax.swing.JButton();
-        buttonInsertTemplate = new javax.swing.JButton();
+        buttonEditMetadataTemplates = org.jphototagger.resources.UiFactory.button();
+        buttonInsertTemplate = org.jphototagger.resources.UiFactory.button();
         scrollPanePanelEditXmp = new javax.swing.JScrollPane();
         panelEditXmp = new org.jphototagger.program.module.metadatatemplates.EditXmpPanel();
         panelSubmitButtons = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonOk = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditXmpDialog.title")); // NOI18N

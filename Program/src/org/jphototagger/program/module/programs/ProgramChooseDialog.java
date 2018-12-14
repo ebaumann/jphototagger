@@ -63,7 +63,7 @@ public class ProgramChooseDialog extends Dialog {
 
         scrollPanePrograms = new javax.swing.JScrollPane();
         listPrograms = new org.jdesktop.swingx.JXList();
-        buttonChooseProgram = new javax.swing.JButton();
+        buttonChooseProgram = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ProgramChooseDialog.title")); // NOI18N

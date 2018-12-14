@@ -321,25 +321,25 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         labelTextAreaWord = new javax.swing.JLabel();
         scrollPaneTextAreaWords = new javax.swing.JScrollPane();
         textAreaWords = new javax.swing.JTextArea();
-        buttonAddWord = new javax.swing.JButton();
+        buttonAddWord = org.jphototagger.resources.UiFactory.button();
         panelAddedWords = new javax.swing.JPanel();
         labelListWords = new javax.swing.JLabel();
         scrollPaneListWords = new javax.swing.JScrollPane();
         listWords = new org.jdesktop.swingx.JXList();
-        buttonRemoveWord = new javax.swing.JButton();
-        buttonChangeWord = new javax.swing.JButton();
-        buttonAddAllKeywords = new javax.swing.JButton();
+        buttonRemoveWord = org.jphototagger.resources.UiFactory.button();
+        buttonChangeWord = org.jphototagger.resources.UiFactory.button();
+        buttonAddAllKeywords = org.jphototagger.resources.UiFactory.button();
         panelSynonyms = new javax.swing.JPanel();
         panelEditInputSynonyms = new javax.swing.JPanel();
         labelTextFieldSynonym = new javax.swing.JLabel();
         textFieldSynonyms = new javax.swing.JTextField();
-        buttonAddSynonym = new javax.swing.JButton();
+        buttonAddSynonym = org.jphototagger.resources.UiFactory.button();
         panelAddedSynonyms = new javax.swing.JPanel();
         labelListSynonyms = new javax.swing.JLabel();
         scrollPaneListSynonyms = new javax.swing.JScrollPane();
         listSynonyms = new org.jdesktop.swingx.JXList();
-        buttonRemoveSynonym = new javax.swing.JButton();
-        buttonChangeSynonym = new javax.swing.JButton();
+        buttonRemoveSynonym = org.jphototagger.resources.UiFactory.button();
+        buttonChangeSynonym = org.jphototagger.resources.UiFactory.button();
         labelInfoAddSynonym = new javax.swing.JLabel();
 
         popupMenuWords.setName("popupMenuWords"); // NOI18N

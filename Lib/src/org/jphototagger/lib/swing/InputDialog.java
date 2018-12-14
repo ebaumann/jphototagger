@@ -94,8 +94,8 @@ public final class InputDialog extends Dialog {
         labelPrompt = new javax.swing.JLabel();
         textFieldInput = new javax.swing.JTextField();
         panelButtons = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonOk = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "InputDialog.title")); // NOI18N

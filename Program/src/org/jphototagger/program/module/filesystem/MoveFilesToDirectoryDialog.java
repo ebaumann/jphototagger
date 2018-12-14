@@ -321,7 +321,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
 
         panelContent = new javax.swing.JPanel();
         labelInfo = new javax.swing.JLabel();
-        buttonChooseDirectory = new javax.swing.JButton();
+        buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         labelDirectoryName = new javax.swing.JLabel();
         progressBar = new javax.swing.JProgressBar();
         panelCurrentFile = new javax.swing.JPanel();
@@ -329,8 +329,8 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         labelCurrentFilename = new javax.swing.JLabel();
         labelInfoIsThread = new javax.swing.JLabel();
         panelCancelStart = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonStart = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonStart = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.title")); // NOI18N

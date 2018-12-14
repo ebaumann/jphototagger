@@ -341,11 +341,11 @@ public final class RenameDialog extends Dialog {
         labelToNamePrompt = new javax.swing.JLabel();
         textFieldToName = new javax.swing.JTextField();
         panelRenameButtons = new javax.swing.JPanel();
-        buttonNextFile = new javax.swing.JButton();
-        buttonRename = new javax.swing.JButton();
+        buttonNextFile = org.jphototagger.resources.UiFactory.button();
+        buttonRename = org.jphototagger.resources.UiFactory.button();
         panelTemplatesContents = new javax.swing.JPanel();
         panelRenameTemplates = new org.jphototagger.program.module.filesystem.RenameTemplatesPanel();
-        buttonRenameViaTemplate = new javax.swing.JButton();
+        buttonRenameViaTemplate = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "RenameDialog.title")); // NOI18N

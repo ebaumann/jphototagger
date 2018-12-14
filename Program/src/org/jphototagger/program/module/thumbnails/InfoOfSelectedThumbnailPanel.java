@@ -160,7 +160,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         labelSelectedFilePathPrompt = new javax.swing.JLabel();
         labelSelectedFilePathPrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFilePathPrompt.getFont()));
         labelSelectedFilePathName = new javax.swing.JLabel();
-        buttonOpenDirectoryOfSelectedFile = new javax.swing.JButton();
+        buttonOpenDirectoryOfSelectedFile = org.jphototagger.resources.UiFactory.button();
         panelSelectedFileDateSizeXmpExists = new javax.swing.JPanel();
         labelSelectedFileDatePrompt = new javax.swing.JLabel();
         labelSelectedFileDatePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileDatePrompt.getFont()));

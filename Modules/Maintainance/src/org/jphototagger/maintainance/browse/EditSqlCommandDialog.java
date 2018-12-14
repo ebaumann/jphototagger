@@ -91,8 +91,8 @@ public class EditSqlCommandDialog extends Dialog {
         scrollPaneSql = new javax.swing.JScrollPane();
         textAreaSql = new javax.swing.JTextArea();
         panelButtons = new javax.swing.JPanel();
-        buttonOk = new javax.swing.JButton();
-        buttonCancel = new javax.swing.JButton();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(org.jphototagger.lib.util.Bundle.getString(EditSqlCommandDialog.class, "EditSqlCommandDialog.title")); // NOI18N

@@ -116,9 +116,9 @@ public class LongMessageDialog extends Dialog {
         panelSearch = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         panelSearch.setSearchableTextComponent(textArea);
         panelButtons = new javax.swing.JPanel();
-        buttonMail = new javax.swing.JButton();
-        buttonCopy = new javax.swing.JButton();
-        buttonClose = new javax.swing.JButton();
+        buttonMail = org.jphototagger.resources.UiFactory.button();
+        buttonCopy = org.jphototagger.resources.UiFactory.button();
+        buttonClose = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N

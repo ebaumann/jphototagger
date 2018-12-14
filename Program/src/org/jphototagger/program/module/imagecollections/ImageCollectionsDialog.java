@@ -78,7 +78,7 @@ public final class ImageCollectionsDialog extends Dialog {
         labelSelectImageCollection = new javax.swing.JLabel();
         scrollPaneImageCollectionNames = new javax.swing.JScrollPane();
         listImageCollectionNames = new org.jdesktop.swingx.JXList();
-        buttonOk = new javax.swing.JButton();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ImageCollectionsDialog.title")); // NOI18N

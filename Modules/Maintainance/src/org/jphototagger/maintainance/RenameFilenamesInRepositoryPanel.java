@@ -166,7 +166,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         labelReplacement = new javax.swing.JLabel();
         textFieldReplacement = new javax.swing.JTextField();
         progressBar = new javax.swing.JProgressBar();
-        buttonReplace = new javax.swing.JButton();
+        buttonReplace = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

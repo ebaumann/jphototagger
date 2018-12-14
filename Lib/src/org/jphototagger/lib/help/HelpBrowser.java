@@ -581,10 +581,10 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         scrollPanePage = new javax.swing.JScrollPane();
         editorPanePage = new org.jdesktop.swingx.JXEditorPane();
         panelButtons = new javax.swing.JPanel();
-        buttonPrint = new javax.swing.JButton();
-        buttonSearchInCurrentPage = new javax.swing.JButton();
-        buttonGotoPreviousUrl = new javax.swing.JButton();
-        buttonGotoNextUrl = new javax.swing.JButton();
+        buttonPrint = org.jphototagger.resources.UiFactory.button();
+        buttonSearchInCurrentPage = org.jphototagger.resources.UiFactory.button();
+        buttonGotoPreviousUrl = org.jphototagger.resources.UiFactory.button();
+        buttonGotoNextUrl = org.jphototagger.resources.UiFactory.button();
         menuBar = new javax.swing.JMenuBar();
         menuView = new javax.swing.JMenu();
         menuItemTextFontSizeSmall = new javax.swing.JRadioButtonMenuItem();

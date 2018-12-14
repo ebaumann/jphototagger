@@ -179,7 +179,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelFilter = new javax.swing.JPanel();
         labelFilterPrompt = new javax.swing.JLabel();
         textFieldFilter = new javax.swing.JTextField();
-        buttonApplyFilter = new javax.swing.JButton();
+        buttonApplyFilter = org.jphototagger.resources.UiFactory.button();
         scrollPaneFiles = new javax.swing.JScrollPane();
         listFiles = new org.jphototagger.lib.lookup.LookupList();
         panelListInfo = new javax.swing.JPanel();

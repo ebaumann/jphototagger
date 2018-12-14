@@ -231,11 +231,11 @@ public final class FavoritePropertiesDialog extends Dialog {
         panelContent = new javax.swing.JPanel();
         labelPromptFavoriteName = new javax.swing.JLabel();
         textFieldFavoriteName = new javax.swing.JTextField();
-        buttonChooseDirectory = new javax.swing.JButton();
+        buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         labelDirectoryname = new javax.swing.JLabel();
         panelButtons = new javax.swing.JPanel();
-        buttonCancel = new javax.swing.JButton();
-        buttonOk = new javax.swing.JButton();
+        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        buttonOk = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "FavoritePropertiesDialog.title")); // NOI18N

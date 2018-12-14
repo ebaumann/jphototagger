@@ -185,7 +185,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         java.awt.GridBagConstraints gridBagConstraints;
 
         thumbnailSizeSlider = new javax.swing.JSlider();
-        thumbnailDimensionsButton = new javax.swing.JButton();
+        thumbnailDimensionsButton = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

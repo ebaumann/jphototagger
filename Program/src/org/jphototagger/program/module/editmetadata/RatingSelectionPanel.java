@@ -346,12 +346,12 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelPrompt = new javax.swing.JLabel();
-        buttonNoRating = new javax.swing.JButton();
-        buttonStar1 = new javax.swing.JButton();
-        buttonStar2 = new javax.swing.JButton();
-        buttonStar3 = new javax.swing.JButton();
-        buttonStar4 = new javax.swing.JButton();
-        buttonStar5 = new javax.swing.JButton();
+        buttonNoRating = org.jphototagger.resources.UiFactory.button();
+        buttonStar1 = org.jphototagger.resources.UiFactory.button();
+        buttonStar2 = org.jphototagger.resources.UiFactory.button();
+        buttonStar3 = org.jphototagger.resources.UiFactory.button();
+        buttonStar4 = org.jphototagger.resources.UiFactory.button();
+        buttonStar5 = org.jphototagger.resources.UiFactory.button();
 
         setName("Rating Selection Panel"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
