@@ -478,19 +478,19 @@ public class FindDuplicatesDialog extends Dialog {
         buttonDeleteSelectedFiles = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/findduplicates/Bundle"); // NOI18N
-        setTitle(bundle.getString("FindDuplicatesDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "FindDuplicatesDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelInfo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        labelInfo.setText(bundle.getString("FindDuplicatesDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "FindDuplicatesDialog.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelContent.add(labelInfo, gridBagConstraints);
 
-        panelSourceDirectories.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("FindDuplicatesDialog.panelSourceDirectories.border.title"))); // NOI18N
+        panelSourceDirectories.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "FindDuplicatesDialog.panelSourceDirectories.border.title"))); // NOI18N
         panelSourceDirectories.setLayout(new java.awt.GridBagLayout());
 
         listSourceDirectories.setModel(sourceDirectoriesListModel);
@@ -508,13 +508,13 @@ public class FindDuplicatesDialog extends Dialog {
 
         panelSourceDirectoriesActions.setLayout(new java.awt.GridBagLayout());
 
-        checkBoxSourceDirsRecursive.setText(bundle.getString("FindDuplicatesDialog.checkBoxSourceDirsRecursive.text")); // NOI18N
+        checkBoxSourceDirsRecursive.setText(Bundle.getString(getClass(), "FindDuplicatesDialog.checkBoxSourceDirsRecursive.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelSourceDirectoriesActions.add(checkBoxSourceDirsRecursive, gridBagConstraints);
 
-        buttonAddSourceDirectory.setText(bundle.getString("FindDuplicatesDialog.buttonAddSourceDirectory.text")); // NOI18N
+        buttonAddSourceDirectory.setText(Bundle.getString(getClass(), "FindDuplicatesDialog.buttonAddSourceDirectory.text")); // NOI18N
         buttonAddSourceDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddSourceDirectoryActionPerformed(evt);
@@ -546,17 +546,17 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelSourceDirectories, gridBagConstraints);
 
-        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("FindDuplicatesDialog.panelOptions.border.title"))); // NOI18N
+        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "FindDuplicatesDialog.panelOptions.border.title"))); // NOI18N
         panelOptions.setLayout(new java.awt.GridBagLayout());
 
-        checkBoxCompareOnlyEqualFilenames.setText(bundle.getString("FindDuplicatesDialog.checkBoxCompareOnlyEqualFilenames.text")); // NOI18N
+        checkBoxCompareOnlyEqualFilenames.setText(Bundle.getString(getClass(), "FindDuplicatesDialog.checkBoxCompareOnlyEqualFilenames.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         panelOptions.add(checkBoxCompareOnlyEqualFilenames, gridBagConstraints);
 
-        checkBoxCompareOnlyEqualDates.setText(bundle.getString("FindDuplicatesDialog.checkBoxCompareOnlyEqualDates.text")); // NOI18N
+        checkBoxCompareOnlyEqualDates.setText(Bundle.getString(getClass(), "FindDuplicatesDialog.checkBoxCompareOnlyEqualDates.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -594,7 +594,7 @@ public class FindDuplicatesDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelSearchActions, gridBagConstraints);
 
-        panelResult.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("FindDuplicatesDialog.panelResult.border.title"))); // NOI18N
+        panelResult.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "FindDuplicatesDialog.panelResult.border.title"))); // NOI18N
         panelResult.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

@@ -471,7 +471,7 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpTiffFilter.setLayout(new GridBagLayout());
 
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/xmpmodule/Bundle"); // NOI18N
-        labelTableXmpTiffFilter.setText(bundle.getString("XmpPanel.labelTableXmpTiffFilter.text")); // NOI18N
+        labelTableXmpTiffFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpTiffFilter.text")); // NOI18N
         labelTableXmpTiffFilter.setName("labelTableXmpTiffFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -516,7 +516,7 @@ public class XmpPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTableXmpTiff.add(scrollPaneXmpTiff, gridBagConstraints);
 
-        tabbedPaneXmp.addTab(bundle.getString("XmpPanel.panelTableXmpTiff.TabConstraints.tabTitle"), panelTableXmpTiff); // NOI18N
+        tabbedPaneXmp.addTab(Bundle.getString(getClass(), "XmpPanel.panelTableXmpTiff.TabConstraints.tabTitle"), panelTableXmpTiff); // NOI18N
 
         panelTableXmpExif.setName("panelTableXmpExif"); // NOI18N
         panelTableXmpExif.setLayout(new GridBagLayout());
@@ -524,7 +524,7 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpExifFilter.setName("panelTableXmpExifFilter"); // NOI18N
         panelTableXmpExifFilter.setLayout(new GridBagLayout());
 
-        labelTableXmpExifFilter.setText(bundle.getString("XmpPanel.labelTableXmpExifFilter.text")); // NOI18N
+        labelTableXmpExifFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpExifFilter.text")); // NOI18N
         labelTableXmpExifFilter.setName("labelTableXmpExifFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -569,7 +569,7 @@ public class XmpPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTableXmpExif.add(scrollPaneXmpExif, gridBagConstraints);
 
-        tabbedPaneXmp.addTab(bundle.getString("XmpPanel.panelTableXmpExif.TabConstraints.tabTitle"), panelTableXmpExif); // NOI18N
+        tabbedPaneXmp.addTab(Bundle.getString(getClass(), "XmpPanel.panelTableXmpExif.TabConstraints.tabTitle"), panelTableXmpExif); // NOI18N
 
         panelTableXmpDc.setName("panelTableXmpDc"); // NOI18N
         panelTableXmpDc.setLayout(new GridBagLayout());
@@ -577,7 +577,7 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpDcFilter.setName("panelTableXmpDcFilter"); // NOI18N
         panelTableXmpDcFilter.setLayout(new GridBagLayout());
 
-        labelTableXmpDcFilter.setText(bundle.getString("XmpPanel.labelTableXmpDcFilter.text")); // NOI18N
+        labelTableXmpDcFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpDcFilter.text")); // NOI18N
         labelTableXmpDcFilter.setName("labelTableXmpDcFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -622,7 +622,7 @@ public class XmpPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTableXmpDc.add(scrollPaneXmpDc, gridBagConstraints);
 
-        tabbedPaneXmp.addTab(bundle.getString("XmpPanel.panelTableXmpDc.TabConstraints.tabTitle"), panelTableXmpDc); // NOI18N
+        tabbedPaneXmp.addTab(Bundle.getString(getClass(), "XmpPanel.panelTableXmpDc.TabConstraints.tabTitle"), panelTableXmpDc); // NOI18N
 
         panelTableXmpIptc.setName("panelTableXmpIptc"); // NOI18N
         panelTableXmpIptc.setLayout(new GridBagLayout());
@@ -630,7 +630,7 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpIptcFilter.setName("panelTableXmpIptcFilter"); // NOI18N
         panelTableXmpIptcFilter.setLayout(new GridBagLayout());
 
-        labelTableXmpIptcFilter.setText(bundle.getString("XmpPanel.labelTableXmpIptcFilter.text")); // NOI18N
+        labelTableXmpIptcFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpIptcFilter.text")); // NOI18N
         labelTableXmpIptcFilter.setName("labelTableXmpIptcFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -675,7 +675,7 @@ public class XmpPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTableXmpIptc.add(scrollPaneXmpIptc, gridBagConstraints);
 
-        tabbedPaneXmp.addTab(bundle.getString("XmpPanel.panelTableXmpIptc.TabConstraints.tabTitle"), panelTableXmpIptc); // NOI18N
+        tabbedPaneXmp.addTab(Bundle.getString(getClass(), "XmpPanel.panelTableXmpIptc.TabConstraints.tabTitle"), panelTableXmpIptc); // NOI18N
 
         panelTableXmpPhotoshop.setName("panelTableXmpPhotoshop"); // NOI18N
         panelTableXmpPhotoshop.setLayout(new GridBagLayout());
@@ -683,7 +683,7 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpPhotoshopFilter.setName("panelTableXmpPhotoshopFilter"); // NOI18N
         panelTableXmpPhotoshopFilter.setLayout(new GridBagLayout());
 
-        labelTableXmpPhotoshopFilter.setText(bundle.getString("XmpPanel.labelTableXmpPhotoshopFilter.text")); // NOI18N
+        labelTableXmpPhotoshopFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpPhotoshopFilter.text")); // NOI18N
         labelTableXmpPhotoshopFilter.setName("labelTableXmpPhotoshopFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -728,7 +728,7 @@ public class XmpPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTableXmpPhotoshop.add(scrollPaneXmpPhotoshop, gridBagConstraints);
 
-        tabbedPaneXmp.addTab(bundle.getString("XmpPanel.panelTableXmpPhotoshop.TabConstraints.tabTitle"), panelTableXmpPhotoshop); // NOI18N
+        tabbedPaneXmp.addTab(Bundle.getString(getClass(), "XmpPanel.panelTableXmpPhotoshop.TabConstraints.tabTitle"), panelTableXmpPhotoshop); // NOI18N
 
         panelTableXmpXap.setName("panelTableXmpXap"); // NOI18N
         panelTableXmpXap.setLayout(new GridBagLayout());
@@ -736,7 +736,7 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpXapFilter.setName("panelTableXmpXapFilter"); // NOI18N
         panelTableXmpXapFilter.setLayout(new GridBagLayout());
 
-        labelTableXmpXapFilter.setText(bundle.getString("XmpPanel.labelTableXmpXapFilter.text")); // NOI18N
+        labelTableXmpXapFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpXapFilter.text")); // NOI18N
         labelTableXmpXapFilter.setName("labelTableXmpXapFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -781,7 +781,7 @@ public class XmpPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTableXmpXap.add(scrollPaneXmpXap, gridBagConstraints);
 
-        tabbedPaneXmp.addTab(bundle.getString("XmpPanel.panelTableXmpXap.TabConstraints.tabTitle"), panelTableXmpXap); // NOI18N
+        tabbedPaneXmp.addTab(Bundle.getString(getClass(), "XmpPanel.panelTableXmpXap.TabConstraints.tabTitle"), panelTableXmpXap); // NOI18N
 
         panelTableXmpLightroom.setName("panelTableXmpLightroom"); // NOI18N
         panelTableXmpLightroom.setLayout(new GridBagLayout());
@@ -789,7 +789,7 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpLightroomFilter.setName("panelTableXmpLightroomFilter"); // NOI18N
         panelTableXmpLightroomFilter.setLayout(new GridBagLayout());
 
-        labelTableXmpLightroomFilter.setText(bundle.getString("XmpPanel.labelTableXmpLightroomFilter.text")); // NOI18N
+        labelTableXmpLightroomFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpLightroomFilter.text")); // NOI18N
         labelTableXmpLightroomFilter.setName("labelTableXmpLightroomFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -834,7 +834,7 @@ public class XmpPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTableXmpLightroom.add(scrollPaneXmpLightroom, gridBagConstraints);
 
-        tabbedPaneXmp.addTab(bundle.getString("XmpPanel.panelTableXmpLightroom.TabConstraints.tabTitle"), panelTableXmpLightroom); // NOI18N
+        tabbedPaneXmp.addTab(Bundle.getString(getClass(), "XmpPanel.panelTableXmpLightroom.TabConstraints.tabTitle"), panelTableXmpLightroom); // NOI18N
 
         panelTableXmpCameraRawSettings.setName("panelTableXmpCameraRawSettings"); // NOI18N
         panelTableXmpCameraRawSettings.setLayout(new GridBagLayout());
@@ -842,7 +842,7 @@ public class XmpPanel extends javax.swing.JPanel {
         panelTableXmpCameraRawSettingsFilter.setName("panelTableXmpCameraRawSettingsFilter"); // NOI18N
         panelTableXmpCameraRawSettingsFilter.setLayout(new GridBagLayout());
 
-        labelTableXmpCameraRawSettingsFilter.setText(bundle.getString("XmpPanel.labelTableXmpCameraRawSettingsFilter.text")); // NOI18N
+        labelTableXmpCameraRawSettingsFilter.setText(Bundle.getString(getClass(), "XmpPanel.labelTableXmpCameraRawSettingsFilter.text")); // NOI18N
         labelTableXmpCameraRawSettingsFilter.setName("labelTableXmpCameraRawSettingsFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -887,7 +887,7 @@ public class XmpPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         panelTableXmpCameraRawSettings.add(scrollPaneXmpCameraRawSettings, gridBagConstraints);
 
-        tabbedPaneXmp.addTab(bundle.getString("XmpPanel.panelTableXmpCameraRawSettings.TabConstraints.tabTitle"), panelTableXmpCameraRawSettings); // NOI18N
+        tabbedPaneXmp.addTab(Bundle.getString(getClass(), "XmpPanel.panelTableXmpCameraRawSettings.TabConstraints.tabTitle"), panelTableXmpCameraRawSettings); // NOI18N
 
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;

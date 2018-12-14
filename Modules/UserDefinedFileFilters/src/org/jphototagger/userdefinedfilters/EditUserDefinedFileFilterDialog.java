@@ -125,7 +125,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfilters/Bundle"); // NOI18N
-        setTitle(bundle.getString("EditUserDefinedFileFilterDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -133,7 +133,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelName.setLabelFor(textFieldName);
-        labelName.setText(bundle.getString("EditUserDefinedFileFilterDialog.labelName.text")); // NOI18N
+        labelName.setText(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.labelName.text")); // NOI18N
         labelName.setName("labelName"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -180,7 +180,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelContent.add(textFieldExpression, gridBagConstraints);
 
-        checkBoxNot.setText(bundle.getString("EditUserDefinedFileFilterDialog.checkBoxNot.text")); // NOI18N
+        checkBoxNot.setText(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.checkBoxNot.text")); // NOI18N
         checkBoxNot.setName("checkBoxNot"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, filter, org.jdesktop.beansbinding.ELProperty.create("${isNot}"), checkBoxNot, org.jdesktop.beansbinding.BeanProperty.create("selected"));
@@ -198,7 +198,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancel.setText(bundle.getString("EditUserDefinedFileFilterDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,7 +211,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelButtons.add(buttonCancel, gridBagConstraints);
 
-        buttonOk.setText(bundle.getString("EditUserDefinedFileFilterDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

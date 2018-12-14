@@ -14,6 +14,7 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Enhances a {@code JTextComponent} with search capabilities.
@@ -264,7 +265,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
 
         label.setLabelFor(searchTextField);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        label.setText(bundle.getString("TextComponentSearchPanel.label.text")); // NOI18N
+        label.setText(Bundle.getString(getClass(), "TextComponentSearchPanel.label.text")); // NOI18N
         label.setName("label"); // NOI18N
         add(label, new java.awt.GridBagConstraints());
 
@@ -276,7 +277,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(searchTextField, gridBagConstraints);
 
-        buttonSearchDownwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchDownwards.text")); // NOI18N
+        buttonSearchDownwards.setText(Bundle.getString(getClass(), "TextComponentSearchPanel.buttonSearchDownwards.text")); // NOI18N
         buttonSearchDownwards.setEnabled(false);
         buttonSearchDownwards.setName("buttonSearchDownwards"); // NOI18N
         buttonSearchDownwards.addActionListener(new java.awt.event.ActionListener() {
@@ -288,7 +289,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         add(buttonSearchDownwards, gridBagConstraints);
 
-        buttonSearchUpwards.setText(bundle.getString("TextComponentSearchPanel.buttonSearchUpwards.text")); // NOI18N
+        buttonSearchUpwards.setText(Bundle.getString(getClass(), "TextComponentSearchPanel.buttonSearchUpwards.text")); // NOI18N
         buttonSearchUpwards.setEnabled(false);
         buttonSearchUpwards.setName("buttonSearchUpwards"); // NOI18N
         buttonSearchUpwards.addActionListener(new java.awt.event.ActionListener() {

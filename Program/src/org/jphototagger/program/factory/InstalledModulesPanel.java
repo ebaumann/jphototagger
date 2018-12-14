@@ -95,7 +95,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/factory/Bundle"); // NOI18N
-        labelInfo.setText(bundle.getString("InstalledModulesPanel.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "InstalledModulesPanel.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -124,7 +124,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(scrollPaneModules, gridBagConstraints);
 
-        panelModuleDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("InstalledModulesPanel.panelModuleDescription.border.title"))); // NOI18N
+        panelModuleDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "InstalledModulesPanel.panelModuleDescription.border.title"))); // NOI18N
         panelModuleDescription.setName("panelModuleDescription"); // NOI18N
         panelModuleDescription.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(100, 75));
         panelModuleDescription.setLayout(new java.awt.GridBagLayout());

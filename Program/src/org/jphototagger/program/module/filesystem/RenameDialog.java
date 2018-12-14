@@ -348,7 +348,7 @@ public final class RenameDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
-        setTitle(bundle.getString("RenameDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "RenameDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -358,7 +358,7 @@ public final class RenameDialog extends Dialog {
 
         panelContents.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoTemplatesTab.setText(bundle.getString("RenameDialog.labelInfoTemplatesTab.text")); // NOI18N
+        labelInfoTemplatesTab.setText(Bundle.getString(getClass(), "RenameDialog.labelInfoTemplatesTab.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -371,7 +371,7 @@ public final class RenameDialog extends Dialog {
         });
         panelInputName.setLayout(new java.awt.GridBagLayout());
 
-        panelFolderPathname.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameDialog.panelFolderPathname.border.title"))); // NOI18N
+        panelFolderPathname.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RenameDialog.panelFolderPathname.border.title"))); // NOI18N
         panelFolderPathname.setLayout(new java.awt.GridBagLayout());
 
         labelDirectory.setForeground(new java.awt.Color(0, 175, 0));
@@ -420,7 +420,7 @@ public final class RenameDialog extends Dialog {
 
         panelFromNameToName.setLayout(new java.awt.GridBagLayout());
 
-        labelFromNamePrompt.setText(bundle.getString("RenameDialog.labelFromNamePrompt.text")); // NOI18N
+        labelFromNamePrompt.setText(Bundle.getString(getClass(), "RenameDialog.labelFromNamePrompt.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelFromNameToName.add(labelFromNamePrompt, gridBagConstraints);
@@ -437,7 +437,7 @@ public final class RenameDialog extends Dialog {
         panelFromNameToName.add(labelFromName, gridBagConstraints);
 
         labelToNamePrompt.setLabelFor(textFieldToName);
-        labelToNamePrompt.setText(bundle.getString("RenameDialog.labelToNamePrompt.text")); // NOI18N
+        labelToNamePrompt.setText(Bundle.getString(getClass(), "RenameDialog.labelToNamePrompt.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
@@ -467,7 +467,7 @@ public final class RenameDialog extends Dialog {
 
         panelRenameButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        buttonNextFile.setText(bundle.getString("RenameDialog.buttonNextFile.text")); // NOI18N
+        buttonNextFile.setText(Bundle.getString(getClass(), "RenameDialog.buttonNextFile.text")); // NOI18N
         buttonNextFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNextFileActionPerformed(evt);
@@ -475,7 +475,7 @@ public final class RenameDialog extends Dialog {
         });
         panelRenameButtons.add(buttonNextFile);
 
-        buttonRename.setText(bundle.getString("RenameDialog.buttonRename.text")); // NOI18N
+        buttonRename.setText(Bundle.getString(getClass(), "RenameDialog.buttonRename.text")); // NOI18N
         buttonRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameActionPerformed(evt);
@@ -491,7 +491,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 10, 10);
         panelInputName.add(panelRenameButtons, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("RenameDialog.panelInputName.TabConstraints.tabTitle"), panelInputName); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "RenameDialog.panelInputName.TabConstraints.tabTitle"), panelInputName); // NOI18N
 
         panelTemplatesContents.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -506,7 +506,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         panelTemplatesContents.add(panelRenameTemplates, gridBagConstraints);
 
-        buttonRenameViaTemplate.setText(bundle.getString("RenameDialog.buttonRenameViaTemplate.text")); // NOI18N
+        buttonRenameViaTemplate.setText(Bundle.getString(getClass(), "RenameDialog.buttonRenameViaTemplate.text")); // NOI18N
         buttonRenameViaTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRenameViaTemplateActionPerformed(evt);
@@ -519,7 +519,7 @@ public final class RenameDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 10, 10);
         panelTemplatesContents.add(buttonRenameViaTemplate, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("RenameDialog.panelTemplatesContents.TabConstraints.tabTitle"), panelTemplatesContents); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "RenameDialog.panelTemplatesContents.TabConstraints.tabTitle"), panelTemplatesContents); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

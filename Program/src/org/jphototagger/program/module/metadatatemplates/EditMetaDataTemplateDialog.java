@@ -173,7 +173,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/metadatatemplates/Bundle"); // NOI18N
-        setTitle(bundle.getString("EditMetaDataTemplateDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         setPreferredSize(org.jphototagger.resources.UiFactory.dimension(500, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -188,7 +188,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         panelName.setLayout(new java.awt.GridBagLayout());
 
         labelName.setLabelFor(textFieldName);
-        labelName.setText(bundle.getString("EditMetaDataTemplateDialog.labelName.text")); // NOI18N
+        labelName.setText(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.labelName.text")); // NOI18N
         labelName.setName("labelName"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -227,7 +227,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        buttonCancel.setText(bundle.getString("EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,7 +236,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
         });
         panelButtons.add(buttonCancel);
 
-        buttonSave.setText(bundle.getString("EditMetaDataTemplateDialog.buttonSave.text")); // NOI18N
+        buttonSave.setText(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.buttonSave.text")); // NOI18N
         buttonSave.setName("buttonSave"); // NOI18N
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

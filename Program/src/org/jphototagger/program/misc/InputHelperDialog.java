@@ -123,7 +123,7 @@ public class InputHelperDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
-        setTitle(bundle.getString("InputHelperDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "InputHelperDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -137,13 +137,13 @@ public class InputHelperDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelKeywords.setName("panelKeywords"); // NOI18N
-        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "InputHelperDialog.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
 
         panelMiscXmpMetadata.setName("panelMiscXmpMetadata"); // NOI18N
-        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMiscXmpMetadata.TabConstraints.tabTitle"), panelMiscXmpMetadata); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "InputHelperDialog.panelMiscXmpMetadata.TabConstraints.tabTitle"), panelMiscXmpMetadata); // NOI18N
 
         panelMetaDataTemplates.setName("panelMetaDataTemplates"); // NOI18N
-        tabbedPane.addTab(bundle.getString("InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "InputHelperDialog.panelMetaDataTemplates.TabConstraints.tabTitle"), panelMetaDataTemplates); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -152,7 +152,7 @@ public class InputHelperDialog extends Dialog {
         gridBagConstraints.weighty = 2.0;
         getContentPane().add(tabbedPane, gridBagConstraints);
 
-        labelInfo.setText(bundle.getString("InputHelperDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "InputHelperDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

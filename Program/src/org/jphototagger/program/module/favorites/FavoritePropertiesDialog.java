@@ -239,7 +239,7 @@ public final class FavoritePropertiesDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/favorites/Bundle"); // NOI18N
-        setTitle(bundle.getString("FavoritePropertiesDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "FavoritePropertiesDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -252,7 +252,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelPromptFavoriteName.setLabelFor(textFieldFavoriteName);
-        labelPromptFavoriteName.setText(bundle.getString("FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
+        labelPromptFavoriteName.setText(Bundle.getString(getClass(), "FavoritePropertiesDialog.labelPromptFavoriteName.text")); // NOI18N
         labelPromptFavoriteName.setName("labelPromptFavoriteName"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -281,7 +281,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(textFieldFavoriteName, gridBagConstraints);
 
-        buttonChooseDirectory.setText(bundle.getString("FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString(getClass(), "FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -309,7 +309,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancel.setText(bundle.getString("FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "FavoritePropertiesDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -318,7 +318,7 @@ public final class FavoritePropertiesDialog extends Dialog {
         });
         panelButtons.add(buttonCancel, new java.awt.GridBagConstraints());
 
-        buttonOk.setText(bundle.getString("FavoritePropertiesDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "FavoritePropertiesDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {

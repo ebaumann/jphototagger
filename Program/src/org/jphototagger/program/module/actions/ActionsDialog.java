@@ -82,7 +82,7 @@ public final class ActionsDialog extends Dialog {
         panelActions = new org.jphototagger.program.module.actions.ActionsPanel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/actions/Bundle"); // NOI18N
-        setTitle(bundle.getString("ActionsDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ActionsDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());

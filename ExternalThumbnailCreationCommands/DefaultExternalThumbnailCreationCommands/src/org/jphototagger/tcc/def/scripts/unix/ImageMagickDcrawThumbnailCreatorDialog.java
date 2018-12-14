@@ -169,13 +169,13 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/tcc/def/scripts/unix/Bundle"); // NOI18N
-        setTitle(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -189,7 +189,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         labelDcrawOk.setIcon(ERROR_ICON);
         panelImageButtons.add(labelDcrawOk, new java.awt.GridBagConstraints());
 
-        buttonChooseDcraw.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonChooseDcraw.text")); // NOI18N
+        buttonChooseDcraw.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseDcraw.text")); // NOI18N
         buttonChooseDcraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseDcrawActionPerformed(evt);
@@ -201,7 +201,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelImageButtons.add(buttonChooseDcraw, gridBagConstraints);
 
-        buttonBrowseDcraw.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseDcraw.text")); // NOI18N
+        buttonBrowseDcraw.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseDcraw.text")); // NOI18N
         buttonBrowseDcraw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseDcrawActionPerformed(evt);
@@ -219,7 +219,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelImageButtons.add(labelConvertOk, gridBagConstraints);
 
-        buttonChooseConvert.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
+        buttonChooseConvert.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
         buttonChooseConvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseConvertActionPerformed(evt);
@@ -231,7 +231,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 5, 0, 0);
         panelImageButtons.add(buttonChooseConvert, gridBagConstraints);
 
-        buttonBrowseConvert.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseConvert.text")); // NOI18N
+        buttonBrowseConvert.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseConvert.text")); // NOI18N
         buttonBrowseConvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseConvertActionPerformed(evt);
@@ -249,7 +249,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelImageButtons.add(labelIdentifyOk, gridBagConstraints);
 
-        buttonChooseIdentify.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonChooseIdentify.text")); // NOI18N
+        buttonChooseIdentify.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseIdentify.text")); // NOI18N
         buttonChooseIdentify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseIdentifyActionPerformed(evt);
@@ -269,11 +269,11 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         panelContent.add(panelImageButtons, gridBagConstraints);
 
-        panelVideo.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.panelVideo.border.title"))); // NOI18N
+        panelVideo.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.panelVideo.border.title"))); // NOI18N
         panelVideo.setLayout(new java.awt.GridBagLayout());
 
         labelInfoVideo.setLineWrap(true);
-        labelInfoVideo.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.labelInfoVideo.text")); // NOI18N
+        labelInfoVideo.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.labelInfoVideo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -297,7 +297,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelVideo.add(labelMPlayerOk, gridBagConstraints);
 
-        buttonChooseMPlayer.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonChooseMPlayer.text")); // NOI18N
+        buttonChooseMPlayer.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseMPlayer.text")); // NOI18N
         buttonChooseMPlayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseMPlayerActionPerformed(evt);
@@ -308,7 +308,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
         panelVideo.add(buttonChooseMPlayer, gridBagConstraints);
 
-        buttonBrowserMPlayer.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonBrowserMPlayer.text")); // NOI18N
+        buttonBrowserMPlayer.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowserMPlayer.text")); // NOI18N
         buttonBrowserMPlayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowserMPlayerActionPerformed(evt);
@@ -329,7 +329,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
 
         panelOkCancelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
-        buttonCancel.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -337,7 +337,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         });
         panelOkCancelButtons.add(buttonCancel);
 
-        buttonOk.setText(bundle.getString("ImageMagickDcrawThumbnailCreatorDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

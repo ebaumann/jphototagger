@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @param <T> Object type
@@ -131,7 +132,7 @@ public class ObjectsSelectionDialog<T> extends Dialog {
         getContentPane().add(scrollPane, gridBagConstraints);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        buttonOk.setText(bundle.getString("ObjectsSelectionDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "ObjectsSelectionDialog.buttonOk.text")); // NOI18N
         buttonOk.setEnabled(false);
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

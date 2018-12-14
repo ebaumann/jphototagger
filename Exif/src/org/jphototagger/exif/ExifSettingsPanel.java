@@ -198,7 +198,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         panelExifCharset.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exif/Bundle"); // NOI18N
-        labelExifCharset.setText(bundle.getString("ExifSettingsPanel.labelExifCharset.text")); // NOI18N
+        labelExifCharset.setText(Bundle.getString(getClass(), "ExifSettingsPanel.labelExifCharset.text")); // NOI18N
         panelExifCharset.add(labelExifCharset, new java.awt.GridBagConstraints());
 
         comboBoxExifCharset.setModel(new DefaultComboBoxModel<>(ExifAscii.getValidCharsets()));
@@ -228,13 +228,13 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         panelDefault.add(panelDefaultContent, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("ExifSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "ExifSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
 
         panelExcludeSuffixes.setLayout(new java.awt.GridBagLayout());
 
         panelExcludeSuffixesContent.setLayout(new java.awt.GridBagLayout());
 
-        labelExcludeSuffixes.setText(bundle.getString("ExifSettingsPanel.labelExcludeSuffixes.text")); // NOI18N
+        labelExcludeSuffixes.setText(Bundle.getString(getClass(), "ExifSettingsPanel.labelExcludeSuffixes.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -255,7 +255,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         panelExcludeSuffixesContent.add(scrollPaneExcludeSuffixes, gridBagConstraints);
 
         buttonAddExcludeSuffixes.setText("+"); // NOI18N
-        buttonAddExcludeSuffixes.setToolTipText(bundle.getString("ExifSettingsPanel.buttonAddExcludeSuffixes.toolTipText")); // NOI18N
+        buttonAddExcludeSuffixes.setToolTipText(Bundle.getString(getClass(), "ExifSettingsPanel.buttonAddExcludeSuffixes.toolTipText")); // NOI18N
         buttonAddExcludeSuffixes.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonAddExcludeSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
         buttonAddExcludeSuffixes.addActionListener(new java.awt.event.ActionListener() {
@@ -270,7 +270,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         panelExcludeSuffixesContent.add(buttonAddExcludeSuffixes, gridBagConstraints);
 
         buttonRemoveExcludeSuffixes.setText("-"); // NOI18N
-        buttonRemoveExcludeSuffixes.setToolTipText(bundle.getString("ExifSettingsPanel.buttonRemoveExcludeSuffixes.toolTipText")); // NOI18N
+        buttonRemoveExcludeSuffixes.setToolTipText(Bundle.getString(getClass(), "ExifSettingsPanel.buttonRemoveExcludeSuffixes.toolTipText")); // NOI18N
         buttonRemoveExcludeSuffixes.setEnabled(false);
         buttonRemoveExcludeSuffixes.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonRemoveExcludeSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
@@ -294,7 +294,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         panelExcludeSuffixes.add(panelExcludeSuffixesContent, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("ExifSettingsPanel.panelExcludeSuffixes.TabConstraints.tabTitle"), panelExcludeSuffixes); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "ExifSettingsPanel.panelExcludeSuffixes.TabConstraints.tabTitle"), panelExcludeSuffixes); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

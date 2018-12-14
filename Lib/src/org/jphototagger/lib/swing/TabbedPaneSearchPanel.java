@@ -23,6 +23,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 
 /**
@@ -603,7 +604,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
         labelSearch.setDisplayedMnemonic('s');
         labelSearch.setLabelFor(textFieldSearch);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        labelSearch.setText(bundle.getString("TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
+        labelSearch.setText(Bundle.getString(getClass(), "TabbedPaneSearchPanel.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
         add(labelSearch, new java.awt.GridBagConstraints());
 

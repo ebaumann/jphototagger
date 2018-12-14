@@ -126,7 +126,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
 
         labelDefaultValues.setLabelFor(panelColumns);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/htmlreports/Bundle"); // NOI18N
-        labelDefaultValues.setText(bundle.getString("HtmlReportsSettingsPanel.labelDefaultValues.text")); // NOI18N
+        labelDefaultValues.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.labelDefaultValues.text")); // NOI18N
         labelDefaultValues.setName("labelDefaultValues"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -148,7 +148,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         panelDirectory.setName("panelDirectory"); // NOI18N
         panelDirectory.setLayout(new java.awt.GridBagLayout());
 
-        labelDirectoryPrompt.setText(bundle.getString("HtmlReportsSettingsPanel.labelDirectoryPrompt.text")); // NOI18N
+        labelDirectoryPrompt.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.labelDirectoryPrompt.text")); // NOI18N
         labelDirectoryPrompt.setName("labelDirectoryPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -166,7 +166,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelDirectory.add(labelDirectory, gridBagConstraints);
 
-        buttonChooseDirectory.setText(bundle.getString("HtmlReportsSettingsPanel.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,7 +187,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         add(panelDirectory, gridBagConstraints);
 
-        checkBoxShowSettings.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxShowSettings.text")); // NOI18N
+        checkBoxShowSettings.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxShowSettings.text")); // NOI18N
         checkBoxShowSettings.setName("checkBoxShowSettings"); // NOI18N
         checkBoxShowSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,7 +201,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         add(checkBoxShowSettings, gridBagConstraints);
 
-        checkBoxInputFilename.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxInputFilename.text")); // NOI18N
+        checkBoxInputFilename.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxInputFilename.text")); // NOI18N
         checkBoxInputFilename.setName("checkBoxInputFilename"); // NOI18N
         checkBoxInputFilename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +215,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         add(checkBoxInputFilename, gridBagConstraints);
 
-        checkBoxOpenReport.setText(bundle.getString("HtmlReportsSettingsPanel.checkBoxOpenReport.text")); // NOI18N
+        checkBoxOpenReport.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxOpenReport.text")); // NOI18N
         checkBoxOpenReport.setName("checkBoxOpenReport"); // NOI18N
         checkBoxOpenReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,14 +232,14 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
         panelVersion.setName("panelVersion"); // NOI18N
         panelVersion.setLayout(new java.awt.GridBagLayout());
 
-        labelVersion.setText(bundle.getString("HtmlReportsSettingsPanel.labelVersion.text")); // NOI18N
+        labelVersion.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.labelVersion.text")); // NOI18N
         labelVersion.setName("labelVersion"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         panelVersion.add(labelVersion, gridBagConstraints);
 
-        buttonHelp.setText(bundle.getString("HtmlReportsSettingsPanel.buttonHelp.text")); // NOI18N
+        buttonHelp.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.buttonHelp.text")); // NOI18N
         buttonHelp.setName("buttonHelp"); // NOI18N
         buttonHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

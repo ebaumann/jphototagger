@@ -22,6 +22,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -393,7 +394,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         panelTasks.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
-        checkBoxDeleteRecordsOfNotExistingFilesInRepository.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInRepository.text")); // NOI18N
+        checkBoxDeleteRecordsOfNotExistingFilesInRepository.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteRecordsOfNotExistingFilesInRepository.text")); // NOI18N
         checkBoxDeleteRecordsOfNotExistingFilesInRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteRecordsOfNotExistingFilesInRepositoryActionPerformed(evt);
@@ -412,7 +413,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelTasks.add(labelFinishedDeleteRecordsOfNotExistingFilesInRepository, gridBagConstraints);
 
-        checkBoxCompressRepository.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxCompressRepository.text")); // NOI18N
+        checkBoxCompressRepository.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxCompressRepository.text")); // NOI18N
         checkBoxCompressRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCompressRepositoryActionPerformed(evt);
@@ -432,7 +433,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedCompressRepository, gridBagConstraints);
 
-        checkBoxDeleteOrphanedThumbnails.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
+        checkBoxDeleteOrphanedThumbnails.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
         checkBoxDeleteOrphanedThumbnails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteOrphanedThumbnailsActionPerformed(evt);
@@ -452,7 +453,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteOrphanedThumbnails, gridBagConstraints);
 
-        checkBoxDeleteUnusedKeywords.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
+        checkBoxDeleteUnusedKeywords.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
         checkBoxDeleteUnusedKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteUnusedKeywordsActionPerformed(evt);
@@ -472,7 +473,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteUnusedKeywords, gridBagConstraints);
 
-        checkBoxDeleteNotReferenced1n.setText(bundle.getString("RepositoryMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
+        checkBoxDeleteNotReferenced1n.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
         checkBoxDeleteNotReferenced1n.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDeleteNotReferenced1nActionPerformed(evt);
@@ -501,7 +502,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         panelMessages.setLayout(new java.awt.GridBagLayout());
 
-        labelMessages.setText(bundle.getString("RepositoryMaintainancePanel.labelMessages.text")); // NOI18N
+        labelMessages.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.labelMessages.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -542,7 +543,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonDeleteMessages.setText(bundle.getString("RepositoryMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
+        buttonDeleteMessages.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.buttonDeleteMessages.text")); // NOI18N
         buttonDeleteMessages.setEnabled(false);
         buttonDeleteMessages.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -556,7 +557,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.weightx = 1.0;
         panelButtons.add(buttonDeleteMessages, gridBagConstraints);
 
-        buttonCancelAction.setText(bundle.getString("RepositoryMaintainancePanel.buttonCancelAction.text")); // NOI18N
+        buttonCancelAction.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.buttonCancelAction.text")); // NOI18N
         buttonCancelAction.setEnabled(false);
         buttonCancelAction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -569,7 +570,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         panelButtons.add(buttonCancelAction, gridBagConstraints);
 
-        buttonStartMaintain.setText(bundle.getString("RepositoryMaintainancePanel.buttonStartMaintain.text")); // NOI18N
+        buttonStartMaintain.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.buttonStartMaintain.text")); // NOI18N
         buttonStartMaintain.setEnabled(false);
         buttonStartMaintain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

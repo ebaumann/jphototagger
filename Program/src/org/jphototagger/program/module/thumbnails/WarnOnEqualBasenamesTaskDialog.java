@@ -22,6 +22,7 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.openide.util.Lookup;
 
@@ -117,11 +118,11 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        setTitle(bundle.getString("WarnOnEqualBasenamesTaskDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new GridBagLayout());
 
-        labelInfo.setText(bundle.getString("WarnOnEqualBasenamesTaskDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.labelInfo.text")); // NOI18N
         labelInfo.setLineWrap(true);
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
@@ -148,7 +149,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
         getContentPane().add(scrollPanlFiles, gridBagConstraints);
 
-        checkBoxDisplayInFuture.setText(bundle.getString("WarnOnEqualBasenamesTaskDialog.checkBoxDisplayInFuture.text")); // NOI18N
+        checkBoxDisplayInFuture.setText(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.checkBoxDisplayInFuture.text")); // NOI18N
         checkBoxDisplayInFuture.setName("checkBoxDisplayInFuture"); // NOI18N
         checkBoxDisplayInFuture.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {

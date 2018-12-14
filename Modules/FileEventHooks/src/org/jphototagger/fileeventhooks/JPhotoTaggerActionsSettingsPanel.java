@@ -234,7 +234,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/fileeventhooks/Bundle"); // NOI18N
-        labelInfoJPhotoTaggerFilenameSuffixes.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.labelInfoJPhotoTaggerFilenameSuffixes.text")); // NOI18N
+        labelInfoJPhotoTaggerFilenameSuffixes.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.labelInfoJPhotoTaggerFilenameSuffixes.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -243,7 +243,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         add(labelInfoJPhotoTaggerFilenameSuffixes, gridBagConstraints);
 
-        panelSuffixes.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("JPhotoTaggerActionsSettingsPanel.panelSuffixes.border.title"))); // NOI18N
+        panelSuffixes.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.panelSuffixes.border.title"))); // NOI18N
         panelSuffixes.setLayout(new java.awt.GridBagLayout());
 
         panelListFilenameSuffixes.setLayout(new java.awt.GridBagLayout());
@@ -274,7 +274,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         panelEditFilenameSuffix.setLayout(new java.awt.GridBagLayout());
 
         labelFilenameSuffix.setLabelFor(textFieldFilenameSuffix);
-        labelFilenameSuffix.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.labelFilenameSuffix.text")); // NOI18N
+        labelFilenameSuffix.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.labelFilenameSuffix.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelEditFilenameSuffix.add(labelFilenameSuffix, gridBagConstraints);
@@ -292,7 +292,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelEditFilenameSuffix.add(textFieldFilenameSuffix, gridBagConstraints);
 
-        buttonAddFilenameSuffix.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.buttonAddFilenameSuffix.text")); // NOI18N
+        buttonAddFilenameSuffix.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.buttonAddFilenameSuffix.text")); // NOI18N
         buttonAddFilenameSuffix.setEnabled(false);
         buttonAddFilenameSuffix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -305,7 +305,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelEditFilenameSuffix.add(buttonAddFilenameSuffix, gridBagConstraints);
 
-        labelFilenameSuffixExample.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.labelFilenameSuffixExample.text")); // NOI18N
+        labelFilenameSuffixExample.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.labelFilenameSuffixExample.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -332,7 +332,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
 
         panelButtonsFilenameSuffixes.setLayout(new java.awt.GridLayout(2, 0, 0, 5));
 
-        buttonRenameSelectedFilenameSuffix.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.buttonRenameSelectedFilenameSuffix.text")); // NOI18N
+        buttonRenameSelectedFilenameSuffix.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.buttonRenameSelectedFilenameSuffix.text")); // NOI18N
         buttonRenameSelectedFilenameSuffix.setEnabled(false);
         buttonRenameSelectedFilenameSuffix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,7 +341,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         });
         panelButtonsFilenameSuffixes.add(buttonRenameSelectedFilenameSuffix);
 
-        buttonRemoveSelectedFilenameSuffix.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.buttonRemoveSelectedFilenameSuffix.text")); // NOI18N
+        buttonRemoveSelectedFilenameSuffix.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.buttonRemoveSelectedFilenameSuffix.text")); // NOI18N
         buttonRemoveSelectedFilenameSuffix.setEnabled(false);
         buttonRemoveSelectedFilenameSuffix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -365,7 +365,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         add(panelSuffixes, gridBagConstraints);
 
-        labelAttentionJptActions.setText(bundle.getString("JPhotoTaggerActionsSettingsPanel.labelAttentionJptActions.text")); // NOI18N
+        labelAttentionJptActions.setText(Bundle.getString(getClass(), "JPhotoTaggerActionsSettingsPanel.labelAttentionJptActions.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;

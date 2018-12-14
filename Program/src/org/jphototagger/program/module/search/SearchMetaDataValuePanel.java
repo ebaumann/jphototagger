@@ -19,6 +19,7 @@ import org.jphototagger.domain.metadata.search.Operator;
 import org.jphototagger.domain.metadata.search.SavedSearchPanel;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
 
 /**
@@ -460,7 +461,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
 
         buttonRemoveColumn.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete12.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
-        buttonRemoveColumn.setToolTipText(bundle.getString("SearchMetaDataValuePanel.buttonRemoveColumn.toolTipText")); // NOI18N
+        buttonRemoveColumn.setToolTipText(Bundle.getString(getClass(), "SearchMetaDataValuePanel.buttonRemoveColumn.toolTipText")); // NOI18N
         buttonRemoveColumn.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemoveColumn.setName("buttonRemoveColumn"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

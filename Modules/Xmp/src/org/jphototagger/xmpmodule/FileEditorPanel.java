@@ -402,11 +402,11 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         panelContent.add(labelDescription, gridBagConstraints);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/xmpmodule/Bundle"); // NOI18N
-        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("FileEditorPanel.panelOptions.border.title"))); // NOI18N
+        panelOptions.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "FileEditorPanel.panelOptions.border.title"))); // NOI18N
         panelOptions.setName("panelOptions"); // NOI18N
         panelOptions.setLayout(new java.awt.GridBagLayout());
 
-        checkBoxIncludeSubdirectories.setText(bundle.getString("FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setText(Bundle.getString(getClass(), "FileEditorPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
         checkBoxIncludeSubdirectories.setName("checkBoxIncludeSubdirectories"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -415,7 +415,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelOptions.add(checkBoxIncludeSubdirectories, gridBagConstraints);
 
-        checkBoxReplaceExistingFiles.setText(bundle.getString("FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
+        checkBoxReplaceExistingFiles.setText(Bundle.getString(getClass(), "FileEditorPanel.checkBoxReplaceExistingFiles.text")); // NOI18N
         checkBoxReplaceExistingFiles.setName("checkBoxReplaceExistingFiles"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -431,7 +431,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelOptions, gridBagConstraints);
 
-        labelInfoFiles.setText(bundle.getString("FileEditorPanel.labelInfoFiles.text")); // NOI18N
+        labelInfoFiles.setText(Bundle.getString(getClass(), "FileEditorPanel.labelInfoFiles.text")); // NOI18N
         labelInfoFiles.setName("labelInfoFiles"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -466,7 +466,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
-        labelPromptCurrentFile.setText(bundle.getString("FileEditorPanel.labelPromptCurrentFile.text")); // NOI18N
+        labelPromptCurrentFile.setText(Bundle.getString(getClass(), "FileEditorPanel.labelPromptCurrentFile.text")); // NOI18N
         labelPromptCurrentFile.setName("labelPromptCurrentFile"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -486,7 +486,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonSelectFiles.setText(bundle.getString("FileEditorPanel.buttonSelectFiles.text")); // NOI18N
+        buttonSelectFiles.setText(Bundle.getString(getClass(), "FileEditorPanel.buttonSelectFiles.text")); // NOI18N
         buttonSelectFiles.setName("buttonSelectFiles"); // NOI18N
         buttonSelectFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -495,7 +495,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         });
         panelButtons.add(buttonSelectFiles, new java.awt.GridBagConstraints());
 
-        buttonCancel.setText(bundle.getString("FileEditorPanel.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "FileEditorPanel.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -507,7 +507,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonCancel, gridBagConstraints);
 
-        buttonStart.setText(bundle.getString("FileEditorPanel.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString(getClass(), "FileEditorPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {

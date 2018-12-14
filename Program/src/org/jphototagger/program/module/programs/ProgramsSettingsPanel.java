@@ -218,7 +218,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         buttonEditProgram = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
-        menuItemAddProgram.setText(bundle.getString("ProgramsSettingsPanel.menuItemAddProgram.text")); // NOI18N
+        menuItemAddProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemAddProgram.text")); // NOI18N
         menuItemAddProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemAddProgramActionPerformed(evt);
@@ -228,7 +228,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         popupMenu.add(jSeparator1);
 
         menuItemEditProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
-        menuItemEditProgram.setText(bundle.getString("ProgramsSettingsPanel.menuItemEditProgram.text")); // NOI18N
+        menuItemEditProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemEditProgram.text")); // NOI18N
         menuItemEditProgram.setEnabled(false);
         menuItemEditProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,7 +238,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         popupMenu.add(menuItemEditProgram);
 
         menuItemRemoveProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemoveProgram.setText(bundle.getString("ProgramsSettingsPanel.menuItemRemoveProgram.text")); // NOI18N
+        menuItemRemoveProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemRemoveProgram.text")); // NOI18N
         menuItemRemoveProgram.setEnabled(false);
         menuItemRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,7 +248,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         popupMenu.add(menuItemRemoveProgram);
         popupMenu.add(jSeparator2);
 
-        menuItemMoveProgramUp.setText(bundle.getString("ProgramsSettingsPanel.menuItemMoveProgramUp.text")); // NOI18N
+        menuItemMoveProgramUp.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemMoveProgramUp.text")); // NOI18N
         menuItemMoveProgramUp.setEnabled(false);
         menuItemMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,7 +257,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         });
         popupMenu.add(menuItemMoveProgramUp);
 
-        menuItemMoveProgramDown.setText(bundle.getString("ProgramsSettingsPanel.menuItemMoveProgramDown.text")); // NOI18N
+        menuItemMoveProgramDown.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemMoveProgramDown.text")); // NOI18N
         menuItemMoveProgramDown.setEnabled(false);
         menuItemMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,14 +269,14 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         setLayout(new java.awt.GridBagLayout());
 
         labelPrograms.setLabelFor(listPrograms);
-        labelPrograms.setText(bundle.getString("ProgramsSettingsPanel.labelPrograms.text")); // NOI18N
+        labelPrograms.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.labelPrograms.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 0);
         add(labelPrograms, gridBagConstraints);
 
-        buttonDefaultPrograms.setText(bundle.getString("ProgramsSettingsPanel.buttonDefaultPrograms.text")); // NOI18N
+        buttonDefaultPrograms.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonDefaultPrograms.text")); // NOI18N
         buttonDefaultPrograms.setEnabled(false);
         buttonDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -322,7 +322,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         add(scrollPanePrograms, gridBagConstraints);
 
-        labelInfoDefaultProgramFirstInList.setText(bundle.getString("ProgramsSettingsPanel.labelInfoDefaultProgramFirstInList.text")); // NOI18N
+        labelInfoDefaultProgramFirstInList.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.labelInfoDefaultProgramFirstInList.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -333,7 +333,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
 
         panelProgramButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonMoveProgramUp.setText(bundle.getString("ProgramsSettingsPanel.buttonMoveProgramUp.text")); // NOI18N
+        buttonMoveProgramUp.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonMoveProgramUp.text")); // NOI18N
         buttonMoveProgramUp.setEnabled(false);
         buttonMoveProgramUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -345,7 +345,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelProgramButtons.add(buttonMoveProgramUp, gridBagConstraints);
 
-        buttonMoveProgramDown.setText(bundle.getString("ProgramsSettingsPanel.buttonMoveProgramDown.text")); // NOI18N
+        buttonMoveProgramDown.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonMoveProgramDown.text")); // NOI18N
         buttonMoveProgramDown.setEnabled(false);
         buttonMoveProgramDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,8 +358,8 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelProgramButtons.add(buttonMoveProgramDown, gridBagConstraints);
 
-        buttonRemoveProgram.setText(bundle.getString("ProgramsSettingsPanel.buttonRemoveProgram.text")); // NOI18N
-        buttonRemoveProgram.setToolTipText(bundle.getString("ProgramsSettingsPanel.buttonRemoveProgram.toolTipText")); // NOI18N
+        buttonRemoveProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonRemoveProgram.text")); // NOI18N
+        buttonRemoveProgram.setToolTipText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonRemoveProgram.toolTipText")); // NOI18N
         buttonRemoveProgram.setEnabled(false);
         buttonRemoveProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,8 +372,8 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelProgramButtons.add(buttonRemoveProgram, gridBagConstraints);
 
-        buttonAddProgram.setText(bundle.getString("ProgramsSettingsPanel.buttonAddProgram.text")); // NOI18N
-        buttonAddProgram.setToolTipText(bundle.getString("ProgramsSettingsPanel.buttonAddProgram.toolTipText")); // NOI18N
+        buttonAddProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonAddProgram.text")); // NOI18N
+        buttonAddProgram.setToolTipText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonAddProgram.toolTipText")); // NOI18N
         buttonAddProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddProgramActionPerformed(evt);
@@ -385,8 +385,8 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelProgramButtons.add(buttonAddProgram, gridBagConstraints);
 
-        buttonEditProgram.setText(bundle.getString("ProgramsSettingsPanel.buttonEditProgram.text")); // NOI18N
-        buttonEditProgram.setToolTipText(bundle.getString("ProgramsSettingsPanel.buttonEditProgram.toolTipText")); // NOI18N
+        buttonEditProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonEditProgram.text")); // NOI18N
+        buttonEditProgram.setToolTipText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonEditProgram.toolTipText")); // NOI18N
         buttonEditProgram.setEnabled(false);
         buttonEditProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

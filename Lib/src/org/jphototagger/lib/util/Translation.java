@@ -41,7 +41,7 @@ public final class Translation {
             throw new NullPointerException("string == null");
         }
         try {
-            return bundle.getString(string);
+            return Bundle.getString(getClass(), string);
         } catch (Throwable t) {
             logMissingResource(t, string);
         }
@@ -63,7 +63,7 @@ public final class Translation {
             throw new NullPointerException("alternate == null");
         }
         try {
-            return bundle.getString(string);
+            return Bundle.getString(getClass(), string);
         } catch (Throwable t) {
             logMissingResource(t, string);
         }

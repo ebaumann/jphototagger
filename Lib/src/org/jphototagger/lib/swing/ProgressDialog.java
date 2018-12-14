@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Nichtmodaler Dialog mit Fortschrittsbalken.
@@ -179,7 +180,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        setTitle(bundle.getString("ProgressDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ProgressDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -206,7 +207,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
-        buttonStop.setText(bundle.getString("ProgressDialog.buttonStop.text")); // NOI18N
+        buttonStop.setText(Bundle.getString(getClass(), "ProgressDialog.buttonStop.text")); // NOI18N
         buttonStop.setName("buttonStop"); // NOI18N
         buttonStop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

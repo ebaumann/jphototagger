@@ -27,6 +27,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.app.AppInfo;
 import org.jphototagger.program.app.AppLifeCycle;
 import org.jphototagger.program.resource.GUI;
@@ -265,56 +266,56 @@ public final class AppFrame extends javax.swing.JFrame {
         menuBar.setName("menuBar"); // NOI18N
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
-        menuFile.setText(bundle.getString("AppFrame.menuFile.text")); // NOI18N
+        menuFile.setText(Bundle.getString(getClass(), "AppFrame.menuFile.text")); // NOI18N
         menuFile.setName("menuFile"); // NOI18N
         menuBar.add(menuFile);
 
-        menuEdit.setText(bundle.getString("AppFrame.menuEdit.text")); // NOI18N
+        menuEdit.setText(Bundle.getString(getClass(), "AppFrame.menuEdit.text")); // NOI18N
         menuEdit.setName("menuEdit"); // NOI18N
         menuBar.add(menuEdit);
 
-        menuView.setText(bundle.getString("AppFrame.menuView.text")); // NOI18N
+        menuView.setText(Bundle.getString(getClass(), "AppFrame.menuView.text")); // NOI18N
         menuView.setName("menuView"); // NOI18N
         menuBar.add(menuView);
 
-        menuGoto.setText(bundle.getString("AppFrame.menuGoto.text")); // NOI18N
+        menuGoto.setText(Bundle.getString(getClass(), "AppFrame.menuGoto.text")); // NOI18N
         menuGoto.setName("menuGoto"); // NOI18N
 
         sep17.setName("sep17"); // NOI18N
         menuGoto.add(sep17);
 
         menuItemGotoDirectories.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_1));
-        menuItemGotoDirectories.setText(bundle.getString("AppFrame.menuItemGotoDirectories.text")); // NOI18N
+        menuItemGotoDirectories.setText(Bundle.getString(getClass(), "AppFrame.menuItemGotoDirectories.text")); // NOI18N
         menuItemGotoDirectories.setName("menuItemGotoDirectories"); // NOI18N
         menuGoto.add(menuItemGotoDirectories);
 
         menuItemGotoSavedSearches.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_2));
-        menuItemGotoSavedSearches.setText(bundle.getString("AppFrame.menuItemGotoSavedSearches.text")); // NOI18N
+        menuItemGotoSavedSearches.setText(Bundle.getString(getClass(), "AppFrame.menuItemGotoSavedSearches.text")); // NOI18N
         menuItemGotoSavedSearches.setName("menuItemGotoSavedSearches"); // NOI18N
         menuGoto.add(menuItemGotoSavedSearches);
 
         menuItemGotoCollections.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_3));
-        menuItemGotoCollections.setText(bundle.getString("AppFrame.menuItemGotoCollections.text")); // NOI18N
+        menuItemGotoCollections.setText(Bundle.getString(getClass(), "AppFrame.menuItemGotoCollections.text")); // NOI18N
         menuItemGotoCollections.setName("menuItemGotoCollections"); // NOI18N
         menuGoto.add(menuItemGotoCollections);
 
         menuItemGotoFavorites.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_4));
-        menuItemGotoFavorites.setText(bundle.getString("AppFrame.menuItemGotoFavorites.text")); // NOI18N
+        menuItemGotoFavorites.setText(Bundle.getString(getClass(), "AppFrame.menuItemGotoFavorites.text")); // NOI18N
         menuItemGotoFavorites.setName("menuItemGotoFavorites"); // NOI18N
         menuGoto.add(menuItemGotoFavorites);
 
         menuItemGotoKeywordsSel.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_5));
-        menuItemGotoKeywordsSel.setText(bundle.getString("AppFrame.menuItemGotoKeywordsSel.text")); // NOI18N
+        menuItemGotoKeywordsSel.setText(Bundle.getString(getClass(), "AppFrame.menuItemGotoKeywordsSel.text")); // NOI18N
         menuItemGotoKeywordsSel.setName("menuItemGotoKeywordsSel"); // NOI18N
         menuGoto.add(menuItemGotoKeywordsSel);
 
         menuItemGotoTimeline.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_6));
-        menuItemGotoTimeline.setText(bundle.getString("AppFrame.menuItemGotoTimeline.text")); // NOI18N
+        menuItemGotoTimeline.setText(Bundle.getString(getClass(), "AppFrame.menuItemGotoTimeline.text")); // NOI18N
         menuItemGotoTimeline.setName("menuItemGotoTimeline"); // NOI18N
         menuGoto.add(menuItemGotoTimeline);
 
         menuItemGotoMiscMetadata.setAccelerator(KeyEventUtil.getKeyStrokeMenuShortcut(KeyEvent.VK_7));
-        menuItemGotoMiscMetadata.setText(bundle.getString("AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
+        menuItemGotoMiscMetadata.setText(Bundle.getString(getClass(), "AppFrame.menuItemGotoMiscMetadata.text")); // NOI18N
         menuItemGotoMiscMetadata.setName("menuItemGotoMiscMetadata"); // NOI18N
         menuGoto.add(menuItemGotoMiscMetadata);
 
@@ -322,21 +323,21 @@ public final class AppFrame extends javax.swing.JFrame {
         menuGoto.add(sep18);
 
         menuItemGotoKeywordsEdit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.ALT_MASK));
-        menuItemGotoKeywordsEdit.setText(bundle.getString("AppFrame.menuItemGotoKeywordsEdit.text")); // NOI18N
+        menuItemGotoKeywordsEdit.setText(Bundle.getString(getClass(), "AppFrame.menuItemGotoKeywordsEdit.text")); // NOI18N
         menuItemGotoKeywordsEdit.setName("menuItemGotoKeywordsEdit"); // NOI18N
         menuGoto.add(menuItemGotoKeywordsEdit);
 
         menuBar.add(menuGoto);
 
-        menuTools.setText(bundle.getString("AppFrame.menuTools.text")); // NOI18N
+        menuTools.setText(Bundle.getString(getClass(), "AppFrame.menuTools.text")); // NOI18N
         menuTools.setName("menuTools"); // NOI18N
         menuBar.add(menuTools);
 
-        menuWindow.setText(bundle.getString("AppFrame.menuWindow.text")); // NOI18N
+        menuWindow.setText(Bundle.getString(getClass(), "AppFrame.menuWindow.text")); // NOI18N
         menuWindow.setName("menuWindow"); // NOI18N
         menuBar.add(menuWindow);
 
-        menuHelp.setText(bundle.getString("AppFrame.menuHelp.text")); // NOI18N
+        menuHelp.setText(Bundle.getString(getClass(), "AppFrame.menuHelp.text")); // NOI18N
         menuHelp.setName("menuHelp"); // NOI18N
         menuBar.add(menuHelp);
 

@@ -1,5 +1,7 @@
 package org.jphototagger.fileeventhooks;
 
+import org.jphototagger.lib.util.Bundle;
+
 /**
  * @author Elmar Baumann
  */
@@ -26,8 +28,8 @@ public class SettingsPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/fileeventhooks/Bundle"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsPanel.panelJPhotoTaggerActionsSettings.TabConstraints.tabTitle"), panelJPhotoTaggerActionsSettings); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsPanel.userScriptsSettingsPanel1.TabConstraints.tabTitle"), userScriptsSettingsPanel1); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsPanel.panelJPhotoTaggerActionsSettings.TabConstraints.tabTitle"), panelJPhotoTaggerActionsSettings); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsPanel.userScriptsSettingsPanel1.TabConstraints.tabTitle"), userScriptsSettingsPanel1); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

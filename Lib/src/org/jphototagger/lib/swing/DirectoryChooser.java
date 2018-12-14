@@ -345,7 +345,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         popupMenu.setName("popupMenu"); // NOI18N
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        menuItemAdd.setText(bundle.getString("DirectoryChooser.menuItemAdd.text")); // NOI18N
+        menuItemAdd.setText(Bundle.getString(getClass(), "DirectoryChooser.menuItemAdd.text")); // NOI18N
         menuItemAdd.setName("menuItemAdd"); // NOI18N
         menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -354,7 +354,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         popupMenu.add(menuItemAdd);
 
-        menuItemRename.setText(bundle.getString("DirectoryChooser.menuItemRename.text")); // NOI18N
+        menuItemRename.setText(Bundle.getString(getClass(), "DirectoryChooser.menuItemRename.text")); // NOI18N
         menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -363,7 +363,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         });
         popupMenu.add(menuItemRename);
 
-        menuItemDelete.setText(bundle.getString("DirectoryChooser.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setText(Bundle.getString(getClass(), "DirectoryChooser.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -373,7 +373,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         popupMenu.add(menuItemDelete);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(bundle.getString("DirectoryChooser.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "DirectoryChooser.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -402,7 +402,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         gridBagConstraints.weighty = 1.0;
         panelContents.add(scrollPane, gridBagConstraints);
 
-        labelUsage.setText(bundle.getString("DirectoryChooser.labelUsage.text")); // NOI18N
+        labelUsage.setText(Bundle.getString(getClass(), "DirectoryChooser.labelUsage.text")); // NOI18N
         labelUsage.setName("labelUsage"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -415,7 +415,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         panelActionButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonRefresh.setIcon(org.jphototagger.resources.Icons.getIcon("icon_refresh.png"));
-        buttonRefresh.setToolTipText(bundle.getString("DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
+        buttonRefresh.setToolTipText(Bundle.getString(getClass(), "DirectoryChooser.buttonRefresh.toolTipText")); // NOI18N
         buttonRefresh.setName("buttonRefresh"); // NOI18N
         buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -426,7 +426,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         panelActionButtons.add(buttonRefresh, gridBagConstraints);
 
-        buttonAdd.setText(bundle.getString("DirectoryChooser.buttonAdd.text")); // NOI18N
+        buttonAdd.setText(Bundle.getString(getClass(), "DirectoryChooser.buttonAdd.text")); // NOI18N
         buttonAdd.setEnabled(false);
         buttonAdd.setName("buttonAdd"); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -439,7 +439,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelActionButtons.add(buttonAdd, gridBagConstraints);
 
-        buttonDelete.setText(bundle.getString("DirectoryChooser.buttonDelete.text")); // NOI18N
+        buttonDelete.setText(Bundle.getString(getClass(), "DirectoryChooser.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -452,7 +452,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelActionButtons.add(buttonDelete, gridBagConstraints);
 
-        buttonRename.setText(bundle.getString("DirectoryChooser.buttonRename.text")); // NOI18N
+        buttonRename.setText(Bundle.getString(getClass(), "DirectoryChooser.buttonRename.text")); // NOI18N
         buttonRename.setEnabled(false);
         buttonRename.setName("buttonRename"); // NOI18N
         buttonRename.addActionListener(new java.awt.event.ActionListener() {
@@ -476,7 +476,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         panelDialogButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonCancel.setMnemonic('b');
-        buttonCancel.setText(bundle.getString("DirectoryChooser.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "DirectoryChooser.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -486,7 +486,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
         panelDialogButtons.add(buttonCancel, new java.awt.GridBagConstraints());
 
         buttonChoose.setMnemonic('a');
-        buttonChoose.setText(bundle.getString("DirectoryChooser.buttonChoose.text")); // NOI18N
+        buttonChoose.setText(Bundle.getString(getClass(), "DirectoryChooser.buttonChoose.text")); // NOI18N
         buttonChoose.setName("buttonChoose"); // NOI18N
         buttonChoose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

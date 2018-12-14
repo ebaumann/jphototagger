@@ -187,7 +187,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         labelMaximumSecondsToTerminateExternalPrograms.setLabelFor(spinnerMaximumSecondsToTerminateExternalPrograms);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
-        labelMaximumSecondsToTerminateExternalPrograms.setText(bundle.getString("PerformanceSettingsPanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
+        labelMaximumSecondsToTerminateExternalPrograms.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
@@ -213,7 +213,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.weightx = 1.0;
         add(panelMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
 
-        checkBoxScanForEmbeddedXmp.setText(bundle.getString("PerformanceSettingsPanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
+        checkBoxScanForEmbeddedXmp.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxScanForEmbeddedXmp.text")); // NOI18N
         checkBoxScanForEmbeddedXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxScanForEmbeddedXmpActionPerformed(evt);
@@ -227,7 +227,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         add(checkBoxScanForEmbeddedXmp, gridBagConstraints);
 
-        checkBoxAutoscanDirectories.setText(bundle.getString("PerformanceSettingsPanel.checkBoxAutoscanDirectories.text")); // NOI18N
+        checkBoxAutoscanDirectories.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxAutoscanDirectories.text")); // NOI18N
         checkBoxAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAutoscanDirectoriesActionPerformed(evt);
@@ -241,7 +241,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         add(checkBoxAutoscanDirectories, gridBagConstraints);
 
-        checkBoxSaveInputEarly.setText(bundle.getString("PerformanceSettingsPanel.checkBoxSaveInputEarly.text")); // NOI18N
+        checkBoxSaveInputEarly.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxSaveInputEarly.text")); // NOI18N
         checkBoxSaveInputEarly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSaveInputEarlyActionPerformed(evt);
@@ -255,10 +255,10 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         add(checkBoxSaveInputEarly, gridBagConstraints);
 
-        panelAutocomplete.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("PerformanceSettingsPanel.panelAutocomplete.border.title"))); // NOI18N
+        panelAutocomplete.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "PerformanceSettingsPanel.panelAutocomplete.border.title"))); // NOI18N
         panelAutocomplete.setLayout(new java.awt.GridBagLayout());
 
-        checkBoxEnableAutocomplete.setText(bundle.getString("PerformanceSettingsPanel.checkBoxEnableAutocomplete.text")); // NOI18N
+        checkBoxEnableAutocomplete.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxEnableAutocomplete.text")); // NOI18N
         checkBoxEnableAutocomplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxEnableAutocompleteActionPerformed(evt);
@@ -272,7 +272,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelAutocomplete.add(checkBoxEnableAutocomplete, gridBagConstraints);
 
-        checkBoxUpdateAutocomplete.setText(bundle.getString("PerformanceSettingsPanel.checkBoxUpdateAutocomplete.text")); // NOI18N
+        checkBoxUpdateAutocomplete.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxUpdateAutocomplete.text")); // NOI18N
         checkBoxUpdateAutocomplete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxUpdateAutocompleteActionPerformed(evt);
@@ -286,7 +286,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 5);
         panelAutocomplete.add(checkBoxUpdateAutocomplete, gridBagConstraints);
 
-        checkBoxAutocompleteFastSearchIgnoreCase.setText(bundle.getString("PerformanceSettingsPanel.checkBoxAutocompleteFastSearchIgnoreCase.text")); // NOI18N
+        checkBoxAutocompleteFastSearchIgnoreCase.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxAutocompleteFastSearchIgnoreCase.text")); // NOI18N
         checkBoxAutocompleteFastSearchIgnoreCase.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxAutocompleteFastSearchIgnoreCaseActionPerformed(evt);

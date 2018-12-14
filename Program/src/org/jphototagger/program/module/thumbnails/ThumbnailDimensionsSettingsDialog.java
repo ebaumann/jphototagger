@@ -2,6 +2,7 @@ package org.jphototagger.program.module.thumbnails;
 
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.SettingsDialog;
 
@@ -60,7 +61,7 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        setTitle(bundle.getString("ThumbnailDimensionsSettingsDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -82,7 +83,7 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonClose.setText(bundle.getString("ThumbnailDimensionsSettingsDialog.buttonClose.text")); // NOI18N
+        buttonClose.setText(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsDialog.buttonClose.text")); // NOI18N
         buttonClose.setName("buttonClose"); // NOI18N
         buttonClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,7 +92,7 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
         });
         panelButtons.add(buttonClose, new java.awt.GridBagConstraints());
 
-        buttonFurtherSettings.setText(bundle.getString("ThumbnailDimensionsSettingsDialog.buttonFurtherSettings.text")); // NOI18N
+        buttonFurtherSettings.setText(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsDialog.buttonFurtherSettings.text")); // NOI18N
         buttonFurtherSettings.setName("buttonFurtherSettings"); // NOI18N
         buttonFurtherSettings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

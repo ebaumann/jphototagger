@@ -364,7 +364,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
-        setTitle(bundle.getString("CopyToDirectoryDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "CopyToDirectoryDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -376,14 +376,14 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         panelContent.setName("panelContent"); // NOI18N
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setText(bundle.getString("CopyToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelContent.add(labelInfo, gridBagConstraints);
 
-        buttonChooseDirectory.setText(bundle.getString("CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -407,7 +407,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         panelContent.add(labelTargetDirectory, gridBagConstraints);
 
         buttonGroupFileExists.add(radioButtonForceOverwrite);
-        radioButtonForceOverwrite.setText(bundle.getString("CopyToDirectoryDialog.radioButtonForceOverwrite.text")); // NOI18N
+        radioButtonForceOverwrite.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.radioButtonForceOverwrite.text")); // NOI18N
         radioButtonForceOverwrite.setName("radioButtonForceOverwrite"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -417,7 +417,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         panelContent.add(radioButtonForceOverwrite, gridBagConstraints);
 
         buttonGroupFileExists.add(radioButtonRenameIfTargetFileExists);
-        radioButtonRenameIfTargetFileExists.setText(bundle.getString("CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
+        radioButtonRenameIfTargetFileExists.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.radioButtonRenameIfTargetFileExists.text")); // NOI18N
         radioButtonRenameIfTargetFileExists.setName("radioButtonRenameIfTargetFileExists"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -426,7 +426,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         panelContent.add(radioButtonRenameIfTargetFileExists, gridBagConstraints);
 
         checkBoxCopyXmp.setSelected(true);
-        checkBoxCopyXmp.setText(bundle.getString("CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
+        checkBoxCopyXmp.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.checkBoxCopyXmp.text")); // NOI18N
         checkBoxCopyXmp.setName("checkBoxCopyXmp"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -446,7 +446,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         panelCurrentFile.setName("panelCurrentFile"); // NOI18N
         panelCurrentFile.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoCurrentFilename.setText(bundle.getString("CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
         labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -470,7 +470,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         panelContent.add(panelCurrentFile, gridBagConstraints);
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(bundle.getString("CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
         labelInfoIsThread.setName("labelInfoIsThread"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 3;
@@ -480,7 +480,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         panelStartCancelButton.setName("panelStartCancelButton"); // NOI18N
         panelStartCancelButton.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancel.setText(bundle.getString("CopyToDirectoryDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -490,7 +490,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         });
         panelStartCancelButton.add(buttonCancel, new java.awt.GridBagConstraints());
 
-        buttonStart.setText(bundle.getString("CopyToDirectoryDialog.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString(getClass(), "CopyToDirectoryDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {

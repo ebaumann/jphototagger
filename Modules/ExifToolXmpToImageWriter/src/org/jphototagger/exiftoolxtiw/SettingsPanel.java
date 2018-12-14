@@ -363,7 +363,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         paneContents.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exiftoolxtiw/Bundle"); // NOI18N
-        checkBoxSelfResponsible.setText(bundle.getString("SettingsPanel.checkBoxSelfResponsible.text")); // NOI18N
+        checkBoxSelfResponsible.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxSelfResponsible.text")); // NOI18N
         checkBoxSelfResponsible.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxSelfResponsibleActionPerformed(evt);
@@ -377,7 +377,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         panelExifToolGeneral.setLayout(new java.awt.GridBagLayout());
 
-        checkBoxExifToolEnabled.setText(bundle.getString("SettingsPanel.checkBoxExifToolEnabled.text")); // NOI18N
+        checkBoxExifToolEnabled.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxExifToolEnabled.text")); // NOI18N
         checkBoxExifToolEnabled.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxExifToolEnabledActionPerformed(evt);
@@ -388,7 +388,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         panelExifToolGeneral.add(checkBoxExifToolEnabled, gridBagConstraints);
 
-        buttonBrowseExifToolWebsite.setText(bundle.getString("SettingsPanel.buttonBrowseExifToolWebsite.text")); // NOI18N
+        buttonBrowseExifToolWebsite.setText(Bundle.getString(getClass(), "SettingsPanel.buttonBrowseExifToolWebsite.text")); // NOI18N
         buttonBrowseExifToolWebsite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseExifToolWebsiteActionPerformed(evt);
@@ -411,7 +411,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         textAreaInfo.setColumns(20);
         textAreaInfo.setLineWrap(true);
         textAreaInfo.setRows(1);
-        textAreaInfo.setText(bundle.getString("SettingsPanel.textAreaInfo.text")); // NOI18N
+        textAreaInfo.setText(Bundle.getString(getClass(), "SettingsPanel.textAreaInfo.text")); // NOI18N
         textAreaInfo.setWrapStyleWord(true);
         textAreaInfo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         textAreaInfo.setOpaque(false);
@@ -423,7 +423,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         paneContents.add(textAreaInfo, gridBagConstraints);
 
         labelErrorCanWrite.setForeground(java.awt.Color.RED);
-        labelErrorCanWrite.setText(bundle.getString("SettingsPanel.labelErrorCanWrite.text")); // NOI18N
+        labelErrorCanWrite.setText(Bundle.getString(getClass(), "SettingsPanel.labelErrorCanWrite.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -440,7 +440,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         panelChooseExifTool.add(textFieldExifToolFilePath, gridBagConstraints);
 
-        buttonChooseExifTool.setText(bundle.getString("SettingsPanel.buttonChooseExifTool.text")); // NOI18N
+        buttonChooseExifTool.setText(Bundle.getString(getClass(), "SettingsPanel.buttonChooseExifTool.text")); // NOI18N
         buttonChooseExifTool.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseExifToolActionPerformed(evt);
@@ -460,7 +460,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         panelWriteOnSaveXmp.setLayout(new java.awt.GridBagLayout());
 
-        checkBoxWriteOnSaveXmp.setText(bundle.getString("SettingsPanel.checkBoxWriteOnSaveXmp.text")); // NOI18N
+        checkBoxWriteOnSaveXmp.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxWriteOnSaveXmp.text")); // NOI18N
         checkBoxWriteOnSaveXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxWriteOnSaveXmpActionPerformed(evt);
@@ -471,7 +471,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         panelWriteOnSaveXmp.add(checkBoxWriteOnSaveXmp, gridBagConstraints);
 
         labelErrorInputsSavedEarly.setForeground(java.awt.Color.RED);
-        labelErrorInputsSavedEarly.setText(bundle.getString("SettingsPanel.labelErrorInputsSavedEarly.text")); // NOI18N
+        labelErrorInputsSavedEarly.setText(Bundle.getString(getClass(), "SettingsPanel.labelErrorInputsSavedEarly.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
@@ -484,7 +484,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         paneContents.add(panelWriteOnSaveXmp, gridBagConstraints);
 
-        checkBoxCreateBackupFile.setText(bundle.getString("SettingsPanel.checkBoxCreateBackupFile.text")); // NOI18N
+        checkBoxCreateBackupFile.setText(Bundle.getString(getClass(), "SettingsPanel.checkBoxCreateBackupFile.text")); // NOI18N
         checkBoxCreateBackupFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCreateBackupFileActionPerformed(evt);
@@ -495,7 +495,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         paneContents.add(checkBoxCreateBackupFile, gridBagConstraints);
 
-        labelFileSuffixes.setText(bundle.getString("SettingsPanel.labelFileSuffixes.text")); // NOI18N
+        labelFileSuffixes.setText(Bundle.getString(getClass(), "SettingsPanel.labelFileSuffixes.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -519,7 +519,7 @@ public class SettingsPanel extends javax.swing.JPanel {
 
         panelButtonsFileSuffixes.setLayout(new java.awt.GridBagLayout());
 
-        buttonSetDefaultFileSuffixes.setText(bundle.getString("SettingsPanel.buttonSetDefaultFileSuffixes.text")); // NOI18N
+        buttonSetDefaultFileSuffixes.setText(Bundle.getString(getClass(), "SettingsPanel.buttonSetDefaultFileSuffixes.text")); // NOI18N
         buttonSetDefaultFileSuffixes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetDefaultFileSuffixesActionPerformed(evt);
@@ -527,7 +527,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         });
         panelButtonsFileSuffixes.add(buttonSetDefaultFileSuffixes, new java.awt.GridBagConstraints());
 
-        buttonAddFileSuffix.setText(bundle.getString("SettingsPanel.buttonAddFileSuffix.text")); // NOI18N
+        buttonAddFileSuffix.setText(Bundle.getString(getClass(), "SettingsPanel.buttonAddFileSuffix.text")); // NOI18N
         buttonAddFileSuffix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddFileSuffixActionPerformed(evt);
@@ -537,7 +537,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtonsFileSuffixes.add(buttonAddFileSuffix, gridBagConstraints);
 
-        buttonRemoveFileSuffix.setText(bundle.getString("SettingsPanel.buttonRemoveFileSuffix.text")); // NOI18N
+        buttonRemoveFileSuffix.setText(Bundle.getString(getClass(), "SettingsPanel.buttonRemoveFileSuffix.text")); // NOI18N
         buttonRemoveFileSuffix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonRemoveFileSuffixActionPerformed(evt);

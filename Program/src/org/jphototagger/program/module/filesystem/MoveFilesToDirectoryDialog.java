@@ -334,7 +334,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
-        setTitle(bundle.getString("MoveFilesToDirectoryDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -346,13 +346,13 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         panelContent.setName("panelContent"); // NOI18N
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelContent.add(labelInfo, gridBagConstraints);
 
-        buttonChooseDirectory.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,7 +386,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         panelCurrentFile.setName("panelCurrentFile"); // NOI18N
         panelCurrentFile.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoCurrentFilename.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setText(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.labelInfoCurrentFilename.text")); // NOI18N
         labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
         panelCurrentFile.add(labelInfoCurrentFilename, new java.awt.GridBagConstraints());
 
@@ -407,7 +407,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         panelContent.add(panelCurrentFile, gridBagConstraints);
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
-        labelInfoIsThread.setText(bundle.getString("MoveFilesToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
+        labelInfoIsThread.setText(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.labelInfoIsThread.text")); // NOI18N
         labelInfoIsThread.setName("labelInfoIsThread"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -416,7 +416,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         panelCancelStart.setName("panelCancelStart"); // NOI18N
         panelCancelStart.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancel.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -426,7 +426,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         });
         panelCancelStart.add(buttonCancel, new java.awt.GridBagConstraints());
 
-        buttonStart.setText(bundle.getString("MoveFilesToDirectoryDialog.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {

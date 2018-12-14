@@ -345,7 +345,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
 
         menuItemChangeWord.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/synonyms/Bundle"); // NOI18N
-        menuItemChangeWord.setText(bundle.getString("SynonymsPanel.menuItemChangeWord.text")); // NOI18N
+        menuItemChangeWord.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemChangeWord.text")); // NOI18N
         menuItemChangeWord.setName("menuItemChangeWord"); // NOI18N
         menuItemChangeWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -355,7 +355,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuWords.add(menuItemChangeWord);
 
         menuItemRemoveWord.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemoveWord.setText(bundle.getString("SynonymsPanel.menuItemRemoveWord.text")); // NOI18N
+        menuItemRemoveWord.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemRemoveWord.text")); // NOI18N
         menuItemRemoveWord.setName("menuItemRemoveWord"); // NOI18N
         menuItemRemoveWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,7 +367,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuSynonyms.setName("popupMenuSynonyms"); // NOI18N
 
         menuItemChangeSynonym.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
-        menuItemChangeSynonym.setText(bundle.getString("SynonymsPanel.menuItemChangeSynonym.text")); // NOI18N
+        menuItemChangeSynonym.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemChangeSynonym.text")); // NOI18N
         menuItemChangeSynonym.setName("menuItemChangeSynonym"); // NOI18N
         menuItemChangeSynonym.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,7 +377,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         popupMenuSynonyms.add(menuItemChangeSynonym);
 
         menuItemRemoveSynonym.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemoveSynonym.setText(bundle.getString("SynonymsPanel.menuItemRemoveSynonym.text")); // NOI18N
+        menuItemRemoveSynonym.setText(Bundle.getString(getClass(), "SynonymsPanel.menuItemRemoveSynonym.text")); // NOI18N
         menuItemRemoveSynonym.setName("menuItemRemoveSynonym"); // NOI18N
         menuItemRemoveSynonym.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -396,7 +396,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelEditInputWord.setLayout(new java.awt.GridBagLayout());
 
         labelTextAreaWord.setLabelFor(textAreaWords);
-        labelTextAreaWord.setText(bundle.getString("SynonymsPanel.labelTextAreaWord.text")); // NOI18N
+        labelTextAreaWord.setText(Bundle.getString(getClass(), "SynonymsPanel.labelTextAreaWord.text")); // NOI18N
         labelTextAreaWord.setName("labelTextAreaWord"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -426,7 +426,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelEditInputWord.add(scrollPaneTextAreaWords, gridBagConstraints);
 
         buttonAddWord.setText("+"); // NOI18N
-        buttonAddWord.setToolTipText(bundle.getString("SynonymsPanel.buttonAddWord.toolTipText")); // NOI18N
+        buttonAddWord.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonAddWord.toolTipText")); // NOI18N
         buttonAddWord.setEnabled(false);
         buttonAddWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonAddWord.setName("buttonAddWord"); // NOI18N
@@ -452,7 +452,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelAddedWords.setLayout(new java.awt.GridBagLayout());
 
         labelListWords.setLabelFor(listWords);
-        labelListWords.setText(bundle.getString("SynonymsPanel.labelListWords.text")); // NOI18N
+        labelListWords.setText(Bundle.getString(getClass(), "SynonymsPanel.labelListWords.text")); // NOI18N
         labelListWords.setName("labelListWords"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -487,7 +487,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelAddedWords.add(scrollPaneListWords, gridBagConstraints);
 
         buttonRemoveWord.setText("-"); // NOI18N
-        buttonRemoveWord.setToolTipText(bundle.getString("SynonymsPanel.buttonRemoveWord.toolTipText")); // NOI18N
+        buttonRemoveWord.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonRemoveWord.toolTipText")); // NOI18N
         buttonRemoveWord.setEnabled(false);
         buttonRemoveWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonRemoveWord.setName("buttonRemoveWord"); // NOI18N
@@ -504,7 +504,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelAddedWords.add(buttonRemoveWord, gridBagConstraints);
 
         buttonChangeWord.setText("C"); // NOI18N
-        buttonChangeWord.setToolTipText(bundle.getString("SynonymsPanel.buttonChangeWord.toolTipText")); // NOI18N
+        buttonChangeWord.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonChangeWord.toolTipText")); // NOI18N
         buttonChangeWord.setEnabled(false);
         buttonChangeWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonChangeWord.setName("buttonChangeWord"); // NOI18N
@@ -520,8 +520,8 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
         panelAddedWords.add(buttonChangeWord, gridBagConstraints);
 
-        buttonAddAllKeywords.setText(bundle.getString("SynonymsPanel.buttonAddAllKeywords.text")); // NOI18N
-        buttonAddAllKeywords.setToolTipText(bundle.getString("SynonymsPanel.buttonAddAllKeywords.toolTipText")); // NOI18N
+        buttonAddAllKeywords.setText(Bundle.getString(getClass(), "SynonymsPanel.buttonAddAllKeywords.text")); // NOI18N
+        buttonAddAllKeywords.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonAddAllKeywords.toolTipText")); // NOI18N
         buttonAddAllKeywords.setName("buttonAddAllKeywords"); // NOI18N
         buttonAddAllKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -552,7 +552,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelEditInputSynonyms.setLayout(new java.awt.GridBagLayout());
 
         labelTextFieldSynonym.setLabelFor(textFieldSynonyms);
-        labelTextFieldSynonym.setText(bundle.getString("SynonymsPanel.labelTextFieldSynonym.text")); // NOI18N
+        labelTextFieldSynonym.setText(Bundle.getString(getClass(), "SynonymsPanel.labelTextFieldSynonym.text")); // NOI18N
         labelTextFieldSynonym.setName("labelTextFieldSynonym"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -574,7 +574,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelEditInputSynonyms.add(textFieldSynonyms, gridBagConstraints);
 
         buttonAddSynonym.setText("+"); // NOI18N
-        buttonAddSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonAddSynonym.toolTipText")); // NOI18N
+        buttonAddSynonym.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonAddSynonym.toolTipText")); // NOI18N
         buttonAddSynonym.setEnabled(false);
         buttonAddSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonAddSynonym.setName("buttonAddSynonym"); // NOI18N
@@ -600,7 +600,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelAddedSynonyms.setLayout(new java.awt.GridBagLayout());
 
         labelListSynonyms.setLabelFor(listSynonyms);
-        labelListSynonyms.setText(bundle.getString("SynonymsPanel.labelListSynonyms.text")); // NOI18N
+        labelListSynonyms.setText(Bundle.getString(getClass(), "SynonymsPanel.labelListSynonyms.text")); // NOI18N
         labelListSynonyms.setName("labelListSynonyms"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -635,7 +635,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelAddedSynonyms.add(scrollPaneListSynonyms, gridBagConstraints);
 
         buttonRemoveSynonym.setText("-"); // NOI18N
-        buttonRemoveSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonRemoveSynonym.toolTipText")); // NOI18N
+        buttonRemoveSynonym.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonRemoveSynonym.toolTipText")); // NOI18N
         buttonRemoveSynonym.setEnabled(false);
         buttonRemoveSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonRemoveSynonym.setName("buttonRemoveSynonym"); // NOI18N
@@ -652,7 +652,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelAddedSynonyms.add(buttonRemoveSynonym, gridBagConstraints);
 
         buttonChangeSynonym.setText("C"); // NOI18N
-        buttonChangeSynonym.setToolTipText(bundle.getString("SynonymsPanel.buttonChangeSynonym.toolTipText")); // NOI18N
+        buttonChangeSynonym.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonChangeSynonym.toolTipText")); // NOI18N
         buttonChangeSynonym.setEnabled(false);
         buttonChangeSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
         buttonChangeSynonym.setName("buttonChangeSynonym"); // NOI18N
@@ -668,7 +668,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
         panelAddedSynonyms.add(buttonChangeSynonym, gridBagConstraints);
 
-        labelInfoAddSynonym.setText(bundle.getString("SynonymsPanel.labelInfoAddSynonym.text")); // NOI18N
+        labelInfoAddSynonym.setText(Bundle.getString(getClass(), "SynonymsPanel.labelInfoAddSynonym.text")); // NOI18N
         labelInfoAddSynonym.setName("labelInfoAddSynonym"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

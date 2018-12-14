@@ -21,6 +21,7 @@ import org.jphototagger.exif.datatype.ExifRational;
 import org.jphototagger.exif.datatype.ExifShort;
 import org.jphototagger.exif.formatter.ExifRawValueFormatter;
 import org.jphototagger.lib.util.ArrayUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.RegexUtil;
 
 /**
@@ -60,11 +61,11 @@ public final class NikonMakerNote {
      */
     NikonMakerNote(ResourceBundle bundle) throws MissingResourceException {
         this.bundle = bundle;
-        this.description = bundle.getString("Description");
-        this.exifTagMatchPattern = bundle.getString("MatchTagPattern");
-        this.exifMatchTagId = Integer.parseInt(bundle.getString("MatchTag"));
-        this.byteOffsetToTiffHeader = Integer.parseInt(bundle.getString("ByteOffsetToTiffHeader"));
-        StringTokenizer tokenizerAllPatterns = new StringTokenizer(bundle.getString("MagicBytePatterns"), ";");
+        this.description = Bundle.getString(getClass(), "Description");
+        this.exifTagMatchPattern = Bundle.getString(getClass(), "MatchTagPattern");
+        this.exifMatchTagId = Integer.parseInt(Bundle.getString(getClass(), "MatchTag"));
+        this.byteOffsetToTiffHeader = Integer.parseInt(Bundle.getString(getClass(), "ByteOffsetToTiffHeader"));
+        StringTokenizer tokenizerAllPatterns = new StringTokenizer(Bundle.getString(getClass(), "MagicBytePatterns"), ";");
         int countMagicBytePatterns = tokenizerAllPatterns.countTokens();
         if (countMagicBytePatterns > 0) {
             magicBytePatterns = new byte[countMagicBytePatterns][];
@@ -168,7 +169,7 @@ public final class NikonMakerNote {
                             ? format(info.exifFormatterClass, exifTag)
                             : valueType.toString().trim(),
                         exifTag.getByteOrderId(),
-                        bundle.getString(info.tagNameBundleKey),
+                        Bundle.getString(getClass(), info.tagNameBundleKey),
                         exifTag.getIfd());
                 displayableTags.add(makerNoteTag);
             }
@@ -208,7 +209,7 @@ public final class NikonMakerNote {
         List<String> keys = RegexUtil.getMatches(bundleKeys(), "^Tag[0-9]+");
         for (String key : keys) {
             try {
-                makerNoteTagInfos.add(new MakerNoteTagInfo(indexOfTag(key), bundle.getString(key)));
+                makerNoteTagInfos.add(new MakerNoteTagInfo(indexOfTag(key), Bundle.getString(getClass(), key)));
             } catch (Throwable t) {
                 Logger.getLogger(NikonMakerNote.class.getName()).log(Level.SEVERE, null, t);
             }

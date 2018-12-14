@@ -462,7 +462,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelSearchSimple.setSearchableTextComponent(textAreaSimple);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/util/logging/Bundle"); // NOI18N
-        setTitle(bundle.getString("LogfileDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "LogfileDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -474,7 +474,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelContent.setName("panelContent"); // NOI18N
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        labelLogfileName.setText(bundle.getString("LogfileDialog.labelLogfileName.text")); // NOI18N
+        labelLogfileName.setText(Bundle.getString(getClass(), "LogfileDialog.labelLogfileName.text")); // NOI18N
         labelLogfileName.setName("labelLogfileName"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -485,7 +485,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         buttonReload.setIcon(org.jphototagger.resources.Icons.getIcon("icon_refresh.png")); // NOI18N
-        buttonReload.setToolTipText(bundle.getString("LogfileDialog.buttonReload.toolTipText")); // NOI18N
+        buttonReload.setToolTipText(Bundle.getString(getClass(), "LogfileDialog.buttonReload.toolTipText")); // NOI18N
         buttonReload.setBorder(null);
         buttonReload.setName("buttonReload"); // NOI18N
         buttonReload.addActionListener(new java.awt.event.ActionListener() {
@@ -496,7 +496,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelButtons.add(buttonReload);
 
         buttonExit.setIcon(org.jphototagger.resources.Icons.getIcon("icon_exit.png")); // NOI18N
-        buttonExit.setToolTipText(bundle.getString("LogfileDialog.buttonExit.toolTipText")); // NOI18N
+        buttonExit.setToolTipText(Bundle.getString(getClass(), "LogfileDialog.buttonExit.toolTipText")); // NOI18N
         buttonExit.setBorder(null);
         buttonExit.setName("buttonExit"); // NOI18N
         buttonExit.addActionListener(new java.awt.event.ActionListener() {
@@ -518,7 +518,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelXml.setName("panelXml"); // NOI18N
         panelXml.setLayout(new java.awt.GridBagLayout());
 
-        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("LogfileDialog.panelFilter.border.title"))); // NOI18N
+        panelFilter.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "LogfileDialog.panelFilter.border.title"))); // NOI18N
         panelFilter.setName("panelFilter"); // NOI18N
         panelFilter.setLayout(new java.awt.GridBagLayout());
 
@@ -649,7 +649,7 @@ public final class LogfileDialog extends Dialog implements ListSelectionListener
         panelSearchXml.setName("panelSearchXml"); // NOI18N
         panelSearchXml.setLayout(new java.awt.GridBagLayout());
 
-        labelSearch.setText(bundle.getString("LogfileDialog.labelSearch.text")); // NOI18N
+        labelSearch.setText(Bundle.getString(getClass(), "LogfileDialog.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
         panelSearchXml.add(labelSearch, new java.awt.GridBagConstraints());
 

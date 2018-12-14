@@ -2,6 +2,7 @@ package org.jphototagger.program.module.programs;
 
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -27,7 +28,7 @@ public class EditDefaultProgramsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
-        setTitle(bundle.getString("EditDefaultProgramsDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "EditDefaultProgramsDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

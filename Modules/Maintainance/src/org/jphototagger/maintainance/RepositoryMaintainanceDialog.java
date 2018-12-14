@@ -88,7 +88,7 @@ public final class RepositoryMaintainanceDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
-        setTitle(bundle.getString("RepositoryMaintainanceDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "RepositoryMaintainanceDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -100,13 +100,13 @@ public final class RepositoryMaintainanceDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelCount.setName("panelCount"); // NOI18N
-        tabbedPane.addTab(bundle.getString("RepositoryMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "RepositoryMaintainanceDialog.panelCount.TabConstraints.tabTitle"), panelCount); // NOI18N
 
         panelMaintainance.setName("panelMaintainance"); // NOI18N
-        tabbedPane.addTab(bundle.getString("RepositoryMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "RepositoryMaintainanceDialog.panelMaintainance.TabConstraints.tabTitle"), panelMaintainance); // NOI18N
 
         panelRepositoryUpdate.setName("panelRepositoryUpdate"); // NOI18N
-        tabbedPane.addTab(bundle.getString("RepositoryMaintainanceDialog.panelRepositoryUpdate.TabConstraints.tabTitle"), panelRepositoryUpdate); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "RepositoryMaintainanceDialog.panelRepositoryUpdate.TabConstraints.tabTitle"), panelRepositoryUpdate); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

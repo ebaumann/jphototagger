@@ -127,7 +127,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         setLayout(new GridBagLayout());
 
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
-        checkBoxDisplayIptc.setText(bundle.getString("IptcSettingsPanel.checkBoxDisplayIptc.text")); // NOI18N
+        checkBoxDisplayIptc.setText(Bundle.getString(getClass(), "IptcSettingsPanel.checkBoxDisplayIptc.text")); // NOI18N
         checkBoxDisplayIptc.setName("checkBoxDisplayIptc"); // NOI18N
         checkBoxDisplayIptc.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -138,7 +138,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         add(checkBoxDisplayIptc, gridBagConstraints);
 
-        labelIptcCharset.setText(bundle.getString("IptcSettingsPanel.labelIptcCharset.text")); // NOI18N
+        labelIptcCharset.setText(Bundle.getString(getClass(), "IptcSettingsPanel.labelIptcCharset.text")); // NOI18N
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.anchor = GridBagConstraints.WEST;

@@ -503,10 +503,10 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
         checkDirtyDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/filesystem/Bundle"); // NOI18N
-        checkDirtyDialog.setTitle(bundle.getString("RenameTemplatesPanel.checkDirtyDialog.title")); // NOI18N
+        checkDirtyDialog.setTitle(Bundle.getString(getClass(), "RenameTemplatesPanel.checkDirtyDialog.title")); // NOI18N
         checkDirtyDialog.getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        labelDirtyConfirmSaveChanges.setText(bundle.getString("RenameTemplatesPanel.labelDirtyConfirmSaveChanges.text")); // NOI18N
+        labelDirtyConfirmSaveChanges.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelDirtyConfirmSaveChanges.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -516,7 +516,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
         panelDirtyButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonCheckDirtyDialogCreateNew.setText(bundle.getString("RenameTemplatesPanel.buttonCheckDirtyDialogCreateNew.text")); // NOI18N
+        buttonCheckDirtyDialogCreateNew.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonCheckDirtyDialogCreateNew.text")); // NOI18N
         buttonCheckDirtyDialogCreateNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCheckDirtyDialogCreateNewActionPerformed(evt);
@@ -526,7 +526,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelDirtyButtons.add(buttonCheckDirtyDialogCreateNew, gridBagConstraints);
 
-        buttonCheckDirtyDialogUpdate.setText(bundle.getString("RenameTemplatesPanel.buttonCheckDirtyDialogUpdate.text")); // NOI18N
+        buttonCheckDirtyDialogUpdate.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonCheckDirtyDialogUpdate.text")); // NOI18N
         buttonCheckDirtyDialogUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCheckDirtyDialogUpdateActionPerformed(evt);
@@ -537,7 +537,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDirtyButtons.add(buttonCheckDirtyDialogUpdate, gridBagConstraints);
 
-        buttonCheckDirtyDialogReject.setText(bundle.getString("RenameTemplatesPanel.buttonCheckDirtyDialogReject.text")); // NOI18N
+        buttonCheckDirtyDialogReject.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonCheckDirtyDialogReject.text")); // NOI18N
         buttonCheckDirtyDialogReject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCheckDirtyDialogRejectActionPerformed(evt);
@@ -557,13 +557,13 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
         setLayout(new java.awt.GridBagLayout());
 
-        panelNumbers.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelNumbers.border.title"))); // NOI18N
+        panelNumbers.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RenameTemplatesPanel.panelNumbers.border.title"))); // NOI18N
         panelNumbers.setLayout(new java.awt.GridBagLayout());
 
         panelNumbersContents.setLayout(new java.awt.GridBagLayout());
 
         labelStartNumber.setLabelFor(spinnerStartNumber);
-        labelStartNumber.setText(bundle.getString("RenameTemplatesPanel.labelStartNumber.text")); // NOI18N
+        labelStartNumber.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelStartNumber.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelNumbersContents.add(labelStartNumber, gridBagConstraints);
@@ -582,7 +582,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelNumbersContents.add(spinnerStartNumber, gridBagConstraints);
 
         labelNumberStepWidth.setLabelFor(spinnerNumberStepWidth);
-        labelNumberStepWidth.setText(bundle.getString("RenameTemplatesPanel.labelNumberStepWidth.text")); // NOI18N
+        labelNumberStepWidth.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelNumberStepWidth.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
@@ -602,7 +602,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelNumbersContents.add(spinnerNumberStepWidth, gridBagConstraints);
 
         labelNumberCount.setLabelFor(spinnerNumberCount);
-        labelNumberCount.setText(bundle.getString("RenameTemplatesPanel.labelNumberCount.text")); // NOI18N
+        labelNumberCount.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelNumberCount.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
@@ -635,11 +635,11 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.weightx = 1.0;
         add(panelNumbers, gridBagConstraints);
 
-        panelDateDelimiter.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelDateDelimiter.border.title"))); // NOI18N
+        panelDateDelimiter.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RenameTemplatesPanel.panelDateDelimiter.border.title"))); // NOI18N
         panelDateDelimiter.setLayout(new java.awt.GridBagLayout());
 
         labelDateDelim.setLabelFor(comboBoxDateDelimiter);
-        labelDateDelim.setText(bundle.getString("RenameTemplatesPanel.labelDateDelim.text")); // NOI18N
+        labelDateDelim.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelDateDelim.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
@@ -665,20 +665,20 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelDateDelimiter, gridBagConstraints);
 
-        panelDefineName.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelDefineName.border.title"))); // NOI18N
+        panelDefineName.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RenameTemplatesPanel.panelDefineName.border.title"))); // NOI18N
         panelDefineName.setLayout(new java.awt.GridBagLayout());
 
         panelDefineNameContents.setLayout(new java.awt.GridBagLayout());
 
         labelAtBegin.setLabelFor(comboBoxAtBegin);
-        labelAtBegin.setText(bundle.getString("RenameTemplatesPanel.labelAtBegin.text")); // NOI18N
+        labelAtBegin.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelAtBegin.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         panelDefineNameContents.add(labelAtBegin, gridBagConstraints);
 
         labelDelim1.setLabelFor(textFieldDelim1);
-        labelDelim1.setText(bundle.getString("RenameTemplatesPanel.labelDelim1.text")); // NOI18N
+        labelDelim1.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelDelim1.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -686,7 +686,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelDefineNameContents.add(labelDelim1, gridBagConstraints);
 
         labelInTheMid.setLabelFor(comboBoxInTheMiddle);
-        labelInTheMid.setText(bundle.getString("RenameTemplatesPanel.labelInTheMid.text")); // NOI18N
+        labelInTheMid.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelInTheMid.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -694,7 +694,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelDefineNameContents.add(labelInTheMid, gridBagConstraints);
 
         labelDelim2.setLabelFor(textFieldDelim2);
-        labelDelim2.setText(bundle.getString("RenameTemplatesPanel.labelDelim2.text")); // NOI18N
+        labelDelim2.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelDelim2.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
@@ -702,7 +702,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelDefineNameContents.add(labelDelim2, gridBagConstraints);
 
         labelAtEnd.setLabelFor(comboBoxAtEnd);
-        labelAtEnd.setText(bundle.getString("RenameTemplatesPanel.labelAtEnd.text")); // NOI18N
+        labelAtEnd.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelAtEnd.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
@@ -840,12 +840,12 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelDefineName, gridBagConstraints);
 
-        panelExample.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelExample.border.title"))); // NOI18N
+        panelExample.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RenameTemplatesPanel.panelExample.border.title"))); // NOI18N
         panelExample.setLayout(new java.awt.GridBagLayout());
 
         panelExampleContents.setLayout(new java.awt.GridBagLayout());
 
-        labelBefore.setText(bundle.getString("RenameTemplatesPanel.labelBefore.text")); // NOI18N
+        labelBefore.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelBefore.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -863,7 +863,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelExampleContents.add(labelBeforeFilename, gridBagConstraints);
 
-        labelAfter.setText(bundle.getString("RenameTemplatesPanel.labelAfter.text")); // NOI18N
+        labelAfter.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.labelAfter.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -899,7 +899,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(panelExample, gridBagConstraints);
 
-        panelRenameTemplates.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RenameTemplatesPanel.panelRenameTemplates.border.title"))); // NOI18N
+        panelRenameTemplates.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RenameTemplatesPanel.panelRenameTemplates.border.title"))); // NOI18N
         panelRenameTemplates.setLayout(new java.awt.GridBagLayout());
 
         panelRenameTemplatesContents.setLayout(new java.awt.GridBagLayout());
@@ -919,8 +919,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
         panelButtonsRenameTemplates.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        buttonSaveRenameTemplate.setText(bundle.getString("RenameTemplatesPanel.buttonSaveRenameTemplate.text")); // NOI18N
-        buttonSaveRenameTemplate.setToolTipText(bundle.getString("RenameTemplatesPanel.buttonSaveRenameTemplate.toolTipText")); // NOI18N
+        buttonSaveRenameTemplate.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonSaveRenameTemplate.text")); // NOI18N
+        buttonSaveRenameTemplate.setToolTipText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonSaveRenameTemplate.toolTipText")); // NOI18N
         buttonSaveRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveRenameTemplateActionPerformed(evt);
@@ -928,8 +928,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         });
         panelButtonsRenameTemplates.add(buttonSaveRenameTemplate);
 
-        buttonRenameRenameTemplate.setText(bundle.getString("RenameTemplatesPanel.buttonRenameRenameTemplate.text")); // NOI18N
-        buttonRenameRenameTemplate.setToolTipText(bundle.getString("RenameTemplatesPanel.buttonRenameRenameTemplate.toolTipText")); // NOI18N
+        buttonRenameRenameTemplate.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonRenameRenameTemplate.text")); // NOI18N
+        buttonRenameRenameTemplate.setToolTipText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonRenameRenameTemplate.toolTipText")); // NOI18N
         buttonRenameRenameTemplate.setEnabled(false);
         buttonRenameRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -938,8 +938,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         });
         panelButtonsRenameTemplates.add(buttonRenameRenameTemplate);
 
-        buttonDeleteRenameTemplate.setText(bundle.getString("RenameTemplatesPanel.buttonDeleteRenameTemplate.text")); // NOI18N
-        buttonDeleteRenameTemplate.setToolTipText(bundle.getString("RenameTemplatesPanel.buttonDeleteRenameTemplate.toolTipText")); // NOI18N
+        buttonDeleteRenameTemplate.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonDeleteRenameTemplate.text")); // NOI18N
+        buttonDeleteRenameTemplate.setToolTipText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonDeleteRenameTemplate.toolTipText")); // NOI18N
         buttonDeleteRenameTemplate.setEnabled(false);
         buttonDeleteRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -948,8 +948,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         });
         panelButtonsRenameTemplates.add(buttonDeleteRenameTemplate);
 
-        buttonUpdateRenameTemplate.setText(bundle.getString("RenameTemplatesPanel.buttonUpdateRenameTemplate.text")); // NOI18N
-        buttonUpdateRenameTemplate.setToolTipText(bundle.getString("RenameTemplatesPanel.buttonUpdateRenameTemplate.toolTipText")); // NOI18N
+        buttonUpdateRenameTemplate.setText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonUpdateRenameTemplate.text")); // NOI18N
+        buttonUpdateRenameTemplate.setToolTipText(Bundle.getString(getClass(), "RenameTemplatesPanel.buttonUpdateRenameTemplate.toolTipText")); // NOI18N
         buttonUpdateRenameTemplate.setEnabled(false);
         buttonUpdateRenameTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

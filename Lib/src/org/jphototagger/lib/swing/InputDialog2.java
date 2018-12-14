@@ -149,10 +149,10 @@ public class InputDialog2 extends javax.swing.JDialog {
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        buttonOk.setText(bundle.getString("InputDialog2.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "InputDialog2.buttonOk.text")); // NOI18N
         panelButtons.add(buttonOk, new java.awt.GridBagConstraints());
 
-        buttonCancel.setText(bundle.getString("InputDialog2.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "InputDialog2.buttonCancel.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonCancel, gridBagConstraints);

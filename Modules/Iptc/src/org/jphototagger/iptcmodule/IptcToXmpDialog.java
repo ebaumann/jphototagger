@@ -342,7 +342,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
-        setTitle(bundle.getString("IptcToXmpDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "IptcToXmpDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -351,7 +351,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setText(bundle.getString("IptcToXmpDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "IptcToXmpDialog.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -361,14 +361,14 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 0, 7);
         getContentPane().add(labelInfo, gridBagConstraints);
 
-        labelDirectoryPrompt.setText(bundle.getString("IptcToXmpDialog.labelDirectoryPrompt.text")); // NOI18N
+        labelDirectoryPrompt.setText(Bundle.getString(getClass(), "IptcToXmpDialog.labelDirectoryPrompt.text")); // NOI18N
         labelDirectoryPrompt.setName("labelDirectoryPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 7, 0, 0);
         getContentPane().add(labelDirectoryPrompt, gridBagConstraints);
 
-        buttonChooseDirectory.setText(bundle.getString("IptcToXmpDialog.buttonChooseDirectory.text")); // NOI18N
+        buttonChooseDirectory.setText(Bundle.getString(getClass(), "IptcToXmpDialog.buttonChooseDirectory.text")); // NOI18N
         buttonChooseDirectory.setName("buttonChooseDirectory"); // NOI18N
         buttonChooseDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -392,7 +392,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 7, 0, 7);
         getContentPane().add(labelDirectoryName, gridBagConstraints);
 
-        checkBoxIncludeSubdirectories.setText(bundle.getString("IptcToXmpDialog.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setText(Bundle.getString(getClass(), "IptcToXmpDialog.checkBoxIncludeSubdirectories.text")); // NOI18N
         checkBoxIncludeSubdirectories.setName("checkBoxIncludeSubdirectories"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -401,7 +401,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         getContentPane().add(checkBoxIncludeSubdirectories, gridBagConstraints);
 
         labelIptcCharset.setLabelFor(comboBoxIptcCharset);
-        labelIptcCharset.setText(bundle.getString("IptcToXmpDialog.labelIptcCharset.text")); // NOI18N
+        labelIptcCharset.setText(Bundle.getString(getClass(), "IptcToXmpDialog.labelIptcCharset.text")); // NOI18N
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -433,7 +433,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancel.setText(bundle.getString("IptcToXmpDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "IptcToXmpDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -446,7 +446,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonCancel, gridBagConstraints);
 
-        buttonStart.setText(bundle.getString("IptcToXmpDialog.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString(getClass(), "IptcToXmpDialog.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {

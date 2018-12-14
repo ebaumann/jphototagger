@@ -205,7 +205,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
 
         labelListFilenameSuffixes.setLabelFor(listFilenameSuffixes);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
-        labelListFilenameSuffixes.setText(bundle.getString("EditDefaultProgramsPanel.labelListFilenameSuffixes.text")); // NOI18N
+        labelListFilenameSuffixes.setText(Bundle.getString(getClass(), "EditDefaultProgramsPanel.labelListFilenameSuffixes.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -214,7 +214,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonRemoveDefaultPrograms.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
-        buttonRemoveDefaultPrograms.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonRemoveDefaultPrograms.toolTipText")); // NOI18N
+        buttonRemoveDefaultPrograms.setToolTipText(Bundle.getString(getClass(), "EditDefaultProgramsPanel.buttonRemoveDefaultPrograms.toolTipText")); // NOI18N
         buttonRemoveDefaultPrograms.setEnabled(false);
         buttonRemoveDefaultPrograms.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemoveDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +227,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         panelButtons.add(buttonRemoveDefaultPrograms, gridBagConstraints);
 
         buttonSetDefaultPrograms.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
-        buttonSetDefaultPrograms.setToolTipText(bundle.getString("EditDefaultProgramsPanel.buttonSetDefaultPrograms.toolTipText")); // NOI18N
+        buttonSetDefaultPrograms.setToolTipText(Bundle.getString(getClass(), "EditDefaultProgramsPanel.buttonSetDefaultPrograms.toolTipText")); // NOI18N
         buttonSetDefaultPrograms.setEnabled(false);
         buttonSetDefaultPrograms.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonSetDefaultPrograms.addActionListener(new java.awt.event.ActionListener() {

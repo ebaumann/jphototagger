@@ -25,6 +25,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ExpandCollapseComponentPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.openide.util.Lookup;
 
@@ -276,7 +277,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         panelBottomComponents.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        labelInfo.setText(bundle.getString("ThumbnailsAreaPanel.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "ThumbnailsAreaPanel.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -290,7 +291,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         panelDisplayedThumbnailFilters.setName("panelDisplayedThumbnailFilters"); // NOI18N
         panelDisplayedThumbnailFilters.setLayout(new java.awt.GridBagLayout());
 
-        labelFileFilters.setText(bundle.getString("ThumbnailsAreaPanel.labelFileFilters.text")); // NOI18N
+        labelFileFilters.setText(Bundle.getString(getClass(), "ThumbnailsAreaPanel.labelFileFilters.text")); // NOI18N
         labelFileFilters.setName("labelFileFilters"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -305,7 +306,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDisplayedThumbnailFilters.add(comboBoxFileFilters, gridBagConstraints);
 
-        labelFileSort.setText(bundle.getString("ThumbnailsAreaPanel.labelFileSort.text")); // NOI18N
+        labelFileSort.setText(Bundle.getString(getClass(), "ThumbnailsAreaPanel.labelFileSort.text")); // NOI18N
         labelFileSort.setName("labelFileSort"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

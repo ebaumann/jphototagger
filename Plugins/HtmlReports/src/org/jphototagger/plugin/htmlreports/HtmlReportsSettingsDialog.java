@@ -2,6 +2,7 @@ package org.jphototagger.plugin.htmlreports;
 
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -27,7 +28,7 @@ public class HtmlReportsSettingsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/htmlreports/Bundle"); // NOI18N
-        setTitle(bundle.getString("HtmlReportsSettingsDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "HtmlReportsSettingsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 

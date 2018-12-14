@@ -21,6 +21,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.BusyPanel;
 import org.jphototagger.lib.swingx.ListTextFilter;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -209,7 +210,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/repositoryfilebrowser/Bundle"); // NOI18N
-        setTitle(bundle.getString("RepositoryFileBrowserDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -221,7 +222,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelFilter.setLayout(new java.awt.GridBagLayout());
 
         labelFilterPrompt.setLabelFor(textFieldFilter);
-        labelFilterPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelFilterPrompt.text")); // NOI18N
+        labelFilterPrompt.setText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.labelFilterPrompt.text")); // NOI18N
         labelFilterPrompt.setName("labelFilterPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -244,7 +245,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFilter.add(textFieldFilter, gridBagConstraints);
 
-        buttonApplyFilter.setText(bundle.getString("RepositoryFileBrowserDialog.buttonApplyFilter.text")); // NOI18N
+        buttonApplyFilter.setText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.buttonApplyFilter.text")); // NOI18N
         buttonApplyFilter.setName("buttonApplyFilter"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -279,7 +280,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelListInfo.setName("panelListInfo"); // NOI18N
         panelListInfo.setLayout(new java.awt.GridBagLayout());
 
-        labelSelectedFilepathPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelSelectedFilepathPrompt.text")); // NOI18N
+        labelSelectedFilepathPrompt.setText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.labelSelectedFilepathPrompt.text")); // NOI18N
         labelSelectedFilepathPrompt.setName("labelSelectedFilepathPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -306,7 +307,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelListInfo.add(labelSelectedFilepath, gridBagConstraints);
 
-        labelFileCountPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelFileCountPrompt.text")); // NOI18N
+        labelFileCountPrompt.setText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.labelFileCountPrompt.text")); // NOI18N
         labelFileCountPrompt.setName("labelFileCountPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -319,7 +320,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelListInfo.add(labelFileCount, gridBagConstraints);
 
         progressBarGetFiles.setName("progressBarGetFiles"); // NOI18N
-        progressBarGetFiles.setString(bundle.getString("RepositoryFileBrowserDialog.progressBarGetFiles.string")); // NOI18N
+        progressBarGetFiles.setString(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.progressBarGetFiles.string")); // NOI18N
         progressBarGetFiles.setStringPainted(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -337,12 +338,12 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelInfo.setName("panelInfo"); // NOI18N
         panelInfo.setLayout(new java.awt.GridBagLayout());
 
-        panelThumbnail.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelThumbnail.border.title"))); // NOI18N
+        panelThumbnail.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelThumbnail.border.title"))); // NOI18N
         panelThumbnail.setName("panelThumbnail"); // NOI18N
         panelThumbnail.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(150, 150));
         panelThumbnail.setLayout(new java.awt.GridBagLayout());
 
-        imagePanel.setImageIsAbsentText(bundle.getString("RepositoryFileBrowserDialog.imagePanel.imageIsAbsentText")); // NOI18N
+        imagePanel.setImageIsAbsentText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.imagePanel.imageIsAbsentText")); // NOI18N
         imagePanel.setName("imagePanel"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.thumbnail}"), imagePanel, org.jdesktop.beansbinding.BeanProperty.create("image"));
@@ -364,17 +365,17 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.weighty = 1.0;
         panelInfo.add(panelThumbnail, gridBagConstraints);
 
-        panelDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelDetails.border.title"))); // NOI18N
+        panelDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelDetails.border.title"))); // NOI18N
         panelDetails.setName("panelDetails"); // NOI18N
         panelDetails.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(325, 229));
         panelDetails.setLayout(new java.awt.GridBagLayout());
 
-        panelImageFile.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelImageFile.border.title"))); // NOI18N
+        panelImageFile.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelImageFile.border.title"))); // NOI18N
         panelImageFile.setName("panelImageFile"); // NOI18N
         panelImageFile.setLayout(new java.awt.GridBagLayout());
 
-        booleanLabelImageFileExists.setFalseText(bundle.getString("RepositoryFileBrowserDialog.booleanLabelImageFileExists.falseText")); // NOI18N
-        booleanLabelImageFileExists.setTrueText(bundle.getString("RepositoryFileBrowserDialog.booleanLabelImageFileExists.trueText")); // NOI18N
+        booleanLabelImageFileExists.setFalseText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.booleanLabelImageFileExists.falseText")); // NOI18N
+        booleanLabelImageFileExists.setTrueText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.booleanLabelImageFileExists.trueText")); // NOI18N
         booleanLabelImageFileExists.setName("booleanLabelImageFileExists"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.imageFileExists}"), booleanLabelImageFileExists, org.jdesktop.beansbinding.BeanProperty.create("isTrue"));
@@ -387,7 +388,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelImageFile.add(booleanLabelImageFileExists, gridBagConstraints);
 
-        labelimeImageFileInRepositoryPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelimeImageFileInRepositoryPrompt.text")); // NOI18N
+        labelimeImageFileInRepositoryPrompt.setText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.labelimeImageFileInRepositoryPrompt.text")); // NOI18N
         labelimeImageFileInRepositoryPrompt.setName("labelimeImageFileInRepositoryPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -408,7 +409,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelImageFile.add(labelimeImageFileInRepository, gridBagConstraints);
 
-        labelimeImageFileInFileSystemPrompt.setText(bundle.getString("RepositoryFileBrowserDialog.labelimeImageFileInFileSystemPrompt.text")); // NOI18N
+        labelimeImageFileInFileSystemPrompt.setText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.labelimeImageFileInFileSystemPrompt.text")); // NOI18N
         labelimeImageFileInFileSystemPrompt.setName("labelimeImageFileInFileSystemPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -449,12 +450,12 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 3);
         panelDetails.add(panelImageFile, gridBagConstraints);
 
-        panelXMPFile.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("RepositoryFileBrowserDialog.panelXMPFile.border.title"))); // NOI18N
+        panelXMPFile.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelXMPFile.border.title"))); // NOI18N
         panelXMPFile.setName("panelXMPFile"); // NOI18N
         panelXMPFile.setLayout(new java.awt.GridBagLayout());
 
-        booleanLabelXmpFileExists.setFalseText(bundle.getString("RepositoryFileBrowserDialog.booleanLabelXmpFileExists.falseText")); // NOI18N
-        booleanLabelXmpFileExists.setTrueText(bundle.getString("RepositoryFileBrowserDialog.booleanLabelXmpFileExists.trueText")); // NOI18N
+        booleanLabelXmpFileExists.setFalseText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.booleanLabelXmpFileExists.falseText")); // NOI18N
+        booleanLabelXmpFileExists.setTrueText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.booleanLabelXmpFileExists.trueText")); // NOI18N
         booleanLabelXmpFileExists.setName("booleanLabelXmpFileExists"); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${imageFileInfo.xmpFileExists}"), booleanLabelXmpFileExists, org.jdesktop.beansbinding.BeanProperty.create("isTrue"));
@@ -467,7 +468,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelXMPFile.add(booleanLabelXmpFileExists, gridBagConstraints);
 
-        labelPromptTimeXmpFileInRepository.setText(bundle.getString("RepositoryFileBrowserDialog.labelPromptTimeXmpFileInRepository.text")); // NOI18N
+        labelPromptTimeXmpFileInRepository.setText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.labelPromptTimeXmpFileInRepository.text")); // NOI18N
         labelPromptTimeXmpFileInRepository.setName("labelPromptTimeXmpFileInRepository"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
@@ -488,7 +489,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
         panelXMPFile.add(labelTimeXmpFileInRepository, gridBagConstraints);
 
-        labelPromptTimeXmpFileInFileSystem.setText(bundle.getString("RepositoryFileBrowserDialog.labelPromptTimeXmpFileInFileSystem.text")); // NOI18N
+        labelPromptTimeXmpFileInFileSystem.setText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.labelPromptTimeXmpFileInFileSystem.text")); // NOI18N
         labelPromptTimeXmpFileInFileSystem.setName("labelPromptTimeXmpFileInFileSystem"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;

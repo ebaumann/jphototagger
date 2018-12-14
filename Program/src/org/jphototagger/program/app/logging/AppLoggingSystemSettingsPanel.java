@@ -240,7 +240,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         panelLogLevel.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/logging/Bundle"); // NOI18N
-        labelLogLevel.setText(bundle.getString("AppLoggingSystemSettingsPanel.labelLogLevel.text")); // NOI18N
+        labelLogLevel.setText(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.labelLogLevel.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
@@ -282,13 +282,13 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         panelMisc.add(panelMiscContent, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("AppLoggingSystemSettingsPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
 
         panelIgnoreMessages.setLayout(new java.awt.GridBagLayout());
 
         panelIgnoreMessagesContent.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoErrorTexts.setText(bundle.getString("AppLoggingSystemSettingsPanel.labelInfoErrorTexts.text")); // NOI18N
+        labelInfoErrorTexts.setText(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.labelInfoErrorTexts.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -308,7 +308,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         panelErrorTexts.add(scrollPaneErrorTexts, gridBagConstraints);
 
         buttonRemoveErrorText.setText("-"); // NOI18N
-        buttonRemoveErrorText.setToolTipText(bundle.getString("AppLoggingSystemSettingsPanel.buttonRemoveErrorText.toolTipText")); // NOI18N
+        buttonRemoveErrorText.setToolTipText(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.buttonRemoveErrorText.toolTipText")); // NOI18N
         buttonRemoveErrorText.setEnabled(false);
         buttonRemoveErrorText.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonRemoveErrorText.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
@@ -323,7 +323,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         panelErrorTexts.add(buttonRemoveErrorText, gridBagConstraints);
 
         buttonEditErrorText.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
-        buttonEditErrorText.setToolTipText(bundle.getString("AppLoggingSystemSettingsPanel.buttonEditErrorText.toolTipText")); // NOI18N
+        buttonEditErrorText.setToolTipText(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.buttonEditErrorText.toolTipText")); // NOI18N
         buttonEditErrorText.setEnabled(false);
         buttonEditErrorText.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEditErrorText.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
@@ -348,7 +348,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
 
         panelAddErrorText.setLayout(new java.awt.GridBagLayout());
 
-        labelErrorText.setText(bundle.getString("AppLoggingSystemSettingsPanel.labelErrorText.text")); // NOI18N
+        labelErrorText.setText(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.labelErrorText.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelAddErrorText.add(labelErrorText, gridBagConstraints);
@@ -360,7 +360,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         panelAddErrorText.add(textFieldErrorText, gridBagConstraints);
 
         buttonAddErrorText.setText("+"); // NOI18N
-        buttonAddErrorText.setToolTipText(bundle.getString("AppLoggingSystemSettingsPanel.buttonAddErrorText.toolTipText")); // NOI18N
+        buttonAddErrorText.setToolTipText(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.buttonAddErrorText.toolTipText")); // NOI18N
         buttonAddErrorText.setEnabled(false);
         buttonAddErrorText.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonAddErrorText.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
@@ -391,7 +391,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
         panelIgnoreMessages.add(panelIgnoreMessagesContent, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("AppLoggingSystemSettingsPanel.panelIgnoreMessages.TabConstraints.tabTitle"), panelIgnoreMessages); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "AppLoggingSystemSettingsPanel.panelIgnoreMessages.TabConstraints.tabTitle"), panelIgnoreMessages); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

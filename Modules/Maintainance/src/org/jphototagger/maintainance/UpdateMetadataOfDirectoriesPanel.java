@@ -497,7 +497,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDelete.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
-        menuItemDelete.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -510,7 +510,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         setLayout(new java.awt.GridBagLayout());
 
         labelHeadingListDirectories.setLabelFor(list);
-        labelHeadingListDirectories.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
+        labelHeadingListDirectories.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.labelHeadingListDirectories.text")); // NOI18N
         labelHeadingListDirectories.setName("labelHeadingListDirectories"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -541,7 +541,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
 
-        labelInfoFilecount.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
+        labelInfoFilecount.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.labelInfoFilecount.text")); // NOI18N
         labelInfoFilecount.setName("labelInfoFilecount"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -560,7 +560,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         add(labelFilecount, gridBagConstraints);
 
-        checkBoxForce.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
+        checkBoxForce.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.checkBoxForce.text")); // NOI18N
         checkBoxForce.setName("checkBoxForce"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -570,7 +570,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         add(checkBoxForce, gridBagConstraints);
 
         checkBoxIncludeSubdirectories.setSelected(true);
-        checkBoxIncludeSubdirectories.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
+        checkBoxIncludeSubdirectories.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.checkBoxIncludeSubdirectories.text")); // NOI18N
         checkBoxIncludeSubdirectories.setName("checkBoxIncludeSubdirectories"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -582,7 +582,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         panelCurrentFile.setName("panelCurrentFile"); // NOI18N
         panelCurrentFile.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoCurrentFilename.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text")); // NOI18N
+        labelInfoCurrentFilename.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.labelInfoCurrentFilename.text")); // NOI18N
         labelInfoCurrentFilename.setName("labelInfoCurrentFilename"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
@@ -621,7 +621,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        buttonCancelChooseDirectories.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonCancelChooseDirectories.text")); // NOI18N
+        buttonCancelChooseDirectories.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.buttonCancelChooseDirectories.text")); // NOI18N
         buttonCancelChooseDirectories.setEnabled(false);
         buttonCancelChooseDirectories.setName("buttonCancelChooseDirectories"); // NOI18N
         buttonCancelChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
@@ -631,7 +631,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         });
         panelButtons.add(buttonCancelChooseDirectories);
 
-        buttonCancel.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.buttonCancel.text")); // NOI18N
         buttonCancel.setEnabled(false);
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -641,7 +641,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         });
         panelButtons.add(buttonCancel);
 
-        buttonChooseDirectories.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
+        buttonChooseDirectories.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.buttonChooseDirectories.text")); // NOI18N
         buttonChooseDirectories.setName("buttonChooseDirectories"); // NOI18N
         buttonChooseDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -650,7 +650,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         });
         panelButtons.add(buttonChooseDirectories);
 
-        buttonStart.setText(bundle.getString("UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
+        buttonStart.setText(Bundle.getString(getClass(), "UpdateMetadataOfDirectoriesPanel.buttonStart.text")); // NOI18N
         buttonStart.setEnabled(false);
         buttonStart.setName("buttonStart"); // NOI18N
         buttonStart.addActionListener(new java.awt.event.ActionListener() {

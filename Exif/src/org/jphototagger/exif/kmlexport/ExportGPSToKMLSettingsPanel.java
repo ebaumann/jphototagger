@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.exif.ExifPreferencesKeys;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -59,7 +60,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         setLayout(new GridBagLayout());
 
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/exif/kmlexport/Bundle"); // NOI18N
-        checkBoxAddFilenameToGpsLocationExport.setText(bundle.getString("ExportGPSToKMLSettingsPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
+        checkBoxAddFilenameToGpsLocationExport.setText(Bundle.getString(getClass(), "ExportGPSToKMLSettingsPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.setName("checkBoxAddFilenameToGpsLocationExport"); // NOI18N
         checkBoxAddFilenameToGpsLocationExport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -83,7 +84,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         add(panelFill, gridBagConstraints);
 
-        labelVersion.setText(bundle.getString("ExportGPSToKMLSettingsPanel.panelVersion.text")); // NOI18N
+        labelVersion.setText(Bundle.getString(getClass(), "ExportGPSToKMLSettingsPanel.panelVersion.text")); // NOI18N
         labelVersion.setName("panelVersion"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;

@@ -268,7 +268,7 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
-        labelTable.setText(bundle.getString("RepositoryInfoCountPanel.labelTable.text")); // NOI18N
+        labelTable.setText(Bundle.getString(getClass(), "RepositoryInfoCountPanel.labelTable.text")); // NOI18N
         labelTable.setName("labelTable"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -293,7 +293,7 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(6, 12, 0, 12);
         add(scrollPane, gridBagConstraints);
 
-        labelFilename.setText(bundle.getString("RepositoryInfoCountPanel.labelFilename.text")); // NOI18N
+        labelFilename.setText(Bundle.getString(getClass(), "RepositoryInfoCountPanel.labelFilename.text")); // NOI18N
         labelFilename.setName("labelFilename"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

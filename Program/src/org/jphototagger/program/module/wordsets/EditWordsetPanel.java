@@ -282,7 +282,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
 
         labelName.setLabelFor(textFieldName);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/wordsets/Bundle"); // NOI18N
-        labelName.setText(bundle.getString("EditWordsetPanel.labelName.text")); // NOI18N
+        labelName.setText(Bundle.getString(getClass(), "EditWordsetPanel.labelName.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelName.add(labelName, gridBagConstraints);
@@ -300,7 +300,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelName.add(textFieldName, gridBagConstraints);
 
-        buttonSave.setText(bundle.getString("EditWordsetPanel.buttonSave.text")); // NOI18N
+        buttonSave.setText(Bundle.getString(getClass(), "EditWordsetPanel.buttonSave.text")); // NOI18N
         buttonSave.setEnabled(false);
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -348,7 +348,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         panelEdit.setLayout(new java.awt.GridBagLayout());
 
         labelWord.setLabelFor(textAreaWord);
-        labelWord.setText(bundle.getString("EditWordsetPanel.labelWord.text")); // NOI18N
+        labelWord.setText(Bundle.getString(getClass(), "EditWordsetPanel.labelWord.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelEdit.add(labelWord, gridBagConstraints);
@@ -375,7 +375,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
 
         buttonAddWord.setMnemonic('+');
         buttonAddWord.setText("+"); // NOI18N
-        buttonAddWord.setToolTipText(bundle.getString("EditWordsetPanel.buttonAddWord.toolTipText")); // NOI18N
+        buttonAddWord.setToolTipText(Bundle.getString(getClass(), "EditWordsetPanel.buttonAddWord.toolTipText")); // NOI18N
         buttonAddWord.setEnabled(false);
         buttonAddWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -389,7 +389,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
 
         buttonRemoveSelectedWords.setMnemonic('-');
         buttonRemoveSelectedWords.setText("-"); // NOI18N
-        buttonRemoveSelectedWords.setToolTipText(bundle.getString("EditWordsetPanel.buttonRemoveSelectedWords.toolTipText")); // NOI18N
+        buttonRemoveSelectedWords.setToolTipText(Bundle.getString(getClass(), "EditWordsetPanel.buttonRemoveSelectedWords.toolTipText")); // NOI18N
         buttonRemoveSelectedWords.setEnabled(false);
         buttonRemoveSelectedWords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -7,6 +7,7 @@ import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -66,7 +67,7 @@ public class ProgramChooseDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
-        setTitle(bundle.getString("ProgramChooseDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ProgramChooseDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         listPrograms.setModel(model);
@@ -96,7 +97,7 @@ public class ProgramChooseDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 0, 7);
         getContentPane().add(scrollPanePrograms, gridBagConstraints);
 
-        buttonChooseProgram.setText(bundle.getString("ProgramChooseDialog.buttonChooseProgram.text")); // NOI18N
+        buttonChooseProgram.setText(Bundle.getString(getClass(), "ProgramChooseDialog.buttonChooseProgram.text")); // NOI18N
         buttonChooseProgram.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseProgramActionPerformed(evt);

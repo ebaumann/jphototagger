@@ -1,6 +1,7 @@
 package org.jphototagger.plugin.iviewsshow;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -45,7 +46,7 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/iviewsshow/Bundle"); // NOI18N
-        checkBoxReloadOnLoop.setText(bundle.getString("IrfanViewSlideshowSettingsPanel.checkBoxReloadOnLoop.text")); // NOI18N
+        checkBoxReloadOnLoop.setText(Bundle.getString(getClass(), "IrfanViewSlideshowSettingsPanel.checkBoxReloadOnLoop.text")); // NOI18N
         checkBoxReloadOnLoop.setName("checkBoxReloadOnLoop"); // NOI18N
         checkBoxReloadOnLoop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +70,7 @@ public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.weighty = 1.0;
         add(panelFill, gridBagConstraints);
 
-        labelVersion.setText(bundle.getString("IrfanViewSlideshowSettingsPanel.labelVersion.text")); // NOI18N
+        labelVersion.setText(Bundle.getString(getClass(), "IrfanViewSlideshowSettingsPanel.labelVersion.text")); // NOI18N
         labelVersion.setName("labelVersion"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

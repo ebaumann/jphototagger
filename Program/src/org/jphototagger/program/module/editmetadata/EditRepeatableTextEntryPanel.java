@@ -837,7 +837,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
         menuItemRename.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F2, 0));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/editmetadata/Bundle"); // NOI18N
-        menuItemRename.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
+        menuItemRename.setText(Bundle.getString(getClass(), "EditRepeatableTextEntryPanel.menuItemRename.text")); // NOI18N
         menuItemRename.setName("menuItemRename"); // NOI18N
         menuItemRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -847,7 +847,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         popupMenuList.add(menuItemRename);
 
         menuItemRemove.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemRemove.setText(bundle.getString("EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
+        menuItemRemove.setText(Bundle.getString(getClass(), "EditRepeatableTextEntryPanel.menuItemRemove.text")); // NOI18N
         menuItemRemove.setName("menuItemRemove"); // NOI18N
         menuItemRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -869,7 +869,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         add(labelPrompt, gridBagConstraints);
 
         list.setModel(model);
-        list.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
+        list.setToolTipText(Bundle.getString(getClass(), "EditRepeatableTextEntryPanel.list.toolTipText")); // NOI18N
         list.setCellRenderer(new org.jphototagger.program.module.editmetadata.KeywordsEditPanelListCellRenderer());
         list.setComponentPopupMenu(popupMenuList);
         list.setDragEnabled(true);
@@ -902,7 +902,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
         buttonRemoveSelection.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveSelection.setMnemonic('-');
-        buttonRemoveSelection.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
+        buttonRemoveSelection.setToolTipText(Bundle.getString(getClass(), "EditRepeatableTextEntryPanel.buttonRemoveSelection.toolTipText")); // NOI18N
         buttonRemoveSelection.setContentAreaFilled(false);
         buttonRemoveSelection.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRemoveSelection.setName("buttonRemoveSelection"); // NOI18N
@@ -943,7 +943,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
 
         buttonAddInput.setIcon(org.jphototagger.resources.Icons.getIcon("icon_add.png"));
         buttonAddInput.setMnemonic('+');
-        buttonAddInput.setToolTipText(bundle.getString("EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
+        buttonAddInput.setToolTipText(Bundle.getString(getClass(), "EditRepeatableTextEntryPanel.buttonAddInput.toolTipText")); // NOI18N
         buttonAddInput.setContentAreaFilled(false);
         buttonAddInput.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonAddInput.setName("buttonAddInput"); // NOI18N

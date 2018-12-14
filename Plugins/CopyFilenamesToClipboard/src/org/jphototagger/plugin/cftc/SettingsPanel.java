@@ -130,7 +130,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         label.setDisplayedMnemonic('t');
         label.setLabelFor(comboBoxDelimiter);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/plugin/cftc/Bundle"); // NOI18N
-        label.setText(bundle.getString("SettingsPanel.label.text")); // NOI18N
+        label.setText(Bundle.getString(getClass(), "SettingsPanel.label.text")); // NOI18N
         label.setName("label"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -168,14 +168,14 @@ public class SettingsPanel extends javax.swing.JPanel {
         panelVersion.setName("panelVersion"); // NOI18N
         panelVersion.setLayout(new java.awt.GridBagLayout());
 
-        labelVersion.setText(bundle.getString("SettingsPanel.labelVersion.text")); // NOI18N
+        labelVersion.setText(Bundle.getString(getClass(), "SettingsPanel.labelVersion.text")); // NOI18N
         labelVersion.setName("labelVersion"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         panelVersion.add(labelVersion, gridBagConstraints);
 
-        buttonHelp.setText(bundle.getString("SettingsPanel.buttonHelp.text")); // NOI18N
+        buttonHelp.setText(Bundle.getString(getClass(), "SettingsPanel.buttonHelp.text")); // NOI18N
         buttonHelp.setName("buttonHelp"); // NOI18N
         buttonHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

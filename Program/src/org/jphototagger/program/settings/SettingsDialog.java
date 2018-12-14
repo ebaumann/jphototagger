@@ -185,7 +185,7 @@ public final class SettingsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/settings/Bundle"); // NOI18N
-        setTitle(bundle.getString("SettingsDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "SettingsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -209,31 +209,31 @@ public final class SettingsDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelPrograms.setName("panelPrograms"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelPrograms.TabConstraints.tabTitle"), panelPrograms); // NOI18N
 
         panelThumbnails.setName("panelThumbnails"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelThumbnails.TabConstraints.tabTitle"), panelThumbnails); // NOI18N
 
         panelTasks.setName("panelTasks"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelTasks.TabConstraints.tabTitle"), panelTasks); // NOI18N
 
         panelPerformance.setName("panelPerformance"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelPerformance.TabConstraints.tabTitle"), panelPerformance); // NOI18N
 
         panelFileExcludePatterns.setName("panelFileExcludePatterns"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelFileExcludePatterns.TabConstraints.tabTitle"), panelFileExcludePatterns); // NOI18N
 
         panelMisc.setName("panelMisc"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelMisc.TabConstraints.tabTitle"), panelMisc); // NOI18N
 
         panelActions.setName("panelActions"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelActions.TabConstraints.tabTitle"), panelActions); // NOI18N
 
         panelPlugins.setName("panelPlugins"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelPlugins.TabConstraints.tabTitle"), panelPlugins); // NOI18N
 
         panelDisplayMessagesInFuture.setName("panelDisplayMessagesInFuture"); // NOI18N
-        tabbedPane.addTab(bundle.getString("SettingsDialog.panelDisplayMessagesInFuture.TabConstraints.tabTitle"), panelDisplayMessagesInFuture); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "SettingsDialog.panelDisplayMessagesInFuture.TabConstraints.tabTitle"), panelDisplayMessagesInFuture); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;

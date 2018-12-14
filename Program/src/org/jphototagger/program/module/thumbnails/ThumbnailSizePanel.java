@@ -18,6 +18,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.openide.util.Lookup;
@@ -193,7 +194,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         thumbnailSizeSlider.setMinimum(10);
         thumbnailSizeSlider.setSnapToTicks(true);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        thumbnailSizeSlider.setToolTipText(bundle.getString("ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
+        thumbnailSizeSlider.setToolTipText(Bundle.getString(getClass(), "ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
         thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
         thumbnailSizeSlider.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -202,7 +203,7 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
         add(thumbnailSizeSlider, gridBagConstraints);
 
         thumbnailDimensionsButton.setIcon(org.jphototagger.resources.Icons.getIcon("icon_thumbnail_size.png"));
-        thumbnailDimensionsButton.setToolTipText(bundle.getString("ThumbnailSizePanel.thumbnailDimensionsButton.toolTipText")); // NOI18N
+        thumbnailDimensionsButton.setToolTipText(Bundle.getString(getClass(), "ThumbnailSizePanel.thumbnailDimensionsButton.toolTipText")); // NOI18N
         thumbnailDimensionsButton.setBorder(null);
         thumbnailDimensionsButton.setContentAreaFilled(false);
         thumbnailDimensionsButton.setName("thumbnailDimensionsButton"); // NOI18N

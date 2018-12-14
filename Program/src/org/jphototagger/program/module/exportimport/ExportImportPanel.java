@@ -346,7 +346,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         panelDirectory.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/exportimport/Bundle"); // NOI18N
-        labelPromptDir.setText(bundle.getString("ExportImportPanel.labelPromptDir.text")); // NOI18N
+        labelPromptDir.setText(Bundle.getString(getClass(), "ExportImportPanel.labelPromptDir.text")); // NOI18N
         labelPromptDir.setName("labelPromptDir"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -360,7 +360,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDirectory.add(labelDir, gridBagConstraints);
 
-        buttonSelDir.setText(bundle.getString("ExportImportPanel.buttonSelDir.text")); // NOI18N
+        buttonSelDir.setText(Bundle.getString(getClass(), "ExportImportPanel.buttonSelDir.text")); // NOI18N
         buttonSelDir.setName("buttonSelDir"); // NOI18N
         buttonSelDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,7 +406,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonSelectAll.setText(bundle.getString("ExportImportPanel.buttonSelectAll.text")); // NOI18N
+        buttonSelectAll.setText(Bundle.getString(getClass(), "ExportImportPanel.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.setEnabled(false);
         buttonSelectAll.setName("buttonSelectAll"); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
@@ -418,7 +418,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelButtons.add(buttonSelectAll, gridBagConstraints);
 
-        buttonSelectNone.setText(bundle.getString("ExportImportPanel.buttonSelectNone.text")); // NOI18N
+        buttonSelectNone.setText(Bundle.getString(getClass(), "ExportImportPanel.buttonSelectNone.text")); // NOI18N
         buttonSelectNone.setEnabled(false);
         buttonSelectNone.setName("buttonSelectNone"); // NOI18N
         buttonSelectNone.addActionListener(new java.awt.event.ActionListener() {

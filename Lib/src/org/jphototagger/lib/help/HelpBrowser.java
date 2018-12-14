@@ -602,7 +602,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         popupMenuEditorPane.add(menuItemGotoPreviousUrl);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/help/Bundle"); // NOI18N
-        setTitle(bundle.getString("HelpBrowser.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "HelpBrowser.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -631,13 +631,13 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.weighty = 1.0;
         panelContents.add(scrollPaneTree, gridBagConstraints);
 
-        tabbedPaneContents.addTab(bundle.getString("HelpBrowser.panelContents.TabConstraints.tabTitle"), panelContents); // NOI18N
+        tabbedPaneContents.addTab(Bundle.getString(getClass(), "HelpBrowser.panelContents.TabConstraints.tabTitle"), panelContents); // NOI18N
 
         panelSearch.setName("panelSearch"); // NOI18N
         panelSearch.setLayout(new java.awt.GridBagLayout());
 
         labelSearch.setLabelFor(textFieldSearch);
-        labelSearch.setText(bundle.getString("HelpBrowser.labelSearch.text")); // NOI18N
+        labelSearch.setText(Bundle.getString(getClass(), "HelpBrowser.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -677,7 +677,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelSearch.add(scrollPaneSearchResults, gridBagConstraints);
 
-        tabbedPaneContents.addTab(bundle.getString("HelpBrowser.panelSearch.TabConstraints.tabTitle"), panelSearch); // NOI18N
+        tabbedPaneContents.addTab(Bundle.getString(getClass(), "HelpBrowser.panelSearch.TabConstraints.tabTitle"), panelSearch); // NOI18N
 
         splitPane.setLeftComponent(tabbedPaneContents);
 
@@ -704,8 +704,8 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        buttonPrint.setText(bundle.getString("HelpBrowser.buttonPrint.text")); // NOI18N
-        buttonPrint.setToolTipText(bundle.getString("HelpBrowser.buttonPrint.toolTipText")); // NOI18N
+        buttonPrint.setText(Bundle.getString(getClass(), "HelpBrowser.buttonPrint.text")); // NOI18N
+        buttonPrint.setToolTipText(Bundle.getString(getClass(), "HelpBrowser.buttonPrint.toolTipText")); // NOI18N
         buttonPrint.setName("buttonPrint"); // NOI18N
         buttonPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -714,7 +714,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         });
         panelButtons.add(buttonPrint);
 
-        buttonSearchInCurrentPage.setToolTipText(bundle.getString("HelpBrowser.buttonSearchInCurrentPage.toolTipText")); // NOI18N
+        buttonSearchInCurrentPage.setToolTipText(Bundle.getString(getClass(), "HelpBrowser.buttonSearchInCurrentPage.toolTipText")); // NOI18N
         buttonSearchInCurrentPage.setName("buttonSearchInCurrentPage"); // NOI18N
         panelButtons.add(buttonSearchInCurrentPage);
 
@@ -745,11 +745,11 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
         menuBar.setName("menuBar"); // NOI18N
 
-        menuView.setText(bundle.getString("HelpBrowser.menuView.text")); // NOI18N
+        menuView.setText(Bundle.getString(getClass(), "HelpBrowser.menuView.text")); // NOI18N
         menuView.setName("menuView"); // NOI18N
 
         buttonGroupTextSize.add(menuItemTextFontSizeSmall);
-        menuItemTextFontSizeSmall.setText(bundle.getString("HelpBrowser.menuItemTextFontSizeSmall.text")); // NOI18N
+        menuItemTextFontSizeSmall.setText(Bundle.getString(getClass(), "HelpBrowser.menuItemTextFontSizeSmall.text")); // NOI18N
         menuItemTextFontSizeSmall.setName("menuItemTextFontSizeSmall"); // NOI18N
         menuItemTextFontSizeSmall.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -760,7 +760,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
 
         buttonGroupTextSize.add(menuItemTextFontSizeNormal);
         menuItemTextFontSizeNormal.setSelected(true);
-        menuItemTextFontSizeNormal.setText(bundle.getString("HelpBrowser.menuItemTextFontSizeNormal.text")); // NOI18N
+        menuItemTextFontSizeNormal.setText(Bundle.getString(getClass(), "HelpBrowser.menuItemTextFontSizeNormal.text")); // NOI18N
         menuItemTextFontSizeNormal.setName("menuItemTextFontSizeNormal"); // NOI18N
         menuItemTextFontSizeNormal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -770,7 +770,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         menuView.add(menuItemTextFontSizeNormal);
 
         buttonGroupTextSize.add(menuItemTextFontSizeLarge);
-        menuItemTextFontSizeLarge.setText(bundle.getString("HelpBrowser.menuItemTextFontSizeLarge.text")); // NOI18N
+        menuItemTextFontSizeLarge.setText(Bundle.getString(getClass(), "HelpBrowser.menuItemTextFontSizeLarge.text")); // NOI18N
         menuItemTextFontSizeLarge.setName("menuItemTextFontSizeLarge"); // NOI18N
         menuItemTextFontSizeLarge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -780,7 +780,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         menuView.add(menuItemTextFontSizeLarge);
 
         buttonGroupTextSize.add(menuItemTextFontSizeHuge);
-        menuItemTextFontSizeHuge.setText(bundle.getString("HelpBrowser.menuItemTextFontSizeHuge.text")); // NOI18N
+        menuItemTextFontSizeHuge.setText(Bundle.getString(getClass(), "HelpBrowser.menuItemTextFontSizeHuge.text")); // NOI18N
         menuItemTextFontSizeHuge.setName("menuItemTextFontSizeHuge"); // NOI18N
         menuItemTextFontSizeHuge.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

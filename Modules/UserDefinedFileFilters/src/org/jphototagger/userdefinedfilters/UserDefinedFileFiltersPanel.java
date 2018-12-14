@@ -190,7 +190,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
 
         menuItemInsert.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_INSERT, 0));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfilters/Bundle"); // NOI18N
-        menuItemInsert.setText(bundle.getString("UserDefinedFileFiltersPanel.menuItemInsert.text")); // NOI18N
+        menuItemInsert.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.menuItemInsert.text")); // NOI18N
         menuItemInsert.setName("menuItemInsert"); // NOI18N
         menuItemInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,7 +200,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         popupMenu.add(menuItemInsert);
 
         menuItemUpdate.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
-        menuItemUpdate.setText(bundle.getString("UserDefinedFileFiltersPanel.menuItemUpdate.text")); // NOI18N
+        menuItemUpdate.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.menuItemUpdate.text")); // NOI18N
         menuItemUpdate.setName("menuItemUpdate"); // NOI18N
         menuItemUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,7 +210,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         popupMenu.add(menuItemUpdate);
 
         menuItemDelete.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDelete.setText(bundle.getString("UserDefinedFileFiltersPanel.menuItemDelete.text")); // NOI18N
+        menuItemDelete.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.menuItemDelete.text")); // NOI18N
         menuItemDelete.setName("menuItemDelete"); // NOI18N
         menuItemDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,7 +250,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonInsert.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonInsert.text")); // NOI18N
+        buttonInsert.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.buttonInsert.text")); // NOI18N
         buttonInsert.setName("buttonInsert"); // NOI18N
         buttonInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,7 +263,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelButtons.add(buttonInsert, gridBagConstraints);
 
-        buttonUpdate.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonUpdate.text")); // NOI18N
+        buttonUpdate.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.buttonUpdate.text")); // NOI18N
         buttonUpdate.setEnabled(false);
         buttonUpdate.setName("buttonUpdate"); // NOI18N
         buttonUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +278,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonUpdate, gridBagConstraints);
 
-        buttonDelete.setText(bundle.getString("UserDefinedFileFiltersPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {

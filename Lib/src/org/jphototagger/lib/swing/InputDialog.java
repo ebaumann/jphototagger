@@ -3,6 +3,7 @@ package org.jphototagger.lib.swing;
 import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
@@ -98,14 +99,14 @@ public final class InputDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        setTitle(bundle.getString("InputDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "InputDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setName("panelContent"); // NOI18N
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        labelPrompt.setText(bundle.getString("InputDialog.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(Bundle.getString(getClass(), "InputDialog.labelPrompt.text")); // NOI18N
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -131,7 +132,7 @@ public final class InputDialog extends Dialog {
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
         buttonCancel.setMnemonic('a');
-        buttonCancel.setText(bundle.getString("InputDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "InputDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,7 +142,7 @@ public final class InputDialog extends Dialog {
         panelButtons.add(buttonCancel, new java.awt.GridBagConstraints());
 
         buttonOk.setMnemonic('o');
-        buttonOk.setText(bundle.getString("InputDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "InputDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -184,14 +184,14 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         panelNoPreferences.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
-        labelNoPreferences.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelNoPreferences.text")); // NOI18N
+        labelNoPreferences.setText(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.labelNoPreferences.text")); // NOI18N
         panelNoPreferences.add(labelNoPreferences, new java.awt.GridBagConstraints());
 
         setLayout(new java.awt.GridBagLayout());
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -212,7 +212,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(comboBoxLaf, gridBagConstraints);
 
-        scrollPaneDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppLookAndFeelSettingsPanel.scrollPaneDescription.border.title"))); // NOI18N
+        scrollPaneDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.scrollPaneDescription.border.title"))); // NOI18N
         scrollPaneDescription.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 100));
 
         editorPaneDescription.setEditable(false);
@@ -228,7 +228,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(scrollPaneDescription, gridBagConstraints);
 
-        panelPreferences.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("AppLookAndFeelSettingsPanel.panelPreferences.border.title"))); // NOI18N
+        panelPreferences.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.panelPreferences.border.title"))); // NOI18N
         panelPreferences.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 200));
         panelPreferences.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -249,7 +249,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
 
         panelFontScale.setLayout(new java.awt.GridBagLayout());
 
-        labelFontScalePrompt.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelFontScalePrompt.text")); // NOI18N
+        labelFontScalePrompt.setText(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.labelFontScalePrompt.text")); // NOI18N
         panelFontScale.add(labelFontScalePrompt, new java.awt.GridBagConstraints());
 
         comboBoxFontScale.setModel(new javax.swing.DefaultComboBoxModel<>(CommonPreferences.getValidFontScales()));
@@ -258,7 +258,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFontScale.add(comboBoxFontScale, gridBagConstraints);
 
-        labelFontScaleInfo.setText(bundle.getString("AppLookAndFeelSettingsPanel.labelFontScaleInfo.text")); // NOI18N
+        labelFontScaleInfo.setText(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.labelFontScaleInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelFontScale.add(labelFontScaleInfo, gridBagConstraints);

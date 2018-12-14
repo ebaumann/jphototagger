@@ -172,7 +172,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
-        labelTitle.setText(bundle.getString("RenameFilenamesInRepositoryPanel.labelTitle.text")); // NOI18N
+        labelTitle.setText(Bundle.getString(getClass(), "RenameFilenamesInRepositoryPanel.labelTitle.text")); // NOI18N
         labelTitle.setName("labelTitle"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -181,7 +181,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         add(labelTitle, gridBagConstraints);
 
         labelSearch.setLabelFor(textFieldSearch);
-        labelSearch.setText(bundle.getString("RenameFilenamesInRepositoryPanel.labelSearch.text")); // NOI18N
+        labelSearch.setText(Bundle.getString(getClass(), "RenameFilenamesInRepositoryPanel.labelSearch.text")); // NOI18N
         labelSearch.setName("labelSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -204,7 +204,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         add(textFieldSearch, gridBagConstraints);
 
         labelReplacement.setLabelFor(textFieldReplacement);
-        labelReplacement.setText(bundle.getString("RenameFilenamesInRepositoryPanel.labelReplacement.text")); // NOI18N
+        labelReplacement.setText(Bundle.getString(getClass(), "RenameFilenamesInRepositoryPanel.labelReplacement.text")); // NOI18N
         labelReplacement.setName("labelReplacement"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -235,7 +235,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         add(progressBar, gridBagConstraints);
 
-        buttonReplace.setText(bundle.getString("RenameFilenamesInRepositoryPanel.buttonReplace.text")); // NOI18N
+        buttonReplace.setText(Bundle.getString(getClass(), "RenameFilenamesInRepositoryPanel.buttonReplace.text")); // NOI18N
         buttonReplace.setEnabled(false);
         buttonReplace.setName("buttonReplace"); // NOI18N
         buttonReplace.addActionListener(new java.awt.event.ActionListener() {

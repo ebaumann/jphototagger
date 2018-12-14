@@ -14,6 +14,7 @@ import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
 
 /**
@@ -205,7 +206,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
 
         dialogHiddenProgressBars.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/app/ui/Bundle"); // NOI18N
-        dialogHiddenProgressBars.setTitle(bundle.getString("ProgressBarPanelArray.dialogHiddenProgressBars.title")); // NOI18N
+        dialogHiddenProgressBars.setTitle(Bundle.getString(getClass(), "ProgressBarPanelArray.dialogHiddenProgressBars.title")); // NOI18N
         dialogHiddenProgressBars.setAlwaysOnTop(true);
         dialogHiddenProgressBars.setIconImages(org.jphototagger.resources.Icons.getAppIcons());
         dialogHiddenProgressBars.setUndecorated(true);
@@ -239,7 +240,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         add(initProgressBarPanel, gridBagConstraints);
 
         buttonToggleVisibilityOfHiddenProgressBars.setIcon(UP_ARROW_ICON);
-        buttonToggleVisibilityOfHiddenProgressBars.setToolTipText(bundle.getString("ProgressBarPanelArray.buttonToggleVisibilityOfHiddenProgressBars.toolTipText")); // NOI18N
+        buttonToggleVisibilityOfHiddenProgressBars.setToolTipText(Bundle.getString(getClass(), "ProgressBarPanelArray.buttonToggleVisibilityOfHiddenProgressBars.toolTipText")); // NOI18N
         buttonToggleVisibilityOfHiddenProgressBars.setBorder(null);
         buttonToggleVisibilityOfHiddenProgressBars.setEnabled(false);
         buttonToggleVisibilityOfHiddenProgressBars.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));

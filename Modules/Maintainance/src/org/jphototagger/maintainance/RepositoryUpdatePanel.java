@@ -191,7 +191,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
 
         labelRefreshExif.setIcon(org.jphototagger.resources.Icons.getIcon("icon_exif.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
-        labelRefreshExif.setText(bundle.getString("RepositoryUpdatePanel.labelRefreshExif.text")); // NOI18N
+        labelRefreshExif.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.labelRefreshExif.text")); // NOI18N
         labelRefreshExif.setName("labelRefreshExif"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -201,7 +201,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelTasks.add(labelRefreshExif, gridBagConstraints);
 
-        toggleButtonRefreshExif.setText(bundle.getString("RepositoryUpdatePanel.toggleButtonRefreshExif.text")); // NOI18N
+        toggleButtonRefreshExif.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.toggleButtonRefreshExif.text")); // NOI18N
         toggleButtonRefreshExif.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshExif.setName("toggleButtonRefreshExif"); // NOI18N
         toggleButtonRefreshExif.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +218,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         panelTasks.add(toggleButtonRefreshExif, gridBagConstraints);
 
         labelRefreshXmp.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp.png"));
-        labelRefreshXmp.setText(bundle.getString("RepositoryUpdatePanel.labelRefreshXmp.text")); // NOI18N
+        labelRefreshXmp.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.labelRefreshXmp.text")); // NOI18N
         labelRefreshXmp.setName("labelRefreshXmp"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -226,7 +226,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelRefreshXmp, gridBagConstraints);
 
-        toggleButtonRefreshXmp.setText(bundle.getString("RepositoryUpdatePanel.toggleButtonRefreshXmp.text")); // NOI18N
+        toggleButtonRefreshXmp.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.toggleButtonRefreshXmp.text")); // NOI18N
         toggleButtonRefreshXmp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         toggleButtonRefreshXmp.setName("toggleButtonRefreshXmp"); // NOI18N
         toggleButtonRefreshXmp.addActionListener(new java.awt.event.ActionListener() {
@@ -243,7 +243,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         panelTasks.add(toggleButtonRefreshXmp, gridBagConstraints);
 
         labelUpdateThumbnails.setIcon(org.jphototagger.resources.Icons.getIcon("icon_image.png"));
-        labelUpdateThumbnails.setText(bundle.getString("RepositoryUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
+        labelUpdateThumbnails.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.labelUpdateThumbnails.text")); // NOI18N
         labelUpdateThumbnails.setName("labelUpdateThumbnails"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -251,7 +251,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelUpdateThumbnails, gridBagConstraints);
 
-        buttonUpdateThumbnails.setText(bundle.getString("RepositoryUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
+        buttonUpdateThumbnails.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.buttonUpdateThumbnails.text")); // NOI18N
         buttonUpdateThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonUpdateThumbnails.setName("buttonUpdateThumbnails"); // NOI18N
         buttonUpdateThumbnails.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +268,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         panelTasks.add(buttonUpdateThumbnails, gridBagConstraints);
 
         labelRenameFiles.setIcon(org.jphototagger.resources.Icons.getIcon("icon_rename.png"));
-        labelRenameFiles.setText(bundle.getString("RepositoryUpdatePanel.labelRenameFiles.text")); // NOI18N
+        labelRenameFiles.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.labelRenameFiles.text")); // NOI18N
         labelRenameFiles.setName("labelRenameFiles"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -276,7 +276,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelRenameFiles, gridBagConstraints);
 
-        buttonRenameFiles.setText(bundle.getString("RepositoryUpdatePanel.buttonRenameFiles.text")); // NOI18N
+        buttonRenameFiles.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.buttonRenameFiles.text")); // NOI18N
         buttonRenameFiles.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         buttonRenameFiles.setName("buttonRenameFiles"); // NOI18N
         buttonRenameFiles.addActionListener(new java.awt.event.ActionListener() {

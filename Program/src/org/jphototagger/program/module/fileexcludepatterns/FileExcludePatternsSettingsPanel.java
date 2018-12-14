@@ -268,7 +268,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         menuItemDeletePattern.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
         menuItemDeletePattern.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/fileexcludepatterns/Bundle"); // NOI18N
-        menuItemDeletePattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.menuItemDeletePattern.text")); // NOI18N
+        menuItemDeletePattern.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.menuItemDeletePattern.text")); // NOI18N
         menuItemDeletePattern.setName("menuItemDeletePattern"); // NOI18N
         menuItemDeletePattern.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +286,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         panelFiles.setLayout(new java.awt.GridBagLayout());
 
         labelInfoList.setLabelFor(list);
-        labelInfoList.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelInfoList.text")); // NOI18N
+        labelInfoList.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.labelInfoList.text")); // NOI18N
         labelInfoList.setName("labelInfoList"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -323,7 +323,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         panelFiles.add(scrollPane, gridBagConstraints);
 
         labelTextFieldInputPattern.setLabelFor(textFieldInputPattern);
-        labelTextFieldInputPattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelTextFieldInputPattern.text")); // NOI18N
+        labelTextFieldInputPattern.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.labelTextFieldInputPattern.text")); // NOI18N
         labelTextFieldInputPattern.setName("labelTextFieldInputPattern"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -361,8 +361,8 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelButtons.add(buttonChooseDirs, gridBagConstraints);
 
-        buttonDeletePattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonDeletePattern.text")); // NOI18N
-        buttonDeletePattern.setToolTipText(bundle.getString("FileExcludePatternsSettingsPanel.buttonDeletePattern.toolTipText")); // NOI18N
+        buttonDeletePattern.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.buttonDeletePattern.text")); // NOI18N
+        buttonDeletePattern.setToolTipText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.buttonDeletePattern.toolTipText")); // NOI18N
         buttonDeletePattern.setEnabled(false);
         buttonDeletePattern.setName("buttonDeletePattern"); // NOI18N
         buttonDeletePattern.addActionListener(new java.awt.event.ActionListener() {
@@ -375,8 +375,8 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonDeletePattern, gridBagConstraints);
 
-        buttonInsertPattern.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonInsertPattern.text")); // NOI18N
-        buttonInsertPattern.setToolTipText(bundle.getString("FileExcludePatternsSettingsPanel.buttonInsertPattern.toolTipText")); // NOI18N
+        buttonInsertPattern.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.buttonInsertPattern.text")); // NOI18N
+        buttonInsertPattern.setToolTipText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.buttonInsertPattern.toolTipText")); // NOI18N
         buttonInsertPattern.setEnabled(false);
         buttonInsertPattern.setName("buttonInsertPattern"); // NOI18N
         buttonInsertPattern.addActionListener(new java.awt.event.ActionListener() {
@@ -409,7 +409,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         panelRepository.setName("panelRepository"); // NOI18N
         panelRepository.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelInfoRepository.text")); // NOI18N
+        labelInfoRepository.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.labelInfoRepository.text")); // NOI18N
         labelInfoRepository.setName("labelInfoRepository"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -430,7 +430,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         panelButtonsRepository.setName("panelButtonsRepository"); // NOI18N
         panelButtonsRepository.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancelUpdateRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonCancelUpdateRepository.text")); // NOI18N
+        buttonCancelUpdateRepository.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.buttonCancelUpdateRepository.text")); // NOI18N
         buttonCancelUpdateRepository.setEnabled(false);
         buttonCancelUpdateRepository.setName("buttonCancelUpdateRepository"); // NOI18N
         buttonCancelUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
@@ -442,7 +442,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelButtonsRepository.add(buttonCancelUpdateRepository, gridBagConstraints);
 
-        buttonUpdateRepository.setText(bundle.getString("FileExcludePatternsSettingsPanel.buttonUpdateRepository.text")); // NOI18N
+        buttonUpdateRepository.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.buttonUpdateRepository.text")); // NOI18N
         buttonUpdateRepository.setName("buttonUpdateRepository"); // NOI18N
         buttonUpdateRepository.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -469,12 +469,12 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelFiles.add(panelRepository, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("FileExcludePatternsSettingsPanel.panelFiles.TabConstraints.tabTitle"), panelFiles); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.panelFiles.TabConstraints.tabTitle"), panelFiles); // NOI18N
 
         panelDirectoryFolder.setName("panelDirectoryFolder"); // NOI18N
         panelDirectoryFolder.setLayout(new java.awt.GridBagLayout());
 
-        labelInfopanelDirectoryFolder.setText(bundle.getString("FileExcludePatternsSettingsPanel.labelInfopanelDirectoryFolder.text")); // NOI18N
+        labelInfopanelDirectoryFolder.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.labelInfopanelDirectoryFolder.text")); // NOI18N
         labelInfopanelDirectoryFolder.setName("labelInfopanelDirectoryFolder"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -496,7 +496,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelDirectoryFolder.add(scrollPanePanelDirectoryFolder, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("FileExcludePatternsSettingsPanel.panelDirectoryFolder.TabConstraints.tabTitle"), panelDirectoryFolder); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.panelDirectoryFolder.TabConstraints.tabTitle"), panelDirectoryFolder); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

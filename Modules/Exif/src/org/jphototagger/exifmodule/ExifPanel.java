@@ -25,6 +25,7 @@ import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
 
@@ -210,7 +211,7 @@ public class ExifPanel extends javax.swing.JPanel {
         panelTableExifFilter.setLayout(new GridBagLayout());
 
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/exifmodule/Bundle"); // NOI18N
-        labelTableExifFilter.setText(bundle.getString("ExifPanel.labelTableExifFilter.text")); // NOI18N
+        labelTableExifFilter.setText(Bundle.getString(getClass(), "ExifPanel.labelTableExifFilter.text")); // NOI18N
         labelTableExifFilter.setName("labelTableExifFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -257,8 +258,8 @@ public class ExifPanel extends javax.swing.JPanel {
         add(scrollPaneExif, gridBagConstraints);
 
         buttonExifToXmp.setAction(new SetExifToXmpAction());
-        buttonExifToXmp.setText(bundle.getString("ExifPanel.buttonExifToXmp.text")); // NOI18N
-        buttonExifToXmp.setToolTipText(bundle.getString("ExifPanel.buttonExifToXmp.toolTipText")); // NOI18N
+        buttonExifToXmp.setText(Bundle.getString(getClass(), "ExifPanel.buttonExifToXmp.text")); // NOI18N
+        buttonExifToXmp.setToolTipText(Bundle.getString(getClass(), "ExifPanel.buttonExifToXmp.toolTipText")); // NOI18N
         buttonExifToXmp.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonExifToXmp.setName("buttonExifToXmp"); // NOI18N
         gridBagConstraints = new GridBagConstraints();

@@ -11,6 +11,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.util.DocumentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
 
@@ -148,7 +149,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/info/Bundle"); // NOI18N
-        labelInfo.setText(bundle.getString("SidecarSuffixesInfoSettingsPanel.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "SidecarSuffixesInfoSettingsPanel.labelInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -174,7 +175,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         panelContent.add(scrollPaneSuffixes, gridBagConstraints);
 
         labelSuffix.setLabelFor(textFieldSuffix);
-        labelSuffix.setText(bundle.getString("SidecarSuffixesInfoSettingsPanel.labelSuffix.text")); // NOI18N
+        labelSuffix.setText(Bundle.getString(getClass(), "SidecarSuffixesInfoSettingsPanel.labelSuffix.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
@@ -192,7 +193,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelContent.add(textFieldSuffix, gridBagConstraints);
 
-        buttonAddSuffix.setText(bundle.getString("SidecarSuffixesInfoSettingsPanel.buttonAddSuffix.text")); // NOI18N
+        buttonAddSuffix.setText(Bundle.getString(getClass(), "SidecarSuffixesInfoSettingsPanel.buttonAddSuffix.text")); // NOI18N
         buttonAddSuffix.setEnabled(false);
         buttonAddSuffix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +204,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelContent.add(buttonAddSuffix, gridBagConstraints);
 
-        buttonRemoveSuffix.setText(bundle.getString("SidecarSuffixesInfoSettingsPanel.buttonRemoveSuffix.text")); // NOI18N
+        buttonRemoveSuffix.setText(Bundle.getString(getClass(), "SidecarSuffixesInfoSettingsPanel.buttonRemoveSuffix.text")); // NOI18N
         buttonRemoveSuffix.setEnabled(false);
         buttonRemoveSuffix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

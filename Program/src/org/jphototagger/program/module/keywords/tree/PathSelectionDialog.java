@@ -15,6 +15,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.resources.Icons;
 
@@ -198,7 +199,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         buttonSelectSelected = new javax.swing.JButton();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/keywords/tree/Bundle"); // NOI18N
-        setTitle(bundle.getString("PathSelectionDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "PathSelectionDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -237,7 +238,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonSelectNothing.setText(bundle.getString("PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
+        buttonSelectNothing.setText(Bundle.getString(getClass(), "PathSelectionDialog.buttonSelectNothing.text")); // NOI18N
         buttonSelectNothing.setName("buttonSelectNothing"); // NOI18N
         buttonSelectNothing.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,7 +247,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         });
         panelButtons.add(buttonSelectNothing, new java.awt.GridBagConstraints());
 
-        buttonSelectAll.setText(bundle.getString("PathSelectionDialog.buttonSelectAll.text")); // NOI18N
+        buttonSelectAll.setText(Bundle.getString(getClass(), "PathSelectionDialog.buttonSelectAll.text")); // NOI18N
         buttonSelectAll.setName("buttonSelectAll"); // NOI18N
         buttonSelectAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,7 +258,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonSelectAll, gridBagConstraints);
 
-        buttonSelectSelected.setText(bundle.getString("PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
+        buttonSelectSelected.setText(Bundle.getString(getClass(), "PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
         buttonSelectSelected.setEnabled(false);
         buttonSelectSelected.setName("buttonSelectSelected"); // NOI18N
         buttonSelectSelected.addActionListener(new java.awt.event.ActionListener() {

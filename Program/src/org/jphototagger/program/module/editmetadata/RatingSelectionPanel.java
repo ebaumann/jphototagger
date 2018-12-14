@@ -24,6 +24,7 @@ import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.resources.Icons;
 
@@ -369,7 +370,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
         buttonNoRating.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_remove_not_set.png"));
         buttonNoRating.setMnemonic('0');
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/editmetadata/Bundle"); // NOI18N
-        buttonNoRating.setToolTipText(bundle.getString("RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
+        buttonNoRating.setToolTipText(Bundle.getString(getClass(), "RatingSelectionPanel.buttonNoRating.toolTipText")); // NOI18N
         buttonNoRating.setBorder(null);
         buttonNoRating.setContentAreaFilled(false);
         buttonNoRating.setName("buttonNoRating"); // NOI18N
@@ -387,7 +388,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
 
         buttonStar1.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar1.setMnemonic('1');
-        buttonStar1.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
+        buttonStar1.setToolTipText(Bundle.getString(getClass(), "RatingSelectionPanel.buttonStar1.toolTipText")); // NOI18N
         buttonStar1.setBorder(null);
         buttonStar1.setContentAreaFilled(false);
         buttonStar1.setName("buttonStar1"); // NOI18N
@@ -405,7 +406,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
 
         buttonStar2.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar2.setMnemonic('2');
-        buttonStar2.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
+        buttonStar2.setToolTipText(Bundle.getString(getClass(), "RatingSelectionPanel.buttonStar2.toolTipText")); // NOI18N
         buttonStar2.setBorder(null);
         buttonStar2.setContentAreaFilled(false);
         buttonStar2.setName("buttonStar2"); // NOI18N
@@ -423,7 +424,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
 
         buttonStar3.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar3.setMnemonic('3');
-        buttonStar3.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
+        buttonStar3.setToolTipText(Bundle.getString(getClass(), "RatingSelectionPanel.buttonStar3.toolTipText")); // NOI18N
         buttonStar3.setBorder(null);
         buttonStar3.setContentAreaFilled(false);
         buttonStar3.setName("buttonStar3"); // NOI18N
@@ -441,7 +442,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
 
         buttonStar4.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar4.setMnemonic('4');
-        buttonStar4.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
+        buttonStar4.setToolTipText(Bundle.getString(getClass(), "RatingSelectionPanel.buttonStar4.toolTipText")); // NOI18N
         buttonStar4.setBorder(null);
         buttonStar4.setContentAreaFilled(false);
         buttonStar4.setName("buttonStar4"); // NOI18N
@@ -459,7 +460,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
 
         buttonStar5.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
         buttonStar5.setMnemonic('5');
-        buttonStar5.setToolTipText(bundle.getString("RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
+        buttonStar5.setToolTipText(Bundle.getString(getClass(), "RatingSelectionPanel.buttonStar5.toolTipText")); // NOI18N
         buttonStar5.setBorder(null);
         buttonStar5.setContentAreaFilled(false);
         buttonStar5.setName("buttonStar5"); // NOI18N

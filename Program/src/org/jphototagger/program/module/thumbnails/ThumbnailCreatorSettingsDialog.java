@@ -8,6 +8,7 @@ import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -46,7 +47,7 @@ public class ThumbnailCreatorSettingsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        setTitle(bundle.getString("ThumbnailCreatorSettingsDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ThumbnailCreatorSettingsDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         tabbedPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(300, 200));

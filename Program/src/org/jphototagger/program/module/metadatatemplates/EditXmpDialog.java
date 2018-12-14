@@ -5,6 +5,7 @@ import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
 
 /**
@@ -108,7 +109,7 @@ public class EditXmpDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/metadatatemplates/Bundle"); // NOI18N
-        setTitle(bundle.getString("EditXmpDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "EditXmpDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(500, 450));
@@ -117,7 +118,7 @@ public class EditXmpDialog extends Dialog {
         panelTemplates.setLayout(new java.awt.GridBagLayout());
 
         labelTemplates.setLabelFor(comboBoxTemplates);
-        labelTemplates.setText(bundle.getString("EditXmpDialog.labelTemplates.text")); // NOI18N
+        labelTemplates.setText(Bundle.getString(getClass(), "EditXmpDialog.labelTemplates.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelTemplates.add(labelTemplates, gridBagConstraints);
@@ -134,7 +135,7 @@ public class EditXmpDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelTemplates.add(comboBoxTemplates, gridBagConstraints);
 
-        buttonEditMetadataTemplates.setToolTipText(bundle.getString("EditXmpDialog.buttonEditMetadataTemplates.toolTipText")); // NOI18N
+        buttonEditMetadataTemplates.setToolTipText(Bundle.getString(getClass(), "EditXmpDialog.buttonEditMetadataTemplates.toolTipText")); // NOI18N
         buttonEditMetadataTemplates.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEditMetadataTemplates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,7 +147,7 @@ public class EditXmpDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelTemplates.add(buttonEditMetadataTemplates, gridBagConstraints);
 
-        buttonInsertTemplate.setText(bundle.getString("EditXmpDialog.buttonInsertTemplate.text")); // NOI18N
+        buttonInsertTemplate.setText(Bundle.getString(getClass(), "EditXmpDialog.buttonInsertTemplate.text")); // NOI18N
         buttonInsertTemplate.setEnabled(false);
         buttonInsertTemplate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +179,7 @@ public class EditXmpDialog extends Dialog {
 
         panelSubmitButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancel.setText(bundle.getString("EditXmpDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "EditXmpDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -188,7 +189,7 @@ public class EditXmpDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         panelSubmitButtons.add(buttonCancel, gridBagConstraints);
 
-        buttonOk.setText(bundle.getString("EditXmpDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "EditXmpDialog.buttonOk.text")); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOkActionPerformed(evt);

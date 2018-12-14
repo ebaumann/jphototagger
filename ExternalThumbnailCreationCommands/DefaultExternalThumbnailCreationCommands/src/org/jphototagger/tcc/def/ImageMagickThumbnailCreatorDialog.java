@@ -3,6 +3,7 @@ package org.jphototagger.tcc.def;
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -50,13 +51,13 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/tcc/def/Bundle"); // NOI18N
-        setTitle(bundle.getString("ImageMagickThumbnailCreatorDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        labelInfo.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.labelInfo.text")); // NOI18N
         labelInfo.setLineWrap(true);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -66,7 +67,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancel.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.buttonCancel.text")); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -74,7 +75,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
         });
         panelButtons.add(buttonCancel, new java.awt.GridBagConstraints());
 
-        buttonBrowse.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.buttonBrowse.text")); // NOI18N
+        buttonBrowse.setText(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.buttonBrowse.text")); // NOI18N
         buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBrowseActionPerformed(evt);
@@ -84,7 +85,7 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonBrowse, gridBagConstraints);
 
-        buttonChooseConvert.setText(bundle.getString("ImageMagickThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
+        buttonChooseConvert.setText(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
         buttonChooseConvert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseConvertActionPerformed(evt);

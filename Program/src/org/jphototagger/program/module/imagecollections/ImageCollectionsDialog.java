@@ -82,7 +82,7 @@ public final class ImageCollectionsDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/imagecollections/Bundle"); // NOI18N
-        setTitle(bundle.getString("ImageCollectionsDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ImageCollectionsDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -90,7 +90,7 @@ public final class ImageCollectionsDialog extends Dialog {
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelSelectImageCollection.setLabelFor(listImageCollectionNames);
-        labelSelectImageCollection.setText(bundle.getString("ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
+        labelSelectImageCollection.setText(Bundle.getString(getClass(), "ImageCollectionsDialog.labelSelectImageCollection.text")); // NOI18N
         labelSelectImageCollection.setName("labelSelectImageCollection"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -119,7 +119,7 @@ public final class ImageCollectionsDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelContent.add(scrollPaneImageCollectionNames, gridBagConstraints);
 
-        buttonOk.setText(bundle.getString("ImageCollectionsDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "ImageCollectionsDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

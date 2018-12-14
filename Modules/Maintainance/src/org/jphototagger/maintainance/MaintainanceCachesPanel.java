@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import org.jdesktop.swingx.JXLabel;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -62,11 +63,11 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         setLayout(new GridBagLayout());
 
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
-        panelInfo.setBorder(BorderFactory.createTitledBorder(bundle.getString("MaintainanceCachesPanel.panelInfo.border.title"))); // NOI18N
+        panelInfo.setBorder(BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MaintainanceCachesPanel.panelInfo.border.title"))); // NOI18N
         panelInfo.setName("panelInfo"); // NOI18N
         panelInfo.setLayout(new GridBagLayout());
 
-        labelInfo.setText(bundle.getString("MaintainanceCachesPanel.labelInfo.text")); // NOI18N
+        labelInfo.setText(Bundle.getString(getClass(), "MaintainanceCachesPanel.labelInfo.text")); // NOI18N
         labelInfo.setName("labelInfo"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
@@ -83,7 +84,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         add(panelInfo, gridBagConstraints);
 
-        buttonClearExifCache.setText(bundle.getString("MaintainanceCachesPanel.buttonClearExifCache.text")); // NOI18N
+        buttonClearExifCache.setText(Bundle.getString(getClass(), "MaintainanceCachesPanel.buttonClearExifCache.text")); // NOI18N
         buttonClearExifCache.setName("buttonClearExifCache"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -91,7 +92,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 5, 0, 0);
         add(buttonClearExifCache, gridBagConstraints);
 
-        labelInfoClearExifCache.setText(bundle.getString("MaintainanceCachesPanel.labelInfoClearExifCache.text")); // NOI18N
+        labelInfoClearExifCache.setText(Bundle.getString(getClass(), "MaintainanceCachesPanel.labelInfoClearExifCache.text")); // NOI18N
         labelInfoClearExifCache.setName("labelInfoClearExifCache"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
@@ -100,7 +101,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 5);
         add(labelInfoClearExifCache, gridBagConstraints);
 
-        buttonClearIptcIgnoreCache.setText(bundle.getString("MaintainanceCachesPanel.buttonClearIptcIgnoreCache.text")); // NOI18N
+        buttonClearIptcIgnoreCache.setText(Bundle.getString(getClass(), "MaintainanceCachesPanel.buttonClearIptcIgnoreCache.text")); // NOI18N
         buttonClearIptcIgnoreCache.setName("buttonClearIptcIgnoreCache"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -108,7 +109,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 5, 0, 0);
         add(buttonClearIptcIgnoreCache, gridBagConstraints);
 
-        labelInfoClearIptcIgnoreCache.setText(bundle.getString("MaintainanceCachesPanel.labelInfoClearIptcIgnoreCache.text")); // NOI18N
+        labelInfoClearIptcIgnoreCache.setText(Bundle.getString(getClass(), "MaintainanceCachesPanel.labelInfoClearIptcIgnoreCache.text")); // NOI18N
         labelInfoClearIptcIgnoreCache.setName("labelInfoClearIptcIgnoreCache"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
@@ -117,7 +118,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 5);
         add(labelInfoClearIptcIgnoreCache, gridBagConstraints);
 
-        buttonCompactThumbnailsRepository.setText(bundle.getString("MaintainanceCachesPanel.buttonCompactThumbnailsRepository.text")); // NOI18N
+        buttonCompactThumbnailsRepository.setText(Bundle.getString(getClass(), "MaintainanceCachesPanel.buttonCompactThumbnailsRepository.text")); // NOI18N
         buttonCompactThumbnailsRepository.setName("buttonCompactThumbnailsRepository"); // NOI18N
         buttonCompactThumbnailsRepository.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -130,7 +131,7 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 5, 0, 0);
         add(buttonCompactThumbnailsRepository, gridBagConstraints);
 
-        labelInfoCompactThumbnailsRepository.setText(bundle.getString("MaintainanceCachesPanel.labelInfoCompactThumbnailsRepository.text")); // NOI18N
+        labelInfoCompactThumbnailsRepository.setText(Bundle.getString(getClass(), "MaintainanceCachesPanel.labelInfoCompactThumbnailsRepository.text")); // NOI18N
         labelInfoCompactThumbnailsRepository.setName("labelInfoCompactThumbnailsRepository"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;

@@ -159,7 +159,7 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         panelExclude.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/plugins/Bundle"); // NOI18N
-        labelInfoExclude.setText(bundle.getString("PluginsSettingsPanel.labelInfoExclude.text")); // NOI18N
+        labelInfoExclude.setText(Bundle.getString(getClass(), "PluginsSettingsPanel.labelInfoExclude.text")); // NOI18N
         labelInfoExclude.setName("labelInfoExclude"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -184,7 +184,7 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelExclude.add(scrollPaneExclude, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("PluginsSettingsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "PluginsSettingsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

@@ -9,6 +9,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -36,7 +37,7 @@ public class MaintainanceDialog extends Dialog {
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/maintainance/Bundle"); // NOI18N
-        setTitle(bundle.getString("MaintainanceDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "MaintainanceDialog.title")); // NOI18N
         setIconImage(null);
         setName("MaintainanceDialog"); // NOI18N
         addWindowListener(new WindowAdapter() {
@@ -49,7 +50,7 @@ public class MaintainanceDialog extends Dialog {
         tabbedPane.setName("tabbedPane"); // NOI18N
 
         panelMaintainanceCaches.setName("panelMaintainanceCaches"); // NOI18N
-        tabbedPane.addTab(bundle.getString("MaintainanceDialog.panelMaintainanceCaches.TabConstraints.tabTitle"), panelMaintainanceCaches); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "MaintainanceDialog.panelMaintainanceCaches.TabConstraints.tabTitle"), panelMaintainanceCaches); // NOI18N
 
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;

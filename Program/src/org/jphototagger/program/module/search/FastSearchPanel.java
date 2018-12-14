@@ -494,7 +494,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         add(textAreaSearch, gridBagConstraints);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
-        searchButton.setText(bundle.getString("FastSearchPanel.searchButton.text")); // NOI18N
+        searchButton.setText(Bundle.getString(getClass(), "FastSearchPanel.searchButton.text")); // NOI18N
         searchButton.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
         searchButton.setName("searchButton"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -507,7 +507,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         add(searchButton, gridBagConstraints);
 
         buttonRestoreSelection.setIcon(org.jphototagger.resources.Icons.getIcon("icon_restore_selection.png"));
-        buttonRestoreSelection.setToolTipText(bundle.getString("FastSearchPanel.buttonRestoreSelection.toolTipText")); // NOI18N
+        buttonRestoreSelection.setToolTipText(Bundle.getString(getClass(), "FastSearchPanel.buttonRestoreSelection.toolTipText")); // NOI18N
         buttonRestoreSelection.setEnabled(false);
         buttonRestoreSelection.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
         buttonRestoreSelection.setName("buttonRestoreSelection"); // NOI18N

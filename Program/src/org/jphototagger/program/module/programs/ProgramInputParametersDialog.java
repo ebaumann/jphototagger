@@ -5,6 +5,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
@@ -101,18 +102,18 @@ public final class ProgramInputParametersDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/programs/Bundle"); // NOI18N
-        setTitle(bundle.getString("ProgramInputParametersDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "ProgramInputParametersDialog.title")); // NOI18N
         setName("Form"); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setName("panelContent"); // NOI18N
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
+        panelContext.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ProgramInputParametersDialog.panelContext.border.title"))); // NOI18N
         panelContext.setName("panelContext"); // NOI18N
         panelContext.setLayout(new java.awt.GridBagLayout());
 
-        labelContextProgramPrompt.setText(bundle.getString("ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
+        labelContextProgramPrompt.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.labelContextProgramPrompt.text")); // NOI18N
         labelContextProgramPrompt.setName("labelContextProgramPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -128,7 +129,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelContext.add(labelContextProgram, gridBagConstraints);
 
-        labelContextFilePrompt.setText(bundle.getString("ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
+        labelContextFilePrompt.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.labelContextFilePrompt.text")); // NOI18N
         labelContextFilePrompt.setName("labelContextFilePrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
@@ -151,7 +152,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         panelContent.add(panelContext, gridBagConstraints);
 
         labelPrompt.setLabelFor(textAreaParameter);
-        labelPrompt.setText(bundle.getString("ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
+        labelPrompt.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.labelPrompt.text")); // NOI18N
         labelPrompt.setName("labelPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -178,7 +179,7 @@ public final class ProgramInputParametersDialog extends Dialog {
 
         buttonGroup.add(radioButtonParametersBeforeFilename);
         radioButtonParametersBeforeFilename.setSelected(true);
-        radioButtonParametersBeforeFilename.setText(bundle.getString("ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
+        radioButtonParametersBeforeFilename.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.radioButtonParametersBeforeFilename.text")); // NOI18N
         radioButtonParametersBeforeFilename.setName("radioButtonParametersBeforeFilename"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -188,7 +189,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         panelContent.add(radioButtonParametersBeforeFilename, gridBagConstraints);
 
         buttonGroup.add(radioButtonParametersAfterFilename);
-        radioButtonParametersAfterFilename.setText(bundle.getString("ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
+        radioButtonParametersAfterFilename.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.radioButtonParametersAfterFilename.text")); // NOI18N
         radioButtonParametersAfterFilename.setName("radioButtonParametersAfterFilename"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -199,7 +200,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         panelCancelOk.setName("panelCancelOk"); // NOI18N
         panelCancelOk.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancel.setText(bundle.getString("ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
+        buttonCancel.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.buttonCancel.text")); // NOI18N
         buttonCancel.setName("buttonCancel"); // NOI18N
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +209,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         });
         panelCancelOk.add(buttonCancel, new java.awt.GridBagConstraints());
 
-        buttonOk.setText(bundle.getString("ProgramInputParametersDialog.buttonOk.text")); // NOI18N
+        buttonOk.setText(Bundle.getString(getClass(), "ProgramInputParametersDialog.buttonOk.text")); // NOI18N
         buttonOk.setName("buttonOk"); // NOI18N
         buttonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

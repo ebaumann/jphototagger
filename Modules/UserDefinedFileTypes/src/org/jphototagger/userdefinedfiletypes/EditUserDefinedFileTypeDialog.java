@@ -263,7 +263,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
-        setTitle(bundle.getString("EditUserDefinedFileTypeDialog.title")); // NOI18N
+        setTitle(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -274,7 +274,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         labelSuffix.setLabelFor(textFieldSuffix);
-        labelSuffix.setText(bundle.getString("EditUserDefinedFileTypeDialog.labelSuffix.text")); // NOI18N
+        labelSuffix.setText(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.labelSuffix.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelContent.add(labelSuffix, gridBagConstraints);
@@ -289,7 +289,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         panelContent.add(textFieldSuffix, gridBagConstraints);
 
         labelDescription.setLabelFor(textFieldDescription);
-        labelDescription.setText(bundle.getString("EditUserDefinedFileTypeDialog.labelDescription.text")); // NOI18N
+        labelDescription.setText(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.labelDescription.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
@@ -304,7 +304,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
         panelContent.add(textFieldDescription, gridBagConstraints);
 
-        checkBoxExternalThumbnailCreator.setText(bundle.getString("EditUserDefinedFileTypeDialog.checkBoxExternalThumbnailCreator.text")); // NOI18N
+        checkBoxExternalThumbnailCreator.setText(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.checkBoxExternalThumbnailCreator.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -314,7 +314,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonHelp.setText(bundle.getString("EditUserDefinedFileTypeDialog.buttonHelp.text")); // NOI18N
+        buttonHelp.setText(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.buttonHelp.text")); // NOI18N
         buttonHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHelpActionPerformed(evt);
@@ -324,7 +324,7 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelButtons.add(buttonHelp, gridBagConstraints);
 
-        buttonSave.setText(bundle.getString("EditUserDefinedFileTypeDialog.buttonSave.text")); // NOI18N
+        buttonSave.setText(Bundle.getString(getClass(), "EditUserDefinedFileTypeDialog.buttonSave.text")); // NOI18N
         buttonSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSaveActionPerformed(evt);

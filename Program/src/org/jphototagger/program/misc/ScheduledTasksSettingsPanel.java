@@ -214,11 +214,11 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
-        panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ScheduledTasksSettingsPanel.panelTasksAutoscan.border.title"))); // NOI18N
+        panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.panelTasksAutoscan.border.title"))); // NOI18N
         panelTasksAutoscan.setName("panelTasksAutoscan"); // NOI18N
         panelTasksAutoscan.setLayout(new java.awt.GridBagLayout());
 
-        labelAutoscanDirectoriesInfo.setText(bundle.getString("ScheduledTasksSettingsPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
+        labelAutoscanDirectoriesInfo.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.labelAutoscanDirectoriesInfo.text")); // NOI18N
         labelAutoscanDirectoriesInfo.setName("labelAutoscanDirectoriesInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -231,7 +231,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         panelTasksAutoscan.add(labelAutoscanDirectoriesInfo, gridBagConstraints);
 
         labelAutoscanDirectoriesPrompt.setLabelFor(listAutoscanDirectories);
-        labelAutoscanDirectoriesPrompt.setText(bundle.getString("ScheduledTasksSettingsPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
+        labelAutoscanDirectoriesPrompt.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.labelAutoscanDirectoriesPrompt.text")); // NOI18N
         labelAutoscanDirectoriesPrompt.setName("labelAutoscanDirectoriesPrompt"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -271,7 +271,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelTasksAutoscan.add(scrollPaneListAutoscanDirectories, gridBagConstraints);
 
-        checkBoxIsAutoscanIncludeSubdirectories.setText(bundle.getString("ScheduledTasksSettingsPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
+        checkBoxIsAutoscanIncludeSubdirectories.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.setName("checkBoxIsAutoscanIncludeSubdirectories"); // NOI18N
         checkBoxIsAutoscanIncludeSubdirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,7 +287,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
         panelTasksAutoscan.add(checkBoxIsAutoscanIncludeSubdirectories, gridBagConstraints);
 
-        buttonRemoveAutoscanDirectories.setText(bundle.getString("ScheduledTasksSettingsPanel.buttonRemoveAutoscanDirectories.text")); // NOI18N
+        buttonRemoveAutoscanDirectories.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.buttonRemoveAutoscanDirectories.text")); // NOI18N
         buttonRemoveAutoscanDirectories.setEnabled(false);
         buttonRemoveAutoscanDirectories.setName("buttonRemoveAutoscanDirectories"); // NOI18N
         buttonRemoveAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +302,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
         panelTasksAutoscan.add(buttonRemoveAutoscanDirectories, gridBagConstraints);
 
-        buttonAddAutoscanDirectories.setText(bundle.getString("ScheduledTasksSettingsPanel.buttonAddAutoscanDirectories.text")); // NOI18N
+        buttonAddAutoscanDirectories.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.buttonAddAutoscanDirectories.text")); // NOI18N
         buttonAddAutoscanDirectories.setName("buttonAddAutoscanDirectories"); // NOI18N
         buttonAddAutoscanDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -327,7 +327,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         panelTime.setLayout(new java.awt.GridBagLayout());
 
         labelTasksMinutesToStartScheduledTasks.setLabelFor(spinnerMinutesToStartScheduledTasks);
-        labelTasksMinutesToStartScheduledTasks.setText(bundle.getString("ScheduledTasksSettingsPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
+        labelTasksMinutesToStartScheduledTasks.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
         labelTasksMinutesToStartScheduledTasks.setName("labelTasksMinutesToStartScheduledTasks"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -354,7 +354,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         panelTime.add(spinnerMinutesToStartScheduledTasks, gridBagConstraints);
 
         buttonScheduledTasks.setIcon(org.jphototagger.resources.Icons.getIcon("icon_start.png"));
-        buttonScheduledTasks.setToolTipText(bundle.getString("ScheduledTasksSettingsPanel.buttonScheduledTasks.toolTipText")); // NOI18N
+        buttonScheduledTasks.setToolTipText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.buttonScheduledTasks.toolTipText")); // NOI18N
         buttonScheduledTasks.setAlignmentY(0.0F);
         buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         buttonScheduledTasks.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));

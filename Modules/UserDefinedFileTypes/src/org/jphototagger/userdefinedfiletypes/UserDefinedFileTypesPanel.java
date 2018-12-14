@@ -148,7 +148,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/userdefinedfiletypes/Bundle"); // NOI18N
-        buttonAdd.setText(bundle.getString("UserDefinedFileTypesPanel.buttonAdd.text")); // NOI18N
+        buttonAdd.setText(Bundle.getString(getClass(), "UserDefinedFileTypesPanel.buttonAdd.text")); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAddActionPerformed(evt);
@@ -156,7 +156,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         });
         panelButtons.add(buttonAdd);
 
-        buttonEdit.setText(bundle.getString("UserDefinedFileTypesPanel.buttonEdit.text")); // NOI18N
+        buttonEdit.setText(Bundle.getString(getClass(), "UserDefinedFileTypesPanel.buttonEdit.text")); // NOI18N
         buttonEdit.setEnabled(false);
         buttonEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,7 +165,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
         });
         panelButtons.add(buttonEdit);
 
-        buttonDelete.setText(bundle.getString("UserDefinedFileTypesPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setText(Bundle.getString(getClass(), "UserDefinedFileTypesPanel.buttonDelete.text")); // NOI18N
         buttonDelete.setEnabled(false);
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

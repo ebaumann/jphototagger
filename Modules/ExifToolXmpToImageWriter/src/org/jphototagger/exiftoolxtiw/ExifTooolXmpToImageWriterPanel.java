@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JProgressBar;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
@@ -89,13 +90,13 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         panelConfigure.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/exiftoolxtiw/Bundle"); // NOI18N
-        buttonConfigure.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.buttonConfigure.text")); // NOI18N
+        buttonConfigure.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.buttonConfigure.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelConfigure.add(buttonConfigure, gridBagConstraints);
 
         labelConfigError.setForeground(java.awt.Color.RED);
-        labelConfigError.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.labelConfigError.text")); // NOI18N
+        labelConfigError.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.labelConfigError.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -108,7 +109,7 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 1.0;
         add(panelConfigure, gridBagConstraints);
 
-        labelDirs.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.labelDirs.text")); // NOI18N
+        labelDirs.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.labelDirs.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -125,7 +126,7 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         add(scrollPaneDirs, gridBagConstraints);
 
-        checkBoxIncludeSubDirs.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.checkBoxIncludeSubDirs.text")); // NOI18N
+        checkBoxIncludeSubDirs.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.checkBoxIncludeSubDirs.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
@@ -134,10 +135,10 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
 
         panelDirsButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonRemoveSelectedDirs.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.buttonRemoveSelectedDirs.text")); // NOI18N
+        buttonRemoveSelectedDirs.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.buttonRemoveSelectedDirs.text")); // NOI18N
         panelDirsButtons.add(buttonRemoveSelectedDirs, new java.awt.GridBagConstraints());
 
-        buttonAddDirs.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.buttonAddDirs.text")); // NOI18N
+        buttonAddDirs.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.buttonAddDirs.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelDirsButtons.add(buttonAddDirs, gridBagConstraints);
@@ -157,10 +158,10 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
 
         panelExecuteButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonCancelExecute.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.buttonCancelExecute.text")); // NOI18N
+        buttonCancelExecute.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.buttonCancelExecute.text")); // NOI18N
         panelExecuteButtons.add(buttonCancelExecute, new java.awt.GridBagConstraints());
 
-        buttonExecute.setText(bundle.getString("ExifTooolXmpToImageWriterPanel.buttonExecute.text")); // NOI18N
+        buttonExecute.setText(Bundle.getString(getClass(), "ExifTooolXmpToImageWriterPanel.buttonExecute.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelExecuteButtons.add(buttonExecute, gridBagConstraints);

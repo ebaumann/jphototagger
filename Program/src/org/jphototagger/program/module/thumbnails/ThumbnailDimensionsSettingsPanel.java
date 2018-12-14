@@ -8,6 +8,7 @@ import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
@@ -84,7 +85,7 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
 
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/thumbnails/Bundle"); // NOI18N
-        labelMaxThumbnailWidth.setText(bundle.getString("ThumbnailDimensionsSettingsPanel.labelMaxThumbnailWidth.text")); // NOI18N
+        labelMaxThumbnailWidth.setText(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsPanel.labelMaxThumbnailWidth.text")); // NOI18N
         labelMaxThumbnailWidth.setName("labelMaxThumbnailWidth"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -108,7 +109,7 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
         add(spinnerMaxThumbnailWidth, gridBagConstraints);
 
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelUpdateAllThumbnails.setText(bundle.getString("ThumbnailDimensionsSettingsPanel.labelUpdateAllThumbnails.text")); // NOI18N
+        labelUpdateAllThumbnails.setText(Bundle.getString(getClass(), "ThumbnailDimensionsSettingsPanel.labelUpdateAllThumbnails.text")); // NOI18N
         labelUpdateAllThumbnails.setName("labelUpdateAllThumbnails"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

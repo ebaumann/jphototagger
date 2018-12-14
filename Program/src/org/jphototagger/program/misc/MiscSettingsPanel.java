@@ -342,7 +342,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelDefault.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/misc/Bundle"); // NOI18N
-        checkBoxIsAcceptHiddenDirectories.setText(bundle.getString("MiscSettingsPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
+        checkBoxIsAcceptHiddenDirectories.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxIsAcceptHiddenDirectories.text")); // NOI18N
         checkBoxIsAcceptHiddenDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxIsAcceptHiddenDirectoriesActionPerformed(evt);
@@ -356,7 +356,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
         panelDefault.add(checkBoxIsAcceptHiddenDirectories, gridBagConstraints);
 
-        checkBoxEnableDeleteDirectories.setText(bundle.getString("MiscSettingsPanel.checkBoxEnableDeleteDirectories.text")); // NOI18N
+        checkBoxEnableDeleteDirectories.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxEnableDeleteDirectories.text")); // NOI18N
         checkBoxEnableDeleteDirectories.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxEnableDeleteDirectoriesActionPerformed(evt);
@@ -370,7 +370,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         panelCheckForUpdates.setLayout(new java.awt.GridBagLayout());
 
-        checkBoxCheckForUpdates.setText(bundle.getString("MiscSettingsPanel.checkBoxCheckForUpdates.text")); // NOI18N
+        checkBoxCheckForUpdates.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxCheckForUpdates.text")); // NOI18N
         checkBoxCheckForUpdates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxCheckForUpdatesActionPerformed(evt);
@@ -389,7 +389,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(panelCheckForUpdates, gridBagConstraints);
 
-        checkBoxDisplaySearchButton.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
+        checkBoxDisplaySearchButton.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
         checkBoxDisplaySearchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplaySearchButtonActionPerformed(evt);
@@ -403,7 +403,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxDisplaySearchButton, gridBagConstraints);
 
-        checkBoxUseLongXmpSidecarFileNames.setText(bundle.getString("MiscSettingsPanel.checkBoxUseLongXmpSidecarFileNames.text")); // NOI18N
+        checkBoxUseLongXmpSidecarFileNames.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxUseLongXmpSidecarFileNames.text")); // NOI18N
         checkBoxUseLongXmpSidecarFileNames.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxUseLongXmpSidecarFileNamesActionPerformed(evt);
@@ -417,12 +417,12 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxUseLongXmpSidecarFileNames, gridBagConstraints);
 
-        panelEditMetadata.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelEditMetadata.border.title"))); // NOI18N
+        panelEditMetadata.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MiscSettingsPanel.panelEditMetadata.border.title"))); // NOI18N
         panelEditMetadata.setLayout(new java.awt.GridBagLayout());
 
         panelMdTextAreasColumns.setLayout(new java.awt.GridBagLayout());
 
-        labelMdTextAreasColumnsPropmpt.setText(bundle.getString("MiscSettingsPanel.labelMdTextAreasColumnsPropmpt.text")); // NOI18N
+        labelMdTextAreasColumnsPropmpt.setText(Bundle.getString(getClass(), "MiscSettingsPanel.labelMdTextAreasColumnsPropmpt.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         panelMdTextAreasColumns.add(labelMdTextAreasColumnsPropmpt, gridBagConstraints);
@@ -440,7 +440,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
         panelMdTextAreasColumns.add(spinnerMdTextAreasColumns, gridBagConstraints);
 
-        labelMdTextAreasColumnsInfo.setText(bundle.getString("MiscSettingsPanel.labelMdTextAreasColumnsInfo.text")); // NOI18N
+        labelMdTextAreasColumnsInfo.setText(Bundle.getString(getClass(), "MiscSettingsPanel.labelMdTextAreasColumnsInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
@@ -457,7 +457,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelEditMetadata.add(panelMdTextAreasColumns, gridBagConstraints);
 
-        checkBoxDisplayWordsetsEditPanel.setText(bundle.getString("MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.text")); // NOI18N
+        checkBoxDisplayWordsetsEditPanel.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.text")); // NOI18N
         checkBoxDisplayWordsetsEditPanel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxDisplayWordsetsEditPanelActionPerformed(evt);
@@ -479,11 +479,11 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         panelDefault.add(panelEditMetadata, gridBagConstraints);
 
-        panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelCopyMoveFiles.border.title"))); // NOI18N
+        panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MiscSettingsPanel.panelCopyMoveFiles.border.title"))); // NOI18N
         panelCopyMoveFiles.setLayout(new java.awt.GridBagLayout());
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite);
-        radioButtonCopyMoveFileConfirmOverwrite.setText(bundle.getString("MiscSettingsPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
+        radioButtonCopyMoveFileConfirmOverwrite.setText(Bundle.getString(getClass(), "MiscSettingsPanel.radioButtonCopyMoveFileConfirmOverwrite.text")); // NOI18N
         radioButtonCopyMoveFileConfirmOverwrite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCopyMoveFileConfirmOverwriteActionPerformed(evt);
@@ -498,7 +498,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite, gridBagConstraints);
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
-        radioButtonCopyMoveFileRenameIfExists.setText(bundle.getString("MiscSettingsPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
+        radioButtonCopyMoveFileRenameIfExists.setText(Bundle.getString(getClass(), "MiscSettingsPanel.radioButtonCopyMoveFileRenameIfExists.text")); // NOI18N
         radioButtonCopyMoveFileRenameIfExists.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCopyMoveFileRenameIfExistsActionPerformed(evt);
@@ -520,10 +520,10 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
         panelDefault.add(panelCopyMoveFiles, gridBagConstraints);
 
-        panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("MiscSettingsPanel.panelRepositoryDirectory.border.title"))); // NOI18N
+        panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MiscSettingsPanel.panelRepositoryDirectory.border.title"))); // NOI18N
         panelRepositoryDirectory.setLayout(new java.awt.GridBagLayout());
 
-        labelInfoRepositoryDirectory.setText(bundle.getString("MiscSettingsPanel.labelInfoRepositoryDirectory.text")); // NOI18N
+        labelInfoRepositoryDirectory.setText(Bundle.getString(getClass(), "MiscSettingsPanel.labelInfoRepositoryDirectory.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -533,7 +533,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         panelButtonsRepositoryDirectory.setLayout(new java.awt.GridLayout(1, 0, 5, 0));
 
-        buttonChooseRepositoryDirectory.setText(bundle.getString("MiscSettingsPanel.buttonChooseRepositoryDirectory.text")); // NOI18N
+        buttonChooseRepositoryDirectory.setText(Bundle.getString(getClass(), "MiscSettingsPanel.buttonChooseRepositoryDirectory.text")); // NOI18N
         buttonChooseRepositoryDirectory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonChooseRepositoryDirectoryActionPerformed(evt);
@@ -541,7 +541,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         });
         panelButtonsRepositoryDirectory.add(buttonChooseRepositoryDirectory);
 
-        buttonSetDefaultRepositoryDirectoryName.setText(bundle.getString("MiscSettingsPanel.buttonSetDefaultRepositoryDirectoryName.text")); // NOI18N
+        buttonSetDefaultRepositoryDirectoryName.setText(Bundle.getString(getClass(), "MiscSettingsPanel.buttonSetDefaultRepositoryDirectoryName.text")); // NOI18N
         buttonSetDefaultRepositoryDirectoryName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSetDefaultRepositoryDirectoryNameActionPerformed(evt);
@@ -580,7 +580,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         gridBagConstraints.weighty = 1.0;
         panelDefault.add(panelFill, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("MiscSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "MiscSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

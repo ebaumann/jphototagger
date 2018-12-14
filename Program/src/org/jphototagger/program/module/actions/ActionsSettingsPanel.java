@@ -297,7 +297,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         popupMenu.setName("popupMenu"); // NOI18N
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/actions/Bundle"); // NOI18N
-        menuItemAddAction.setText(bundle.getString("ActionsSettingsPanel.menuItemAddAction.text")); // NOI18N
+        menuItemAddAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.menuItemAddAction.text")); // NOI18N
         menuItemAddAction.setEnabled(false);
         menuItemAddAction.setName("menuItemAddAction"); // NOI18N
         menuItemAddAction.addActionListener(new java.awt.event.ActionListener() {
@@ -308,7 +308,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         popupMenu.add(menuItemAddAction);
 
         menuItemDeleteAction.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, 0));
-        menuItemDeleteAction.setText(bundle.getString("ActionsSettingsPanel.menuItemDeleteAction.text")); // NOI18N
+        menuItemDeleteAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.menuItemDeleteAction.text")); // NOI18N
         menuItemDeleteAction.setEnabled(false);
         menuItemDeleteAction.setName("menuItemDeleteAction"); // NOI18N
         menuItemDeleteAction.addActionListener(new java.awt.event.ActionListener() {
@@ -321,7 +321,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         jSeparator1.setName("jSeparator1"); // NOI18N
         popupMenu.add(jSeparator1);
 
-        menuItemMoveUpAction.setText(bundle.getString("ActionsSettingsPanel.menuItemMoveUpAction.text")); // NOI18N
+        menuItemMoveUpAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.menuItemMoveUpAction.text")); // NOI18N
         menuItemMoveUpAction.setEnabled(false);
         menuItemMoveUpAction.setName("menuItemMoveUpAction"); // NOI18N
         menuItemMoveUpAction.addActionListener(new java.awt.event.ActionListener() {
@@ -331,7 +331,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         });
         popupMenu.add(menuItemMoveUpAction);
 
-        menuItemMoveDownAction.setText(bundle.getString("ActionsSettingsPanel.menuItemMoveDownAction.text")); // NOI18N
+        menuItemMoveDownAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.menuItemMoveDownAction.text")); // NOI18N
         menuItemMoveDownAction.setEnabled(false);
         menuItemMoveDownAction.setName("menuItemMoveDownAction"); // NOI18N
         menuItemMoveDownAction.addActionListener(new java.awt.event.ActionListener() {
@@ -344,7 +344,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         jSeparator2.setName("jSeparator2"); // NOI18N
         popupMenu.add(jSeparator2);
 
-        menuItemShowActions.setText(bundle.getString("ActionsSettingsPanel.menuItemShowActions.text")); // NOI18N
+        menuItemShowActions.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.menuItemShowActions.text")); // NOI18N
         menuItemShowActions.setName("menuItemShowActions"); // NOI18N
         menuItemShowActions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -353,7 +353,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         });
         popupMenu.add(menuItemShowActions);
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("ActionsSettingsPanel.border.title"))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ActionsSettingsPanel.border.title"))); // NOI18N
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
@@ -380,7 +380,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridBagLayout());
 
-        buttonMoveUpAction.setText(bundle.getString("ActionsSettingsPanel.buttonMoveUpAction.text")); // NOI18N
+        buttonMoveUpAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonMoveUpAction.text")); // NOI18N
         buttonMoveUpAction.setEnabled(false);
         buttonMoveUpAction.setName("buttonMoveUpAction"); // NOI18N
         buttonMoveUpAction.addActionListener(new java.awt.event.ActionListener() {
@@ -394,7 +394,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.weightx = 1.0;
         panelButtons.add(buttonMoveUpAction, gridBagConstraints);
 
-        buttonMoveDownAction.setText(bundle.getString("ActionsSettingsPanel.buttonMoveDownAction.text")); // NOI18N
+        buttonMoveDownAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonMoveDownAction.text")); // NOI18N
         buttonMoveDownAction.setEnabled(false);
         buttonMoveDownAction.setName("buttonMoveDownAction"); // NOI18N
         buttonMoveDownAction.addActionListener(new java.awt.event.ActionListener() {
@@ -409,7 +409,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonMoveDownAction, gridBagConstraints);
 
-        buttonAddAction.setText(bundle.getString("ActionsSettingsPanel.buttonAddAction.text")); // NOI18N
+        buttonAddAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonAddAction.text")); // NOI18N
         buttonAddAction.setEnabled(false);
         buttonAddAction.setName("buttonAddAction"); // NOI18N
         buttonAddAction.addActionListener(new java.awt.event.ActionListener() {
@@ -424,7 +424,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonAddAction, gridBagConstraints);
 
-        buttonDeleteAction.setText(bundle.getString("ActionsSettingsPanel.buttonDeleteAction.text")); // NOI18N
+        buttonDeleteAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonDeleteAction.text")); // NOI18N
         buttonDeleteAction.setEnabled(false);
         buttonDeleteAction.setName("buttonDeleteAction"); // NOI18N
         buttonDeleteAction.addActionListener(new java.awt.event.ActionListener() {
@@ -439,7 +439,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonDeleteAction, gridBagConstraints);
 
-        buttonShowActions.setText(bundle.getString("ActionsSettingsPanel.buttonShowActions.text")); // NOI18N
+        buttonShowActions.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonShowActions.text")); // NOI18N
         buttonShowActions.setName("buttonShowActions"); // NOI18N
         buttonShowActions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -460,7 +460,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         add(panelButtons, gridBagConstraints);
 
         buttonGroupExecute.add(radioButtonExecuteAlways);
-        radioButtonExecuteAlways.setText(bundle.getString("ActionsSettingsPanel.radioButtonExecuteAlways.text")); // NOI18N
+        radioButtonExecuteAlways.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.radioButtonExecuteAlways.text")); // NOI18N
         radioButtonExecuteAlways.setName("radioButtonExecuteAlways"); // NOI18N
         radioButtonExecuteAlways.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -475,7 +475,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         add(radioButtonExecuteAlways, gridBagConstraints);
 
         buttonGroupExecute.add(radioButtonExecuteIfImageHasXmp);
-        radioButtonExecuteIfImageHasXmp.setText(bundle.getString("ActionsSettingsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
+        radioButtonExecuteIfImageHasXmp.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.radioButtonExecuteIfImageHasXmp.text")); // NOI18N
         radioButtonExecuteIfImageHasXmp.setName("radioButtonExecuteIfImageHasXmp"); // NOI18N
         radioButtonExecuteIfImageHasXmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

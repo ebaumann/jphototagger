@@ -23,6 +23,7 @@ import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
 import org.openide.util.Lookup;
@@ -236,7 +237,7 @@ public class IptcPanel extends javax.swing.JPanel {
         panelTableIptcFilter.setLayout(new GridBagLayout());
 
         ResourceBundle bundle = ResourceBundle.getBundle("org/jphototagger/iptcmodule/Bundle"); // NOI18N
-        labeTTableIptcFilter.setText(bundle.getString("IptcPanel.labeTTableIptcFilter.text")); // NOI18N
+        labeTTableIptcFilter.setText(Bundle.getString(getClass(), "IptcPanel.labeTTableIptcFilter.text")); // NOI18N
         labeTTableIptcFilter.setName("labeTTableIptcFilter"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -288,8 +289,8 @@ public class IptcPanel extends javax.swing.JPanel {
         panelActions.add(panelIptcSettings, new GridBagConstraints());
 
         buttonIptcToXmp.setAction(new ExportIptcToXmpOfSelectedFilesAction());
-        buttonIptcToXmp.setText(bundle.getString("IptcPanel.buttonIptcToXmp.text")); // NOI18N
-        buttonIptcToXmp.setToolTipText(bundle.getString("IptcPanel.buttonIptcToXmp.toolTipText")); // NOI18N
+        buttonIptcToXmp.setText(Bundle.getString(getClass(), "IptcPanel.buttonIptcToXmp.text")); // NOI18N
+        buttonIptcToXmp.setToolTipText(Bundle.getString(getClass(), "IptcPanel.buttonIptcToXmp.toolTipText")); // NOI18N
         buttonIptcToXmp.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonIptcToXmp.setName("buttonIptcToXmp"); // NOI18N
         gridBagConstraints = new GridBagConstraints();

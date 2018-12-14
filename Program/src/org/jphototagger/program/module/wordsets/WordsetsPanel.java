@@ -365,7 +365,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         panelWords = new javax.swing.JPanel();
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/wordsets/Bundle"); // NOI18N
-        setToolTipText(bundle.getString("WordsetsPanel.toolTipText")); // NOI18N
+        setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.toolTipText")); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         panelWordsets.setLayout(new java.awt.GridBagLayout());
@@ -383,7 +383,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         panelWordsets.add(comboBoxWordsetNames, gridBagConstraints);
 
         buttonRemoveWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
-        buttonRemoveWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonRemoveWordset.toolTipText")); // NOI18N
+        buttonRemoveWordset.setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.buttonRemoveWordset.toolTipText")); // NOI18N
         buttonRemoveWordset.setFocusable(false);
         buttonRemoveWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonRemoveWordset.addActionListener(new java.awt.event.ActionListener() {
@@ -397,7 +397,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         panelWordsets.add(buttonRemoveWordset, gridBagConstraints);
 
         buttonEditWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
-        buttonEditWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonEditWordset.toolTipText")); // NOI18N
+        buttonEditWordset.setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.buttonEditWordset.toolTipText")); // NOI18N
         buttonEditWordset.setFocusable(false);
         buttonEditWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEditWordset.addActionListener(new java.awt.event.ActionListener() {
@@ -411,7 +411,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         panelWordsets.add(buttonEditWordset, gridBagConstraints);
 
         buttonAddWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_add.png"));
-        buttonAddWordset.setToolTipText(bundle.getString("WordsetsPanel.buttonAddWordset.toolTipText")); // NOI18N
+        buttonAddWordset.setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.buttonAddWordset.toolTipText")); // NOI18N
         buttonAddWordset.setFocusable(false);
         buttonAddWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonAddWordset.addActionListener(new java.awt.event.ActionListener() {
@@ -425,7 +425,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         panelWordsets.add(buttonAddWordset, gridBagConstraints);
 
         buttonEraseAutomaticWords.setIcon(org.jphototagger.resources.Icons.getIcon("icon_erase.png"));
-        buttonEraseAutomaticWords.setToolTipText(bundle.getString("WordsetsPanel.buttonEraseAutomaticWords.toolTipText")); // NOI18N
+        buttonEraseAutomaticWords.setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.buttonEraseAutomaticWords.toolTipText")); // NOI18N
         buttonEraseAutomaticWords.setFocusable(false);
         buttonEraseAutomaticWords.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
         buttonEraseAutomaticWords.addActionListener(new java.awt.event.ActionListener() {

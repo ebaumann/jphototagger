@@ -602,7 +602,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         panelKeywords.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 150));
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/program/module/search/Bundle"); // NOI18N
-        labelInfoKeywords.setText(bundle.getString("AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
+        labelInfoKeywords.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
         labelInfoKeywords.setName("labelInfoKeywords"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -620,7 +620,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelKeywords.add(panelKeywordsInput, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
 
         panelSimpleSql.setName("panelSimpleSql"); // NOI18N
         panelSimpleSql.setLayout(new java.awt.GridBagLayout());
@@ -640,13 +640,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
         panelSimpleSql.add(scrollPaneColumns, gridBagConstraints);
 
-        labelInfoDelete.setText(bundle.getString("AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
+        labelInfoDelete.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
         labelInfoDelete.setName("labelInfoDelete"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
         panelSimpleSql.add(labelInfoDelete, gridBagConstraints);
 
-        buttonAddColumn.setText(bundle.getString("AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
+        buttonAddColumn.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
         buttonAddColumn.setName("buttonAddColumn"); // NOI18N
         buttonAddColumn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -660,13 +660,13 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelSimpleSql.add(buttonAddColumn, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
 
         panelCustomSql.setName("panelCustomSql"); // NOI18N
         panelCustomSql.setLayout(new java.awt.GridBagLayout());
 
         labelCustomSqlInfo.setDisplayedMnemonic('k');
-        labelCustomSqlInfo.setText(bundle.getString("AdvancedSearchPanel.labelCustomSqlInfo.text")); // NOI18N
+        labelCustomSqlInfo.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelCustomSqlInfo.text")); // NOI18N
         labelCustomSqlInfo.setName("labelCustomSqlInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -695,7 +695,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
         panelCustomSql.add(scrollPaneCustomSqlQuery, gridBagConstraints);
 
-        tabbedPane.addTab(bundle.getString("AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql); // NOI18N
+        tabbedPane.addTab(Bundle.getString(getClass(), "AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql); // NOI18N
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -711,7 +711,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, 3, 0));
 
-        buttonSaveSearch.setText(bundle.getString("AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
+        buttonSaveSearch.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
         buttonSaveSearch.setName("buttonSaveSearch"); // NOI18N
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -720,7 +720,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         });
         panelButtons.add(buttonSaveSearch);
 
-        buttonSaveAs.setText(bundle.getString("AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
+        buttonSaveAs.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
         buttonSaveAs.setName("buttonSaveAs"); // NOI18N
         buttonSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -729,7 +729,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         });
         panelButtons.add(buttonSaveAs);
 
-        buttonResetColumns.setText(bundle.getString("AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
+        buttonResetColumns.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
         buttonResetColumns.setName("buttonResetColumns"); // NOI18N
         buttonResetColumns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -738,7 +738,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         });
         panelButtons.add(buttonResetColumns);
 
-        buttonSearch.setText(bundle.getString("AdvancedSearchPanel.buttonSearch.text")); // NOI18N
+        buttonSearch.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSearch.text")); // NOI18N
         buttonSearch.setName("buttonSearch"); // NOI18N
         panelButtons.add(buttonSearch);
 

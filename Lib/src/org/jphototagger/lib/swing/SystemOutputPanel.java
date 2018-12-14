@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import javax.swing.JPanel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.lib.util.Bundle;
 
 //Most parts of code from http://unserializableone.blogspot.com/2009/01/redirecting-systemout-and-systemerr-to.html
 
@@ -147,8 +148,8 @@ public class SystemOutputPanel extends JPanel {
         panelButttons.add(searchPanel, gridBagConstraints);
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/lib/swing/Bundle"); // NOI18N
-        buttonDelete.setText(bundle.getString("SystemOutputPanel.buttonDelete.text")); // NOI18N
-        buttonDelete.setToolTipText(bundle.getString("SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
+        buttonDelete.setText(Bundle.getString(getClass(), "SystemOutputPanel.buttonDelete.text")); // NOI18N
+        buttonDelete.setToolTipText(Bundle.getString(getClass(), "SystemOutputPanel.buttonDelete.toolTipText")); // NOI18N
         buttonDelete.setName("buttonDelete"); // NOI18N
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,8 +160,8 @@ public class SystemOutputPanel extends JPanel {
         gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 30, 0, 0);
         panelButttons.add(buttonDelete, gridBagConstraints);
 
-        buttonCopyToClipboard.setText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
-        buttonCopyToClipboard.setToolTipText(bundle.getString("SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
+        buttonCopyToClipboard.setText(Bundle.getString(getClass(), "SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
+        buttonCopyToClipboard.setToolTipText(Bundle.getString(getClass(), "SystemOutputPanel.buttonCopyToClipboard.toolTipText")); // NOI18N
         buttonCopyToClipboard.setName("buttonCopyToClipboard"); // NOI18N
         buttonCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
