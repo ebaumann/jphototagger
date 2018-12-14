@@ -171,7 +171,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JPanel();
-        labelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JLabel();
+        labelMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.label();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
         checkBoxScanForEmbeddedXmp = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxAutoscanDirectories = org.jphototagger.resources.UiFactory.checkBox();

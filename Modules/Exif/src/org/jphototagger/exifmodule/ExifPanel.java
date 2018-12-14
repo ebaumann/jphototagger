@@ -26,6 +26,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -93,7 +94,7 @@ public class ExifPanel extends javax.swing.JPanel {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             if (lookAndFeel == null) {
-                return new JLabel(StringUtil.toStringNullToEmptyString(value));
+                return UiFactory.label(StringUtil.toStringNullToEmptyString(value));
             }
 
             lookAndFeel.setTableCellColor(cellLabel, isSelected);

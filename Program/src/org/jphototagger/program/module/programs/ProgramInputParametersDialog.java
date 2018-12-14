@@ -88,11 +88,11 @@ public final class ProgramInputParametersDialog extends Dialog {
         buttonGroup = new javax.swing.ButtonGroup();
         panelContent = new javax.swing.JPanel();
         panelContext = new javax.swing.JPanel();
-        labelContextProgramPrompt = new javax.swing.JLabel();
-        labelContextProgram = new javax.swing.JLabel();
-        labelContextFilePrompt = new javax.swing.JLabel();
-        labelContextFile = new javax.swing.JLabel();
-        labelPrompt = new javax.swing.JLabel();
+        labelContextProgramPrompt = org.jphototagger.resources.UiFactory.label();
+        labelContextProgram = org.jphototagger.resources.UiFactory.label();
+        labelContextFilePrompt = org.jphototagger.resources.UiFactory.label();
+        labelContextFile = org.jphototagger.resources.UiFactory.label();
+        labelPrompt = org.jphototagger.resources.UiFactory.label();
         scrollPaneAreaParameter = new javax.swing.JScrollPane();
         textAreaParameter = new javax.swing.JTextArea();
         radioButtonParametersBeforeFilename = UiFactory.radioButton();

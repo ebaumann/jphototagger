@@ -91,7 +91,7 @@ public final class InputDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        labelPrompt = new javax.swing.JLabel();
+        labelPrompt = org.jphototagger.resources.UiFactory.label();
         textFieldInput = new javax.swing.JTextField();
         panelButtons = new javax.swing.JPanel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();

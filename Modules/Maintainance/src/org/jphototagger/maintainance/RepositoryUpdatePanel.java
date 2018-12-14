@@ -170,13 +170,13 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
 
         panelContent = new javax.swing.JPanel();
         panelTasks = new javax.swing.JPanel();
-        labelRefreshExif = new javax.swing.JLabel();
+        labelRefreshExif = org.jphototagger.resources.UiFactory.label();
         toggleButtonRefreshExif = new javax.swing.JToggleButton();
-        labelRefreshXmp = new javax.swing.JLabel();
+        labelRefreshXmp = org.jphototagger.resources.UiFactory.label();
         toggleButtonRefreshXmp = new javax.swing.JToggleButton();
-        labelUpdateThumbnails = new javax.swing.JLabel();
+        labelUpdateThumbnails = org.jphototagger.resources.UiFactory.label();
         buttonUpdateThumbnails = org.jphototagger.resources.UiFactory.button();
-        labelRenameFiles = new javax.swing.JLabel();
+        labelRenameFiles = org.jphototagger.resources.UiFactory.label();
         buttonRenameFiles = org.jphototagger.resources.UiFactory.button();
         panelPadding = new javax.swing.JPanel();
 

@@ -459,7 +459,7 @@ public class FindDuplicatesDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        labelInfo = new javax.swing.JLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.label();
         panelSourceDirectories = new javax.swing.JPanel();
         scrollPaneSourceDirectories = new javax.swing.JScrollPane();
         listSourceDirectories = new javax.swing.JList<>();

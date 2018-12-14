@@ -27,7 +27,7 @@ public class SidecarSuffixesInfoPanel extends javax.swing.JPanel implements Thum
 
     private static final long serialVersionUID = 1L;
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-    private final JLabel infoLabel = new JLabel(Bundle.getString(SidecarSuffixesInfoPanel.class, "SidecarSuffixesInfoPanel.Label.Info"));
+    private final JLabel infoLabel = UiFactory.label(Bundle.getString(SidecarSuffixesInfoPanel.class, "SidecarSuffixesInfoPanel.Label.Info"));
     private int suffixCount;
 
     public SidecarSuffixesInfoPanel() {

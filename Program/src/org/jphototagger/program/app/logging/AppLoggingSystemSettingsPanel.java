@@ -215,7 +215,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         panelMisc = new javax.swing.JPanel();
         panelMiscContent = new javax.swing.JPanel();
         panelLogLevel = new javax.swing.JPanel();
-        labelLogLevel = new javax.swing.JLabel();
+        labelLogLevel = org.jphototagger.resources.UiFactory.label();
         comboBoxLogLevel = new javax.swing.JComboBox<>();
         panelFillMisc = new javax.swing.JPanel();
         panelIgnoreMessages = new javax.swing.JPanel();
@@ -227,7 +227,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         buttonRemoveErrorText = org.jphototagger.resources.UiFactory.button();
         buttonEditErrorText = org.jphototagger.resources.UiFactory.button();
         panelAddErrorText = new javax.swing.JPanel();
-        labelErrorText = new javax.swing.JLabel();
+        labelErrorText = org.jphototagger.resources.UiFactory.label();
         textFieldErrorText = new javax.swing.JTextField();
         buttonAddErrorText = org.jphototagger.resources.UiFactory.button();
 

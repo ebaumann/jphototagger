@@ -328,17 +328,17 @@ public final class RenameDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContents = new javax.swing.JPanel();
-        labelInfoTemplatesTab = new javax.swing.JLabel();
+        labelInfoTemplatesTab = org.jphototagger.resources.UiFactory.label();
         tabbedPane = new javax.swing.JTabbedPane();
         panelInputName = new javax.swing.JPanel();
         panelFolderPathname = new javax.swing.JPanel();
-        labelDirectory = new javax.swing.JLabel();
+        labelDirectory = org.jphototagger.resources.UiFactory.label();
         panelThumbnailBorder = new javax.swing.JPanel();
         panelThumbnail = new org.jphototagger.lib.swing.ImagePanel();
         panelFromNameToName = new javax.swing.JPanel();
-        labelFromNamePrompt = new javax.swing.JLabel();
-        labelFromName = new javax.swing.JLabel();
-        labelToNamePrompt = new javax.swing.JLabel();
+        labelFromNamePrompt = org.jphototagger.resources.UiFactory.label();
+        labelFromName = org.jphototagger.resources.UiFactory.label();
+        labelToNamePrompt = org.jphototagger.resources.UiFactory.label();
         textFieldToName = new javax.swing.JTextField();
         panelRenameButtons = new javax.swing.JPanel();
         buttonNextFile = org.jphototagger.resources.UiFactory.button();

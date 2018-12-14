@@ -259,10 +259,10 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelTable = new javax.swing.JLabel();
+        labelTable = org.jphototagger.resources.UiFactory.label();
         scrollPane = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
-        labelFilename = new javax.swing.JLabel();
+        labelFilename = org.jphototagger.resources.UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

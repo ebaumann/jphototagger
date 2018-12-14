@@ -318,12 +318,12 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         menuItemRemoveSynonym = new javax.swing.JMenuItem();
         panelWords = new javax.swing.JPanel();
         panelEditInputWord = new javax.swing.JPanel();
-        labelTextAreaWord = new javax.swing.JLabel();
+        labelTextAreaWord = org.jphototagger.resources.UiFactory.label();
         scrollPaneTextAreaWords = new javax.swing.JScrollPane();
         textAreaWords = new javax.swing.JTextArea();
         buttonAddWord = org.jphototagger.resources.UiFactory.button();
         panelAddedWords = new javax.swing.JPanel();
-        labelListWords = new javax.swing.JLabel();
+        labelListWords = org.jphototagger.resources.UiFactory.label();
         scrollPaneListWords = new javax.swing.JScrollPane();
         listWords = new org.jdesktop.swingx.JXList();
         buttonRemoveWord = org.jphototagger.resources.UiFactory.button();
@@ -331,16 +331,16 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         buttonAddAllKeywords = org.jphototagger.resources.UiFactory.button();
         panelSynonyms = new javax.swing.JPanel();
         panelEditInputSynonyms = new javax.swing.JPanel();
-        labelTextFieldSynonym = new javax.swing.JLabel();
+        labelTextFieldSynonym = org.jphototagger.resources.UiFactory.label();
         textFieldSynonyms = new javax.swing.JTextField();
         buttonAddSynonym = org.jphototagger.resources.UiFactory.button();
         panelAddedSynonyms = new javax.swing.JPanel();
-        labelListSynonyms = new javax.swing.JLabel();
+        labelListSynonyms = org.jphototagger.resources.UiFactory.label();
         scrollPaneListSynonyms = new javax.swing.JScrollPane();
         listSynonyms = new org.jdesktop.swingx.JXList();
         buttonRemoveSynonym = org.jphototagger.resources.UiFactory.button();
         buttonChangeSynonym = org.jphototagger.resources.UiFactory.button();
-        labelInfoAddSynonym = new javax.swing.JLabel();
+        labelInfoAddSynonym = org.jphototagger.resources.UiFactory.label();
 
         popupMenuWords.setName("popupMenuWords"); // NOI18N
 

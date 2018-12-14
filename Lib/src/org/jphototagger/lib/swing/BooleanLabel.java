@@ -2,6 +2,7 @@ package org.jphototagger.lib.swing;
 
 import javax.swing.Icon;
 import javax.swing.JLabel;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Displays special icons and/or texts indicating whether something is true
@@ -26,6 +27,7 @@ public final class BooleanLabel extends JLabel {
     public BooleanLabel(String text) {
         super(text);
         setIcon(falseIcon);
+        setIconTextGap(UiFactory.scale(getIconTextGap()));
     }
 
     public Icon getFalseIcon() {

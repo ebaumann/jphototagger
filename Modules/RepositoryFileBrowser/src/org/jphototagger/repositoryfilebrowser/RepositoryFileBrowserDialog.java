@@ -177,16 +177,16 @@ public final class RepositoryFileBrowserDialog extends Dialog {
 
         panelContent = new org.jdesktop.swingx.JXRootPane();
         panelFilter = new javax.swing.JPanel();
-        labelFilterPrompt = new javax.swing.JLabel();
+        labelFilterPrompt = org.jphototagger.resources.UiFactory.label();
         textFieldFilter = new javax.swing.JTextField();
         buttonApplyFilter = org.jphototagger.resources.UiFactory.button();
         scrollPaneFiles = new javax.swing.JScrollPane();
         listFiles = new org.jphototagger.lib.lookup.LookupList();
         panelListInfo = new javax.swing.JPanel();
-        labelSelectedFilepathPrompt = new javax.swing.JLabel();
-        labelSelectedFilepath = new javax.swing.JLabel();
-        labelFileCountPrompt = new javax.swing.JLabel();
-        labelFileCount = new javax.swing.JLabel();
+        labelSelectedFilepathPrompt = org.jphototagger.resources.UiFactory.label();
+        labelSelectedFilepath = org.jphototagger.resources.UiFactory.label();
+        labelFileCountPrompt = org.jphototagger.resources.UiFactory.label();
+        labelFileCount = org.jphototagger.resources.UiFactory.label();
         progressBarGetFiles = new javax.swing.JProgressBar();
         panelInfo = new javax.swing.JPanel();
         panelThumbnail = new javax.swing.JPanel();
@@ -194,19 +194,19 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         panelDetails = new javax.swing.JPanel();
         panelImageFile = new javax.swing.JPanel();
         booleanLabelImageFileExists = new org.jphototagger.lib.swing.BooleanLabel();
-        labelimeImageFileInRepositoryPrompt = new javax.swing.JLabel();
-        labelimeImageFileInRepository = new javax.swing.JLabel();
-        labelimeImageFileInFileSystemPrompt = new javax.swing.JLabel();
-        labelimeImageFileInFileSystem = new javax.swing.JLabel();
-        labelTimeImageFileWarning = new javax.swing.JLabel();
+        labelimeImageFileInRepositoryPrompt = org.jphototagger.resources.UiFactory.label();
+        labelimeImageFileInRepository = org.jphototagger.resources.UiFactory.label();
+        labelimeImageFileInFileSystemPrompt = org.jphototagger.resources.UiFactory.label();
+        labelimeImageFileInFileSystem = org.jphototagger.resources.UiFactory.label();
+        labelTimeImageFileWarning = org.jphototagger.resources.UiFactory.label();
         panelXMPFile = new javax.swing.JPanel();
         booleanLabelXmpFileExists = new org.jphototagger.lib.swing.BooleanLabel();
-        labelPromptTimeXmpFileInRepository = new javax.swing.JLabel();
-        labelTimeXmpFileInRepository = new javax.swing.JLabel();
-        labelPromptTimeXmpFileInFileSystem = new javax.swing.JLabel();
-        labelTimeXmpFileInFileSystem = new javax.swing.JLabel();
-        labelTimeXmpFileWarning = new javax.swing.JLabel();
-        labelThumbnailSizeInfo = new javax.swing.JLabel();
+        labelPromptTimeXmpFileInRepository = org.jphototagger.resources.UiFactory.label();
+        labelTimeXmpFileInRepository = org.jphototagger.resources.UiFactory.label();
+        labelPromptTimeXmpFileInFileSystem = org.jphototagger.resources.UiFactory.label();
+        labelTimeXmpFileInFileSystem = org.jphototagger.resources.UiFactory.label();
+        labelTimeXmpFileWarning = org.jphototagger.resources.UiFactory.label();
+        labelThumbnailSizeInfo = org.jphototagger.resources.UiFactory.label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.title")); // NOI18N

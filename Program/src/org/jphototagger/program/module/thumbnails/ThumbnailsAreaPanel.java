@@ -264,11 +264,11 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelBottomComponents = new javax.swing.JPanel();
-        labelInfo = new javax.swing.JLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.label();
         panelDisplayedThumbnailFilters = new javax.swing.JPanel();
-        labelFileFilters = new javax.swing.JLabel();
+        labelFileFilters = org.jphototagger.resources.UiFactory.label();
         comboBoxFileFilters = new javax.swing.JComboBox<>();
-        labelFileSort = new javax.swing.JLabel();
+        labelFileSort = org.jphototagger.resources.UiFactory.label();
         comboBoxFileSort = new javax.swing.JComboBox<>();
         thumbnailsPanelScrollPane = new javax.swing.JScrollPane();
         thumbnailsPanel = new org.jphototagger.program.module.thumbnails.ThumbnailsPanel();

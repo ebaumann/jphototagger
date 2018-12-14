@@ -146,7 +146,7 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         buttonGroup = new javax.swing.ButtonGroup();
         tabbedPane = new javax.swing.JTabbedPane();
         panelExclude = new javax.swing.JPanel();
-        labelInfoExclude = new javax.swing.JLabel();
+        labelInfoExclude = org.jphototagger.resources.UiFactory.label();
         scrollPaneExclude = new javax.swing.JScrollPane();
         panelExcludeCheckboxes = new javax.swing.JPanel();
 

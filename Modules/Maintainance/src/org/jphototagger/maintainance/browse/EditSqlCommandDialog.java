@@ -85,9 +85,9 @@ public class EditSqlCommandDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        labelDescription = new javax.swing.JLabel();
+        labelDescription = org.jphototagger.resources.UiFactory.label();
         textFieldDescription = new javax.swing.JTextField();
-        labelSql = new javax.swing.JLabel();
+        labelSql = org.jphototagger.resources.UiFactory.label();
         scrollPaneSql = new javax.swing.JScrollPane();
         textAreaSql = new javax.swing.JTextArea();
         panelButtons = new javax.swing.JPanel();

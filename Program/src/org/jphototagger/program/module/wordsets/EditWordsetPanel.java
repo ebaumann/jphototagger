@@ -265,13 +265,13 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         panelName = new javax.swing.JPanel();
-        labelName = new javax.swing.JLabel();
+        labelName = org.jphototagger.resources.UiFactory.label();
         textFieldName = new javax.swing.JTextField();
         buttonSave = org.jphototagger.resources.UiFactory.button();
         scrollPaneWords = new javax.swing.JScrollPane();
         listWords = new javax.swing.JList<>();
         panelEdit = new javax.swing.JPanel();
-        labelWord = new javax.swing.JLabel();
+        labelWord = org.jphototagger.resources.UiFactory.label();
         textAreaWord = new javax.swing.JTextArea();
         buttonAddWord = org.jphototagger.resources.UiFactory.button();
         buttonRemoveSelectedWords = org.jphototagger.resources.UiFactory.button();

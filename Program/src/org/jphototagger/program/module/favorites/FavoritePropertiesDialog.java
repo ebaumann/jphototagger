@@ -229,10 +229,10 @@ public final class FavoritePropertiesDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        labelPromptFavoriteName = new javax.swing.JLabel();
+        labelPromptFavoriteName = org.jphototagger.resources.UiFactory.label();
         textFieldFavoriteName = new javax.swing.JTextField();
         buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
-        labelDirectoryname = new javax.swing.JLabel();
+        labelDirectoryname = org.jphototagger.resources.UiFactory.label();
         panelButtons = new javax.swing.JPanel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();

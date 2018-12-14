@@ -173,10 +173,10 @@ public final class ProgressDialog extends javax.swing.JDialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        labelInfo = new javax.swing.JLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.label();
         progressBar = new javax.swing.JProgressBar();
         buttonStop = org.jphototagger.resources.UiFactory.button();
-        labelProgressInfo = new javax.swing.JLabel();
+        labelProgressInfo = org.jphototagger.resources.UiFactory.label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ProgressDialog.title")); // NOI18N

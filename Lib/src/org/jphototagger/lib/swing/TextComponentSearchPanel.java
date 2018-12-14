@@ -255,7 +255,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        label = new javax.swing.JLabel();
+        label = org.jphototagger.resources.UiFactory.label();
         searchTextField = new javax.swing.JTextField();
         buttonSearchDownwards = org.jphototagger.resources.UiFactory.button();
         buttonSearchUpwards = org.jphototagger.resources.UiFactory.button();

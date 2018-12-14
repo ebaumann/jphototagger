@@ -541,14 +541,14 @@ public final class AppPanel extends javax.swing.JPanel {
         checkBoxDirectoriesRecursive = org.jphototagger.resources.UiFactory.checkBox();
         panelSavedSearches = new javax.swing.JPanel();
         panelListSavedSearchesFilter = new javax.swing.JPanel();
-        labelListSavedSearchesFilter = new javax.swing.JLabel();
+        labelListSavedSearchesFilter = org.jphototagger.resources.UiFactory.label();
         textFieldListSavedSearchesFilter = new javax.swing.JTextField();
         scrollPaneSavedSearches = new javax.swing.JScrollPane();
         listSavedSearches = new JXList();
         buttonSearchInSavedSearches = org.jphototagger.resources.UiFactory.button();
         panelImageCollections = new javax.swing.JPanel();
         panelListImageCollectionsFilter = new javax.swing.JPanel();
-        labelListImageCollectionsFilter = new javax.swing.JLabel();
+        labelListImageCollectionsFilter = org.jphototagger.resources.UiFactory.label();
         textFieldListImageCollectionsFilter = new javax.swing.JTextField();
         scrollPaneImageCollections = new javax.swing.JScrollPane();
         listImageCollections = new JXList();
@@ -571,7 +571,7 @@ public final class AppPanel extends javax.swing.JPanel {
         buttonSearchInTreeSelKeywords = org.jphototagger.resources.UiFactory.button();
         panelSelKeywordsList = new javax.swing.JPanel();
         panelListSelKeywordsFilter = new javax.swing.JPanel();
-        labelListSelKeywordsFilter = new javax.swing.JLabel();
+        labelListSelKeywordsFilter = org.jphototagger.resources.UiFactory.label();
         textFieldListSelKeywordsFilter = new javax.swing.JTextField();
         scrollPaneSelKeywordsList = new javax.swing.JScrollPane();
         listSelKeywords = new JXList();
@@ -602,7 +602,7 @@ public final class AppPanel extends javax.swing.JPanel {
         tabbedPaneMetadata = new javax.swing.JTabbedPane();
         panelEditKeywords = new org.jphototagger.program.module.keywords.KeywordsPanel();
         panelStatusbar = new javax.swing.JPanel();
-        labelStatusbarText = new javax.swing.JLabel();
+        labelStatusbarText = org.jphototagger.resources.UiFactory.label();
         statusLineElementsPanel = new javax.swing.JPanel();
 
         setName("Form"); // NOI18N

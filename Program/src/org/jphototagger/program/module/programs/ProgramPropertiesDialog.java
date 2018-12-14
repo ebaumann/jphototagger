@@ -352,10 +352,10 @@ public final class ProgramPropertiesDialog extends Dialog {
         panelExpertSettings = new javax.swing.JPanel();
         checkBoxChangeFile = org.jphototagger.resources.UiFactory.checkBox();
         panelParameter = new javax.swing.JPanel();
-        labelParametersBeforeFilename = new javax.swing.JLabel();
+        labelParametersBeforeFilename = org.jphototagger.resources.UiFactory.label();
         scrollPaneParametersBeforeFilename = new javax.swing.JScrollPane();
         textAreaParametersBeforeFilename = new TabOrEnterLeavingTextArea();
-        labelParametersAfterFilename = new javax.swing.JLabel();
+        labelParametersAfterFilename = org.jphototagger.resources.UiFactory.label();
         scrollPaneParametersAfterFilename = new javax.swing.JScrollPane();
         textAreaParametersAfterFilename = new TabOrEnterLeavingTextArea();
         checkBoxUsePattern = org.jphototagger.resources.UiFactory.checkBox();
@@ -370,15 +370,15 @@ public final class ProgramPropertiesDialog extends Dialog {
         radioButtonSingleFileProcessingNo = UiFactory.radioButton();
         panelProgram = new javax.swing.JPanel();
         panelPrg = new javax.swing.JPanel();
-        labelFilePrompt = new javax.swing.JLabel();
-        labelErrorFileDoesNotExist = new javax.swing.JLabel();
-        labelFile = new javax.swing.JLabel();
+        labelFilePrompt = org.jphototagger.resources.UiFactory.label();
+        labelErrorFileDoesNotExist = org.jphototagger.resources.UiFactory.label();
+        labelFile = org.jphototagger.resources.UiFactory.label();
         buttonChooseFile = org.jphototagger.resources.UiFactory.button();
         panelAlias = new javax.swing.JPanel();
-        labelAlias = new javax.swing.JLabel();
+        labelAlias = org.jphototagger.resources.UiFactory.label();
         textFieldAlias = new javax.swing.JTextField();
         toggleButtonExpertSettings = new javax.swing.JToggleButton();
-        labelInfoRequiredInputs = new javax.swing.JLabel();
+        labelInfoRequiredInputs = org.jphototagger.resources.UiFactory.label();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();
 

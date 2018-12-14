@@ -119,7 +119,7 @@ public class InputHelperDialog extends Dialog {
         panelMiscXmpMetadata = new org.jphototagger.program.misc.MiscXmpMetadataPanel();
         panelMetaDataTemplates = new org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel();
         panelMetaDataTemplates.getList().setTransferHandler(new org.jphototagger.program.datatransfer.DragListItemsTransferHandler(org.jphototagger.program.datatransfer.Flavor.METADATA_TEMPLATES));
-        labelInfo = new javax.swing.JLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "InputHelperDialog.title")); // NOI18N

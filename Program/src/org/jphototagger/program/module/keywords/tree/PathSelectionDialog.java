@@ -190,7 +190,7 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        labelInfo = new javax.swing.JLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.label();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();

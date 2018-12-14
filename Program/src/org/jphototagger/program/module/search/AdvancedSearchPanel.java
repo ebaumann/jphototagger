@@ -561,7 +561,7 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
 
         tabbedPane = new javax.swing.JTabbedPane();
         panelKeywords = new javax.swing.JPanel();
-        labelInfoKeywords = new javax.swing.JLabel();
+        labelInfoKeywords = org.jphototagger.resources.UiFactory.label();
         panelKeywordsInput = new org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel();
         panelKeywordsInput.setPrompt("");
         panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
@@ -569,10 +569,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         panelSimpleSql = new javax.swing.JPanel();
         scrollPaneColumns = new javax.swing.JScrollPane();
         panelColumns = new javax.swing.JPanel();
-        labelInfoDelete = new javax.swing.JLabel();
+        labelInfoDelete = org.jphototagger.resources.UiFactory.label();
         buttonAddColumn = org.jphototagger.resources.UiFactory.button();
         panelCustomSql = new javax.swing.JPanel();
-        labelCustomSqlInfo = new javax.swing.JLabel();
+        labelCustomSqlInfo = org.jphototagger.resources.UiFactory.label();
         scrollPaneCustomSqlQuery = new javax.swing.JScrollPane();
         textAreaCustomSqlQuery = new TabOrEnterLeavingTextArea();
         textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());

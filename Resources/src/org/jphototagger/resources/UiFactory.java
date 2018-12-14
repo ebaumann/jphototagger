@@ -6,6 +6,7 @@ import javax.swing.AbstractButton;
 import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import org.jphototagger.api.preferences.CommonPreferences;
 
@@ -130,6 +131,34 @@ public final class UiFactory {
         configure(b);
 
         return b;
+    }
+
+    public static JLabel label() {
+        JLabel l = new JLabel();
+
+        configure(l);
+
+        return l;
+    }
+
+    public static JLabel label(String text) {
+        JLabel l = new JLabel(text);
+
+        configure(l);
+
+        return l;
+    }
+
+    public static JLabel label(String text, int horizontalAlignment) {
+        JLabel l = new JLabel(text, horizontalAlignment);
+
+        configure(l);
+
+        return l;
+    }
+
+    private static void configure(JLabel l) {
+        l.setIconTextGap(scale(l.getIconTextGap()));
     }
 
     private UiFactory() {

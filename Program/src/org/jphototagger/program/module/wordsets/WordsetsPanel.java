@@ -137,7 +137,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
     }
 
     private void addWordLabel(String word) {
-        JLabel labelWord = new JLabel(word);
+        JLabel labelWord = UiFactory.label(word);
         labelWord.setOpaque(true);
         labelWord.setForeground(LABEL_EDITABLE_FOREGROUND_COLOR);
         labelWord.setBackground(LABEL_EDITABLE_BACKGROUND_COLOR);

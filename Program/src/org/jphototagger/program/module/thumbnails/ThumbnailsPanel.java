@@ -1680,7 +1680,7 @@ public class ThumbnailsPanel extends JPanel
         panel.setBackground(getBackground());
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
-        JLabel label = new JLabel(text);
+        JLabel label = UiFactory.label(text);
         label.setFont(label.getFont().deriveFont(Font.BOLD, UiFactory.scale(24)));
         label.setForeground(Color.LIGHT_GRAY);
 

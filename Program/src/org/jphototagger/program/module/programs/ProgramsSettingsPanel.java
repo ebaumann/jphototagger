@@ -205,11 +205,11 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuItemMoveProgramUp = new javax.swing.JMenuItem();
         menuItemMoveProgramDown = new javax.swing.JMenuItem();
-        labelPrograms = new javax.swing.JLabel();
+        labelPrograms = org.jphototagger.resources.UiFactory.label();
         buttonDefaultPrograms = org.jphototagger.resources.UiFactory.button();
         scrollPanePrograms = new javax.swing.JScrollPane();
         listPrograms = new org.jdesktop.swingx.JXList();
-        labelInfoDefaultProgramFirstInList = new javax.swing.JLabel();
+        labelInfoDefaultProgramFirstInList = org.jphototagger.resources.UiFactory.label();
         panelProgramButtons = new javax.swing.JPanel();
         buttonMoveProgramUp = org.jphototagger.resources.UiFactory.button();
         buttonMoveProgramDown = org.jphototagger.resources.UiFactory.button();

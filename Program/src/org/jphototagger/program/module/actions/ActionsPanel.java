@@ -245,7 +245,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuItemMoveActionUp = new javax.swing.JMenuItem();
         menuItemMoveActionDown = new javax.swing.JMenuItem();
-        labelActionList = new javax.swing.JLabel();
+        labelActionList = org.jphototagger.resources.UiFactory.label();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
         panelButtons = new javax.swing.JPanel();

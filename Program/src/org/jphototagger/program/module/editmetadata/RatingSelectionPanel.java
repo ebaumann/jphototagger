@@ -345,7 +345,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelPrompt = new javax.swing.JLabel();
+        labelPrompt = org.jphototagger.resources.UiFactory.label();
         buttonNoRating = org.jphototagger.resources.UiFactory.button();
         buttonStar1 = org.jphototagger.resources.UiFactory.button();
         buttonStar2 = org.jphototagger.resources.UiFactory.button();

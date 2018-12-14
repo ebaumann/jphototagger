@@ -168,18 +168,18 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelNoPreferences = new javax.swing.JPanel();
-        labelNoPreferences = new javax.swing.JLabel();
+        labelNoPreferences = org.jphototagger.resources.UiFactory.label();
         panelContent = new javax.swing.JPanel();
-        labelInfo = new javax.swing.JLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.label();
         comboBoxLaf = new JComboBox<>();
         scrollPaneDescription = new javax.swing.JScrollPane();
         editorPaneDescription = new javax.swing.JEditorPane();
         panelPreferences = new javax.swing.JPanel();
         scrollPanePreferences = new javax.swing.JScrollPane();
         panelFontScale = new javax.swing.JPanel();
-        labelFontScalePrompt = new javax.swing.JLabel();
+        labelFontScalePrompt = org.jphototagger.resources.UiFactory.label();
         comboBoxFontScale = new javax.swing.JComboBox<>();
-        labelFontScaleInfo = new javax.swing.JLabel();
+        labelFontScaleInfo = org.jphototagger.resources.UiFactory.label();
 
         panelNoPreferences.setLayout(new java.awt.GridBagLayout());
 

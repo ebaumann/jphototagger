@@ -95,9 +95,9 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelInfo = new javax.swing.JLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.label();
         panelChooseFile = new javax.swing.JPanel();
-        labelFile = new javax.swing.JLabel();
+        labelFile = org.jphototagger.resources.UiFactory.label();
         buttonChooseFile = org.jphototagger.resources.UiFactory.button();
         buttonRemoveFile = org.jphototagger.resources.UiFactory.button();
 

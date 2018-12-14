@@ -371,16 +371,16 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = new javax.swing.JPanel();
-        labelDescription = new javax.swing.JLabel();
+        labelDescription = org.jphototagger.resources.UiFactory.label();
         panelOptions = new javax.swing.JPanel();
         checkBoxIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxReplaceExistingFiles = org.jphototagger.resources.UiFactory.checkBox();
-        labelInfoFiles = new javax.swing.JLabel();
+        labelInfoFiles = org.jphototagger.resources.UiFactory.label();
         scrollPaneListFiles = new javax.swing.JScrollPane();
         listFiles = new org.jdesktop.swingx.JXList();
         progressBar = new javax.swing.JProgressBar();
-        labelPromptCurrentFile = new javax.swing.JLabel();
-        labelCurrentFile = new javax.swing.JLabel();
+        labelPromptCurrentFile = org.jphototagger.resources.UiFactory.label();
+        labelCurrentFile = org.jphototagger.resources.UiFactory.label();
         panelButtons = new javax.swing.JPanel();
         buttonSelectFiles = org.jphototagger.resources.UiFactory.button();
         buttonCancel = org.jphototagger.resources.UiFactory.button();

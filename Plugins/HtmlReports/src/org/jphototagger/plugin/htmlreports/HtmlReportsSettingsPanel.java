@@ -108,17 +108,17 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelDefaultValues = new javax.swing.JLabel();
+        labelDefaultValues = org.jphototagger.resources.UiFactory.label();
         panelColumns = new org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanels();
         panelDirectory = new javax.swing.JPanel();
-        labelDirectoryPrompt = new javax.swing.JLabel();
-        labelDirectory = new javax.swing.JLabel();
+        labelDirectoryPrompt = org.jphototagger.resources.UiFactory.label();
+        labelDirectory = org.jphototagger.resources.UiFactory.label();
         buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         checkBoxShowSettings = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxInputFilename = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxOpenReport = org.jphototagger.resources.UiFactory.checkBox();
         panelVersion = new javax.swing.JPanel();
-        labelVersion = new javax.swing.JLabel();
+        labelVersion = org.jphototagger.resources.UiFactory.label();
         buttonHelp = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N

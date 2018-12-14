@@ -157,17 +157,17 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
 
         panelContent = new javax.swing.JPanel();
         panelSelectedFilePath = new javax.swing.JPanel();
-        labelSelectedFilePathPrompt = new javax.swing.JLabel();
+        labelSelectedFilePathPrompt = org.jphototagger.resources.UiFactory.label();
         labelSelectedFilePathPrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFilePathPrompt.getFont()));
-        labelSelectedFilePathName = new javax.swing.JLabel();
+        labelSelectedFilePathName = org.jphototagger.resources.UiFactory.label();
         buttonOpenDirectoryOfSelectedFile = org.jphototagger.resources.UiFactory.button();
         panelSelectedFileDateSizeXmpExists = new javax.swing.JPanel();
-        labelSelectedFileDatePrompt = new javax.swing.JLabel();
+        labelSelectedFileDatePrompt = org.jphototagger.resources.UiFactory.label();
         labelSelectedFileDatePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileDatePrompt.getFont()));
-        labelSelectedFileDate = new javax.swing.JLabel();
-        labelSelectedFileSizePrompt = new javax.swing.JLabel();
+        labelSelectedFileDate = org.jphototagger.resources.UiFactory.label();
+        labelSelectedFileSizePrompt = org.jphototagger.resources.UiFactory.label();
         labelSelectedFileSizePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileSizePrompt.getFont()));
-        labelSelectedFileSize = new javax.swing.JLabel();
+        labelSelectedFileSize = org.jphototagger.resources.UiFactory.label();
         checkBoxSelectedFileHasSidecarFile = org.jphototagger.resources.UiFactory.checkBox();
         panelThumbnailInfoProviders = new javax.swing.JPanel();
         panelPadding = new javax.swing.JPanel();

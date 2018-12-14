@@ -114,11 +114,11 @@ public class SettingsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelDelimiter = new javax.swing.JPanel();
-        label = new javax.swing.JLabel();
+        label = org.jphototagger.resources.UiFactory.label();
         comboBoxDelimiter = new javax.swing.JComboBox<>();
         panelFill = new javax.swing.JPanel();
         panelVersion = new javax.swing.JPanel();
-        labelVersion = new javax.swing.JLabel();
+        labelVersion = org.jphototagger.resources.UiFactory.label();
         buttonHelp = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N

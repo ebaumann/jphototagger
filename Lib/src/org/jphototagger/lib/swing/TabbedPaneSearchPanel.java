@@ -593,7 +593,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelSearch = new javax.swing.JLabel();
+        labelSearch = org.jphototagger.resources.UiFactory.label();
         textFieldSearch = new javax.swing.JTextField();
         scrollPane = new javax.swing.JScrollPane();
         list = new javax.swing.JList<>();

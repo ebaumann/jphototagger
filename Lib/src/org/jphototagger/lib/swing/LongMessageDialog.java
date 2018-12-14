@@ -108,8 +108,8 @@ public class LongMessageDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelIcon = new javax.swing.JLabel();
-        labelShortMessage = new javax.swing.JLabel();
+        labelIcon = org.jphototagger.resources.UiFactory.label();
+        labelShortMessage = org.jphototagger.resources.UiFactory.label();
         scrollPane = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
         panelControls = new javax.swing.JPanel();

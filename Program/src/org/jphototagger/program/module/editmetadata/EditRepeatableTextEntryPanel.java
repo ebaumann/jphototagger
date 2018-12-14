@@ -823,7 +823,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         popupMenuList = new javax.swing.JPopupMenu();
         menuItemRename = new javax.swing.JMenuItem();
         menuItemRemove = new javax.swing.JMenuItem();
-        labelPrompt = new javax.swing.JLabel();
+        labelPrompt = org.jphototagger.resources.UiFactory.label();
         list = new org.jdesktop.swingx.JXList();
         panelListButtons = new javax.swing.JPanel();
         buttonRemoveSelection = org.jphototagger.resources.UiFactory.button();

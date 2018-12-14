@@ -311,7 +311,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelPrompt = new javax.swing.JLabel();
+        labelPrompt = org.jphototagger.resources.UiFactory.label();
         textAreaEdit = new javax.swing.JTextArea();
 
         setName("Form"); // NOI18N

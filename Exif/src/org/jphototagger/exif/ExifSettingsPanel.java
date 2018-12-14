@@ -177,13 +177,13 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         panelDefault = new javax.swing.JPanel();
         panelDefaultContent = new javax.swing.JPanel();
         panelExifCharset = new javax.swing.JPanel();
-        labelExifCharset = new javax.swing.JLabel();
+        labelExifCharset = org.jphototagger.resources.UiFactory.label();
         comboBoxExifCharset = new javax.swing.JComboBox<>()
         ;
         panelFill = new javax.swing.JPanel();
         panelExcludeSuffixes = new javax.swing.JPanel();
         panelExcludeSuffixesContent = new javax.swing.JPanel();
-        labelExcludeSuffixes = new javax.swing.JLabel();
+        labelExcludeSuffixes = org.jphototagger.resources.UiFactory.label();
         scrollPaneExcludeSuffixes = new javax.swing.JScrollPane();
         listExcludeSuffixes = new javax.swing.JList<>();
         buttonAddExcludeSuffixes = org.jphototagger.resources.UiFactory.button();

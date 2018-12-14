@@ -329,10 +329,10 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelDirectory = new javax.swing.JPanel();
-        labelPromptDir = new javax.swing.JLabel();
-        labelDir = new javax.swing.JLabel();
+        labelPromptDir = org.jphototagger.resources.UiFactory.label();
+        labelDir = org.jphototagger.resources.UiFactory.label();
         buttonSelDir = org.jphototagger.resources.UiFactory.button();
-        labelSelectInfo = new javax.swing.JLabel();
+        labelSelectInfo = org.jphototagger.resources.UiFactory.label();
         scrollPane = new javax.swing.JScrollPane();
         panelSelectObjects = new org.jphototagger.lib.swing.SelectObjectsPanel();
         panelButtons = new javax.swing.JPanel();

@@ -194,7 +194,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelListFilenameSuffixes = new javax.swing.JLabel();
+        labelListFilenameSuffixes = org.jphototagger.resources.UiFactory.label();
         panelButtons = new javax.swing.JPanel();
         buttonRemoveDefaultPrograms = org.jphototagger.resources.UiFactory.button();
         buttonSetDefaultPrograms = org.jphototagger.resources.UiFactory.button();

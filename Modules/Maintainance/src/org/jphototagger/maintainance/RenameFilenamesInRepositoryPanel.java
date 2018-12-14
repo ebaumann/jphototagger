@@ -160,10 +160,10 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupPosition = new javax.swing.ButtonGroup();
-        labelTitle = new javax.swing.JLabel();
-        labelSearch = new javax.swing.JLabel();
+        labelTitle = org.jphototagger.resources.UiFactory.label();
+        labelSearch = org.jphototagger.resources.UiFactory.label();
         textFieldSearch = new javax.swing.JTextField();
-        labelReplacement = new javax.swing.JLabel();
+        labelReplacement = org.jphototagger.resources.UiFactory.label();
         textFieldReplacement = new javax.swing.JTextField();
         progressBar = new javax.swing.JProgressBar();
         buttonReplace = org.jphototagger.resources.UiFactory.button();

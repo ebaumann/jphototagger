@@ -71,8 +71,8 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
 
         panelConfigure = new javax.swing.JPanel();
         buttonConfigure = org.jphototagger.resources.UiFactory.button();
-        labelConfigError = new javax.swing.JLabel();
-        labelDirs = new javax.swing.JLabel();
+        labelConfigError = org.jphototagger.resources.UiFactory.label();
+        labelDirs = org.jphototagger.resources.UiFactory.label();
         scrollPaneDirs = new javax.swing.JScrollPane();
         listDirs = new javax.swing.JList<java.io.File>();
         checkBoxIncludeSubDirs = org.jphototagger.resources.UiFactory.checkBox();

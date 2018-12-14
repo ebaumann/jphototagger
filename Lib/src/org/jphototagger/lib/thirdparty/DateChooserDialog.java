@@ -129,7 +129,7 @@ public final class DateChooserDialog extends JComponent {
         add(previousButton, c);
         ++c.gridx;
         c.anchor = GridBagConstraints.CENTER;
-        monthYearLabel = new JLabel("           ", JLabel.CENTER);
+        monthYearLabel = UiFactory.label("           ", JLabel.CENTER);
         add(monthYearLabel, c);
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
@@ -190,12 +190,12 @@ public final class DateChooserDialog extends JComponent {
                         : Calendar.SATURDAY;
             }
 
-            dayOfWeekLabels[i] = new JLabel(dayStr[x].toUpperCase(), JLabel.CENTER);
+            dayOfWeekLabels[i] = UiFactory.label(dayStr[x].toUpperCase(), JLabel.CENTER);
             panel.add(dayOfWeekLabels[i]);
         }
 
         for (int i = 0; i < dayOfMonthLabels.length; i++) {
-            dayOfMonthLabels[i] = new JLabel("  ", JLabel.CENTER);
+            dayOfMonthLabels[i] = UiFactory.label("  ", JLabel.CENTER);
             dayOfMonthLabels[i].setOpaque(true);
             dayOfMonthLabels[i].addMouseListener(ml);
             panel.add(dayOfMonthLabels[i]);

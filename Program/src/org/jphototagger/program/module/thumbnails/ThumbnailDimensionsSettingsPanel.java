@@ -76,9 +76,9 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelMaxThumbnailWidth = new javax.swing.JLabel();
+        labelMaxThumbnailWidth = org.jphototagger.resources.UiFactory.label();
         spinnerMaxThumbnailWidth = new javax.swing.JSpinner();
-        labelUpdateAllThumbnails = new javax.swing.JLabel();
+        labelUpdateAllThumbnails = org.jphototagger.resources.UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

@@ -42,6 +42,7 @@ import org.jphototagger.lib.swing.util.TableUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.Translation;
+import org.jphototagger.resources.UiFactory;
 import org.jphototagger.xmp.EmbeddedXmpCache;
 import org.jphototagger.xmp.XmpMetadata;
 import org.openide.util.Lookup;
@@ -231,7 +232,7 @@ public class XmpPanel extends javax.swing.JPanel {
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             if (lookAndFeel == null || !(value instanceof XMPPropertyInfo)) {
-                return new JLabel(StringUtil.toStringNullToEmptyString(value));
+                return UiFactory.label(StringUtil.toStringNullToEmptyString(value));
             }
             XMPPropertyInfo xmpPropertyInfo = (XMPPropertyInfo) value;
             lookAndFeel.setTableCellColor(cellLabel, isSelected);

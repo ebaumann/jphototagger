@@ -164,7 +164,7 @@ public class EditMetaDataTemplateDialog extends Dialog {
 
         panelContent = new javax.swing.JPanel();
         panelName = new javax.swing.JPanel();
-        labelName = new javax.swing.JLabel();
+        labelName = org.jphototagger.resources.UiFactory.label();
         textFieldName = new javax.swing.JTextField();
         scrollPane = new javax.swing.JScrollPane();
         panelXmpEdit = new org.jphototagger.program.module.metadatatemplates.EditXmpPanel();

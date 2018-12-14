@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -156,7 +157,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
                     JLabel label = (JLabel) containerComponent;
                     fillText = label.getText();
                     fillFont = label.getFont();
-                    labelFill = new JLabel(fillText);
+                    labelFill = UiFactory.label(fillText);
                     labelFill.setFont(fillFont);
                     return;
                 }

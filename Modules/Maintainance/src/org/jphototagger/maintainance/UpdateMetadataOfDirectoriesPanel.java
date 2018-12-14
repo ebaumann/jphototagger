@@ -467,16 +467,16 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
 
         popupMenu = new javax.swing.JPopupMenu();
         menuItemDelete = new javax.swing.JMenuItem();
-        labelHeadingListDirectories = new javax.swing.JLabel();
+        labelHeadingListDirectories = org.jphototagger.resources.UiFactory.label();
         scrollPane = new javax.swing.JScrollPane();
         list = new org.jdesktop.swingx.JXList();
-        labelInfoFilecount = new javax.swing.JLabel();
-        labelFilecount = new javax.swing.JLabel();
+        labelInfoFilecount = org.jphototagger.resources.UiFactory.label();
+        labelFilecount = org.jphototagger.resources.UiFactory.label();
         checkBoxForce = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
         panelCurrentFile = new javax.swing.JPanel();
-        labelInfoCurrentFilename = new javax.swing.JLabel();
-        labelCurrentFilename = new javax.swing.JLabel();
+        labelInfoCurrentFilename = org.jphototagger.resources.UiFactory.label();
+        labelCurrentFilename = org.jphototagger.resources.UiFactory.label();
         progressBar = new javax.swing.JProgressBar();
         panelButtons = new javax.swing.JPanel();
         buttonCancelChooseDirectories = org.jphototagger.resources.UiFactory.button();

@@ -114,7 +114,7 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
 
         filter = udf;
         panelContent = new javax.swing.JPanel();
-        labelName = new javax.swing.JLabel();
+        labelName = org.jphototagger.resources.UiFactory.label();
         textFieldName = new javax.swing.JTextField();
         comboBoxType = new javax.swing.JComboBox<>();
         textFieldExpression = new javax.swing.JTextField();

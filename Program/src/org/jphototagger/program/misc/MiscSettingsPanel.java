@@ -323,19 +323,19 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         checkBoxUseLongXmpSidecarFileNames = org.jphototagger.resources.UiFactory.checkBox();
         panelEditMetadata = new javax.swing.JPanel();
         panelMdTextAreasColumns = new javax.swing.JPanel();
-        labelMdTextAreasColumnsPropmpt = new javax.swing.JLabel();
+        labelMdTextAreasColumnsPropmpt = org.jphototagger.resources.UiFactory.label();
         spinnerMdTextAreasColumns = new javax.swing.JSpinner();
-        labelMdTextAreasColumnsInfo = new javax.swing.JLabel();
+        labelMdTextAreasColumnsInfo = org.jphototagger.resources.UiFactory.label();
         checkBoxDisplayWordsetsEditPanel = org.jphototagger.resources.UiFactory.checkBox();
         panelCopyMoveFiles = new javax.swing.JPanel();
         radioButtonCopyMoveFileConfirmOverwrite = UiFactory.radioButton();
         radioButtonCopyMoveFileRenameIfExists = UiFactory.radioButton();
         panelRepositoryDirectory = new javax.swing.JPanel();
-        labelInfoRepositoryDirectory = new javax.swing.JLabel();
+        labelInfoRepositoryDirectory = org.jphototagger.resources.UiFactory.label();
         panelButtonsRepositoryDirectory = new javax.swing.JPanel();
         buttonChooseRepositoryDirectory = org.jphototagger.resources.UiFactory.button();
         buttonSetDefaultRepositoryDirectoryName = org.jphototagger.resources.UiFactory.button();
-        labelRepositoryDirectory = new javax.swing.JLabel();
+        labelRepositoryDirectory = org.jphototagger.resources.UiFactory.label();
         panelFill = new javax.swing.JPanel();
 
         setLayout(new java.awt.GridBagLayout());

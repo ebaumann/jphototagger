@@ -573,7 +573,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         scrollPaneTree = new javax.swing.JScrollPane();
         tree = new javax.swing.JTree();
         panelSearch = new javax.swing.JPanel();
-        labelSearch = new javax.swing.JLabel();
+        labelSearch = org.jphototagger.resources.UiFactory.label();
         textFieldSearch = new org.jdesktop.swingx.JXTextField();
         scrollPaneSearchResults = new javax.swing.JScrollPane();
         listSearchResults = new org.jdesktop.swingx.JXList();

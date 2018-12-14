@@ -94,7 +94,7 @@ public class ThumbnailsInfoPanel extends javax.swing.JPanel implements StatusLin
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        thumbnailInfoLabel = new javax.swing.JLabel();
+        thumbnailInfoLabel = org.jphototagger.resources.UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
