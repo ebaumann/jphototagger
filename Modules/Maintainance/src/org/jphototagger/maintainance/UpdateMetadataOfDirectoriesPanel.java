@@ -478,7 +478,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         panelCurrentFile = org.jphototagger.resources.UiFactory.panel();
         labelInfoCurrentFilename = org.jphototagger.resources.UiFactory.label();
         labelCurrentFilename = org.jphototagger.resources.UiFactory.label();
-        progressBar = new javax.swing.JProgressBar();
+        progressBar = org.jphototagger.resources.UiFactory.progressBar();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancelChooseDirectories = org.jphototagger.resources.UiFactory.button();
         buttonCancel = org.jphototagger.resources.UiFactory.button();

@@ -255,7 +255,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         labelInfoChooseDirs = org.jphototagger.resources.UiFactory.label();
         panelRepository = org.jphototagger.resources.UiFactory.panel();
         labelInfoRepository = org.jphototagger.resources.UiFactory.label();
-        progressBarUpdateRepository = new javax.swing.JProgressBar();
+        progressBarUpdateRepository = org.jphototagger.resources.UiFactory.progressBar();
         panelButtonsRepository = org.jphototagger.resources.UiFactory.panel();
         buttonCancelUpdateRepository = org.jphototagger.resources.UiFactory.button();
         buttonUpdateRepository = org.jphototagger.resources.UiFactory.button();

@@ -380,7 +380,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         labelInfoFiles = org.jphototagger.resources.UiFactory.label();
         scrollPaneListFiles = org.jphototagger.resources.UiFactory.scrollPane();
         listFiles = org.jphototagger.resources.UiFactory.jxList();
-        progressBar = new javax.swing.JProgressBar();
+        progressBar = org.jphototagger.resources.UiFactory.progressBar();
         labelPromptCurrentFile = org.jphototagger.resources.UiFactory.label();
         labelCurrentFile = org.jphototagger.resources.UiFactory.label();
         panelButtons = org.jphototagger.resources.UiFactory.panel();

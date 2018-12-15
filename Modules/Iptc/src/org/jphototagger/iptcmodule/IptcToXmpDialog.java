@@ -335,7 +335,7 @@ public final class IptcToXmpDialog extends Dialog implements ProgressListener {
         labelIptcCharset = org.jphototagger.resources.UiFactory.label();
         comboBoxIptcCharset = new javax.swing.JComboBox<>();
         org.jphototagger.resources.UiFactory.configure(comboBoxIptcCharset);
-        progressBar = new javax.swing.JProgressBar();
+        progressBar = org.jphototagger.resources.UiFactory.progressBar();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonStart = org.jphototagger.resources.UiFactory.button();

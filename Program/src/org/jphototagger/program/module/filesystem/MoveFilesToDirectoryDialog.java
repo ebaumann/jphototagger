@@ -323,7 +323,7 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
         labelInfo = org.jphototagger.resources.UiFactory.label();
         buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         labelDirectoryName = org.jphototagger.resources.UiFactory.label();
-        progressBar = new javax.swing.JProgressBar();
+        progressBar = org.jphototagger.resources.UiFactory.progressBar();
         panelCurrentFile = org.jphototagger.resources.UiFactory.panel();
         labelInfoCurrentFilename = org.jphototagger.resources.UiFactory.label();
         labelCurrentFilename = org.jphototagger.resources.UiFactory.label();

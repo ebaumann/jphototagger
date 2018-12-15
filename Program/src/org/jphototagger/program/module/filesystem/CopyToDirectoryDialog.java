@@ -354,7 +354,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         radioButtonForceOverwrite = UiFactory.radioButton();
         radioButtonRenameIfTargetFileExists = UiFactory.radioButton();
         checkBoxCopyXmp = org.jphototagger.resources.UiFactory.checkBox();
-        progressBar = new javax.swing.JProgressBar();
+        progressBar = org.jphototagger.resources.UiFactory.progressBar();
         panelCurrentFile = org.jphototagger.resources.UiFactory.panel();
         labelInfoCurrentFilename = org.jphototagger.resources.UiFactory.label();
         labelCurrentFilename = org.jphototagger.resources.UiFactory.label();

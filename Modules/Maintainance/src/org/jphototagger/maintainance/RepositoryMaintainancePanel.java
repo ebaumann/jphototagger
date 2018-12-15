@@ -382,7 +382,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         labelMessages = org.jphototagger.resources.UiFactory.label();
         scrollPaneMessages = org.jphototagger.resources.UiFactory.scrollPane();
         textPaneMessages = org.jphototagger.resources.UiFactory.textPane();
-        progressBar = new javax.swing.JProgressBar();
+        progressBar = org.jphototagger.resources.UiFactory.progressBar();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonDeleteMessages = org.jphototagger.resources.UiFactory.button();
         buttonCancelAction = org.jphototagger.resources.UiFactory.button();

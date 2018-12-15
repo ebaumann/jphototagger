@@ -82,7 +82,7 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
         buttonRemoveSelectedDirs = org.jphototagger.resources.UiFactory.button();
         buttonAddDirs = org.jphototagger.resources.UiFactory.button();
         panelExecute = org.jphototagger.resources.UiFactory.panel();
-        progressBarExecute = new javax.swing.JProgressBar();
+        progressBarExecute = org.jphototagger.resources.UiFactory.progressBar();
         panelExecuteButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancelExecute = org.jphototagger.resources.UiFactory.button();
         buttonExecute = org.jphototagger.resources.UiFactory.button();

@@ -472,7 +472,7 @@ public class FindDuplicatesDialog extends Dialog {
         checkBoxCompareOnlyEqualFilenames = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxCompareOnlyEqualDates = org.jphototagger.resources.UiFactory.checkBox();
         panelSearchActions = org.jphototagger.resources.UiFactory.panel();
-        progressBarSearch = new javax.swing.JProgressBar();
+        progressBarSearch = org.jphototagger.resources.UiFactory.progressBar();
         buttonSearch = org.jphototagger.resources.UiFactory.toggleButton();
         panelResult = org.jphototagger.resources.UiFactory.panel();
         scrollPaneResult = org.jphototagger.resources.UiFactory.scrollPane();

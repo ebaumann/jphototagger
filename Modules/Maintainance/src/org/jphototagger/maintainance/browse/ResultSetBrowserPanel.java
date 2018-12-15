@@ -84,7 +84,7 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
         textFieldFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneTable = org.jphototagger.resources.UiFactory.scrollPane();
         table = org.jphototagger.resources.UiFactory.table();
-        progressBar = new javax.swing.JProgressBar();
+        progressBar = org.jphototagger.resources.UiFactory.progressBar();
 
         setLayout(new java.awt.GridBagLayout());
 

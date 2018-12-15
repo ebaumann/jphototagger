@@ -187,7 +187,7 @@ public final class RepositoryFileBrowserDialog extends Dialog {
         labelSelectedFilepath = org.jphototagger.resources.UiFactory.label();
         labelFileCountPrompt = org.jphototagger.resources.UiFactory.label();
         labelFileCount = org.jphototagger.resources.UiFactory.label();
-        progressBarGetFiles = new javax.swing.JProgressBar();
+        progressBarGetFiles = org.jphototagger.resources.UiFactory.progressBar();
         panelInfo = org.jphototagger.resources.UiFactory.panel();
         panelThumbnail = org.jphototagger.resources.UiFactory.panel();
         imagePanel = new org.jphototagger.lib.swing.ImagePanel();

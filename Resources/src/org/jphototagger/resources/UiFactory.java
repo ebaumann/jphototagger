@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
@@ -425,6 +426,18 @@ public final class UiFactory {
     }
 
     private static void configure(JSlider s) {
+        // For future usage
+    }
+
+    public static JProgressBar progressBar() {
+        JProgressBar pb = new JProgressBar();
+
+        configure(pb);
+
+        return pb;
+    }
+
+    private static void configure(JProgressBar pb) {
         // For future usage
     }
 
