@@ -114,8 +114,7 @@ public class ObjectsSelectionDialog<T> extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new javax.swing.JList<>();
-        org.jphototagger.resources.UiFactory.configure(list);
+        list = org.jphototagger.resources.UiFactory.list();
         buttonOk = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

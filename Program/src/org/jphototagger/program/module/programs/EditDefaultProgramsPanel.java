@@ -200,8 +200,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         buttonRemoveDefaultPrograms = org.jphototagger.resources.UiFactory.button();
         buttonSetDefaultPrograms = org.jphototagger.resources.UiFactory.button();
         scrollPaneFilenameSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
-        listFilenameSuffixes = new javax.swing.JList<>();
-        org.jphototagger.resources.UiFactory.configure(listFilenameSuffixes);
+        listFilenameSuffixes = org.jphototagger.resources.UiFactory.list();
 
         setLayout(new java.awt.GridBagLayout());
 

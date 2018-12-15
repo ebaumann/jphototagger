@@ -224,8 +224,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         labelInfoErrorTexts = org.jphototagger.resources.UiFactory.jxLabel();
         panelErrorTexts = org.jphototagger.resources.UiFactory.panel();
         scrollPaneErrorTexts = org.jphototagger.resources.UiFactory.scrollPane();
-        listErrorTexts = new javax.swing.JList<>();
-        org.jphototagger.resources.UiFactory.configure(listErrorTexts);
+        listErrorTexts = org.jphototagger.resources.UiFactory.list();
         buttonRemoveErrorText = org.jphototagger.resources.UiFactory.button();
         buttonEditErrorText = org.jphototagger.resources.UiFactory.button();
         panelAddErrorText = org.jphototagger.resources.UiFactory.panel();

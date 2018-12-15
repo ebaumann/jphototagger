@@ -476,6 +476,14 @@ public final class UiFactory {
         // For future usage
     }
 
+    public static <T> JList<T> list() {
+        JList<T> l = new JList<>();
+
+        configure(l);
+
+        return l;
+    }
+
     public static void configure(JList<?> l) {
         Objects.requireNonNull(l, "l == null");
         // For future usage

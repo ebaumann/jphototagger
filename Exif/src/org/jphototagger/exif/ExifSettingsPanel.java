@@ -185,8 +185,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         panelExcludeSuffixesContent = org.jphototagger.resources.UiFactory.panel();
         labelExcludeSuffixes = org.jphototagger.resources.UiFactory.label();
         scrollPaneExcludeSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
-        listExcludeSuffixes = new javax.swing.JList<>();
-        org.jphototagger.resources.UiFactory.configure(listExcludeSuffixes);
+        listExcludeSuffixes = org.jphototagger.resources.UiFactory.list();
         buttonAddExcludeSuffixes = org.jphototagger.resources.UiFactory.button();
         buttonRemoveExcludeSuffixes = org.jphototagger.resources.UiFactory.button();
 
