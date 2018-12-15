@@ -291,6 +291,7 @@ public final class DateChooserDialog extends JComponent {
         c.gridwidth = 2;
 
         JFrame f = new JFrame();
+        org.jphototagger.resources.UiFactory.configure(f);
 
         dialog = new JDialog(f, Bundle.getString(DateChooserDialog.class, "DateChooserDialog.title"), true);
         org.jphototagger.resources.UiFactory.configure(dialog);

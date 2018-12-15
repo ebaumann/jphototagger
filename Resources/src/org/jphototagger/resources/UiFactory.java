@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -457,6 +458,11 @@ public final class UiFactory {
 
     public static void configure(JDialog d) {
         Objects.requireNonNull(d, "d == null");
+        // For future usage
+    }
+
+    public static void configure(JFrame f) {
+        Objects.requireNonNull(f, "f == null");
         // For future usage
     }
 

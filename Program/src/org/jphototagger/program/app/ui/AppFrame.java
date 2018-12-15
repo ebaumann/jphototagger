@@ -80,6 +80,7 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void init() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
         GUI.setAppFrame(this);
