@@ -466,11 +466,11 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelNumbers = org.jphototagger.resources.UiFactory.panel();
         panelNumbersContents = org.jphototagger.resources.UiFactory.panel();
         labelStartNumber = org.jphototagger.resources.UiFactory.label();
-        spinnerStartNumber = new javax.swing.JSpinner();
+        spinnerStartNumber = org.jphototagger.resources.UiFactory.spinner();
         labelNumberStepWidth = org.jphototagger.resources.UiFactory.label();
-        spinnerNumberStepWidth = new javax.swing.JSpinner();
+        spinnerNumberStepWidth = org.jphototagger.resources.UiFactory.spinner();
         labelNumberCount = org.jphototagger.resources.UiFactory.label();
-        spinnerNumberCount = new javax.swing.JSpinner();
+        spinnerNumberCount = org.jphototagger.resources.UiFactory.spinner();
         panelDateDelimiter = org.jphototagger.resources.UiFactory.panel();
         labelDateDelim = org.jphototagger.resources.UiFactory.label();
         comboBoxDateDelimiter = new javax.swing.JComboBox<>();

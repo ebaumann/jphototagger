@@ -208,7 +208,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         buttonAddAutoscanDirectories = org.jphototagger.resources.UiFactory.button();
         panelTime = org.jphototagger.resources.UiFactory.panel();
         labelTasksMinutesToStartScheduledTasks = org.jphototagger.resources.UiFactory.label();
-        spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
+        spinnerMinutesToStartScheduledTasks = org.jphototagger.resources.UiFactory.spinner();
         buttonScheduledTasks = org.jphototagger.resources.UiFactory.button();
 
         setName("Form"); // NOI18N

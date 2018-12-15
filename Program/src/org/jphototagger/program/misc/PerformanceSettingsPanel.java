@@ -173,7 +173,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
 
         panelMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.panel();
         labelMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.label();
-        spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
+        spinnerMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.spinner();
         checkBoxScanForEmbeddedXmp = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxAutoscanDirectories = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxSaveInputEarly = org.jphototagger.resources.UiFactory.checkBox();

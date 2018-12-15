@@ -24,6 +24,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
+import javax.swing.JSpinner;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -441,6 +442,18 @@ public final class UiFactory {
     }
 
     private static void configure(JSlider s) {
+        // For future usage
+    }
+
+    public static JSpinner spinner() {
+        JSpinner s = new JSpinner();
+
+        configure(s);
+
+        return s;
+    }
+
+    private static void configure(JSpinner s) {
         // For future usage
     }
 

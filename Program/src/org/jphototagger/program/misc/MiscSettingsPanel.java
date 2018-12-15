@@ -325,7 +325,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
         panelEditMetadata = org.jphototagger.resources.UiFactory.panel();
         panelMdTextAreasColumns = org.jphototagger.resources.UiFactory.panel();
         labelMdTextAreasColumnsPropmpt = org.jphototagger.resources.UiFactory.label();
-        spinnerMdTextAreasColumns = new javax.swing.JSpinner();
+        spinnerMdTextAreasColumns = org.jphototagger.resources.UiFactory.spinner();
         labelMdTextAreasColumnsInfo = org.jphototagger.resources.UiFactory.label();
         checkBoxDisplayWordsetsEditPanel = org.jphototagger.resources.UiFactory.checkBox();
         panelCopyMoveFiles = org.jphototagger.resources.UiFactory.panel();
