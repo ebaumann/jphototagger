@@ -459,7 +459,6 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
 
         checkDirtyDialog = new DialogExt();
         checkDirtyDialog.setPersistSizeAndLocation(false);
-        org.jphototagger.resources.UiFactory.configure(checkDirtyDialog);
         labelDirtyConfirmSaveChanges = org.jphototagger.resources.UiFactory.label();
         panelDirtyButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCheckDirtyDialogCreateNew = org.jphototagger.resources.UiFactory.button();
