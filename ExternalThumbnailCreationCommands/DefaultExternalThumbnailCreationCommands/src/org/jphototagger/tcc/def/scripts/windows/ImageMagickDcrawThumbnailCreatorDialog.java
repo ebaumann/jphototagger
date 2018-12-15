@@ -128,7 +128,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelInfo = new org.jdesktop.swingx.JXLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.jxLabel();
         panelImageButtons = org.jphototagger.resources.UiFactory.panel();
         labelDcrawOk = org.jphototagger.resources.UiFactory.label();
         buttonChooseDcraw = org.jphototagger.resources.UiFactory.button();
@@ -137,7 +137,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         buttonChooseConvert = org.jphototagger.resources.UiFactory.button();
         buttonBrowseConvert = org.jphototagger.resources.UiFactory.button();
         panelVideo = org.jphototagger.resources.UiFactory.panel();
-        labelInfoVideo = new org.jdesktop.swingx.JXLabel();
+        labelInfoVideo = org.jphototagger.resources.UiFactory.jxLabel();
         buttonAddUserDefinedFileTypes = org.jphototagger.resources.UiFactory.button();
         labelMPlayerOk = org.jphototagger.resources.UiFactory.label();
         buttonChooseMPlayer = org.jphototagger.resources.UiFactory.button();

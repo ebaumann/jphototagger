@@ -48,15 +48,15 @@ public class MaintainanceCachesPanel extends javax.swing.JPanel {
         GridBagConstraints gridBagConstraints;
 
         panelInfo = org.jphototagger.resources.UiFactory.panel();
-        labelInfo = new JXLabel();
+        labelInfo = org.jphototagger.resources.UiFactory.jxLabel();
         buttonClearExifCache = org.jphototagger.resources.UiFactory.button();
         buttonClearExifCache.setAction(ClearExifCacheAction.INSTANCE);
-        labelInfoClearExifCache = new JXLabel();
+        labelInfoClearExifCache = org.jphototagger.resources.UiFactory.jxLabel();
         buttonClearIptcIgnoreCache = org.jphototagger.resources.UiFactory.button();
         buttonClearIptcIgnoreCache.setAction(ClearIptcIgnoreCacheAction.INSTANCE);
-        labelInfoClearIptcIgnoreCache = new JXLabel();
+        labelInfoClearIptcIgnoreCache = org.jphototagger.resources.UiFactory.jxLabel();
         buttonCompactThumbnailsRepository = org.jphototagger.resources.UiFactory.button();
-        labelInfoCompactThumbnailsRepository = new JXLabel();
+        labelInfoCompactThumbnailsRepository = org.jphototagger.resources.UiFactory.jxLabel();
         panelPadding = org.jphototagger.resources.UiFactory.panel();
 
         setName("MaintainanceCachesPanel"); // NOI18N

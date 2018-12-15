@@ -91,7 +91,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         listModules = new javax.swing.JList<>();
         org.jphototagger.resources.UiFactory.configure(listModules);
         panelModuleDescription = org.jphototagger.resources.UiFactory.panel();
-        labelModuleDescription = new org.jdesktop.swingx.JXLabel();
+        labelModuleDescription = org.jphototagger.resources.UiFactory.jxLabel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

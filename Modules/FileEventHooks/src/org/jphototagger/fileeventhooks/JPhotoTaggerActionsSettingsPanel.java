@@ -218,7 +218,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        labelInfoJPhotoTaggerFilenameSuffixes = new org.jdesktop.swingx.JXLabel();
+        labelInfoJPhotoTaggerFilenameSuffixes = org.jphototagger.resources.UiFactory.jxLabel();
         panelSuffixes = org.jphototagger.resources.UiFactory.panel();
         panelListFilenameSuffixes = org.jphototagger.resources.UiFactory.panel();
         scrollPaneListFilenameSuffixes = org.jphototagger.resources.UiFactory.scrollPane();

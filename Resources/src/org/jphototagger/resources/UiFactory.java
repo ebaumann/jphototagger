@@ -26,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
+import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 import org.jphototagger.api.preferences.CommonPreferences;
@@ -227,6 +228,14 @@ public final class UiFactory {
 
     public static JLabel label(String text, int horizontalAlignment) {
         JLabel l = new JLabel(text, horizontalAlignment);
+
+        configure(l);
+
+        return l;
+    }
+
+    public static JXLabel jxLabel() {
+        JXLabel l = new JXLabel();
 
         configure(l);
 

@@ -168,28 +168,28 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelGeneralInfo = new org.jdesktop.swingx.JXLabel();
+        labelGeneralInfo = org.jphototagger.resources.UiFactory.jxLabel();
         panelFileCopied = org.jphototagger.resources.UiFactory.panel();
         textFieldFileCopied = org.jphototagger.resources.UiFactory.textField();
         buttonChooseScriptFileCopied = org.jphototagger.resources.UiFactory.button();
         buttonRemoveScriptFileCopied = org.jphototagger.resources.UiFactory.button();
-        labelParameterInfoFileCopied = new org.jdesktop.swingx.JXLabel();
+        labelParameterInfoFileCopied = org.jphototagger.resources.UiFactory.jxLabel();
         panelFileRenamed = org.jphototagger.resources.UiFactory.panel();
         textFieldFileRenamed = org.jphototagger.resources.UiFactory.textField();
         buttonChooseScriptFileRenamed = org.jphototagger.resources.UiFactory.button();
         buttonRemoveScriptFileRenamed = org.jphototagger.resources.UiFactory.button();
-        labelParameterInfoFileRenamed = new org.jdesktop.swingx.JXLabel();
+        labelParameterInfoFileRenamed = org.jphototagger.resources.UiFactory.jxLabel();
         panelFileMoved = org.jphototagger.resources.UiFactory.panel();
         textFieldFileMoved = org.jphototagger.resources.UiFactory.textField();
         buttonChooseScriptFileMoved = org.jphototagger.resources.UiFactory.button();
         buttonRemoveScriptFileMoved = org.jphototagger.resources.UiFactory.button();
-        labelParameterInfoFileMoved = new org.jdesktop.swingx.JXLabel();
+        labelParameterInfoFileMoved = org.jphototagger.resources.UiFactory.jxLabel();
         panelFileDeleted = org.jphototagger.resources.UiFactory.panel();
         textFieldFileDeleted = org.jphototagger.resources.UiFactory.textField();
         buttonChooseScriptFileDeleted = org.jphototagger.resources.UiFactory.button();
         buttonRemoveScriptFileDeleted = org.jphototagger.resources.UiFactory.button();
-        labelParameterInfoFileDeleted = new org.jdesktop.swingx.JXLabel();
-        labelPathInfo = new org.jdesktop.swingx.JXLabel();
+        labelParameterInfoFileDeleted = org.jphototagger.resources.UiFactory.jxLabel();
+        labelPathInfo = org.jphototagger.resources.UiFactory.jxLabel();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
