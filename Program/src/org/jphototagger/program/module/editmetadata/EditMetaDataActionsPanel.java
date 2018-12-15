@@ -197,6 +197,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         panelComboBox = org.jphototagger.resources.UiFactory.panel();
         labelPromptCurrentTemplate = org.jphototagger.resources.UiFactory.label();
         comboBoxMetadataTemplates = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxMetadataTemplates);
         panelTemplateButtons = org.jphototagger.resources.UiFactory.panel();
         buttonMetadataTemplateRename = org.jphototagger.resources.UiFactory.button();
         buttonMetadataTemplateUpdate = org.jphototagger.resources.UiFactory.button();

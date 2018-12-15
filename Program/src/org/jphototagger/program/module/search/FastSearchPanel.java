@@ -463,6 +463,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
         java.awt.GridBagConstraints gridBagConstraints;
 
         fastSearchComboBox = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(fastSearchComboBox);
         textAreaSearch = new ImageTextArea();
         searchButton = org.jphototagger.resources.UiFactory.button();
         buttonRestoreSelection = org.jphototagger.resources.UiFactory.button();

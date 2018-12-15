@@ -121,6 +121,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         checkBoxDisplayIptc = org.jphototagger.resources.UiFactory.checkBox();
         labelIptcCharset = org.jphototagger.resources.UiFactory.label();
         comboBoxIptcCharset = new JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxIptcCharset);
         panelVfill = org.jphototagger.resources.UiFactory.panel();
 
         setName("Form"); // NOI18N

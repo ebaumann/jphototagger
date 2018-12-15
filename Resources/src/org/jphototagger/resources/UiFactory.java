@@ -10,6 +10,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -378,6 +379,11 @@ public final class UiFactory {
 
     public static void configure(JXList l) {
         Objects.requireNonNull(l, "l == null");
+        // For future usage
+    }
+
+    public static void configure(JComboBox<?> cb) {
+        Objects.requireNonNull(cb, "cb == null");
         // For future usage
     }
 

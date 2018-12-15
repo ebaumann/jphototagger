@@ -117,6 +117,7 @@ public class SettingsPanel extends javax.swing.JPanel {
         panelDelimiter = org.jphototagger.resources.UiFactory.panel();
         label = org.jphototagger.resources.UiFactory.label();
         comboBoxDelimiter = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxDelimiter);
         panelFill = org.jphototagger.resources.UiFactory.panel();
         panelVersion = org.jphototagger.resources.UiFactory.panel();
         labelVersion = org.jphototagger.resources.UiFactory.label();

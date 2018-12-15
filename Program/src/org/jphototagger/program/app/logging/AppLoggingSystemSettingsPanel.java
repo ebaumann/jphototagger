@@ -218,6 +218,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         panelLogLevel = org.jphototagger.resources.UiFactory.panel();
         labelLogLevel = org.jphototagger.resources.UiFactory.label();
         comboBoxLogLevel = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxLogLevel);
         panelFillMisc = org.jphototagger.resources.UiFactory.panel();
         panelIgnoreMessages = org.jphototagger.resources.UiFactory.panel();
         panelIgnoreMessagesContent = org.jphototagger.resources.UiFactory.panel();

@@ -677,14 +677,17 @@ public class ImportImageFilesDialog extends Dialog {
         panelContent = org.jphototagger.resources.UiFactory.panel();
         panelSourceStrategy = org.jphototagger.resources.UiFactory.panel();
         comboBoxSourceStrategy = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxSourceStrategy);
         checkBoxDeleteAfterCopy = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxSkipDuplicates = org.jphototagger.resources.UiFactory.checkBox();
         panelTargetDir = new org.jdesktop.swingx.JXPanel();
         labelTargetDir = org.jphototagger.resources.UiFactory.label();
         buttonChooseTargetDir = org.jphototagger.resources.UiFactory.button();
         comboBoxSubdirectoryCreateStrategy = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxSubdirectoryCreateStrategy);
         panelFileRenameStrategy = org.jphototagger.resources.UiFactory.panel();
         comboBoxFileRenameStrategy = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxFileRenameStrategy);
         buttonEditRenameTemplates = org.jphototagger.resources.UiFactory.button();
         labelWarning = org.jphototagger.resources.UiFactory.label();
         panelDialogControlButtons = new org.jdesktop.swingx.JXPanel();

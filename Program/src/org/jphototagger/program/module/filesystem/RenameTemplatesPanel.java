@@ -473,6 +473,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelDateDelimiter = org.jphototagger.resources.UiFactory.panel();
         labelDateDelim = org.jphototagger.resources.UiFactory.label();
         comboBoxDateDelimiter = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxDateDelimiter);
         panelDefineName = org.jphototagger.resources.UiFactory.panel();
         panelDefineNameContents = org.jphototagger.resources.UiFactory.panel();
         labelAtBegin = org.jphototagger.resources.UiFactory.label();
@@ -481,10 +482,13 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         labelDelim2 = org.jphototagger.resources.UiFactory.label();
         labelAtEnd = org.jphototagger.resources.UiFactory.label();
         comboBoxAtBegin = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxAtBegin);
         textFieldDelim1 = org.jphototagger.resources.UiFactory.textField();
         comboBoxInTheMiddle = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxInTheMiddle);
         textFieldDelim2 = org.jphototagger.resources.UiFactory.textField();
         comboBoxAtEnd = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxAtEnd);
         textFieldAtBegin = org.jphototagger.resources.UiFactory.textField();
         textFieldInTheMiddle = org.jphototagger.resources.UiFactory.textField();
         textFieldAtEnd = org.jphototagger.resources.UiFactory.textField();
@@ -497,6 +501,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         panelRenameTemplates = org.jphototagger.resources.UiFactory.panel();
         panelRenameTemplatesContents = org.jphototagger.resources.UiFactory.panel();
         comboBoxRenameTemplates = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxRenameTemplates);
         panelButtonsRenameTemplates = org.jphototagger.resources.UiFactory.panel();
         buttonSaveRenameTemplate = org.jphototagger.resources.UiFactory.button();
         buttonRenameRenameTemplate = org.jphototagger.resources.UiFactory.button();

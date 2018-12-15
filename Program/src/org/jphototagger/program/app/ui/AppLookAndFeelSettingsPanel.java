@@ -173,6 +173,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
         comboBoxLaf = new JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxLaf);
         scrollPaneDescription = org.jphototagger.resources.UiFactory.scrollPane();
         editorPaneDescription = org.jphototagger.resources.UiFactory.editorPane();
         panelPreferences = org.jphototagger.resources.UiFactory.panel();
@@ -180,6 +181,7 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         panelFontScale = org.jphototagger.resources.UiFactory.panel();
         labelFontScalePrompt = org.jphototagger.resources.UiFactory.label();
         comboBoxFontScale = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxFontScale);
         labelFontScaleInfo = org.jphototagger.resources.UiFactory.label();
 
         panelNoPreferences.setLayout(new java.awt.GridBagLayout());

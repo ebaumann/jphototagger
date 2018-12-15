@@ -360,6 +360,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
 
         panelWordsets = org.jphototagger.resources.UiFactory.panel();
         comboBoxWordsetNames = new javax.swing.JComboBox<>();
+        org.jphototagger.resources.UiFactory.configure(comboBoxWordsetNames);
         buttonRemoveWordset = org.jphototagger.resources.UiFactory.button();
         buttonEditWordset = org.jphototagger.resources.UiFactory.button();
         buttonAddWordset = org.jphototagger.resources.UiFactory.button();
