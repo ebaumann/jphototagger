@@ -15,11 +15,11 @@ import org.jphototagger.lib.util.ClipboardUtil;
 import org.jphototagger.lib.util.SystemUtil;
 
 /**
- * Dialog for displaying long messages.
+ * DialogExt for displaying long messages.
  *
  * @author Elmar Baumann
  */
-public class LongMessageDialog extends Dialog {
+public class LongMessageDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private String mailTo;

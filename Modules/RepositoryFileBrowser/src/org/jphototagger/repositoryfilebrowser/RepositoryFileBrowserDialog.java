@@ -16,7 +16,7 @@ import org.jphototagger.api.branding.Branding;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.lookup.NodesListModel;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.BusyPanel;
@@ -27,7 +27,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class RepositoryFileBrowserDialog extends Dialog {
+public final class RepositoryFileBrowserDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private RepositoryImageFileInfo imageFileInfo;

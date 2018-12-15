@@ -6,7 +6,7 @@ import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.TabbedPaneUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
@@ -15,11 +15,11 @@ import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
 /**
- * Dialog for input assistance.
+ * DialogExt for input assistance.
  *
  * @author Elmar Baumann
  */
-public class InputHelperDialog extends Dialog {
+public class InputHelperDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     public static final InputHelperDialog INSTANCE = new InputHelperDialog();

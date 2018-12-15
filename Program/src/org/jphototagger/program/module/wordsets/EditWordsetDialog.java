@@ -1,7 +1,7 @@
 package org.jphototagger.program.module.wordsets;
 
 import org.jphototagger.domain.wordsets.Wordset;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -9,7 +9,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * @author Elmar Baumann
  */
-public class EditWordsetDialog extends Dialog {
+public class EditWordsetDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final Wordset wordset;

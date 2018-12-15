@@ -15,7 +15,7 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public class InputDialog2 extends Dialog {
+public class InputDialog2 extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private boolean accepted;

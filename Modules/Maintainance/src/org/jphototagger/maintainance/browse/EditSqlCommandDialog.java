@@ -3,14 +3,14 @@ package org.jphototagger.maintainance.browse;
 import java.util.Objects;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.DocumentChangeListener;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
  * @author Elmar Baumann
  */
-public class EditSqlCommandDialog extends Dialog {
+public class EditSqlCommandDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private boolean accepted;

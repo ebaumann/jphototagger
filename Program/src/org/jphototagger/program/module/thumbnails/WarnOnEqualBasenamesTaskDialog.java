@@ -19,7 +19,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
@@ -28,7 +28,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class WarnOnEqualBasenamesTaskDialog extends Dialog {
+public class WarnOnEqualBasenamesTaskDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final DefaultListModel<Object> filesListModel;

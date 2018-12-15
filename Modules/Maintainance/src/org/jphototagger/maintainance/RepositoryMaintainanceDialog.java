@@ -6,7 +6,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.TabbedPaneUtil;
@@ -16,7 +16,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class RepositoryMaintainanceDialog extends Dialog {
+public final class RepositoryMaintainanceDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     public static final RepositoryMaintainanceDialog INSTANCE = new RepositoryMaintainanceDialog();

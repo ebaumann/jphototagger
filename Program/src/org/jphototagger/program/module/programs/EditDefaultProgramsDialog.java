@@ -1,13 +1,13 @@
 package org.jphototagger.program.module.programs;
 
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public class EditDefaultProgramsDialog extends Dialog {
+public class EditDefaultProgramsDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
 

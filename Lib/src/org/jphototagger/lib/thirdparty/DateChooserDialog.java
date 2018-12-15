@@ -25,7 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.FrameExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.UiFactory;
@@ -68,7 +68,7 @@ import org.jphototagger.resources.UiFactory;
  *           and returns the selected date or null if dismissed.
  */
 /**
- * Date Chooser Dialog.
+ * Date Chooser DialogExt.
  *
  * @author Knute Johnson, Elmar Baumann
  */
@@ -85,7 +85,7 @@ public final class DateChooserDialog extends JComponent {
     private GregorianCalendar gc;
     private int thisYear, thisMonth, today;
     private int selectedDay;
-    private static Dialog dialog;
+    private static DialogExt dialog;
     private static GregorianCalendar retcod;
 
     private DateChooserDialog() {
@@ -263,7 +263,7 @@ public final class DateChooserDialog extends JComponent {
     /**
      * Zeigt den Datumsauswahldialog an, benutzt die Default-Locale.
      *
-     * @param comp  Komponente, die den Dialog nutzt
+     * @param comp  Komponente, die den DialogExt nutzt
      * @param icons Icons oder null, wenn keine gesetzt werden sollen
      * @return      Kalender mit ausgewähltem Datum oder null, wenn keines
      *              ausgewählt wurde
@@ -275,7 +275,7 @@ public final class DateChooserDialog extends JComponent {
     /**
      * Zeigt den Datumsauswahldialog an.
      *
-     * @param comp     Komponente, die den Dialog nutzt
+     * @param comp     Komponente, die den DialogExt nutzt
      * @param calendar Kalender mit Startdatum
      * @param locale   Locale
      * @param icons    Icons oder null, wenn keine gesetzt werden sollen
@@ -293,7 +293,7 @@ public final class DateChooserDialog extends JComponent {
 
         FrameExt f = new FrameExt();
 
-        dialog = new Dialog(f, Bundle.getString(DateChooserDialog.class, "DateChooserDialog.title"), true);
+        dialog = new DialogExt(f, Bundle.getString(DateChooserDialog.class, "DateChooserDialog.title"), true);
         dialog.setPreferencesKey("DateChooserDialog");
         org.jphototagger.resources.UiFactory.configure(dialog);
 

@@ -5,7 +5,7 @@ import javax.swing.SwingUtilities;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.exportimport.ExportImportPanel.ExportImportListener;
 import org.jphototagger.program.resource.GUI;
@@ -13,7 +13,7 @@ import org.jphototagger.program.resource.GUI;
 /**
  * @author Elmar Baumann
  */
-public class ExportImportDialog extends Dialog implements ExportImportListener {
+public class ExportImportDialog extends DialogExt implements ExportImportListener {
 
     private static final long serialVersionUID = 1L;
     private final ExportImportContext context;

@@ -4,16 +4,16 @@ import javax.swing.SwingUtilities;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Nicht modaler Dialog für eine erweiterte Suche.
+ * Nicht modaler DialogExt für eine erweiterte Suche.
  *
  * @author Elmar Baumann
  */
-public final class AdvancedSearchDialog extends Dialog implements NameListener {
+public final class AdvancedSearchDialog extends DialogExt implements NameListener {
 
     public static final AdvancedSearchDialog INSTANCE = new AdvancedSearchDialog(false);
     private static final long serialVersionUID = 1L;

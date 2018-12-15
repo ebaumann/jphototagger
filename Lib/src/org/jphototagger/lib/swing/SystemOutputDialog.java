@@ -15,7 +15,7 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public class SystemOutputDialog extends Dialog {
+public class SystemOutputDialog extends DialogExt {
 
     public static final SystemOutputDialog INSTANCE = new SystemOutputDialog(ComponentUtil.findFrameWithIcon());
     private static final long serialVersionUID = 1L;

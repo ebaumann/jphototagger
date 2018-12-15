@@ -2,7 +2,7 @@ package org.jphototagger.program.module.metadatatemplates;
 
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -11,7 +11,7 @@ import org.jphototagger.resources.Icons;
 /**
  * @author Elmar Baumann
  */
-public class EditXmpDialog extends Dialog {
+public class EditXmpDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final Xmp xmp;

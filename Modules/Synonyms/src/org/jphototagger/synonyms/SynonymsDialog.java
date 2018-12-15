@@ -4,14 +4,14 @@ import javax.swing.SwingUtilities;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public class SynonymsDialog extends Dialog {
+public class SynonymsDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     public static final SynonymsDialog INSTANCE = new SynonymsDialog();

@@ -16,7 +16,7 @@ import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.SaveOrUpdate;
 import org.jphototagger.domain.thumbnails.ThumbnailProvider;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -28,7 +28,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class RenameDialog extends Dialog {
+public final class RenameDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(RenameDialog.class.getName());

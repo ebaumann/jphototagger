@@ -1,6 +1,6 @@
 package org.jphototagger.userdefinedfiletypes;
 
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -8,7 +8,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * @author Elmar Baumann
  */
-public class UserDefinedFileTypesDialog extends Dialog {
+public class UserDefinedFileTypesDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
 

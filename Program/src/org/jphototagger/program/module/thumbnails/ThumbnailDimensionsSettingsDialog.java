@@ -1,6 +1,6 @@
 package org.jphototagger.program.module.thumbnails;
 
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
@@ -9,7 +9,7 @@ import org.jphototagger.program.settings.SettingsDialog;
 /**
  * @author Elmar Baumann
  */
-public class ThumbnailDimensionsSettingsDialog extends Dialog {
+public class ThumbnailDimensionsSettingsDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
 

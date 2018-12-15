@@ -47,7 +47,7 @@ import org.jdesktop.observablecollections.ObservableList;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.SearchInComponentAction;
@@ -61,7 +61,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class HelpBrowser extends Dialog implements HyperlinkListener, TreeSelectionListener, PropertyChangeListener {
+public final class HelpBrowser extends DialogExt implements HyperlinkListener, TreeSelectionListener, PropertyChangeListener {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_DIVIDER_LOCATION = "HelpBrowser.DividerLocation";

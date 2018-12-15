@@ -1,7 +1,7 @@
 package org.jphototagger.tcc.def;
 
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -9,7 +9,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ImageMagickThumbnailCreatorDialog extends Dialog {
+public class ImageMagickThumbnailCreatorDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private boolean browse;

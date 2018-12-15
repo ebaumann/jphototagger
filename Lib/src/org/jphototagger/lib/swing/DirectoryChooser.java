@@ -30,7 +30,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class DirectoryChooser extends Dialog implements TreeSelectionListener, PopupMenuListener {
+public final class DirectoryChooser extends DialogExt implements TreeSelectionListener, PopupMenuListener {
 
     private static final long serialVersionUID = 1L;
     private final File startDirectory;
@@ -142,7 +142,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     /**
      * Liefert, ob der Benutzer (mindestens) ein Verzeichnis auswählte.
      *
-     * @return true, wenn ein Verzeichnis ausgewählt wurde und der Dialog nicht abgebrochen wurde
+     * @return true, wenn ein Verzeichnis ausgewählt wurde und der DialogExt nicht abgebrochen wurde
      */
     public boolean isAccepted() {
         return accepted;

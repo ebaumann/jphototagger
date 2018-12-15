@@ -4,17 +4,17 @@ import java.awt.Container;
 import java.awt.event.MouseEvent;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Dialog to select an {@code org.jphototagger.program.data.Program}.
+ * DialogExt to select an {@code org.jphototagger.program.data.Program}.
  *
  * @author Elmar Baumann
  */
-public class SelectProgramDialog extends Dialog {
+public class SelectProgramDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final ProgramsListModel model;

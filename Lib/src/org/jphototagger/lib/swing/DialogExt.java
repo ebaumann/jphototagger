@@ -17,9 +17,8 @@ import org.jphototagger.lib.help.HelpUtil;
 import org.openide.util.Lookup;
 
 /**
- * Dialog which should be used instead of JDialog to achieve the same behaviour
- * and Look and Feel. Extensions:
- *
+ * DialogExt which should be used instead of JDialog to achieve the same
+ * behaviour and Look and Feel. Extensions:
  * <ul>
  * <li>Will be closed by pressing the ESC key</li>
  * <li>Showing the Help Browser by pressing the F1 key</li>
@@ -28,7 +27,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public class Dialog extends JDialog {
+public class DialogExt extends JDialog {
 
     private static final long serialVersionUID = 1L;
     private transient ActionListener actionListenerEscape;
@@ -37,31 +36,31 @@ public class Dialog extends JDialog {
     private String preferencesKey;
     private boolean persistSizeAndLocation = true;
 
-    public Dialog() {
+    public DialogExt() {
         init();
     }
 
-    public Dialog(Frame owner, String title, boolean modal) {
+    public DialogExt(Frame owner, String title, boolean modal) {
         super(owner, title, modal);
         init();
     }
 
-    public Dialog(Frame owner, boolean modal) {
+    public DialogExt(Frame owner, boolean modal) {
         super(owner, modal);
         init();
     }
 
-    public Dialog(JDialog owner, boolean modal) {
+    public DialogExt(JDialog owner, boolean modal) {
         super(owner, modal);
         init();
     }
 
-    public Dialog(Frame owner) {
+    public DialogExt(Frame owner) {
         super(owner);
         init();
     }
 
-    public Dialog(JDialog owner) {
+    public DialogExt(JDialog owner) {
         super(owner);
         init();
     }

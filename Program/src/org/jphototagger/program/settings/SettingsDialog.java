@@ -14,7 +14,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.help.HelpPageProvider;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.TabbedPaneUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -22,11 +22,11 @@ import org.jphototagger.program.resource.GUI;
 import org.openide.util.Lookup;
 
 /**
- * Modaler Dialog für Anwendungseinstellungen.
+ * Modaler DialogExt für Anwendungseinstellungen.
  *
  * @author Elmar Baumann
  */
-public final class SettingsDialog extends Dialog {
+public final class SettingsDialog extends DialogExt {
 
     private static final String KEY_INDEX_TABBED_PANE = "UserSettingsDialog.TabbedPaneIndex";
     private static final long serialVersionUID = 1L;

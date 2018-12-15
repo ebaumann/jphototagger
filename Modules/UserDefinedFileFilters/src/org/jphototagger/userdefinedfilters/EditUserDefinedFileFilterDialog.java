@@ -5,7 +5,7 @@ import javax.swing.DefaultComboBoxModel;
 import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.beansbinding.MaxLengthValidator;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -15,7 +15,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class EditUserDefinedFileFilterDialog extends Dialog {
+public class EditUserDefinedFileFilterDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final UserDefinedFileFilter udf = new UserDefinedFileFilter();

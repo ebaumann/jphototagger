@@ -6,14 +6,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.WindowConstants;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public class MaintainanceDialog extends Dialog {
+public class MaintainanceDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
 

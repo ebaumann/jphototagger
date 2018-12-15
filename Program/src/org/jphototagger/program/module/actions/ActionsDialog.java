@@ -6,7 +6,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.domain.repository.event.programs.ProgramUpdatedEvent;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 
@@ -16,7 +16,7 @@ import org.jphototagger.program.resource.GUI;
  *
  * @author Elmar Baumann
  */
-public final class ActionsDialog extends Dialog {
+public final class ActionsDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     public static final ActionsDialog INSTANCE = new ActionsDialog();

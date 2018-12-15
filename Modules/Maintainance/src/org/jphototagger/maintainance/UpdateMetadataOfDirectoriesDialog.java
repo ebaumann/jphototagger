@@ -4,14 +4,14 @@ import javax.swing.SwingUtilities;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public final class UpdateMetadataOfDirectoriesDialog extends Dialog {
+public final class UpdateMetadataOfDirectoriesDialog extends DialogExt {
 
     public static final UpdateMetadataOfDirectoriesDialog INSTANCE = new UpdateMetadataOfDirectoriesDialog();
     private static final long serialVersionUID = 1L;

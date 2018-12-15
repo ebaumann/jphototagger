@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
@@ -24,7 +24,7 @@ import org.jphototagger.resources.Icons;
  *
  * @author Elmar Baumann
  */
-public class PathSelectionDialog extends Dialog implements ListSelectionListener {
+public class PathSelectionDialog extends DialogExt implements ListSelectionListener {
 
     private static final long serialVersionUID = 1L;
     private boolean accepted;

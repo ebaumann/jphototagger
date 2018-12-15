@@ -33,7 +33,7 @@ import org.jphototagger.domain.metadata.xmp.XmpEditor;
 import org.jphototagger.importfiles.filerenamers.FileRenameStrategyComboBoxModel;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.PreviousSelectedFiles;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.DisplayNameListCellRenderer;
@@ -50,7 +50,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ImportImageFilesDialog extends Dialog {
+public class ImportImageFilesDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private static final Icon ERROR_ICON = org.jphototagger.resources.Icons.getIcon("icon_error.png");
@@ -665,7 +665,7 @@ public class ImportImageFilesDialog extends Dialog {
         panelSelectedFiles = new org.jdesktop.swingx.JXPanel();
         labelChoosenFiles = org.jphototagger.resources.UiFactory.label();
         buttonChooseFiles = org.jphototagger.resources.UiFactory.button();
-        dialogExpertSettings = new Dialog(ComponentUtil.findFrameWithIcon(), true);
+        dialogExpertSettings = new DialogExt(ComponentUtil.findFrameWithIcon(), true);
         panelExpertSettingsContent = org.jphototagger.resources.UiFactory.panel();
         panelScriptFile = new org.jdesktop.swingx.JXPanel();
         labelScriptFileIcon = org.jphototagger.resources.UiFactory.label();
@@ -1114,7 +1114,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JComboBox<Object> comboBoxFileRenameStrategy;
     private javax.swing.JComboBox<Object> comboBoxSourceStrategy;
     private javax.swing.JComboBox<Object> comboBoxSubdirectoryCreateStrategy;
-    private Dialog dialogExpertSettings;
+    private DialogExt dialogExpertSettings;
     private javax.swing.JLabel labelChoosenFiles;
     private javax.swing.JLabel labelScriptFileIcon;
     private javax.swing.JLabel labelScriptFileInfo;

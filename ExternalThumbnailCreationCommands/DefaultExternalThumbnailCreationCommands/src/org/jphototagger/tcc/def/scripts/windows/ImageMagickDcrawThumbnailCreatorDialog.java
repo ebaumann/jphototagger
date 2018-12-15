@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 import javax.swing.Icon;
 import org.jphototagger.api.branding.Branding;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.UiFactory;
@@ -19,7 +19,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
+public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private File dcraw;

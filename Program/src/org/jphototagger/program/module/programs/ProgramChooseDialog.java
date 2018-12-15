@@ -3,7 +3,7 @@ package org.jphototagger.program.module.programs;
 import java.awt.event.KeyEvent;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -12,7 +12,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * @author Elmar Baumann
  */
-public class ProgramChooseDialog extends Dialog {
+public class ProgramChooseDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final ProgramsListModel model = new ProgramsListModel(ProgramType.PROGRAM);

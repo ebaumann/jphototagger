@@ -3,18 +3,18 @@ package org.jphototagger.program.module.imagecollections;
 import java.awt.Container;
 import java.awt.event.MouseEvent;
 import javax.swing.ListModel;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
 
 /**
- * Dialog zum Anzeigen und Auswählen der Namen von Bildsammlungen.
+ * DialogExt zum Anzeigen und Auswählen der Namen von Bildsammlungen.
  *
  * @author Elmar Baumann
  */
-public final class ImageCollectionsDialog extends Dialog {
+public final class ImageCollectionsDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private boolean ok = false;

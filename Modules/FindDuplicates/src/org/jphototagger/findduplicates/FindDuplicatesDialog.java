@@ -32,7 +32,7 @@ import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.FileSystemViewListCellRenderer;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -47,7 +47,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class FindDuplicatesDialog extends Dialog {
+public class FindDuplicatesDialog extends DialogExt {
 
     private static final String KEY_SOURCE_DIRS = "FindDuplicatesDialog.SourceDirectories";
     private static final String KEY_SOURCE_DIRS_RECURSIVE = "FindDuplicatesDialog.SourceDirectoriesRecursive";

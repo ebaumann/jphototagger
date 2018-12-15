@@ -20,7 +20,7 @@ import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
@@ -34,7 +34,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class CopyToDirectoryDialog extends Dialog implements ProgressListener {
+public final class CopyToDirectoryDialog extends DialogExt implements ProgressListener {
 
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.dialogs.CopyToDirectoryDialog.LastDirectory";
     private static final String KEY_COPY_XMP = "CopyToDirectoryDialog.CopyXmp";

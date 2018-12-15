@@ -10,7 +10,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.programs.Program;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.TabOrEnterLeavingTextArea;
@@ -25,12 +25,12 @@ import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
- * Modal Dialog to change or define the properties of a program which can
- * be started within the application.
+ * Modal DialogExt to change or define the properties of a program which can
+ be started within the application.
  *
  * @author Elmar Baumann
  */
-public final class ProgramPropertiesDialog extends Dialog {
+public final class ProgramPropertiesDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private transient Program program = new Program();

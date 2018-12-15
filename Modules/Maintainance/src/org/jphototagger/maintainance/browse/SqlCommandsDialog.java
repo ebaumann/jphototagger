@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Objects;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.ListModelExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -20,7 +20,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * @author Elmar Baumann
  */
-public class SqlCommandsDialog extends Dialog {
+public class SqlCommandsDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final ListModelExt<SqlCommand> model = new ListModelExt<>();

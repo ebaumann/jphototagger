@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -14,7 +14,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ThumbnailCreatorSettingsDialog extends Dialog {
+public class ThumbnailCreatorSettingsDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
 

@@ -18,7 +18,7 @@ import org.jphototagger.lib.util.Bundle;
  * @param <T> Object type
  * @author Elmar Baumann
  */
-public class ObjectsSelectionDialog<T> extends Dialog {
+public class ObjectsSelectionDialog<T> extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final DefaultListModel<T> listModel = new DefaultListModel<>();

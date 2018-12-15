@@ -8,7 +8,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.domain.repository.FavoritesRepository;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -26,7 +26,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class FavoritePropertiesDialog extends Dialog {
+public final class FavoritePropertiesDialog extends DialogExt {
 
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.dialogs.FavoriteDirectoryPropertiesDialog.LastDirectory";
     private static final long serialVersionUID = 1L;

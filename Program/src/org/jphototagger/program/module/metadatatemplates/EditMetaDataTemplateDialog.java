@@ -6,7 +6,7 @@ import java.util.Collections;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -23,7 +23,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public class EditMetaDataTemplateDialog extends Dialog {
+public class EditMetaDataTemplateDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private transient MetadataTemplate template;

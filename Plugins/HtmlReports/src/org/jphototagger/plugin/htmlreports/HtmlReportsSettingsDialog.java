@@ -1,13 +1,13 @@
 package org.jphototagger.plugin.htmlreports;
 
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public class HtmlReportsSettingsDialog extends Dialog {
+public class HtmlReportsSettingsDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
 

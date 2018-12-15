@@ -34,7 +34,7 @@ import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.io.FileUtil;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.UiFactory;
@@ -46,7 +46,7 @@ import org.jphototagger.resources.UiFactory;
  *
  * @author Elmar Baumann
  */
-public final class LogfileDialog extends Dialog implements ListSelectionListener, ActionListener {
+public final class LogfileDialog extends DialogExt implements ListSelectionListener, ActionListener {
 
     private static final long serialVersionUID  = 1L;
     public static final long  DEFAULT_MAX_BYTES = 10 * 1024 * 1024;

@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -12,7 +12,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * @author Elmar Baumann
  */
-public class FileEditorDialog extends Dialog {
+public class FileEditorDialog extends DialogExt {
     private static final long serialVersionUID = 1L;
 
     public FileEditorDialog() {

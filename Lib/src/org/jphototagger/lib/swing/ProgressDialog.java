@@ -7,11 +7,11 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Non modal Dialog with a progress bar.
+ * Non modal DialogExt with a progress bar.
  *
  * @author Elmar Baumann
  */
-public final class ProgressDialog extends Dialog {
+public final class ProgressDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private final Set<ActionListener> actionListeners = new CopyOnWriteArraySet<>();

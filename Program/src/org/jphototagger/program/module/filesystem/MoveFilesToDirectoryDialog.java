@@ -21,7 +21,7 @@ import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.SourceTargetFile;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
@@ -34,7 +34,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class MoveFilesToDirectoryDialog extends Dialog implements ProgressListener {
+public final class MoveFilesToDirectoryDialog extends DialogExt implements ProgressListener {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_TARGET_DIRECTORY = "org.jphototagger.program.view.dialogs.MoveFilesToDirectoryDialog.TargetDirectory";

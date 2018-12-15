@@ -23,7 +23,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
@@ -35,7 +35,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class IptcToXmpDialog extends Dialog implements ProgressListener {
+public final class IptcToXmpDialog extends DialogExt implements ProgressListener {
 
     private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.LastDirectory";
     private static final String KEY_INCLUDE_SUBDIRS = "org.jphototagger.program.view.dialogs.IptcToXmpDialog.IncludeSubdirectories";

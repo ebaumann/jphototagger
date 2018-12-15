@@ -12,7 +12,7 @@ import javax.swing.text.Document;
 import org.jphototagger.domain.filefilter.AppFileFilterProvider;
 import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
-import org.jphototagger.lib.swing.Dialog;
+import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -22,7 +22,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class EditUserDefinedFileTypeDialog extends Dialog {
+public class EditUserDefinedFileTypeDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private UserDefinedFileType userDefinedFileType = new UserDefinedFileType();
