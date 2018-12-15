@@ -112,6 +112,14 @@ MyInterface implementation = Lookup.getDefault().lookup(MyInterface.class);
                     calls them). Examples are <code>FileEventHooks</code> or <code>RepositoryFileBrowser</code>.
                 </p>
 
+                <h2>GUI (Graphical User Interface)</h2>
+
+                <p>GUI elements should be created either via <code>org.jphototagger.resources.UiFactory</code>
+                    or derived Components, i.e. <code>PanelExt</code> or <code>DialogExt</code> (<em>not</em> JPanel
+                    or JDialog). The UI Factory and derived components keeps track of High DPI monitors and
+                    behave in a consistent way. Search for usages in the source code.
+                </p>
+
 				<h2>Thumbnails for a specific file format not supported by JPotoTagger</h2>
 
 				<p>Implement <code>org.jphototagger.domain.thumbnails.ThumbnailCreator</code>.
@@ -210,11 +218,9 @@ private void restorePreferences() {
 String message = Bundle.getString(UiClass.class, "UiClass.Key");
                 </pre>
 
-                <p>The Code format in Matisse (NetBeans' GUI editor) is <code>org.jphototagger.lib.util.Bundle.getString({sourceFileName}.class, "{key}")</code>.</p>
-
                 <p><strong>Author:</strong> Elmar Baumann
                     <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20How%20implement%20something">Write e-Mail</a>
-                    <br /><strong>Status of this document:</strong> 2012-03-02
+                    <br /><strong>Status of this document:</strong> 2018-12-15
                 </p>
 
             </div><!--content-->
