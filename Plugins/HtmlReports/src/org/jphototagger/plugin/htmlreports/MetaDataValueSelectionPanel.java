@@ -27,6 +27,7 @@ public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
     private final ListCellRenderer<Object> listCellRenderer = new MetaDataValuesListCellRenderer();
 
     public MetaDataValueSelectionPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 

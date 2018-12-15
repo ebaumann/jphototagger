@@ -31,6 +31,7 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
     private volatile boolean clearingSelection;
 
     public FilesWithoutMetaDataPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         selectedListItemsLookup = new SelectedListItemsLookup(list);
         displayFilesWithoutMetaDataAction = new DisplayFilesWithoutMetaDataAction(selectedListItemsLookup.getLookup());

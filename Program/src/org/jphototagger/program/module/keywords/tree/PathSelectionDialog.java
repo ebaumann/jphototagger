@@ -189,11 +189,11 @@ public class PathSelectionDialog extends Dialog implements ListSelectionListener
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonSelectNothing = org.jphototagger.resources.UiFactory.button();
         buttonSelectAll = org.jphototagger.resources.UiFactory.button();
         buttonSelectSelected = org.jphototagger.resources.UiFactory.button();

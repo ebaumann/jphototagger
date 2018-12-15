@@ -35,6 +35,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
     private final EnumMap<ThumbnailCreationStrategy, JRadioButton> radioButtonOfThumbnailCreator = new EnumMap<>(ThumbnailCreationStrategy.class);
 
     public ThumbnailsSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         initMaps();
         MnemonicUtil.setMnemonics((Container) this);
@@ -202,18 +203,18 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
 
         buttonGroupThumbnailCreator = new javax.swing.ButtonGroup();
         panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel();
-        panelThumbnailCreator = new javax.swing.JPanel();
+        panelThumbnailCreator = org.jphototagger.resources.UiFactory.panel();
         radioButtonCreateThumbnailsWithJPhotoTagger = UiFactory.radioButton();
         radioButtonCreateThumbnailsWithExternalApp = UiFactory.radioButton();
         buttonChooseExternalThumbnailCreator = org.jphototagger.resources.UiFactory.button();
-        panelExternalThumbnailApp = new javax.swing.JPanel();
+        panelExternalThumbnailApp = org.jphototagger.resources.UiFactory.panel();
         labelIsCreateThumbnailsWithExternalApp = org.jphototagger.resources.UiFactory.label();
         textFieldExternalThumbnailCreationCommand = org.jphototagger.resources.UiFactory.textField();
         checkBoxDisplayThumbnailTooltip = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxDisplayThumbnailsBottomPanel = org.jphototagger.resources.UiFactory.checkBox();
-        panelFurtherSettings = new javax.swing.JPanel();
+        panelFurtherSettings = org.jphototagger.resources.UiFactory.panel();
         buttonThumbnailCreatorsSettings = org.jphototagger.resources.UiFactory.button();
-        panelPadding = new javax.swing.JPanel();
+        panelPadding = org.jphototagger.resources.UiFactory.panel();
 
         setLayout(new java.awt.GridBagLayout());
 

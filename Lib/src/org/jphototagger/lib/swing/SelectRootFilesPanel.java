@@ -29,6 +29,7 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
     private final CheckBoxSelectionListener checkBoxSelectionListener = new CheckBoxSelectionListener();
 
     public SelectRootFilesPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         addRootFileCheckboxes();
     }

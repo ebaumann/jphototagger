@@ -23,6 +23,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public UserDefinedFileTypesPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -116,7 +117,7 @@ public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
 
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonAdd = org.jphototagger.resources.UiFactory.button();
         buttonEdit = org.jphototagger.resources.UiFactory.button();
         buttonDelete = org.jphototagger.resources.UiFactory.button();

@@ -10,6 +10,7 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public MiscXmpMetadataPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

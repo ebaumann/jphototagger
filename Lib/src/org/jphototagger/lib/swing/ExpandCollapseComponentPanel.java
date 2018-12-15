@@ -40,6 +40,7 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         if (component == null) {
             throw new NullPointerException("component == null");
         }
+        org.jphototagger.resources.UiFactory.configure(this);
         this.component = component;
         initComponents();
         postInitComponents();

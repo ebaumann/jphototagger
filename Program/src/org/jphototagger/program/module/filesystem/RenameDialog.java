@@ -327,23 +327,23 @@ public final class RenameDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContents = new javax.swing.JPanel();
+        panelContents = org.jphototagger.resources.UiFactory.panel();
         labelInfoTemplatesTab = org.jphototagger.resources.UiFactory.label();
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelInputName = new javax.swing.JPanel();
-        panelFolderPathname = new javax.swing.JPanel();
+        panelInputName = org.jphototagger.resources.UiFactory.panel();
+        panelFolderPathname = org.jphototagger.resources.UiFactory.panel();
         labelDirectory = org.jphototagger.resources.UiFactory.label();
-        panelThumbnailBorder = new javax.swing.JPanel();
+        panelThumbnailBorder = org.jphototagger.resources.UiFactory.panel();
         panelThumbnail = new org.jphototagger.lib.swing.ImagePanel();
-        panelFromNameToName = new javax.swing.JPanel();
+        panelFromNameToName = org.jphototagger.resources.UiFactory.panel();
         labelFromNamePrompt = org.jphototagger.resources.UiFactory.label();
         labelFromName = org.jphototagger.resources.UiFactory.label();
         labelToNamePrompt = org.jphototagger.resources.UiFactory.label();
         textFieldToName = org.jphototagger.resources.UiFactory.textField();
-        panelRenameButtons = new javax.swing.JPanel();
+        panelRenameButtons = org.jphototagger.resources.UiFactory.panel();
         buttonNextFile = org.jphototagger.resources.UiFactory.button();
         buttonRename = org.jphototagger.resources.UiFactory.button();
-        panelTemplatesContents = new javax.swing.JPanel();
+        panelTemplatesContents = org.jphototagger.resources.UiFactory.panel();
         panelRenameTemplates = new org.jphototagger.program.module.filesystem.RenameTemplatesPanel();
         buttonRenameViaTemplate = org.jphototagger.resources.UiFactory.button();
 

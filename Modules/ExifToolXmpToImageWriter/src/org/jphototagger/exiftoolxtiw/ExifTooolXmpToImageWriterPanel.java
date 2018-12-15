@@ -16,6 +16,7 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public ExifTooolXmpToImageWriterPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -69,19 +70,19 @@ public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelConfigure = new javax.swing.JPanel();
+        panelConfigure = org.jphototagger.resources.UiFactory.panel();
         buttonConfigure = org.jphototagger.resources.UiFactory.button();
         labelConfigError = org.jphototagger.resources.UiFactory.label();
         labelDirs = org.jphototagger.resources.UiFactory.label();
         scrollPaneDirs = org.jphototagger.resources.UiFactory.scrollPane();
         listDirs = new javax.swing.JList<java.io.File>();
         checkBoxIncludeSubDirs = org.jphototagger.resources.UiFactory.checkBox();
-        panelDirsButtons = new javax.swing.JPanel();
+        panelDirsButtons = org.jphototagger.resources.UiFactory.panel();
         buttonRemoveSelectedDirs = org.jphototagger.resources.UiFactory.button();
         buttonAddDirs = org.jphototagger.resources.UiFactory.button();
-        panelExecute = new javax.swing.JPanel();
+        panelExecute = org.jphototagger.resources.UiFactory.panel();
         progressBarExecute = new javax.swing.JProgressBar();
-        panelExecuteButtons = new javax.swing.JPanel();
+        panelExecuteButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancelExecute = org.jphototagger.resources.UiFactory.button();
         buttonExecute = org.jphototagger.resources.UiFactory.button();
 

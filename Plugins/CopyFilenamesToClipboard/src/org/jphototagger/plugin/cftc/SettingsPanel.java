@@ -26,6 +26,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
     public SettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         setPersistentModelValue();
         MnemonicUtil.setMnemonics(this);
@@ -113,11 +114,11 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelDelimiter = new javax.swing.JPanel();
+        panelDelimiter = org.jphototagger.resources.UiFactory.panel();
         label = org.jphototagger.resources.UiFactory.label();
         comboBoxDelimiter = new javax.swing.JComboBox<>();
-        panelFill = new javax.swing.JPanel();
-        panelVersion = new javax.swing.JPanel();
+        panelFill = org.jphototagger.resources.UiFactory.panel();
+        panelVersion = org.jphototagger.resources.UiFactory.panel();
         labelVersion = org.jphototagger.resources.UiFactory.label();
         buttonHelp = org.jphototagger.resources.UiFactory.button();
 

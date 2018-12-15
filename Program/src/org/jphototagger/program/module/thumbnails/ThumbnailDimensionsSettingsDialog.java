@@ -53,9 +53,9 @@ public class ThumbnailDimensionsSettingsDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonClose = org.jphototagger.resources.UiFactory.button();
         buttonFurtherSettings = org.jphototagger.resources.UiFactory.button();
 

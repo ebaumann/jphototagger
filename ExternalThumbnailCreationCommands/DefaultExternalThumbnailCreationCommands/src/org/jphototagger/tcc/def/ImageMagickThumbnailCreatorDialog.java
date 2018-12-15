@@ -42,9 +42,9 @@ public class ImageMagickThumbnailCreatorDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = new org.jdesktop.swingx.JXLabel();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonBrowse = org.jphototagger.resources.UiFactory.button();
         buttonChooseConvert = org.jphototagger.resources.UiFactory.button();

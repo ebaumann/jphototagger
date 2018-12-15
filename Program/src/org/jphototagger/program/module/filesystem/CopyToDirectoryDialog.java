@@ -347,7 +347,7 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupFileExists = new javax.swing.ButtonGroup();
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
         buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         labelTargetDirectory = org.jphototagger.resources.UiFactory.label();
@@ -355,11 +355,11 @@ public final class CopyToDirectoryDialog extends Dialog implements ProgressListe
         radioButtonRenameIfTargetFileExists = UiFactory.radioButton();
         checkBoxCopyXmp = org.jphototagger.resources.UiFactory.checkBox();
         progressBar = new javax.swing.JProgressBar();
-        panelCurrentFile = new javax.swing.JPanel();
+        panelCurrentFile = org.jphototagger.resources.UiFactory.panel();
         labelInfoCurrentFilename = org.jphototagger.resources.UiFactory.label();
         labelCurrentFilename = org.jphototagger.resources.UiFactory.label();
         labelInfoIsThread = org.jphototagger.resources.UiFactory.label();
-        panelStartCancelButton = new javax.swing.JPanel();
+        panelStartCancelButton = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonStart = org.jphototagger.resources.UiFactory.button();
 

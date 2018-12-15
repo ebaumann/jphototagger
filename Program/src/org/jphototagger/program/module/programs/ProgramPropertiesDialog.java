@@ -349,9 +349,9 @@ public final class ProgramPropertiesDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupSingleFileProcessing = new javax.swing.ButtonGroup();
-        panelExpertSettings = new javax.swing.JPanel();
+        panelExpertSettings = org.jphototagger.resources.UiFactory.panel();
         checkBoxChangeFile = org.jphototagger.resources.UiFactory.checkBox();
-        panelParameter = new javax.swing.JPanel();
+        panelParameter = org.jphototagger.resources.UiFactory.panel();
         labelParametersBeforeFilename = org.jphototagger.resources.UiFactory.label();
         scrollPaneParametersBeforeFilename = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaParametersBeforeFilename = new TabOrEnterLeavingTextArea();
@@ -362,19 +362,19 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonInfoUsePattern = org.jphototagger.resources.UiFactory.button();
         scrollPaneUsePattern = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaUsePattern = new TabOrEnterLeavingTextArea();
-        panelInputBeforeExecute = new javax.swing.JPanel();
+        panelInputBeforeExecute = org.jphototagger.resources.UiFactory.panel();
         checkBoxInputBeforeExecute = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxInputBeforeExecutePerFile = org.jphototagger.resources.UiFactory.checkBox();
-        panelMultipleSelection = new javax.swing.JPanel();
+        panelMultipleSelection = org.jphototagger.resources.UiFactory.panel();
         radioButtonSingleFileProcessingYes = UiFactory.radioButton();
         radioButtonSingleFileProcessingNo = UiFactory.radioButton();
-        panelProgram = new javax.swing.JPanel();
-        panelPrg = new javax.swing.JPanel();
+        panelProgram = org.jphototagger.resources.UiFactory.panel();
+        panelPrg = org.jphototagger.resources.UiFactory.panel();
         labelFilePrompt = org.jphototagger.resources.UiFactory.label();
         labelErrorFileDoesNotExist = org.jphototagger.resources.UiFactory.label();
         labelFile = org.jphototagger.resources.UiFactory.label();
         buttonChooseFile = org.jphototagger.resources.UiFactory.button();
-        panelAlias = new javax.swing.JPanel();
+        panelAlias = org.jphototagger.resources.UiFactory.panel();
         labelAlias = org.jphototagger.resources.UiFactory.label();
         textFieldAlias = org.jphototagger.resources.UiFactory.textField();
         toggleButtonExpertSettings = org.jphototagger.resources.UiFactory.toggleButton();

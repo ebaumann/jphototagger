@@ -42,6 +42,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private final DefaultListModel<String> fileSuffixesListModel = new DefaultListModel<>();
 
     public SettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -336,24 +337,24 @@ public class SettingsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        paneContents = new javax.swing.JPanel();
+        paneContents = org.jphototagger.resources.UiFactory.panel();
         checkBoxSelfResponsible = org.jphototagger.resources.UiFactory.checkBox();
-        panelExifToolGeneral = new javax.swing.JPanel();
+        panelExifToolGeneral = org.jphototagger.resources.UiFactory.panel();
         checkBoxExifToolEnabled = org.jphototagger.resources.UiFactory.checkBox();
         buttonBrowseExifToolWebsite = org.jphototagger.resources.UiFactory.button();
         textAreaInfo = org.jphototagger.resources.UiFactory.textArea();
         labelErrorCanWrite = org.jphototagger.resources.UiFactory.label();
-        panelChooseExifTool = new javax.swing.JPanel();
+        panelChooseExifTool = org.jphototagger.resources.UiFactory.panel();
         textFieldExifToolFilePath = org.jphototagger.resources.UiFactory.textField();
         buttonChooseExifTool = org.jphototagger.resources.UiFactory.button();
-        panelWriteOnSaveXmp = new javax.swing.JPanel();
+        panelWriteOnSaveXmp = org.jphototagger.resources.UiFactory.panel();
         checkBoxWriteOnSaveXmp = org.jphototagger.resources.UiFactory.checkBox();
         labelErrorInputsSavedEarly = org.jphototagger.resources.UiFactory.label();
         checkBoxCreateBackupFile = org.jphototagger.resources.UiFactory.checkBox();
         labelFileSuffixes = org.jphototagger.resources.UiFactory.label();
         scrollPaneFileSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
         listFileSuffixes = new javax.swing.JList<String>();
-        panelButtonsFileSuffixes = new javax.swing.JPanel();
+        panelButtonsFileSuffixes = org.jphototagger.resources.UiFactory.panel();
         buttonSetDefaultFileSuffixes = org.jphototagger.resources.UiFactory.button();
         buttonAddFileSuffix = org.jphototagger.resources.UiFactory.button();
         buttonRemoveFileSuffix = org.jphototagger.resources.UiFactory.button();

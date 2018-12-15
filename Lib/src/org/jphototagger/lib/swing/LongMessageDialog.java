@@ -112,10 +112,10 @@ public class LongMessageDialog extends Dialog {
         labelShortMessage = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         textArea = org.jphototagger.resources.UiFactory.textArea();
-        panelControls = new javax.swing.JPanel();
+        panelControls = org.jphototagger.resources.UiFactory.panel();
         panelSearch = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         panelSearch.setSearchableTextComponent(textArea);
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonMail = org.jphototagger.resources.UiFactory.button();
         buttonCopy = org.jphototagger.resources.UiFactory.button();
         buttonClose = org.jphototagger.resources.UiFactory.button();

@@ -22,6 +22,7 @@ public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListe
     private static final long serialVersionUID = 1L;
 
     public MetaDataTemplatesPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -89,8 +90,8 @@ public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListe
 
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
-        panelButtons = new javax.swing.JPanel();
-        panelModifyButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
+        panelModifyButtons = org.jphototagger.resources.UiFactory.panel();
         buttonRename = org.jphototagger.resources.UiFactory.button();
         buttonAdd = org.jphototagger.resources.UiFactory.button();
         buttonEdit = org.jphototagger.resources.UiFactory.button();

@@ -20,6 +20,7 @@ public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel impleme
     private boolean listenToMaxThumbnailWidthChanges = true;
 
     public ThumbnailDimensionsSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

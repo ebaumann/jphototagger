@@ -41,6 +41,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
     private final ProgramsRepository programsRepository = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public EditDefaultProgramsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -195,7 +196,7 @@ public class EditDefaultProgramsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelListFilenameSuffixes = org.jphototagger.resources.UiFactory.label();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonRemoveDefaultPrograms = org.jphototagger.resources.UiFactory.button();
         buttonSetDefaultPrograms = org.jphototagger.resources.UiFactory.button();
         scrollPaneFilenameSuffixes = org.jphototagger.resources.UiFactory.scrollPane();

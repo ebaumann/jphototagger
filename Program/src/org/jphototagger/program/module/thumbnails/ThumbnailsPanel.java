@@ -135,6 +135,7 @@ public class ThumbnailsPanel extends JPanel
     private Object messagePopupOwner;
 
     public ThumbnailsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         ctrlDoubleklick = new ThumbnailDoubleklickController(this);
         setDragEnabled(true);
         setTransferHandler(new ThumbnailsPanelTransferHandler());
@@ -1676,7 +1677,7 @@ public class ThumbnailsPanel extends JPanel
     }
 
     private Component createPopupComponent(final String text) {
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel panel = org.jphototagger.resources.UiFactory.panel(new GridBagLayout());
         panel.setBackground(getBackground());
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 

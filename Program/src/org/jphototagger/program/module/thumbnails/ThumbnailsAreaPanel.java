@@ -43,6 +43,7 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
     private boolean bottomComponentsPanelAdded;
 
     public ThumbnailsAreaPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -263,9 +264,9 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelBottomComponents = new javax.swing.JPanel();
+        panelBottomComponents = org.jphototagger.resources.UiFactory.panel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
-        panelDisplayedThumbnailFilters = new javax.swing.JPanel();
+        panelDisplayedThumbnailFilters = org.jphototagger.resources.UiFactory.panel();
         labelFileFilters = org.jphototagger.resources.UiFactory.label();
         comboBoxFileFilters = new javax.swing.JComboBox<>();
         labelFileSort = org.jphototagger.resources.UiFactory.label();

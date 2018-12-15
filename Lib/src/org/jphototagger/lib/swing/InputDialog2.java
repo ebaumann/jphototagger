@@ -127,9 +127,9 @@ public class InputDialog2 extends javax.swing.JDialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContents = new javax.swing.JPanel();
-        panelComponent = new javax.swing.JPanel();
-        panelButtons = new javax.swing.JPanel();
+        panelContents = org.jphototagger.resources.UiFactory.panel();
+        panelComponent = org.jphototagger.resources.UiFactory.panel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonOk = org.jphototagger.resources.UiFactory.button();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
 

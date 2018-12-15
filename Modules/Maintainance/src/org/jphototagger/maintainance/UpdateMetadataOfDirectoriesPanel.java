@@ -58,6 +58,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     private final transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
 
     public UpdateMetadataOfDirectoriesPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         readProperties();
         MnemonicUtil.setMnemonics((Container) this);
@@ -474,11 +475,11 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         labelFilecount = org.jphototagger.resources.UiFactory.label();
         checkBoxForce = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
-        panelCurrentFile = new javax.swing.JPanel();
+        panelCurrentFile = org.jphototagger.resources.UiFactory.panel();
         labelInfoCurrentFilename = org.jphototagger.resources.UiFactory.label();
         labelCurrentFilename = org.jphototagger.resources.UiFactory.label();
         progressBar = new javax.swing.JProgressBar();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancelChooseDirectories = org.jphototagger.resources.UiFactory.button();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonChooseDirectories = org.jphototagger.resources.UiFactory.button();

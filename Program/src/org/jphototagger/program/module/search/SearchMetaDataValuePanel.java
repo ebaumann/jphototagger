@@ -38,6 +38,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
     private boolean changed;
 
     public SearchMetaDataValuePanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -27,6 +27,7 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public HtmlReportsSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -110,14 +111,14 @@ public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
 
         labelDefaultValues = org.jphototagger.resources.UiFactory.label();
         panelColumns = new org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanels();
-        panelDirectory = new javax.swing.JPanel();
+        panelDirectory = org.jphototagger.resources.UiFactory.panel();
         labelDirectoryPrompt = org.jphototagger.resources.UiFactory.label();
         labelDirectory = org.jphototagger.resources.UiFactory.label();
         buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         checkBoxShowSettings = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxInputFilename = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxOpenReport = org.jphototagger.resources.UiFactory.checkBox();
-        panelVersion = new javax.swing.JPanel();
+        panelVersion = org.jphototagger.resources.UiFactory.panel();
         labelVersion = org.jphototagger.resources.UiFactory.label();
         buttonHelp = org.jphototagger.resources.UiFactory.button();
 

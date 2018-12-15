@@ -37,6 +37,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
     private final DefaultListModel<String> errorTextsListModel = new DefaultListModel<>();
 
     public AppLoggingSystemSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -212,21 +213,21 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         java.awt.GridBagConstraints gridBagConstraints;
 
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelMisc = new javax.swing.JPanel();
-        panelMiscContent = new javax.swing.JPanel();
-        panelLogLevel = new javax.swing.JPanel();
+        panelMisc = org.jphototagger.resources.UiFactory.panel();
+        panelMiscContent = org.jphototagger.resources.UiFactory.panel();
+        panelLogLevel = org.jphototagger.resources.UiFactory.panel();
         labelLogLevel = org.jphototagger.resources.UiFactory.label();
         comboBoxLogLevel = new javax.swing.JComboBox<>();
-        panelFillMisc = new javax.swing.JPanel();
-        panelIgnoreMessages = new javax.swing.JPanel();
-        panelIgnoreMessagesContent = new javax.swing.JPanel();
+        panelFillMisc = org.jphototagger.resources.UiFactory.panel();
+        panelIgnoreMessages = org.jphototagger.resources.UiFactory.panel();
+        panelIgnoreMessagesContent = org.jphototagger.resources.UiFactory.panel();
         labelInfoErrorTexts = new org.jdesktop.swingx.JXLabel();
-        panelErrorTexts = new javax.swing.JPanel();
+        panelErrorTexts = org.jphototagger.resources.UiFactory.panel();
         scrollPaneErrorTexts = org.jphototagger.resources.UiFactory.scrollPane();
         listErrorTexts = new javax.swing.JList<>();
         buttonRemoveErrorText = org.jphototagger.resources.UiFactory.button();
         buttonEditErrorText = org.jphototagger.resources.UiFactory.button();
-        panelAddErrorText = new javax.swing.JPanel();
+        panelAddErrorText = org.jphototagger.resources.UiFactory.panel();
         labelErrorText = org.jphototagger.resources.UiFactory.label();
         textFieldErrorText = org.jphototagger.resources.UiFactory.textField();
         buttonAddErrorText = org.jphototagger.resources.UiFactory.button();

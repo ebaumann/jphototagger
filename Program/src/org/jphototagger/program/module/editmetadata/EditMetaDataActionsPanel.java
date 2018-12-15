@@ -29,6 +29,7 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
     private boolean aFileSelected;
 
     EditMetaDataActionsPanel(EditMetaDataPanels editMetaDataPanels) {
+        org.jphototagger.resources.UiFactory.configure(this);
         this.editMetaDataPanels = editMetaDataPanels;
         initComponents();
         postInitComponents();
@@ -184,19 +185,19 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelGroupMetadataEdit = new javax.swing.JPanel();
-        panelTemplateNameInfo = new javax.swing.JPanel();
+        panelGroupMetadataEdit = org.jphototagger.resources.UiFactory.panel();
+        panelTemplateNameInfo = org.jphototagger.resources.UiFactory.panel();
         labelPromptInfoCurrentTemplate = org.jphototagger.resources.UiFactory.label();
         labelTemplateName = org.jphototagger.resources.UiFactory.label();
-        panelEditButtons = new javax.swing.JPanel();
+        panelEditButtons = org.jphototagger.resources.UiFactory.panel();
         buttonMetadataTemplateInsert = org.jphototagger.resources.UiFactory.button();
         buttonMetadataTemplateCreate = org.jphototagger.resources.UiFactory.button();
         buttonEmptyMetadata = org.jphototagger.resources.UiFactory.button();
-        panelGroupMetadataTemplates = new javax.swing.JPanel();
-        panelComboBox = new javax.swing.JPanel();
+        panelGroupMetadataTemplates = org.jphototagger.resources.UiFactory.panel();
+        panelComboBox = org.jphototagger.resources.UiFactory.panel();
         labelPromptCurrentTemplate = org.jphototagger.resources.UiFactory.label();
         comboBoxMetadataTemplates = new javax.swing.JComboBox<>();
-        panelTemplateButtons = new javax.swing.JPanel();
+        panelTemplateButtons = org.jphototagger.resources.UiFactory.panel();
         buttonMetadataTemplateRename = org.jphototagger.resources.UiFactory.button();
         buttonMetadataTemplateUpdate = org.jphototagger.resources.UiFactory.button();
         buttonMetadataTemplateDelete = org.jphototagger.resources.UiFactory.button();

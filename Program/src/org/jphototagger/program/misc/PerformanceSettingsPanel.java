@@ -25,6 +25,7 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
     private boolean listen;
 
     public PerformanceSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -170,13 +171,13 @@ public final class PerformanceSettingsPanel extends javax.swing.JPanel implement
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelMaximumSecondsToTerminateExternalPrograms = new javax.swing.JPanel();
+        panelMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.panel();
         labelMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.label();
         spinnerMaximumSecondsToTerminateExternalPrograms = new javax.swing.JSpinner();
         checkBoxScanForEmbeddedXmp = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxAutoscanDirectories = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxSaveInputEarly = org.jphototagger.resources.UiFactory.checkBox();
-        panelAutocomplete = new javax.swing.JPanel();
+        panelAutocomplete = org.jphototagger.resources.UiFactory.panel();
         checkBoxEnableAutocomplete = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxUpdateAutocomplete = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxAutocompleteFastSearchIgnoreCase = org.jphototagger.resources.UiFactory.checkBox();

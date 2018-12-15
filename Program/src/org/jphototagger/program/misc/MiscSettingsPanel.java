@@ -48,6 +48,7 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private boolean listenToUseLongXmpSidecarFileNames;
 
     public MiscSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -314,29 +315,29 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
 
         buttonGroupCopyMoveFiles = new javax.swing.ButtonGroup();
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelDefault = new javax.swing.JPanel();
+        panelDefault = org.jphototagger.resources.UiFactory.panel();
         checkBoxIsAcceptHiddenDirectories = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxEnableDeleteDirectories = org.jphototagger.resources.UiFactory.checkBox();
-        panelCheckForUpdates = new javax.swing.JPanel();
+        panelCheckForUpdates = org.jphototagger.resources.UiFactory.panel();
         checkBoxCheckForUpdates = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxDisplaySearchButton = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxUseLongXmpSidecarFileNames = org.jphototagger.resources.UiFactory.checkBox();
-        panelEditMetadata = new javax.swing.JPanel();
-        panelMdTextAreasColumns = new javax.swing.JPanel();
+        panelEditMetadata = org.jphototagger.resources.UiFactory.panel();
+        panelMdTextAreasColumns = org.jphototagger.resources.UiFactory.panel();
         labelMdTextAreasColumnsPropmpt = org.jphototagger.resources.UiFactory.label();
         spinnerMdTextAreasColumns = new javax.swing.JSpinner();
         labelMdTextAreasColumnsInfo = org.jphototagger.resources.UiFactory.label();
         checkBoxDisplayWordsetsEditPanel = org.jphototagger.resources.UiFactory.checkBox();
-        panelCopyMoveFiles = new javax.swing.JPanel();
+        panelCopyMoveFiles = org.jphototagger.resources.UiFactory.panel();
         radioButtonCopyMoveFileConfirmOverwrite = UiFactory.radioButton();
         radioButtonCopyMoveFileRenameIfExists = UiFactory.radioButton();
-        panelRepositoryDirectory = new javax.swing.JPanel();
+        panelRepositoryDirectory = org.jphototagger.resources.UiFactory.panel();
         labelInfoRepositoryDirectory = org.jphototagger.resources.UiFactory.label();
-        panelButtonsRepositoryDirectory = new javax.swing.JPanel();
+        panelButtonsRepositoryDirectory = org.jphototagger.resources.UiFactory.panel();
         buttonChooseRepositoryDirectory = org.jphototagger.resources.UiFactory.button();
         buttonSetDefaultRepositoryDirectoryName = org.jphototagger.resources.UiFactory.button();
         labelRepositoryDirectory = org.jphototagger.resources.UiFactory.label();
-        panelFill = new javax.swing.JPanel();
+        panelFill = org.jphototagger.resources.UiFactory.panel();
 
         setLayout(new java.awt.GridBagLayout());
 

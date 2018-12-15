@@ -41,6 +41,7 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
     private File selectedFile;
 
     public InfoOfSelectedThumbnailPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -155,13 +156,13 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
-        panelSelectedFilePath = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
+        panelSelectedFilePath = org.jphototagger.resources.UiFactory.panel();
         labelSelectedFilePathPrompt = org.jphototagger.resources.UiFactory.label();
         labelSelectedFilePathPrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFilePathPrompt.getFont()));
         labelSelectedFilePathName = org.jphototagger.resources.UiFactory.label();
         buttonOpenDirectoryOfSelectedFile = org.jphototagger.resources.UiFactory.button();
-        panelSelectedFileDateSizeXmpExists = new javax.swing.JPanel();
+        panelSelectedFileDateSizeXmpExists = org.jphototagger.resources.UiFactory.panel();
         labelSelectedFileDatePrompt = org.jphototagger.resources.UiFactory.label();
         labelSelectedFileDatePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileDatePrompt.getFont()));
         labelSelectedFileDate = org.jphototagger.resources.UiFactory.label();
@@ -169,8 +170,8 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
         labelSelectedFileSizePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileSizePrompt.getFont()));
         labelSelectedFileSize = org.jphototagger.resources.UiFactory.label();
         checkBoxSelectedFileHasSidecarFile = org.jphototagger.resources.UiFactory.checkBox();
-        panelThumbnailInfoProviders = new javax.swing.JPanel();
-        panelPadding = new javax.swing.JPanel();
+        panelThumbnailInfoProviders = org.jphototagger.resources.UiFactory.panel();
+        panelPadding = org.jphototagger.resources.UiFactory.panel();
 
         setLayout(new java.awt.GridBagLayout());
 

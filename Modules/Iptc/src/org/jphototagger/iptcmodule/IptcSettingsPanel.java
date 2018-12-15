@@ -30,6 +30,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
     private static final long serialVersionUID = 1L;
 
     public IptcSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -120,7 +121,7 @@ public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageP
         checkBoxDisplayIptc = org.jphototagger.resources.UiFactory.checkBox();
         labelIptcCharset = org.jphototagger.resources.UiFactory.label();
         comboBoxIptcCharset = new JComboBox<>();
-        panelVfill = new JPanel();
+        panelVfill = org.jphototagger.resources.UiFactory.panel();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());

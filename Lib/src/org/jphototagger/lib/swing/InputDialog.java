@@ -90,10 +90,10 @@ public final class InputDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelPrompt = org.jphototagger.resources.UiFactory.label();
         textFieldInput = org.jphototagger.resources.UiFactory.textField();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();
 

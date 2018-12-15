@@ -38,6 +38,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private int componentCount;
 
     public SelectObjectsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         init();
     }
 
@@ -57,6 +58,7 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         if (preferencesKeyForSelectedIndices == null) {
             throw new NullPointerException("keySelIndices == null");
         }
+        org.jphototagger.resources.UiFactory.configure(this);
         this.preferencesKeyForSelectedIndices = preferencesKeyForSelectedIndices;
         init();
     }

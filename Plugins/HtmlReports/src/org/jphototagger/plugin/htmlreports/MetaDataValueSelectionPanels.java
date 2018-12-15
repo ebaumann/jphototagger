@@ -21,6 +21,7 @@ public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements 
     private boolean setValues;
 
     public MetaDataValueSelectionPanels() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -141,9 +142,9 @@ public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements 
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        fillPanel = new javax.swing.JPanel();
+        fillPanel = org.jphototagger.resources.UiFactory.panel();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        panels = new javax.swing.JPanel();
+        panels = org.jphototagger.resources.UiFactory.panel();
         firstSelectionPanel = new org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanel();
 
         fillPanel.setName("fillPanel"); // NOI18N

@@ -10,6 +10,7 @@ public class SettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public SettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 

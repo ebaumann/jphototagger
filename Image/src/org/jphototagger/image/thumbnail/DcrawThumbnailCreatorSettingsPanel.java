@@ -20,6 +20,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public DcrawThumbnailCreatorSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -96,7 +97,7 @@ public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelInfo = org.jphototagger.resources.UiFactory.label();
-        panelChooseFile = new javax.swing.JPanel();
+        panelChooseFile = org.jphototagger.resources.UiFactory.panel();
         labelFile = org.jphototagger.resources.UiFactory.label();
         buttonChooseFile = org.jphototagger.resources.UiFactory.button();
         buttonRemoveFile = org.jphototagger.resources.UiFactory.button();

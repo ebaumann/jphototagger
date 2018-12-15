@@ -50,6 +50,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     private final Map<JButton, String> textOfButton = new HashMap<>();
 
     public RatingSelectionPanel(MetaDataValue metaDataValue) {
+        org.jphototagger.resources.UiFactory.configure(this);
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
@@ -59,6 +60,7 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     }
 
     public RatingSelectionPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         this.metaDataValue = XmpRatingMetaDataValue.INSTANCE;
         init();
     }

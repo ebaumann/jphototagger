@@ -48,6 +48,7 @@ public class EditWordsetPanel extends javax.swing.JPanel {
     }
 
     public EditWordsetPanel(Wordset wordset) {
+        org.jphototagger.resources.UiFactory.configure(this);
         if (wordset == null) {
             throw new NullPointerException("wordset == null");
         }
@@ -264,13 +265,13 @@ public class EditWordsetPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        panelName = new javax.swing.JPanel();
+        panelName = org.jphototagger.resources.UiFactory.panel();
         labelName = org.jphototagger.resources.UiFactory.label();
         textFieldName = org.jphototagger.resources.UiFactory.textField();
         buttonSave = org.jphototagger.resources.UiFactory.button();
         scrollPaneWords = org.jphototagger.resources.UiFactory.scrollPane();
         listWords = new javax.swing.JList<>();
-        panelEdit = new javax.swing.JPanel();
+        panelEdit = org.jphototagger.resources.UiFactory.panel();
         labelWord = org.jphototagger.resources.UiFactory.label();
         textAreaWord = org.jphototagger.resources.UiFactory.textArea();
         buttonAddWord = org.jphototagger.resources.UiFactory.button();

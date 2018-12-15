@@ -30,6 +30,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     private ProgressBarPanel visibleProgressBarPanel;
 
     public ProgressBarPanelArray() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -200,7 +201,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
 
         dialogHiddenProgressBars = new javax.swing.JDialog();
         scrollPaneHiddenProgressBars = org.jphototagger.resources.UiFactory.scrollPane();
-        panelHiddenProgressBars = new javax.swing.JPanel();
+        panelHiddenProgressBars = org.jphototagger.resources.UiFactory.panel();
         initProgressBarPanel = new org.jphototagger.program.app.ui.ProgressBarPanel();
         buttonToggleVisibilityOfHiddenProgressBars = org.jphototagger.resources.UiFactory.button();
 

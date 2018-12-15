@@ -32,6 +32,7 @@ public class SystemOutputPanel extends JPanel {
      * Call later {@code #caputure()}.
      */
     public SystemOutputPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -111,7 +112,7 @@ public class SystemOutputPanel extends JPanel {
 
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         textArea = org.jphototagger.resources.UiFactory.textArea();
-        panelButttons = new javax.swing.JPanel();
+        panelButttons = org.jphototagger.resources.UiFactory.panel();
         searchPanel = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         searchPanel.setSearchableTextComponent(textArea);
         buttonDelete = org.jphototagger.resources.UiFactory.button();

@@ -31,6 +31,7 @@ public class SidecarSuffixesInfoPanel extends javax.swing.JPanel implements Thum
     private int suffixCount;
 
     public SidecarSuffixesInfoPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

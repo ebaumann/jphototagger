@@ -28,6 +28,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
     private volatile boolean cancel;
 
     public RepositoryUpdatePanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         buttons = new AbstractButton[] {
             toggleButtonRefreshExif,
@@ -168,8 +169,8 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
-        panelTasks = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
+        panelTasks = org.jphototagger.resources.UiFactory.panel();
         labelRefreshExif = org.jphototagger.resources.UiFactory.label();
         toggleButtonRefreshExif = org.jphototagger.resources.UiFactory.toggleButton();
         labelRefreshXmp = org.jphototagger.resources.UiFactory.label();
@@ -178,7 +179,7 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
         buttonUpdateThumbnails = org.jphototagger.resources.UiFactory.button();
         labelRenameFiles = org.jphototagger.resources.UiFactory.label();
         buttonRenameFiles = org.jphototagger.resources.UiFactory.button();
-        panelPadding = new javax.swing.JPanel();
+        panelPadding = org.jphototagger.resources.UiFactory.panel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

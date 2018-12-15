@@ -50,6 +50,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
     private boolean editable = true;
 
     public WordsetsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -357,13 +358,13 @@ public class WordsetsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelWordsets = new javax.swing.JPanel();
+        panelWordsets = org.jphototagger.resources.UiFactory.panel();
         comboBoxWordsetNames = new javax.swing.JComboBox<>();
         buttonRemoveWordset = org.jphototagger.resources.UiFactory.button();
         buttonEditWordset = org.jphototagger.resources.UiFactory.button();
         buttonAddWordset = org.jphototagger.resources.UiFactory.button();
         buttonEraseAutomaticWords = org.jphototagger.resources.UiFactory.button();
-        panelWords = new javax.swing.JPanel();
+        panelWords = org.jphototagger.resources.UiFactory.panel();
 
         setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.toolTipText")); // NOI18N
         setLayout(new java.awt.GridBagLayout());

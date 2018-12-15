@@ -20,6 +20,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public ExportGPSToKMLSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -52,7 +53,7 @@ public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
         GridBagConstraints gridBagConstraints;
 
         checkBoxAddFilenameToGpsLocationExport = org.jphototagger.resources.UiFactory.checkBox();
-        panelFill = new JPanel();
+        panelFill = org.jphototagger.resources.UiFactory.panel();
         labelVersion = org.jphototagger.resources.UiFactory.label();
 
         setName("Form"); // NOI18N

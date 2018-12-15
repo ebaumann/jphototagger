@@ -34,6 +34,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public ActionsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -248,7 +249,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         labelActionList = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonDelete = org.jphototagger.resources.UiFactory.button();
         buttonEdit = org.jphototagger.resources.UiFactory.button();
         buttonCreate = org.jphototagger.resources.UiFactory.button();

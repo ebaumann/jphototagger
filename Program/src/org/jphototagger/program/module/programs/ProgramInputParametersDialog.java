@@ -86,8 +86,8 @@ public final class ProgramInputParametersDialog extends Dialog {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
-        panelContent = new javax.swing.JPanel();
-        panelContext = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
+        panelContext = org.jphototagger.resources.UiFactory.panel();
         labelContextProgramPrompt = org.jphototagger.resources.UiFactory.label();
         labelContextProgram = org.jphototagger.resources.UiFactory.label();
         labelContextFilePrompt = org.jphototagger.resources.UiFactory.label();
@@ -97,7 +97,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         textAreaParameter = org.jphototagger.resources.UiFactory.textArea();
         radioButtonParametersBeforeFilename = UiFactory.radioButton();
         radioButtonParametersAfterFilename = UiFactory.radioButton();
-        panelCancelOk = new javax.swing.JPanel();
+        panelCancelOk = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();
 

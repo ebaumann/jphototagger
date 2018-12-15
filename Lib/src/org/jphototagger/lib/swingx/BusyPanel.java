@@ -50,6 +50,7 @@ public final class BusyPanel extends JPanel {
         if (dimension == null) {
             throw new NullPointerException("dimension == null");
         }
+        org.jphototagger.resources.UiFactory.configure(this);
         this.dimension = dimension;
         initComponents();
     }

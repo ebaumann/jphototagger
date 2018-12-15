@@ -50,9 +50,10 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private boolean columnRemoved;
     private boolean customSqlChanged;
     private final transient ListenerSupport<NameListener> ls = new ListenerSupport<>();
-    private final JPanel panelPadding = new JPanel();
+    private final JPanel panelPadding = org.jphototagger.resources.UiFactory.panel();
 
     public AdvancedSearchPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -560,24 +561,24 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
         java.awt.GridBagConstraints gridBagConstraints;
 
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelKeywords = new javax.swing.JPanel();
+        panelKeywords = org.jphototagger.resources.UiFactory.panel();
         labelInfoKeywords = org.jphototagger.resources.UiFactory.label();
         panelKeywordsInput = new org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel();
         panelKeywordsInput.setPrompt("");
         panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.DropListTransferHandler());
-        panelSimpleSql = new javax.swing.JPanel();
+        panelSimpleSql = org.jphototagger.resources.UiFactory.panel();
         scrollPaneColumns = org.jphototagger.resources.UiFactory.scrollPane();
-        panelColumns = new javax.swing.JPanel();
+        panelColumns = org.jphototagger.resources.UiFactory.panel();
         labelInfoDelete = org.jphototagger.resources.UiFactory.label();
         buttonAddColumn = org.jphototagger.resources.UiFactory.button();
-        panelCustomSql = new javax.swing.JPanel();
+        panelCustomSql = org.jphototagger.resources.UiFactory.panel();
         labelCustomSqlInfo = org.jphototagger.resources.UiFactory.label();
         scrollPaneCustomSqlQuery = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaCustomSqlQuery = new TabOrEnterLeavingTextArea();
         textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         textAreaCustomSqlQuery.getDocument().addDocumentListener(new CustomSqlChangeListener());
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonSaveSearch = org.jphototagger.resources.UiFactory.button();
         buttonSaveAs = org.jphototagger.resources.UiFactory.button();
         buttonResetColumns = org.jphototagger.resources.UiFactory.button();

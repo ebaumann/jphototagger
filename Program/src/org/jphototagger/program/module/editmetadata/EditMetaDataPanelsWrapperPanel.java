@@ -9,6 +9,7 @@ class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
     private final transient EditMetaDataPanels editMetadtaPanels;
 
     EditMetaDataPanelsWrapperPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         editMetadtaPanels = new EditMetaDataPanels(panelEditMetadata);
     }
@@ -27,7 +28,7 @@ class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPaneEditMetadata = org.jphototagger.resources.UiFactory.scrollPane();
-        panelEditMetadata = new javax.swing.JPanel();
+        panelEditMetadata = org.jphototagger.resources.UiFactory.panel();
 
         setName("Edit Metadata Container"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

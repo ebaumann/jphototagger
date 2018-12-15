@@ -113,13 +113,13 @@ public class EditUserDefinedFileFilterDialog extends Dialog {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         filter = udf;
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelName = org.jphototagger.resources.UiFactory.label();
         textFieldName = org.jphototagger.resources.UiFactory.textField();
         comboBoxType = new javax.swing.JComboBox<>();
         textFieldExpression = org.jphototagger.resources.UiFactory.textField();
         checkBoxNot = org.jphototagger.resources.UiFactory.checkBox();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();
 

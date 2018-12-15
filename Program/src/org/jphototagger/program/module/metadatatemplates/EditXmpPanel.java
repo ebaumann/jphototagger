@@ -53,6 +53,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private transient Xmp xmp = new Xmp();
 
     public EditXmpPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         init();
     }
 
@@ -239,7 +240,7 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
         panelPhotoshopTransmissionReference = new EditTextEntryPanel(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE);
         panelPhotoshopInstructions = new EditTextEntryPanel(XmpPhotoshopInstructionsMetaDataValue.INSTANCE);
         panelPhotoshopCaptionwriter = new EditTextEntryPanel(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
-        panelFill = new javax.swing.JPanel();
+        panelFill = org.jphototagger.resources.UiFactory.panel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

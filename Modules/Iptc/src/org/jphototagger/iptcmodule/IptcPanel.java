@@ -38,6 +38,7 @@ public class IptcPanel extends javax.swing.JPanel {
     private final IptcTableCellRenderer iptcTableCellRenderer = new IptcTableCellRenderer();
 
     public IptcPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -220,12 +221,12 @@ public class IptcPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        panelTableIptcFilter = new JPanel();
+        panelTableIptcFilter = org.jphototagger.resources.UiFactory.panel();
         labeTTableIptcFilter = org.jphototagger.resources.UiFactory.label();
         textFieldTableIptcFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneIptc = org.jphototagger.resources.UiFactory.scrollPane();
         tableIptc = org.jphototagger.resources.UiFactory.table();
-        panelActions = new JPanel();
+        panelActions = org.jphototagger.resources.UiFactory.panel();
         panelIptcSettings = new IptcSettingsPanel();
         panelIptcSettings.setBorder(null);
         buttonIptcToXmp = org.jphototagger.resources.UiFactory.button();

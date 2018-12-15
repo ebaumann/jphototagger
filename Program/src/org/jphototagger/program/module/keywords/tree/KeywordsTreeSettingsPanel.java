@@ -18,6 +18,7 @@ public class KeywordsTreeSettingsPanel extends javax.swing.JPanel implements Opt
     private static final long serialVersionUID = 1L;
 
     public KeywordsTreeSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

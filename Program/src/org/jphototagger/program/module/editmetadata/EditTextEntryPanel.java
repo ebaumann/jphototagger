@@ -63,6 +63,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
+        org.jphototagger.resources.UiFactory.configure(this);
         this.metaDataValue = metaDataValue;
         initComponents();
         postInitComponents();

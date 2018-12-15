@@ -30,6 +30,7 @@ public class DisplayMessagesInFutureSettingsPanel extends javax.swing.JPanel {
     private boolean listenToCheckBox;
 
     public DisplayMessagesInFutureSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

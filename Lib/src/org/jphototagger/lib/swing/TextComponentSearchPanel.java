@@ -33,6 +33,7 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
     private int currentFoundIndex = -1;
 
     public TextComponentSearchPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         searchTextFieldBackground = searchTextField.getBackground();
         postInitComponents();

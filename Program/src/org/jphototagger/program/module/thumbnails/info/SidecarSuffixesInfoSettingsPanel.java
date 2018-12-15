@@ -26,6 +26,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
     private final SuffixListModel suffixesListModel = new SuffixListModel();
 
     public SidecarSuffixesInfoSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -135,7 +136,7 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
         scrollPaneSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
         listSuffixes = new javax.swing.JList<>();

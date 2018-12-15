@@ -162,13 +162,13 @@ public class EditMetaDataTemplateDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
-        panelName = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
+        panelName = org.jphototagger.resources.UiFactory.panel();
         labelName = org.jphototagger.resources.UiFactory.label();
         textFieldName = org.jphototagger.resources.UiFactory.textField();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         panelXmpEdit = new org.jphototagger.program.module.metadatatemplates.EditXmpPanel();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonSave = org.jphototagger.resources.UiFactory.button();
 

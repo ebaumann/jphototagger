@@ -84,6 +84,7 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     private boolean isAutocomplete;
 
     public FastSearchPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         if (getPersistedAutocomplete()) {
             autocomplete = new Autocomplete(isAutocompleteFastSearchIgnoreCase());

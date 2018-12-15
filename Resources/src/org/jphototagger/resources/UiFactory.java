@@ -2,6 +2,7 @@ package org.jphototagger.resources;
 
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.util.Objects;
 import javax.swing.AbstractButton;
 import javax.swing.Action;
@@ -12,6 +13,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
@@ -328,6 +330,27 @@ public final class UiFactory {
 
     private static void configure(JEditorPane ep) {
         // For future Usage
+    }
+
+    public static JPanel panel() {
+        JPanel jp = new JPanel();
+
+        configure(jp);
+
+        return jp;
+    }
+
+    public static JPanel panel(LayoutManager lm) {
+        JPanel jp = new JPanel(lm);
+
+        configure(jp);
+
+        return jp;
+    }
+
+    public static void configure(JPanel jp) {
+        Objects.requireNonNull(jp, "jp == null");
+        // For future usages
     }
 
     private UiFactory() {

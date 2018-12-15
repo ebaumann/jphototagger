@@ -63,6 +63,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
     private static final String HL_SPAN_END = "</span>";
 
     public TabbedPaneSearchPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         listen();
     }

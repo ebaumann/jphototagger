@@ -35,6 +35,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
     private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 
     public ScheduledTasksSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -197,7 +198,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelTasksAutoscan = new javax.swing.JPanel();
+        panelTasksAutoscan = org.jphototagger.resources.UiFactory.panel();
         labelAutoscanDirectoriesInfo = org.jphototagger.resources.UiFactory.label();
         labelAutoscanDirectoriesPrompt = org.jphototagger.resources.UiFactory.label();
         scrollPaneListAutoscanDirectories = org.jphototagger.resources.UiFactory.scrollPane();
@@ -205,7 +206,7 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
         checkBoxIsAutoscanIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
         buttonRemoveAutoscanDirectories = org.jphototagger.resources.UiFactory.button();
         buttonAddAutoscanDirectories = org.jphototagger.resources.UiFactory.button();
-        panelTime = new javax.swing.JPanel();
+        panelTime = org.jphototagger.resources.UiFactory.panel();
         labelTasksMinutesToStartScheduledTasks = org.jphototagger.resources.UiFactory.label();
         spinnerMinutesToStartScheduledTasks = new javax.swing.JSpinner();
         buttonScheduledTasks = org.jphototagger.resources.UiFactory.button();

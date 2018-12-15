@@ -35,6 +35,7 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
     private final DefaultListModel<String> excludeSuffixesListModel = new DefaultListModel<>();
 
     public ExifSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -174,15 +175,15 @@ public class ExifSettingsPanel extends javax.swing.JPanel implements OptionPageP
         java.awt.GridBagConstraints gridBagConstraints;
 
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelDefault = new javax.swing.JPanel();
-        panelDefaultContent = new javax.swing.JPanel();
-        panelExifCharset = new javax.swing.JPanel();
+        panelDefault = org.jphototagger.resources.UiFactory.panel();
+        panelDefaultContent = org.jphototagger.resources.UiFactory.panel();
+        panelExifCharset = org.jphototagger.resources.UiFactory.panel();
         labelExifCharset = org.jphototagger.resources.UiFactory.label();
         comboBoxExifCharset = new javax.swing.JComboBox<>()
         ;
-        panelFill = new javax.swing.JPanel();
-        panelExcludeSuffixes = new javax.swing.JPanel();
-        panelExcludeSuffixesContent = new javax.swing.JPanel();
+        panelFill = org.jphototagger.resources.UiFactory.panel();
+        panelExcludeSuffixes = org.jphototagger.resources.UiFactory.panel();
+        panelExcludeSuffixesContent = org.jphototagger.resources.UiFactory.panel();
         labelExcludeSuffixes = org.jphototagger.resources.UiFactory.label();
         scrollPaneExcludeSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
         listExcludeSuffixes = new javax.swing.JList<>();

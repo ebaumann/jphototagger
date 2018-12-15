@@ -13,6 +13,7 @@ public class AddKeywortsViaShortcutsPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public AddKeywortsViaShortcutsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 

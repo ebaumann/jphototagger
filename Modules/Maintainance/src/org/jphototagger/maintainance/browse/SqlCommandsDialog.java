@@ -150,10 +150,10 @@ public class SqlCommandsDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         scrollPaneCommands = org.jphototagger.resources.UiFactory.scrollPane();
         listCommands = new org.jdesktop.swingx.JXList();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonEdit = org.jphototagger.resources.UiFactory.button();
         buttonRemove = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();

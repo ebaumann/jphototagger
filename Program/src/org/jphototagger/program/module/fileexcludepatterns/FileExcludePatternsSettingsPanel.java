@@ -31,6 +31,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
     private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
     public FileExcludePatternsSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -241,24 +242,24 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         popupMenu = new javax.swing.JPopupMenu();
         menuItemDeletePattern = org.jphototagger.resources.UiFactory.menuItem();
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelFiles = new javax.swing.JPanel();
+        panelFiles = org.jphototagger.resources.UiFactory.panel();
         labelInfoList = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
         labelTextFieldInputPattern = org.jphototagger.resources.UiFactory.label();
         textFieldInputPattern = org.jphototagger.resources.UiFactory.textField();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonChooseDirs = org.jphototagger.resources.UiFactory.button();
         buttonDeletePattern = org.jphototagger.resources.UiFactory.button();
         buttonInsertPattern = org.jphototagger.resources.UiFactory.button();
         labelInfoChooseDirs = org.jphototagger.resources.UiFactory.label();
-        panelRepository = new javax.swing.JPanel();
+        panelRepository = org.jphototagger.resources.UiFactory.panel();
         labelInfoRepository = org.jphototagger.resources.UiFactory.label();
         progressBarUpdateRepository = new javax.swing.JProgressBar();
-        panelButtonsRepository = new javax.swing.JPanel();
+        panelButtonsRepository = org.jphototagger.resources.UiFactory.panel();
         buttonCancelUpdateRepository = org.jphototagger.resources.UiFactory.button();
         buttonUpdateRepository = org.jphototagger.resources.UiFactory.button();
-        panelDirectoryFolder = new javax.swing.JPanel();
+        panelDirectoryFolder = org.jphototagger.resources.UiFactory.panel();
         labelInfopanelDirectoryFolder = org.jphototagger.resources.UiFactory.label();
         scrollPanePanelDirectoryFolder = org.jphototagger.resources.UiFactory.scrollPane();
         panelSelectRootFiles = new org.jphototagger.lib.swing.SelectRootFilesPanel();

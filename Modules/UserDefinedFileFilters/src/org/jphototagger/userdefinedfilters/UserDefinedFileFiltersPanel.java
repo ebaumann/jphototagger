@@ -24,6 +24,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
     private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     public UserDefinedFileFiltersPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
         listen();
@@ -172,7 +173,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonInsert = org.jphototagger.resources.UiFactory.button();
         buttonUpdate = org.jphototagger.resources.UiFactory.button();
         buttonDelete = org.jphototagger.resources.UiFactory.button();

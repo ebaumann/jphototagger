@@ -170,7 +170,7 @@ public final class SettingsDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         panelSearch = new org.jphototagger.lib.swing.TabbedPaneSearchPanel();
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
         panelPrograms = new org.jphototagger.program.module.programs.ProgramsSettingsPanel();

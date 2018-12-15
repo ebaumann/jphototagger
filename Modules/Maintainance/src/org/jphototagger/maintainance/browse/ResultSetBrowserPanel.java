@@ -16,6 +16,7 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
 
     public ResultSetBrowserPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -72,13 +73,13 @@ public class ResultSetBrowserPanel extends javax.swing.JPanel {
 
         labelSql = org.jphototagger.resources.UiFactory.label();
         labelDescription = org.jphototagger.resources.UiFactory.label();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonLoad = org.jphototagger.resources.UiFactory.button();
         buttonSave = org.jphototagger.resources.UiFactory.button();
         buttonExecuteSql = org.jphototagger.resources.UiFactory.button();
         srollPaneSql = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaSql = org.jphototagger.resources.UiFactory.textArea();
-        panelFilter = new javax.swing.JPanel();
+        panelFilter = org.jphototagger.resources.UiFactory.panel();
         labelFilter = org.jphototagger.resources.UiFactory.label();
         textFieldFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneTable = org.jphototagger.resources.UiFactory.scrollPane();

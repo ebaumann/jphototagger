@@ -47,6 +47,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private volatile boolean isRunning;
 
     public FileEditorPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         setModeInfo();
         MnemonicUtil.setMnemonics((Container) this);
@@ -64,6 +65,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             throw new NullPointerException("fileEditor == null");
         }
 
+        org.jphototagger.resources.UiFactory.configure(this);
         this.fileEditor = fileEditor;
         this.selectDirs = selectDirs;
         initComponents();
@@ -370,9 +372,9 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelDescription = org.jphototagger.resources.UiFactory.label();
-        panelOptions = new javax.swing.JPanel();
+        panelOptions = org.jphototagger.resources.UiFactory.panel();
         checkBoxIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxReplaceExistingFiles = org.jphototagger.resources.UiFactory.checkBox();
         labelInfoFiles = org.jphototagger.resources.UiFactory.label();
@@ -381,7 +383,7 @@ public final class FileEditorPanel extends javax.swing.JPanel {
         progressBar = new javax.swing.JProgressBar();
         labelPromptCurrentFile = org.jphototagger.resources.UiFactory.label();
         labelCurrentFile = org.jphototagger.resources.UiFactory.label();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonSelectFiles = org.jphototagger.resources.UiFactory.button();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonStart = org.jphototagger.resources.UiFactory.button();

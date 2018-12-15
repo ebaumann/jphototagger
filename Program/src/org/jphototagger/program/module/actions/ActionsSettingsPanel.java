@@ -41,6 +41,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
     private final ActionsAfterRepoUpdatesRepository actionsRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     public ActionsSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -286,7 +287,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         menuItemShowActions = org.jphototagger.resources.UiFactory.menuItem();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new org.jdesktop.swingx.JXList();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonMoveUpAction = org.jphototagger.resources.UiFactory.button();
         buttonMoveDownAction = org.jphototagger.resources.UiFactory.button();
         buttonAddAction = org.jphototagger.resources.UiFactory.button();

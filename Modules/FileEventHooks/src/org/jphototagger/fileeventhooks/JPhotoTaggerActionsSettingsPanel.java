@@ -33,6 +33,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
     private String selectedFilenameSuffix;
 
     public JPhotoTaggerActionsSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -218,16 +219,16 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         labelInfoJPhotoTaggerFilenameSuffixes = new org.jdesktop.swingx.JXLabel();
-        panelSuffixes = new javax.swing.JPanel();
-        panelListFilenameSuffixes = new javax.swing.JPanel();
+        panelSuffixes = org.jphototagger.resources.UiFactory.panel();
+        panelListFilenameSuffixes = org.jphototagger.resources.UiFactory.panel();
         scrollPaneListFilenameSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
         listFilenameSuffixes = new org.jdesktop.swingx.JXList();
-        panelEditFilenameSuffix = new javax.swing.JPanel();
+        panelEditFilenameSuffix = org.jphototagger.resources.UiFactory.panel();
         labelFilenameSuffix = org.jphototagger.resources.UiFactory.label();
         textFieldFilenameSuffix = org.jphototagger.resources.UiFactory.textField();
         buttonAddFilenameSuffix = org.jphototagger.resources.UiFactory.button();
         labelFilenameSuffixExample = org.jphototagger.resources.UiFactory.label();
-        panelButtonsFilenameSuffixes = new javax.swing.JPanel();
+        panelButtonsFilenameSuffixes = org.jphototagger.resources.UiFactory.panel();
         buttonRenameSelectedFilenameSuffix = org.jphototagger.resources.UiFactory.button();
         buttonRemoveSelectedFilenameSuffix = org.jphototagger.resources.UiFactory.button();
         labelAttentionJptActions = org.jphototagger.resources.UiFactory.label();

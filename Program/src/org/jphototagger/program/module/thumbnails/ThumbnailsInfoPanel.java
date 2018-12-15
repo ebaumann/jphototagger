@@ -26,6 +26,7 @@ public class ThumbnailsInfoPanel extends javax.swing.JPanel implements StatusLin
     private int selectionCount;
 
     public ThumbnailsInfoPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

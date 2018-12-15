@@ -74,7 +74,7 @@ public final class ImageCollectionsDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelSelectImageCollection = org.jphototagger.resources.UiFactory.label();
         scrollPaneImageCollectionNames = org.jphototagger.resources.UiFactory.scrollPane();
         listImageCollectionNames = new org.jdesktop.swingx.JXList();

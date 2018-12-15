@@ -172,7 +172,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
         progressBar = new javax.swing.JProgressBar();
         buttonStop = org.jphototagger.resources.UiFactory.button();

@@ -28,6 +28,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private String keyCard = "KeywordsPanel.Card";
 
     public KeywordsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -153,16 +154,16 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelTree = new javax.swing.JPanel();
+        panelTree = org.jphototagger.resources.UiFactory.panel();
         scrollPaneTree = org.jphototagger.resources.UiFactory.scrollPane();
         tree = new JXTree();
         tree.setShowsRootHandles(true);
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonToggleExpandAllNodes = org.jphototagger.resources.UiFactory.toggleButton();
         buttonSearchInTree = org.jphototagger.resources.UiFactory.button();
         buttonAsList = org.jphototagger.resources.UiFactory.button();
-        panelList = new javax.swing.JPanel();
-        panelListFilter = new javax.swing.JPanel();
+        panelList = org.jphototagger.resources.UiFactory.panel();
+        panelListFilter = org.jphototagger.resources.UiFactory.panel();
         labelListFilter = org.jphototagger.resources.UiFactory.label();
         textFieldListFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneList = org.jphototagger.resources.UiFactory.scrollPane();

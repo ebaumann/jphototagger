@@ -31,6 +31,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
     private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public ProgramsSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -210,7 +211,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
         scrollPanePrograms = org.jphototagger.resources.UiFactory.scrollPane();
         listPrograms = new org.jdesktop.swingx.JXList();
         labelInfoDefaultProgramFirstInList = org.jphototagger.resources.UiFactory.label();
-        panelProgramButtons = new javax.swing.JPanel();
+        panelProgramButtons = org.jphototagger.resources.UiFactory.panel();
         buttonMoveProgramUp = org.jphototagger.resources.UiFactory.button();
         buttonMoveProgramDown = org.jphototagger.resources.UiFactory.button();
         buttonRemoveProgram = org.jphototagger.resources.UiFactory.button();

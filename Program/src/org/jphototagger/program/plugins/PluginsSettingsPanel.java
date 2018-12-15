@@ -30,13 +30,14 @@ public class PluginsSettingsPanel extends javax.swing.JPanel implements Persiste
     private static final String KEY_TABBED_PANE = "SettingsPluginsPanel.TabbedPane";
 
     public PluginsSettingsPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
 
     private void postInitComponents() {
         addPlugins(FileProcessorPluginManager.INSTANCE);
-        panelExcludeCheckboxes.add(new JPanel(), getGbcAfterLastCheckBox());    // ensures checkboxes vertically top and not centered
+        panelExcludeCheckboxes.add(org.jphototagger.resources.UiFactory.panel(), getGbcAfterLastCheckBox());    // ensures checkboxes vertically top and not centered
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -145,10 +146,10 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
 
         buttonGroup = new javax.swing.ButtonGroup();
         tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelExclude = new javax.swing.JPanel();
+        panelExclude = org.jphototagger.resources.UiFactory.panel();
         labelInfoExclude = org.jphototagger.resources.UiFactory.label();
         scrollPaneExclude = org.jphototagger.resources.UiFactory.scrollPane();
-        panelExcludeCheckboxes = new javax.swing.JPanel();
+        panelExcludeCheckboxes = org.jphototagger.resources.UiFactory.panel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

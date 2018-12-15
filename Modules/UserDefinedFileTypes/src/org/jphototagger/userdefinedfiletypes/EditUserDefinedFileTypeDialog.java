@@ -251,13 +251,13 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelSuffix = org.jphototagger.resources.UiFactory.label();
         textFieldSuffix = org.jphototagger.resources.UiFactory.textField();
         labelDescription = org.jphototagger.resources.UiFactory.label();
         textFieldDescription = org.jphototagger.resources.UiFactory.textField();
         checkBoxExternalThumbnailCreator = org.jphototagger.resources.UiFactory.checkBox();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonHelp = org.jphototagger.resources.UiFactory.button();
         buttonSave = org.jphototagger.resources.UiFactory.button();
 

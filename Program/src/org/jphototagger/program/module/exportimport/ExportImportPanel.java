@@ -45,6 +45,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private final transient ListenerSupport<ExportImportListener> ls = new ListenerSupport<>();
 
     public ExportImportPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
         // Do not call addObjects()!
@@ -54,6 +55,7 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         if (context == null) {
             throw new NullPointerException("context == null");
         }
+        org.jphototagger.resources.UiFactory.configure(this);
         this.context = context;
         initComponents();
         postInitComponents();
@@ -328,14 +330,14 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelDirectory = new javax.swing.JPanel();
+        panelDirectory = org.jphototagger.resources.UiFactory.panel();
         labelPromptDir = org.jphototagger.resources.UiFactory.label();
         labelDir = org.jphototagger.resources.UiFactory.label();
         buttonSelDir = org.jphototagger.resources.UiFactory.button();
         labelSelectInfo = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         panelSelectObjects = new org.jphototagger.lib.swing.SelectObjectsPanel();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonSelectAll = org.jphototagger.resources.UiFactory.button();
         buttonSelectNone = org.jphototagger.resources.UiFactory.button();
         buttonExportImport = org.jphototagger.resources.UiFactory.button();

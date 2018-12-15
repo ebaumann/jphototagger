@@ -84,6 +84,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private Color editBackground;
 
     public EditRepeatableTextEntryPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -92,6 +93,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
+        org.jphototagger.resources.UiFactory.configure(this);
         this.metaDataValue = metaDataValue;
         initComponents();
         postInitComponents();
@@ -825,13 +827,13 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         menuItemRemove = org.jphototagger.resources.UiFactory.menuItem();
         labelPrompt = org.jphototagger.resources.UiFactory.label();
         list = new org.jdesktop.swingx.JXList();
-        panelListButtons = new javax.swing.JPanel();
+        panelListButtons = org.jphototagger.resources.UiFactory.panel();
         buttonRemoveSelection = org.jphototagger.resources.UiFactory.button();
-        panelInput = new javax.swing.JPanel();
+        panelInput = org.jphototagger.resources.UiFactory.panel();
         textAreaInput = org.jphototagger.resources.UiFactory.textArea();
         buttonAddInput = org.jphototagger.resources.UiFactory.button();
         buttonSuggestion = org.jphototagger.resources.UiFactory.button();
-        panelFill = new javax.swing.JPanel();
+        panelFill = org.jphototagger.resources.UiFactory.panel();
 
         popupMenuList.setName("popupMenuList"); // NOI18N
 

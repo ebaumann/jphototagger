@@ -48,6 +48,7 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
     private int rowCount;
 
     public FileDuplicatesPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 
@@ -112,7 +113,7 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
     public void addDuplicates(Collection<? extends File> duplicates) {
         List<File> dups = new ArrayList<File>(duplicates);
         Collections.sort(dups, FILE_SORT_COMPARATOR);
-        JPanel panel = new JPanel(new GridBagLayout());
+        JPanel panel = org.jphototagger.resources.UiFactory.panel(new GridBagLayout());
         boolean first = true;
         for (File file : dups) {
             GridBagConstraints gbc = new GridBagConstraints();
@@ -136,6 +137,7 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
         private final File file;
 
         private FilePanel(File file) {
+            org.jphototagger.resources.UiFactory.configure(this);
             this.file = file;
             initComponents();
         }

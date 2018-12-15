@@ -49,6 +49,7 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private volatile boolean canClose = true;
 
     public RepositoryMaintainancePanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -365,8 +366,8 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
-        panelTasks = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
+        panelTasks = org.jphototagger.resources.UiFactory.panel();
         checkBoxDeleteRecordsOfNotExistingFilesInRepository = org.jphototagger.resources.UiFactory.checkBox();
         labelFinishedDeleteRecordsOfNotExistingFilesInRepository = org.jphototagger.resources.UiFactory.label();
         checkBoxCompressRepository = org.jphototagger.resources.UiFactory.checkBox();
@@ -377,12 +378,12 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
         labelFinishedDeleteUnusedKeywords = org.jphototagger.resources.UiFactory.label();
         checkBoxDeleteNotReferenced1n = org.jphototagger.resources.UiFactory.checkBox();
         labelFinishedDeleteNotReferenced1n = org.jphototagger.resources.UiFactory.label();
-        panelMessages = new javax.swing.JPanel();
+        panelMessages = org.jphototagger.resources.UiFactory.panel();
         labelMessages = org.jphototagger.resources.UiFactory.label();
         scrollPaneMessages = org.jphototagger.resources.UiFactory.scrollPane();
         textPaneMessages = org.jphototagger.resources.UiFactory.textPane();
         progressBar = new javax.swing.JProgressBar();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonDeleteMessages = org.jphototagger.resources.UiFactory.button();
         buttonCancelAction = org.jphototagger.resources.UiFactory.button();
         buttonStartMaintain = org.jphototagger.resources.UiFactory.button();

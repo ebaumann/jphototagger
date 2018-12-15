@@ -24,6 +24,7 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
     private volatile boolean runs;
 
     public RenameFilenamesInRepositoryPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

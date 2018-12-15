@@ -22,6 +22,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
     private Module selectedModule;
 
     public InstalledModulesPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 
@@ -88,7 +89,7 @@ public class InstalledModulesPanel extends javax.swing.JPanel implements OptionP
         labelInfo = org.jphototagger.resources.UiFactory.label();
         scrollPaneModules = org.jphototagger.resources.UiFactory.scrollPane();
         listModules = new javax.swing.JList<>();
-        panelModuleDescription = new javax.swing.JPanel();
+        panelModuleDescription = org.jphototagger.resources.UiFactory.panel();
         labelModuleDescription = new org.jdesktop.swingx.JXLabel();
 
         setName("Form"); // NOI18N

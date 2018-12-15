@@ -17,6 +17,10 @@ public class ImagePanel extends JPanel {
     private Image image;
     private String imageIsAbsentText;
 
+    public ImagePanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
+    }
+
     /**
      *
      * @param image can be null

@@ -95,15 +95,15 @@ public class EditXmpDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
-        panelTemplates = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
+        panelTemplates = org.jphototagger.resources.UiFactory.panel();
         labelTemplates = org.jphototagger.resources.UiFactory.label();
         comboBoxTemplates = new javax.swing.JComboBox<>();
         buttonEditMetadataTemplates = org.jphototagger.resources.UiFactory.button();
         buttonInsertTemplate = org.jphototagger.resources.UiFactory.button();
         scrollPanePanelEditXmp = org.jphototagger.resources.UiFactory.scrollPane();
         panelEditXmp = new org.jphototagger.program.module.metadatatemplates.EditXmpPanel();
-        panelSubmitButtons = new javax.swing.JPanel();
+        panelSubmitButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();
 

@@ -40,6 +40,7 @@ public class ExifPanel extends javax.swing.JPanel {
     private final ExifTableCellRenderer exifTableCellRenderer = new ExifTableCellRenderer();
 
     public ExifPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         tableMouseClicker = new TableMouseClicker(tableExif);
         postInitComponents();
@@ -197,7 +198,7 @@ public class ExifPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        panelTableExifFilter = new JPanel();
+        panelTableExifFilter = org.jphototagger.resources.UiFactory.panel();
         labelTableExifFilter = org.jphototagger.resources.UiFactory.label();
         textFieldTableExifFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneExif = org.jphototagger.resources.UiFactory.scrollPane();

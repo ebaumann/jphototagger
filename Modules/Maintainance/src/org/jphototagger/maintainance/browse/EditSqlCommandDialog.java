@@ -84,13 +84,13 @@ public class EditSqlCommandDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelDescription = org.jphototagger.resources.UiFactory.label();
         textFieldDescription = org.jphototagger.resources.UiFactory.textField();
         labelSql = org.jphototagger.resources.UiFactory.label();
         scrollPaneSql = org.jphototagger.resources.UiFactory.scrollPane();
         textAreaSql = org.jphototagger.resources.UiFactory.textArea();
-        panelButtons = new javax.swing.JPanel();
+        panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonOk = org.jphototagger.resources.UiFactory.button();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
 

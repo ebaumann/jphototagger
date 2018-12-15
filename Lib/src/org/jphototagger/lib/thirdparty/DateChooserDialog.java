@@ -175,7 +175,7 @@ public final class DateChooserDialog extends JComponent {
         c.gridwidth = 3;
         c.anchor = GridBagConstraints.CENTER;
 
-        JPanel panel = new JPanel(new GridLayout(7, 7, UiFactory.scale(1), UiFactory.scale(1)));
+        JPanel panel = org.jphototagger.resources.UiFactory.panel(new GridLayout(7, 7, UiFactory.scale(1), UiFactory.scale(1)));
 
         dayStr = dfs.getShortWeekdays();
 

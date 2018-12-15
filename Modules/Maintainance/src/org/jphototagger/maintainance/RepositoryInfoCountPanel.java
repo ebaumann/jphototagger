@@ -39,6 +39,7 @@ public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
     private volatile boolean listenToDbChanges;
 
     public RepositoryInfoCountPanel() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         table.setDefaultRenderer(Object.class, new RepositoryInfoColumnsTableCellRenderer());
         setLabelFilename();

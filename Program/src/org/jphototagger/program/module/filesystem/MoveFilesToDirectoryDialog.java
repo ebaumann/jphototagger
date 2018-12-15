@@ -319,16 +319,16 @@ public final class MoveFilesToDirectoryDialog extends Dialog implements Progress
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
         buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         labelDirectoryName = org.jphototagger.resources.UiFactory.label();
         progressBar = new javax.swing.JProgressBar();
-        panelCurrentFile = new javax.swing.JPanel();
+        panelCurrentFile = org.jphototagger.resources.UiFactory.panel();
         labelInfoCurrentFilename = org.jphototagger.resources.UiFactory.label();
         labelCurrentFilename = org.jphototagger.resources.UiFactory.label();
         labelInfoIsThread = org.jphototagger.resources.UiFactory.label();
-        panelCancelStart = new javax.swing.JPanel();
+        panelCancelStart = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonStart = org.jphototagger.resources.UiFactory.button();
 

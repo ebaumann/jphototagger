@@ -23,6 +23,7 @@ public class ProgressBarPanel extends javax.swing.JPanel implements ProgressHand
     }
 
     public ProgressBarPanel(Cancelable cancelable) {
+        org.jphototagger.resources.UiFactory.configure(this);
         this.cancelable = cancelable;
         initComponents();
     }

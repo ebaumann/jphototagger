@@ -147,9 +147,9 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = new javax.swing.JPanel();
+        panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = new org.jdesktop.swingx.JXLabel();
-        panelImageButtons = new javax.swing.JPanel();
+        panelImageButtons = org.jphototagger.resources.UiFactory.panel();
         labelDcrawOk = org.jphototagger.resources.UiFactory.label();
         buttonChooseDcraw = org.jphototagger.resources.UiFactory.button();
         buttonBrowseDcraw = org.jphototagger.resources.UiFactory.button();
@@ -158,13 +158,13 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends Dialog {
         buttonBrowseConvert = org.jphototagger.resources.UiFactory.button();
         labelIdentifyOk = org.jphototagger.resources.UiFactory.label();
         buttonChooseIdentify = org.jphototagger.resources.UiFactory.button();
-        panelVideo = new javax.swing.JPanel();
+        panelVideo = org.jphototagger.resources.UiFactory.panel();
         labelInfoVideo = new org.jdesktop.swingx.JXLabel();
         buttonAddUserDefinedFileTypes = org.jphototagger.resources.UiFactory.button();
         labelMPlayerOk = org.jphototagger.resources.UiFactory.label();
         buttonChooseMPlayer = org.jphototagger.resources.UiFactory.button();
         buttonBrowserMPlayer = org.jphototagger.resources.UiFactory.button();
-        panelOkCancelButtons = new javax.swing.JPanel();
+        panelOkCancelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();
 
