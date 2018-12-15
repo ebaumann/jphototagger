@@ -426,39 +426,39 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelLogfileName = org.jphototagger.resources.UiFactory.label();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonReload = org.jphototagger.resources.UiFactory.button();
-        buttonExit = org.jphototagger.resources.UiFactory.button();
-        panelCards = org.jphototagger.resources.UiFactory.panel();
-        panelXml = org.jphototagger.resources.UiFactory.panel();
-        panelFilter = org.jphototagger.resources.UiFactory.panel();
-        panelFilterCheckBoxes = org.jphototagger.resources.UiFactory.panel();
-        labelIconSevere = org.jphototagger.resources.UiFactory.label();
-        checkBoxSevere = org.jphototagger.resources.UiFactory.checkBox();
-        labelIconWarning = org.jphototagger.resources.UiFactory.label();
-        checkBoxWarning = org.jphototagger.resources.UiFactory.checkBox();
-        labelIconInfo = org.jphototagger.resources.UiFactory.label();
-        checkBoxInfo = org.jphototagger.resources.UiFactory.checkBox();
-        labelIconConfig = org.jphototagger.resources.UiFactory.label();
-        checkBoxConfig = org.jphototagger.resources.UiFactory.checkBox();
-        labelIconFine = org.jphototagger.resources.UiFactory.label();
-        checkBoxFine = org.jphototagger.resources.UiFactory.checkBox();
-        labelIconFiner = org.jphototagger.resources.UiFactory.label();
-        checkBoxFiner = org.jphototagger.resources.UiFactory.checkBox();
-        labelIconFinest = org.jphototagger.resources.UiFactory.label();
-        checkBoxFinest = org.jphototagger.resources.UiFactory.checkBox();
-        panelSearchXml = org.jphototagger.resources.UiFactory.panel();
-        labelSearch = org.jphototagger.resources.UiFactory.label();
-        textFieldSearch = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneTableLogfileRecords = org.jphototagger.resources.UiFactory.scrollPane();
-        tableLogfileRecords = org.jphototagger.resources.UiFactory.table();
-        scrollPaneTextPaneDetails = org.jphototagger.resources.UiFactory.scrollPane();
-        textPaneDetails = org.jphototagger.resources.UiFactory.textPane();
-        panelSimple = org.jphototagger.resources.UiFactory.panel();
-        scrollPanePanelSimple = org.jphototagger.resources.UiFactory.scrollPane();
-        textAreaSimple = org.jphototagger.resources.UiFactory.textArea();
+        panelContent = UiFactory.panel();
+        labelLogfileName = UiFactory.label();
+        panelButtons = UiFactory.panel();
+        buttonReload = UiFactory.button();
+        buttonExit = UiFactory.button();
+        panelCards = UiFactory.panel();
+        panelXml = UiFactory.panel();
+        panelFilter = UiFactory.panel();
+        panelFilterCheckBoxes = UiFactory.panel();
+        labelIconSevere = UiFactory.label();
+        checkBoxSevere = UiFactory.checkBox();
+        labelIconWarning = UiFactory.label();
+        checkBoxWarning = UiFactory.checkBox();
+        labelIconInfo = UiFactory.label();
+        checkBoxInfo = UiFactory.checkBox();
+        labelIconConfig = UiFactory.label();
+        checkBoxConfig = UiFactory.checkBox();
+        labelIconFine = UiFactory.label();
+        checkBoxFine = UiFactory.checkBox();
+        labelIconFiner = UiFactory.label();
+        checkBoxFiner = UiFactory.checkBox();
+        labelIconFinest = UiFactory.label();
+        checkBoxFinest = UiFactory.checkBox();
+        panelSearchXml = UiFactory.panel();
+        labelSearch = UiFactory.label();
+        textFieldSearch = UiFactory.textField();
+        scrollPaneTableLogfileRecords = UiFactory.scrollPane();
+        tableLogfileRecords = UiFactory.table();
+        scrollPaneTextPaneDetails = UiFactory.scrollPane();
+        textPaneDetails = UiFactory.textPane();
+        panelSimple = UiFactory.panel();
+        scrollPanePanelSimple = UiFactory.scrollPane();
+        textAreaSimple = UiFactory.textArea();
         panelSearchSimple = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         panelSearchSimple.setSearchableTextComponent(textAreaSimple);
 
@@ -512,7 +512,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         panelCards.setName("panelCards"); // NOI18N
@@ -548,7 +548,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 3, 0, 0);
         panelFilterCheckBoxes.add(labelIconWarning, gridBagConstraints);
 
         checkBoxWarning.setSelected(true);
@@ -564,7 +564,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 3, 0, 0);
         panelFilterCheckBoxes.add(labelIconInfo, gridBagConstraints);
 
         checkBoxInfo.setSelected(true);
@@ -580,7 +580,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 3, 0, 0);
         panelFilterCheckBoxes.add(labelIconConfig, gridBagConstraints);
 
         checkBoxConfig.setSelected(true);
@@ -596,7 +596,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelFilterCheckBoxes.add(labelIconFine, gridBagConstraints);
 
         checkBoxFine.setSelected(true);
@@ -605,7 +605,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelFilterCheckBoxes.add(checkBoxFine, gridBagConstraints);
 
         labelIconFiner.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_finer.png")); // NOI18N
@@ -613,7 +613,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelFilterCheckBoxes.add(labelIconFiner, gridBagConstraints);
 
         checkBoxFiner.setSelected(true);
@@ -622,7 +622,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelFilterCheckBoxes.add(checkBoxFiner, gridBagConstraints);
 
         labelIconFinest.setIcon(org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_finest.png")); // NOI18N
@@ -630,7 +630,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelFilterCheckBoxes.add(labelIconFinest, gridBagConstraints);
 
         checkBoxFinest.setSelected(true);
@@ -639,14 +639,14 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelFilterCheckBoxes.add(checkBoxFinest, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelFilter.add(panelFilterCheckBoxes, gridBagConstraints);
 
         panelSearchXml.setName("panelSearchXml"); // NOI18N
@@ -666,7 +666,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 3, 0, 0);
         panelSearchXml.add(textFieldSearch, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -674,7 +674,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelFilter.add(panelSearchXml, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -685,7 +685,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         panelXml.add(panelFilter, gridBagConstraints);
 
         scrollPaneTableLogfileRecords.setName("scrollPaneTableLogfileRecords"); // NOI18N
-        scrollPaneTableLogfileRecords.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(50, 50));
+        scrollPaneTableLogfileRecords.setPreferredSize(UiFactory.dimension(50, 50));
         scrollPaneTableLogfileRecords.addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -706,11 +706,11 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.6;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelXml.add(scrollPaneTableLogfileRecords, gridBagConstraints);
 
         scrollPaneTextPaneDetails.setName("scrollPaneTextPaneDetails"); // NOI18N
-        scrollPaneTextPaneDetails.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(50, 50));
+        scrollPaneTextPaneDetails.setPreferredSize(UiFactory.dimension(50, 50));
 
         textPaneDetails.setEditable(false);
         textPaneDetails.setName("textPaneDetails"); // NOI18N
@@ -722,7 +722,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.4;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelXml.add(scrollPaneTextPaneDetails, gridBagConstraints);
 
         panelCards.add(panelXml, "panelXml");
@@ -752,7 +752,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelSimple.add(panelSearchSimple, gridBagConstraints);
 
         panelCards.add(panelSimple, "panelSimple");
@@ -763,7 +763,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelCards, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -774,7 +774,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

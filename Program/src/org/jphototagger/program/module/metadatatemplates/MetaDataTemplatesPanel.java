@@ -13,6 +13,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -87,15 +88,15 @@ public class MetaDataTemplatesPanel extends PanelExt implements ListSelectionLis
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.jxList();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        panelModifyButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonRename = org.jphototagger.resources.UiFactory.button();
-        buttonAdd = org.jphototagger.resources.UiFactory.button();
-        buttonEdit = org.jphototagger.resources.UiFactory.button();
-        buttonDelete = org.jphototagger.resources.UiFactory.button();
-        buttonAddToSelImages = org.jphototagger.resources.UiFactory.button();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.jxList();
+        panelButtons = UiFactory.panel();
+        panelModifyButtons = UiFactory.panel();
+        buttonRename = UiFactory.button();
+        buttonAdd = UiFactory.button();
+        buttonEdit = UiFactory.button();
+        buttonDelete = UiFactory.button();
+        buttonAddToSelImages = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -159,7 +160,7 @@ public class MetaDataTemplatesPanel extends PanelExt implements ListSelectionLis
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

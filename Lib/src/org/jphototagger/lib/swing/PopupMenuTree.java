@@ -19,6 +19,7 @@ import javax.swing.MenuElement;
 import javax.swing.tree.TreePath;
 import org.jphototagger.lib.swing.util.TreeItemTempSelectionRowSetter;
 import org.jphototagger.lib.swing.util.TreeUtil;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Popup menu listening to a {@code JTree} and handling temporary selections:
@@ -56,7 +57,7 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
             throw new NullPointerException("tree == null");
         }
 
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         this.tree = tree;
         addMenuItems();
         listenToMenuItems(this);

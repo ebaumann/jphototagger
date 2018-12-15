@@ -11,7 +11,6 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.InputMap;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.jphototagger.api.preferences.Preferences;
@@ -105,7 +104,7 @@ public final class AddKeywordsViaShortcutsController {
         panel.getLabelInfo().setText(Bundle.getString(AddKeywordsViaShortcutsController.class, "AddKeywordsViaShortcutsController.LabelInfo.Text", AddKeywortsViaShortcutsModel.DELIMITER));
         panel.getTable().setModel(tm);
         panel.getTable().setDefaultRenderer(KeywordNumber.class, new KeywordNumberRenderer());
-        panel.getTable().setCellEditor(new DefaultCellEditor(org.jphototagger.resources.UiFactory.textField()));
+        panel.getTable().setCellEditor(new DefaultCellEditor(UiFactory.textField()));
         panel.getTable().putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         dlg.setTitle(Bundle.getString(AddKeywordsViaShortcutsController.class, "AddKeywordsViaShortcutsController.InputDlg.Title"));
         dlg.setComponent(panel);

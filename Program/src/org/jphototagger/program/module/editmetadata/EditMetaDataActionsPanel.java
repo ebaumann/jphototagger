@@ -184,25 +184,25 @@ final class EditMetaDataActionsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelGroupMetadataEdit = org.jphototagger.resources.UiFactory.panel();
-        panelTemplateNameInfo = org.jphototagger.resources.UiFactory.panel();
-        labelPromptInfoCurrentTemplate = org.jphototagger.resources.UiFactory.label();
-        labelTemplateName = org.jphototagger.resources.UiFactory.label();
-        panelEditButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonMetadataTemplateInsert = org.jphototagger.resources.UiFactory.button();
-        buttonMetadataTemplateCreate = org.jphototagger.resources.UiFactory.button();
-        buttonEmptyMetadata = org.jphototagger.resources.UiFactory.button();
-        panelGroupMetadataTemplates = org.jphototagger.resources.UiFactory.panel();
-        panelComboBox = org.jphototagger.resources.UiFactory.panel();
-        labelPromptCurrentTemplate = org.jphototagger.resources.UiFactory.label();
-        comboBoxMetadataTemplates = org.jphototagger.resources.UiFactory.comboBox();
-        panelTemplateButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonMetadataTemplateRename = org.jphototagger.resources.UiFactory.button();
-        buttonMetadataTemplateUpdate = org.jphototagger.resources.UiFactory.button();
-        buttonMetadataTemplateDelete = org.jphototagger.resources.UiFactory.button();
-        buttonMetadataTemplateEdit = org.jphototagger.resources.UiFactory.button();
-        buttonMetadataTemplateAdd = org.jphototagger.resources.UiFactory.button();
+        tabbedPane = UiFactory.tabbedPane();
+        panelGroupMetadataEdit = UiFactory.panel();
+        panelTemplateNameInfo = UiFactory.panel();
+        labelPromptInfoCurrentTemplate = UiFactory.label();
+        labelTemplateName = UiFactory.label();
+        panelEditButtons = UiFactory.panel();
+        buttonMetadataTemplateInsert = UiFactory.button();
+        buttonMetadataTemplateCreate = UiFactory.button();
+        buttonEmptyMetadata = UiFactory.button();
+        panelGroupMetadataTemplates = UiFactory.panel();
+        panelComboBox = UiFactory.panel();
+        labelPromptCurrentTemplate = UiFactory.label();
+        comboBoxMetadataTemplates = UiFactory.comboBox();
+        panelTemplateButtons = UiFactory.panel();
+        buttonMetadataTemplateRename = UiFactory.button();
+        buttonMetadataTemplateUpdate = UiFactory.button();
+        buttonMetadataTemplateDelete = UiFactory.button();
+        buttonMetadataTemplateEdit = UiFactory.button();
+        buttonMetadataTemplateAdd = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -226,14 +226,14 @@ final class EditMetaDataActionsPanel extends PanelExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTemplateNameInfo.add(labelTemplateName, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelGroupMetadataEdit.add(panelTemplateNameInfo, gridBagConstraints);
 
         panelEditButtons.setName("panelEditButtons"); // NOI18N
@@ -242,7 +242,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         buttonMetadataTemplateInsert.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateInsert.text")); // NOI18N
         buttonMetadataTemplateInsert.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateInsert.toolTipText")); // NOI18N
         buttonMetadataTemplateInsert.setEnabled(false);
-        buttonMetadataTemplateInsert.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonMetadataTemplateInsert.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateInsert.setName("buttonMetadataTemplateInsert"); // NOI18N
         buttonMetadataTemplateInsert.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -257,7 +257,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         buttonMetadataTemplateCreate.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateCreate.text")); // NOI18N
         buttonMetadataTemplateCreate.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateCreate.toolTipText")); // NOI18N
         buttonMetadataTemplateCreate.setEnabled(false);
-        buttonMetadataTemplateCreate.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonMetadataTemplateCreate.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateCreate.setName("buttonMetadataTemplateCreate"); // NOI18N
         buttonMetadataTemplateCreate.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -268,13 +268,13 @@ final class EditMetaDataActionsPanel extends PanelExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelEditButtons.add(buttonMetadataTemplateCreate, gridBagConstraints);
 
         buttonEmptyMetadata.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonEmptyMetadata.text")); // NOI18N
         buttonEmptyMetadata.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonEmptyMetadata.toolTipText")); // NOI18N
         buttonEmptyMetadata.setEnabled(false);
-        buttonEmptyMetadata.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonEmptyMetadata.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonEmptyMetadata.setName("buttonEmptyMetadata"); // NOI18N
         buttonEmptyMetadata.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -285,7 +285,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelEditButtons.add(buttonEmptyMetadata, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -293,7 +293,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelGroupMetadataEdit.add(panelEditButtons, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "EditMetaDataActionsPanel.panelGroupMetadataEdit.TabConstraints.tabTitle"), panelGroupMetadataEdit); // NOI18N
@@ -332,14 +332,14 @@ final class EditMetaDataActionsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelComboBox.add(comboBoxMetadataTemplates, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelGroupMetadataTemplates.add(panelComboBox, gridBagConstraints);
 
         panelTemplateButtons.setName("panelTemplateButtons"); // NOI18N
@@ -348,7 +348,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         buttonMetadataTemplateRename.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateRename.text")); // NOI18N
         buttonMetadataTemplateRename.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateRename.toolTipText")); // NOI18N
         buttonMetadataTemplateRename.setEnabled(false);
-        buttonMetadataTemplateRename.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonMetadataTemplateRename.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateRename.setName("buttonMetadataTemplateRename"); // NOI18N
         buttonMetadataTemplateRename.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -361,7 +361,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         buttonMetadataTemplateUpdate.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateUpdate.text")); // NOI18N
         buttonMetadataTemplateUpdate.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateUpdate.toolTipText")); // NOI18N
         buttonMetadataTemplateUpdate.setEnabled(false);
-        buttonMetadataTemplateUpdate.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonMetadataTemplateUpdate.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateUpdate.setName("buttonMetadataTemplateUpdate"); // NOI18N
         buttonMetadataTemplateUpdate.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -374,7 +374,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         buttonMetadataTemplateDelete.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateDelete.text")); // NOI18N
         buttonMetadataTemplateDelete.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateDelete.toolTipText")); // NOI18N
         buttonMetadataTemplateDelete.setEnabled(false);
-        buttonMetadataTemplateDelete.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonMetadataTemplateDelete.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateDelete.setName("buttonMetadataTemplateDelete"); // NOI18N
         buttonMetadataTemplateDelete.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -398,7 +398,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
 
         buttonMetadataTemplateAdd.setText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateAdd.text")); // NOI18N
         buttonMetadataTemplateAdd.setToolTipText(Bundle.getString(getClass(), "EditMetaDataActionsPanel.buttonMetadataTemplateAdd.toolTipText")); // NOI18N
-        buttonMetadataTemplateAdd.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonMetadataTemplateAdd.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonMetadataTemplateAdd.setName("buttonMetadataTemplateAdd"); // NOI18N
         buttonMetadataTemplateAdd.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -413,7 +413,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelGroupMetadataTemplates.add(panelTemplateButtons, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "EditMetaDataActionsPanel.panelGroupMetadataTemplates.TabConstraints.tabTitle"), panelGroupMetadataTemplates); // NOI18N

@@ -311,37 +311,37 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenuWords = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemChangeWord = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemRemoveWord = org.jphototagger.resources.UiFactory.menuItem();
-        popupMenuSynonyms = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemChangeSynonym = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemRemoveSynonym = org.jphototagger.resources.UiFactory.menuItem();
-        panelWords = org.jphototagger.resources.UiFactory.panel();
-        panelEditInputWord = org.jphototagger.resources.UiFactory.panel();
-        labelTextAreaWord = org.jphototagger.resources.UiFactory.label();
-        scrollPaneTextAreaWords = org.jphototagger.resources.UiFactory.scrollPane();
-        textAreaWords = org.jphototagger.resources.UiFactory.textArea();
-        buttonAddWord = org.jphototagger.resources.UiFactory.button();
-        panelAddedWords = org.jphototagger.resources.UiFactory.panel();
-        labelListWords = org.jphototagger.resources.UiFactory.label();
-        scrollPaneListWords = org.jphototagger.resources.UiFactory.scrollPane();
-        listWords = org.jphototagger.resources.UiFactory.jxList();
-        buttonRemoveWord = org.jphototagger.resources.UiFactory.button();
-        buttonChangeWord = org.jphototagger.resources.UiFactory.button();
-        buttonAddAllKeywords = org.jphototagger.resources.UiFactory.button();
-        panelSynonyms = org.jphototagger.resources.UiFactory.panel();
-        panelEditInputSynonyms = org.jphototagger.resources.UiFactory.panel();
-        labelTextFieldSynonym = org.jphototagger.resources.UiFactory.label();
-        textFieldSynonyms = org.jphototagger.resources.UiFactory.textField();
-        buttonAddSynonym = org.jphototagger.resources.UiFactory.button();
-        panelAddedSynonyms = org.jphototagger.resources.UiFactory.panel();
-        labelListSynonyms = org.jphototagger.resources.UiFactory.label();
-        scrollPaneListSynonyms = org.jphototagger.resources.UiFactory.scrollPane();
-        listSynonyms = org.jphototagger.resources.UiFactory.jxList();
-        buttonRemoveSynonym = org.jphototagger.resources.UiFactory.button();
-        buttonChangeSynonym = org.jphototagger.resources.UiFactory.button();
-        labelInfoAddSynonym = org.jphototagger.resources.UiFactory.label();
+        popupMenuWords = UiFactory.popupMenu();
+        menuItemChangeWord = UiFactory.menuItem();
+        menuItemRemoveWord = UiFactory.menuItem();
+        popupMenuSynonyms = UiFactory.popupMenu();
+        menuItemChangeSynonym = UiFactory.menuItem();
+        menuItemRemoveSynonym = UiFactory.menuItem();
+        panelWords = UiFactory.panel();
+        panelEditInputWord = UiFactory.panel();
+        labelTextAreaWord = UiFactory.label();
+        scrollPaneTextAreaWords = UiFactory.scrollPane();
+        textAreaWords = UiFactory.textArea();
+        buttonAddWord = UiFactory.button();
+        panelAddedWords = UiFactory.panel();
+        labelListWords = UiFactory.label();
+        scrollPaneListWords = UiFactory.scrollPane();
+        listWords = UiFactory.jxList();
+        buttonRemoveWord = UiFactory.button();
+        buttonChangeWord = UiFactory.button();
+        buttonAddAllKeywords = UiFactory.button();
+        panelSynonyms = UiFactory.panel();
+        panelEditInputSynonyms = UiFactory.panel();
+        labelTextFieldSynonym = UiFactory.label();
+        textFieldSynonyms = UiFactory.textField();
+        buttonAddSynonym = UiFactory.button();
+        panelAddedSynonyms = UiFactory.panel();
+        labelListSynonyms = UiFactory.label();
+        scrollPaneListSynonyms = UiFactory.scrollPane();
+        listSynonyms = UiFactory.jxList();
+        buttonRemoveSynonym = UiFactory.button();
+        buttonChangeSynonym = UiFactory.button();
+        labelInfoAddSynonym = UiFactory.label();
 
         popupMenuWords.setName("popupMenuWords"); // NOI18N
 
@@ -428,13 +428,13 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelEditInputWord.add(scrollPaneTextAreaWords, gridBagConstraints);
 
         buttonAddWord.setText("+"); // NOI18N
         buttonAddWord.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonAddWord.toolTipText")); // NOI18N
         buttonAddWord.setEnabled(false);
-        buttonAddWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
+        buttonAddWord.setMargin(UiFactory.insets(0, 2, 0, 2));
         buttonAddWord.setName("buttonAddWord"); // NOI18N
         buttonAddWord.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -445,7 +445,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelEditInputWord.add(buttonAddWord, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -492,13 +492,13 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelAddedWords.add(scrollPaneListWords, gridBagConstraints);
 
         buttonRemoveWord.setText("-"); // NOI18N
         buttonRemoveWord.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonRemoveWord.toolTipText")); // NOI18N
         buttonRemoveWord.setEnabled(false);
-        buttonRemoveWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
+        buttonRemoveWord.setMargin(UiFactory.insets(0, 2, 0, 2));
         buttonRemoveWord.setName("buttonRemoveWord"); // NOI18N
         buttonRemoveWord.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -510,13 +510,13 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelAddedWords.add(buttonRemoveWord, gridBagConstraints);
 
         buttonChangeWord.setText("C"); // NOI18N
         buttonChangeWord.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonChangeWord.toolTipText")); // NOI18N
         buttonChangeWord.setEnabled(false);
-        buttonChangeWord.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
+        buttonChangeWord.setMargin(UiFactory.insets(0, 2, 0, 2));
         buttonChangeWord.setName("buttonChangeWord"); // NOI18N
         buttonChangeWord.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -528,7 +528,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelAddedWords.add(buttonChangeWord, gridBagConstraints);
 
         buttonAddAllKeywords.setText(Bundle.getString(getClass(), "SynonymsPanel.buttonAddAllKeywords.text")); // NOI18N
@@ -543,7 +543,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelAddedWords.add(buttonAddAllKeywords, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -552,7 +552,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelWords.add(panelAddedWords, gridBagConstraints);
 
         add(panelWords);
@@ -583,13 +583,13 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelEditInputSynonyms.add(textFieldSynonyms, gridBagConstraints);
 
         buttonAddSynonym.setText("+"); // NOI18N
         buttonAddSynonym.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonAddSynonym.toolTipText")); // NOI18N
         buttonAddSynonym.setEnabled(false);
-        buttonAddSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
+        buttonAddSynonym.setMargin(UiFactory.insets(0, 2, 0, 2));
         buttonAddSynonym.setName("buttonAddSynonym"); // NOI18N
         buttonAddSynonym.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -600,7 +600,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelEditInputSynonyms.add(buttonAddSynonym, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -647,13 +647,13 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelAddedSynonyms.add(scrollPaneListSynonyms, gridBagConstraints);
 
         buttonRemoveSynonym.setText("-"); // NOI18N
         buttonRemoveSynonym.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonRemoveSynonym.toolTipText")); // NOI18N
         buttonRemoveSynonym.setEnabled(false);
-        buttonRemoveSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
+        buttonRemoveSynonym.setMargin(UiFactory.insets(0, 2, 0, 2));
         buttonRemoveSynonym.setName("buttonRemoveSynonym"); // NOI18N
         buttonRemoveSynonym.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -665,13 +665,13 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelAddedSynonyms.add(buttonRemoveSynonym, gridBagConstraints);
 
         buttonChangeSynonym.setText("C"); // NOI18N
         buttonChangeSynonym.setToolTipText(Bundle.getString(getClass(), "SynonymsPanel.buttonChangeSynonym.toolTipText")); // NOI18N
         buttonChangeSynonym.setEnabled(false);
-        buttonChangeSynonym.setMargin(org.jphototagger.resources.UiFactory.insets(0, 2, 0, 2));
+        buttonChangeSynonym.setMargin(UiFactory.insets(0, 2, 0, 2));
         buttonChangeSynonym.setName("buttonChangeSynonym"); // NOI18N
         buttonChangeSynonym.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -683,7 +683,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelAddedSynonyms.add(buttonChangeSynonym, gridBagConstraints);
 
         labelInfoAddSynonym.setText(Bundle.getString(getClass(), "SynonymsPanel.labelInfoAddSynonym.text")); // NOI18N
@@ -693,7 +693,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelAddedSynonyms.add(labelInfoAddSynonym, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -702,7 +702,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelSynonyms.add(panelAddedSynonyms, gridBagConstraints);
 
         add(panelSynonyms);

@@ -18,6 +18,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 
@@ -228,14 +229,14 @@ public final class FavoritePropertiesDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelPromptFavoriteName = org.jphototagger.resources.UiFactory.label();
-        textFieldFavoriteName = org.jphototagger.resources.UiFactory.textField();
-        buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
-        labelDirectoryname = org.jphototagger.resources.UiFactory.label();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        labelPromptFavoriteName = UiFactory.label();
+        textFieldFavoriteName = UiFactory.textField();
+        buttonChooseDirectory = UiFactory.button();
+        labelDirectoryname = UiFactory.label();
+        panelButtons = UiFactory.panel();
+        buttonCancel = UiFactory.button();
+        buttonOk = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "FavoritePropertiesDialog.title")); // NOI18N
@@ -281,7 +282,7 @@ public final class FavoritePropertiesDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(textFieldFavoriteName, gridBagConstraints);
 
         buttonChooseDirectory.setText(Bundle.getString(getClass(), "FavoritePropertiesDialog.buttonChooseDirectory.text_1")); // NOI18N
@@ -296,7 +297,7 @@ public final class FavoritePropertiesDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(buttonChooseDirectory, gridBagConstraints);
 
         labelDirectoryname.setText(" "); // NOI18N
@@ -307,7 +308,7 @@ public final class FavoritePropertiesDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(labelDirectoryname, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -333,14 +334,14 @@ public final class FavoritePropertiesDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonOk, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -350,7 +351,7 @@ public final class FavoritePropertiesDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

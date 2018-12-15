@@ -51,7 +51,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
     private boolean columnRemoved;
     private boolean customSqlChanged;
     private final transient ListenerSupport<NameListener> ls = new ListenerSupport<>();
-    private final JPanel panelPadding = org.jphototagger.resources.UiFactory.panel();
+    private final JPanel panelPadding = UiFactory.panel();
 
     public AdvancedSearchPanel() {
         initComponents();
@@ -560,29 +560,29 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelKeywords = org.jphototagger.resources.UiFactory.panel();
-        labelInfoKeywords = org.jphototagger.resources.UiFactory.label();
+        tabbedPane = UiFactory.tabbedPane();
+        panelKeywords = UiFactory.panel();
+        labelInfoKeywords = UiFactory.label();
         panelKeywordsInput = new org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel();
         panelKeywordsInput.setPrompt("");
         panelKeywordsInput.getTextArea().setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         panelKeywordsInput.getList().setTransferHandler(new org.jphototagger.program.datatransfer.DropListTransferHandler());
-        panelSimpleSql = org.jphototagger.resources.UiFactory.panel();
-        scrollPaneColumns = org.jphototagger.resources.UiFactory.scrollPane();
-        panelColumns = org.jphototagger.resources.UiFactory.panel();
-        labelInfoDelete = org.jphototagger.resources.UiFactory.label();
-        buttonAddColumn = org.jphototagger.resources.UiFactory.button();
-        panelCustomSql = org.jphototagger.resources.UiFactory.panel();
-        labelCustomSqlInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPaneCustomSqlQuery = org.jphototagger.resources.UiFactory.scrollPane();
+        panelSimpleSql = UiFactory.panel();
+        scrollPaneColumns = UiFactory.scrollPane();
+        panelColumns = UiFactory.panel();
+        labelInfoDelete = UiFactory.label();
+        buttonAddColumn = UiFactory.button();
+        panelCustomSql = UiFactory.panel();
+        labelCustomSqlInfo = UiFactory.label();
+        scrollPaneCustomSqlQuery = UiFactory.scrollPane();
         textAreaCustomSqlQuery = new TabOrEnterLeavingTextArea();
         textAreaCustomSqlQuery.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         textAreaCustomSqlQuery.getDocument().addDocumentListener(new CustomSqlChangeListener());
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonSaveSearch = org.jphototagger.resources.UiFactory.button();
-        buttonSaveAs = org.jphototagger.resources.UiFactory.button();
-        buttonResetColumns = org.jphototagger.resources.UiFactory.button();
-        buttonSearch = org.jphototagger.resources.UiFactory.button();
+        panelButtons = UiFactory.panel();
+        buttonSaveSearch = UiFactory.button();
+        buttonSaveAs = UiFactory.button();
+        buttonResetColumns = UiFactory.button();
+        buttonSearch = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -603,7 +603,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
 
         panelKeywords.setName("panelKeywords"); // NOI18N
         panelKeywords.setLayout(new java.awt.GridBagLayout());
-        panelKeywords.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 150));
+        panelKeywords.setPreferredSize(UiFactory.dimension(250, 150));
 
         labelInfoKeywords.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
         labelInfoKeywords.setName("labelInfoKeywords"); // NOI18N
@@ -611,7 +611,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelKeywords.add(labelInfoKeywords, gridBagConstraints);
 
         panelKeywordsInput.setName("panelKeywordsInput"); // NOI18N
@@ -620,7 +620,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelKeywords.add(panelKeywordsInput, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
@@ -640,13 +640,13 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelSimpleSql.add(scrollPaneColumns, gridBagConstraints);
 
         labelInfoDelete.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
         labelInfoDelete.setName("labelInfoDelete"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 0);
         panelSimpleSql.add(labelInfoDelete, gridBagConstraints);
 
         buttonAddColumn.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
@@ -661,7 +661,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelSimpleSql.add(buttonAddColumn, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
@@ -678,7 +678,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelCustomSql.add(labelCustomSqlInfo, gridBagConstraints);
 
         scrollPaneCustomSqlQuery.setName("scrollPaneCustomSqlQuery"); // NOI18N
@@ -696,7 +696,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelCustomSql.add(scrollPaneCustomSqlQuery, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "AdvancedSearchPanel.panelCustomSql.TabConstraints.tabTitle"), panelCustomSql); // NOI18N
@@ -709,7 +709,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 5, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 0, 5, 0);
         add(tabbedPane, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -753,7 +753,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 10, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 10, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

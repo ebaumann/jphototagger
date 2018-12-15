@@ -4,6 +4,7 @@ import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -53,7 +54,7 @@ public class UserDefinedFileTypesDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelUserDefinedFileTypes, gridBagConstraints);
 
         pack();

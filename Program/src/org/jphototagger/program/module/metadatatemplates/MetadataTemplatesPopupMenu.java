@@ -30,7 +30,7 @@ public final class MetadataTemplatesPopupMenu extends JPopupMenu {
     private int selIndex;
 
     private MetadataTemplatesPopupMenu() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         addItems();
         setAccelerators();
     }

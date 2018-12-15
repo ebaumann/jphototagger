@@ -62,6 +62,7 @@ import org.jphototagger.program.module.keywords.tree.SuggestKeywords;
 import org.jphototagger.program.module.wordsets.WordsetPreferences;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.view.ViewUtil;
+import org.jphototagger.resources.UiFactory;
 import org.jphototagger.xmp.EditHints;
 import org.jphototagger.xmp.EditableMetaDataValues;
 import org.jphototagger.xmp.XmpMetadata;
@@ -782,7 +783,7 @@ final class EditMetaDataPanels implements FocusListener {
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.anchor = GridBagConstraints.NORTHWEST;
         gbc.fill = GridBagConstraints.BOTH;
-        gbc.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gbc.insets = UiFactory.insets(0, 10, 0, 10);
         gbc.weightx = 1;
         return gbc;
     }

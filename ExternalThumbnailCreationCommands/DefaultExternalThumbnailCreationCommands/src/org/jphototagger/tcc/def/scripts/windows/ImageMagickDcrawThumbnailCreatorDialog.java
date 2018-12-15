@@ -127,24 +127,24 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelInfo = org.jphototagger.resources.UiFactory.jxLabel();
-        panelImageButtons = org.jphototagger.resources.UiFactory.panel();
-        labelDcrawOk = org.jphototagger.resources.UiFactory.label();
-        buttonChooseDcraw = org.jphototagger.resources.UiFactory.button();
-        buttonBrowseDcraw = org.jphototagger.resources.UiFactory.button();
-        labelConvertOk = org.jphototagger.resources.UiFactory.label();
-        buttonChooseConvert = org.jphototagger.resources.UiFactory.button();
-        buttonBrowseConvert = org.jphototagger.resources.UiFactory.button();
-        panelVideo = org.jphototagger.resources.UiFactory.panel();
-        labelInfoVideo = org.jphototagger.resources.UiFactory.jxLabel();
-        buttonAddUserDefinedFileTypes = org.jphototagger.resources.UiFactory.button();
-        labelMPlayerOk = org.jphototagger.resources.UiFactory.label();
-        buttonChooseMPlayer = org.jphototagger.resources.UiFactory.button();
-        buttonBrowserMPlayer = org.jphototagger.resources.UiFactory.button();
-        panelOkCancelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        labelInfo = UiFactory.jxLabel();
+        panelImageButtons = UiFactory.panel();
+        labelDcrawOk = UiFactory.label();
+        buttonChooseDcraw = UiFactory.button();
+        buttonBrowseDcraw = UiFactory.button();
+        labelConvertOk = UiFactory.label();
+        buttonChooseConvert = UiFactory.button();
+        buttonBrowseConvert = UiFactory.button();
+        panelVideo = UiFactory.panel();
+        labelInfoVideo = UiFactory.jxLabel();
+        buttonAddUserDefinedFileTypes = UiFactory.button();
+        labelMPlayerOk = UiFactory.label();
+        buttonChooseMPlayer = UiFactory.button();
+        buttonBrowserMPlayer = UiFactory.button();
+        panelOkCancelButtons = UiFactory.panel();
+        buttonOk = UiFactory.button();
+        buttonCancel = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.title")); // NOI18N
@@ -159,7 +159,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         panelContent.add(labelInfo, gridBagConstraints);
 
         panelImageButtons.setLayout(new java.awt.GridBagLayout());
@@ -176,7 +176,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelImageButtons.add(buttonChooseDcraw, gridBagConstraints);
 
         buttonBrowseDcraw.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseDcraw.text")); // NOI18N
@@ -189,12 +189,12 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 3, 0, 0);
         panelImageButtons.add(buttonBrowseDcraw, gridBagConstraints);
 
         labelConvertOk.setIcon(ERROR_ICON);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelImageButtons.add(labelConvertOk, gridBagConstraints);
 
         buttonChooseConvert.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
@@ -206,7 +206,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 5, 0, 0);
         panelImageButtons.add(buttonChooseConvert, gridBagConstraints);
 
         buttonBrowseConvert.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseConvert.text")); // NOI18N
@@ -219,14 +219,14 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         panelImageButtons.add(buttonBrowseConvert, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         panelContent.add(panelImageButtons, gridBagConstraints);
 
         panelVideo.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.panelVideo.border.title"))); // NOI18N
@@ -239,7 +239,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelVideo.add(labelInfoVideo, gridBagConstraints);
 
         buttonAddUserDefinedFileTypes.setAction(SaveMPlayerFileSuffixesAsUserDefinedFileTypesAction.INSTANCE);
@@ -247,7 +247,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelVideo.add(buttonAddUserDefinedFileTypes, gridBagConstraints);
 
         labelMPlayerOk.setIcon(ERROR_ICON);
@@ -265,7 +265,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 0);
         panelVideo.add(buttonChooseMPlayer, gridBagConstraints);
 
         buttonBrowserMPlayer.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowserMPlayer.text")); // NOI18N
@@ -277,7 +277,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 3, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 3, 5, 5);
         panelVideo.add(buttonBrowserMPlayer, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -285,7 +285,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         panelContent.add(panelVideo, gridBagConstraints);
 
         panelOkCancelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(3), 0));
@@ -312,14 +312,14 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         panelContent.add(panelOkCancelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

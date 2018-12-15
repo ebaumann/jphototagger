@@ -26,6 +26,7 @@ import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.module.thumbnails.info.SidecarSuffixInfoAddedEvent;
 import org.jphototagger.program.module.thumbnails.info.SidecarSuffixInfoRemovedEvent;
 import org.jphototagger.program.types.ByteSizeUnit;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -156,22 +157,22 @@ public class InfoOfSelectedThumbnailPanel extends PanelExt implements Thumbnails
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        panelSelectedFilePath = org.jphototagger.resources.UiFactory.panel();
-        labelSelectedFilePathPrompt = org.jphototagger.resources.UiFactory.label();
+        panelContent = UiFactory.panel();
+        panelSelectedFilePath = UiFactory.panel();
+        labelSelectedFilePathPrompt = UiFactory.label();
         labelSelectedFilePathPrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFilePathPrompt.getFont()));
-        labelSelectedFilePathName = org.jphototagger.resources.UiFactory.label();
-        buttonOpenDirectoryOfSelectedFile = org.jphototagger.resources.UiFactory.button();
-        panelSelectedFileDateSizeXmpExists = org.jphototagger.resources.UiFactory.panel();
-        labelSelectedFileDatePrompt = org.jphototagger.resources.UiFactory.label();
+        labelSelectedFilePathName = UiFactory.label();
+        buttonOpenDirectoryOfSelectedFile = UiFactory.button();
+        panelSelectedFileDateSizeXmpExists = UiFactory.panel();
+        labelSelectedFileDatePrompt = UiFactory.label();
         labelSelectedFileDatePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileDatePrompt.getFont()));
-        labelSelectedFileDate = org.jphototagger.resources.UiFactory.label();
-        labelSelectedFileSizePrompt = org.jphototagger.resources.UiFactory.label();
+        labelSelectedFileDate = UiFactory.label();
+        labelSelectedFileSizePrompt = UiFactory.label();
         labelSelectedFileSizePrompt.setFont(ComponentUtil.createBoldFont(labelSelectedFileSizePrompt.getFont()));
-        labelSelectedFileSize = org.jphototagger.resources.UiFactory.label();
-        checkBoxSelectedFileHasSidecarFile = org.jphototagger.resources.UiFactory.checkBox();
-        panelThumbnailInfoProviders = org.jphototagger.resources.UiFactory.panel();
-        panelPadding = org.jphototagger.resources.UiFactory.panel();
+        labelSelectedFileSize = UiFactory.label();
+        checkBoxSelectedFileHasSidecarFile = UiFactory.checkBox();
+        panelThumbnailInfoProviders = UiFactory.panel();
+        panelPadding = UiFactory.panel();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -189,12 +190,12 @@ public class InfoOfSelectedThumbnailPanel extends PanelExt implements Thumbnails
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelSelectedFilePath.add(labelSelectedFilePathName, gridBagConstraints);
 
         buttonOpenDirectoryOfSelectedFile.setText(Bundle.getString(getClass(), "InfoOfSelectedThumbnailPanel.buttonOpenDirectoryOfSelectedFile.text")); // NOI18N
         buttonOpenDirectoryOfSelectedFile.setEnabled(false);
-        buttonOpenDirectoryOfSelectedFile.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
+        buttonOpenDirectoryOfSelectedFile.setMargin(UiFactory.insets(0, 0, 0, 0));
         buttonOpenDirectoryOfSelectedFile.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,14 +204,14 @@ public class InfoOfSelectedThumbnailPanel extends PanelExt implements Thumbnails
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelSelectedFilePath.add(buttonOpenDirectoryOfSelectedFile, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 5);
         panelContent.add(panelSelectedFilePath, gridBagConstraints);
 
         panelSelectedFileDateSizeXmpExists.setLayout(new java.awt.GridBagLayout());
@@ -223,19 +224,19 @@ public class InfoOfSelectedThumbnailPanel extends PanelExt implements Thumbnails
         labelSelectedFileDate.setText(Bundle.getString(getClass(), "InfoOfSelectedThumbnailPanel.labelSelectedFileDate.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelSelectedFileDateSizeXmpExists.add(labelSelectedFileDate, gridBagConstraints);
 
         labelSelectedFileSizePrompt.setText(Bundle.getString(getClass(), "InfoOfSelectedThumbnailPanel.labelSelectedFileSizePrompt.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelSelectedFileDateSizeXmpExists.add(labelSelectedFileSizePrompt, gridBagConstraints);
 
         labelSelectedFileSize.setText(Bundle.getString(getClass(), "InfoOfSelectedThumbnailPanel.labelSelectedFileSize.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelSelectedFileDateSizeXmpExists.add(labelSelectedFileSize, gridBagConstraints);
 
         checkBoxSelectedFileHasSidecarFile.setText(Bundle.getString(getClass(), "InfoOfSelectedThumbnailPanel.checkBoxSelectedFileHasSidecarFile.text")); // NOI18N
@@ -243,13 +244,13 @@ public class InfoOfSelectedThumbnailPanel extends PanelExt implements Thumbnails
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelSelectedFileDateSizeXmpExists.add(checkBoxSelectedFileHasSidecarFile, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelContent.add(panelSelectedFileDateSizeXmpExists, gridBagConstraints);
 
         panelThumbnailInfoProviders.setLayout(new java.awt.GridBagLayout());

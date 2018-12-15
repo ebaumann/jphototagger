@@ -51,7 +51,7 @@ public class ExpandCollapseComponentPanel extends PanelExt implements FocusListe
         addComponent(component);
         decorateButton();
         Dimension buttonSize = buttonExpandCollapse.getPreferredSize();
-        buttonSize = org.jphototagger.resources.UiFactory.dimension((int) (buttonSize.width * 0.66), (int) (buttonSize.height * 0.66));
+        buttonSize = UiFactory.dimension((int) (buttonSize.width * 0.66), (int) (buttonSize.height * 0.66));
         buttonExpandCollapse.setPreferredSize(buttonSize);
     }
 
@@ -162,7 +162,7 @@ public class ExpandCollapseComponentPanel extends PanelExt implements FocusListe
                 }
             }
         }
-        labelFill = org.jphototagger.resources.UiFactory.label();
+        labelFill = UiFactory.label();
     }
 
     private void addAsFocusListener() {
@@ -200,7 +200,7 @@ public class ExpandCollapseComponentPanel extends PanelExt implements FocusListe
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        buttonExpandCollapse = org.jphototagger.resources.UiFactory.button();
+        buttonExpandCollapse = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -208,7 +208,7 @@ public class ExpandCollapseComponentPanel extends PanelExt implements FocusListe
         buttonExpandCollapse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(125, 125, 125)));
         buttonExpandCollapse.setContentAreaFilled(false);
         buttonExpandCollapse.setFocusable(false);
-        buttonExpandCollapse.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
+        buttonExpandCollapse.setMargin(UiFactory.insets(0, 0, 0, 0));
         buttonExpandCollapse.setName("buttonExpandCollapse"); // NOI18N
         buttonExpandCollapse.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -220,7 +220,7 @@ public class ExpandCollapseComponentPanel extends PanelExt implements FocusListe
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 5);
         add(buttonExpandCollapse, gridBagConstraints);
     }//GEN-END:initComponents
 

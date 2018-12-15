@@ -15,8 +15,10 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -239,30 +241,30 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemDeletePattern = org.jphototagger.resources.UiFactory.menuItem();
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelFiles = org.jphototagger.resources.UiFactory.panel();
-        labelInfoList = org.jphototagger.resources.UiFactory.label();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.jxList();
-        labelTextFieldInputPattern = org.jphototagger.resources.UiFactory.label();
-        textFieldInputPattern = org.jphototagger.resources.UiFactory.textField();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonChooseDirs = org.jphototagger.resources.UiFactory.button();
-        buttonDeletePattern = org.jphototagger.resources.UiFactory.button();
-        buttonInsertPattern = org.jphototagger.resources.UiFactory.button();
-        labelInfoChooseDirs = org.jphototagger.resources.UiFactory.label();
-        panelRepository = org.jphototagger.resources.UiFactory.panel();
-        labelInfoRepository = org.jphototagger.resources.UiFactory.label();
-        progressBarUpdateRepository = org.jphototagger.resources.UiFactory.progressBar();
-        panelButtonsRepository = org.jphototagger.resources.UiFactory.panel();
-        buttonCancelUpdateRepository = org.jphototagger.resources.UiFactory.button();
-        buttonUpdateRepository = org.jphototagger.resources.UiFactory.button();
-        panelDirectoryFolder = org.jphototagger.resources.UiFactory.panel();
-        labelInfopanelDirectoryFolder = org.jphototagger.resources.UiFactory.label();
-        scrollPanePanelDirectoryFolder = org.jphototagger.resources.UiFactory.scrollPane();
-        panelSelectRootFiles = new org.jphototagger.lib.swing.SelectRootFilesPanel();
+        popupMenu = UiFactory.popupMenu();
+        menuItemDeletePattern = UiFactory.menuItem();
+        tabbedPane = UiFactory.tabbedPane();
+        panelFiles = UiFactory.panel();
+        labelInfoList = UiFactory.label();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.jxList();
+        labelTextFieldInputPattern = UiFactory.label();
+        textFieldInputPattern = UiFactory.textField();
+        panelButtons = UiFactory.panel();
+        buttonChooseDirs = UiFactory.button();
+        buttonDeletePattern = UiFactory.button();
+        buttonInsertPattern = UiFactory.button();
+        labelInfoChooseDirs = UiFactory.label();
+        panelRepository = UiFactory.panel();
+        labelInfoRepository = UiFactory.label();
+        progressBarUpdateRepository = UiFactory.progressBar();
+        panelButtonsRepository = UiFactory.panel();
+        buttonCancelUpdateRepository = UiFactory.button();
+        buttonUpdateRepository = UiFactory.button();
+        panelDirectoryFolder = UiFactory.panel();
+        labelInfopanelDirectoryFolder = UiFactory.label();
+        scrollPanePanelDirectoryFolder = UiFactory.scrollPane();
+        panelSelectRootFiles = new SelectRootFilesPanel();
 
         popupMenu.setName("popupMenu"); // NOI18N
 
@@ -293,7 +295,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelFiles.add(labelInfoList, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -322,7 +324,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(3, 5, 0, 5);
         panelFiles.add(scrollPane, gridBagConstraints);
 
         labelTextFieldInputPattern.setLabelFor(textFieldInputPattern);
@@ -330,7 +332,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         labelTextFieldInputPattern.setName("labelTextFieldInputPattern"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFiles.add(labelTextFieldInputPattern, gridBagConstraints);
 
         textFieldInputPattern.setName("textFieldInputPattern"); // NOI18N
@@ -351,7 +353,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelFiles.add(textFieldInputPattern, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -379,7 +381,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonDeletePattern, gridBagConstraints);
 
         buttonInsertPattern.setText(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.buttonInsertPattern.text")); // NOI18N
@@ -394,14 +396,14 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonInsertPattern, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelFiles.add(panelButtons, gridBagConstraints);
 
         labelInfoChooseDirs.setText(" "); // NOI18N
@@ -411,7 +413,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelFiles.add(labelInfoChooseDirs, gridBagConstraints);
 
         panelRepository.setName("panelRepository"); // NOI18N
@@ -432,7 +434,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelRepository.add(progressBarUpdateRepository, gridBagConstraints);
 
         panelButtonsRepository.setName("panelButtonsRepository"); // NOI18N
@@ -461,14 +463,14 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtonsRepository.add(buttonUpdateRepository, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelRepository.add(panelButtonsRepository, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -476,7 +478,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelFiles.add(panelRepository, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.panelFiles.TabConstraints.tabTitle"), panelFiles); // NOI18N
@@ -490,7 +492,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelDirectoryFolder.add(labelInfopanelDirectoryFolder, gridBagConstraints);
 
         scrollPanePanelDirectoryFolder.setName("scrollPanePanelDirectoryFolder"); // NOI18N
@@ -503,7 +505,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelDirectoryFolder.add(scrollPanePanelDirectoryFolder, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "FileExcludePatternsSettingsPanel.panelDirectoryFolder.TabConstraints.tabTitle"), panelDirectoryFolder); // NOI18N
@@ -575,7 +577,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
     private javax.swing.JPanel panelDirectoryFolder;
     private javax.swing.JPanel panelFiles;
     private javax.swing.JPanel panelRepository;
-    private org.jphototagger.lib.swing.SelectRootFilesPanel panelSelectRootFiles;
+    private SelectRootFilesPanel panelSelectRootFiles;
     private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JProgressBar progressBarUpdateRepository;
     private javax.swing.JScrollPane scrollPane;

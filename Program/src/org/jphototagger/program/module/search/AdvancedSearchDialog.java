@@ -7,6 +7,7 @@ import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Nicht modaler DialogExt für eine erweiterte Suche.
@@ -110,7 +111,7 @@ public final class AdvancedSearchDialog extends DialogExt implements NameListene
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panel, gridBagConstraints);
 
         pack();

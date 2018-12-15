@@ -10,6 +10,7 @@ import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.lookup.ServiceProvider;
 
 /**
@@ -86,11 +87,11 @@ public class InstalledModulesPanel extends PanelExt implements OptionPageProvide
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        labelInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPaneModules = org.jphototagger.resources.UiFactory.scrollPane();
-        listModules = org.jphototagger.resources.UiFactory.list();
-        panelModuleDescription = org.jphototagger.resources.UiFactory.panel();
-        labelModuleDescription = org.jphototagger.resources.UiFactory.jxLabel();
+        labelInfo = UiFactory.label();
+        scrollPaneModules = UiFactory.scrollPane();
+        listModules = UiFactory.list();
+        panelModuleDescription = UiFactory.panel();
+        labelModuleDescription = UiFactory.jxLabel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -101,7 +102,7 @@ public class InstalledModulesPanel extends PanelExt implements OptionPageProvide
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         add(labelInfo, gridBagConstraints);
 
         scrollPaneModules.setName("scrollPaneModules"); // NOI18N
@@ -121,12 +122,12 @@ public class InstalledModulesPanel extends PanelExt implements OptionPageProvide
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         add(scrollPaneModules, gridBagConstraints);
 
         panelModuleDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "InstalledModulesPanel.panelModuleDescription.border.title"))); // NOI18N
         panelModuleDescription.setName("panelModuleDescription"); // NOI18N
-        panelModuleDescription.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(100, 75));
+        panelModuleDescription.setPreferredSize(UiFactory.dimension(100, 75));
         panelModuleDescription.setLayout(new java.awt.GridBagLayout());
 
         labelModuleDescription.setLineWrap(true);
@@ -137,7 +138,7 @@ public class InstalledModulesPanel extends PanelExt implements OptionPageProvide
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelModuleDescription.add(labelModuleDescription, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -145,7 +146,7 @@ public class InstalledModulesPanel extends PanelExt implements OptionPageProvide
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         add(panelModuleDescription, gridBagConstraints);
 
         bindingGroup.bind();

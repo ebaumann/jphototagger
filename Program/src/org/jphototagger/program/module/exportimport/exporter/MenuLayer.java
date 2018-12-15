@@ -25,7 +25,7 @@ public final class MenuLayer extends MainWindowMenuProviderAdapter {
 
             @Override
             public JMenuItem getMenuItem() {
-                JMenu menuExport = org.jphototagger.resources.UiFactory.menu(Bundle.getString(MenuLayer.class, "MenuLayer.Name"));
+                JMenu menuExport = UiFactory.menu(Bundle.getString(MenuLayer.class, "MenuLayer.Name"));
                 menuExport.setIcon(Icons.getIcon("icon_export.png"));
                 MnemonicUtil.setMnemonics(menuExport);
                 JMenuItem itemExport = UiFactory.menuItem(new JptExportAction());

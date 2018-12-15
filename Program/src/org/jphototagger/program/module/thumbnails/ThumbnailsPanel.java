@@ -1253,7 +1253,7 @@ public class ThumbnailsPanel extends PanelExt
                 ? parent.getWidth()
                 : getWidth();
         int heigth = getCalculatedHeight();
-        return org.jphototagger.resources.UiFactory.dimension(width, heigth);
+        return UiFactory.dimension(width, heigth);
     }
 
     private int getCalculatedHeight() {
@@ -1681,7 +1681,7 @@ public class ThumbnailsPanel extends PanelExt
     }
 
     private Component createPopupComponent(final String text) {
-        JPanel panel = org.jphototagger.resources.UiFactory.panel(new GridBagLayout());
+        JPanel panel = UiFactory.panel(new GridBagLayout());
         panel.setBackground(getBackground());
         panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 
@@ -1691,7 +1691,7 @@ public class ThumbnailsPanel extends PanelExt
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.insets = org.jphototagger.resources.UiFactory.insets(15, 15, 15, 15);
+        gbc.insets = UiFactory.insets(15, 15, 15, 15);
 
         panel.add(label, gbc);
 

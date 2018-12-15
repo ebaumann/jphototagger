@@ -3,6 +3,7 @@ package org.jphototagger.plugin.iviewsshow;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -39,9 +40,9 @@ public class IrfanViewSlideshowSettingsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        checkBoxReloadOnLoop = org.jphototagger.resources.UiFactory.checkBox();
-        panelFill = org.jphototagger.resources.UiFactory.panel();
-        labelVersion = org.jphototagger.resources.UiFactory.label();
+        checkBoxReloadOnLoop = UiFactory.checkBox();
+        panelFill = UiFactory.panel();
+        labelVersion = UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -58,7 +59,7 @@ public class IrfanViewSlideshowSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(checkBoxReloadOnLoop, gridBagConstraints);
 
         panelFill.setName("panelFill"); // NOI18N
@@ -77,7 +78,7 @@ public class IrfanViewSlideshowSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(labelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 //Most parts of code from http://unserializableone.blogspot.com/2009/01/redirecting-systemout-and-systemerr-to.html
 
@@ -108,19 +109,19 @@ public class SystemOutputPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        textArea = org.jphototagger.resources.UiFactory.textArea();
-        panelButttons = org.jphototagger.resources.UiFactory.panel();
+        scrollPane = UiFactory.scrollPane();
+        textArea = UiFactory.textArea();
+        panelButttons = UiFactory.panel();
         searchPanel = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         searchPanel.setSearchableTextComponent(textArea);
-        buttonDelete = org.jphototagger.resources.UiFactory.button();
-        buttonCopyToClipboard = org.jphototagger.resources.UiFactory.button();
+        buttonDelete = UiFactory.button();
+        buttonCopyToClipboard = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(300, 200));
+        scrollPane.setPreferredSize(UiFactory.dimension(300, 200));
 
         textArea.setEditable(false);
         textArea.setColumns(1);
@@ -156,7 +157,7 @@ public class SystemOutputPanel extends PanelExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 30, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 30, 0, 0);
         panelButttons.add(buttonDelete, gridBagConstraints);
 
         buttonCopyToClipboard.setText(Bundle.getString(getClass(), "SystemOutputPanel.buttonCopyToClipboard.text")); // NOI18N
@@ -169,14 +170,14 @@ public class SystemOutputPanel extends PanelExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButttons.add(buttonCopyToClipboard, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelButttons, gridBagConstraints);
     }//GEN-END:initComponents
 

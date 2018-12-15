@@ -8,6 +8,7 @@ import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * DialogExt to select an {@code org.jphototagger.program.data.Program}.
@@ -101,10 +102,10 @@ public class SelectProgramDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        scrollPanePrograms = org.jphototagger.resources.UiFactory.scrollPane();
-        listPrograms = org.jphototagger.resources.UiFactory.jxList();
-        buttonSelect = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        scrollPanePrograms = UiFactory.scrollPane();
+        listPrograms = UiFactory.jxList();
+        buttonSelect = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
@@ -153,7 +154,7 @@ public class SelectProgramDialog extends DialogExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(buttonSelect, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -162,7 +163,7 @@ public class SelectProgramDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

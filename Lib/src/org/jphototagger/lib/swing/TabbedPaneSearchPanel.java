@@ -25,6 +25,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Displays in a list titles of tabbed panes of tabs matching a search word
@@ -593,10 +594,10 @@ public class TabbedPaneSearchPanel extends PanelExt implements ComponentListener
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelSearch = org.jphototagger.resources.UiFactory.label();
-        textFieldSearch = org.jphototagger.resources.UiFactory.textField();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.list();
+        labelSearch = UiFactory.label();
+        textFieldSearch = UiFactory.textField();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.list();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -613,7 +614,7 @@ public class TabbedPaneSearchPanel extends PanelExt implements ComponentListener
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(textFieldSearch, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -635,7 +636,7 @@ public class TabbedPaneSearchPanel extends PanelExt implements ComponentListener
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
     }//GEN-END:initComponents
 

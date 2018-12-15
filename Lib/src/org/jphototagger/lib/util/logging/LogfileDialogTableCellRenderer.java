@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Renders the {@code java.util.logging.Level} icons displayed in the GUI of
@@ -25,7 +26,7 @@ public final class LogfileDialogTableCellRenderer implements TableCellRenderer {
     private static final Color SEL_BACKGROUND_COLOR = new Color(251, 225, 146);
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(Bundle.getString(LogfileDialogTableCellRenderer.class, "LogfileDialogTableCellRenderer.DateFormat"));
     private static final Map<Level, ImageIcon> ICON_OF_LEVEL = new HashMap<>();
-    private final JLabel cellLabel = org.jphototagger.resources.UiFactory.label();
+    private final JLabel cellLabel = UiFactory.label();
 
     static {
         ICON_OF_LEVEL.put(Level.CONFIG, org.jphototagger.resources.Icons.getIcon("icon_logfiledialog_config.png"));

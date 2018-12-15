@@ -228,7 +228,7 @@ public class XmpPanel extends PanelExt {
         private static final String DELIMITER_NAMESPACE = ":";
         private static final Translation TRANSLATION_XMP = new Translation(XmpTableCellRenderer.class, "XmpPropertyTranslations");
         private final TableLookAndFeel lookAndFeel = Lookup.getDefault().lookup(TableLookAndFeel.class);
-        private final JLabel cellLabel = org.jphototagger.resources.UiFactory.label();
+        private final JLabel cellLabel = UiFactory.label();
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -408,56 +408,56 @@ public class XmpPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        tabbedPaneXmp = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelTableXmpTiff = org.jphototagger.resources.UiFactory.panel();
-        panelTableXmpTiffFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableXmpTiffFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableXmpTiffFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneXmpTiff = org.jphototagger.resources.UiFactory.scrollPane();
-        tableXmpTiff = org.jphototagger.resources.UiFactory.table();
-        panelTableXmpExif = org.jphototagger.resources.UiFactory.panel();
-        panelTableXmpExifFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableXmpExifFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableXmpExifFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneXmpExif = org.jphototagger.resources.UiFactory.scrollPane();
-        tableXmpExif = org.jphototagger.resources.UiFactory.table();
-        panelTableXmpDc = org.jphototagger.resources.UiFactory.panel();
-        panelTableXmpDcFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableXmpDcFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableXmpDcFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneXmpDc = org.jphototagger.resources.UiFactory.scrollPane();
-        tableXmpDc = org.jphototagger.resources.UiFactory.table();
-        panelTableXmpIptc = org.jphototagger.resources.UiFactory.panel();
-        panelTableXmpIptcFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableXmpIptcFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableXmpIptcFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneXmpIptc = org.jphototagger.resources.UiFactory.scrollPane();
-        tableXmpIptc = org.jphototagger.resources.UiFactory.table();
-        panelTableXmpPhotoshop = org.jphototagger.resources.UiFactory.panel();
-        panelTableXmpPhotoshopFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableXmpPhotoshopFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableXmpPhotoshopFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneXmpPhotoshop = org.jphototagger.resources.UiFactory.scrollPane();
-        tableXmpPhotoshop = org.jphototagger.resources.UiFactory.table();
-        panelTableXmpXap = org.jphototagger.resources.UiFactory.panel();
-        panelTableXmpXapFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableXmpXapFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableXmpXapFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneXmpXap = org.jphototagger.resources.UiFactory.scrollPane();
-        tableXmpXap = org.jphototagger.resources.UiFactory.table();
-        panelTableXmpLightroom = org.jphototagger.resources.UiFactory.panel();
-        panelTableXmpLightroomFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableXmpLightroomFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableXmpLightroomFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneXmpLightroom = org.jphototagger.resources.UiFactory.scrollPane();
-        tableXmpLightroom = org.jphototagger.resources.UiFactory.table();
-        panelTableXmpCameraRawSettings = org.jphototagger.resources.UiFactory.panel();
-        panelTableXmpCameraRawSettingsFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableXmpCameraRawSettingsFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableXmpCameraRawSettingsFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneXmpCameraRawSettings = org.jphototagger.resources.UiFactory.scrollPane();
-        tableXmpCameraRawSettings = org.jphototagger.resources.UiFactory.table();
-        checkBoxScanForEmbeddedXmp = org.jphototagger.resources.UiFactory.checkBox();
+        tabbedPaneXmp = UiFactory.tabbedPane();
+        panelTableXmpTiff = UiFactory.panel();
+        panelTableXmpTiffFilter = UiFactory.panel();
+        labelTableXmpTiffFilter = UiFactory.label();
+        textFieldTableXmpTiffFilter = UiFactory.textField();
+        scrollPaneXmpTiff = UiFactory.scrollPane();
+        tableXmpTiff = UiFactory.table();
+        panelTableXmpExif = UiFactory.panel();
+        panelTableXmpExifFilter = UiFactory.panel();
+        labelTableXmpExifFilter = UiFactory.label();
+        textFieldTableXmpExifFilter = UiFactory.textField();
+        scrollPaneXmpExif = UiFactory.scrollPane();
+        tableXmpExif = UiFactory.table();
+        panelTableXmpDc = UiFactory.panel();
+        panelTableXmpDcFilter = UiFactory.panel();
+        labelTableXmpDcFilter = UiFactory.label();
+        textFieldTableXmpDcFilter = UiFactory.textField();
+        scrollPaneXmpDc = UiFactory.scrollPane();
+        tableXmpDc = UiFactory.table();
+        panelTableXmpIptc = UiFactory.panel();
+        panelTableXmpIptcFilter = UiFactory.panel();
+        labelTableXmpIptcFilter = UiFactory.label();
+        textFieldTableXmpIptcFilter = UiFactory.textField();
+        scrollPaneXmpIptc = UiFactory.scrollPane();
+        tableXmpIptc = UiFactory.table();
+        panelTableXmpPhotoshop = UiFactory.panel();
+        panelTableXmpPhotoshopFilter = UiFactory.panel();
+        labelTableXmpPhotoshopFilter = UiFactory.label();
+        textFieldTableXmpPhotoshopFilter = UiFactory.textField();
+        scrollPaneXmpPhotoshop = UiFactory.scrollPane();
+        tableXmpPhotoshop = UiFactory.table();
+        panelTableXmpXap = UiFactory.panel();
+        panelTableXmpXapFilter = UiFactory.panel();
+        labelTableXmpXapFilter = UiFactory.label();
+        textFieldTableXmpXapFilter = UiFactory.textField();
+        scrollPaneXmpXap = UiFactory.scrollPane();
+        tableXmpXap = UiFactory.table();
+        panelTableXmpLightroom = UiFactory.panel();
+        panelTableXmpLightroomFilter = UiFactory.panel();
+        labelTableXmpLightroomFilter = UiFactory.label();
+        textFieldTableXmpLightroomFilter = UiFactory.textField();
+        scrollPaneXmpLightroom = UiFactory.scrollPane();
+        tableXmpLightroom = UiFactory.table();
+        panelTableXmpCameraRawSettings = UiFactory.panel();
+        panelTableXmpCameraRawSettingsFilter = UiFactory.panel();
+        labelTableXmpCameraRawSettingsFilter = UiFactory.label();
+        textFieldTableXmpCameraRawSettingsFilter = UiFactory.textField();
+        scrollPaneXmpCameraRawSettings = UiFactory.scrollPane();
+        tableXmpCameraRawSettings = UiFactory.table();
+        checkBoxScanForEmbeddedXmp = UiFactory.checkBox();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());
@@ -486,7 +486,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableXmpTiffFilter.add(textFieldTableXmpTiffFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -496,7 +496,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         panelTableXmpTiff.add(panelTableXmpTiffFilter, gridBagConstraints);
 
         scrollPaneXmpTiff.setName("scrollPaneXmpTiff"); // NOI18N
@@ -539,7 +539,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableXmpExifFilter.add(textFieldTableXmpExifFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -549,7 +549,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         panelTableXmpExif.add(panelTableXmpExifFilter, gridBagConstraints);
 
         scrollPaneXmpExif.setName("scrollPaneXmpExif"); // NOI18N
@@ -592,7 +592,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableXmpDcFilter.add(textFieldTableXmpDcFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -602,7 +602,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         panelTableXmpDc.add(panelTableXmpDcFilter, gridBagConstraints);
 
         scrollPaneXmpDc.setName("scrollPaneXmpDc"); // NOI18N
@@ -645,7 +645,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableXmpIptcFilter.add(textFieldTableXmpIptcFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -655,7 +655,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         panelTableXmpIptc.add(panelTableXmpIptcFilter, gridBagConstraints);
 
         scrollPaneXmpIptc.setName("scrollPaneXmpIptc"); // NOI18N
@@ -698,7 +698,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableXmpPhotoshopFilter.add(textFieldTableXmpPhotoshopFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -708,7 +708,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         panelTableXmpPhotoshop.add(panelTableXmpPhotoshopFilter, gridBagConstraints);
 
         scrollPaneXmpPhotoshop.setName("scrollPaneXmpPhotoshop"); // NOI18N
@@ -751,7 +751,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableXmpXapFilter.add(textFieldTableXmpXapFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -761,7 +761,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         panelTableXmpXap.add(panelTableXmpXapFilter, gridBagConstraints);
 
         scrollPaneXmpXap.setName("scrollPaneXmpXap"); // NOI18N
@@ -804,7 +804,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableXmpLightroomFilter.add(textFieldTableXmpLightroomFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -814,7 +814,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         panelTableXmpLightroom.add(panelTableXmpLightroomFilter, gridBagConstraints);
 
         scrollPaneXmpLightroom.setName("scrollPaneXmpLightroom"); // NOI18N
@@ -857,7 +857,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableXmpCameraRawSettingsFilter.add(textFieldTableXmpCameraRawSettingsFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -867,7 +867,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         panelTableXmpCameraRawSettings.add(panelTableXmpCameraRawSettingsFilter, gridBagConstraints);
 
         scrollPaneXmpCameraRawSettings.setName("scrollPaneXmpCameraRawSettings"); // NOI18N
@@ -909,7 +909,7 @@ public class XmpPanel extends PanelExt {
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         add(checkBoxScanForEmbeddedXmp, gridBagConstraints);
     }//GEN-END:initComponents
 

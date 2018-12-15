@@ -107,7 +107,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
     }
 
     private JPopupMenu createExternalThumbnailCreatorPopupMenu() {
-        JPopupMenu popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
+        JPopupMenu popupMenu = UiFactory.popupMenu();
         Collection<? extends ExternalThumbnailCreationCommand> externalThumbnailCreators = Lookup.getDefault().lookupAll(ExternalThumbnailCreationCommand.class);
         for (ExternalThumbnailCreationCommand externalThumbnailCreator : externalThumbnailCreators) {
             if (externalThumbnailCreator.isEnabled()) {
@@ -203,18 +203,18 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
 
         buttonGroupThumbnailCreator = new javax.swing.ButtonGroup();
         panelSettingsThumbnailDimensions = new org.jphototagger.program.module.thumbnails.ThumbnailDimensionsSettingsPanel();
-        panelThumbnailCreator = org.jphototagger.resources.UiFactory.panel();
+        panelThumbnailCreator = UiFactory.panel();
         radioButtonCreateThumbnailsWithJPhotoTagger = UiFactory.radioButton();
         radioButtonCreateThumbnailsWithExternalApp = UiFactory.radioButton();
-        buttonChooseExternalThumbnailCreator = org.jphototagger.resources.UiFactory.button();
-        panelExternalThumbnailApp = org.jphototagger.resources.UiFactory.panel();
-        labelIsCreateThumbnailsWithExternalApp = org.jphototagger.resources.UiFactory.label();
-        textFieldExternalThumbnailCreationCommand = org.jphototagger.resources.UiFactory.textField();
-        checkBoxDisplayThumbnailTooltip = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxDisplayThumbnailsBottomPanel = org.jphototagger.resources.UiFactory.checkBox();
-        panelFurtherSettings = org.jphototagger.resources.UiFactory.panel();
-        buttonThumbnailCreatorsSettings = org.jphototagger.resources.UiFactory.button();
-        panelPadding = org.jphototagger.resources.UiFactory.panel();
+        buttonChooseExternalThumbnailCreator = UiFactory.button();
+        panelExternalThumbnailApp = UiFactory.panel();
+        labelIsCreateThumbnailsWithExternalApp = UiFactory.label();
+        textFieldExternalThumbnailCreationCommand = UiFactory.textField();
+        checkBoxDisplayThumbnailTooltip = UiFactory.checkBox();
+        checkBoxDisplayThumbnailsBottomPanel = UiFactory.checkBox();
+        panelFurtherSettings = UiFactory.panel();
+        buttonThumbnailCreatorsSettings = UiFactory.button();
+        panelPadding = UiFactory.panel();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -224,7 +224,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelSettingsThumbnailDimensions, gridBagConstraints);
 
         panelThumbnailCreator.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.panelThumbnailCreator.border.title"))); // NOI18N
@@ -242,7 +242,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelThumbnailCreator.add(radioButtonCreateThumbnailsWithJPhotoTagger, gridBagConstraints);
 
         buttonGroupThumbnailCreator.add(radioButtonCreateThumbnailsWithExternalApp);
@@ -256,7 +256,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelThumbnailCreator.add(radioButtonCreateThumbnailsWithExternalApp, gridBagConstraints);
 
         buttonChooseExternalThumbnailCreator.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.buttonChooseExternalThumbnailCreator.text")); // NOI18N
@@ -271,7 +271,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelThumbnailCreator.add(buttonChooseExternalThumbnailCreator, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -279,7 +279,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelThumbnailCreator, gridBagConstraints);
 
         panelExternalThumbnailApp.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.panelExternalThumbnailApp.border.title"))); // NOI18N
@@ -293,7 +293,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelExternalThumbnailApp.add(labelIsCreateThumbnailsWithExternalApp, gridBagConstraints);
 
         textFieldExternalThumbnailCreationCommand.setEnabled(false);
@@ -309,7 +309,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(10, 5, 5, 5);
         panelExternalThumbnailApp.add(textFieldExternalThumbnailCreationCommand, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -317,7 +317,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelExternalThumbnailApp, gridBagConstraints);
 
         checkBoxDisplayThumbnailTooltip.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.checkBoxDisplayThumbnailTooltip.text")); // NOI18N
@@ -332,7 +332,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(checkBoxDisplayThumbnailTooltip, gridBagConstraints);
 
         checkBoxDisplayThumbnailsBottomPanel.setText(Bundle.getString(getClass(), "ThumbnailsSettingsPanel.checkBoxDisplayThumbnailsBottomPanel.text")); // NOI18N
@@ -347,7 +347,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         add(checkBoxDisplayThumbnailsBottomPanel, gridBagConstraints);
 
         panelFurtherSettings.setName("panelFurtherSettings"); // NOI18N
@@ -373,7 +373,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelFurtherSettings, gridBagConstraints);
 
         panelPadding.setLayout(new java.awt.GridBagLayout());
@@ -382,7 +382,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 10, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 0, 10, 0);
         add(panelPadding, gridBagConstraints);
     }//GEN-END:initComponents
 

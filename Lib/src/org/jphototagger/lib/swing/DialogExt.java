@@ -14,6 +14,7 @@ import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.help.HelpUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -66,7 +67,7 @@ public class DialogExt extends JDialog {
     }
 
     private void init() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         createActionListener();
         registerKeyboardActions();
         addWindowListener(sizeAndLocationPersister);

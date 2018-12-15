@@ -22,6 +22,7 @@ import org.jphototagger.exif.datatype.ExifAscii;
 import org.jphototagger.lib.swing.ObjectsSelectionDialog;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -174,20 +175,20 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelDefault = org.jphototagger.resources.UiFactory.panel();
-        panelDefaultContent = org.jphototagger.resources.UiFactory.panel();
-        panelExifCharset = org.jphototagger.resources.UiFactory.panel();
-        labelExifCharset = org.jphototagger.resources.UiFactory.label();
-        comboBoxExifCharset = org.jphototagger.resources.UiFactory.comboBox();
-        panelFill = org.jphototagger.resources.UiFactory.panel();
-        panelExcludeSuffixes = org.jphototagger.resources.UiFactory.panel();
-        panelExcludeSuffixesContent = org.jphototagger.resources.UiFactory.panel();
-        labelExcludeSuffixes = org.jphototagger.resources.UiFactory.label();
-        scrollPaneExcludeSuffixes = org.jphototagger.resources.UiFactory.scrollPane();
-        listExcludeSuffixes = org.jphototagger.resources.UiFactory.list();
-        buttonAddExcludeSuffixes = org.jphototagger.resources.UiFactory.button();
-        buttonRemoveExcludeSuffixes = org.jphototagger.resources.UiFactory.button();
+        tabbedPane = UiFactory.tabbedPane();
+        panelDefault = UiFactory.panel();
+        panelDefaultContent = UiFactory.panel();
+        panelExifCharset = UiFactory.panel();
+        labelExifCharset = UiFactory.label();
+        comboBoxExifCharset = UiFactory.comboBox();
+        panelFill = UiFactory.panel();
+        panelExcludeSuffixes = UiFactory.panel();
+        panelExcludeSuffixesContent = UiFactory.panel();
+        labelExcludeSuffixes = UiFactory.label();
+        scrollPaneExcludeSuffixes = UiFactory.scrollPane();
+        listExcludeSuffixes = UiFactory.list();
+        buttonAddExcludeSuffixes = UiFactory.button();
+        buttonRemoveExcludeSuffixes = UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -202,7 +203,7 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
 
         comboBoxExifCharset.setModel(new DefaultComboBoxModel<>(ExifAscii.getValidCharsets()));
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelExifCharset.add(comboBoxExifCharset, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -224,7 +225,7 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         panelDefault.add(panelDefaultContent, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "ExifSettingsPanel.panelDefault.TabConstraints.tabTitle"), panelDefault); // NOI18N
@@ -238,7 +239,7 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelExcludeSuffixesContent.add(labelExcludeSuffixes, gridBagConstraints);
 
         listExcludeSuffixes.setModel(excludeSuffixesListModel);
@@ -250,13 +251,13 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(10, 0, 0, 0);
         panelExcludeSuffixesContent.add(scrollPaneExcludeSuffixes, gridBagConstraints);
 
         buttonAddExcludeSuffixes.setText("+"); // NOI18N
         buttonAddExcludeSuffixes.setToolTipText(Bundle.getString(getClass(), "ExifSettingsPanel.buttonAddExcludeSuffixes.toolTipText")); // NOI18N
-        buttonAddExcludeSuffixes.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
-        buttonAddExcludeSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
+        buttonAddExcludeSuffixes.setMargin(UiFactory.insets(2, 2, 2, 2));
+        buttonAddExcludeSuffixes.setPreferredSize(UiFactory.dimension(22, 22));
         buttonAddExcludeSuffixes.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,14 +267,14 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(10, 5, 0, 0);
         panelExcludeSuffixesContent.add(buttonAddExcludeSuffixes, gridBagConstraints);
 
         buttonRemoveExcludeSuffixes.setText("-"); // NOI18N
         buttonRemoveExcludeSuffixes.setToolTipText(Bundle.getString(getClass(), "ExifSettingsPanel.buttonRemoveExcludeSuffixes.toolTipText")); // NOI18N
         buttonRemoveExcludeSuffixes.setEnabled(false);
-        buttonRemoveExcludeSuffixes.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
-        buttonRemoveExcludeSuffixes.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(22, 22));
+        buttonRemoveExcludeSuffixes.setMargin(UiFactory.insets(2, 2, 2, 2));
+        buttonRemoveExcludeSuffixes.setPreferredSize(UiFactory.dimension(22, 22));
         buttonRemoveExcludeSuffixes.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -283,7 +284,7 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelExcludeSuffixesContent.add(buttonRemoveExcludeSuffixes, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -292,7 +293,7 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         panelExcludeSuffixes.add(panelExcludeSuffixesContent, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "ExifSettingsPanel.panelExcludeSuffixes.TabConstraints.tabTitle"), panelExcludeSuffixes); // NOI18N

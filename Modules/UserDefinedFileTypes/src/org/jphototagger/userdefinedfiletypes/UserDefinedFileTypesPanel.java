@@ -115,16 +115,16 @@ public class UserDefinedFileTypesPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.jxList();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonAdd = org.jphototagger.resources.UiFactory.button();
-        buttonEdit = org.jphototagger.resources.UiFactory.button();
-        buttonDelete = org.jphototagger.resources.UiFactory.button();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.jxList();
+        panelButtons = UiFactory.panel();
+        buttonAdd = UiFactory.button();
+        buttonEdit = UiFactory.button();
+        buttonDelete = UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());
 
-        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(300, 200));
+        scrollPane.setPreferredSize(UiFactory.dimension(300, 200));
 
         list.setModel(new org.jphototagger.userdefinedfiletypes.UserDefinedFileTypesListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,7 +185,7 @@ public class UserDefinedFileTypesPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -18,6 +18,7 @@ import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -126,7 +127,7 @@ public class ProgressBarPanelArray extends PanelExt implements ProgressBarPanelL
     private void repaintHiddenProgressBars() {
         ComponentUtil.forceRepaint(panelHiddenProgressBars);
         Dimension size = panelHiddenProgressBars.getPreferredSize();
-        scrollPaneHiddenProgressBars.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(size.width + 2, size.height + 2));
+        scrollPaneHiddenProgressBars.setPreferredSize(UiFactory.dimension(size.width + 2, size.height + 2));
         ComponentUtil.forceRepaint(dialogHiddenProgressBars);
         setProgressBarDialogLocation();
     }
@@ -202,10 +203,10 @@ public class ProgressBarPanelArray extends PanelExt implements ProgressBarPanelL
 
         dialogHiddenProgressBars = new DialogExt();
         dialogHiddenProgressBars.setPersistSizeAndLocation(false);
-        scrollPaneHiddenProgressBars = org.jphototagger.resources.UiFactory.scrollPane();
-        panelHiddenProgressBars = org.jphototagger.resources.UiFactory.panel();
+        scrollPaneHiddenProgressBars = UiFactory.scrollPane();
+        panelHiddenProgressBars = UiFactory.panel();
         initProgressBarPanel = new org.jphototagger.program.app.ui.ProgressBarPanel();
-        buttonToggleVisibilityOfHiddenProgressBars = org.jphototagger.resources.UiFactory.button();
+        buttonToggleVisibilityOfHiddenProgressBars = UiFactory.button();
 
         dialogHiddenProgressBars.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         dialogHiddenProgressBars.setTitle(Bundle.getString(getClass(), "ProgressBarPanelArray.dialogHiddenProgressBars.title")); // NOI18N
@@ -246,14 +247,14 @@ public class ProgressBarPanelArray extends PanelExt implements ProgressBarPanelL
         buttonToggleVisibilityOfHiddenProgressBars.setToolTipText(Bundle.getString(getClass(), "ProgressBarPanelArray.buttonToggleVisibilityOfHiddenProgressBars.toolTipText")); // NOI18N
         buttonToggleVisibilityOfHiddenProgressBars.setBorder(null);
         buttonToggleVisibilityOfHiddenProgressBars.setEnabled(false);
-        buttonToggleVisibilityOfHiddenProgressBars.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
-        buttonToggleVisibilityOfHiddenProgressBars.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(18, 18));
+        buttonToggleVisibilityOfHiddenProgressBars.setMargin(UiFactory.insets(0, 0, 0, 0));
+        buttonToggleVisibilityOfHiddenProgressBars.setPreferredSize(UiFactory.dimension(18, 18));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(buttonToggleVisibilityOfHiddenProgressBars, gridBagConstraints);
     }//GEN-END:initComponents
 

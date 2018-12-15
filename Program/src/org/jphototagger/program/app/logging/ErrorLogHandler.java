@@ -22,6 +22,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -37,7 +38,7 @@ public final class ErrorLogHandler extends Handler implements MouseListener, Sta
     private static final String STATUSBAR_INFO_TEXT = Bundle.getString(ErrorLogHandler.class, "ErrorLogHandler.StatusbBar.InfoText");
     private static final int MIN_LOG_LEVEL_VALUE = Level.WARNING.intValue();
     private final Collection<String> ignoreErrorMessages = new CopyOnWriteArrayList<>();
-    private final JLabel errorLabel = org.jphototagger.resources.UiFactory.label();
+    private final JLabel errorLabel = UiFactory.label();
 
     public ErrorLogHandler() {
         initIgnoreErrorMessages();

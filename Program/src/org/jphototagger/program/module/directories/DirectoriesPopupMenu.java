@@ -96,7 +96,7 @@ public final class DirectoriesPopupMenu extends JPopupMenu {
     }
 
     private void init() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         addItems();
         setAccelerators();
         setItemsEnabled();

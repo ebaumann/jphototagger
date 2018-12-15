@@ -6,6 +6,7 @@ import javax.swing.event.DocumentListener;
 import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.DocumentChangeListener;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -84,15 +85,15 @@ public class EditSqlCommandDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelDescription = org.jphototagger.resources.UiFactory.label();
-        textFieldDescription = org.jphototagger.resources.UiFactory.textField();
-        labelSql = org.jphototagger.resources.UiFactory.label();
-        scrollPaneSql = org.jphototagger.resources.UiFactory.scrollPane();
-        textAreaSql = org.jphototagger.resources.UiFactory.textArea();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        labelDescription = UiFactory.label();
+        textFieldDescription = UiFactory.textField();
+        labelSql = UiFactory.label();
+        scrollPaneSql = UiFactory.scrollPane();
+        textAreaSql = UiFactory.textArea();
+        panelButtons = UiFactory.panel();
+        buttonOk = UiFactory.button();
+        buttonCancel = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(org.jphototagger.lib.util.Bundle.getString(EditSqlCommandDialog.class, "EditSqlCommandDialog.title")); // NOI18N
@@ -109,7 +110,7 @@ public class EditSqlCommandDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelContent.add(textFieldDescription, gridBagConstraints);
 
         labelSql.setLabelFor(textAreaSql);
@@ -118,10 +119,10 @@ public class EditSqlCommandDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(labelSql, gridBagConstraints);
 
-        scrollPaneSql.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 150));
+        scrollPaneSql.setPreferredSize(UiFactory.dimension(400, 150));
 
         textAreaSql.setColumns(20);
         textAreaSql.setRows(5);
@@ -132,7 +133,7 @@ public class EditSqlCommandDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelContent.add(scrollPaneSql, gridBagConstraints);
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
@@ -157,7 +158,7 @@ public class EditSqlCommandDialog extends DialogExt {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -166,7 +167,7 @@ public class EditSqlCommandDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

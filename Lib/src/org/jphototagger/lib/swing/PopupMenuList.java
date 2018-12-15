@@ -17,6 +17,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.MenuElement;
 import org.jphototagger.lib.swing.util.ListItemTempSelectionRowSetter;
 import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Popup menu listening to a {@code JList} and handling temporary selections:
@@ -51,7 +52,7 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
         if (list == null) {
             throw new NullPointerException("list == null");
         }
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         this.list = list;
         addMenuItems();
         listenToMenuItems(this);

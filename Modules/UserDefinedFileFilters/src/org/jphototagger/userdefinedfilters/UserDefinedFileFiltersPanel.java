@@ -14,6 +14,7 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -167,16 +168,16 @@ public class UserDefinedFileFiltersPanel extends PanelExt implements ListSelecti
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemInsert = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemUpdate = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.jxList();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonInsert = org.jphototagger.resources.UiFactory.button();
-        buttonUpdate = org.jphototagger.resources.UiFactory.button();
-        buttonDelete = org.jphototagger.resources.UiFactory.button();
+        popupMenu = UiFactory.popupMenu();
+        menuItemInsert = UiFactory.menuItem();
+        menuItemUpdate = UiFactory.menuItem();
+        menuItemDelete = UiFactory.menuItem();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.jxList();
+        panelButtons = UiFactory.panel();
+        buttonInsert = UiFactory.button();
+        buttonUpdate = UiFactory.button();
+        buttonDelete = UiFactory.button();
 
         popupMenu.setName("popupMenu"); // NOI18N
         popupMenu.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
@@ -285,7 +286,7 @@ public class UserDefinedFileFiltersPanel extends PanelExt implements ListSelecti
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonUpdate, gridBagConstraints);
 
         buttonDelete.setText(Bundle.getString(getClass(), "UserDefinedFileFiltersPanel.buttonDelete.text")); // NOI18N
@@ -301,12 +302,12 @@ public class UserDefinedFileFiltersPanel extends PanelExt implements ListSelecti
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonDelete, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

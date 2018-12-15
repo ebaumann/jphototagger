@@ -12,6 +12,7 @@ import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -95,7 +96,7 @@ public class ThumbnailsInfoPanel extends PanelExt implements StatusLineElementPr
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        thumbnailInfoLabel = org.jphototagger.resources.UiFactory.label();
+        thumbnailInfoLabel = UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

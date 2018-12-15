@@ -242,24 +242,24 @@ public final class AppFrame extends FrameExt {
     private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupSort = new javax.swing.ButtonGroup();
-        menuBar = org.jphototagger.resources.UiFactory.menuBar();
-        menuFile = org.jphototagger.resources.UiFactory.menu();
-        menuEdit = org.jphototagger.resources.UiFactory.menu();
-        menuView = org.jphototagger.resources.UiFactory.menu();
-        menuGoto = org.jphototagger.resources.UiFactory.menu();
+        menuBar = UiFactory.menuBar();
+        menuFile = UiFactory.menu();
+        menuEdit = UiFactory.menu();
+        menuView = UiFactory.menu();
+        menuGoto = UiFactory.menu();
         sep17 = new javax.swing.JPopupMenu.Separator();
-        menuItemGotoDirectories = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemGotoSavedSearches = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemGotoCollections = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemGotoFavorites = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemGotoKeywordsSel = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemGotoTimeline = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemGotoMiscMetadata = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemGotoDirectories = UiFactory.menuItem();
+        menuItemGotoSavedSearches = UiFactory.menuItem();
+        menuItemGotoCollections = UiFactory.menuItem();
+        menuItemGotoFavorites = UiFactory.menuItem();
+        menuItemGotoKeywordsSel = UiFactory.menuItem();
+        menuItemGotoTimeline = UiFactory.menuItem();
+        menuItemGotoMiscMetadata = UiFactory.menuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
-        menuItemGotoKeywordsEdit = org.jphototagger.resources.UiFactory.menuItem();
-        menuTools = org.jphototagger.resources.UiFactory.menu();
-        menuWindow = org.jphototagger.resources.UiFactory.menu();
-        menuHelp = org.jphototagger.resources.UiFactory.menu();
+        menuItemGotoKeywordsEdit = UiFactory.menuItem();
+        menuTools = UiFactory.menu();
+        menuWindow = UiFactory.menu();
+        menuHelp = UiFactory.menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);

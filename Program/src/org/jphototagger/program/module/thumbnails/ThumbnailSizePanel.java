@@ -22,6 +22,7 @@ import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -185,8 +186,8 @@ public class ThumbnailSizePanel extends PanelExt implements AWTEventListener, Ch
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        thumbnailSizeSlider = org.jphototagger.resources.UiFactory.slider();
-        thumbnailDimensionsButton = org.jphototagger.resources.UiFactory.button();
+        thumbnailSizeSlider = UiFactory.slider();
+        thumbnailDimensionsButton = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -196,8 +197,8 @@ public class ThumbnailSizePanel extends PanelExt implements AWTEventListener, Ch
         thumbnailSizeSlider.setSnapToTicks(true);
         thumbnailSizeSlider.setToolTipText(Bundle.getString(getClass(), "ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
         thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
-        thumbnailSizeSlider.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(50, 20));
-        thumbnailSizeSlider.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(50, 20));
+        thumbnailSizeSlider.setMinimumSize(UiFactory.dimension(50, 20));
+        thumbnailSizeSlider.setPreferredSize(UiFactory.dimension(50, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
@@ -218,7 +219,7 @@ public class ThumbnailSizePanel extends PanelExt implements AWTEventListener, Ch
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(thumbnailDimensionsButton, gridBagConstraints);
     }//GEN-END:initComponents
 

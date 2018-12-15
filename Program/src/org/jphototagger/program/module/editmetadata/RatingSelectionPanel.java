@@ -27,6 +27,7 @@ import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 
 /*
 * RatingSelectionPanel.java
@@ -345,13 +346,13 @@ public class RatingSelectionPanel extends PanelExt implements TextEntry, FocusLi
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelPrompt = org.jphototagger.resources.UiFactory.label();
-        buttonNoRating = org.jphototagger.resources.UiFactory.button();
-        buttonStar1 = org.jphototagger.resources.UiFactory.button();
-        buttonStar2 = org.jphototagger.resources.UiFactory.button();
-        buttonStar3 = org.jphototagger.resources.UiFactory.button();
-        buttonStar4 = org.jphototagger.resources.UiFactory.button();
-        buttonStar5 = org.jphototagger.resources.UiFactory.button();
+        labelPrompt = UiFactory.label();
+        buttonNoRating = UiFactory.button();
+        buttonStar1 = UiFactory.button();
+        buttonStar2 = UiFactory.button();
+        buttonStar3 = UiFactory.button();
+        buttonStar4 = UiFactory.button();
+        buttonStar5 = UiFactory.button();
 
         setName("Rating Selection Panel"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -383,7 +384,7 @@ public class RatingSelectionPanel extends PanelExt implements TextEntry, FocusLi
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 6);
+        gridBagConstraints.insets = UiFactory.insets(0, 0, 1, 6);
         add(buttonNoRating, gridBagConstraints);
 
         buttonStar1.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -402,7 +403,7 @@ public class RatingSelectionPanel extends PanelExt implements TextEntry, FocusLi
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 0, 1, 0);
         add(buttonStar1, gridBagConstraints);
 
         buttonStar2.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -421,7 +422,7 @@ public class RatingSelectionPanel extends PanelExt implements TextEntry, FocusLi
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 0, 1, 0);
         add(buttonStar2, gridBagConstraints);
 
         buttonStar3.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -440,7 +441,7 @@ public class RatingSelectionPanel extends PanelExt implements TextEntry, FocusLi
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 0, 1, 0);
         add(buttonStar3, gridBagConstraints);
 
         buttonStar4.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -459,7 +460,7 @@ public class RatingSelectionPanel extends PanelExt implements TextEntry, FocusLi
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 0, 1, 0);
         add(buttonStar4, gridBagConstraints);
 
         buttonStar5.setIcon(org.jphototagger.resources.Icons.getIcon("icon_xmp_rating_not_set.png"));
@@ -478,7 +479,7 @@ public class RatingSelectionPanel extends PanelExt implements TextEntry, FocusLi
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 0, 1, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 0, 1, 0);
         add(buttonStar5, gridBagConstraints);
     }//GEN-END:initComponents
 

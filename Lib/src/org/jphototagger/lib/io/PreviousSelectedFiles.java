@@ -16,6 +16,7 @@ import javax.swing.JPopupMenu;
 import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -116,7 +117,7 @@ public final class PreviousSelectedFiles {
             throw new NullPointerException("functor == null");
         }
         Set<File> skipFiles = skip == null || skip.length == 0 ? Collections.<File>emptySet() : new HashSet<>(Arrays.asList(skip));
-        JPopupMenu popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
+        JPopupMenu popupMenu = UiFactory.popupMenu();
         for (File file : getExistingFiles()) {
             if (!skipFiles.contains(file)) {
                 popupMenu.add(new FileFunctorAction(file, functor));

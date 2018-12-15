@@ -15,6 +15,7 @@ import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Enhances a {@code JTextComponent} with search capabilities.
@@ -255,10 +256,10 @@ public class TextComponentSearchPanel extends PanelExt implements DocumentListen
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        label = org.jphototagger.resources.UiFactory.label();
-        searchTextField = org.jphototagger.resources.UiFactory.textField();
-        buttonSearchDownwards = org.jphototagger.resources.UiFactory.button();
-        buttonSearchUpwards = org.jphototagger.resources.UiFactory.button();
+        label = UiFactory.label();
+        searchTextField = UiFactory.textField();
+        buttonSearchDownwards = UiFactory.button();
+        buttonSearchUpwards = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -273,7 +274,7 @@ public class TextComponentSearchPanel extends PanelExt implements DocumentListen
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(searchTextField, gridBagConstraints);
 
         buttonSearchDownwards.setText(Bundle.getString(getClass(), "TextComponentSearchPanel.buttonSearchDownwards.text")); // NOI18N
@@ -286,7 +287,7 @@ public class TextComponentSearchPanel extends PanelExt implements DocumentListen
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(buttonSearchDownwards, gridBagConstraints);
 
         buttonSearchUpwards.setText(Bundle.getString(getClass(), "TextComponentSearchPanel.buttonSearchUpwards.text")); // NOI18N
@@ -300,7 +301,7 @@ public class TextComponentSearchPanel extends PanelExt implements DocumentListen
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(buttonSearchUpwards, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -314,30 +314,30 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupCopyMoveFiles = new javax.swing.ButtonGroup();
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelDefault = org.jphototagger.resources.UiFactory.panel();
-        checkBoxIsAcceptHiddenDirectories = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxEnableDeleteDirectories = org.jphototagger.resources.UiFactory.checkBox();
-        panelCheckForUpdates = org.jphototagger.resources.UiFactory.panel();
-        checkBoxCheckForUpdates = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxDisplaySearchButton = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxUseLongXmpSidecarFileNames = org.jphototagger.resources.UiFactory.checkBox();
-        panelEditMetadata = org.jphototagger.resources.UiFactory.panel();
-        panelMdTextAreasColumns = org.jphototagger.resources.UiFactory.panel();
-        labelMdTextAreasColumnsPropmpt = org.jphototagger.resources.UiFactory.label();
-        spinnerMdTextAreasColumns = org.jphototagger.resources.UiFactory.spinner();
-        labelMdTextAreasColumnsInfo = org.jphototagger.resources.UiFactory.label();
-        checkBoxDisplayWordsetsEditPanel = org.jphototagger.resources.UiFactory.checkBox();
-        panelCopyMoveFiles = org.jphototagger.resources.UiFactory.panel();
+        tabbedPane = UiFactory.tabbedPane();
+        panelDefault = UiFactory.panel();
+        checkBoxIsAcceptHiddenDirectories = UiFactory.checkBox();
+        checkBoxEnableDeleteDirectories = UiFactory.checkBox();
+        panelCheckForUpdates = UiFactory.panel();
+        checkBoxCheckForUpdates = UiFactory.checkBox();
+        checkBoxDisplaySearchButton = UiFactory.checkBox();
+        checkBoxUseLongXmpSidecarFileNames = UiFactory.checkBox();
+        panelEditMetadata = UiFactory.panel();
+        panelMdTextAreasColumns = UiFactory.panel();
+        labelMdTextAreasColumnsPropmpt = UiFactory.label();
+        spinnerMdTextAreasColumns = UiFactory.spinner();
+        labelMdTextAreasColumnsInfo = UiFactory.label();
+        checkBoxDisplayWordsetsEditPanel = UiFactory.checkBox();
+        panelCopyMoveFiles = UiFactory.panel();
         radioButtonCopyMoveFileConfirmOverwrite = UiFactory.radioButton();
         radioButtonCopyMoveFileRenameIfExists = UiFactory.radioButton();
-        panelRepositoryDirectory = org.jphototagger.resources.UiFactory.panel();
-        labelInfoRepositoryDirectory = org.jphototagger.resources.UiFactory.label();
-        panelButtonsRepositoryDirectory = org.jphototagger.resources.UiFactory.panel();
-        buttonChooseRepositoryDirectory = org.jphototagger.resources.UiFactory.button();
-        buttonSetDefaultRepositoryDirectoryName = org.jphototagger.resources.UiFactory.button();
-        labelRepositoryDirectory = org.jphototagger.resources.UiFactory.label();
-        panelFill = org.jphototagger.resources.UiFactory.panel();
+        panelRepositoryDirectory = UiFactory.panel();
+        labelInfoRepositoryDirectory = UiFactory.label();
+        panelButtonsRepositoryDirectory = UiFactory.panel();
+        buttonChooseRepositoryDirectory = UiFactory.button();
+        buttonSetDefaultRepositoryDirectoryName = UiFactory.button();
+        labelRepositoryDirectory = UiFactory.label();
+        panelFill = UiFactory.panel();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -355,7 +355,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         panelDefault.add(checkBoxIsAcceptHiddenDirectories, gridBagConstraints);
 
         checkBoxEnableDeleteDirectories.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxEnableDeleteDirectories.text")); // NOI18N
@@ -368,7 +368,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxEnableDeleteDirectories, gridBagConstraints);
 
         panelCheckForUpdates.setLayout(new java.awt.GridBagLayout());
@@ -390,7 +390,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(panelCheckForUpdates, gridBagConstraints);
 
         checkBoxDisplaySearchButton.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxDisplaySearchButton.text")); // NOI18N
@@ -405,7 +405,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxDisplaySearchButton, gridBagConstraints);
 
         checkBoxUseLongXmpSidecarFileNames.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxUseLongXmpSidecarFileNames.text")); // NOI18N
@@ -420,7 +420,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxUseLongXmpSidecarFileNames, gridBagConstraints);
 
         panelEditMetadata.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MiscSettingsPanel.panelEditMetadata.border.title"))); // NOI18N
@@ -444,7 +444,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelMdTextAreasColumns.add(spinnerMdTextAreasColumns, gridBagConstraints);
 
         labelMdTextAreasColumnsInfo.setText(Bundle.getString(getClass(), "MiscSettingsPanel.labelMdTextAreasColumnsInfo.text")); // NOI18N
@@ -453,7 +453,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelMdTextAreasColumns.add(labelMdTextAreasColumnsInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -461,7 +461,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelEditMetadata.add(panelMdTextAreasColumns, gridBagConstraints);
 
         checkBoxDisplayWordsetsEditPanel.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxDisplayWordsetsEditPanel.text")); // NOI18N
@@ -476,7 +476,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelEditMetadata.add(checkBoxDisplayWordsetsEditPanel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -484,7 +484,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 0, 10);
         panelDefault.add(panelEditMetadata, gridBagConstraints);
 
         panelCopyMoveFiles.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MiscSettingsPanel.panelCopyMoveFiles.border.title"))); // NOI18N
@@ -503,7 +503,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelCopyMoveFiles.add(radioButtonCopyMoveFileConfirmOverwrite, gridBagConstraints);
 
         buttonGroupCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists);
@@ -519,7 +519,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 5, 5);
         panelCopyMoveFiles.add(radioButtonCopyMoveFileRenameIfExists, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -527,7 +527,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 0, 10);
         panelDefault.add(panelCopyMoveFiles, gridBagConstraints);
 
         panelRepositoryDirectory.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MiscSettingsPanel.panelRepositoryDirectory.border.title"))); // NOI18N
@@ -538,7 +538,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelRepositoryDirectory.add(labelInfoRepositoryDirectory, gridBagConstraints);
 
         panelButtonsRepositoryDirectory.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(5), 0));
@@ -564,7 +564,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelRepositoryDirectory.add(panelButtonsRepositoryDirectory, gridBagConstraints);
 
         labelRepositoryDirectory.setText(" "); // NOI18N
@@ -574,7 +574,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelRepositoryDirectory.add(labelRepositoryDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -582,7 +582,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 0, 10);
         panelDefault.add(panelRepositoryDirectory, gridBagConstraints);
 
         panelFill.setLayout(new java.awt.GridBagLayout());

@@ -22,6 +22,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.program.tasks.ScheduledTasks;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -198,18 +199,18 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelTasksAutoscan = org.jphototagger.resources.UiFactory.panel();
-        labelAutoscanDirectoriesInfo = org.jphototagger.resources.UiFactory.label();
-        labelAutoscanDirectoriesPrompt = org.jphototagger.resources.UiFactory.label();
-        scrollPaneListAutoscanDirectories = org.jphototagger.resources.UiFactory.scrollPane();
-        listAutoscanDirectories = org.jphototagger.resources.UiFactory.jxList();
-        checkBoxIsAutoscanIncludeSubdirectories = org.jphototagger.resources.UiFactory.checkBox();
-        buttonRemoveAutoscanDirectories = org.jphototagger.resources.UiFactory.button();
-        buttonAddAutoscanDirectories = org.jphototagger.resources.UiFactory.button();
-        panelTime = org.jphototagger.resources.UiFactory.panel();
-        labelTasksMinutesToStartScheduledTasks = org.jphototagger.resources.UiFactory.label();
-        spinnerMinutesToStartScheduledTasks = org.jphototagger.resources.UiFactory.spinner();
-        buttonScheduledTasks = org.jphototagger.resources.UiFactory.button();
+        panelTasksAutoscan = UiFactory.panel();
+        labelAutoscanDirectoriesInfo = UiFactory.label();
+        labelAutoscanDirectoriesPrompt = UiFactory.label();
+        scrollPaneListAutoscanDirectories = UiFactory.scrollPane();
+        listAutoscanDirectories = UiFactory.jxList();
+        checkBoxIsAutoscanIncludeSubdirectories = UiFactory.checkBox();
+        buttonRemoveAutoscanDirectories = UiFactory.button();
+        buttonAddAutoscanDirectories = UiFactory.button();
+        panelTime = UiFactory.panel();
+        labelTasksMinutesToStartScheduledTasks = UiFactory.label();
+        spinnerMinutesToStartScheduledTasks = UiFactory.spinner();
+        buttonScheduledTasks = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -227,7 +228,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelTasksAutoscan.add(labelAutoscanDirectoriesInfo, gridBagConstraints);
 
         labelAutoscanDirectoriesPrompt.setLabelFor(listAutoscanDirectories);
@@ -240,7 +241,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelTasksAutoscan.add(labelAutoscanDirectoriesPrompt, gridBagConstraints);
 
         scrollPaneListAutoscanDirectories.setName("scrollPaneListAutoscanDirectories"); // NOI18N
@@ -270,7 +271,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelTasksAutoscan.add(scrollPaneListAutoscanDirectories, gridBagConstraints);
 
         checkBoxIsAutoscanIncludeSubdirectories.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.checkBoxIsAutoscanIncludeSubdirectories.text")); // NOI18N
@@ -287,7 +288,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 0);
         panelTasksAutoscan.add(checkBoxIsAutoscanIncludeSubdirectories, gridBagConstraints);
 
         buttonRemoveAutoscanDirectories.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.buttonRemoveAutoscanDirectories.text")); // NOI18N
@@ -303,7 +304,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 0);
         panelTasksAutoscan.add(buttonRemoveAutoscanDirectories, gridBagConstraints);
 
         buttonAddAutoscanDirectories.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.buttonAddAutoscanDirectories.text")); // NOI18N
@@ -318,7 +319,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelTasksAutoscan.add(buttonAddAutoscanDirectories, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -339,7 +340,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(8, 12, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(8, 12, 0, 0);
         panelTime.add(labelTasksMinutesToStartScheduledTasks, gridBagConstraints);
 
         spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
@@ -356,27 +357,27 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.ipadx = 24;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(6, 12, 12, 0);
+        gridBagConstraints.insets = UiFactory.insets(6, 12, 12, 0);
         panelTime.add(spinnerMinutesToStartScheduledTasks, gridBagConstraints);
 
         buttonScheduledTasks.setIcon(org.jphototagger.resources.Icons.getIcon("icon_start.png"));
         buttonScheduledTasks.setToolTipText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.buttonScheduledTasks.toolTipText")); // NOI18N
         buttonScheduledTasks.setAlignmentY(0.0F);
         buttonScheduledTasks.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        buttonScheduledTasks.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
+        buttonScheduledTasks.setMargin(UiFactory.insets(0, 0, 0, 0));
         buttonScheduledTasks.setName("buttonScheduledTasks"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(13, 6, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(13, 6, 0, 0);
         panelTime.add(buttonScheduledTasks, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelTime, gridBagConstraints);
     }//GEN-END:initComponents
 

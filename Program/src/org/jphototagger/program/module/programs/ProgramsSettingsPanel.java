@@ -19,6 +19,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -198,25 +199,25 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemAddProgram = org.jphototagger.resources.UiFactory.menuItem();
+        popupMenu = UiFactory.popupMenu();
+        menuItemAddProgram = UiFactory.menuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemEditProgram = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemRemoveProgram = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemEditProgram = UiFactory.menuItem();
+        menuItemRemoveProgram = UiFactory.menuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        menuItemMoveProgramUp = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemMoveProgramDown = org.jphototagger.resources.UiFactory.menuItem();
-        labelPrograms = org.jphototagger.resources.UiFactory.label();
-        buttonDefaultPrograms = org.jphototagger.resources.UiFactory.button();
-        scrollPanePrograms = org.jphototagger.resources.UiFactory.scrollPane();
-        listPrograms = org.jphototagger.resources.UiFactory.jxList();
-        labelInfoDefaultProgramFirstInList = org.jphototagger.resources.UiFactory.label();
-        panelProgramButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonMoveProgramUp = org.jphototagger.resources.UiFactory.button();
-        buttonMoveProgramDown = org.jphototagger.resources.UiFactory.button();
-        buttonRemoveProgram = org.jphototagger.resources.UiFactory.button();
-        buttonAddProgram = org.jphototagger.resources.UiFactory.button();
-        buttonEditProgram = org.jphototagger.resources.UiFactory.button();
+        menuItemMoveProgramUp = UiFactory.menuItem();
+        menuItemMoveProgramDown = UiFactory.menuItem();
+        labelPrograms = UiFactory.label();
+        buttonDefaultPrograms = UiFactory.button();
+        scrollPanePrograms = UiFactory.scrollPane();
+        listPrograms = UiFactory.jxList();
+        labelInfoDefaultProgramFirstInList = UiFactory.label();
+        panelProgramButtons = UiFactory.panel();
+        buttonMoveProgramUp = UiFactory.button();
+        buttonMoveProgramDown = UiFactory.button();
+        buttonRemoveProgram = UiFactory.button();
+        buttonAddProgram = UiFactory.button();
+        buttonEditProgram = UiFactory.button();
 
         menuItemAddProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.menuItemAddProgram.text")); // NOI18N
         menuItemAddProgram.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +279,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 0);
         add(labelPrograms, gridBagConstraints);
 
         buttonDefaultPrograms.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonDefaultPrograms.text")); // NOI18N
@@ -292,7 +293,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(buttonDefaultPrograms, gridBagConstraints);
 
         listPrograms.setModel(model);
@@ -328,7 +329,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(scrollPanePrograms, gridBagConstraints);
 
         labelInfoDefaultProgramFirstInList.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.labelInfoDefaultProgramFirstInList.text")); // NOI18N
@@ -337,7 +338,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(labelInfoDefaultProgramFirstInList, gridBagConstraints);
 
         panelProgramButtons.setLayout(new java.awt.GridBagLayout());
@@ -366,7 +367,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelProgramButtons.add(buttonMoveProgramDown, gridBagConstraints);
 
         buttonRemoveProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonRemoveProgram.text")); // NOI18N
@@ -381,7 +382,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelProgramButtons.add(buttonRemoveProgram, gridBagConstraints);
 
         buttonAddProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonAddProgram.text")); // NOI18N
@@ -395,7 +396,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelProgramButtons.add(buttonAddProgram, gridBagConstraints);
 
         buttonEditProgram.setText(Bundle.getString(getClass(), "ProgramsSettingsPanel.buttonEditProgram.text")); // NOI18N
@@ -410,14 +411,14 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelProgramButtons.add(buttonEditProgram, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         add(panelProgramButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

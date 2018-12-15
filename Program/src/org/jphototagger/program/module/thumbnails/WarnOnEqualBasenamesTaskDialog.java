@@ -23,6 +23,7 @@ import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -110,10 +111,10 @@ public class WarnOnEqualBasenamesTaskDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        labelInfo = org.jphototagger.resources.UiFactory.jxLabel();
-        scrollPanlFiles = org.jphototagger.resources.UiFactory.scrollPane();
-        listFiles = org.jphototagger.resources.UiFactory.jxList();
-        checkBoxDisplayInFuture = org.jphototagger.resources.UiFactory.checkBox();
+        labelInfo = UiFactory.jxLabel();
+        scrollPanlFiles = UiFactory.scrollPane();
+        listFiles = UiFactory.jxList();
+        checkBoxDisplayInFuture = UiFactory.checkBox();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.title")); // NOI18N
@@ -144,7 +145,7 @@ public class WarnOnEqualBasenamesTaskDialog extends DialogExt {
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.8;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         getContentPane().add(scrollPanlFiles, gridBagConstraints);
 
         checkBoxDisplayInFuture.setText(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.checkBoxDisplayInFuture.text")); // NOI18N
@@ -159,7 +160,7 @@ public class WarnOnEqualBasenamesTaskDialog extends DialogExt {
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         getContentPane().add(checkBoxDisplayInFuture, gridBagConstraints);
 
         pack();

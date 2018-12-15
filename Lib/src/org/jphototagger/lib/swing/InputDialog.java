@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JDialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Modal text input dialog writing it's location to a properties object on demand.
@@ -18,6 +19,15 @@ public final class InputDialog extends DialogExt {
     public InputDialog() {
         super(ComponentUtil.findFrameWithIcon(), true);
         init("", "");
+    }
+
+    public InputDialog(JDialog owner) {
+        super(owner);
+        init("", "");
+    }
+
+    public InputDialog(String info, String input) {
+        init(info, input);
     }
 
     public InputDialog(JDialog owner, String info, String input) {
@@ -80,12 +90,12 @@ public final class InputDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelPrompt = org.jphototagger.resources.UiFactory.label();
-        textFieldInput = org.jphototagger.resources.UiFactory.textField();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        labelPrompt = UiFactory.label();
+        textFieldInput = UiFactory.textField();
+        panelButtons = UiFactory.panel();
+        buttonCancel = UiFactory.button();
+        buttonOk = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "InputDialog.title")); // NOI18N
@@ -115,7 +125,7 @@ public final class InputDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelContent.add(textFieldInput, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -142,14 +152,14 @@ public final class InputDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonOk, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -159,7 +169,7 @@ public final class InputDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

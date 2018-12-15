@@ -15,6 +15,7 @@ import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -103,8 +104,8 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelClassNames = org.jphototagger.resources.UiFactory.label();
-        comboBoxClassNames = org.jphototagger.resources.UiFactory.comboBox();
+        labelClassNames = UiFactory.label();
+        comboBoxClassNames = UiFactory.comboBox();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -112,7 +113,7 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends PanelExt {
         labelClassNames.setText(Bundle.getString(getClass(), "JGoodiesMiscLookAndFeelSettingsPanel.labelClassNames.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 0);
         add(labelClassNames, gridBagConstraints);
 
         comboBoxClassNames.setModel(classnamesComboBoxModel);
@@ -126,7 +127,7 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends PanelExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         add(comboBoxClassNames, gridBagConstraints);
     }//GEN-END:initComponents
 

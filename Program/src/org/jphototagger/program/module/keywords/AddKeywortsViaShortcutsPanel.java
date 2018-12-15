@@ -3,6 +3,7 @@ package org.jphototagger.program.module.keywords;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * UI for adding Keywords via Shortcuts.
@@ -34,9 +35,9 @@ public class AddKeywortsViaShortcutsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        table = org.jphototagger.resources.UiFactory.table();
+        labelInfo = UiFactory.label();
+        scrollPane = UiFactory.scrollPane();
+        table = UiFactory.table();
 
         setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -46,7 +47,7 @@ public class AddKeywortsViaShortcutsPanel extends PanelExt {
         gridBagConstraints.weightx = 1.0;
         add(labelInfo, gridBagConstraints);
 
-        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 300));
+        scrollPane.setPreferredSize(UiFactory.dimension(400, 300));
         scrollPane.setViewportView(table);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -55,7 +56,7 @@ public class AddKeywortsViaShortcutsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
     }//GEN-END:initComponents
 

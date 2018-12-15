@@ -11,6 +11,7 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import org.jphototagger.api.nodes.Node;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.lookup.InstanceContent;
 
 /**
@@ -79,7 +80,7 @@ final class LookupUtil {
         if (actions.isEmpty()) {
             return null;
         }
-        JPopupMenu popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
+        JPopupMenu popupMenu = UiFactory.popupMenu();
         for (Action action : actions) {
             popupMenu.add(action);
         }

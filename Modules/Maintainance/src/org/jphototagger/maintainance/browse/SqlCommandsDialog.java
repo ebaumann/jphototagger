@@ -16,6 +16,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -150,14 +151,14 @@ public class SqlCommandsDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        scrollPaneCommands = org.jphototagger.resources.UiFactory.scrollPane();
-        listCommands = org.jphototagger.resources.UiFactory.jxList();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonEdit = org.jphototagger.resources.UiFactory.button();
-        buttonRemove = org.jphototagger.resources.UiFactory.button();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        scrollPaneCommands = UiFactory.scrollPane();
+        listCommands = UiFactory.jxList();
+        panelButtons = UiFactory.panel();
+        buttonEdit = UiFactory.button();
+        buttonRemove = UiFactory.button();
+        buttonOk = UiFactory.button();
+        buttonCancel = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(org.jphototagger.lib.util.Bundle.getString(SqlCommandsDialog.class, "SqlCommandsDialog.title")); // NOI18N
@@ -165,7 +166,7 @@ public class SqlCommandsDialog extends DialogExt {
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        scrollPaneCommands.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 250));
+        scrollPaneCommands.setPreferredSize(UiFactory.dimension(200, 250));
         scrollPaneCommands.setViewportView(listCommands);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -194,7 +195,7 @@ public class SqlCommandsDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonRemove, gridBagConstraints);
 
         buttonOk.setText(org.jphototagger.lib.util.Bundle.getString(SqlCommandsDialog.class, "SqlCommandsDialog.buttonOk.text")); // NOI18N
@@ -205,7 +206,7 @@ public class SqlCommandsDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonOk, gridBagConstraints);
 
         buttonCancel.setText(org.jphototagger.lib.util.Bundle.getString(SqlCommandsDialog.class, "SqlCommandsDialog.buttonCancel.text")); // NOI18N
@@ -216,12 +217,12 @@ public class SqlCommandsDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonCancel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(10, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -230,7 +231,7 @@ public class SqlCommandsDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

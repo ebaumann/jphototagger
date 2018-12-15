@@ -8,6 +8,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * DialogExt zum Anzeigen und Auswählen der Namen von Bildsammlungen.
@@ -74,11 +75,11 @@ public final class ImageCollectionsDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelSelectImageCollection = org.jphototagger.resources.UiFactory.label();
-        scrollPaneImageCollectionNames = org.jphototagger.resources.UiFactory.scrollPane();
-        listImageCollectionNames = org.jphototagger.resources.UiFactory.jxList();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        labelSelectImageCollection = UiFactory.label();
+        scrollPaneImageCollectionNames = UiFactory.scrollPane();
+        listImageCollectionNames = UiFactory.jxList();
+        buttonOk = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ImageCollectionsDialog.title")); // NOI18N
@@ -116,7 +117,7 @@ public final class ImageCollectionsDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(scrollPaneImageCollectionNames, gridBagConstraints);
 
         buttonOk.setText(Bundle.getString(getClass(), "ImageCollectionsDialog.buttonOk.text")); // NOI18N
@@ -131,7 +132,7 @@ public final class ImageCollectionsDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(buttonOk, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -140,7 +141,7 @@ public final class ImageCollectionsDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

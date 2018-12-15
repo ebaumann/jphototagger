@@ -9,6 +9,7 @@ import javax.swing.WindowConstants;
 import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -31,7 +32,7 @@ public class MaintainanceDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
+        tabbedPane = UiFactory.tabbedPane();
         panelMaintainanceCaches = new MaintainanceCachesPanel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -58,7 +59,7 @@ public class MaintainanceDialog extends DialogExt {
         gridBagConstraints.anchor = GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(tabbedPane, gridBagConstraints);
 
         pack();

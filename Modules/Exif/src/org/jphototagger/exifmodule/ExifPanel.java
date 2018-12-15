@@ -90,7 +90,7 @@ public class ExifPanel extends PanelExt {
     private static class ExifTableCellRenderer implements TableCellRenderer {
 
         private final TableLookAndFeel lookAndFeel = Lookup.getDefault().lookup(TableLookAndFeel.class);
-        private final JLabel cellLabel = org.jphototagger.resources.UiFactory.label();
+        private final JLabel cellLabel = UiFactory.label();
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -198,12 +198,12 @@ public class ExifPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        panelTableExifFilter = org.jphototagger.resources.UiFactory.panel();
-        labelTableExifFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableExifFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneExif = org.jphototagger.resources.UiFactory.scrollPane();
-        tableExif = org.jphototagger.resources.UiFactory.table();
-        buttonExifToXmp = org.jphototagger.resources.UiFactory.button();
+        panelTableExifFilter = UiFactory.panel();
+        labelTableExifFilter = UiFactory.label();
+        textFieldTableExifFilter = UiFactory.textField();
+        scrollPaneExif = UiFactory.scrollPane();
+        tableExif = UiFactory.table();
+        buttonExifToXmp = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());
@@ -226,7 +226,7 @@ public class ExifPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableExifFilter.add(textFieldTableExifFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -236,7 +236,7 @@ public class ExifPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         add(panelTableExifFilter, gridBagConstraints);
 
         scrollPaneExif.setName("scrollPaneExif"); // NOI18N
@@ -260,13 +260,13 @@ public class ExifPanel extends PanelExt {
         buttonExifToXmp.setAction(new SetExifToXmpAction());
         buttonExifToXmp.setText(Bundle.getString(getClass(), "ExifPanel.buttonExifToXmp.text")); // NOI18N
         buttonExifToXmp.setToolTipText(Bundle.getString(getClass(), "ExifPanel.buttonExifToXmp.toolTipText")); // NOI18N
-        buttonExifToXmp.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonExifToXmp.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonExifToXmp.setName("buttonExifToXmp"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 0, 2, 2);
+        gridBagConstraints.insets = UiFactory.insets(2, 0, 2, 2);
         add(buttonExifToXmp, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

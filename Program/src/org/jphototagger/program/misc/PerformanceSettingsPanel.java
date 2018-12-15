@@ -15,6 +15,7 @@ import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -171,16 +172,16 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.panel();
-        labelMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.label();
-        spinnerMaximumSecondsToTerminateExternalPrograms = org.jphototagger.resources.UiFactory.spinner();
-        checkBoxScanForEmbeddedXmp = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxAutoscanDirectories = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxSaveInputEarly = org.jphototagger.resources.UiFactory.checkBox();
-        panelAutocomplete = org.jphototagger.resources.UiFactory.panel();
-        checkBoxEnableAutocomplete = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxUpdateAutocomplete = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxAutocompleteFastSearchIgnoreCase = org.jphototagger.resources.UiFactory.checkBox();
+        panelMaximumSecondsToTerminateExternalPrograms = UiFactory.panel();
+        labelMaximumSecondsToTerminateExternalPrograms = UiFactory.label();
+        spinnerMaximumSecondsToTerminateExternalPrograms = UiFactory.spinner();
+        checkBoxScanForEmbeddedXmp = UiFactory.checkBox();
+        checkBoxAutoscanDirectories = UiFactory.checkBox();
+        checkBoxSaveInputEarly = UiFactory.checkBox();
+        panelAutocomplete = UiFactory.panel();
+        checkBoxEnableAutocomplete = UiFactory.checkBox();
+        checkBoxUpdateAutocomplete = UiFactory.checkBox();
+        checkBoxAutocompleteFastSearchIgnoreCase = UiFactory.checkBox();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -190,7 +191,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         labelMaximumSecondsToTerminateExternalPrograms.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.labelMaximumSecondsToTerminateExternalPrograms.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         panelMaximumSecondsToTerminateExternalPrograms.add(labelMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
 
         spinnerMaximumSecondsToTerminateExternalPrograms.setModel(new javax.swing.SpinnerNumberModel(60, 10, 600, 1));
@@ -204,7 +205,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 2, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 2, 0, 10);
         panelMaximumSecondsToTerminateExternalPrograms.add(spinnerMaximumSecondsToTerminateExternalPrograms, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -226,7 +227,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 0, 10);
         add(checkBoxScanForEmbeddedXmp, gridBagConstraints);
 
         checkBoxAutoscanDirectories.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxAutoscanDirectories.text")); // NOI18N
@@ -241,7 +242,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         add(checkBoxAutoscanDirectories, gridBagConstraints);
 
         checkBoxSaveInputEarly.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxSaveInputEarly.text")); // NOI18N
@@ -256,7 +257,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         add(checkBoxSaveInputEarly, gridBagConstraints);
 
         panelAutocomplete.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "PerformanceSettingsPanel.panelAutocomplete.border.title"))); // NOI18N
@@ -274,7 +275,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelAutocomplete.add(checkBoxEnableAutocomplete, gridBagConstraints);
 
         checkBoxUpdateAutocomplete.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxUpdateAutocomplete.text")); // NOI18N
@@ -289,7 +290,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 5);
         panelAutocomplete.add(checkBoxUpdateAutocomplete, gridBagConstraints);
 
         checkBoxAutocompleteFastSearchIgnoreCase.setText(Bundle.getString(getClass(), "PerformanceSettingsPanel.checkBoxAutocompleteFastSearchIgnoreCase.text")); // NOI18N
@@ -304,7 +305,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 5, 5);
         panelAutocomplete.add(checkBoxAutocompleteFastSearchIgnoreCase, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -313,7 +314,7 @@ public final class PerformanceSettingsPanel extends PanelExt implements Persiste
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 0, 10);
         add(panelAutocomplete, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

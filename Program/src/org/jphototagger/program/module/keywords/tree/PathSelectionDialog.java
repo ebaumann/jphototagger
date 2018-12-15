@@ -18,6 +18,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Modal dialog to select a path.
@@ -189,14 +190,14 @@ public class PathSelectionDialog extends DialogExt implements ListSelectionListe
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.jxList();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonSelectNothing = org.jphototagger.resources.UiFactory.button();
-        buttonSelectAll = org.jphototagger.resources.UiFactory.button();
-        buttonSelectSelected = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        labelInfo = UiFactory.label();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.jxList();
+        panelButtons = UiFactory.panel();
+        buttonSelectNothing = UiFactory.button();
+        buttonSelectAll = UiFactory.button();
+        buttonSelectSelected = UiFactory.button();
 
         setTitle(Bundle.getString(getClass(), "PathSelectionDialog.title")); // NOI18N
         setName("Form"); // NOI18N
@@ -232,7 +233,7 @@ public class PathSelectionDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(scrollPane, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -257,7 +258,7 @@ public class PathSelectionDialog extends DialogExt implements ListSelectionListe
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonSelectAll, gridBagConstraints);
 
         buttonSelectSelected.setText(Bundle.getString(getClass(), "PathSelectionDialog.buttonSelectSelected.text")); // NOI18N
@@ -270,14 +271,14 @@ public class PathSelectionDialog extends DialogExt implements ListSelectionListe
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonSelectSelected, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -286,7 +287,7 @@ public class PathSelectionDialog extends DialogExt implements ListSelectionListe
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

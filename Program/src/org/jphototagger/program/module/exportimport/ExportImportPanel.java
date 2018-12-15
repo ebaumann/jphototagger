@@ -27,6 +27,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -329,17 +330,17 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelDirectory = org.jphototagger.resources.UiFactory.panel();
-        labelPromptDir = org.jphototagger.resources.UiFactory.label();
-        labelDir = org.jphototagger.resources.UiFactory.label();
-        buttonSelDir = org.jphototagger.resources.UiFactory.button();
-        labelSelectInfo = org.jphototagger.resources.UiFactory.label();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
+        panelDirectory = UiFactory.panel();
+        labelPromptDir = UiFactory.label();
+        labelDir = UiFactory.label();
+        buttonSelDir = UiFactory.button();
+        labelSelectInfo = UiFactory.label();
+        scrollPane = UiFactory.scrollPane();
         panelSelectObjects = new org.jphototagger.lib.swing.SelectObjectsPanel();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonSelectAll = org.jphototagger.resources.UiFactory.button();
-        buttonSelectNone = org.jphototagger.resources.UiFactory.button();
-        buttonExportImport = org.jphototagger.resources.UiFactory.button();
+        panelButtons = UiFactory.panel();
+        buttonSelectAll = UiFactory.button();
+        buttonSelectNone = UiFactory.button();
+        buttonExportImport = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -357,7 +358,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelDirectory.add(labelDir, gridBagConstraints);
 
         buttonSelDir.setText(Bundle.getString(getClass(), "ExportImportPanel.buttonSelDir.text")); // NOI18N
@@ -371,7 +372,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelDirectory.add(buttonSelDir, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -387,7 +388,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(labelSelectInfo, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -402,7 +403,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(scrollPane, gridBagConstraints);
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
@@ -431,7 +432,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonSelectNone, gridBagConstraints);
 
         buttonExportImport.setText(TEXT_EXPORT);
@@ -447,14 +448,14 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonExportImport, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

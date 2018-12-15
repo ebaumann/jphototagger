@@ -2,6 +2,7 @@ package org.jphototagger.fileeventhooks;
 
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -22,7 +23,7 @@ public class SettingsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
+        tabbedPane = UiFactory.tabbedPane();
         panelJPhotoTaggerActionsSettings = new org.jphototagger.fileeventhooks.JPhotoTaggerActionsSettingsPanel();
         userScriptsSettingsPanel1 = new org.jphototagger.fileeventhooks.UserScriptsSettingsPanel();
 

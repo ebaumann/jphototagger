@@ -35,6 +35,7 @@ import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.program.misc.AutocompleteUtil;
 import org.jphototagger.program.settings.AppPreferencesDefaults;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -311,8 +312,8 @@ public final class EditTextEntryPanel extends PanelExt implements TextEntry, Doc
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelPrompt = org.jphototagger.resources.UiFactory.label();
-        textAreaEdit = org.jphototagger.resources.UiFactory.textArea();
+        labelPrompt = UiFactory.label();
+        textAreaEdit = UiFactory.textArea();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -334,7 +335,7 @@ public final class EditTextEntryPanel extends PanelExt implements TextEntry, Doc
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(2, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(2, 0, 0, 0);
         add(textAreaEdit, gridBagConstraints);
         textAreaEdit.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
     }//GEN-END:initComponents

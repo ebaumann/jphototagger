@@ -88,7 +88,7 @@ public class IptcPanel extends PanelExt {
 
         private final Translation TRANSLATION = new Translation(IptcPanel.class, "IptcRecordDataSetNumberTranslations");
         private final TableLookAndFeel lookAndFeel = Lookup.getDefault().lookup(TableLookAndFeel.class);
-        private final JLabel cellLabel = org.jphototagger.resources.UiFactory.label();
+        private final JLabel cellLabel = UiFactory.label();
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -221,15 +221,15 @@ public class IptcPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        panelTableIptcFilter = org.jphototagger.resources.UiFactory.panel();
-        labeTTableIptcFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableIptcFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneIptc = org.jphototagger.resources.UiFactory.scrollPane();
-        tableIptc = org.jphototagger.resources.UiFactory.table();
-        panelActions = org.jphototagger.resources.UiFactory.panel();
+        panelTableIptcFilter = UiFactory.panel();
+        labeTTableIptcFilter = UiFactory.label();
+        textFieldTableIptcFilter = UiFactory.textField();
+        scrollPaneIptc = UiFactory.scrollPane();
+        tableIptc = UiFactory.table();
+        panelActions = UiFactory.panel();
         panelIptcSettings = new IptcSettingsPanel();
         panelIptcSettings.setBorder(null);
-        buttonIptcToXmp = org.jphototagger.resources.UiFactory.button();
+        buttonIptcToXmp = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());
@@ -252,7 +252,7 @@ public class IptcPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTableIptcFilter.add(textFieldTableIptcFilter, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
@@ -262,7 +262,7 @@ public class IptcPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 3, 3);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 3, 3);
         add(panelTableIptcFilter, gridBagConstraints);
 
         scrollPaneIptc.setName("scrollPaneIptc"); // NOI18N
@@ -291,17 +291,17 @@ public class IptcPanel extends PanelExt {
         buttonIptcToXmp.setAction(new ExportIptcToXmpOfSelectedFilesAction());
         buttonIptcToXmp.setText(Bundle.getString(getClass(), "IptcPanel.buttonIptcToXmp.text")); // NOI18N
         buttonIptcToXmp.setToolTipText(Bundle.getString(getClass(), "IptcPanel.buttonIptcToXmp.toolTipText")); // NOI18N
-        buttonIptcToXmp.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonIptcToXmp.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonIptcToXmp.setName("buttonIptcToXmp"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 15, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 15, 0, 0);
         panelActions.add(buttonIptcToXmp, gridBagConstraints);
 
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         add(panelActions, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

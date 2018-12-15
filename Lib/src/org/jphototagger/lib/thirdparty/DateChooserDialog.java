@@ -107,10 +107,10 @@ public final class DateChooserDialog extends JComponent {
         GridBagConstraints c = new GridBagConstraints();
 
         c.gridx = c.gridy = 0;
-        c.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
+        c.insets = UiFactory.insets(2, 2, 2, 2);
         c.weightx = 1.0;
         c.anchor = GridBagConstraints.WEST;
-        previousButton = org.jphototagger.resources.UiFactory.button();
+        previousButton = UiFactory.button();
         previousButton.setIcon(org.jphototagger.resources.Icons.getIcon("icon_datechooser_prev.png"));
         previousButton.setBorder(BorderFactory.createEmptyBorder());
         previousButton.addActionListener(new ActionListener() {
@@ -133,7 +133,7 @@ public final class DateChooserDialog extends JComponent {
         add(monthYearLabel, c);
         ++c.gridx;
         c.anchor = GridBagConstraints.EAST;
-        nextButton = org.jphototagger.resources.UiFactory.button();
+        nextButton = UiFactory.button();
         nextButton.setIcon(org.jphototagger.resources.Icons.getIcon("icon_datechooser_next.png"));
         nextButton.setBorder(BorderFactory.createEmptyBorder());
         nextButton.addActionListener(new ActionListener() {
@@ -175,7 +175,7 @@ public final class DateChooserDialog extends JComponent {
         c.gridwidth = 3;
         c.anchor = GridBagConstraints.CENTER;
 
-        JPanel panel = org.jphototagger.resources.UiFactory.panel(new GridLayout(7, 7, UiFactory.scale(1), UiFactory.scale(1)));
+        JPanel panel = UiFactory.panel(new GridLayout(7, 7, UiFactory.scale(1), UiFactory.scale(1)));
 
         dayStr = dfs.getShortWeekdays();
 
@@ -288,7 +288,7 @@ public final class DateChooserDialog extends JComponent {
 
         c.gridx = 0;
         c.gridy = 0;
-        c.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
+        c.insets = UiFactory.insets(2, 2, 2, 2);
         c.gridwidth = 2;
 
         FrameExt f = new FrameExt();

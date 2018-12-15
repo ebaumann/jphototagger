@@ -21,6 +21,7 @@ import org.jphototagger.program.module.programs.ProgramsListModel;
 import org.jphototagger.program.module.programs.ProgramsUtil;
 import org.jphototagger.program.module.programs.ProgramsUtil.ReorderListener;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -237,23 +238,23 @@ public final class ActionsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemExecute = org.jphototagger.resources.UiFactory.menuItem();
+        popupMenu = UiFactory.popupMenu();
+        menuItemExecute = UiFactory.menuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemCreate = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemEdit = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemCreate = UiFactory.menuItem();
+        menuItemEdit = UiFactory.menuItem();
+        menuItemDelete = UiFactory.menuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        menuItemMoveActionUp = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemMoveActionDown = org.jphototagger.resources.UiFactory.menuItem();
-        labelActionList = org.jphototagger.resources.UiFactory.label();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.jxList();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonDelete = org.jphototagger.resources.UiFactory.button();
-        buttonEdit = org.jphototagger.resources.UiFactory.button();
-        buttonCreate = org.jphototagger.resources.UiFactory.button();
-        buttonExecute = org.jphototagger.resources.UiFactory.button();
+        menuItemMoveActionUp = UiFactory.menuItem();
+        menuItemMoveActionDown = UiFactory.menuItem();
+        labelActionList = UiFactory.label();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.jxList();
+        panelButtons = UiFactory.panel();
+        buttonDelete = UiFactory.button();
+        buttonEdit = UiFactory.button();
+        buttonCreate = UiFactory.button();
+        buttonExecute = UiFactory.button();
 
         popupMenu.setName("popupMenu"); // NOI18N
 
@@ -336,7 +337,7 @@ public final class ActionsPanel extends PanelExt {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(labelActionList, gridBagConstraints);
 
         scrollPane.setFocusable(false);
@@ -377,7 +378,7 @@ public final class ActionsPanel extends PanelExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         add(scrollPane, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -406,7 +407,7 @@ public final class ActionsPanel extends PanelExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonEdit, gridBagConstraints);
 
         buttonCreate.setText(Bundle.getString(getClass(), "ActionsPanel.buttonCreate.text")); // NOI18N
@@ -419,7 +420,7 @@ public final class ActionsPanel extends PanelExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonCreate, gridBagConstraints);
 
         buttonExecute.setText(Bundle.getString(getClass(), "ActionsPanel.buttonExecute.text")); // NOI18N
@@ -433,14 +434,14 @@ public final class ActionsPanel extends PanelExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonExecute, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 3, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 3, 5);
         add(panelButtons, gridBagConstraints);
     }//GEN-END:initComponents
 

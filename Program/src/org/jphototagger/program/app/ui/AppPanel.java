@@ -499,7 +499,7 @@ public final class AppPanel extends PanelExt {
         boolean isFirst = true;
         for (StatusLineElementProvider provider : providers) {
             GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(0, isFirst ? 0 : 10, 0, 0);
+            gbc.insets = UiFactory.insets(0, isFirst ? 0 : 10, 0, 0);
             isFirst = false;
             statusLineElementsPanel.add(provider.getStatusLineElement(), gbc);
         }
@@ -531,80 +531,80 @@ public final class AppPanel extends PanelExt {
         buttonGroupKeywordsMultipleSel = new javax.swing.ButtonGroup();
         splitPaneMain = UiFactory.splitPane();
         splitPaneMain.setDividerLocation(getDividerLocationMain());
-        panelSelection = org.jphototagger.resources.UiFactory.panel();
-        panelSearch = org.jphototagger.resources.UiFactory.panel();
+        panelSelection = UiFactory.panel();
+        panelSearch = UiFactory.panel();
         tabbedPaneSelection = UiFactory.tabbedPane();
-        panelDirectories = org.jphototagger.resources.UiFactory.panel();
-        scrollPaneDirectories = org.jphototagger.resources.UiFactory.scrollPane();
-        treeDirectories = org.jphototagger.resources.UiFactory.jxTree();
+        panelDirectories = UiFactory.panel();
+        scrollPaneDirectories = UiFactory.scrollPane();
+        treeDirectories = UiFactory.jxTree();
         treeDirectories.setShowsRootHandles(true);
-        buttonSearchInDirectories = org.jphototagger.resources.UiFactory.button();
-        checkBoxDirectoriesRecursive = org.jphototagger.resources.UiFactory.checkBox();
-        panelSavedSearches = org.jphototagger.resources.UiFactory.panel();
-        panelListSavedSearchesFilter = org.jphototagger.resources.UiFactory.panel();
-        labelListSavedSearchesFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldListSavedSearchesFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneSavedSearches = org.jphototagger.resources.UiFactory.scrollPane();
-        listSavedSearches = org.jphototagger.resources.UiFactory.jxList();
-        buttonSearchInSavedSearches = org.jphototagger.resources.UiFactory.button();
-        panelImageCollections = org.jphototagger.resources.UiFactory.panel();
-        panelListImageCollectionsFilter = org.jphototagger.resources.UiFactory.panel();
-        labelListImageCollectionsFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldListImageCollectionsFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneImageCollections = org.jphototagger.resources.UiFactory.scrollPane();
-        listImageCollections = org.jphototagger.resources.UiFactory.jxList();
-        buttonSearchInImageCollections = org.jphototagger.resources.UiFactory.button();
-        panelFavorites = org.jphototagger.resources.UiFactory.panel();
-        scrollPaneFavorites = org.jphototagger.resources.UiFactory.scrollPane();
-        treeFavorites = org.jphototagger.resources.UiFactory.jxTree();
+        buttonSearchInDirectories = UiFactory.button();
+        checkBoxDirectoriesRecursive = UiFactory.checkBox();
+        panelSavedSearches = UiFactory.panel();
+        panelListSavedSearchesFilter = UiFactory.panel();
+        labelListSavedSearchesFilter = UiFactory.label();
+        textFieldListSavedSearchesFilter = UiFactory.textField();
+        scrollPaneSavedSearches = UiFactory.scrollPane();
+        listSavedSearches = UiFactory.jxList();
+        buttonSearchInSavedSearches = UiFactory.button();
+        panelImageCollections = UiFactory.panel();
+        panelListImageCollectionsFilter = UiFactory.panel();
+        labelListImageCollectionsFilter = UiFactory.label();
+        textFieldListImageCollectionsFilter = UiFactory.textField();
+        scrollPaneImageCollections = UiFactory.scrollPane();
+        listImageCollections = UiFactory.jxList();
+        buttonSearchInImageCollections = UiFactory.button();
+        panelFavorites = UiFactory.panel();
+        scrollPaneFavorites = UiFactory.scrollPane();
+        treeFavorites = UiFactory.jxTree();
         treeFavorites.setTransferHandler(new org.jphototagger.program.module.directories.DirectoryTreeTransferHandler());
         treeFavorites.setShowsRootHandles(true);
-        buttonSearchInTreeFavorites = org.jphototagger.resources.UiFactory.button();
-        checkBoxFavoritesRecursive = org.jphototagger.resources.UiFactory.checkBox();
-        panelSelKeywords = org.jphototagger.resources.UiFactory.panel();
-        panelSelKeywordsTree = org.jphototagger.resources.UiFactory.panel();
-        scrollPaneSelKeywordsTree = org.jphototagger.resources.UiFactory.scrollPane();
-        treeSelKeywords = org.jphototagger.resources.UiFactory.jxTree();
+        buttonSearchInTreeFavorites = UiFactory.button();
+        checkBoxFavoritesRecursive = UiFactory.checkBox();
+        panelSelKeywords = UiFactory.panel();
+        panelSelKeywordsTree = UiFactory.panel();
+        scrollPaneSelKeywordsTree = UiFactory.scrollPane();
+        treeSelKeywords = UiFactory.jxTree();
         treeSelKeywords.setTransferHandler(new org.jphototagger.program.module.keywords.tree.KeywordsTreeTransferHandler());
         treeSelKeywords.setShowsRootHandles(true);
-        buttonDisplaySelKeywordsList = org.jphototagger.resources.UiFactory.button();
-        toggleButtonExpandAllNodesSelKeywords = org.jphototagger.resources.UiFactory.toggleButton();
-        buttonSearchInTreeSelKeywords = org.jphototagger.resources.UiFactory.button();
-        panelSelKeywordsList = org.jphototagger.resources.UiFactory.panel();
-        panelListSelKeywordsFilter = org.jphototagger.resources.UiFactory.panel();
-        labelListSelKeywordsFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldListSelKeywordsFilter = org.jphototagger.resources.UiFactory.textField();
-        scrollPaneSelKeywordsList = org.jphototagger.resources.UiFactory.scrollPane();
-        listSelKeywords = org.jphototagger.resources.UiFactory.jxList();
+        buttonDisplaySelKeywordsList = UiFactory.button();
+        toggleButtonExpandAllNodesSelKeywords = UiFactory.toggleButton();
+        buttonSearchInTreeSelKeywords = UiFactory.button();
+        panelSelKeywordsList = UiFactory.panel();
+        panelListSelKeywordsFilter = UiFactory.panel();
+        labelListSelKeywordsFilter = UiFactory.label();
+        textFieldListSelKeywordsFilter = UiFactory.textField();
+        scrollPaneSelKeywordsList = UiFactory.scrollPane();
+        listSelKeywords = UiFactory.jxList();
         listSelKeywords.setTransferHandler(new org.jphototagger.program.module.keywords.list.KeywordsListTransferHandler());
-        panelSelKeywordsListMultipleSelection = org.jphototagger.resources.UiFactory.panel();
+        panelSelKeywordsListMultipleSelection = UiFactory.panel();
         radioButtonSelKeywordsMultipleSelAll = UiFactory.radioButton();
         radioButtonSelKeywordsMultipleSelOne = UiFactory.radioButton();
-        buttonDisplaySelKeywordsTree = org.jphototagger.resources.UiFactory.button();
-        buttonSearchInListSelKeywords = org.jphototagger.resources.UiFactory.button();
-        panelTimeline = org.jphototagger.resources.UiFactory.panel();
-        scrollPaneTimeline = org.jphototagger.resources.UiFactory.scrollPane();
-        treeTimeline = org.jphototagger.resources.UiFactory.jxTree();
+        buttonDisplaySelKeywordsTree = UiFactory.button();
+        buttonSearchInListSelKeywords = UiFactory.button();
+        panelTimeline = UiFactory.panel();
+        scrollPaneTimeline = UiFactory.scrollPane();
+        treeTimeline = UiFactory.jxTree();
         treeTimeline.setShowsRootHandles(true);
-        toggleButtonExpandCollapseTreeTimeline = org.jphototagger.resources.UiFactory.toggleButton();
-        buttonSearchInTreeTimeline = org.jphototagger.resources.UiFactory.button();
-        panelMiscMetadata = org.jphototagger.resources.UiFactory.panel();
-        scrollPaneMiscMetadata = org.jphototagger.resources.UiFactory.scrollPane();
-        treeMiscMetadata = org.jphototagger.resources.UiFactory.jxTree();
+        toggleButtonExpandCollapseTreeTimeline = UiFactory.toggleButton();
+        buttonSearchInTreeTimeline = UiFactory.button();
+        panelMiscMetadata = UiFactory.panel();
+        scrollPaneMiscMetadata = UiFactory.scrollPane();
+        treeMiscMetadata = UiFactory.jxTree();
         treeMiscMetadata.setTransferHandler(new org.jphototagger.program.module.miscmetadata.MiscMetadataTreeTransferHandler());
         treeMiscMetadata.setShowsRootHandles(true);
-        toggleButtonExpandCollapseTreeMiscMetadata = org.jphototagger.resources.UiFactory.toggleButton();
-        buttonSearchInTreeMiscMetadata = org.jphototagger.resources.UiFactory.button();
-        panelThumbnailsMetadata = org.jphototagger.resources.UiFactory.panel();
+        toggleButtonExpandCollapseTreeMiscMetadata = UiFactory.toggleButton();
+        buttonSearchInTreeMiscMetadata = UiFactory.button();
+        panelThumbnailsMetadata = UiFactory.panel();
         splitPaneThumbnailsMetadata = UiFactory.splitPane();
         splitPaneThumbnailsMetadata.setDividerLocation(getDividerLocationThumbnails());
-        thumbnailPanelComponent = org.jphototagger.resources.UiFactory.panel();
-        panelMetadata = org.jphototagger.resources.UiFactory.panel();
-        tabbedPaneMetadata = org.jphototagger.resources.UiFactory.tabbedPane();
+        thumbnailPanelComponent = UiFactory.panel();
+        panelMetadata = UiFactory.panel();
+        tabbedPaneMetadata = UiFactory.tabbedPane();
         panelEditKeywords = new org.jphototagger.program.module.keywords.KeywordsPanel();
-        panelStatusbar = org.jphototagger.resources.UiFactory.panel();
-        labelStatusbarText = org.jphototagger.resources.UiFactory.label();
-        statusLineElementsPanel = org.jphototagger.resources.UiFactory.panel();
+        panelStatusbar = UiFactory.panel();
+        labelStatusbarText = UiFactory.label();
+        statusLineElementsPanel = UiFactory.panel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -613,7 +613,7 @@ public final class AppPanel extends PanelExt {
         splitPaneMain.setName("splitPaneMain"); // NOI18N
         splitPaneMain.setOneTouchExpandable(true);
 
-        panelSelection.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(100, 200));
+        panelSelection.setMinimumSize(UiFactory.dimension(100, 200));
         panelSelection.setName("panelSelection"); // NOI18N
         panelSelection.setLayout(new java.awt.GridBagLayout());
 
@@ -798,7 +798,7 @@ public final class AppPanel extends PanelExt {
 
         buttonSearchInImageCollections.setAction(new SearchInJxListAction(listImageCollections));
         buttonSearchInImageCollections.setText(Bundle.getString(getClass(), "AppPanel.buttonSearchInImageCollections.text")); // NOI18N
-        buttonSearchInImageCollections.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
+        buttonSearchInImageCollections.setMargin(UiFactory.insets(1, 1, 1, 1));
         buttonSearchInImageCollections.setName("buttonSearchInImageCollections"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -893,7 +893,7 @@ public final class AppPanel extends PanelExt {
         panelSelKeywordsTree.add(buttonDisplaySelKeywordsList, gridBagConstraints);
 
         toggleButtonExpandAllNodesSelKeywords.setText(Bundle.getString(getClass(), "AppPanel.toggleButtonExpandAllNodesSelKeywords.text")); // NOI18N
-        toggleButtonExpandAllNodesSelKeywords.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
+        toggleButtonExpandAllNodesSelKeywords.setMargin(UiFactory.insets(1, 1, 1, 1));
         toggleButtonExpandAllNodesSelKeywords.setName("toggleButtonExpandAllNodesSelKeywords"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -1065,7 +1065,7 @@ public final class AppPanel extends PanelExt {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(1, 1, 1, 0);
+        gridBagConstraints.insets = UiFactory.insets(1, 1, 1, 0);
         panelTimeline.add(toggleButtonExpandCollapseTreeTimeline, gridBagConstraints);
 
         buttonSearchInTreeTimeline.setAction(new SearchInJxTreeAction((JXTree)treeTimeline));
@@ -1105,7 +1105,7 @@ public final class AppPanel extends PanelExt {
 
         toggleButtonExpandCollapseTreeMiscMetadata.setAction(new TreeExpandCollapseAllAction(toggleButtonExpandCollapseTreeMiscMetadata, treeMiscMetadata));
         toggleButtonExpandCollapseTreeMiscMetadata.setText(TreeExpandCollapseAllAction.NOT_SELECTED_TEXT);
-        toggleButtonExpandCollapseTreeMiscMetadata.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
+        toggleButtonExpandCollapseTreeMiscMetadata.setMargin(UiFactory.insets(1, 1, 1, 1));
         toggleButtonExpandCollapseTreeMiscMetadata.setName("toggleButtonExpandCollapseTreeMiscMetadata"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -1116,7 +1116,7 @@ public final class AppPanel extends PanelExt {
 
         buttonSearchInTreeMiscMetadata.setAction(new SearchInJxTreeAction((JXTree)treeMiscMetadata));
         buttonSearchInTreeMiscMetadata.setText(Bundle.getString(getClass(), "AppPanel.buttonSearchInTreeMiscMetadata.text")); // NOI18N
-        buttonSearchInTreeMiscMetadata.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
+        buttonSearchInTreeMiscMetadata.setMargin(UiFactory.insets(1, 1, 1, 1));
         buttonSearchInTreeMiscMetadata.setName("buttonSearchInTreeMiscMetadata"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -1139,7 +1139,7 @@ public final class AppPanel extends PanelExt {
 
         splitPaneMain.setLeftComponent(panelSelection);
 
-        panelThumbnailsMetadata.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(100, 200));
+        panelThumbnailsMetadata.setMinimumSize(UiFactory.dimension(100, 200));
         panelThumbnailsMetadata.setName("panelThumbnailsMetadata"); // NOI18N
         panelThumbnailsMetadata.setLayout(new java.awt.GridBagLayout());
 

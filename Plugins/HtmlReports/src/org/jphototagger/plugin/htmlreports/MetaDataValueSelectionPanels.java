@@ -12,6 +12,7 @@ import java.util.List;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -48,7 +49,7 @@ public class MetaDataValueSelectionPanels extends PanelExt implements PropertyCh
         gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gbc.anchor = java.awt.GridBagConstraints.WEST;
         gbc.weightx = 1.0;
-        gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gbc.insets = UiFactory.insets(5, 0, 0, 0);
         panels.remove(fillPanel);
         panels.add(selectionPanel, gbc);
         addFillPanel();
@@ -142,9 +143,9 @@ public class MetaDataValueSelectionPanels extends PanelExt implements PropertyCh
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        fillPanel = org.jphototagger.resources.UiFactory.panel();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        panels = org.jphototagger.resources.UiFactory.panel();
+        fillPanel = UiFactory.panel();
+        scrollPane = UiFactory.scrollPane();
+        panels = UiFactory.panel();
         firstSelectionPanel = new org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanel();
 
         fillPanel.setName("fillPanel"); // NOI18N

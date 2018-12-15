@@ -563,30 +563,30 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        popupMenuEditorPane = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemGotNextUrl = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemGotoPreviousUrl = org.jphototagger.resources.UiFactory.menuItem();
+        popupMenuEditorPane = UiFactory.popupMenu();
+        menuItemGotNextUrl = UiFactory.menuItem();
+        menuItemGotoPreviousUrl = UiFactory.menuItem();
         buttonGroupTextSize = new javax.swing.ButtonGroup();
         splitPane = UiFactory.splitPane();
-        tabbedPaneContents = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelContents = org.jphototagger.resources.UiFactory.panel();
-        scrollPaneTree = org.jphototagger.resources.UiFactory.scrollPane();
-        tree = org.jphototagger.resources.UiFactory.tree();
-        panelSearch = org.jphototagger.resources.UiFactory.panel();
-        labelSearch = org.jphototagger.resources.UiFactory.label();
+        tabbedPaneContents = UiFactory.tabbedPane();
+        panelContents = UiFactory.panel();
+        scrollPaneTree = UiFactory.scrollPane();
+        tree = UiFactory.tree();
+        panelSearch = UiFactory.panel();
+        labelSearch = UiFactory.label();
         textFieldSearch = new org.jdesktop.swingx.JXTextField();
-        scrollPaneSearchResults = org.jphototagger.resources.UiFactory.scrollPane();
-        listSearchResults = org.jphototagger.resources.UiFactory.jxList();
-        panelPage = org.jphototagger.resources.UiFactory.panel();
-        scrollPanePage = org.jphototagger.resources.UiFactory.scrollPane();
+        scrollPaneSearchResults = UiFactory.scrollPane();
+        listSearchResults = UiFactory.jxList();
+        panelPage = UiFactory.panel();
+        scrollPanePage = UiFactory.scrollPane();
         editorPanePage = new org.jdesktop.swingx.JXEditorPane();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonPrint = org.jphototagger.resources.UiFactory.button();
-        buttonSearchInCurrentPage = org.jphototagger.resources.UiFactory.button();
-        buttonGotoPreviousUrl = org.jphototagger.resources.UiFactory.button();
-        buttonGotoNextUrl = org.jphototagger.resources.UiFactory.button();
-        menuBar = org.jphototagger.resources.UiFactory.menuBar();
-        menuView = org.jphototagger.resources.UiFactory.menu();
+        panelButtons = UiFactory.panel();
+        buttonPrint = UiFactory.button();
+        buttonSearchInCurrentPage = UiFactory.button();
+        buttonGotoPreviousUrl = UiFactory.button();
+        buttonGotoNextUrl = UiFactory.button();
+        menuBar = UiFactory.menuBar();
+        menuView = UiFactory.menu();
         menuItemTextFontSizeSmall = UiFactory.radioButtonMenuItem();
         menuItemTextFontSizeNormal = UiFactory.radioButtonMenuItem();
         menuItemTextFontSizeLarge = UiFactory.radioButtonMenuItem();
@@ -616,7 +616,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         panelContents.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneTree.setName("scrollPaneTree"); // NOI18N
-        scrollPaneTree.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(150, 10));
+        scrollPaneTree.setPreferredSize(UiFactory.dimension(150, 10));
 
         tree.setModel(null);
         tree.setCellRenderer(new HelpContentsTreeCellRenderer());
@@ -641,7 +641,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         labelSearch.setName("labelSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelSearch.add(labelSearch, gridBagConstraints);
 
         textFieldSearch.setColumns(15);
@@ -651,7 +651,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelSearch.add(textFieldSearch, gridBagConstraints);
 
         scrollPaneSearchResults.setName("scrollPaneSearchResults"); // NOI18N
@@ -674,7 +674,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelSearch.add(scrollPaneSearchResults, gridBagConstraints);
 
         tabbedPaneContents.addTab(Bundle.getString(getClass(), "HelpBrowser.panelSearch.TabConstraints.tabTitle"), panelSearch); // NOI18N
@@ -685,7 +685,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         panelPage.setLayout(new java.awt.GridBagLayout());
 
         scrollPanePage.setName("scrollPanePage"); // NOI18N
-        scrollPanePage.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 24));
+        scrollPanePage.setPreferredSize(UiFactory.dimension(200, 24));
 
         editorPanePage.setEditable(false);
         editorPanePage.setFont(new java.awt.Font("Verdana", 0, UiFactory.scale(14))); // NOI18N
@@ -730,7 +730,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelPage.add(panelButtons, gridBagConstraints);
 
         splitPane.setRightComponent(panelPage);
@@ -741,7 +741,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(splitPane, gridBagConstraints);
 
         menuBar.setName("menuBar"); // NOI18N

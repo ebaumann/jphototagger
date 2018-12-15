@@ -65,6 +65,7 @@ import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.resources.Icons;
 import org.jphototagger.resources.Images;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -392,7 +393,7 @@ public class FastSearchPanel extends PanelExt implements ActionListener, SearchC
             gbc.gridy = 1;
             gbc.fill = java.awt.GridBagConstraints.BOTH;
             gbc.weighty = 1.0;
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+            gbc.insets = UiFactory.insets(3, 3, 0, 0);
             add(searchButton, gbc);
         } else {
             remove(searchButton);
@@ -462,10 +463,10 @@ public class FastSearchPanel extends PanelExt implements ActionListener, SearchC
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        fastSearchComboBox = org.jphototagger.resources.UiFactory.comboBox();
+        fastSearchComboBox = UiFactory.comboBox();
         textAreaSearch = new ImageTextArea();
-        searchButton = org.jphototagger.resources.UiFactory.button();
-        buttonRestoreSelection = org.jphototagger.resources.UiFactory.button();
+        searchButton = UiFactory.button();
+        buttonRestoreSelection = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -482,7 +483,7 @@ public class FastSearchPanel extends PanelExt implements ActionListener, SearchC
         add(fastSearchComboBox, gridBagConstraints);
 
         textAreaSearch.setRows(1);
-        textAreaSearch.setMinimumSize(org.jphototagger.resources.UiFactory.dimension(0, 18));
+        textAreaSearch.setMinimumSize(UiFactory.dimension(0, 18));
         textAreaSearch.setName("textAreaSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -491,11 +492,11 @@ public class FastSearchPanel extends PanelExt implements ActionListener, SearchC
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.5;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         add(textAreaSearch, gridBagConstraints);
 
         searchButton.setText(Bundle.getString(getClass(), "FastSearchPanel.searchButton.text")); // NOI18N
-        searchButton.setMargin(org.jphototagger.resources.UiFactory.insets(1, 1, 1, 1));
+        searchButton.setMargin(UiFactory.insets(1, 1, 1, 1));
         searchButton.setName("searchButton"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -503,13 +504,13 @@ public class FastSearchPanel extends PanelExt implements ActionListener, SearchC
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         add(searchButton, gridBagConstraints);
 
         buttonRestoreSelection.setIcon(org.jphototagger.resources.Icons.getIcon("icon_restore_selection.png"));
         buttonRestoreSelection.setToolTipText(Bundle.getString(getClass(), "FastSearchPanel.buttonRestoreSelection.toolTipText")); // NOI18N
         buttonRestoreSelection.setEnabled(false);
-        buttonRestoreSelection.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
+        buttonRestoreSelection.setMargin(UiFactory.insets(0, 0, 0, 0));
         buttonRestoreSelection.setName("buttonRestoreSelection"); // NOI18N
         buttonRestoreSelection.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -522,7 +523,7 @@ public class FastSearchPanel extends PanelExt implements ActionListener, SearchC
         gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
         add(buttonRestoreSelection, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -31,7 +31,7 @@ public final class KeywordsListPopupMenu extends JPopupMenu {
     private int selIndex;
 
     private KeywordsListPopupMenu() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         addItems();
         setAccelerators();
     }

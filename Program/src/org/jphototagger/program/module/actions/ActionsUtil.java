@@ -26,7 +26,7 @@ public final class ActionsUtil {
     private static final JMenuItem ADD_ACTION_MENU_ITEM = UiFactory.menuItem(new AddProgramAction());
 
     public static JMenu actionsAsMenu() {
-        JMenu menu = org.jphototagger.resources.UiFactory.menu(Bundle.getString(ActionsUtil.class, "ActionsUtil.ActionMenu.DisplayName"));
+        JMenu menu = UiFactory.menu(Bundle.getString(ActionsUtil.class, "ActionsUtil.ActionMenu.DisplayName"));
         ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
         if (repo != null) {

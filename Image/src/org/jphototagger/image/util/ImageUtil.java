@@ -92,11 +92,11 @@ public final class ImageUtil {
     }
 
     /**
-     * Returns the org.jphototagger.resources.UiFactory.dimensions of an image if the image shall be scaled.
+     * Returns the UiFactory.dimensions of an image if the image shall be scaled.
      *
      * @param img image to scale
      * @param maxWidth the new width of the longer image side
-     * @return org.jphototagger.resources.UiFactory.dimensions or null if they couldn't be calculated
+     * @return UiFactory.dimensions or null if they couldn't be calculated
      */
     public static Dimension getNewDimensions(BufferedImage img, int maxWidth) {
         if (img == null) {
@@ -134,7 +134,7 @@ public final class ImageUtil {
             return null;
         }
 
-        return org.jphototagger.resources.UiFactory.dimension(newWidth, newHeight);
+        return new Dimension(newWidth, newHeight);
     }
 
     /**

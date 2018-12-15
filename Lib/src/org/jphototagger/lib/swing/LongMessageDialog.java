@@ -13,6 +13,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.ClipboardUtil;
 import org.jphototagger.lib.util.SystemUtil;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * DialogExt for displaying long messages.
@@ -108,17 +109,17 @@ public class LongMessageDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelIcon = org.jphototagger.resources.UiFactory.label();
-        labelShortMessage = org.jphototagger.resources.UiFactory.label();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        textArea = org.jphototagger.resources.UiFactory.textArea();
-        panelControls = org.jphototagger.resources.UiFactory.panel();
+        labelIcon = UiFactory.label();
+        labelShortMessage = UiFactory.label();
+        scrollPane = UiFactory.scrollPane();
+        textArea = UiFactory.textArea();
+        panelControls = UiFactory.panel();
         panelSearch = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         panelSearch.setSearchableTextComponent(textArea);
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonMail = org.jphototagger.resources.UiFactory.button();
-        buttonCopy = org.jphototagger.resources.UiFactory.button();
-        buttonClose = org.jphototagger.resources.UiFactory.button();
+        panelButtons = UiFactory.panel();
+        buttonMail = UiFactory.button();
+        buttonCopy = UiFactory.button();
+        buttonClose = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setName("Form"); // NOI18N
@@ -129,7 +130,7 @@ public class LongMessageDialog extends DialogExt {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         getContentPane().add(labelIcon, gridBagConstraints);
 
         labelShortMessage.setText(Bundle.getString(getClass(), "LongMessageDialog.labelShortMessage.text")); // NOI18N
@@ -139,7 +140,7 @@ public class LongMessageDialog extends DialogExt {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 5);
         getContentPane().add(labelShortMessage, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -160,7 +161,7 @@ public class LongMessageDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         getContentPane().add(scrollPane, gridBagConstraints);
 
         panelControls.setName("panelControls"); // NOI18N
@@ -171,7 +172,7 @@ public class LongMessageDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelControls.add(panelSearch, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -199,7 +200,7 @@ public class LongMessageDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonCopy, gridBagConstraints);
 
         buttonClose.setText(Bundle.getString(getClass(), "LongMessageDialog.buttonClose.text")); // NOI18N
@@ -212,14 +213,14 @@ public class LongMessageDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelButtons.add(buttonClose, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelControls.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -228,7 +229,7 @@ public class LongMessageDialog extends DialogExt {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         getContentPane().add(panelControls, gridBagConstraints);
 
         pack();

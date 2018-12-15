@@ -9,6 +9,7 @@ import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Non modal dialog for actions: {@code org.jphototagger.program.data.Program}
@@ -93,7 +94,7 @@ public final class ActionsDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelActions, gridBagConstraints);
 
         pack();

@@ -11,6 +11,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.TabbedPaneUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -81,7 +82,7 @@ public final class RepositoryMaintainanceDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
+        tabbedPane = UiFactory.tabbedPane();
         panelCount = new org.jphototagger.maintainance.RepositoryInfoCountPanel();
         panelMaintainance = new org.jphototagger.maintainance.RepositoryMaintainancePanel();
         panelRepositoryUpdate = new org.jphototagger.maintainance.RepositoryUpdatePanel();
@@ -114,7 +115,7 @@ public final class RepositoryMaintainanceDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(tabbedPane, gridBagConstraints);
 
         pack();

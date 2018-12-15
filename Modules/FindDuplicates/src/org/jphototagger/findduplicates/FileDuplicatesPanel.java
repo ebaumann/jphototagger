@@ -113,18 +113,18 @@ public class FileDuplicatesPanel extends PanelExt {
     public void addDuplicates(Collection<? extends File> duplicates) {
         List<File> dups = new ArrayList<File>(duplicates);
         Collections.sort(dups, FILE_SORT_COMPARATOR);
-        JPanel panel = org.jphototagger.resources.UiFactory.panel(new GridBagLayout());
+        JPanel panel = UiFactory.panel(new GridBagLayout());
         boolean first = true;
         for (File file : dups) {
             GridBagConstraints gbc = new GridBagConstraints();
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(0, first ? 0 : 10, 0, 0);
+            gbc.insets = UiFactory.insets(0, first ? 0 : 10, 0, 0);
             first = false;
             panel.add(new FilePanel(file), gbc);
         }
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.anchor = GridBagConstraints.WEST;
         gbc.weightx = 1.0;
-        gbc.insets = org.jphototagger.resources.UiFactory.insets(rowCount == 0 ? 0 : 10, 0, 0, 0);
+        gbc.insets = UiFactory.insets(rowCount == 0 ? 0 : 10, 0, 0, 0);
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         add(panel, gbc);
         rowCount++;
@@ -154,30 +154,30 @@ public class FileDuplicatesPanel extends PanelExt {
                 thumbnail = ERROR_THUMBNAIL;
             }
             ImagePanel imagePanel = new ImagePanel();
-            imagePanel.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(thumbnail.getWidth(null), thumbnail.getHeight(null)));
+            imagePanel.setPreferredSize(UiFactory.dimension(thumbnail.getWidth(null), thumbnail.getHeight(null)));
             imagePanel.setImage(thumbnail);
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.anchor = GridBagConstraints.NORTH;
             gbc.gridwidth = GridBagConstraints.REMAINDER;
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+            gbc.insets = UiFactory.insets(5, 5, 0, 5);
             add(imagePanel, gbc);
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
-            JLabel labelFilepath = org.jphototagger.resources.UiFactory.label();
+            gbc.insets = UiFactory.insets(5, 5, 0, 5);
+            JLabel labelFilepath = UiFactory.label();
             labelFilepath.setText(getShortFilepath());
             labelFilepath.setToolTipText(file.getAbsolutePath());
             add(labelFilepath, gbc);
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
+            gbc.insets = UiFactory.insets(5, 5, 5, 0);
             gbc.gridwidth = 1;
             gbc.anchor = GridBagConstraints.WEST;
             gbc.weightx = 1.0;
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 0);
+            gbc.insets = UiFactory.insets(5, 5, 5, 0);
             add(checkBoxFileSelected, gbc);
             gbc.anchor = GridBagConstraints.EAST;
             JButton buttonOpenFile = UiFactory.button(new OpenFileAction(file));
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+            gbc.insets = UiFactory.insets(5, 5, 5, 5);
             add(buttonOpenFile, gbc);
             JButton buttonOpenDir = UiFactory.button(new OpenDirectoryAction(file.getParentFile()));
-            gbc.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+            gbc.insets = UiFactory.insets(5, 5, 5, 5);
             add(buttonOpenDir, gbc);
         }
 

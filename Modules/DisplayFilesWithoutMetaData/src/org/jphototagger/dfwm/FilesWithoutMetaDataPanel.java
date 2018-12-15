@@ -17,6 +17,7 @@ import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.NoMetadataValues;
 import org.jphototagger.lib.lookup.SelectedListItemsLookup;
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -119,14 +120,14 @@ public final class FilesWithoutMetaDataPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.jxList();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.jxList();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 300));
+        scrollPane.setPreferredSize(UiFactory.dimension(400, 300));
 
         list.setModel(listModel);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

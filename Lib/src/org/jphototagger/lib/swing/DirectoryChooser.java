@@ -23,6 +23,7 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -325,22 +326,22 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemAdd = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemRename = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
-        panelContents = org.jphototagger.resources.UiFactory.panel();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        tree = org.jphototagger.resources.UiFactory.tree();
-        labelUsage = org.jphototagger.resources.UiFactory.label();
-        panelActionButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonRefresh = org.jphototagger.resources.UiFactory.button();
-        buttonAdd = org.jphototagger.resources.UiFactory.button();
-        buttonDelete = org.jphototagger.resources.UiFactory.button();
-        buttonRename = org.jphototagger.resources.UiFactory.button();
-        panelDialogButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
-        buttonChoose = org.jphototagger.resources.UiFactory.button();
+        popupMenu = UiFactory.popupMenu();
+        menuItemAdd = UiFactory.menuItem();
+        menuItemRename = UiFactory.menuItem();
+        menuItemDelete = UiFactory.menuItem();
+        panelContents = UiFactory.panel();
+        scrollPane = UiFactory.scrollPane();
+        tree = UiFactory.tree();
+        labelUsage = UiFactory.label();
+        panelActionButtons = UiFactory.panel();
+        buttonRefresh = UiFactory.button();
+        buttonAdd = UiFactory.button();
+        buttonDelete = UiFactory.button();
+        buttonRename = UiFactory.button();
+        panelDialogButtons = UiFactory.panel();
+        buttonCancel = UiFactory.button();
+        buttonChoose = UiFactory.button();
 
         popupMenu.setName("popupMenu"); // NOI18N
 
@@ -389,7 +390,7 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
         panelContents.setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(400, 400));
+        scrollPane.setPreferredSize(UiFactory.dimension(400, 400));
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
@@ -411,7 +412,7 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContents.add(labelUsage, gridBagConstraints);
 
         panelActionButtons.setName("panelActionButtons"); // NOI18N
@@ -441,7 +442,7 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelActionButtons.add(buttonAdd, gridBagConstraints);
 
         buttonDelete.setText(Bundle.getString(getClass(), "DirectoryChooser.buttonDelete.text")); // NOI18N
@@ -455,7 +456,7 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelActionButtons.add(buttonDelete, gridBagConstraints);
 
         buttonRename.setText(Bundle.getString(getClass(), "DirectoryChooser.buttonRename.text")); // NOI18N
@@ -469,14 +470,14 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelActionButtons.add(buttonRename, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContents.add(panelActionButtons, gridBagConstraints);
 
         panelDialogButtons.setName("panelDialogButtons"); // NOI18N
@@ -503,14 +504,14 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelDialogButtons.add(buttonChoose, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(10, 0, 0, 0);
         panelContents.add(panelDialogButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -519,7 +520,7 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContents, gridBagConstraints);
 
         pack();

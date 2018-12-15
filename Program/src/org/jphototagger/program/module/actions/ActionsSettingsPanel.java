@@ -277,22 +277,22 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupExecute = new javax.swing.ButtonGroup();
-        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
-        menuItemAddAction = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemDeleteAction = org.jphototagger.resources.UiFactory.menuItem();
+        popupMenu = UiFactory.popupMenu();
+        menuItemAddAction = UiFactory.menuItem();
+        menuItemDeleteAction = UiFactory.menuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        menuItemMoveUpAction = org.jphototagger.resources.UiFactory.menuItem();
-        menuItemMoveDownAction = org.jphototagger.resources.UiFactory.menuItem();
+        menuItemMoveUpAction = UiFactory.menuItem();
+        menuItemMoveDownAction = UiFactory.menuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        menuItemShowActions = org.jphototagger.resources.UiFactory.menuItem();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.jxList();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonMoveUpAction = org.jphototagger.resources.UiFactory.button();
-        buttonMoveDownAction = org.jphototagger.resources.UiFactory.button();
-        buttonAddAction = org.jphototagger.resources.UiFactory.button();
-        buttonDeleteAction = org.jphototagger.resources.UiFactory.button();
-        buttonShowActions = org.jphototagger.resources.UiFactory.button();
+        menuItemShowActions = UiFactory.menuItem();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.jxList();
+        panelButtons = UiFactory.panel();
+        buttonMoveUpAction = UiFactory.button();
+        buttonMoveDownAction = UiFactory.button();
+        buttonAddAction = UiFactory.button();
+        buttonDeleteAction = UiFactory.button();
+        buttonShowActions = UiFactory.button();
         radioButtonExecuteAlways = UiFactory.radioButton();
         radioButtonExecuteIfImageHasXmp = UiFactory.radioButton();
 
@@ -415,7 +415,7 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonMoveDownAction, gridBagConstraints);
 
         buttonAddAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonAddAction.text")); // NOI18N
@@ -431,7 +431,7 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonAddAction, gridBagConstraints);
 
         buttonDeleteAction.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonDeleteAction.text")); // NOI18N
@@ -447,7 +447,7 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonDeleteAction, gridBagConstraints);
 
         buttonShowActions.setText(Bundle.getString(getClass(), "ActionsSettingsPanel.buttonShowActions.text")); // NOI18N
@@ -462,13 +462,13 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelButtons.add(buttonShowActions, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHEAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 7, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 7, 0, 0);
         add(panelButtons, gridBagConstraints);
 
         buttonGroupExecute.add(radioButtonExecuteAlways);
@@ -484,7 +484,7 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         add(radioButtonExecuteAlways, gridBagConstraints);
 
         buttonGroupExecute.add(radioButtonExecuteIfImageHasXmp);

@@ -7,6 +7,7 @@ import javax.swing.KeyStroke;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.JTextComponent;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -29,7 +30,7 @@ public final class EditMetadtaUtil {
 
         JPopupMenu popup = tc.getComponentPopupMenu();
         if (popup == null) {
-            popup = org.jphototagger.resources.UiFactory.popupMenu();
+            popup = UiFactory.popupMenu();
             tc.setComponentPopupMenu(popup);
         }
 

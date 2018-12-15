@@ -18,6 +18,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -109,18 +110,18 @@ public class HtmlReportsSettingsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelDefaultValues = org.jphototagger.resources.UiFactory.label();
-        panelColumns = new org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanels();
-        panelDirectory = org.jphototagger.resources.UiFactory.panel();
-        labelDirectoryPrompt = org.jphototagger.resources.UiFactory.label();
-        labelDirectory = org.jphototagger.resources.UiFactory.label();
-        buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
-        checkBoxShowSettings = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxInputFilename = org.jphototagger.resources.UiFactory.checkBox();
-        checkBoxOpenReport = org.jphototagger.resources.UiFactory.checkBox();
-        panelVersion = org.jphototagger.resources.UiFactory.panel();
-        labelVersion = org.jphototagger.resources.UiFactory.label();
-        buttonHelp = org.jphototagger.resources.UiFactory.button();
+        labelDefaultValues = UiFactory.label();
+        panelColumns = new MetaDataValueSelectionPanels();
+        panelDirectory = UiFactory.panel();
+        labelDirectoryPrompt = UiFactory.label();
+        labelDirectory = UiFactory.label();
+        buttonChooseDirectory = UiFactory.button();
+        checkBoxShowSettings = UiFactory.checkBox();
+        checkBoxInputFilename = UiFactory.checkBox();
+        checkBoxOpenReport = UiFactory.checkBox();
+        panelVersion = UiFactory.panel();
+        labelVersion = UiFactory.label();
+        buttonHelp = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -132,7 +133,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(labelDefaultValues, gridBagConstraints);
 
         panelColumns.setName("panelColumns"); // NOI18N
@@ -142,7 +143,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 0, 10);
         add(panelColumns, gridBagConstraints);
 
         panelDirectory.setName("panelDirectory"); // NOI18N
@@ -163,7 +164,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelDirectory.add(labelDirectory, gridBagConstraints);
 
         buttonChooseDirectory.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.buttonChooseDirectory.text")); // NOI18N
@@ -177,7 +178,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 5, 0, 0);
         panelDirectory.add(buttonChooseDirectory, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -185,7 +186,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 0, 10);
         add(panelDirectory, gridBagConstraints);
 
         checkBoxShowSettings.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxShowSettings.text")); // NOI18N
@@ -200,7 +201,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 0, 10);
         add(checkBoxShowSettings, gridBagConstraints);
 
         checkBoxInputFilename.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxInputFilename.text")); // NOI18N
@@ -215,7 +216,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         add(checkBoxInputFilename, gridBagConstraints);
 
         checkBoxOpenReport.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.checkBoxOpenReport.text")); // NOI18N
@@ -230,7 +231,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         add(checkBoxOpenReport, gridBagConstraints);
 
         panelVersion.setName("panelVersion"); // NOI18N
@@ -254,7 +255,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 0);
         panelVersion.add(buttonHelp, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -262,7 +263,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         add(panelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 
@@ -295,7 +296,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
     private javax.swing.JLabel labelDirectory;
     private javax.swing.JLabel labelDirectoryPrompt;
     private javax.swing.JLabel labelVersion;
-    private org.jphototagger.plugin.htmlreports.MetaDataValueSelectionPanels panelColumns;
+    private MetaDataValueSelectionPanels panelColumns;
     private javax.swing.JPanel panelDirectory;
     private javax.swing.JPanel panelVersion;
     // End of variables declaration//GEN-END:variables

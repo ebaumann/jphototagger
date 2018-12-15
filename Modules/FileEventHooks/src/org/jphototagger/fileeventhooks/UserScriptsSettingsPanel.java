@@ -19,6 +19,7 @@ import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -168,28 +169,28 @@ public class UserScriptsSettingsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelGeneralInfo = org.jphototagger.resources.UiFactory.jxLabel();
-        panelFileCopied = org.jphototagger.resources.UiFactory.panel();
-        textFieldFileCopied = org.jphototagger.resources.UiFactory.textField();
-        buttonChooseScriptFileCopied = org.jphototagger.resources.UiFactory.button();
-        buttonRemoveScriptFileCopied = org.jphototagger.resources.UiFactory.button();
-        labelParameterInfoFileCopied = org.jphototagger.resources.UiFactory.jxLabel();
-        panelFileRenamed = org.jphototagger.resources.UiFactory.panel();
-        textFieldFileRenamed = org.jphototagger.resources.UiFactory.textField();
-        buttonChooseScriptFileRenamed = org.jphototagger.resources.UiFactory.button();
-        buttonRemoveScriptFileRenamed = org.jphototagger.resources.UiFactory.button();
-        labelParameterInfoFileRenamed = org.jphototagger.resources.UiFactory.jxLabel();
-        panelFileMoved = org.jphototagger.resources.UiFactory.panel();
-        textFieldFileMoved = org.jphototagger.resources.UiFactory.textField();
-        buttonChooseScriptFileMoved = org.jphototagger.resources.UiFactory.button();
-        buttonRemoveScriptFileMoved = org.jphototagger.resources.UiFactory.button();
-        labelParameterInfoFileMoved = org.jphototagger.resources.UiFactory.jxLabel();
-        panelFileDeleted = org.jphototagger.resources.UiFactory.panel();
-        textFieldFileDeleted = org.jphototagger.resources.UiFactory.textField();
-        buttonChooseScriptFileDeleted = org.jphototagger.resources.UiFactory.button();
-        buttonRemoveScriptFileDeleted = org.jphototagger.resources.UiFactory.button();
-        labelParameterInfoFileDeleted = org.jphototagger.resources.UiFactory.jxLabel();
-        labelPathInfo = org.jphototagger.resources.UiFactory.jxLabel();
+        labelGeneralInfo = UiFactory.jxLabel();
+        panelFileCopied = UiFactory.panel();
+        textFieldFileCopied = UiFactory.textField();
+        buttonChooseScriptFileCopied = UiFactory.button();
+        buttonRemoveScriptFileCopied = UiFactory.button();
+        labelParameterInfoFileCopied = UiFactory.jxLabel();
+        panelFileRenamed = UiFactory.panel();
+        textFieldFileRenamed = UiFactory.textField();
+        buttonChooseScriptFileRenamed = UiFactory.button();
+        buttonRemoveScriptFileRenamed = UiFactory.button();
+        labelParameterInfoFileRenamed = UiFactory.jxLabel();
+        panelFileMoved = UiFactory.panel();
+        textFieldFileMoved = UiFactory.textField();
+        buttonChooseScriptFileMoved = UiFactory.button();
+        buttonRemoveScriptFileMoved = UiFactory.button();
+        labelParameterInfoFileMoved = UiFactory.jxLabel();
+        panelFileDeleted = UiFactory.panel();
+        textFieldFileDeleted = UiFactory.textField();
+        buttonChooseScriptFileDeleted = UiFactory.button();
+        buttonRemoveScriptFileDeleted = UiFactory.button();
+        labelParameterInfoFileDeleted = UiFactory.jxLabel();
+        labelPathInfo = UiFactory.jxLabel();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             @Override
@@ -207,7 +208,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(labelGeneralInfo, gridBagConstraints);
 
         panelFileCopied.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "UserScriptsSettingsPanel.panelFileCopied.border.title"))); // NOI18N
@@ -218,7 +219,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFileCopied.add(textFieldFileCopied, gridBagConstraints);
 
         buttonChooseScriptFileCopied.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonChooseScriptFileCopied.text")); // NOI18N
@@ -230,19 +231,19 @@ public class UserScriptsSettingsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFileCopied.add(buttonChooseScriptFileCopied, gridBagConstraints);
 
         buttonRemoveScriptFileCopied.setAction(removeScriptFileAction);
         buttonRemoveScriptFileCopied.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFileCopied.setToolTipText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonRemoveScriptFileCopied.toolTipText")); // NOI18N
         buttonRemoveScriptFileCopied.setEnabled(false);
-        buttonRemoveScriptFileCopied.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
-        buttonRemoveScriptFileCopied.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(20, 20));
+        buttonRemoveScriptFileCopied.setMargin(UiFactory.insets(2, 2, 2, 2));
+        buttonRemoveScriptFileCopied.setPreferredSize(UiFactory.dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelFileCopied.add(buttonRemoveScriptFileCopied, gridBagConstraints);
 
         labelParameterInfoFileCopied.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.labelParameterInfoFileCopied.text")); // NOI18N
@@ -250,7 +251,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelFileCopied.add(labelParameterInfoFileCopied, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -259,7 +260,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelFileCopied, gridBagConstraints);
 
         panelFileRenamed.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "UserScriptsSettingsPanel.panelFileRenamed.border.title"))); // NOI18N
@@ -270,7 +271,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFileRenamed.add(textFieldFileRenamed, gridBagConstraints);
 
         buttonChooseScriptFileRenamed.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonChooseScriptFileRenamed.text")); // NOI18N
@@ -282,19 +283,19 @@ public class UserScriptsSettingsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFileRenamed.add(buttonChooseScriptFileRenamed, gridBagConstraints);
 
         buttonRemoveScriptFileRenamed.setAction(removeScriptFileAction);
         buttonRemoveScriptFileRenamed.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFileRenamed.setToolTipText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonRemoveScriptFileRenamed.toolTipText")); // NOI18N
         buttonRemoveScriptFileRenamed.setEnabled(false);
-        buttonRemoveScriptFileRenamed.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
-        buttonRemoveScriptFileRenamed.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(20, 20));
+        buttonRemoveScriptFileRenamed.setMargin(UiFactory.insets(2, 2, 2, 2));
+        buttonRemoveScriptFileRenamed.setPreferredSize(UiFactory.dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelFileRenamed.add(buttonRemoveScriptFileRenamed, gridBagConstraints);
 
         labelParameterInfoFileRenamed.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.labelParameterInfoFileRenamed.text")); // NOI18N
@@ -302,7 +303,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelFileRenamed.add(labelParameterInfoFileRenamed, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -311,7 +312,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelFileRenamed, gridBagConstraints);
 
         panelFileMoved.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "UserScriptsSettingsPanel.panelFileMoved.border.title"))); // NOI18N
@@ -322,7 +323,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFileMoved.add(textFieldFileMoved, gridBagConstraints);
 
         buttonChooseScriptFileMoved.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonChooseScriptFileMoved.text")); // NOI18N
@@ -334,19 +335,19 @@ public class UserScriptsSettingsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFileMoved.add(buttonChooseScriptFileMoved, gridBagConstraints);
 
         buttonRemoveScriptFileMoved.setAction(removeScriptFileAction);
         buttonRemoveScriptFileMoved.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFileMoved.setToolTipText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonRemoveScriptFileMoved.toolTipText")); // NOI18N
         buttonRemoveScriptFileMoved.setEnabled(false);
-        buttonRemoveScriptFileMoved.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
-        buttonRemoveScriptFileMoved.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(20, 20));
+        buttonRemoveScriptFileMoved.setMargin(UiFactory.insets(2, 2, 2, 2));
+        buttonRemoveScriptFileMoved.setPreferredSize(UiFactory.dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelFileMoved.add(buttonRemoveScriptFileMoved, gridBagConstraints);
 
         labelParameterInfoFileMoved.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.labelParameterInfoFileMoved.text")); // NOI18N
@@ -354,7 +355,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelFileMoved.add(labelParameterInfoFileMoved, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -363,7 +364,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelFileMoved, gridBagConstraints);
 
         panelFileDeleted.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "UserScriptsSettingsPanel.panelFileDeleted.border.title"))); // NOI18N
@@ -374,7 +375,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFileDeleted.add(textFieldFileDeleted, gridBagConstraints);
 
         buttonChooseScriptFileDeleted.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonChooseScriptFileDeleted.text")); // NOI18N
@@ -386,19 +387,19 @@ public class UserScriptsSettingsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelFileDeleted.add(buttonChooseScriptFileDeleted, gridBagConstraints);
 
         buttonRemoveScriptFileDeleted.setAction(removeScriptFileAction);
         buttonRemoveScriptFileDeleted.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveScriptFileDeleted.setToolTipText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.buttonRemoveScriptFileDeleted.toolTipText")); // NOI18N
         buttonRemoveScriptFileDeleted.setEnabled(false);
-        buttonRemoveScriptFileDeleted.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
-        buttonRemoveScriptFileDeleted.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(20, 20));
+        buttonRemoveScriptFileDeleted.setMargin(UiFactory.insets(2, 2, 2, 2));
+        buttonRemoveScriptFileDeleted.setPreferredSize(UiFactory.dimension(20, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelFileDeleted.add(buttonRemoveScriptFileDeleted, gridBagConstraints);
 
         labelParameterInfoFileDeleted.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.labelParameterInfoFileDeleted.text")); // NOI18N
@@ -406,7 +407,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         panelFileDeleted.add(labelParameterInfoFileDeleted, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -415,7 +416,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelFileDeleted, gridBagConstraints);
 
         labelPathInfo.setText(Bundle.getString(getClass(), "UserScriptsSettingsPanel.labelPathInfo.text")); // NOI18N
@@ -426,7 +427,7 @@ public class UserScriptsSettingsPanel extends PanelExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         add(labelPathInfo, gridBagConstraints);
     }//GEN-END:initComponents
 

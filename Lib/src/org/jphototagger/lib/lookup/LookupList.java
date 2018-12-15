@@ -12,6 +12,7 @@ import org.jdesktop.swingx.JXList;
 import org.jphototagger.api.nodes.Node;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
@@ -37,7 +38,7 @@ public final class LookupList extends JXList implements Lookup.Provider, MouseLi
     private int lastRightClickIndex = -1;
 
     public LookupList() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         addMouseListener(this);
     }
 

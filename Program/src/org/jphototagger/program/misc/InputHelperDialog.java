@@ -12,6 +12,7 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -114,12 +115,12 @@ public class InputHelperDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
+        tabbedPane = UiFactory.tabbedPane();
         panelKeywords = new org.jphototagger.program.module.keywords.KeywordsPanel();
         panelMiscXmpMetadata = new org.jphototagger.program.misc.MiscXmpMetadataPanel();
         panelMetaDataTemplates = new org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel();
         panelMetaDataTemplates.getList().setTransferHandler(new org.jphototagger.program.datatransfer.DragListItemsTransferHandler(org.jphototagger.program.datatransfer.Flavor.METADATA_TEMPLATES));
-        labelInfo = org.jphototagger.resources.UiFactory.label();
+        labelInfo = UiFactory.label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "InputHelperDialog.title")); // NOI18N
@@ -159,7 +160,7 @@ public class InputHelperDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         getContentPane().add(labelInfo, gridBagConstraints);
 
         pack();

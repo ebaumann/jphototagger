@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Non modal DialogExt with a progress bar.
@@ -173,11 +174,11 @@ public final class ProgressDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelInfo = org.jphototagger.resources.UiFactory.label();
-        progressBar = org.jphototagger.resources.UiFactory.progressBar();
-        buttonStop = org.jphototagger.resources.UiFactory.button();
-        labelProgressInfo = org.jphototagger.resources.UiFactory.label();
+        panelContent = UiFactory.panel();
+        labelInfo = UiFactory.label();
+        progressBar = UiFactory.progressBar();
+        buttonStop = UiFactory.button();
+        labelProgressInfo = UiFactory.label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ProgressDialog.title")); // NOI18N
@@ -205,7 +206,7 @@ public final class ProgressDialog extends DialogExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
         buttonStop.setText(Bundle.getString(getClass(), "ProgressDialog.buttonStop.text")); // NOI18N
@@ -218,7 +219,7 @@ public final class ProgressDialog extends DialogExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 5, 0, 0);
         panelContent.add(buttonStop, gridBagConstraints);
 
         labelProgressInfo.setText(" "); // NOI18N
@@ -228,7 +229,7 @@ public final class ProgressDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(labelProgressInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -238,7 +239,7 @@ public final class ProgressDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

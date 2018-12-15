@@ -19,6 +19,7 @@ import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.iptc.IptcPreferencesKeys;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -118,10 +119,10 @@ public class IptcSettingsPanel extends PanelExt implements OptionPageProvider {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        checkBoxDisplayIptc = org.jphototagger.resources.UiFactory.checkBox();
-        labelIptcCharset = org.jphototagger.resources.UiFactory.label();
-        comboBoxIptcCharset = org.jphototagger.resources.UiFactory.comboBox();
-        panelVfill = org.jphototagger.resources.UiFactory.panel();
+        checkBoxDisplayIptc = UiFactory.checkBox();
+        labelIptcCharset = UiFactory.label();
+        comboBoxIptcCharset = UiFactory.comboBox();
+        panelVfill = UiFactory.panel();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());
@@ -142,7 +143,7 @@ public class IptcSettingsPanel extends PanelExt implements OptionPageProvider {
         labelIptcCharset.setName("labelIptcCharset"); // NOI18N
         gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.anchor = GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 0);
         add(labelIptcCharset, gridBagConstraints);
 
         comboBoxIptcCharset.setModel(new IptcCharsetComboBoxModel());
@@ -157,7 +158,7 @@ public class IptcSettingsPanel extends PanelExt implements OptionPageProvider {
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(comboBoxIptcCharset, gridBagConstraints);
 
         panelVfill.setName("panelVfill"); // NOI18N

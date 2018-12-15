@@ -12,6 +12,7 @@ import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -114,13 +115,13 @@ public class SettingsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelDelimiter = org.jphototagger.resources.UiFactory.panel();
-        label = org.jphototagger.resources.UiFactory.label();
-        comboBoxDelimiter = org.jphototagger.resources.UiFactory.comboBox();
-        panelFill = org.jphototagger.resources.UiFactory.panel();
-        panelVersion = org.jphototagger.resources.UiFactory.panel();
-        labelVersion = org.jphototagger.resources.UiFactory.label();
-        buttonHelp = org.jphototagger.resources.UiFactory.button();
+        panelDelimiter = UiFactory.panel();
+        label = UiFactory.label();
+        comboBoxDelimiter = UiFactory.comboBox();
+        panelFill = UiFactory.panel();
+        panelVersion = UiFactory.panel();
+        labelVersion = UiFactory.label();
+        buttonHelp = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -147,14 +148,14 @@ public class SettingsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelDelimiter.add(comboBoxDelimiter, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(panelDelimiter, gridBagConstraints);
 
         panelFill.setName("panelFill"); // NOI18N
@@ -186,7 +187,7 @@ public class SettingsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 10, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 0);
         panelVersion.add(buttonHelp, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -194,7 +195,7 @@ public class SettingsPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         add(panelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 

@@ -1,6 +1,7 @@
 package org.jphototagger.program.module.editmetadata;
 
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -28,8 +29,8 @@ class EditMetaDataPanelsWrapperPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPaneEditMetadata = org.jphototagger.resources.UiFactory.scrollPane();
-        panelEditMetadata = org.jphototagger.resources.UiFactory.panel();
+        scrollPaneEditMetadata = UiFactory.scrollPane();
+        panelEditMetadata = UiFactory.panel();
 
         setName("Edit Metadata Container"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

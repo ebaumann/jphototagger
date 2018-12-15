@@ -31,6 +31,7 @@ import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.module.editmetadata.EditTextEntryPanel;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -240,7 +241,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         panelPhotoshopTransmissionReference = new EditTextEntryPanel(XmpPhotoshopTransmissionReferenceMetaDataValue.INSTANCE);
         panelPhotoshopInstructions = new EditTextEntryPanel(XmpPhotoshopInstructionsMetaDataValue.INSTANCE);
         panelPhotoshopCaptionwriter = new EditTextEntryPanel(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
-        panelFill = org.jphototagger.resources.UiFactory.panel();
+        panelFill = UiFactory.panel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -251,7 +252,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelDcSubjects, gridBagConstraints);
 
         panelDcTitle.setName("panelDcTitle"); // NOI18N
@@ -260,7 +261,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelDcTitle, gridBagConstraints);
 
         panelDcDescription.setName("panelDcDescription"); // NOI18N
@@ -269,7 +270,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelDcDescription, gridBagConstraints);
 
         panelPhotoshopHeadline.setName("panelPhotoshopHeadline"); // NOI18N
@@ -278,7 +279,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopHeadline, gridBagConstraints);
 
         panelIptc4XmpCoreDateCreated.setName("panelIptc4XmpCoreDateCreated"); // NOI18N
@@ -287,7 +288,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelIptc4XmpCoreDateCreated, gridBagConstraints);
 
         panelIptc4xmpcoreLocation.setName("panelIptc4xmpcoreLocation"); // NOI18N
@@ -296,7 +297,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelIptc4xmpcoreLocation, gridBagConstraints);
 
         panelPhotoshopCity.setName("panelPhotoshopCity"); // NOI18N
@@ -305,7 +306,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopCity, gridBagConstraints);
 
         panelPhotoshopState.setName("panelPhotoshopState"); // NOI18N
@@ -314,7 +315,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopState, gridBagConstraints);
 
         panelPhotoshopCountry.setName("panelPhotoshopCountry"); // NOI18N
@@ -323,7 +324,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopCountry, gridBagConstraints);
 
         panelPhotoshopAuthorsposition.setName("panelPhotoshopAuthorsposition"); // NOI18N
@@ -332,7 +333,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopAuthorsposition, gridBagConstraints);
 
         panelDcCreator.setName("panelDcCreator"); // NOI18N
@@ -341,7 +342,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelDcCreator, gridBagConstraints);
 
         panelDcRights.setName("panelDcRights"); // NOI18N
@@ -350,7 +351,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelDcRights, gridBagConstraints);
 
         panelPhotoshopCredit.setName("panelPhotoshopCredit"); // NOI18N
@@ -359,7 +360,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopCredit, gridBagConstraints);
 
         panelPhotoshopSource.setName("panelPhotoshopSource"); // NOI18N
@@ -368,7 +369,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopSource, gridBagConstraints);
 
         panelPhotoshopTransmissionReference.setName("panelPhotoshopTransmissionReference"); // NOI18N
@@ -377,7 +378,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopTransmissionReference, gridBagConstraints);
 
         panelPhotoshopInstructions.setName("panelPhotoshopInstructions"); // NOI18N
@@ -386,7 +387,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopInstructions, gridBagConstraints);
 
         panelPhotoshopCaptionwriter.setName("panelPhotoshopCaptionwriter"); // NOI18N
@@ -395,7 +396,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelPhotoshopCaptionwriter, gridBagConstraints);
 
         panelFill.setLayout(new java.awt.GridBagLayout());

@@ -24,6 +24,7 @@ import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -167,19 +168,19 @@ public class AppLookAndFeelSettingsPanel extends PanelExt implements OptionPageP
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelNoPreferences = org.jphototagger.resources.UiFactory.panel();
-        labelNoPreferences = org.jphototagger.resources.UiFactory.label();
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelInfo = org.jphototagger.resources.UiFactory.label();
-        comboBoxLaf = org.jphototagger.resources.UiFactory.comboBox();
-        scrollPaneDescription = org.jphototagger.resources.UiFactory.scrollPane();
-        editorPaneDescription = org.jphototagger.resources.UiFactory.editorPane();
-        panelPreferences = org.jphototagger.resources.UiFactory.panel();
-        scrollPanePreferences = org.jphototagger.resources.UiFactory.scrollPane();
-        panelFontScale = org.jphototagger.resources.UiFactory.panel();
-        labelFontScalePrompt = org.jphototagger.resources.UiFactory.label();
-        comboBoxFontScale = org.jphototagger.resources.UiFactory.comboBox();
-        labelFontScaleInfo = org.jphototagger.resources.UiFactory.label();
+        panelNoPreferences = UiFactory.panel();
+        labelNoPreferences = UiFactory.label();
+        panelContent = UiFactory.panel();
+        labelInfo = UiFactory.label();
+        comboBoxLaf = UiFactory.comboBox();
+        scrollPaneDescription = UiFactory.scrollPane();
+        editorPaneDescription = UiFactory.editorPane();
+        panelPreferences = UiFactory.panel();
+        scrollPanePreferences = UiFactory.scrollPane();
+        panelFontScale = UiFactory.panel();
+        labelFontScalePrompt = UiFactory.label();
+        comboBoxFontScale = UiFactory.comboBox();
+        labelFontScaleInfo = UiFactory.label();
 
         panelNoPreferences.setLayout(new java.awt.GridBagLayout());
 
@@ -209,11 +210,11 @@ public class AppLookAndFeelSettingsPanel extends PanelExt implements OptionPageP
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(comboBoxLaf, gridBagConstraints);
 
         scrollPaneDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.scrollPaneDescription.border.title"))); // NOI18N
-        scrollPaneDescription.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 100));
+        scrollPaneDescription.setPreferredSize(UiFactory.dimension(250, 100));
 
         editorPaneDescription.setEditable(false);
         editorPaneDescription.setContentType("text/html"); // NOI18N
@@ -225,11 +226,11 @@ public class AppLookAndFeelSettingsPanel extends PanelExt implements OptionPageP
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.2;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(scrollPaneDescription, gridBagConstraints);
 
         panelPreferences.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.panelPreferences.border.title"))); // NOI18N
-        panelPreferences.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 200));
+        panelPreferences.setPreferredSize(UiFactory.dimension(250, 200));
         panelPreferences.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -255,19 +256,19 @@ public class AppLookAndFeelSettingsPanel extends PanelExt implements OptionPageP
         comboBoxFontScale.setModel(new javax.swing.DefaultComboBoxModel<>(CommonPreferences.getValidFontScales()));
         comboBoxFontScale.setRenderer(fontScaleRenderer);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelFontScale.add(comboBoxFontScale, gridBagConstraints);
 
         labelFontScaleInfo.setText(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.labelFontScaleInfo.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelFontScale.add(labelFontScaleInfo, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelFontScale, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -276,7 +277,7 @@ public class AppLookAndFeelSettingsPanel extends PanelExt implements OptionPageP
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         add(panelContent, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 

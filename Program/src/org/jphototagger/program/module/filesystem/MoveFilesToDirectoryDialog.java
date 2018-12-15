@@ -29,6 +29,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -319,18 +320,18 @@ public final class MoveFilesToDirectoryDialog extends DialogExt implements Progr
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelInfo = org.jphototagger.resources.UiFactory.label();
-        buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
-        labelDirectoryName = org.jphototagger.resources.UiFactory.label();
-        progressBar = org.jphototagger.resources.UiFactory.progressBar();
-        panelCurrentFile = org.jphototagger.resources.UiFactory.panel();
-        labelInfoCurrentFilename = org.jphototagger.resources.UiFactory.label();
-        labelCurrentFilename = org.jphototagger.resources.UiFactory.label();
-        labelInfoIsThread = org.jphototagger.resources.UiFactory.label();
-        panelCancelStart = org.jphototagger.resources.UiFactory.panel();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
-        buttonStart = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        labelInfo = UiFactory.label();
+        buttonChooseDirectory = UiFactory.button();
+        labelDirectoryName = UiFactory.label();
+        progressBar = UiFactory.progressBar();
+        panelCurrentFile = UiFactory.panel();
+        labelInfoCurrentFilename = UiFactory.label();
+        labelCurrentFilename = UiFactory.label();
+        labelInfoIsThread = UiFactory.label();
+        panelCancelStart = UiFactory.panel();
+        buttonCancel = UiFactory.button();
+        buttonStart = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "MoveFilesToDirectoryDialog.title")); // NOI18N
@@ -373,7 +374,7 @@ public final class MoveFilesToDirectoryDialog extends DialogExt implements Progr
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(labelDirectoryName, gridBagConstraints);
 
         progressBar.setName("progressBar"); // NOI18N
@@ -381,7 +382,7 @@ public final class MoveFilesToDirectoryDialog extends DialogExt implements Progr
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
         panelCurrentFile.setName("panelCurrentFile"); // NOI18N
@@ -397,14 +398,14 @@ public final class MoveFilesToDirectoryDialog extends DialogExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelCurrentFile.add(labelCurrentFilename, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(panelCurrentFile, gridBagConstraints);
 
         labelInfoIsThread.setForeground(new java.awt.Color(0, 0, 255));
@@ -438,7 +439,7 @@ public final class MoveFilesToDirectoryDialog extends DialogExt implements Progr
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelCancelStart.add(buttonStart, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -454,7 +455,7 @@ public final class MoveFilesToDirectoryDialog extends DialogExt implements Progr
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

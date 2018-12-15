@@ -2,6 +2,7 @@ package org.jphototagger.program.misc;
 
 import javax.swing.JTree;
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -32,8 +33,8 @@ public class MiscXmpMetadataPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        tree = org.jphototagger.resources.UiFactory.tree();
+        scrollPane = UiFactory.scrollPane();
+        tree = UiFactory.tree();
         tree.setTransferHandler(new org.jphototagger.program.module.miscmetadata.MiscMetadataTreeTransferHandler());
         tree.setShowsRootHandles(true);
 

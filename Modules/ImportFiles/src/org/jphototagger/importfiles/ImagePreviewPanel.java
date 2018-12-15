@@ -15,6 +15,7 @@ import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
@@ -38,7 +39,7 @@ public class ImagePreviewPanel extends PanelExt implements PropertyChangeListene
 
     private void init() {
         bg = getBackground();
-        setPreferredSize(org.jphototagger.resources.UiFactory.dimension(SIZE, -1));
+        setPreferredSize(UiFactory.dimension(SIZE, -1));
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -95,23 +96,23 @@ public class EditXmpDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        panelTemplates = org.jphototagger.resources.UiFactory.panel();
-        labelTemplates = org.jphototagger.resources.UiFactory.label();
-        comboBoxTemplates = org.jphototagger.resources.UiFactory.comboBox();
-        buttonEditMetadataTemplates = org.jphototagger.resources.UiFactory.button();
-        buttonInsertTemplate = org.jphototagger.resources.UiFactory.button();
-        scrollPanePanelEditXmp = org.jphototagger.resources.UiFactory.scrollPane();
+        panelContent = UiFactory.panel();
+        panelTemplates = UiFactory.panel();
+        labelTemplates = UiFactory.label();
+        comboBoxTemplates = UiFactory.comboBox();
+        buttonEditMetadataTemplates = UiFactory.button();
+        buttonInsertTemplate = UiFactory.button();
+        scrollPanePanelEditXmp = UiFactory.scrollPane();
         panelEditXmp = new org.jphototagger.program.module.metadatatemplates.EditXmpPanel();
-        panelSubmitButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
+        panelSubmitButtons = UiFactory.panel();
+        buttonCancel = UiFactory.button();
+        buttonOk = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditXmpDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        panelContent.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(500, 450));
+        panelContent.setPreferredSize(UiFactory.dimension(500, 450));
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         panelTemplates.setLayout(new java.awt.GridBagLayout());
@@ -132,11 +133,11 @@ public class EditXmpDialog extends DialogExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTemplates.add(comboBoxTemplates, gridBagConstraints);
 
         buttonEditMetadataTemplates.setToolTipText(Bundle.getString(getClass(), "EditXmpDialog.buttonEditMetadataTemplates.toolTipText")); // NOI18N
-        buttonEditMetadataTemplates.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonEditMetadataTemplates.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonEditMetadataTemplates.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,7 +146,7 @@ public class EditXmpDialog extends DialogExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTemplates.add(buttonEditMetadataTemplates, gridBagConstraints);
 
         buttonInsertTemplate.setText(Bundle.getString(getClass(), "EditXmpDialog.buttonInsertTemplate.text")); // NOI18N
@@ -158,7 +159,7 @@ public class EditXmpDialog extends DialogExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTemplates.add(buttonInsertTemplate, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -176,7 +177,7 @@ public class EditXmpDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(scrollPanePanelEditXmp, gridBagConstraints);
 
         panelSubmitButtons.setLayout(new java.awt.GridBagLayout());
@@ -201,13 +202,13 @@ public class EditXmpDialog extends DialogExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelSubmitButtons.add(buttonOk, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelSubmitButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -217,7 +218,7 @@ public class EditXmpDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

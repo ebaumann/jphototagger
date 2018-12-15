@@ -7,6 +7,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -73,7 +74,7 @@ public class KeywordsTreeSettingsPanel extends PanelExt implements OptionPagePro
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        checkBoxAutoInsertUnknownKeywords = org.jphototagger.resources.UiFactory.checkBox();
+        checkBoxAutoInsertUnknownKeywords = UiFactory.checkBox();
 
         setLayout(new java.awt.GridBagLayout());
 

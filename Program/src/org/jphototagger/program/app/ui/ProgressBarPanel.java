@@ -9,6 +9,7 @@ import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -127,15 +128,15 @@ public class ProgressBarPanel extends PanelExt implements ProgressHandle {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        progressBar = org.jphototagger.resources.UiFactory.progressBar();
-        buttonCancelProgress = org.jphototagger.resources.UiFactory.button();
+        progressBar = UiFactory.progressBar();
+        buttonCancelProgress = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        progressBar.setMaximumSize(org.jphototagger.resources.UiFactory.dimension(300, 14));
+        progressBar.setMaximumSize(UiFactory.dimension(300, 14));
         progressBar.setName("progressBar"); // NOI18N
-        progressBar.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(250, 20));
+        progressBar.setPreferredSize(UiFactory.dimension(250, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
@@ -157,7 +158,7 @@ public class ProgressBarPanel extends PanelExt implements ProgressHandle {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(buttonCancelProgress, gridBagConstraints);
     }//GEN-END:initComponents
 

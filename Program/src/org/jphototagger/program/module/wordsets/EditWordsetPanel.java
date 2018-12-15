@@ -28,6 +28,7 @@ import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.resources.Icons;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -265,17 +266,17 @@ public class EditWordsetPanel extends PanelExt {
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        panelName = org.jphototagger.resources.UiFactory.panel();
-        labelName = org.jphototagger.resources.UiFactory.label();
-        textFieldName = org.jphototagger.resources.UiFactory.textField();
-        buttonSave = org.jphototagger.resources.UiFactory.button();
-        scrollPaneWords = org.jphototagger.resources.UiFactory.scrollPane();
-        listWords = org.jphototagger.resources.UiFactory.list();
-        panelEdit = org.jphototagger.resources.UiFactory.panel();
-        labelWord = org.jphototagger.resources.UiFactory.label();
-        textAreaWord = org.jphototagger.resources.UiFactory.textArea();
-        buttonAddWord = org.jphototagger.resources.UiFactory.button();
-        buttonRemoveSelectedWords = org.jphototagger.resources.UiFactory.button();
+        panelName = UiFactory.panel();
+        labelName = UiFactory.label();
+        textFieldName = UiFactory.textField();
+        buttonSave = UiFactory.button();
+        scrollPaneWords = UiFactory.scrollPane();
+        listWords = UiFactory.list();
+        panelEdit = UiFactory.panel();
+        labelWord = UiFactory.label();
+        textAreaWord = UiFactory.textArea();
+        buttonAddWord = UiFactory.button();
+        buttonRemoveSelectedWords = UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -297,7 +298,7 @@ public class EditWordsetPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelName.add(textFieldName, gridBagConstraints);
 
         buttonSave.setText(Bundle.getString(getClass(), "EditWordsetPanel.buttonSave.text")); // NOI18N
@@ -310,7 +311,7 @@ public class EditWordsetPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelName.add(buttonSave, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -344,7 +345,7 @@ public class EditWordsetPanel extends PanelExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(scrollPaneWords, gridBagConstraints);
 
         panelEdit.setLayout(new java.awt.GridBagLayout());
@@ -373,7 +374,7 @@ public class EditWordsetPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelEdit.add(textAreaWord, gridBagConstraints);
 
         buttonAddWord.setMnemonic('+');
@@ -388,7 +389,7 @@ public class EditWordsetPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelEdit.add(buttonAddWord, gridBagConstraints);
 
         buttonRemoveSelectedWords.setMnemonic('-');
@@ -403,7 +404,7 @@ public class EditWordsetPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelEdit.add(buttonRemoveSelectedWords, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -411,7 +412,7 @@ public class EditWordsetPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelEdit, gridBagConstraints);
 
         bindingGroup.bind();

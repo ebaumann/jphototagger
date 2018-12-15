@@ -145,7 +145,7 @@ public final class KeywordsTreePopupMenu extends JPopupMenu {
     }
 
     private void init() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         addItems();
         setAccelerators();
     }
@@ -154,7 +154,7 @@ public final class KeywordsTreePopupMenu extends JPopupMenu {
         add(itemAddToEditPanel);
         add(itemRemoveFromEditPanel);
 
-        JMenu menuEdit = org.jphototagger.resources.UiFactory.menu(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.MenuEdit"));
+        JMenu menuEdit = UiFactory.menu(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.MenuEdit"));
 
         menuEdit.add(itemAdd);
         menuEdit.add(itemRemove);

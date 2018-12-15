@@ -5,6 +5,7 @@ import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -72,7 +73,7 @@ public class EditWordsetDialog extends DialogExt {
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        panelEditWordset.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(300, 200));
+        panelEditWordset.setPreferredSize(UiFactory.dimension(300, 200));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -80,7 +81,7 @@ public class EditWordsetDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelEditWordset, gridBagConstraints);
 
         pack();

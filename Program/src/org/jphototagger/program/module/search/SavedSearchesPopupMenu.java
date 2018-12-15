@@ -64,7 +64,7 @@ public final class SavedSearchesPopupMenu extends JPopupMenu {
     }
 
     private void init() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         addItems();
         setAccelerators();
     }

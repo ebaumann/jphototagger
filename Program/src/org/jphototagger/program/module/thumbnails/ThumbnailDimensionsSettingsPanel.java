@@ -10,6 +10,7 @@ import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -77,9 +78,9 @@ public class ThumbnailDimensionsSettingsPanel extends PanelExt implements Persis
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelMaxThumbnailWidth = org.jphototagger.resources.UiFactory.label();
-        spinnerMaxThumbnailWidth = org.jphototagger.resources.UiFactory.spinner();
-        labelUpdateAllThumbnails = org.jphototagger.resources.UiFactory.label();
+        labelMaxThumbnailWidth = UiFactory.label();
+        spinnerMaxThumbnailWidth = UiFactory.spinner();
+        labelUpdateAllThumbnails = UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -91,7 +92,7 @@ public class ThumbnailDimensionsSettingsPanel extends PanelExt implements Persis
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(6, 6, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(6, 6, 0, 0);
         add(labelMaxThumbnailWidth, gridBagConstraints);
 
         spinnerMaxThumbnailWidth.setModel(new SpinnerNumberModel(ThumbnailDefaults.DEFAULT_THUMBNAIL_WIDTH, ThumbnailDefaults.MIN_THUMBNAIL_WIDTH, ThumbnailDefaults.MAX_THUMBNAIL_WIDTH, 50));
@@ -106,7 +107,7 @@ public class ThumbnailDimensionsSettingsPanel extends PanelExt implements Persis
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(6, 6, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(6, 6, 0, 0);
         add(spinnerMaxThumbnailWidth, gridBagConstraints);
 
         labelUpdateAllThumbnails.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -120,7 +121,7 @@ public class ThumbnailDimensionsSettingsPanel extends PanelExt implements Persis
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 6, 6, 6);
+        gridBagConstraints.insets = UiFactory.insets(7, 6, 6, 6);
         add(labelUpdateAllThumbnails, gridBagConstraints);
     }//GEN-END:initComponents
 

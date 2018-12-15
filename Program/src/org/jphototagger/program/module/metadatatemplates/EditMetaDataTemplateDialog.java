@@ -162,20 +162,20 @@ public class EditMetaDataTemplateDialog extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        panelName = org.jphototagger.resources.UiFactory.panel();
-        labelName = org.jphototagger.resources.UiFactory.label();
-        textFieldName = org.jphototagger.resources.UiFactory.textField();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
+        panelContent = UiFactory.panel();
+        panelName = UiFactory.panel();
+        labelName = UiFactory.label();
+        textFieldName = UiFactory.textField();
+        scrollPane = UiFactory.scrollPane();
         panelXmpEdit = new org.jphototagger.program.module.metadatatemplates.EditXmpPanel();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
-        buttonSave = org.jphototagger.resources.UiFactory.button();
+        panelButtons = UiFactory.panel();
+        buttonCancel = UiFactory.button();
+        buttonSave = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.title")); // NOI18N
         setName("Form"); // NOI18N
-        setPreferredSize(org.jphototagger.resources.UiFactory.dimension(500, 500));
+        setPreferredSize(UiFactory.dimension(500, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -202,7 +202,7 @@ public class EditMetaDataTemplateDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelName.add(textFieldName, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -223,7 +223,7 @@ public class EditMetaDataTemplateDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(10, 0, 0, 0);
         panelContent.add(scrollPane, gridBagConstraints);
 
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(5), 0));
@@ -252,7 +252,7 @@ public class EditMetaDataTemplateDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(10, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -262,7 +262,7 @@ public class EditMetaDataTemplateDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

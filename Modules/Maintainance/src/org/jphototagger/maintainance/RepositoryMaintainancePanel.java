@@ -23,6 +23,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -365,27 +366,27 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        panelTasks = org.jphototagger.resources.UiFactory.panel();
-        checkBoxDeleteRecordsOfNotExistingFilesInRepository = org.jphototagger.resources.UiFactory.checkBox();
-        labelFinishedDeleteRecordsOfNotExistingFilesInRepository = org.jphototagger.resources.UiFactory.label();
-        checkBoxCompressRepository = org.jphototagger.resources.UiFactory.checkBox();
-        labelFinishedCompressRepository = org.jphototagger.resources.UiFactory.label();
-        checkBoxDeleteOrphanedThumbnails = org.jphototagger.resources.UiFactory.checkBox();
-        labelFinishedDeleteOrphanedThumbnails = org.jphototagger.resources.UiFactory.label();
-        checkBoxDeleteUnusedKeywords = org.jphototagger.resources.UiFactory.checkBox();
-        labelFinishedDeleteUnusedKeywords = org.jphototagger.resources.UiFactory.label();
-        checkBoxDeleteNotReferenced1n = org.jphototagger.resources.UiFactory.checkBox();
-        labelFinishedDeleteNotReferenced1n = org.jphototagger.resources.UiFactory.label();
-        panelMessages = org.jphototagger.resources.UiFactory.panel();
-        labelMessages = org.jphototagger.resources.UiFactory.label();
-        scrollPaneMessages = org.jphototagger.resources.UiFactory.scrollPane();
-        textPaneMessages = org.jphototagger.resources.UiFactory.textPane();
-        progressBar = org.jphototagger.resources.UiFactory.progressBar();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonDeleteMessages = org.jphototagger.resources.UiFactory.button();
-        buttonCancelAction = org.jphototagger.resources.UiFactory.button();
-        buttonStartMaintain = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        panelTasks = UiFactory.panel();
+        checkBoxDeleteRecordsOfNotExistingFilesInRepository = UiFactory.checkBox();
+        labelFinishedDeleteRecordsOfNotExistingFilesInRepository = UiFactory.label();
+        checkBoxCompressRepository = UiFactory.checkBox();
+        labelFinishedCompressRepository = UiFactory.label();
+        checkBoxDeleteOrphanedThumbnails = UiFactory.checkBox();
+        labelFinishedDeleteOrphanedThumbnails = UiFactory.label();
+        checkBoxDeleteUnusedKeywords = UiFactory.checkBox();
+        labelFinishedDeleteUnusedKeywords = UiFactory.label();
+        checkBoxDeleteNotReferenced1n = UiFactory.checkBox();
+        labelFinishedDeleteNotReferenced1n = UiFactory.label();
+        panelMessages = UiFactory.panel();
+        labelMessages = UiFactory.label();
+        scrollPaneMessages = UiFactory.scrollPane();
+        textPaneMessages = UiFactory.textPane();
+        progressBar = UiFactory.progressBar();
+        panelButtons = UiFactory.panel();
+        buttonDeleteMessages = UiFactory.button();
+        buttonCancelAction = UiFactory.button();
+        buttonStartMaintain = UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -423,7 +424,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(checkBoxCompressRepository, gridBagConstraints);
 
         labelFinishedCompressRepository.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -431,7 +432,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedCompressRepository, gridBagConstraints);
 
         checkBoxDeleteOrphanedThumbnails.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteOrphanedThumbnails.text")); // NOI18N
@@ -444,7 +445,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(checkBoxDeleteOrphanedThumbnails, gridBagConstraints);
 
         labelFinishedDeleteOrphanedThumbnails.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -452,7 +453,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteOrphanedThumbnails, gridBagConstraints);
 
         checkBoxDeleteUnusedKeywords.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteUnusedKeywords.text")); // NOI18N
@@ -465,7 +466,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(checkBoxDeleteUnusedKeywords, gridBagConstraints);
 
         labelFinishedDeleteUnusedKeywords.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -473,7 +474,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteUnusedKeywords, gridBagConstraints);
 
         checkBoxDeleteNotReferenced1n.setText(Bundle.getString(getClass(), "RepositoryMaintainancePanel.checkBoxDeleteNotReferenced1n.text")); // NOI18N
@@ -486,7 +487,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(checkBoxDeleteNotReferenced1n, gridBagConstraints);
 
         labelFinishedDeleteNotReferenced1n.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -494,7 +495,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelTasks.add(labelFinishedDeleteNotReferenced1n, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -513,7 +514,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelMessages.add(labelMessages, gridBagConstraints);
 
-        scrollPaneMessages.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(200, 150));
+        scrollPaneMessages.setPreferredSize(UiFactory.dimension(200, 150));
 
         textPaneMessages.setEditable(false);
         textPaneMessages.setContentType("text/html"); // NOI18N
@@ -526,7 +527,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(3, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
         panelMessages.add(scrollPaneMessages, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -535,14 +536,14 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelMessages, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(progressBar, gridBagConstraints);
 
         panelButtons.setLayout(new java.awt.GridBagLayout());
@@ -589,7 +590,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 3, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 3, 0, 0);
         panelButtons.add(buttonStartMaintain, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -597,7 +598,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -606,7 +607,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         add(panelContent, gridBagConstraints);
     }//GEN-END:initComponents
 

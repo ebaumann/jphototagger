@@ -8,6 +8,7 @@ import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -61,9 +62,9 @@ public class ProgramChooseDialog extends DialogExt {
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        scrollPanePrograms = org.jphototagger.resources.UiFactory.scrollPane();
-        listPrograms = org.jphototagger.resources.UiFactory.jxList();
-        buttonChooseProgram = org.jphototagger.resources.UiFactory.button();
+        scrollPanePrograms = UiFactory.scrollPane();
+        listPrograms = UiFactory.jxList();
+        buttonChooseProgram = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ProgramChooseDialog.title")); // NOI18N
@@ -95,7 +96,7 @@ public class ProgramChooseDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 0, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 0, 7);
         getContentPane().add(scrollPanePrograms, gridBagConstraints);
 
         buttonChooseProgram.setText(Bundle.getString(getClass(), "ProgramChooseDialog.buttonChooseProgram.text")); // NOI18N
@@ -109,7 +110,7 @@ public class ProgramChooseDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(buttonChooseProgram, gridBagConstraints);
 
         bindingGroup.bind();

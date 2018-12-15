@@ -16,6 +16,7 @@ import org.jphototagger.domain.metadata.MetaDataValueProvider;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -121,9 +122,9 @@ public class MetaDataValueSelectionPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        metaDataValuesComboBox = org.jphototagger.resources.UiFactory.comboBox();
-        buttonAdd = org.jphototagger.resources.UiFactory.button();
-        buttonRemove = org.jphototagger.resources.UiFactory.button();
+        metaDataValuesComboBox = UiFactory.comboBox();
+        buttonAdd = UiFactory.button();
+        buttonRemove = UiFactory.button();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -144,7 +145,7 @@ public class MetaDataValueSelectionPanel extends PanelExt {
         add(metaDataValuesComboBox, gridBagConstraints);
 
         buttonAdd.setIcon(org.jphototagger.resources.Icons.getIcon("icon_add.png"));
-        buttonAdd.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
+        buttonAdd.setMargin(UiFactory.insets(0, 0, 0, 0));
         buttonAdd.setName("buttonAdd"); // NOI18N
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -154,12 +155,12 @@ public class MetaDataValueSelectionPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(buttonAdd, gridBagConstraints);
 
         buttonRemove.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemove.setEnabled(false);
-        buttonRemove.setMargin(org.jphototagger.resources.UiFactory.insets(0, 0, 0, 0));
+        buttonRemove.setMargin(UiFactory.insets(0, 0, 0, 0));
         buttonRemove.setName("buttonRemove"); // NOI18N
         buttonRemove.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -169,7 +170,7 @@ public class MetaDataValueSelectionPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(buttonRemove, gridBagConstraints);
     }//GEN-END:initComponents
 

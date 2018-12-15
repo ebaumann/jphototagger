@@ -29,6 +29,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -260,10 +261,10 @@ public final class RepositoryInfoCountPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        labelTable = org.jphototagger.resources.UiFactory.label();
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        table = org.jphototagger.resources.UiFactory.table();
-        labelFilename = org.jphototagger.resources.UiFactory.label();
+        labelTable = UiFactory.label();
+        scrollPane = UiFactory.scrollPane();
+        table = UiFactory.table();
+        labelFilename = UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -275,7 +276,7 @@ public final class RepositoryInfoCountPanel extends PanelExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(12, 12, 0, 12);
+        gridBagConstraints.insets = UiFactory.insets(12, 12, 0, 12);
         add(labelTable, gridBagConstraints);
 
         scrollPane.setName("scrollPane"); // NOI18N
@@ -290,7 +291,7 @@ public final class RepositoryInfoCountPanel extends PanelExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(6, 12, 0, 12);
+        gridBagConstraints.insets = UiFactory.insets(6, 12, 0, 12);
         add(scrollPane, gridBagConstraints);
 
         labelFilename.setText(Bundle.getString(getClass(), "RepositoryInfoCountPanel.labelFilename.text")); // NOI18N
@@ -301,7 +302,7 @@ public final class RepositoryInfoCountPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(6, 12, 12, 12);
+        gridBagConstraints.insets = UiFactory.insets(6, 12, 12, 12);
         add(labelFilename, gridBagConstraints);
     }//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

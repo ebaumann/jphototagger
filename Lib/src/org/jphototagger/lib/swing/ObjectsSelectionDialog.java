@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @param <T> Object type
@@ -113,9 +114,9 @@ public class ObjectsSelectionDialog<T> extends DialogExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = org.jphototagger.resources.UiFactory.list();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
+        scrollPane = UiFactory.scrollPane();
+        list = UiFactory.list();
+        buttonOk = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -128,7 +129,7 @@ public class ObjectsSelectionDialog<T> extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         getContentPane().add(scrollPane, gridBagConstraints);
 
         buttonOk.setText(Bundle.getString(getClass(), "ObjectsSelectionDialog.buttonOk.text")); // NOI18N
@@ -142,7 +143,7 @@ public class ObjectsSelectionDialog<T> extends DialogExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         getContentPane().add(buttonOk, gridBagConstraints);
 
         pack();

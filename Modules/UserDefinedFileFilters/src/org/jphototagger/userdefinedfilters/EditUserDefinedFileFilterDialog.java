@@ -10,6 +10,7 @@ import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -113,15 +114,15 @@ public class EditUserDefinedFileFilterDialog extends DialogExt {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         filter = udf;
-        panelContent = org.jphototagger.resources.UiFactory.panel();
-        labelName = org.jphototagger.resources.UiFactory.label();
-        textFieldName = org.jphototagger.resources.UiFactory.textField();
-        comboBoxType = org.jphototagger.resources.UiFactory.comboBox();
-        textFieldExpression = org.jphototagger.resources.UiFactory.textField();
-        checkBoxNot = org.jphototagger.resources.UiFactory.checkBox();
-        panelButtons = org.jphototagger.resources.UiFactory.panel();
-        buttonCancel = org.jphototagger.resources.UiFactory.button();
-        buttonOk = org.jphototagger.resources.UiFactory.button();
+        panelContent = UiFactory.panel();
+        labelName = UiFactory.label();
+        textFieldName = UiFactory.textField();
+        comboBoxType = UiFactory.comboBox();
+        textFieldExpression = UiFactory.textField();
+        checkBoxNot = UiFactory.checkBox();
+        panelButtons = UiFactory.panel();
+        buttonCancel = UiFactory.button();
+        buttonOk = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.title")); // NOI18N
@@ -150,7 +151,7 @@ public class EditUserDefinedFileFilterDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelContent.add(textFieldName, gridBagConstraints);
 
         comboBoxType.setModel(new ComboBoxModel());
@@ -162,7 +163,7 @@ public class EditUserDefinedFileFilterDialog extends DialogExt {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(comboBoxType, gridBagConstraints);
 
         textFieldExpression.setName("textFieldExpression"); // NOI18N
@@ -176,7 +177,7 @@ public class EditUserDefinedFileFilterDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 0);
         panelContent.add(textFieldExpression, gridBagConstraints);
 
         checkBoxNot.setText(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.checkBoxNot.text")); // NOI18N
@@ -191,7 +192,7 @@ public class EditUserDefinedFileFilterDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(checkBoxNot, gridBagConstraints);
 
         panelButtons.setName("panelButtons"); // NOI18N
@@ -229,7 +230,7 @@ public class EditUserDefinedFileFilterDialog extends DialogExt {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 0, 0, 0);
         panelContent.add(panelButtons, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -238,7 +239,7 @@ public class EditUserDefinedFileFilterDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(7, 7, 7, 7);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panelContent, gridBagConstraints);
 
         bindingGroup.bind();

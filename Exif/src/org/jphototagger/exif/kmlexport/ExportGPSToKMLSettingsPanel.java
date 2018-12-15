@@ -11,6 +11,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.exif.ExifPreferencesKeys;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
@@ -52,9 +53,9 @@ public class ExportGPSToKMLSettingsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         GridBagConstraints gridBagConstraints;
 
-        checkBoxAddFilenameToGpsLocationExport = org.jphototagger.resources.UiFactory.checkBox();
-        panelFill = org.jphototagger.resources.UiFactory.panel();
-        labelVersion = org.jphototagger.resources.UiFactory.label();
+        checkBoxAddFilenameToGpsLocationExport = UiFactory.checkBox();
+        panelFill = UiFactory.panel();
+        labelVersion = UiFactory.label();
 
         setName("Form"); // NOI18N
         setLayout(new GridBagLayout());
@@ -71,7 +72,7 @@ public class ExportGPSToKMLSettingsPanel extends PanelExt {
         gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 0, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 0, 10);
         add(checkBoxAddFilenameToGpsLocationExport, gridBagConstraints);
 
         panelFill.setName("panelFill"); // NOI18N
@@ -91,7 +92,7 @@ public class ExportGPSToKMLSettingsPanel extends PanelExt {
         gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(10, 10, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         add(labelVersion, gridBagConstraints);
     }//GEN-END:initComponents
 

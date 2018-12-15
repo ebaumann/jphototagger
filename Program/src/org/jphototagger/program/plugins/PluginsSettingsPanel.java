@@ -36,7 +36,7 @@ public class PluginsSettingsPanel extends PanelExt implements Persistence, HelpP
 
     private void postInitComponents() {
         addPlugins(FileProcessorPluginManager.INSTANCE);
-        panelExcludeCheckboxes.add(org.jphototagger.resources.UiFactory.panel(), getGbcAfterLastCheckBox());    // ensures checkboxes vertically top and not centered
+        panelExcludeCheckboxes.add(UiFactory.panel(), getGbcAfterLastCheckBox());    // ensures checkboxes vertically top and not centered
         MnemonicUtil.setMnemonics((Container) this);
     }
 
@@ -144,11 +144,11 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroup = new javax.swing.ButtonGroup();
-        tabbedPane = org.jphototagger.resources.UiFactory.tabbedPane();
-        panelExclude = org.jphototagger.resources.UiFactory.panel();
-        labelInfoExclude = org.jphototagger.resources.UiFactory.label();
-        scrollPaneExclude = org.jphototagger.resources.UiFactory.scrollPane();
-        panelExcludeCheckboxes = org.jphototagger.resources.UiFactory.panel();
+        tabbedPane = UiFactory.tabbedPane();
+        panelExclude = UiFactory.panel();
+        labelInfoExclude = UiFactory.label();
+        scrollPaneExclude = UiFactory.scrollPane();
+        panelExcludeCheckboxes = UiFactory.panel();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -181,7 +181,7 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelExclude.add(scrollPaneExclude, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "PluginsSettingsPanel.panelExclude.TabConstraints.tabTitle"), panelExclude); // NOI18N

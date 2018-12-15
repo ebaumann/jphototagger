@@ -358,13 +358,13 @@ public class WordsetsPanel extends PanelExt {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        panelWordsets = org.jphototagger.resources.UiFactory.panel();
-        comboBoxWordsetNames = org.jphototagger.resources.UiFactory.comboBox();
-        buttonRemoveWordset = org.jphototagger.resources.UiFactory.button();
-        buttonEditWordset = org.jphototagger.resources.UiFactory.button();
-        buttonAddWordset = org.jphototagger.resources.UiFactory.button();
-        buttonEraseAutomaticWords = org.jphototagger.resources.UiFactory.button();
-        panelWords = org.jphototagger.resources.UiFactory.panel();
+        panelWordsets = UiFactory.panel();
+        comboBoxWordsetNames = UiFactory.comboBox();
+        buttonRemoveWordset = UiFactory.button();
+        buttonEditWordset = UiFactory.button();
+        buttonAddWordset = UiFactory.button();
+        buttonEraseAutomaticWords = UiFactory.button();
+        panelWords = UiFactory.panel();
 
         setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.toolTipText")); // NOI18N
         setLayout(new java.awt.GridBagLayout());
@@ -387,7 +387,7 @@ public class WordsetsPanel extends PanelExt {
         buttonRemoveWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_delete.png"));
         buttonRemoveWordset.setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.buttonRemoveWordset.toolTipText")); // NOI18N
         buttonRemoveWordset.setFocusable(false);
-        buttonRemoveWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonRemoveWordset.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonRemoveWordset.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -396,13 +396,13 @@ public class WordsetsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelWordsets.add(buttonRemoveWordset, gridBagConstraints);
 
         buttonEditWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
         buttonEditWordset.setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.buttonEditWordset.toolTipText")); // NOI18N
         buttonEditWordset.setFocusable(false);
-        buttonEditWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonEditWordset.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonEditWordset.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -411,13 +411,13 @@ public class WordsetsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelWordsets.add(buttonEditWordset, gridBagConstraints);
 
         buttonAddWordset.setIcon(org.jphototagger.resources.Icons.getIcon("icon_add.png"));
         buttonAddWordset.setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.buttonAddWordset.toolTipText")); // NOI18N
         buttonAddWordset.setFocusable(false);
-        buttonAddWordset.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonAddWordset.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonAddWordset.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -426,13 +426,13 @@ public class WordsetsPanel extends PanelExt {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelWordsets.add(buttonAddWordset, gridBagConstraints);
 
         buttonEraseAutomaticWords.setIcon(org.jphototagger.resources.Icons.getIcon("icon_erase.png"));
         buttonEraseAutomaticWords.setToolTipText(Bundle.getString(getClass(), "WordsetsPanel.buttonEraseAutomaticWords.toolTipText")); // NOI18N
         buttonEraseAutomaticWords.setFocusable(false);
-        buttonEraseAutomaticWords.setMargin(org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2));
+        buttonEraseAutomaticWords.setMargin(UiFactory.insets(2, 2, 2, 2));
         buttonEraseAutomaticWords.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -442,14 +442,14 @@ public class WordsetsPanel extends PanelExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(0, 5, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelWordsets.add(buttonEraseAutomaticWords, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 0, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         add(panelWordsets, gridBagConstraints);
 
         panelWords.setLayout(new java.awt.GridLayout(0, 3, UiFactory.scale(2), UiFactory.scale(2)));
@@ -459,7 +459,7 @@ public class WordsetsPanel extends PanelExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = org.jphototagger.resources.UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
         add(panelWords, gridBagConstraints);
     }//GEN-END:initComponents
 

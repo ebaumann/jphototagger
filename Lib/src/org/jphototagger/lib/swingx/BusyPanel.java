@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import org.jdesktop.swingx.JXBusyLabel;
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Draws a busy animation. Usage:
@@ -17,7 +18,7 @@ import org.jphototagger.lib.swing.PanelExt;
  * </ol>
  * <pre>
  * public final class MyDialog extends JDialog {
- *     private final BusyPanel busyPanel = new BusyPanel(org.jphototagger.resources.UiFactory.dimension(200, 200));
+ *     private final BusyPanel busyPanel = new BusyPanel(UiFactory.dimension(200, 200));
  *     private final JXRootPane rootPane = new JXRootPane();
  *     public MyDialog {
  *         initComponents();
@@ -39,7 +40,7 @@ public final class BusyPanel extends PanelExt {
     private final Dimension dimension;
 
     public BusyPanel() {
-        this(org.jphototagger.resources.UiFactory.dimension(16, 16));
+        this(UiFactory.dimension(16, 16));
     }
 
     /**

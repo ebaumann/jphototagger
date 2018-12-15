@@ -13,6 +13,7 @@ import org.jdesktop.swingx.JXTree;
 import org.jphototagger.api.nodes.Node;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
+import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
@@ -38,7 +39,7 @@ public final class LookupTree extends JXTree implements Lookup.Provider, MouseLi
     private int lastRightClickRow = -1;
 
     public LookupTree() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        UiFactory.configure(this);
         addMouseListener(this);
     }
 

@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.JFileChooser;
 import org.jphototagger.lib.util.Settings;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * @author Elmar Baumann
@@ -142,7 +143,7 @@ public final class FileChooserHelper {
             int height = settings.getInt(p.getPropertyKeyPrefix() + Settings.KEY_POSTFIX_HEIGHT);
 
             if ((width > 0) && (height > 0)) {
-                fc.setPreferredSize(org.jphototagger.resources.UiFactory.dimension(width, height));
+                fc.setPreferredSize(UiFactory.dimension(width, height));
             }
         }
     }
