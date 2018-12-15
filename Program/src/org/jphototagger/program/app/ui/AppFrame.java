@@ -24,6 +24,7 @@ import org.jphototagger.lib.api.LayerUtil;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.swing.FrameExt;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.util.MenuUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -38,7 +39,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class AppFrame extends javax.swing.JFrame {
+public final class AppFrame extends FrameExt {
 
     private static final long serialVersionUID = 1L;
     private final Map<GoTo, JMenuItem> menuItemOfGoto = new EnumMap<>(GoTo.class);
@@ -80,7 +81,6 @@ public final class AppFrame extends javax.swing.JFrame {
     }
 
     private void init() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
         GUI.setAppFrame(this);

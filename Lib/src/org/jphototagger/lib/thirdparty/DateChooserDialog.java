@@ -24,9 +24,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jphototagger.lib.swing.FrameExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.UiFactory;
 
@@ -290,8 +290,7 @@ public final class DateChooserDialog extends JComponent {
         c.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
         c.gridwidth = 2;
 
-        JFrame f = new JFrame();
-        org.jphototagger.resources.UiFactory.configure(f);
+        FrameExt f = new FrameExt();
 
         dialog = new JDialog(f, Bundle.getString(DateChooserDialog.class, "DateChooserDialog.title"), true);
         org.jphototagger.resources.UiFactory.configure(dialog);
