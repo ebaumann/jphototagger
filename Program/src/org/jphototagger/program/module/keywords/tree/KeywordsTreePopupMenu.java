@@ -153,7 +153,7 @@ public final class KeywordsTreePopupMenu extends JPopupMenu {
         add(itemAddToEditPanel);
         add(itemRemoveFromEditPanel);
 
-        JMenu menuEdit = new JMenu(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.MenuEdit"));
+        JMenu menuEdit = org.jphototagger.resources.UiFactory.menu(Bundle.getString(KeywordsTreePopupMenu.class, "KeywordsTreePopupMenu.DisplayName.MenuEdit"));
 
         menuEdit.add(itemAdd);
         menuEdit.add(itemRemove);

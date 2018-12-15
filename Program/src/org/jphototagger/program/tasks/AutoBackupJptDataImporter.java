@@ -106,7 +106,7 @@ public final class AutoBackupJptDataImporter {
     }
 
     public static JMenuItem getMenuItem() {
-        JMenu menu = new JMenu(Bundle.getString(AutoBackupJptDataImporter.class, "AutoBackupJptDataImporter.MenuItemText"));
+        JMenu menu = org.jphototagger.resources.UiFactory.menu(Bundle.getString(AutoBackupJptDataImporter.class, "AutoBackupJptDataImporter.MenuItemText"));
         menu.setIcon(Icons.getIcon("icon_save.png"));
         for (List<File> fileset : getFilesets()) {
             if (!fileset.isEmpty()) {

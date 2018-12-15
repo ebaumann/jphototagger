@@ -242,11 +242,11 @@ public final class AppFrame extends javax.swing.JFrame {
     private void initComponents() {//GEN-BEGIN:initComponents
 
         buttonGroupSort = new javax.swing.ButtonGroup();
-        menuBar = new javax.swing.JMenuBar();
-        menuFile = new javax.swing.JMenu();
-        menuEdit = new javax.swing.JMenu();
-        menuView = new javax.swing.JMenu();
-        menuGoto = new javax.swing.JMenu();
+        menuBar = org.jphototagger.resources.UiFactory.menuBar();
+        menuFile = org.jphototagger.resources.UiFactory.menu();
+        menuEdit = org.jphototagger.resources.UiFactory.menu();
+        menuView = org.jphototagger.resources.UiFactory.menu();
+        menuGoto = org.jphototagger.resources.UiFactory.menu();
         sep17 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoDirectories = org.jphototagger.resources.UiFactory.menuItem();
         menuItemGotoSavedSearches = org.jphototagger.resources.UiFactory.menuItem();
@@ -257,9 +257,9 @@ public final class AppFrame extends javax.swing.JFrame {
         menuItemGotoMiscMetadata = org.jphototagger.resources.UiFactory.menuItem();
         sep18 = new javax.swing.JPopupMenu.Separator();
         menuItemGotoKeywordsEdit = org.jphototagger.resources.UiFactory.menuItem();
-        menuTools = new javax.swing.JMenu();
-        menuWindow = new javax.swing.JMenu();
-        menuHelp = new javax.swing.JMenu();
+        menuTools = org.jphototagger.resources.UiFactory.menu();
+        menuWindow = org.jphototagger.resources.UiFactory.menu();
+        menuHelp = org.jphototagger.resources.UiFactory.menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);

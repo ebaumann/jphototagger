@@ -17,6 +17,8 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -215,6 +217,31 @@ public final class UiFactory {
         configure(mi);
 
         return mi;
+    }
+
+    public static JMenuBar menuBar() {
+        JMenuBar mb = new JMenuBar();
+
+        Insets insets = mb.getInsets();
+        mb.setMargin(insets(insets.top, insets.left, insets.bottom, insets.right));
+
+        return mb;
+    }
+
+    public static JMenu menu() {
+        JMenu m = new JMenu();
+
+        configure(m);
+
+        return m;
+    }
+
+    public static JMenu menu(String s) {
+        JMenu m = new JMenu(s);
+
+        configure(m);
+
+        return m;
     }
 
     public static JLabel label() {

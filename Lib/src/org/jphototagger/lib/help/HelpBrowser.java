@@ -585,8 +585,8 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         buttonSearchInCurrentPage = org.jphototagger.resources.UiFactory.button();
         buttonGotoPreviousUrl = org.jphototagger.resources.UiFactory.button();
         buttonGotoNextUrl = org.jphototagger.resources.UiFactory.button();
-        menuBar = new javax.swing.JMenuBar();
-        menuView = new javax.swing.JMenu();
+        menuBar = org.jphototagger.resources.UiFactory.menuBar();
+        menuView = org.jphototagger.resources.UiFactory.menu();
         menuItemTextFontSizeSmall = UiFactory.radioButtonMenuItem();
         menuItemTextFontSizeNormal = UiFactory.radioButtonMenuItem();
         menuItemTextFontSizeLarge = UiFactory.radioButtonMenuItem();
