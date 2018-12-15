@@ -470,7 +470,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
         menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
         labelHeadingListDirectories = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new org.jdesktop.swingx.JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
         labelInfoFilecount = org.jphototagger.resources.UiFactory.label();
         labelFilecount = org.jphototagger.resources.UiFactory.label();
         checkBoxForce = org.jphototagger.resources.UiFactory.checkBox();

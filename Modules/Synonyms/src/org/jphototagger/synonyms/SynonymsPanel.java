@@ -326,7 +326,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelAddedWords = org.jphototagger.resources.UiFactory.panel();
         labelListWords = org.jphototagger.resources.UiFactory.label();
         scrollPaneListWords = org.jphototagger.resources.UiFactory.scrollPane();
-        listWords = new org.jdesktop.swingx.JXList();
+        listWords = org.jphototagger.resources.UiFactory.jxList();
         buttonRemoveWord = org.jphototagger.resources.UiFactory.button();
         buttonChangeWord = org.jphototagger.resources.UiFactory.button();
         buttonAddAllKeywords = org.jphototagger.resources.UiFactory.button();
@@ -338,7 +338,7 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
         panelAddedSynonyms = org.jphototagger.resources.UiFactory.panel();
         labelListSynonyms = org.jphototagger.resources.UiFactory.label();
         scrollPaneListSynonyms = org.jphototagger.resources.UiFactory.scrollPane();
-        listSynonyms = new org.jdesktop.swingx.JXList();
+        listSynonyms = org.jphototagger.resources.UiFactory.jxList();
         buttonRemoveSynonym = org.jphototagger.resources.UiFactory.button();
         buttonChangeSynonym = org.jphototagger.resources.UiFactory.button();
         labelInfoAddSynonym = org.jphototagger.resources.UiFactory.label();

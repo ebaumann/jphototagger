@@ -248,7 +248,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
         menuItemMoveActionDown = org.jphototagger.resources.UiFactory.menuItem();
         labelActionList = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new org.jdesktop.swingx.JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonDelete = org.jphototagger.resources.UiFactory.button();
         buttonEdit = org.jphototagger.resources.UiFactory.button();

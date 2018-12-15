@@ -286,7 +286,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuItemShowActions = org.jphototagger.resources.UiFactory.menuItem();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new org.jdesktop.swingx.JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonMoveUpAction = org.jphototagger.resources.UiFactory.button();
         buttonMoveDownAction = org.jphototagger.resources.UiFactory.button();

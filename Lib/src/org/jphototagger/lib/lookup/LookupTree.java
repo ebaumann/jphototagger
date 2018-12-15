@@ -38,6 +38,7 @@ public final class LookupTree extends JXTree implements Lookup.Provider, MouseLi
     private int lastRightClickRow = -1;
 
     public LookupTree() {
+        org.jphototagger.resources.UiFactory.configure(this);
         addMouseListener(this);
     }
 

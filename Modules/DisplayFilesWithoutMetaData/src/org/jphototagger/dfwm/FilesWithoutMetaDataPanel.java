@@ -120,7 +120,7 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new org.jdesktop.swingx.JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

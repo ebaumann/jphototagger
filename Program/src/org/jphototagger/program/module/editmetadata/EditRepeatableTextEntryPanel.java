@@ -826,7 +826,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         menuItemRename = org.jphototagger.resources.UiFactory.menuItem();
         menuItemRemove = org.jphototagger.resources.UiFactory.menuItem();
         labelPrompt = org.jphototagger.resources.UiFactory.label();
-        list = new org.jdesktop.swingx.JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
         panelListButtons = org.jphototagger.resources.UiFactory.panel();
         buttonRemoveSelection = org.jphototagger.resources.UiFactory.button();
         panelInput = org.jphototagger.resources.UiFactory.panel();

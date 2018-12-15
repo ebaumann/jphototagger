@@ -152,7 +152,7 @@ public class SqlCommandsDialog extends Dialog {
 
         panelContent = org.jphototagger.resources.UiFactory.panel();
         scrollPaneCommands = org.jphototagger.resources.UiFactory.scrollPane();
-        listCommands = new org.jdesktop.swingx.JXList();
+        listCommands = org.jphototagger.resources.UiFactory.jxList();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonEdit = org.jphototagger.resources.UiFactory.button();
         buttonRemove = org.jphototagger.resources.UiFactory.button();

@@ -156,7 +156,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
 
         panelTree = org.jphototagger.resources.UiFactory.panel();
         scrollPaneTree = org.jphototagger.resources.UiFactory.scrollPane();
-        tree = new JXTree();
+        tree = org.jphototagger.resources.UiFactory.jxTree();
         tree.setShowsRootHandles(true);
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonToggleExpandAllNodes = org.jphototagger.resources.UiFactory.toggleButton();
@@ -167,7 +167,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         labelListFilter = org.jphototagger.resources.UiFactory.label();
         textFieldListFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneList = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
         list.setTransferHandler(new org.jphototagger.program.datatransfer.DragListItemsTransferHandler(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));
         buttonSearchInList = org.jphototagger.resources.UiFactory.button();
         buttonAsTree = org.jphototagger.resources.UiFactory.button();

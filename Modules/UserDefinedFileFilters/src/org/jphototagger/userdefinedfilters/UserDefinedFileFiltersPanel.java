@@ -172,7 +172,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
         menuItemUpdate = org.jphototagger.resources.UiFactory.menuItem();
         menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new org.jdesktop.swingx.JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         buttonInsert = org.jphototagger.resources.UiFactory.button();
         buttonUpdate = org.jphototagger.resources.UiFactory.button();

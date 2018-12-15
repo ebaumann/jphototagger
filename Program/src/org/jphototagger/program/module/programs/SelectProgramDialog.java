@@ -103,7 +103,7 @@ public class SelectProgramDialog extends Dialog {
 
         panelContent = org.jphototagger.resources.UiFactory.panel();
         scrollPanePrograms = org.jphototagger.resources.UiFactory.scrollPane();
-        listPrograms = new org.jdesktop.swingx.JXList();
+        listPrograms = org.jphototagger.resources.UiFactory.jxList();
         buttonSelect = org.jphototagger.resources.UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

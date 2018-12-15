@@ -89,7 +89,7 @@ public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListe
         java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new org.jdesktop.swingx.JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
         panelModifyButtons = org.jphototagger.resources.UiFactory.panel();
         buttonRename = org.jphototagger.resources.UiFactory.button();

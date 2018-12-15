@@ -576,7 +576,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         labelSearch = org.jphototagger.resources.UiFactory.label();
         textFieldSearch = new org.jdesktop.swingx.JXTextField();
         scrollPaneSearchResults = org.jphototagger.resources.UiFactory.scrollPane();
-        listSearchResults = new org.jdesktop.swingx.JXList();
+        listSearchResults = org.jphototagger.resources.UiFactory.jxList();
         panelPage = org.jphototagger.resources.UiFactory.panel();
         scrollPanePage = org.jphototagger.resources.UiFactory.scrollPane();
         editorPanePage = new org.jdesktop.swingx.JXEditorPane();

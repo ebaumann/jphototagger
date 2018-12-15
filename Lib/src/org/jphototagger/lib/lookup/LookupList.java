@@ -37,6 +37,7 @@ public final class LookupList extends JXList implements Lookup.Provider, MouseLi
     private int lastRightClickIndex = -1;
 
     public LookupList() {
+        org.jphototagger.resources.UiFactory.configure(this);
         addMouseListener(this);
     }
 

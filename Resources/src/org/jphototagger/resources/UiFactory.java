@@ -24,6 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
+import org.jdesktop.swingx.JXList;
+import org.jdesktop.swingx.JXTree;
 import org.jphototagger.api.preferences.CommonPreferences;
 
 /**
@@ -351,6 +353,32 @@ public final class UiFactory {
     public static void configure(JPanel jp) {
         Objects.requireNonNull(jp, "jp == null");
         // For future usages
+    }
+
+    public static JXTree jxTree() {
+        JXTree t = new JXTree();
+
+        configure(t);
+
+        return t;
+    }
+
+    public static void configure(JXTree t) {
+        Objects.requireNonNull(t, "t == null");
+        // For future usage
+    }
+
+    public static JXList jxList() {
+        JXList l = new JXList();
+
+        configure(l);
+
+        return l;
+    }
+
+    public static void configure(JXList l) {
+        Objects.requireNonNull(l, "l == null");
+        // For future usage
     }
 
     private UiFactory() {

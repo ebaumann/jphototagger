@@ -112,7 +112,7 @@ public class WarnOnEqualBasenamesTaskDialog extends Dialog {
 
         labelInfo = new JXLabel();
         scrollPanlFiles = org.jphototagger.resources.UiFactory.scrollPane();
-        listFiles = new JXList();
+        listFiles = org.jphototagger.resources.UiFactory.jxList();
         checkBoxDisplayInFuture = org.jphototagger.resources.UiFactory.checkBox();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

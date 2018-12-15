@@ -245,7 +245,7 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
         panelFiles = org.jphototagger.resources.UiFactory.panel();
         labelInfoList = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        list = new org.jdesktop.swingx.JXList();
+        list = org.jphototagger.resources.UiFactory.jxList();
         labelTextFieldInputPattern = org.jphototagger.resources.UiFactory.label();
         textFieldInputPattern = org.jphototagger.resources.UiFactory.textField();
         panelButtons = org.jphototagger.resources.UiFactory.panel();
