@@ -328,11 +328,6 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         labelTasksMinutesToStartScheduledTasks.setText(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.labelTasksMinutesToStartScheduledTasks.text")); // NOI18N
         labelTasksMinutesToStartScheduledTasks.setName("labelTasksMinutesToStartScheduledTasks"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = UiFactory.insets(8, 12, 0, 0);
         panelTime.add(labelTasksMinutesToStartScheduledTasks, gridBagConstraints);
 
         spinnerMinutesToStartScheduledTasks.setModel(new SpinnerNumberModel(5, 1, 6000, 1));
@@ -344,12 +339,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.ipadx = 24;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = UiFactory.insets(6, 12, 12, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTime.add(spinnerMinutesToStartScheduledTasks, gridBagConstraints);
 
         buttonScheduledTasks.setIcon(org.jphototagger.resources.Icons.getIcon("icon_start.png"));
@@ -359,17 +349,14 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         buttonScheduledTasks.setMargin(UiFactory.insets(0, 0, 0, 0));
         buttonScheduledTasks.setName("buttonScheduledTasks"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = UiFactory.insets(13, 6, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         panelTime.add(buttonScheduledTasks, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         add(panelTime, gridBagConstraints);
     }
 
