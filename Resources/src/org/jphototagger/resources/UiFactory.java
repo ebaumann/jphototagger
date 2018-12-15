@@ -12,6 +12,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
@@ -309,6 +310,18 @@ public final class UiFactory {
 
     private static void configure(JTextField tf) {
         // For future Usage
+    }
+
+    public static JFormattedTextField formattedTextField() {
+        JFormattedTextField tf = new JFormattedTextField();
+
+        configure(tf);
+
+        return tf;
+    }
+
+    private static void configure(JFormattedTextField tf) {
+        // For future usage
     }
 
     public static JTextArea textArea() {

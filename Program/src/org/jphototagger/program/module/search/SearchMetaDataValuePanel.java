@@ -340,7 +340,7 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         org.jphototagger.resources.UiFactory.configure(comboBoxColumns);
         comboBoxComparators = new javax.swing.JComboBox<>();
         org.jphototagger.resources.UiFactory.configure(comboBoxComparators);
-        textFieldValue = new javax.swing.JFormattedTextField();
+        textFieldValue = org.jphototagger.resources.UiFactory.formattedTextField();
         textFieldValue.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         toggleButtonBracketRight = org.jphototagger.resources.UiFactory.toggleButton();
         buttonCalendar = org.jphototagger.resources.UiFactory.button();
