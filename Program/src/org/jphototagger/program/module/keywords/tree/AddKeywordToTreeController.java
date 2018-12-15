@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
-import javax.swing.JDialog;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.domain.metadata.keywords.Keyword;
@@ -129,7 +128,7 @@ public class AddKeywordToTreeController extends KeywordsController implements Ac
     }
 
     private static InputDialog createInputDialog() {
-        JDialog owner = InputHelperDialog.INSTANCE;
+        InputHelperDialog owner = InputHelperDialog.INSTANCE;
         String info = Bundle.getString(AddKeywordToTreeController.class, "AddKeywordController.Input.Name");
         String input = "";
 

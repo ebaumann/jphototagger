@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
-import javax.swing.JDialog;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.domain.metadata.keywords.Keyword;
 import org.jphototagger.domain.repository.KeywordsRepository;
@@ -122,7 +121,7 @@ public class RenameKeywordController extends KeywordsController implements Actio
     }
 
     private static InputDialog createInputDialog(String input) {
-        JDialog owner = InputHelperDialog.INSTANCE;
+        InputHelperDialog owner = InputHelperDialog.INSTANCE;
         String info = Bundle.getString(RenameKeywordController.class, "RenameKeywordController.Input.Name", input);
         String preferencesKey = RenameKeywordController.class.getName();
         InputDialog inputDialog = new InputDialog(owner, info, input);

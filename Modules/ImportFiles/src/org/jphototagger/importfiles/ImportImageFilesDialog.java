@@ -1114,7 +1114,7 @@ public class ImportImageFilesDialog extends Dialog {
     private javax.swing.JComboBox<Object> comboBoxFileRenameStrategy;
     private javax.swing.JComboBox<Object> comboBoxSourceStrategy;
     private javax.swing.JComboBox<Object> comboBoxSubdirectoryCreateStrategy;
-    private javax.swing.JDialog dialogExpertSettings;
+    private Dialog dialogExpertSettings;
     private javax.swing.JLabel labelChoosenFiles;
     private javax.swing.JLabel labelScriptFileIcon;
     private javax.swing.JLabel labelScriptFileInfo;

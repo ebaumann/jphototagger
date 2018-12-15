@@ -70,7 +70,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         } else {
             getContentPane().remove(checkBoxInputBeforeExecute);
         }
-        setIgnorePersistedSizeAndLocation(true);
+        setPersistSizeAndLocation(false);
         MnemonicUtil.setMnemonics((Container) this);
         MnemonicUtil.setMnemonics(panelExpertSettings);
         listen();

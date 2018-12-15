@@ -3,7 +3,6 @@ package org.jphototagger.program.module.keywords.list;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.JDialog;
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
@@ -64,7 +63,7 @@ public final class RenameKeywordsController extends KeywordsListController {
         assert (fromName != null) && (fromName.trim().length() > 0) : fromName;
 
         boolean finished = false;
-        JDialog owner = InputHelperDialog.INSTANCE;
+        InputHelperDialog owner = InputHelperDialog.INSTANCE;
         String info = Bundle.getString(RenameKeywordsController.class, "RenameKeywordsController.Info.Input");
         String input = fromName;
         InputDialog dlg = new InputDialog(owner, info, input);

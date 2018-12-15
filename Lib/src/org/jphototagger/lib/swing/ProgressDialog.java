@@ -7,23 +7,23 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import org.jphototagger.lib.util.Bundle;
 
 /**
- * Nichtmodaler Dialog mit Fortschrittsbalken.
+ * Non modal Dialog with a progress bar.
  *
  * @author Elmar Baumann
  */
-public final class ProgressDialog extends javax.swing.JDialog {
+public final class ProgressDialog extends Dialog {
+
     private static final long serialVersionUID = 1L;
     private final Set<ActionListener> actionListeners = new CopyOnWriteArraySet<>();
     private boolean closeEnabled = true;
 
-    /**
-     * Konstruktor.
-     *
-     * @param parent      Elternframe
-     */
     public ProgressDialog(java.awt.Frame parent) {
         super(parent, false);
-        org.jphototagger.resources.UiFactory.configure(this);
+        init();
+    }
+
+    private void init() {
+        setPersistSizeAndLocation(false);
         initComponents();
     }
 
@@ -55,36 +55,36 @@ public final class ProgressDialog extends javax.swing.JDialog {
     }
 
     /**
-     * Setzt den aktuellen Zustand des Fortschrittsbalkens.
+     * Sets the current value of the progress bar.
      *
-     * @param value Wert
+     * @param value value
      */
     public void setValue(int value) {
         progressBar.setValue(value);
     }
 
     /**
-     * Setzt das Minimum des Fortschrittsbalkens.
+     * Sets the minimum value of the progress bar.
      *
-     * @param minimum Minimum
+     * @param minimum minimum
      */
     public void setMinimum(int minimum) {
         progressBar.setMinimum(minimum);
     }
 
     /**
-     * Setzt das Maximum des Fortschrittsbalkens.
+     * Sets the maximum value of the progress bar.
      *
-     * @param maximum Maximum
+     * @param maximum maximum
      */
     public void setMaximum(int maximum) {
         progressBar.setMaximum(maximum);
     }
 
     /**
-     * Anzuzeigender Text über Fortschrittsbalken.
+     * Sets the text to be displayed by the progress bar.
      *
-     * @param text  Text
+     * @param text text
      */
     public void setInfoText(String text) {
         if (text == null) {
@@ -98,7 +98,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
      * Sets the text below the progress bar to give detailled info about the
      * current progress.
      *
-     * @param text  text
+     * @param text text
      */
     public void setCurrentProgressInfoText(String text) {
         if (text == null) {
@@ -111,7 +111,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
     /**
      * Sets the progress bar in the indeterminate state.
      *
-     * @param indeterminate  true, if indeterminate
+     * @param indeterminate true, if indeterminate
      */
     public void setIndeterminate(boolean indeterminate) {
         progressBar.setIndeterminate(indeterminate);

@@ -13,6 +13,7 @@ import javax.swing.Icon;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
@@ -199,8 +200,8 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        dialogHiddenProgressBars = new javax.swing.JDialog();
-        org.jphototagger.resources.UiFactory.configure(dialogHiddenProgressBars);
+        dialogHiddenProgressBars = new Dialog();
+        dialogHiddenProgressBars.setPersistSizeAndLocation(false);
         scrollPaneHiddenProgressBars = org.jphototagger.resources.UiFactory.scrollPane();
         panelHiddenProgressBars = org.jphototagger.resources.UiFactory.panel();
         initProgressBarPanel = new org.jphototagger.program.app.ui.ProgressBarPanel();
@@ -261,7 +262,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     }//GEN-LAST:event_dialogHiddenProgressBarsWindowClosing
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonToggleVisibilityOfHiddenProgressBars;
-    private javax.swing.JDialog dialogHiddenProgressBars;
+    private Dialog dialogHiddenProgressBars;
     private org.jphototagger.program.app.ui.ProgressBarPanel initProgressBarPanel;
     private javax.swing.JPanel panelHiddenProgressBars;
     private javax.swing.JScrollPane scrollPaneHiddenProgressBars;

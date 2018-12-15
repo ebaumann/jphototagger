@@ -23,9 +23,9 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.FrameExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.UiFactory;
@@ -85,7 +85,7 @@ public final class DateChooserDialog extends JComponent {
     private GregorianCalendar gc;
     private int thisYear, thisMonth, today;
     private int selectedDay;
-    private static JDialog dialog;
+    private static Dialog dialog;
     private static GregorianCalendar retcod;
 
     private DateChooserDialog() {
@@ -286,13 +286,15 @@ public final class DateChooserDialog extends JComponent {
             java.util.List<? extends Image> icons) {
         GridBagConstraints c = new GridBagConstraints();
 
-        c.gridx = c.gridy = 0;
+        c.gridx = 0;
+        c.gridy = 0;
         c.insets = org.jphototagger.resources.UiFactory.insets(2, 2, 2, 2);
         c.gridwidth = 2;
 
         FrameExt f = new FrameExt();
 
-        dialog = new JDialog(f, Bundle.getString(DateChooserDialog.class, "DateChooserDialog.title"), true);
+        dialog = new Dialog(f, Bundle.getString(DateChooserDialog.class, "DateChooserDialog.title"), true);
+        dialog.setPreferencesKey("DateChooserDialog");
         org.jphototagger.resources.UiFactory.configure(dialog);
 
         if (icons != null) {

@@ -20,16 +20,6 @@ public final class InputDialog extends Dialog {
         init("", "");
     }
 
-    public InputDialog(JDialog owner) {
-        super(owner, true);
-        init("", "");
-    }
-
-    public InputDialog(String info, String input) {
-        super(ComponentUtil.findFrameWithIcon(), true);
-        init(info, input);
-    }
-
     public InputDialog(JDialog owner, String info, String input) {
         super(owner, true);
         init(info, input);

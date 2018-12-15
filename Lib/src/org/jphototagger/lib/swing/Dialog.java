@@ -17,7 +17,14 @@ import org.jphototagger.lib.help.HelpUtil;
 import org.openide.util.Lookup;
 
 /**
- * Dialog which will be closed by pressing the ESC key and showing the Help Browser by pressing the F1 key.
+ * Dialog which should be used instead of JDialog to achieve the same behaviour
+ * and Look and Feel. Extensions:
+ *
+ * <ul>
+ * <li>Will be closed by pressing the ESC key</li>
+ * <li>Showing the Help Browser by pressing the F1 key</li>
+ * <li>Persists size and Location</li>
+ * </ul>
  *
  * @author Elmar Baumann
  */
@@ -28,9 +35,14 @@ public class Dialog extends JDialog {
     private transient ActionListener actionListenerHelp;
     private String helpPageUrl;
     private String preferencesKey;
-    private boolean ignorePersistedSizeAndLocation;
+    private boolean persistSizeAndLocation = true;
 
     public Dialog() {
+        init();
+    }
+
+    public Dialog(Frame owner, String title, boolean modal) {
+        super(owner, title, modal);
         init();
     }
 
@@ -75,11 +87,12 @@ public class Dialog extends JDialog {
 
     /**
      * This method will be called if the user presses F1.
-     *
-     * <p>If {@link #setHelpPageUrl(java.lang.String)} was called,
+     * <p>
+     * If {@link #setHelpPageUrl(java.lang.String)} was called,
      * {@link #showHelp(java.lang.String)} will be called.
-     *
-     * <p> Specialized classes can call {@code #showHelp(java.lang.String)} with an appropriate URL.
+     * <p>
+     * Specialized classes can call {@code #showHelp(java.lang.String)} with an
+     * appropriate URL.
      */
     protected void showHelp() {
         if (helpPageUrl != null) {
@@ -95,8 +108,8 @@ public class Dialog extends JDialog {
     }
 
     /**
-     * This method will be called if the user presses the ESC key. The
-     * default implementation calls <code>setVisible(false)</code>.
+     * This method will be called if the user presses the ESC key. The default
+     * implementation calls <code>setVisible(false)</code>.
      */
     protected void escape() {
         setVisible(false);
@@ -113,10 +126,11 @@ public class Dialog extends JDialog {
     }
 
     /**
-     * This dialog persists size and location if a {@code Preferences} implementation
-     * is present, by default it uses the class' name as key, here a different
-     * key can be set. This makes sense if the same dialog is used whithin different
-     * contexts.
+     * This dialog persists size and location if a {@link Preferences}
+     * implementation is present, by default it uses the class' name as key,
+     * here a different key can be set. This makes sense if the same dialog is
+     * used whithin different contexts or if it ist not derived (and hence the
+     * persistence key is always this class name).
      *
      * @param preferencesKey key
      */
@@ -124,13 +138,21 @@ public class Dialog extends JDialog {
         this.preferencesKey = preferencesKey;
     }
 
-    public void setIgnorePersistedSizeAndLocation(boolean ignore) {
-        ignorePersistedSizeAndLocation = ignore;
+    /**
+     * Sets whether this dialog persists it's size and location. Hence this is
+     * the default behaviour, this method should be called, if the size and
+     * location shouldn't be persisted.
+     *
+     * @param persist true if the size and location should be persisted.
+     *                Default: true.
+     */
+    public void setPersistSizeAndLocation(boolean persist) {
+        persistSizeAndLocation = persist;
     }
 
     protected void persistSizeAndLocation() {
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        if (ignorePersistedSizeAndLocation || prefs == null) {
+        if (!persistSizeAndLocation || prefs == null) {
             return;
         }
         String key = getSizeAndLocationPreferencesKey();
@@ -139,7 +161,7 @@ public class Dialog extends JDialog {
     }
 
     protected void restoreSizeAndLocation() {
-        if (ignorePersistedSizeAndLocation) {
+        if (!persistSizeAndLocation) {
             return;
         }
         Preferences prefs = Lookup.getDefault().lookup(Preferences.class);

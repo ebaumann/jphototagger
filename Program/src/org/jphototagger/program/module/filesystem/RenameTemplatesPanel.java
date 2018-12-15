@@ -16,6 +16,7 @@ import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateDe
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateInsertedEvent;
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
+import org.jphototagger.lib.swing.Dialog;
 import org.jphototagger.lib.swing.util.ComboBoxUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -456,7 +457,8 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        checkDirtyDialog = new javax.swing.JDialog();
+        checkDirtyDialog = new Dialog();
+        checkDirtyDialog.setPersistSizeAndLocation(false);
         org.jphototagger.resources.UiFactory.configure(checkDirtyDialog);
         labelDirtyConfirmSaveChanges = org.jphototagger.resources.UiFactory.label();
         panelDirtyButtons = org.jphototagger.resources.UiFactory.panel();
@@ -1096,7 +1098,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private javax.swing.JButton buttonRenameRenameTemplate;
     private javax.swing.JButton buttonSaveRenameTemplate;
     private javax.swing.JButton buttonUpdateRenameTemplate;
-    private javax.swing.JDialog checkDirtyDialog;
+    private Dialog checkDirtyDialog;
     private javax.swing.JComboBox<Object> comboBoxAtBegin;
     private javax.swing.JComboBox<Object> comboBoxAtEnd;
     private javax.swing.JComboBox<Object> comboBoxDateDelimiter;

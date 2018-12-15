@@ -15,7 +15,7 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public class InputDialog2 extends javax.swing.JDialog {
+public class InputDialog2 extends Dialog {
 
     private static final long serialVersionUID = 1L;
     private boolean accepted;
@@ -30,7 +30,7 @@ public class InputDialog2 extends javax.swing.JDialog {
     }
 
     private void init() {
-        org.jphototagger.resources.UiFactory.configure(this);
+        setPersistSizeAndLocation(false);
         initComponents();
         buttonOk.setAction(closeAction);
         buttonCancel.setAction(cancelAction);
