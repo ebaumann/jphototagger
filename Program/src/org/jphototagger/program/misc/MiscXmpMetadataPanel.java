@@ -33,7 +33,7 @@ public class MiscXmpMetadataPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        tree = new javax.swing.JTree();
+        tree = org.jphototagger.resources.UiFactory.tree();
         tree.setTransferHandler(new org.jphototagger.program.module.miscmetadata.MiscMetadataTreeTransferHandler());
         tree.setShowsRootHandles(true);
 

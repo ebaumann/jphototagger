@@ -26,6 +26,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
+import javax.swing.JTree;
 import org.jdesktop.swingx.JXLabel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
@@ -364,6 +365,18 @@ public final class UiFactory {
     public static void configure(JPanel jp) {
         Objects.requireNonNull(jp, "jp == null");
         // For future usages
+    }
+
+    public static JTree tree() {
+        JTree t = new JTree();
+
+        configure(t);
+
+        return t;
+    }
+
+    private static void configure(JTree t) {
+        // For future usage
     }
 
     public static JXTree jxTree() {
