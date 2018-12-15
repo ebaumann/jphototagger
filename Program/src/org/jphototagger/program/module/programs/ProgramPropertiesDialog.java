@@ -376,7 +376,7 @@ public final class ProgramPropertiesDialog extends Dialog {
         buttonChooseFile = org.jphototagger.resources.UiFactory.button();
         panelAlias = new javax.swing.JPanel();
         labelAlias = org.jphototagger.resources.UiFactory.label();
-        textFieldAlias = new javax.swing.JTextField();
+        textFieldAlias = org.jphototagger.resources.UiFactory.textField();
         toggleButtonExpertSettings = org.jphototagger.resources.UiFactory.toggleButton();
         labelInfoRequiredInputs = org.jphototagger.resources.UiFactory.label();
         buttonCancel = org.jphototagger.resources.UiFactory.button();

@@ -94,7 +94,7 @@ public final class ProgramInputParametersDialog extends Dialog {
         labelContextFile = org.jphototagger.resources.UiFactory.label();
         labelPrompt = org.jphototagger.resources.UiFactory.label();
         scrollPaneAreaParameter = org.jphototagger.resources.UiFactory.scrollPane();
-        textAreaParameter = new javax.swing.JTextArea();
+        textAreaParameter = org.jphototagger.resources.UiFactory.textArea();
         radioButtonParametersBeforeFilename = UiFactory.radioButton();
         radioButtonParametersAfterFilename = UiFactory.radioButton();
         panelCancelOk = new javax.swing.JPanel();

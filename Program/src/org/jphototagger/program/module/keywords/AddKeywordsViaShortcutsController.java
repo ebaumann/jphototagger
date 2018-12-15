@@ -105,7 +105,7 @@ public final class AddKeywordsViaShortcutsController {
         panel.getLabelInfo().setText(Bundle.getString(AddKeywordsViaShortcutsController.class, "AddKeywordsViaShortcutsController.LabelInfo.Text", AddKeywortsViaShortcutsModel.DELIMITER));
         panel.getTable().setModel(tm);
         panel.getTable().setDefaultRenderer(KeywordNumber.class, new KeywordNumberRenderer());
-        panel.getTable().setCellEditor(new DefaultCellEditor(new JTextField()));
+        panel.getTable().setCellEditor(new DefaultCellEditor(org.jphototagger.resources.UiFactory.textField()));
         panel.getTable().putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         dlg.setTitle(Bundle.getString(AddKeywordsViaShortcutsController.class, "AddKeywordsViaShortcutsController.InputDlg.Title"));
         dlg.setComponent(panel);

@@ -594,7 +594,7 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelSearch = org.jphototagger.resources.UiFactory.label();
-        textFieldSearch = new javax.swing.JTextField();
+        textFieldSearch = org.jphototagger.resources.UiFactory.textField();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         list = new javax.swing.JList<>();
 

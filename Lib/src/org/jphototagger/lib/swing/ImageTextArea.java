@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JTextArea;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Textfield displaying an (background) image.
@@ -30,6 +31,7 @@ public final class ImageTextArea extends JTextArea implements KeyListener {
 
     public ImageTextArea() {
         listen();
+        UiFactory.configure(this);
     }
 
     private void listen() {

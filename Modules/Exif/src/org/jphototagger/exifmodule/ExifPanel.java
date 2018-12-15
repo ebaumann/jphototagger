@@ -199,7 +199,7 @@ public class ExifPanel extends javax.swing.JPanel {
 
         panelTableExifFilter = new JPanel();
         labelTableExifFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableExifFilter = new JTextField();
+        textFieldTableExifFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneExif = org.jphototagger.resources.UiFactory.scrollPane();
         tableExif = org.jphototagger.resources.UiFactory.table();
         buttonExifToXmp = org.jphototagger.resources.UiFactory.button();

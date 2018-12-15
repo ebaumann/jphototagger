@@ -222,7 +222,7 @@ public class IptcPanel extends javax.swing.JPanel {
 
         panelTableIptcFilter = new JPanel();
         labeTTableIptcFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldTableIptcFilter = new JTextField();
+        textFieldTableIptcFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneIptc = org.jphototagger.resources.UiFactory.scrollPane();
         tableIptc = org.jphototagger.resources.UiFactory.table();
         panelActions = new JPanel();

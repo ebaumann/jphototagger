@@ -164,7 +164,7 @@ public class KeywordsPanel extends javax.swing.JPanel {
         panelList = new javax.swing.JPanel();
         panelListFilter = new javax.swing.JPanel();
         labelListFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldListFilter = new javax.swing.JTextField();
+        textFieldListFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneList = org.jphototagger.resources.UiFactory.scrollPane();
         list = new JXList();
         list.setTransferHandler(new org.jphototagger.program.datatransfer.DragListItemsTransferHandler(org.jphototagger.program.datatransfer.Flavor.KEYWORDS_LIST));

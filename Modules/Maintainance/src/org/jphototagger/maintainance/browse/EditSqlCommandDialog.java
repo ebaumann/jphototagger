@@ -86,10 +86,10 @@ public class EditSqlCommandDialog extends Dialog {
 
         panelContent = new javax.swing.JPanel();
         labelDescription = org.jphototagger.resources.UiFactory.label();
-        textFieldDescription = new javax.swing.JTextField();
+        textFieldDescription = org.jphototagger.resources.UiFactory.textField();
         labelSql = org.jphototagger.resources.UiFactory.label();
         scrollPaneSql = org.jphototagger.resources.UiFactory.scrollPane();
-        textAreaSql = new javax.swing.JTextArea();
+        textAreaSql = org.jphototagger.resources.UiFactory.textArea();
         panelButtons = new javax.swing.JPanel();
         buttonOk = org.jphototagger.resources.UiFactory.button();
         buttonCancel = org.jphototagger.resources.UiFactory.button();

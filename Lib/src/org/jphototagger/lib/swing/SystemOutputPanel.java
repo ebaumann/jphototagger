@@ -110,7 +110,7 @@ public class SystemOutputPanel extends JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();
-        textArea = new javax.swing.JTextArea();
+        textArea = org.jphototagger.resources.UiFactory.textArea();
         panelButttons = new javax.swing.JPanel();
         searchPanel = new org.jphototagger.lib.swing.TextComponentSearchPanel();
         searchPanel.setSearchableTextComponent(textArea);

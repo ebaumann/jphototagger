@@ -828,7 +828,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         panelListButtons = new javax.swing.JPanel();
         buttonRemoveSelection = org.jphototagger.resources.UiFactory.button();
         panelInput = new javax.swing.JPanel();
-        textAreaInput = new javax.swing.JTextArea();
+        textAreaInput = org.jphototagger.resources.UiFactory.textArea();
         buttonAddInput = org.jphototagger.resources.UiFactory.button();
         buttonSuggestion = org.jphototagger.resources.UiFactory.button();
         panelFill = new javax.swing.JPanel();

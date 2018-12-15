@@ -169,22 +169,22 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
 
         labelGeneralInfo = new org.jdesktop.swingx.JXLabel();
         panelFileCopied = new javax.swing.JPanel();
-        textFieldFileCopied = new javax.swing.JTextField();
+        textFieldFileCopied = org.jphototagger.resources.UiFactory.textField();
         buttonChooseScriptFileCopied = org.jphototagger.resources.UiFactory.button();
         buttonRemoveScriptFileCopied = org.jphototagger.resources.UiFactory.button();
         labelParameterInfoFileCopied = new org.jdesktop.swingx.JXLabel();
         panelFileRenamed = new javax.swing.JPanel();
-        textFieldFileRenamed = new javax.swing.JTextField();
+        textFieldFileRenamed = org.jphototagger.resources.UiFactory.textField();
         buttonChooseScriptFileRenamed = org.jphototagger.resources.UiFactory.button();
         buttonRemoveScriptFileRenamed = org.jphototagger.resources.UiFactory.button();
         labelParameterInfoFileRenamed = new org.jdesktop.swingx.JXLabel();
         panelFileMoved = new javax.swing.JPanel();
-        textFieldFileMoved = new javax.swing.JTextField();
+        textFieldFileMoved = org.jphototagger.resources.UiFactory.textField();
         buttonChooseScriptFileMoved = org.jphototagger.resources.UiFactory.button();
         buttonRemoveScriptFileMoved = org.jphototagger.resources.UiFactory.button();
         labelParameterInfoFileMoved = new org.jdesktop.swingx.JXLabel();
         panelFileDeleted = new javax.swing.JPanel();
-        textFieldFileDeleted = new javax.swing.JTextField();
+        textFieldFileDeleted = org.jphototagger.resources.UiFactory.textField();
         buttonChooseScriptFileDeleted = org.jphototagger.resources.UiFactory.button();
         buttonRemoveScriptFileDeleted = org.jphototagger.resources.UiFactory.button();
         labelParameterInfoFileDeleted = new org.jdesktop.swingx.JXLabel();

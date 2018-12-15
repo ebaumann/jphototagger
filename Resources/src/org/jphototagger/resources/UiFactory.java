@@ -2,12 +2,14 @@ package org.jphototagger.resources;
 
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.util.Objects;
 import javax.swing.AbstractButton;
 import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButton;
@@ -16,6 +18,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.JToggleButton;
 import org.jphototagger.api.preferences.CommonPreferences;
 
@@ -274,6 +279,55 @@ public final class UiFactory {
 
     private static void configure(JTable table) {
         // For future usage
+    }
+
+    public static JTextField textField() {
+        JTextField tf = new JTextField();
+
+        configure(tf);
+
+        return tf;
+    }
+
+    private static void configure(JTextField tf) {
+        // For future Usage
+    }
+
+    public static JTextArea textArea() {
+        JTextArea ta = new JTextArea();
+
+        configure(ta);
+
+        return ta;
+    }
+
+    public static void configure(JTextArea ta) {
+        Objects.requireNonNull(ta, "ta == null");
+        // For future Usage
+    }
+
+    public static JTextPane textPane() {
+        JTextPane tp = new JTextPane();
+
+        configure(tp);
+
+        return tp;
+    }
+
+    private static void configure(JTextPane tp) {
+        // For future Usage
+    }
+
+    public static JEditorPane editorPane() {
+        JEditorPane ep = new JEditorPane();
+
+        configure(ep);
+
+        return ep;
+    }
+
+    private static void configure(JEditorPane ep) {
+        // For future Usage
     }
 
     private UiFactory() {

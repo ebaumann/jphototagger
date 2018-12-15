@@ -341,10 +341,10 @@ public class SettingsPanel extends javax.swing.JPanel {
         panelExifToolGeneral = new javax.swing.JPanel();
         checkBoxExifToolEnabled = org.jphototagger.resources.UiFactory.checkBox();
         buttonBrowseExifToolWebsite = org.jphototagger.resources.UiFactory.button();
-        textAreaInfo = new javax.swing.JTextArea();
+        textAreaInfo = org.jphototagger.resources.UiFactory.textArea();
         labelErrorCanWrite = org.jphototagger.resources.UiFactory.label();
         panelChooseExifTool = new javax.swing.JPanel();
-        textFieldExifToolFilePath = new javax.swing.JTextField();
+        textFieldExifToolFilePath = org.jphototagger.resources.UiFactory.textField();
         buttonChooseExifTool = org.jphototagger.resources.UiFactory.button();
         panelWriteOnSaveXmp = new javax.swing.JPanel();
         checkBoxWriteOnSaveXmp = org.jphototagger.resources.UiFactory.checkBox();

@@ -253,9 +253,9 @@ public class EditUserDefinedFileTypeDialog extends Dialog {
 
         panelContent = new javax.swing.JPanel();
         labelSuffix = org.jphototagger.resources.UiFactory.label();
-        textFieldSuffix = new javax.swing.JTextField();
+        textFieldSuffix = org.jphototagger.resources.UiFactory.textField();
         labelDescription = org.jphototagger.resources.UiFactory.label();
-        textFieldDescription = new javax.swing.JTextField();
+        textFieldDescription = org.jphototagger.resources.UiFactory.textField();
         checkBoxExternalThumbnailCreator = org.jphototagger.resources.UiFactory.checkBox();
         panelButtons = new javax.swing.JPanel();
         buttonHelp = org.jphototagger.resources.UiFactory.button();

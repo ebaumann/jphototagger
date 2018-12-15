@@ -339,7 +339,7 @@ public final class RenameDialog extends Dialog {
         labelFromNamePrompt = org.jphototagger.resources.UiFactory.label();
         labelFromName = org.jphototagger.resources.UiFactory.label();
         labelToNamePrompt = org.jphototagger.resources.UiFactory.label();
-        textFieldToName = new javax.swing.JTextField();
+        textFieldToName = org.jphototagger.resources.UiFactory.textField();
         panelRenameButtons = new javax.swing.JPanel();
         buttonNextFile = org.jphototagger.resources.UiFactory.button();
         buttonRename = org.jphototagger.resources.UiFactory.button();

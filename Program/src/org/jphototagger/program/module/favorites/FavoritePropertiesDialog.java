@@ -230,7 +230,7 @@ public final class FavoritePropertiesDialog extends Dialog {
 
         panelContent = new javax.swing.JPanel();
         labelPromptFavoriteName = org.jphototagger.resources.UiFactory.label();
-        textFieldFavoriteName = new javax.swing.JTextField();
+        textFieldFavoriteName = org.jphototagger.resources.UiFactory.textField();
         buttonChooseDirectory = org.jphototagger.resources.UiFactory.button();
         labelDirectoryname = org.jphototagger.resources.UiFactory.label();
         panelButtons = new javax.swing.JPanel();

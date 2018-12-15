@@ -542,14 +542,14 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSavedSearches = new javax.swing.JPanel();
         panelListSavedSearchesFilter = new javax.swing.JPanel();
         labelListSavedSearchesFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldListSavedSearchesFilter = new javax.swing.JTextField();
+        textFieldListSavedSearchesFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneSavedSearches = org.jphototagger.resources.UiFactory.scrollPane();
         listSavedSearches = new JXList();
         buttonSearchInSavedSearches = org.jphototagger.resources.UiFactory.button();
         panelImageCollections = new javax.swing.JPanel();
         panelListImageCollectionsFilter = new javax.swing.JPanel();
         labelListImageCollectionsFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldListImageCollectionsFilter = new javax.swing.JTextField();
+        textFieldListImageCollectionsFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneImageCollections = org.jphototagger.resources.UiFactory.scrollPane();
         listImageCollections = new JXList();
         buttonSearchInImageCollections = org.jphototagger.resources.UiFactory.button();
@@ -572,7 +572,7 @@ public final class AppPanel extends javax.swing.JPanel {
         panelSelKeywordsList = new javax.swing.JPanel();
         panelListSelKeywordsFilter = new javax.swing.JPanel();
         labelListSelKeywordsFilter = org.jphototagger.resources.UiFactory.label();
-        textFieldListSelKeywordsFilter = new javax.swing.JTextField();
+        textFieldListSelKeywordsFilter = org.jphototagger.resources.UiFactory.textField();
         scrollPaneSelKeywordsList = org.jphototagger.resources.UiFactory.scrollPane();
         listSelKeywords = new JXList();
         listSelKeywords.setTransferHandler(new org.jphototagger.program.module.keywords.list.KeywordsListTransferHandler());

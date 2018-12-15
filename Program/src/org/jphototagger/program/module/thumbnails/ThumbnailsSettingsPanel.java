@@ -208,7 +208,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
         buttonChooseExternalThumbnailCreator = org.jphototagger.resources.UiFactory.button();
         panelExternalThumbnailApp = new javax.swing.JPanel();
         labelIsCreateThumbnailsWithExternalApp = org.jphototagger.resources.UiFactory.label();
-        textFieldExternalThumbnailCreationCommand = new javax.swing.JTextField();
+        textFieldExternalThumbnailCreationCommand = org.jphototagger.resources.UiFactory.textField();
         checkBoxDisplayThumbnailTooltip = org.jphototagger.resources.UiFactory.checkBox();
         checkBoxDisplayThumbnailsBottomPanel = org.jphototagger.resources.UiFactory.checkBox();
         panelFurtherSettings = new javax.swing.JPanel();

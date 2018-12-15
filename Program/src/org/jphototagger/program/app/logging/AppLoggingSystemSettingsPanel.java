@@ -228,7 +228,7 @@ public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements
         buttonEditErrorText = org.jphototagger.resources.UiFactory.button();
         panelAddErrorText = new javax.swing.JPanel();
         labelErrorText = org.jphototagger.resources.UiFactory.label();
-        textFieldErrorText = new javax.swing.JTextField();
+        textFieldErrorText = org.jphototagger.resources.UiFactory.textField();
         buttonAddErrorText = org.jphototagger.resources.UiFactory.button();
 
         setLayout(new java.awt.GridBagLayout());

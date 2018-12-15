@@ -669,7 +669,7 @@ public class ImportImageFilesDialog extends Dialog {
         panelExpertSettingsContent = new javax.swing.JPanel();
         panelScriptFile = new org.jdesktop.swingx.JXPanel();
         labelScriptFileIcon = org.jphototagger.resources.UiFactory.label();
-        textFieldScriptFile = new javax.swing.JTextField();
+        textFieldScriptFile = org.jphototagger.resources.UiFactory.textField();
         buttonRemoveScriptFile = org.jphototagger.resources.UiFactory.button();
         buttonChooseScriptFile = org.jphototagger.resources.UiFactory.button();
         labelScriptFileInfo = org.jphototagger.resources.UiFactory.label();

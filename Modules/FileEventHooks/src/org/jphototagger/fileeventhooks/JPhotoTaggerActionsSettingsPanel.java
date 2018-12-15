@@ -224,7 +224,7 @@ public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
         listFilenameSuffixes = new org.jdesktop.swingx.JXList();
         panelEditFilenameSuffix = new javax.swing.JPanel();
         labelFilenameSuffix = org.jphototagger.resources.UiFactory.label();
-        textFieldFilenameSuffix = new javax.swing.JTextField();
+        textFieldFilenameSuffix = org.jphototagger.resources.UiFactory.textField();
         buttonAddFilenameSuffix = org.jphototagger.resources.UiFactory.button();
         labelFilenameSuffixExample = org.jphototagger.resources.UiFactory.label();
         panelButtonsFilenameSuffixes = new javax.swing.JPanel();

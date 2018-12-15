@@ -312,7 +312,7 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelPrompt = org.jphototagger.resources.UiFactory.label();
-        textAreaEdit = new javax.swing.JTextArea();
+        textAreaEdit = org.jphototagger.resources.UiFactory.textArea();
 
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());

@@ -92,7 +92,7 @@ public final class InputDialog extends Dialog {
 
         panelContent = new javax.swing.JPanel();
         labelPrompt = org.jphototagger.resources.UiFactory.label();
-        textFieldInput = new javax.swing.JTextField();
+        textFieldInput = org.jphototagger.resources.UiFactory.textField();
         panelButtons = new javax.swing.JPanel();
         buttonCancel = org.jphototagger.resources.UiFactory.button();
         buttonOk = org.jphototagger.resources.UiFactory.button();

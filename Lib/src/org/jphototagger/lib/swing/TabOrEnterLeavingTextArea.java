@@ -2,6 +2,7 @@ package org.jphototagger.lib.swing;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JTextArea;
+import org.jphototagger.resources.UiFactory;
 
 /**
  * Text area where the tab or enter key transferring the focus.
@@ -14,6 +15,10 @@ import javax.swing.JTextArea;
 public final class TabOrEnterLeavingTextArea extends JTextArea {
 
     private static final long serialVersionUID = 1L;
+
+    public TabOrEnterLeavingTextArea() {
+        UiFactory.configure(this);
+    }
 
     @Override
     protected void processComponentKeyEvent(KeyEvent evt) {
