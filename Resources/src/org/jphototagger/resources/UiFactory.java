@@ -459,7 +459,7 @@ public final class UiFactory {
         return l;
     }
 
-    public static void configureJx(JXList l) {
+    private static void configureJx(JXList l) {
         Objects.requireNonNull(l, "l == null");
         // For future usage
     }
