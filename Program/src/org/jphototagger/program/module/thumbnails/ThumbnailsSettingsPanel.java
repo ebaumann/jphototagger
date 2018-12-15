@@ -107,7 +107,7 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
     }
 
     private JPopupMenu createExternalThumbnailCreatorPopupMenu() {
-        JPopupMenu popupMenu = new JPopupMenu();
+        JPopupMenu popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         Collection<? extends ExternalThumbnailCreationCommand> externalThumbnailCreators = Lookup.getDefault().lookupAll(ExternalThumbnailCreationCommand.class);
         for (ExternalThumbnailCreationCommand externalThumbnailCreator : externalThumbnailCreators) {
             if (externalThumbnailCreator.isEnabled()) {

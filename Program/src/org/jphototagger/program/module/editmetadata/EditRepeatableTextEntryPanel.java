@@ -822,7 +822,7 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenuList = new javax.swing.JPopupMenu();
+        popupMenuList = org.jphototagger.resources.UiFactory.popupMenu();
         menuItemRename = org.jphototagger.resources.UiFactory.menuItem();
         menuItemRemove = org.jphototagger.resources.UiFactory.menuItem();
         labelPrompt = org.jphototagger.resources.UiFactory.label();

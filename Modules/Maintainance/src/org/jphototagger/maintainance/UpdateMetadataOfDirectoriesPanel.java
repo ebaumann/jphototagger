@@ -466,7 +466,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = new javax.swing.JPopupMenu();
+        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();
         labelHeadingListDirectories = org.jphototagger.resources.UiFactory.label();
         scrollPane = org.jphototagger.resources.UiFactory.scrollPane();

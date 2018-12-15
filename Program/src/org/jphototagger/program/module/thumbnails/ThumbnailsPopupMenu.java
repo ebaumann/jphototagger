@@ -481,6 +481,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     }
 
     private void init() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initRatingOfItem();
         addItems();
         itemDeleteFromImageCollection.setEnabled(false);

@@ -563,7 +563,7 @@ public final class HelpBrowser extends Dialog implements HyperlinkListener, Tree
         java.awt.GridBagConstraints gridBagConstraints;
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        popupMenuEditorPane = new javax.swing.JPopupMenu();
+        popupMenuEditorPane = org.jphototagger.resources.UiFactory.popupMenu();
         menuItemGotNextUrl = org.jphototagger.resources.UiFactory.menuItem();
         menuItemGotoPreviousUrl = org.jphototagger.resources.UiFactory.menuItem();
         buttonGroupTextSize = new javax.swing.ButtonGroup();

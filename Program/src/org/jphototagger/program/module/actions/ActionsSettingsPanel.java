@@ -277,7 +277,7 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupExecute = new javax.swing.ButtonGroup();
-        popupMenu = new javax.swing.JPopupMenu();
+        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         menuItemAddAction = org.jphototagger.resources.UiFactory.menuItem();
         menuItemDeleteAction = org.jphototagger.resources.UiFactory.menuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();

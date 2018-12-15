@@ -17,7 +17,7 @@ import org.jphototagger.resources.UiFactory;
  */
 public final class TreeExpandMouseListener extends TreeMouseListener implements ActionListener {
 
-    private final JPopupMenu popupMenu = new JPopupMenu();
+    private final JPopupMenu popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
     private final JMenuItem itemExpand = UiFactory.menuItem(Bundle.getString(TreeExpandMouseListener.class, "TreeExpandMouseListener.ItemExpand"));
     private final JMenuItem itemCollapse = UiFactory.menuItem(Bundle.getString(TreeExpandMouseListener.class, "TreeExpandMouseListener.ItemCollapse"));
 

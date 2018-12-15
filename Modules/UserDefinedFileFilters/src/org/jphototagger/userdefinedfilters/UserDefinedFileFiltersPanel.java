@@ -167,7 +167,7 @@ public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements L
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = new javax.swing.JPopupMenu();
+        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         menuItemInsert = org.jphototagger.resources.UiFactory.menuItem();
         menuItemUpdate = org.jphototagger.resources.UiFactory.menuItem();
         menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();

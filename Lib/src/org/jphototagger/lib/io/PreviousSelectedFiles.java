@@ -116,7 +116,7 @@ public final class PreviousSelectedFiles {
             throw new NullPointerException("functor == null");
         }
         Set<File> skipFiles = skip == null || skip.length == 0 ? Collections.<File>emptySet() : new HashSet<>(Arrays.asList(skip));
-        JPopupMenu popupMenu = new JPopupMenu();
+        JPopupMenu popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         for (File file : getExistingFiles()) {
             if (!skipFiles.contains(file)) {
                 popupMenu.add(new FileFunctorAction(file, functor));

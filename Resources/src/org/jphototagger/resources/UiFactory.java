@@ -21,6 +21,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
@@ -242,6 +243,19 @@ public final class UiFactory {
         configure(m);
 
         return m;
+    }
+
+    public static JPopupMenu popupMenu() {
+        JPopupMenu p = new JPopupMenu();
+
+        configure(p);
+
+        return p;
+    }
+
+    public static void configure(JPopupMenu p) {
+        Objects.requireNonNull(p, "p == null");
+        // For future usage
     }
 
     public static JLabel label() {

@@ -237,7 +237,7 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = new javax.swing.JPopupMenu();
+        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         menuItemExecute = org.jphototagger.resources.UiFactory.menuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuItemCreate = org.jphototagger.resources.UiFactory.menuItem();

@@ -325,7 +325,7 @@ public final class DirectoryChooser extends Dialog implements TreeSelectionListe
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = new javax.swing.JPopupMenu();
+        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         menuItemAdd = org.jphototagger.resources.UiFactory.menuItem();
         menuItemRename = org.jphototagger.resources.UiFactory.menuItem();
         menuItemDelete = org.jphototagger.resources.UiFactory.menuItem();

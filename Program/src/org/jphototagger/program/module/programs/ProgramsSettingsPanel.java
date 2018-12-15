@@ -198,7 +198,7 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
     private void initComponents() {//GEN-BEGIN:initComponents
         java.awt.GridBagConstraints gridBagConstraints;
 
-        popupMenu = new javax.swing.JPopupMenu();
+        popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         menuItemAddProgram = org.jphototagger.resources.UiFactory.menuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         menuItemEditProgram = org.jphototagger.resources.UiFactory.menuItem();

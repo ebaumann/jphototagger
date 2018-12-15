@@ -51,6 +51,7 @@ public abstract class PopupMenuList extends JPopupMenu implements ActionListener
         if (list == null) {
             throw new NullPointerException("list == null");
         }
+        org.jphototagger.resources.UiFactory.configure(this);
         this.list = list;
         addMenuItems();
         listenToMenuItems(this);

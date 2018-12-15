@@ -56,6 +56,7 @@ public abstract class PopupMenuTree extends JPopupMenu implements ActionListener
             throw new NullPointerException("tree == null");
         }
 
+        org.jphototagger.resources.UiFactory.configure(this);
         this.tree = tree;
         addMenuItems();
         listenToMenuItems(this);

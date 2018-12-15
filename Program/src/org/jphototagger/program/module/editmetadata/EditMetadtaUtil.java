@@ -29,7 +29,7 @@ public final class EditMetadtaUtil {
 
         JPopupMenu popup = tc.getComponentPopupMenu();
         if (popup == null) {
-            popup = new JPopupMenu();
+            popup = org.jphototagger.resources.UiFactory.popupMenu();
             tc.setComponentPopupMenu(popup);
         }
 

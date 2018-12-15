@@ -79,7 +79,7 @@ final class LookupUtil {
         if (actions.isEmpty()) {
             return null;
         }
-        JPopupMenu popupMenu = new JPopupMenu();
+        JPopupMenu popupMenu = org.jphototagger.resources.UiFactory.popupMenu();
         for (Action action : actions) {
             popupMenu.add(action);
         }
