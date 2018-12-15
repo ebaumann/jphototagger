@@ -158,7 +158,7 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
         }
     }
 
-    private void initComponents() {//GEN-BEGIN:initComponents
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = UiFactory.panel();
@@ -310,24 +310,24 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = UiFactory.insets(6, 6, 6, 6);
         add(panelContent, gridBagConstraints);
-    }//GEN-END:initComponents
+    }
 
-    private void toggleButtonRefreshExifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshExifActionPerformed
+    private void toggleButtonRefreshExifActionPerformed(java.awt.event.ActionEvent evt) {
         updateExif();
-    }//GEN-LAST:event_toggleButtonRefreshExifActionPerformed
+    }
 
-    private void buttonRenameFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRenameFilesActionPerformed
+    private void buttonRenameFilesActionPerformed(java.awt.event.ActionEvent evt) {
         renameFilesInDb();
-    }//GEN-LAST:event_buttonRenameFilesActionPerformed
+    }
 
-    private void toggleButtonRefreshXmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleButtonRefreshXmpActionPerformed
+    private void toggleButtonRefreshXmpActionPerformed(java.awt.event.ActionEvent evt) {
         updateXmp();
-    }//GEN-LAST:event_toggleButtonRefreshXmpActionPerformed
+    }
 
-    private void buttonUpdateThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateThumbnailsActionPerformed
+    private void buttonUpdateThumbnailsActionPerformed(java.awt.event.ActionEvent evt) {
         updateThumbnails();
-    }//GEN-LAST:event_buttonUpdateThumbnailsActionPerformed
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    }
+
     private javax.swing.JButton buttonRenameFiles;
     private javax.swing.JButton buttonUpdateThumbnails;
     private javax.swing.JLabel labelRefreshExif;
@@ -339,5 +339,4 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
     private javax.swing.JPanel panelTasks;
     private javax.swing.JToggleButton toggleButtonRefreshExif;
     private javax.swing.JToggleButton toggleButtonRefreshXmp;
-    // End of variables declaration//GEN-END:variables
 }

@@ -14,15 +14,15 @@ import java.beans.SimpleBeanInfo;
 @SuppressWarnings("rawtypes")
 public class BooleanLabelBeanInfo extends SimpleBeanInfo {
 
-    // Bean descriptor//GEN-FIRST:BeanDescriptor
+    // Bean descriptor
     /*lazy BeanDescriptor*/
     private static BeanDescriptor getBdescriptor(){
-        BeanDescriptor beanDescriptor = new BeanDescriptor  ( org.jphototagger.lib.swing.BooleanLabel.class , null ); // NOI18N//GEN-HEADEREND:BeanDescriptor
+        BeanDescriptor beanDescriptor = new BeanDescriptor  ( org.jphototagger.lib.swing.BooleanLabel.class , null ); // NOI18N
 
         // Here you can add code for customizing the BeanDescriptor.
 
-        return beanDescriptor;     }//GEN-LAST:BeanDescriptor
-    // Property identifiers//GEN-FIRST:Properties
+        return beanDescriptor;     }
+    // Property identifiers
     private static final int PROPERTY_accessibleContext = 0;
     private static final int PROPERTY_actionMap = 1;
     private static final int PROPERTY_alignmentX = 2;
@@ -141,11 +141,11 @@ public class BooleanLabelBeanInfo extends SimpleBeanInfo {
     private static final int PROPERTY_x = 115;
     private static final int PROPERTY_y = 116;
 
-    // Property array 
+    // Property array
     /*lazy PropertyDescriptor*/
     private static PropertyDescriptor[] getPdescriptor(){
         PropertyDescriptor[] properties = new PropertyDescriptor[117];
-    
+
         try {
             properties[PROPERTY_accessibleContext] = new PropertyDescriptor ( "accessibleContext", org.jphototagger.lib.swing.BooleanLabel.class, "getAccessibleContext", null ); // NOI18N
             properties[PROPERTY_actionMap] = new PropertyDescriptor ( "actionMap", org.jphototagger.lib.swing.BooleanLabel.class, "getActionMap", "setActionMap" ); // NOI18N
@@ -279,12 +279,12 @@ public class BooleanLabelBeanInfo extends SimpleBeanInfo {
         }
         catch(IntrospectionException e) {
             e.printStackTrace();
-        }//GEN-HEADEREND:Properties
+        }
 
         // Here you can add code for customizing the properties array.
 
-        return properties;     }//GEN-LAST:Properties
-    // EventSet identifiers//GEN-FIRST:Events
+        return properties;     }
+    // EventSet identifiers
     private static final int EVENT_ancestorListener = 0;
     private static final int EVENT_componentListener = 1;
     private static final int EVENT_containerListener = 2;
@@ -303,7 +303,7 @@ public class BooleanLabelBeanInfo extends SimpleBeanInfo {
     /*lazy EventSetDescriptor*/
     private static EventSetDescriptor[] getEdescriptor(){
         EventSetDescriptor[] eventSets = new EventSetDescriptor[13];
-    
+
         try {
             eventSets[EVENT_ancestorListener] = new EventSetDescriptor ( org.jphototagger.lib.swing.BooleanLabel.class, "ancestorListener", javax.swing.event.AncestorListener.class, new String[] {"ancestorAdded", "ancestorRemoved", "ancestorMoved"}, "addAncestorListener", "removeAncestorListener" ); // NOI18N
             eventSets[EVENT_componentListener] = new EventSetDescriptor ( org.jphototagger.lib.swing.BooleanLabel.class, "componentListener", java.awt.event.ComponentListener.class, new String[] {"componentResized", "componentMoved", "componentShown", "componentHidden"}, "addComponentListener", "removeComponentListener" ); // NOI18N
@@ -321,12 +321,12 @@ public class BooleanLabelBeanInfo extends SimpleBeanInfo {
         }
         catch(IntrospectionException e) {
             e.printStackTrace();
-        }//GEN-HEADEREND:Events
+        }
 
         // Here you can add code for customizing the event sets array.
 
-        return eventSets;     }//GEN-LAST:Events
-    // Method identifiers//GEN-FIRST:Methods
+        return eventSets;     }
+    // Method identifiers
     private static final int METHOD_action0 = 0;
     private static final int METHOD_add1 = 1;
     private static final int METHOD_add2 = 2;
@@ -474,11 +474,11 @@ public class BooleanLabelBeanInfo extends SimpleBeanInfo {
     private static final int METHOD_updateUI144 = 144;
     private static final int METHOD_validate145 = 145;
 
-    // Method array 
+    // Method array
     /*lazy MethodDescriptor*/
     private static MethodDescriptor[] getMdescriptor(){
         MethodDescriptor[] methods = new MethodDescriptor[146];
-    
+
         try {
             methods[METHOD_action0] = new MethodDescriptor(java.awt.Component.class.getMethod("action", new Class[] {java.awt.Event.class, java.lang.Object.class})); // NOI18N
             methods[METHOD_action0].setDisplayName ( "" );
@@ -773,25 +773,25 @@ public class BooleanLabelBeanInfo extends SimpleBeanInfo {
             methods[METHOD_validate145] = new MethodDescriptor(java.awt.Container.class.getMethod("validate", new Class[] {})); // NOI18N
             methods[METHOD_validate145].setDisplayName ( "" );
         }
-        catch( Exception e) {}//GEN-HEADEREND:Methods
+        catch( Exception e) {}
 
         // Here you can add code for customizing the methods array.
 
-        return methods;     }//GEN-LAST:Methods
-    private static java.awt.Image iconColor16 = null;//GEN-BEGIN:IconsDef
+        return methods;     }
+    private static java.awt.Image iconColor16 = null;
     private static java.awt.Image iconColor32 = null;
     private static java.awt.Image iconMono16 = null;
-    private static java.awt.Image iconMono32 = null;//GEN-END:IconsDef
-    private static String iconNameC16 = null;//GEN-BEGIN:Icons
+    private static java.awt.Image iconMono32 = null;
+    private static String iconNameC16 = null;
     private static String iconNameC32 = null;
     private static String iconNameM16 = null;
-    private static String iconNameM32 = null;//GEN-END:Icons
-    private static final int defaultPropertyIndex = -1;//GEN-BEGIN:Idx
-    private static final int defaultEventIndex = -1;//GEN-END:Idx
+    private static String iconNameM32 = null;
+    private static final int defaultPropertyIndex = -1;
+    private static final int defaultEventIndex = -1;
 
-//GEN-FIRST:Superclass
+
     // Here you can add code for customizing the Superclass BeanInfo.
-//GEN-LAST:Superclass
+
     /**
      * Gets the bean's <code>BeanDescriptor</code>s.
      *

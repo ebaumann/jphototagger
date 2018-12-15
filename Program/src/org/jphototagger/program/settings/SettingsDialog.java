@@ -167,8 +167,7 @@ public final class SettingsDialog extends DialogExt {
         SwingUtilities.updateComponentTreeUI(this);
     }
 
-    @SuppressWarnings("unchecked")
-    private void initComponents() {//GEN-BEGIN:initComponents
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = UiFactory.panel();
@@ -259,7 +258,6 @@ public final class SettingsDialog extends DialogExt {
         writeProperties();
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jphototagger.program.module.actions.ActionsSettingsPanel panelActions;
     private javax.swing.JPanel panelContent;
     private org.jphototagger.program.settings.DisplayMessagesInFutureSettingsPanel panelDisplayMessagesInFuture;
@@ -272,5 +270,4 @@ public final class SettingsDialog extends DialogExt {
     private org.jphototagger.program.misc.ScheduledTasksSettingsPanel panelTasks;
     private org.jphototagger.program.module.thumbnails.ThumbnailsSettingsPanel panelThumbnails;
     private javax.swing.JTabbedPane tabbedPane;
-    // End of variables declaration//GEN-END:variables
 }

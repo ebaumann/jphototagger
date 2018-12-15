@@ -422,8 +422,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         SwingUtilities.updateComponentTreeUI(this);
     }
 
-    @SuppressWarnings("unchecked")
-    private void initComponents() {//GEN-BEGIN:initComponents
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelContent = UiFactory.panel();
@@ -780,23 +779,23 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         pack();
     }
 
-    private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldSearchKeyReleased
+    private void textFieldSearchKeyReleased(java.awt.event.KeyEvent evt) {
         filterTable();
     }
 
-    private void buttonReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReloadActionPerformed
+    private void buttonReloadActionPerformed(java.awt.event.ActionEvent evt) {
         reload();
     }
 
-    private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExitActionPerformed
+    private void buttonExitActionPerformed(java.awt.event.ActionEvent evt) {
         setVisible(false);
     }
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
         setVisible(false);
     }
 
-    private void scrollPaneTableLogfileRecordsComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_scrollPaneTableLogfileRecordsComponentResized
+    private void scrollPaneTableLogfileRecordsComponentResized(java.awt.event.ComponentEvent evt) {
         setColumnWidths();
     }
 

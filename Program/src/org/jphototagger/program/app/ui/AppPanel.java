@@ -523,9 +523,7 @@ public final class AppPanel extends PanelExt {
         }
     };
 
-    @SuppressWarnings("serial")
-
-    private void initComponents() {//GEN-BEGIN:initComponents
+    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         buttonGroupKeywordsMultipleSel = new javax.swing.ButtonGroup();
@@ -1217,16 +1215,16 @@ public final class AppPanel extends PanelExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = UiFactory.insets(2, 5, 3, 5);
         add(panelStatusbar, gridBagConstraints);
-    }//GEN-END:initComponents
+    }
 
-    private void buttonDisplaySelKeywordsListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsListActionPerformed
+    private void buttonDisplaySelKeywordsListActionPerformed(java.awt.event.ActionEvent evt) {
         displaySelKeywordsCard("flatKeywords");
-    }//GEN-LAST:event_buttonDisplaySelKeywordsListActionPerformed
+    }
 
-    private void buttonDisplaySelKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDisplaySelKeywordsTreeActionPerformed
+    private void buttonDisplaySelKeywordsTreeActionPerformed(java.awt.event.ActionEvent evt) {
         displaySelKeywordsCard("keywordsTree");
-    }//GEN-LAST:event_buttonDisplaySelKeywordsTreeActionPerformed
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    }
+
     private javax.swing.JButton buttonDisplaySelKeywordsList;
     private javax.swing.JButton buttonDisplaySelKeywordsTree;
     private javax.swing.ButtonGroup buttonGroupKeywordsMultipleSel;
@@ -1293,5 +1291,4 @@ public final class AppPanel extends PanelExt {
     private javax.swing.JTree treeMiscMetadata;
     private javax.swing.JTree treeSelKeywords;
     private javax.swing.JTree treeTimeline;
-    // End of variables declaration//GEN-END:variables
 }
