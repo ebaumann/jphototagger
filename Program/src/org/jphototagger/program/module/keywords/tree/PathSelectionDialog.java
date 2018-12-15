@@ -200,7 +200,6 @@ public class PathSelectionDialog extends DialogExt implements ListSelectionListe
         buttonSelectSelected = UiFactory.button();
 
         setTitle(Bundle.getString(getClass(), "PathSelectionDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {

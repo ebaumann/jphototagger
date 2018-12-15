@@ -584,10 +584,8 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         buttonResetColumns = UiFactory.button();
         buttonSearch = UiFactory.button();
 
-        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        tabbedPane.setName("tabbedPane"); // NOI18N
         tabbedPane.addChangeListener(new javax.swing.event.ChangeListener() {
             @Override
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -601,12 +599,10 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
             }
         });
 
-        panelKeywords.setName("panelKeywords"); // NOI18N
         panelKeywords.setLayout(new java.awt.GridBagLayout());
         panelKeywords.setPreferredSize(UiFactory.dimension(250, 150));
 
         labelInfoKeywords.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
-        labelInfoKeywords.setName("labelInfoKeywords"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -614,7 +610,6 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelKeywords.add(labelInfoKeywords, gridBagConstraints);
 
-        panelKeywordsInput.setName("panelKeywordsInput"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
@@ -625,13 +620,10 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
 
         tabbedPane.addTab(Bundle.getString(getClass(), "AdvancedSearchPanel.panelKeywords.TabConstraints.tabTitle"), panelKeywords); // NOI18N
 
-        panelSimpleSql.setName("panelSimpleSql"); // NOI18N
         panelSimpleSql.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneColumns.setBorder(null);
-        scrollPaneColumns.setName("scrollPaneColumns"); // NOI18N
 
-        panelColumns.setName("panelColumns"); // NOI18N
         panelColumns.setLayout(new java.awt.GridBagLayout());
         scrollPaneColumns.setViewportView(panelColumns);
 
@@ -644,13 +636,11 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         panelSimpleSql.add(scrollPaneColumns, gridBagConstraints);
 
         labelInfoDelete.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelInfoDelete.text")); // NOI18N
-        labelInfoDelete.setName("labelInfoDelete"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 0);
         panelSimpleSql.add(labelInfoDelete, gridBagConstraints);
 
         buttonAddColumn.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonAddColumn.text")); // NOI18N
-        buttonAddColumn.setName("buttonAddColumn"); // NOI18N
         buttonAddColumn.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -666,12 +656,10 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
 
         tabbedPane.addTab(Bundle.getString(getClass(), "AdvancedSearchPanel.panelSimpleSql.TabConstraints.tabTitle"), panelSimpleSql); // NOI18N
 
-        panelCustomSql.setName("panelCustomSql"); // NOI18N
         panelCustomSql.setLayout(new java.awt.GridBagLayout());
 
         labelCustomSqlInfo.setDisplayedMnemonic('k');
         labelCustomSqlInfo.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelCustomSqlInfo.text")); // NOI18N
-        labelCustomSqlInfo.setName("labelCustomSqlInfo"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -681,12 +669,9 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.insets = UiFactory.insets(5, 5, 0, 5);
         panelCustomSql.add(labelCustomSqlInfo, gridBagConstraints);
 
-        scrollPaneCustomSqlQuery.setName("scrollPaneCustomSqlQuery"); // NOI18N
-
         textAreaCustomSqlQuery.setColumns(20);
         textAreaCustomSqlQuery.setLineWrap(true);
         textAreaCustomSqlQuery.setRows(2);
-        textAreaCustomSqlQuery.setName("textAreaCustomSqlQuery"); // NOI18N
         scrollPaneCustomSqlQuery.setViewportView(textAreaCustomSqlQuery);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -712,11 +697,9 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         gridBagConstraints.insets = UiFactory.insets(0, 0, 5, 0);
         add(tabbedPane, gridBagConstraints);
 
-        panelButtons.setName("panelButtons"); // NOI18N
         panelButtons.setLayout(new java.awt.GridLayout(1, 0, UiFactory.scale(3), 0));
 
         buttonSaveSearch.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSaveSearch.text")); // NOI18N
-        buttonSaveSearch.setName("buttonSaveSearch"); // NOI18N
         buttonSaveSearch.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -726,7 +709,6 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         panelButtons.add(buttonSaveSearch);
 
         buttonSaveAs.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSaveAs.text")); // NOI18N
-        buttonSaveAs.setName("buttonSaveAs"); // NOI18N
         buttonSaveAs.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -736,7 +718,6 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         panelButtons.add(buttonSaveAs);
 
         buttonResetColumns.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonResetColumns.text")); // NOI18N
-        buttonResetColumns.setName("buttonResetColumns"); // NOI18N
         buttonResetColumns.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -746,7 +727,6 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         panelButtons.add(buttonResetColumns);
 
         buttonSearch.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.buttonSearch.text")); // NOI18N
-        buttonSearch.setName("buttonSearch"); // NOI18N
         panelButtons.add(buttonSearch);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

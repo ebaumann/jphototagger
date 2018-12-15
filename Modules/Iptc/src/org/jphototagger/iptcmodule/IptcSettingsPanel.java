@@ -39,7 +39,7 @@ public class IptcSettingsPanel extends PanelExt implements OptionPageProvider {
     private void postInitComponents() {
         setIptcCharsetFromPreferences();
         setDisplayIptcFromPreferences();
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBorder(BorderFactory.createEmptyBorder(UiFactory.scale(10), UiFactory.scale(10), UiFactory.scale(10), UiFactory.scale(10)));
         AnnotationProcessor.process(this);
     }
 

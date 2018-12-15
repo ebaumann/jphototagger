@@ -1683,7 +1683,7 @@ public class ThumbnailsPanel extends PanelExt
     private Component createPopupComponent(final String text) {
         JPanel panel = UiFactory.panel(new GridBagLayout());
         panel.setBackground(getBackground());
-        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY, UiFactory.scale(1)));
 
         JLabel label = UiFactory.label(text);
         label.setFont(label.getFont().deriveFont(Font.BOLD, UiFactory.scale(24)));

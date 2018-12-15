@@ -38,16 +38,12 @@ public class MiscXmpMetadataPanel extends PanelExt {
         tree.setTransferHandler(new org.jphototagger.program.module.miscmetadata.MiscMetadataTreeTransferHandler());
         tree.setShowsRootHandles(true);
 
-        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
-
-        scrollPane.setName("scrollPane"); // NOI18N
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         tree.setCellRenderer(new org.jphototagger.program.module.miscmetadata.MiscMetadataTreeCellRenderer());
         tree.setDragEnabled(true);
-        tree.setName("tree"); // NOI18N
         tree.setRootVisible(false);
         scrollPane.setViewportView(tree);
 
