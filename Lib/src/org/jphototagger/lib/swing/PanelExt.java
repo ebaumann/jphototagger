@@ -1,19 +1,19 @@
 package org.jphototagger.lib.swing;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import org.jphototagger.resources.UiFactory;
 
 /**
- * Frame to use in JPhotoTagger instead of {@link JFrame} to achieve a unique
+ * Panel to use in JPhotoTagger instead of {@link JPanel} to achieve a unique
  * Behaviour and Look and Feel.
  *
  * @author Elmar Baumann
  */
-public class FrameExt extends JFrame {
+public class PanelExt extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public FrameExt() {
+    public PanelExt() {
         init();
     }
 

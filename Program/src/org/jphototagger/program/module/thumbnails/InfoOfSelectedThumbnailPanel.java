@@ -19,6 +19,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.DesktopUtil;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
@@ -32,7 +33,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ThumbnailsPanelBottomComponentProvider.class)
-public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements ThumbnailsPanelBottomComponentProvider {
+public class InfoOfSelectedThumbnailPanel extends PanelExt implements ThumbnailsPanelBottomComponentProvider {
 
     private static final long serialVersionUID = 1L;
     private static final String PROMPT_DATE_TIME_TAKEN = Bundle.getString(InfoOfSelectedThumbnailPanel.class, "InfoOfSelectedThumbnailPanel.Prompt.DateTimeTaken");
@@ -41,7 +42,6 @@ public class InfoOfSelectedThumbnailPanel extends javax.swing.JPanel implements 
     private File selectedFile;
 
     public InfoOfSelectedThumbnailPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -1,16 +1,16 @@
 package org.jphototagger.program.misc;
 
 import javax.swing.JTree;
+import org.jphototagger.lib.swing.PanelExt;
 
 /**
  * @author Elmar Baumann
  */
-public class MiscXmpMetadataPanel extends javax.swing.JPanel {
+public class MiscXmpMetadataPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public MiscXmpMetadataPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.help.HelpUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -18,7 +19,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public class SettingsPanel extends javax.swing.JPanel {
+public class SettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final DelimiterModel model = new DelimiterModel();
@@ -26,7 +27,6 @@ public class SettingsPanel extends javax.swing.JPanel {
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
 
     public SettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         setPersistentModelValue();
         MnemonicUtil.setMnemonics(this);

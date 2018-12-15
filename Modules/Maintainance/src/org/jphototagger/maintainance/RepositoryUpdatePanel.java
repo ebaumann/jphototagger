@@ -6,12 +6,12 @@ import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractButton;
-import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.HelperThread;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -19,7 +19,7 @@ import org.jphototagger.lib.util.Bundle;
 /**
  * @author Elmar Baumann
  */
-public class RepositoryUpdatePanel extends JPanel implements ActionListener, ProgressListener {
+public class RepositoryUpdatePanel extends PanelExt implements ActionListener, ProgressListener {
 
     private static final long serialVersionUID = 1L;
     private static final String BUTTON_TEXT_CANCEL = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.DisplayName.Cancel");
@@ -28,7 +28,6 @@ public class RepositoryUpdatePanel extends JPanel implements ActionListener, Pro
     private volatile boolean cancel;
 
     public RepositoryUpdatePanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         buttons = new AbstractButton[] {
             toggleButtonRefreshExif,

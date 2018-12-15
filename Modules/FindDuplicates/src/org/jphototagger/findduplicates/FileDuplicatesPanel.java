@@ -28,6 +28,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.runtime.External;
 import org.jphototagger.lib.runtime.RuntimeUtil;
 import org.jphototagger.lib.swing.ImagePanel;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Images;
@@ -38,7 +39,7 @@ import org.openide.util.Lookup;
  * Fires {@link #PROPERTY_FILE_SELECTED} if a file will be selected or unselected.
  * @author Elmar Baumann
  */
-public class FileDuplicatesPanel extends javax.swing.JPanel {
+public class FileDuplicatesPanel extends PanelExt {
 
     public static final String PROPERTY_FILE_SELECTED = "fileSelected";
     private static final long serialVersionUID = 1L;
@@ -48,7 +49,6 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
     private int rowCount;
 
     public FileDuplicatesPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 
@@ -130,14 +130,13 @@ public class FileDuplicatesPanel extends javax.swing.JPanel {
         rowCount++;
     }
 
-    private final class FilePanel extends JPanel {
+    private final class FilePanel extends PanelExt {
 
         private static final long serialVersionUID = 1L;
         private final JCheckBox checkBoxFileSelected = UiFactory.checkBox(fileSelectedAction);
         private final File file;
 
         private FilePanel(File file) {
-            org.jphototagger.resources.UiFactory.configure(this);
             this.file = file;
             initComponents();
         }

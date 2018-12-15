@@ -18,6 +18,7 @@ import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.iptc.IptcEntry;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -31,14 +32,13 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class IptcPanel extends javax.swing.JPanel {
+public class IptcPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final IptcTableModel iptcTableModel = new IptcTableModel();
     private final IptcTableCellRenderer iptcTableCellRenderer = new IptcTableCellRenderer();
 
     public IptcPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

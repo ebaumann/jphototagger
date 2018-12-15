@@ -21,6 +21,7 @@ import org.jphototagger.api.windows.LookAndFeelProvider;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
@@ -30,13 +31,12 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = OptionPageProvider.class)
-public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements OptionPageProvider {
+public class AppLookAndFeelSettingsPanel extends PanelExt implements OptionPageProvider {
 
     private static final long serialVersionUID = 1L;
     private boolean listen = true;
 
     public AppLookAndFeelSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

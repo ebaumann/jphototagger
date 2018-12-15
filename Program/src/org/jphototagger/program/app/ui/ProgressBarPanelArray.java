@@ -14,6 +14,7 @@ import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.progress.ProgressHandle;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.DialogExt;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
@@ -21,7 +22,7 @@ import org.jphototagger.resources.Icons;
 /**
  * @author Elmar Baumann
  */
-public class ProgressBarPanelArray extends javax.swing.JPanel implements ProgressBarPanelListener {
+public class ProgressBarPanelArray extends PanelExt implements ProgressBarPanelListener {
 
     private static final long serialVersionUID = 1L;
     private final List<ProgressBarPanel> activeProgressBarPanels = new ArrayList<>();
@@ -31,7 +32,6 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
     private ProgressBarPanel visibleProgressBarPanel;
 
     public ProgressBarPanelArray() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

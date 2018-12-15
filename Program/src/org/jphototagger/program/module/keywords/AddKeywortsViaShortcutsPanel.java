@@ -2,18 +2,18 @@ package org.jphototagger.program.module.keywords;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import org.jphototagger.lib.swing.PanelExt;
 
 /**
  * UI for adding Keywords via Shortcuts.
  *
  * @author Elmar Baumann
  */
-public class AddKeywortsViaShortcutsPanel extends javax.swing.JPanel {
+public class AddKeywortsViaShortcutsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public AddKeywortsViaShortcutsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 

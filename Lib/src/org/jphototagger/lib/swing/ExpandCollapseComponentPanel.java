@@ -9,7 +9,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.text.JTextComponent;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.util.Bundle;
@@ -22,7 +21,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public class ExpandCollapseComponentPanel extends JPanel implements FocusListener {
+public class ExpandCollapseComponentPanel extends PanelExt implements FocusListener {
 
     private static final long serialVersionUID = 1L;
     private static final ImageIcon ICON_EXPAND = org.jphototagger.resources.Icons.getIcon("icon_expand.png");
@@ -40,7 +39,6 @@ public class ExpandCollapseComponentPanel extends JPanel implements FocusListene
         if (component == null) {
             throw new NullPointerException("component == null");
         }
-        org.jphototagger.resources.UiFactory.configure(this);
         this.component = component;
         initComponents();
         postInitComponents();

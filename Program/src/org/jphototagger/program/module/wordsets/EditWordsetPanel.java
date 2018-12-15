@@ -21,6 +21,7 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.WordsetsRepository;
 import org.jphototagger.domain.wordsets.Wordset;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.DocumentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -32,7 +33,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class EditWordsetPanel extends javax.swing.JPanel {
+public class EditWordsetPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final List<String> selectedWords = new ArrayList<>();
@@ -48,7 +49,6 @@ public class EditWordsetPanel extends javax.swing.JPanel {
     }
 
     public EditWordsetPanel(Wordset wordset) {
-        org.jphototagger.resources.UiFactory.configure(this);
         if (wordset == null) {
             throw new NullPointerException("wordset == null");
         }

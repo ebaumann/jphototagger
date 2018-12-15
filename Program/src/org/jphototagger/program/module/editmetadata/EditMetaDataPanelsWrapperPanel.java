@@ -1,15 +1,16 @@
 package org.jphototagger.program.module.editmetadata;
 
+import org.jphototagger.lib.swing.PanelExt;
+
 /**
  * @author Elmar Baumann
  */
-class EditMetaDataPanelsWrapperPanel extends javax.swing.JPanel {
+class EditMetaDataPanelsWrapperPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final transient EditMetaDataPanels editMetadtaPanels;
 
     EditMetaDataPanelsWrapperPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         editMetadtaPanels = new EditMetaDataPanels(panelEditMetadata);
     }

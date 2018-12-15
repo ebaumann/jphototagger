@@ -1,7 +1,6 @@
 package org.jphototagger.maintainance;
 
 import java.awt.Container;
-import javax.swing.JPanel;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
@@ -9,6 +8,7 @@ import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -16,7 +16,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class RenameFilenamesInRepositoryPanel extends JPanel implements ProgressListener, Persistence {
+public class RenameFilenamesInRepositoryPanel extends PanelExt implements ProgressListener, Persistence {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_SEARCH = "RenameFilenamesInRepositoryPanel.Search";
@@ -24,7 +24,6 @@ public class RenameFilenamesInRepositoryPanel extends JPanel implements Progress
     private volatile boolean runs;
 
     public RenameFilenamesInRepositoryPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -79,6 +79,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.comparator.FileSort;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.MathUtil;
 import org.jphototagger.lib.util.ObjectUtil;
@@ -94,7 +95,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann, Tobias Stening
  */
-public class ThumbnailsPanel extends JPanel
+public class ThumbnailsPanel extends PanelExt
         implements ComponentListener, MouseListener, MouseMotionListener, KeyListener, ThumbnailUpdateListener {
 
     private static final String KEY_THUMBNAIL_WIDTH = "ThumbnailsPanel.ThumbnailWidth";
@@ -135,8 +136,11 @@ public class ThumbnailsPanel extends JPanel
     private Object messagePopupOwner;
 
     public ThumbnailsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         ctrlDoubleklick = new ThumbnailDoubleklickController(this);
+        init();
+    }
+
+    private void init() {
         setDragEnabled(true);
         setTransferHandler(new ThumbnailsPanelTransferHandler());
         readProperties();
@@ -196,7 +200,7 @@ public class ThumbnailsPanel extends JPanel
         } else {
             for (Integer i : rerenderTargets) {
                 if (isIndex(i)) {
-                    rerender(i.intValue());
+                    rerender(i);
                 }
             }
         }

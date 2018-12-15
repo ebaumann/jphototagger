@@ -7,11 +7,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 import org.jphototagger.api.plugin.Plugin;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.lib.help.HelpPageProvider;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.factory.FileProcessorPluginManager;
@@ -24,13 +24,12 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public class PluginsSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
+public class PluginsSettingsPanel extends PanelExt implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_TABBED_PANE = "SettingsPluginsPanel.TabbedPane";
 
     public PluginsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

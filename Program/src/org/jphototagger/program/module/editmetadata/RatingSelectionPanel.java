@@ -18,12 +18,12 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import org.jphototagger.domain.event.listener.TextEntryListener;
 import org.jphototagger.domain.event.listener.TextEntryListenerSupport;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpRatingMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.resources.Icons;
@@ -33,7 +33,7 @@ import org.jphototagger.resources.Icons;
 *
 * @author  Martin Pohlack
  */
-public class RatingSelectionPanel extends JPanel implements TextEntry, FocusListener, KeyListener {
+public class RatingSelectionPanel extends PanelExt implements TextEntry, FocusListener, KeyListener {
 
     private static final long serialVersionUID = 1L;
     private final Icon star = Icons.getIcon("icon_xmp_rating_set.png");
@@ -50,7 +50,6 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     private final Map<JButton, String> textOfButton = new HashMap<>();
 
     public RatingSelectionPanel(MetaDataValue metaDataValue) {
-        org.jphototagger.resources.UiFactory.configure(this);
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
@@ -60,7 +59,6 @@ public class RatingSelectionPanel extends JPanel implements TextEntry, FocusList
     }
 
     public RatingSelectionPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         this.metaDataValue = XmpRatingMetaDataValue.INSTANCE;
         init();
     }

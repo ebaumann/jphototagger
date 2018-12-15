@@ -53,6 +53,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsPanelRefreshEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ImageTextArea;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
@@ -71,7 +72,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = SearchComponent.class)
-public class FastSearchPanel extends javax.swing.JPanel implements ActionListener, SearchComponent {
+public class FastSearchPanel extends PanelExt implements ActionListener, SearchComponent {
 
     private static final long serialVersionUID = 1L;
     private static final String DELIMITER_SEARCH_WORDS = ";";
@@ -84,7 +85,6 @@ public class FastSearchPanel extends javax.swing.JPanel implements ActionListene
     private boolean isAutocomplete;
 
     public FastSearchPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         if (getPersistedAutocomplete()) {
             autocomplete = new Autocomplete(isAutocompleteFastSearchIgnoreCase());

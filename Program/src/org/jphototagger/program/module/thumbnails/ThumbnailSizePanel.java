@@ -18,6 +18,7 @@ import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
@@ -28,7 +29,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = StatusLineElementProvider.class)
-public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventListener, ChangeListener, StatusLineElementProvider {
+public class ThumbnailSizePanel extends PanelExt implements AWTEventListener, ChangeListener, StatusLineElementProvider {
 
     private static final long serialVersionUID = 1L;
     private static final int STEP_WIDTH = 1;
@@ -38,7 +39,6 @@ public class ThumbnailSizePanel extends javax.swing.JPanel implements AWTEventLi
     private int currentValue = 100;
 
     public ThumbnailSizePanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

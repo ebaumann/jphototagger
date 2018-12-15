@@ -25,6 +25,7 @@ import org.jphototagger.lib.io.filefilter.AcceptExactFilenamesFileFilter;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -33,7 +34,7 @@ import org.jphototagger.lib.util.SystemUtil;
 /**
  * @author Elmar Baumann
  */
-public class SettingsPanel extends javax.swing.JPanel {
+public class SettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private static final String EXIF_TOOL_FILE_PATH_DOES_NOT_EXIST = Bundle.getString(SettingsPanel.class, "SettingsPanel.NoExifToolFilePath");
@@ -42,7 +43,6 @@ public class SettingsPanel extends javax.swing.JPanel {
     private final DefaultListModel<String> fileSuffixesListModel = new DefaultListModel<>();
 
     public SettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -15,6 +15,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -23,7 +24,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class UserScriptsSettingsPanel extends javax.swing.JPanel {
+public class UserScriptsSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private static final Color TEXTFIELD_FOREGROUND = getTextFieldForeground();
@@ -34,7 +35,6 @@ public class UserScriptsSettingsPanel extends javax.swing.JPanel {
     private String lastChoosenDirectory;
 
     public UserScriptsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import org.jdesktop.swingx.JXLabel;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -17,12 +18,11 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class MaintainanceCachesPanel extends javax.swing.JPanel {
+public class MaintainanceCachesPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public MaintainanceCachesPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

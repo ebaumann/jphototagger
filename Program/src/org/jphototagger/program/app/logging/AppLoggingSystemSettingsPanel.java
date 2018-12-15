@@ -21,6 +21,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
 import org.openide.util.Lookup;
@@ -30,14 +31,13 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = OptionPageProvider.class)
-public class AppLoggingSystemSettingsPanel extends javax.swing.JPanel implements OptionPageProvider {
+public class AppLoggingSystemSettingsPanel extends PanelExt implements OptionPageProvider {
 
     private static final long serialVersionUID = 1L;
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private final DefaultListModel<String> errorTextsListModel = new DefaultListModel<>();
 
     public AppLoggingSystemSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

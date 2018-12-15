@@ -9,6 +9,7 @@ import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
@@ -20,7 +21,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class KeywordsPanel extends javax.swing.JPanel {
+public class KeywordsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private ListTextFilter listTextFilter;
@@ -28,7 +29,6 @@ public class KeywordsPanel extends javax.swing.JPanel {
     private String keyCard = "KeywordsPanel.Card";
 
     public KeywordsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -12,6 +12,7 @@ import org.jphototagger.domain.repository.ProgramsRepository;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.ProgramExecutorImpl;
@@ -25,7 +26,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class ActionsPanel extends javax.swing.JPanel {
+public final class ActionsPanel extends PanelExt {
     private static final long serialVersionUID = 1L;
     private final ProgramsListModel model = new ProgramsListModel(ProgramType.ACTION);
     private final ListenerSupport<ProgramExecutor> ls = new ListenerSupport<>();
@@ -34,7 +35,6 @@ public final class ActionsPanel extends javax.swing.JPanel {
     private final ProgramsRepository programsRepo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public ActionsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

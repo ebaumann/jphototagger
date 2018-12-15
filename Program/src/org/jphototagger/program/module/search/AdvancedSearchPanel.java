@@ -27,6 +27,7 @@ import org.jphototagger.domain.metadata.search.ParamStatement;
 import org.jphototagger.domain.metadata.search.SavedSearch;
 import org.jphototagger.domain.metadata.search.SavedSearchPanel;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.TabOrEnterLeavingTextArea;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -38,7 +39,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class AdvancedSearchPanel extends javax.swing.JPanel implements Persistence {
+public final class AdvancedSearchPanel extends PanelExt implements Persistence {
 
     private static final String KEY_SELECTED_TAB_INDEX = "AdvancedSearchPanel.SelectedTabIndex";
     private static final long serialVersionUID = 1L;
@@ -53,7 +54,6 @@ public final class AdvancedSearchPanel extends javax.swing.JPanel implements Per
     private final JPanel panelPadding = org.jphototagger.resources.UiFactory.panel();
 
     public AdvancedSearchPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

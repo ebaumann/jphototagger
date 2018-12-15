@@ -9,6 +9,7 @@ import org.jphototagger.domain.repository.MetadataTemplatesRepository;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.metadatatemplates.EditMetaDataTemplateDialog;
@@ -20,7 +21,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-final class EditMetaDataActionsPanel extends javax.swing.JPanel {
+final class EditMetaDataActionsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final EditMetaDataPanels editMetaDataPanels;
@@ -29,7 +30,6 @@ final class EditMetaDataActionsPanel extends javax.swing.JPanel {
     private boolean aFileSelected;
 
     EditMetaDataActionsPanel(EditMetaDataPanels editMetaDataPanels) {
-        org.jphototagger.resources.UiFactory.configure(this);
         this.editMetaDataPanels = editMetaDataPanels;
         initComponents();
         postInitComponents();

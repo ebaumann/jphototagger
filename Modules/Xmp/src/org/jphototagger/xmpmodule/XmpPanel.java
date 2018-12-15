@@ -36,6 +36,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.TableTextFilter;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.TableUtil;
@@ -50,7 +51,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class XmpPanel extends javax.swing.JPanel {
+public class XmpPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final XmpTableModel modelXmpCameraRawSettings = new XmpTableModel();
@@ -67,7 +68,6 @@ public class XmpPanel extends javax.swing.JPanel {
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
 
     public XmpPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

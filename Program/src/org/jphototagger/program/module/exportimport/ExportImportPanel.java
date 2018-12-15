@@ -19,6 +19,7 @@ import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.IconUtil;
 import org.jphototagger.lib.swing.LongMessageDialog;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.SelectObjectsPanel;
 import org.jphototagger.lib.swing.SelectObjectsPanel.SelectionEvent;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -31,7 +32,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ExportImportPanel extends javax.swing.JPanel implements SelectObjectsPanel.SelectionListener {
+public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.SelectionListener {
 
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(ExportImportPanel.class.getName());
@@ -45,7 +46,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
     private final transient ListenerSupport<ExportImportListener> ls = new ListenerSupport<>();
 
     public ExportImportPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
         // Do not call addObjects()!
@@ -55,7 +55,6 @@ public class ExportImportPanel extends javax.swing.JPanel implements SelectObjec
         if (context == null) {
             throw new NullPointerException("context == null");
         }
-        org.jphototagger.resources.UiFactory.configure(this);
         this.context = context;
         initComponents();
         postInitComponents();

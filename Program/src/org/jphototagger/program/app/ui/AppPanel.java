@@ -43,6 +43,7 @@ import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageLabel;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.TreeExpandCollapseAllAction;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.swingx.ListTextFilter;
@@ -59,7 +60,7 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  * @author Tobias Stening
  */
-public final class AppPanel extends javax.swing.JPanel {
+public final class AppPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_DIVIDER_LOCATION_MAIN = "AppPanel.DividerLocationMain";
@@ -76,7 +77,6 @@ public final class AppPanel extends javax.swing.JPanel {
     private static final Logger LOGGER = Logger.getLogger(AppPanel.class.getName());
 
     public AppPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         init();
     }
 

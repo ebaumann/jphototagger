@@ -14,6 +14,7 @@ import org.jphototagger.domain.repository.FileExcludePatternsRepository;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -21,7 +22,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
+public final class FileExcludePatternsSettingsPanel extends PanelExt
     implements ProgressListener, Persistence, ListSelectionListener, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
@@ -31,7 +32,6 @@ public final class FileExcludePatternsSettingsPanel extends javax.swing.JPanel
     private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
     public FileExcludePatternsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -4,8 +4,8 @@ import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.JPanel;
 import org.jdesktop.swingx.JXBusyLabel;
+import org.jphototagger.lib.swing.PanelExt;
 
 /**
  * Draws a busy animation. Usage:
@@ -33,7 +33,7 @@ import org.jdesktop.swingx.JXBusyLabel;
  * </pre>
  * @author Elmar Baumann
  */
-public final class BusyPanel extends JPanel {
+public final class BusyPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final Dimension dimension;
@@ -50,7 +50,6 @@ public final class BusyPanel extends JPanel {
         if (dimension == null) {
             throw new NullPointerException("dimension == null");
         }
-        org.jphototagger.resources.UiFactory.configure(this);
         this.dimension = dimension;
         initComponents();
     }

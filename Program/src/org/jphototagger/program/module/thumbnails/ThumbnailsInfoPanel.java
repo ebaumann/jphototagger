@@ -8,6 +8,7 @@ import org.jphototagger.api.windows.StatusLineElementProvider;
 import org.jphototagger.domain.thumbnails.event.ThumbnailZoomChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsChangedEvent;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesKeys;
@@ -18,7 +19,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = StatusLineElementProvider.class)
-public class ThumbnailsInfoPanel extends javax.swing.JPanel implements StatusLineElementProvider {
+public class ThumbnailsInfoPanel extends PanelExt implements StatusLineElementProvider {
 
     private static final long serialVersionUID = 1L;
     private int thumbnailZoom;
@@ -26,7 +27,6 @@ public class ThumbnailsInfoPanel extends javax.swing.JPanel implements StatusLin
     private int selectionCount;
 
     public ThumbnailsInfoPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

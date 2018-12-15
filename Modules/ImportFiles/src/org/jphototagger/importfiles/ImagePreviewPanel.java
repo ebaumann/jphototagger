@@ -8,12 +8,12 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileFilter;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
 import org.jphototagger.domain.filefilter.AppFileFilterProvider;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
 import org.jphototagger.domain.thumbnails.ThumbnailProvider;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
@@ -21,7 +21,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ImagePreviewPanel extends JPanel implements PropertyChangeListener {
+public class ImagePreviewPanel extends PanelExt implements PropertyChangeListener {
 
     private static final long serialVersionUID = 1L;
     private static final int SIZE = 155;
@@ -29,13 +29,16 @@ public class ImagePreviewPanel extends JPanel implements PropertyChangeListener 
     private int width;
     private int height;
     private Image image;
-    private final Color bg;
+    private Color bg;
     private final ThumbnailProvider tnProvider = Lookup.getDefault().lookup(ThumbnailProvider.class);
 
     public ImagePreviewPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
-        setPreferredSize(org.jphototagger.resources.UiFactory.dimension(SIZE, -1));
+        init();
+    }
+
+    private void init() {
         bg = getBackground();
+        setPreferredSize(org.jphototagger.resources.UiFactory.dimension(SIZE, -1));
     }
 
     @Override

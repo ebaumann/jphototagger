@@ -2,13 +2,13 @@ package org.jphototagger.program.module.metadatatemplates;
 
 import java.awt.Container;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jdesktop.swingx.JXList;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.thumbnails.ThumbnailsPanel;
@@ -17,12 +17,11 @@ import org.jphototagger.program.resource.GUI;
 /**
  * @author Elmar Baumann
  */
-public class MetaDataTemplatesPanel extends JPanel implements ListSelectionListener {
+public class MetaDataTemplatesPanel extends PanelExt implements ListSelectionListener {
 
     private static final long serialVersionUID = 1L;
 
     public MetaDataTemplatesPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

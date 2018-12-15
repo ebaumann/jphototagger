@@ -12,6 +12,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.metadata.thumbnails.ThumbnailInfoProvider;
 import org.jphototagger.domain.thumbnails.event.ThumbnailsSelectionChangedEvent;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -23,7 +24,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = ThumbnailInfoProvider.class)
-public class SidecarSuffixesInfoPanel extends javax.swing.JPanel implements ThumbnailInfoProvider{
+public class SidecarSuffixesInfoPanel extends PanelExt implements ThumbnailInfoProvider{
 
     private static final long serialVersionUID = 1L;
     private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
@@ -31,7 +32,6 @@ public class SidecarSuffixesInfoPanel extends javax.swing.JPanel implements Thum
     private int suffixCount;
 
     public SidecarSuffixesInfoPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

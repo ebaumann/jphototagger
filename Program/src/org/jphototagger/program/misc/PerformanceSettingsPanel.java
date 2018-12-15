@@ -12,6 +12,7 @@ import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.lib.help.HelpPageProvider;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -19,13 +20,12 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class PerformanceSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
+public final class PerformanceSettingsPanel extends PanelExt implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private boolean listen;
 
     public PerformanceSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

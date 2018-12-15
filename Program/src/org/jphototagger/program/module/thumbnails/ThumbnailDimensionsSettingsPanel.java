@@ -7,6 +7,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.image.thumbnail.ThumbnailDefaults;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -14,13 +15,12 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ThumbnailDimensionsSettingsPanel extends javax.swing.JPanel implements Persistence {
+public class ThumbnailDimensionsSettingsPanel extends PanelExt implements Persistence {
 
     private static final long serialVersionUID = 1L;
     private boolean listenToMaxThumbnailWidthChanges = true;
 
     public ThumbnailDimensionsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

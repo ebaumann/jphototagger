@@ -12,6 +12,7 @@ import org.jphototagger.lib.help.HelpUtil;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -22,12 +23,11 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class HtmlReportsSettingsPanel extends javax.swing.JPanel {
+public class HtmlReportsSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public HtmlReportsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

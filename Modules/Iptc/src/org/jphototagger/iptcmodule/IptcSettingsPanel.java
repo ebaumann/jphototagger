@@ -17,6 +17,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
 import org.jphototagger.api.windows.OptionPageProvider;
 import org.jphototagger.iptc.IptcPreferencesKeys;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
@@ -25,12 +26,11 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = OptionPageProvider.class)
-public class IptcSettingsPanel extends javax.swing.JPanel implements OptionPageProvider {
+public class IptcSettingsPanel extends PanelExt implements OptionPageProvider {
 
     private static final long serialVersionUID = 1L;
 
     public IptcSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

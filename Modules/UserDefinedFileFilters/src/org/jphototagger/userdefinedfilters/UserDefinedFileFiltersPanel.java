@@ -11,6 +11,7 @@ import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.repository.UserDefinedFileFiltersRepository;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -18,13 +19,12 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class UserDefinedFileFiltersPanel extends javax.swing.JPanel implements ListSelectionListener {
+public class UserDefinedFileFiltersPanel extends PanelExt implements ListSelectionListener {
 
     private static final long serialVersionUID = 1L;
     private final UserDefinedFileFiltersRepository repo = Lookup.getDefault().lookup(UserDefinedFileFiltersRepository.class);
 
     public UserDefinedFileFiltersPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
         listen();

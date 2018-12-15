@@ -50,7 +50,7 @@ import org.jphototagger.lib.util.StringUtil;
  *
  * @author Elmar Baumann
  */
-public class TabbedPaneSearchPanel extends javax.swing.JPanel implements ComponentListener, DocumentListener {
+public class TabbedPaneSearchPanel extends PanelExt implements ComponentListener, DocumentListener {
     private static final long serialVersionUID = 1L;
     private final Map<String, Collection<Component>> tabsOfWord = new HashMap<>();
     private final Collection<Component> tabsCache = new ArrayList<>();
@@ -63,7 +63,6 @@ public class TabbedPaneSearchPanel extends javax.swing.JPanel implements Compone
     private static final String HL_SPAN_END = "</span>";
 
     public TabbedPaneSearchPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         listen();
     }

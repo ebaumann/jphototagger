@@ -18,6 +18,7 @@ import org.jphototagger.domain.metadata.search.Comparator;
 import org.jphototagger.domain.metadata.search.Operator;
 import org.jphototagger.domain.metadata.search.SavedSearchPanel;
 import org.jphototagger.domain.metadata.xmp.XmpIptc4XmpCoreDateCreatedMetaDataValue;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.thirdparty.DateChooserDialog;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.Icons;
@@ -25,7 +26,7 @@ import org.jphototagger.resources.Icons;
 /**
  * @author Elmar Baumann, Tobias Stening
  */
-public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
+public final class SearchMetaDataValuePanel extends PanelExt {
 
     private static final long   serialVersionUID = 1L;
     private static final String SEL_LEFT_BRACKET = "<html><font color=\"#000000\"><b>(</b></font></html>";
@@ -38,7 +39,6 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
     private boolean changed;
 
     public SearchMetaDataValuePanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

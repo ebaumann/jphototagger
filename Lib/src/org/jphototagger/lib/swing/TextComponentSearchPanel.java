@@ -21,7 +21,7 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public class TextComponentSearchPanel extends javax.swing.JPanel implements DocumentListener {
+public class TextComponentSearchPanel extends PanelExt implements DocumentListener {
 
     private static final long serialVersionUID = 1L;
     private JTextComponent searchableTextComponent;
@@ -33,7 +33,6 @@ public class TextComponentSearchPanel extends javax.swing.JPanel implements Docu
     private int currentFoundIndex = -1;
 
     public TextComponentSearchPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         searchTextFieldBackground = searchTextField.getBackground();
         postInitComponents();

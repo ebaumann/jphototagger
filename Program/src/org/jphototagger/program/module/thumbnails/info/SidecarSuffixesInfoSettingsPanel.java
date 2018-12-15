@@ -8,6 +8,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.DocumentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -18,7 +19,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
+public class SidecarSuffixesInfoSettingsPanel extends PanelExt {
 
     public static final String KEY_FILE_SUFFIXES = "ThumbnailInfo.AdditionalSidecarSuffixes";
     private static final long serialVersionUID = 1L;
@@ -26,7 +27,6 @@ public class SidecarSuffixesInfoSettingsPanel extends javax.swing.JPanel {
     private final SuffixListModel suffixesListModel = new SuffixListModel();
 
     public SidecarSuffixesInfoSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -16,12 +16,13 @@ import org.jphototagger.api.windows.SelectionItemSelectedEvent;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.selections.NoMetadataValues;
 import org.jphototagger.lib.lookup.SelectedListItemsLookup;
+import org.jphototagger.lib.swing.PanelExt;
 import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
  */
-public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
+public final class FilesWithoutMetaDataPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final SelectedListItemsLookup selectedListItemsLookup;
@@ -31,7 +32,6 @@ public final class FilesWithoutMetaDataPanel extends javax.swing.JPanel {
     private volatile boolean clearingSelection;
 
     public FilesWithoutMetaDataPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         selectedListItemsLookup = new SelectedListItemsLookup(list);
         displayFilesWithoutMetaDataAction = new DisplayFilesWithoutMetaDataAction(selectedListItemsLookup.getLookup());

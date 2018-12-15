@@ -17,6 +17,7 @@ import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.io.filefilter.RegexFileFilter;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -30,7 +31,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class FileEditorPanel extends javax.swing.JPanel {
+public final class FileEditorPanel extends PanelExt {
     private static final long serialVersionUID = 1L;
     private static final String KEY_DIRECTORY_NAME = "org.jphototagger.program.view.FileEditorDialog.panels.Directory";
     private static final String KEY_INCLUDE_SUBDIRS = "FileEditorPanel.IncludeSubdirs";
@@ -47,7 +48,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
     private volatile boolean isRunning;
 
     public FileEditorPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         setModeInfo();
         MnemonicUtil.setMnemonics((Container) this);
@@ -65,7 +65,6 @@ public final class FileEditorPanel extends javax.swing.JPanel {
             throw new NullPointerException("fileEditor == null");
         }
 
-        org.jphototagger.resources.UiFactory.configure(this);
         this.fileEditor = fileEditor;
         this.selectDirs = selectDirs;
         initComponents();

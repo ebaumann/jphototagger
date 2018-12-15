@@ -26,6 +26,7 @@ import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -40,7 +41,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class MiscSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
+public final class MiscSettingsPanel extends PanelExt implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private static final String PREFERENCES_KEY_TABBED_PANE = "MiscSettingsPanel.TabbedPane";
@@ -48,7 +49,6 @@ public final class MiscSettingsPanel extends javax.swing.JPanel implements Persi
     private boolean listenToUseLongXmpSidecarFileNames;
 
     public MiscSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

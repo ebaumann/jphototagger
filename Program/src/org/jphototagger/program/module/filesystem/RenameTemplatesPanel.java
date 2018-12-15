@@ -17,6 +17,7 @@ import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateIn
 import org.jphototagger.domain.repository.event.renametemplates.RenameTemplateUpdatedEvent;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.swing.DialogExt;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComboBoxUtil;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -28,7 +29,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class RenameTemplatesPanel extends javax.swing.JPanel implements ListDataListener {
+public class RenameTemplatesPanel extends PanelExt implements ListDataListener {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_SEL_TEMPLATE = "RenameDialog.SelectedTemplate";
@@ -38,7 +39,6 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
     private boolean dirty;
 
     public RenameTemplatesPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

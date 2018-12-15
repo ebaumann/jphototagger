@@ -12,6 +12,7 @@ import javax.swing.ListCellRenderer;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.api.LookAndFeelChangedEvent;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.SystemUtil;
 import org.openide.util.Lookup;
@@ -19,7 +20,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
+public class JGoodiesMiscLookAndFeelSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private static final Map<String, String> PREF_KEY_CLASSNAMES = new LinkedHashMap<>();
@@ -34,7 +35,6 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
     }
 
     public JGoodiesMiscLookAndFeelSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

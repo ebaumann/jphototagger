@@ -7,6 +7,7 @@ import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.swing.IconUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -15,12 +16,11 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class DcrawThumbnailCreatorSettingsPanel extends javax.swing.JPanel {
+public class DcrawThumbnailCreatorSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public DcrawThumbnailCreatorSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

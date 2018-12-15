@@ -4,25 +4,19 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
-import javax.swing.JPanel;
 
 /**
  * Displays an image centered or the background color if the image is null.
  *
  * @author Elmar Baumann
  */
-public class ImagePanel extends JPanel {
+public class ImagePanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private Image image;
     private String imageIsAbsentText;
 
-    public ImagePanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
-    }
-
     /**
-     *
      * @param image can be null
      */
     public void setImage(Image image) {

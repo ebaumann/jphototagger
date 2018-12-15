@@ -1,16 +1,16 @@
 package org.jphototagger.fileeventhooks;
 
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public class SettingsPanel extends javax.swing.JPanel {
+public class SettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public SettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 

@@ -15,6 +15,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.DocumentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -26,14 +27,13 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class JPhotoTaggerActionsSettingsPanel extends javax.swing.JPanel {
+public class JPhotoTaggerActionsSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final FilenameSuffixesListModel filenameSuffixesListModel = new FilenameSuffixesListModel();
     private String selectedFilenameSuffix;
 
     public JPhotoTaggerActionsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

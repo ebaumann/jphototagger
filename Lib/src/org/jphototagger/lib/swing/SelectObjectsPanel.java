@@ -15,7 +15,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
@@ -27,7 +26,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class SelectObjectsPanel extends JPanel implements ActionListener {
+public final class SelectObjectsPanel extends PanelExt implements ActionListener {
 
     private static final long serialVersionUID = 1L;
     private static final String DELIM_SEL_INDICES = ",";
@@ -38,7 +37,6 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
     private int componentCount;
 
     public SelectObjectsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         init();
     }
 
@@ -58,7 +56,6 @@ public final class SelectObjectsPanel extends JPanel implements ActionListener {
         if (preferencesKeyForSelectedIndices == null) {
             throw new NullPointerException("keySelIndices == null");
         }
-        org.jphototagger.resources.UiFactory.configure(this);
         this.preferencesKeyForSelectedIndices = preferencesKeyForSelectedIndices;
         init();
     }

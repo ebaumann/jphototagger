@@ -15,6 +15,7 @@ import org.jphototagger.api.preferences.DisplayMessageInFuturePreferencesKeys;
 import org.jphototagger.api.preferences.DisplayMessageInFuturePreferencesKeys.KeyInfo;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesChangedEvent;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
@@ -22,7 +23,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class DisplayMessagesInFutureSettingsPanel extends javax.swing.JPanel {
+public class DisplayMessagesInFutureSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final Map<JCheckBox, String> keyOfCheckBox = new HashMap<>();
@@ -30,7 +31,6 @@ public class DisplayMessagesInFutureSettingsPanel extends javax.swing.JPanel {
     private boolean listenToCheckBox;
 
     public DisplayMessagesInFutureSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

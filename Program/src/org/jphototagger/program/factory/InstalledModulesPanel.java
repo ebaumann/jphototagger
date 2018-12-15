@@ -7,6 +7,7 @@ import javax.swing.Icon;
 import org.jphototagger.api.modules.Module;
 import org.jphototagger.api.modules.ModuleDescription;
 import org.jphototagger.api.windows.OptionPageProvider;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.lookup.ServiceProvider;
@@ -15,14 +16,13 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = OptionPageProvider.class)
-public class InstalledModulesPanel extends javax.swing.JPanel implements OptionPageProvider {
+public class InstalledModulesPanel extends PanelExt implements OptionPageProvider {
 
     private static final long serialVersionUID = 1L;
     private final ModulesListModel modulesListModel = new ModulesListModel();
     private Module selectedModule;
 
     public InstalledModulesPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 

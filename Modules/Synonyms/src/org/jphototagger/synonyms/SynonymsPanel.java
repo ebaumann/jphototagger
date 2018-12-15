@@ -14,6 +14,7 @@ import org.jphototagger.domain.metadata.xmp.XmpDcSubjectsSubjectMetaDataValue;
 import org.jphototagger.domain.repository.ImageFilesRepository;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -23,7 +24,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionListener, DocumentListener {
+public class SynonymsPanel extends PanelExt implements ListSelectionListener, DocumentListener {
 
     private static final long serialVersionUID = 1L;
     private final SynonymsListModel modelWords = new SynonymsListModel(SynonymsListModel.Role.WORDS);
@@ -33,7 +34,6 @@ public class SynonymsPanel extends javax.swing.JPanel implements ListSelectionLi
     private final ImageFilesRepository repo = Lookup.getDefault().lookup(ImageFilesRepository.class);
 
     public SynonymsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

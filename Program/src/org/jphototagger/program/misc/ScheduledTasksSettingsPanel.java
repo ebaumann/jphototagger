@@ -14,6 +14,7 @@ import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.DirectoryChooser.Option;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -26,7 +27,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
+public final class ScheduledTasksSettingsPanel extends PanelExt implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_LAST_SELECTED_AUTOSCAN_DIRECTORY = "UserSettingsDialog.keyLastSelectedAutoscanDirectory";
@@ -35,7 +36,6 @@ public final class ScheduledTasksSettingsPanel extends javax.swing.JPanel implem
     private final AutoscanDirectoriesRepository repo = Lookup.getDefault().lookup(AutoscanDirectoriesRepository.class);
 
     public ScheduledTasksSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -6,17 +6,17 @@ import javax.swing.JProgressBar;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 
 /**
  * @author Elmar Baumann
  */
-public class ResultSetBrowserPanel extends javax.swing.JPanel {
+public class ResultSetBrowserPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public ResultSetBrowserPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

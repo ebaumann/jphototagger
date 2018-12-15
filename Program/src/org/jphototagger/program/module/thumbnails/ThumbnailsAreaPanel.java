@@ -23,6 +23,7 @@ import org.jphototagger.domain.filefilter.UserDefinedFileFilter;
 import org.jphototagger.domain.thumbnails.ThumbnailsPanelBottomComponentProvider;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.ExpandCollapseComponentPanel;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -32,7 +33,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ThumbnailsAreaPanel extends javax.swing.JPanel {
+public class ThumbnailsAreaPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private static final String KEY_THUMBNAIL_PANEL_VIEWPORT_VIEW_POSITION = "org.jphototagger.program.view.panels.controller.ViewportViewPosition";
@@ -43,7 +44,6 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
     private boolean bottomComponentsPanelAdded;
 
     public ThumbnailsAreaPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -20,7 +20,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class SelectRootFilesPanel extends javax.swing.JPanel implements Persistence {
+public class SelectRootFilesPanel extends PanelExt implements Persistence {
 
     private static final long serialVersionUID = 1L;
     private final Map<JCheckBox, File> ROOT_FILE_OF_CHECKBOX = new HashMap<>();
@@ -29,7 +29,6 @@ public class SelectRootFilesPanel extends javax.swing.JPanel implements Persiste
     private final CheckBoxSelectionListener checkBoxSelectionListener = new CheckBoxSelectionListener();
 
     public SelectRootFilesPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         addRootFileCheckboxes();
     }

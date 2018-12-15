@@ -1,18 +1,18 @@
 package org.jphototagger.plugin.iviewsshow;
 
 import org.jphototagger.api.preferences.Preferences;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
  * @author  Elmar Baumann
  */
-public class IrfanViewSlideshowSettingsPanel extends javax.swing.JPanel {
+public class IrfanViewSlideshowSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public IrfanViewSlideshowSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -23,7 +23,6 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
@@ -51,6 +50,7 @@ import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
@@ -67,7 +67,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class EditRepeatableTextEntryPanel extends JPanel implements TextEntry, ActionListener, DocumentListener, ListDataListener {
+public final class EditRepeatableTextEntryPanel extends PanelExt implements TextEntry, ActionListener, DocumentListener, ListDataListener {
 
     private static final long serialVersionUID = 1L;
     private String bundleKeyPosRenameDialog;
@@ -84,7 +84,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
     private Color editBackground;
 
     public EditRepeatableTextEntryPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }
@@ -93,7 +92,6 @@ public final class EditRepeatableTextEntryPanel extends JPanel implements TextEn
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-        org.jphototagger.resources.UiFactory.configure(this);
         this.metaDataValue = metaDataValue;
         initComponents();
         postInitComponents();

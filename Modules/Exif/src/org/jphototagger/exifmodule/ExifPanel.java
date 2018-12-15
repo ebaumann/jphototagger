@@ -18,6 +18,7 @@ import javax.swing.table.TableStringConverter;
 import javax.swing.text.Document;
 import org.jphototagger.api.branding.TableLookAndFeel;
 import org.jphototagger.domain.metadata.exif.ExifTag;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.TableButtonMouseListener;
 import org.jphototagger.lib.swing.TableMouseClicker;
 import org.jphototagger.lib.swing.TableTextFilter;
@@ -32,7 +33,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ExifPanel extends javax.swing.JPanel {
+public class ExifPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final ExifTableModel exifTableModel = new ExifTableModel();
@@ -40,7 +41,6 @@ public class ExifPanel extends javax.swing.JPanel {
     private final ExifTableCellRenderer exifTableCellRenderer = new ExifTableCellRenderer();
 
     public ExifPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         tableMouseClicker = new TableMouseClicker(tableExif);
         postInitComponents();

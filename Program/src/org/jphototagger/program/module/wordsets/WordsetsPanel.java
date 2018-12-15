@@ -25,6 +25,7 @@ import org.jphototagger.domain.repository.event.wordsets.WordsetUpdatedEvent;
 import org.jphototagger.domain.wordsets.Wordset;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -34,7 +35,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class WordsetsPanel extends javax.swing.JPanel {
+public class WordsetsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private static final Color LABEL_EDITABLE_BACKGROUND_COLOR = new Color(248, 248, 248);
@@ -50,7 +51,6 @@ public class WordsetsPanel extends javax.swing.JPanel {
     private boolean editable = true;
 
     public WordsetsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

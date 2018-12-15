@@ -10,6 +10,7 @@ import org.jphototagger.domain.filetypes.UserDefinedFileType;
 import org.jphototagger.domain.repository.UserDefinedFileTypesRepository;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.UiFactory;
@@ -18,12 +19,11 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class UserDefinedFileTypesPanel extends javax.swing.JPanel {
+public class UserDefinedFileTypesPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public UserDefinedFileTypesPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

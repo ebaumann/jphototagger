@@ -17,6 +17,7 @@ import org.jphototagger.image.ImagePreferencesKeys;
 import org.jphototagger.image.thumbnail.ThumbnailCreationStrategy;
 import org.jphototagger.image.thumbnail.ThumbnailCreationStrategyProvider;
 import org.jphototagger.lib.help.HelpPageProvider;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -27,7 +28,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
+public final class ThumbnailsSettingsPanel extends PanelExt implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private JPopupMenu createExternalThumbnailCreatorPopupMenu;
@@ -35,7 +36,6 @@ public final class ThumbnailsSettingsPanel extends javax.swing.JPanel implements
     private final EnumMap<ThumbnailCreationStrategy, JRadioButton> radioButtonOfThumbnailCreator = new EnumMap<>(ThumbnailCreationStrategy.class);
 
     public ThumbnailsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         initMaps();
         MnemonicUtil.setMnemonics((Container) this);

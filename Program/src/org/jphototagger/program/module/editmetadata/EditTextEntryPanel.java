@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
@@ -29,6 +28,7 @@ import org.jphototagger.domain.repository.event.dcsubjects.DcSubjectInsertedEven
 import org.jphototagger.domain.repository.event.xmp.XmpInsertedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.Autocomplete;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.StringUtil;
@@ -42,7 +42,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public final class EditTextEntryPanel extends JPanel implements TextEntry, DocumentListener {
+public final class EditTextEntryPanel extends PanelExt implements TextEntry, DocumentListener {
 
     private static final Color EDITABLE_COLOR = Color.WHITE;
     private static final long serialVersionUID = 1L;
@@ -63,7 +63,6 @@ public final class EditTextEntryPanel extends JPanel implements TextEntry, Docum
         if (metaDataValue == null) {
             throw new NullPointerException("metaDataValue == null");
         }
-        org.jphototagger.resources.UiFactory.configure(this);
         this.metaDataValue = metaDataValue;
         initComponents();
         postInitComponents();

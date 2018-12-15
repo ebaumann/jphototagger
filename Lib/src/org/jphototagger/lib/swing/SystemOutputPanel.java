@@ -6,7 +6,6 @@ import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import javax.swing.JPanel;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -20,7 +19,7 @@ import org.jphototagger.lib.util.Bundle;
  *
  * @author Elmar Baumann
  */
-public class SystemOutputPanel extends JPanel {
+public class SystemOutputPanel extends PanelExt {
     private static final long  serialVersionUID = 1L;
     private static volatile int MAX_CHAR_COUNT = 100000;
     private static volatile int MAX_CHARS_EXESS  = 1000;
@@ -32,7 +31,6 @@ public class SystemOutputPanel extends JPanel {
      * Call later {@code #caputure()}.
      */
     public SystemOutputPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         MnemonicUtil.setMnemonics((Container) this);
     }

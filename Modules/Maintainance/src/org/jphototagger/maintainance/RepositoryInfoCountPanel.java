@@ -26,6 +26,7 @@ import org.jphototagger.domain.repository.event.imagefiles.ImageFileInsertedEven
 import org.jphototagger.domain.repository.event.xmp.XmpDeletedEvent;
 import org.jphototagger.domain.repository.event.xmp.XmpUpdatedEvent;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.TableModelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -33,13 +34,12 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class RepositoryInfoCountPanel extends javax.swing.JPanel {
+public final class RepositoryInfoCountPanel extends PanelExt {
     private static final long  serialVersionUID = 1L;
     private RepositoryInfoCountTableModel repositoryInfoTableModel;
     private volatile boolean listenToDbChanges;
 
     public RepositoryInfoCountPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         table.setDefaultRenderer(Object.class, new RepositoryInfoColumnsTableCellRenderer());
         setLabelFilename();

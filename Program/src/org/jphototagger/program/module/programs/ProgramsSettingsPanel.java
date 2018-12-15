@@ -13,6 +13,7 @@ import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -23,7 +24,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class ProgramsSettingsPanel extends javax.swing.JPanel implements Persistence, HelpPageProvider {
+public final class ProgramsSettingsPanel extends PanelExt implements Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private final ProgramsListModel model = new ProgramsListModel(ProgramType.PROGRAM);
@@ -31,7 +32,6 @@ public final class ProgramsSettingsPanel extends javax.swing.JPanel implements P
     private final ProgramsRepository repo = Lookup.getDefault().lookup(ProgramsRepository.class);
 
     public ProgramsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

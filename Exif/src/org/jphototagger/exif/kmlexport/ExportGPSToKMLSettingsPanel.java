@@ -9,18 +9,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.exif.ExifPreferencesKeys;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
  */
-public class ExportGPSToKMLSettingsPanel extends javax.swing.JPanel {
+public class ExportGPSToKMLSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public ExportGPSToKMLSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

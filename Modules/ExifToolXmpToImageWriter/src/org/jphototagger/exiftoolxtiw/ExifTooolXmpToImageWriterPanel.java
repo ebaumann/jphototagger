@@ -5,18 +5,18 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JProgressBar;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
  * @author Elmar Baumann
  */
-public class ExifTooolXmpToImageWriterPanel extends javax.swing.JPanel {
+public class ExifTooolXmpToImageWriterPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
 
     public ExifTooolXmpToImageWriterPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

@@ -28,6 +28,7 @@ import org.jphototagger.domain.metadata.xmp.XmpPhotoshopSourceMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopStateMetaDataValue;
 import org.jphototagger.domain.metadata.xmp.XmpPhotoshopTransmissionReferenceMetaDataValue;
 import org.jphototagger.domain.text.TextEntry;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.program.module.editmetadata.EditRepeatableTextEntryPanel;
 import org.jphototagger.program.module.editmetadata.EditTextEntryPanel;
 import org.openide.util.Lookup;
@@ -44,7 +45,7 @@ import org.openide.util.Lookup;
  *
  * @author Elmar Baumann
  */
-public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
+public class EditXmpPanel extends PanelExt implements FocusListener {
     private static final long serialVersionUID = 1L;
     private final List<TextEntry> textEntries = new ArrayList<>(18);
     private Component firstInputComponent;
@@ -53,7 +54,6 @@ public class EditXmpPanel extends javax.swing.JPanel implements FocusListener {
     private transient Xmp xmp = new Xmp();
 
     public EditXmpPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         init();
     }
 

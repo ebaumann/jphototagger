@@ -14,20 +14,20 @@ import javax.swing.ListCellRenderer;
 import org.jphototagger.domain.metadata.MetaDataValue;
 import org.jphototagger.domain.metadata.MetaDataValueProvider;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
 
 /**
  * @author Elmar Baumann
  */
-public class MetaDataValueSelectionPanel extends javax.swing.JPanel {
+public class MetaDataValueSelectionPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
     private final ComboBoxModel<Object> comboBoxModel = new MetaDataValuesComboBoxModel();
     private final ListCellRenderer<Object> listCellRenderer = new MetaDataValuesListCellRenderer();
 
     public MetaDataValueSelectionPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 

@@ -10,18 +10,18 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import org.jphototagger.domain.metadata.MetaDataValue;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 
 /**
  * @author Elmar Baumann
  */
-public class MetaDataValueSelectionPanels extends javax.swing.JPanel implements PropertyChangeListener {
+public class MetaDataValueSelectionPanels extends PanelExt implements PropertyChangeListener {
 
     private static final long serialVersionUID = 1L;
     private boolean setValues;
 
     public MetaDataValueSelectionPanels() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

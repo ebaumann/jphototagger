@@ -20,6 +20,7 @@ import org.jphototagger.domain.repository.event.programs.ProgramInsertedEvent;
 import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -32,7 +33,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSelectionListener, Persistence, HelpPageProvider {
+public class ActionsSettingsPanel extends PanelExt implements ListSelectionListener, Persistence, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private final ActionsAfterSavesOrUpdatesInRepositoryListModel model = new ActionsAfterSavesOrUpdatesInRepositoryListModel();
@@ -41,7 +42,6 @@ public class ActionsSettingsPanel extends javax.swing.JPanel implements ListSele
     private final ActionsAfterRepoUpdatesRepository actionsRepo = Lookup.getDefault().lookup(ActionsAfterRepoUpdatesRepository.class);
 
     public ActionsSettingsPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

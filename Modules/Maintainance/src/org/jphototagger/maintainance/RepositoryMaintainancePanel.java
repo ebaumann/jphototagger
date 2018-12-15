@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import org.jphototagger.api.concurrent.Cancelable;
@@ -21,6 +20,7 @@ import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.openide.util.Lookup;
@@ -28,7 +28,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class RepositoryMaintainancePanel extends JPanel implements ProgressListener {
+public final class RepositoryMaintainancePanel extends PanelExt implements ProgressListener {
 
     private static final long serialVersionUID = 1L;
     private static final Icon ICON_FINISHED = org.jphototagger.resources.Icons.getIcon("icon_finished.png");
@@ -49,7 +49,6 @@ public final class RepositoryMaintainancePanel extends JPanel implements Progres
     private volatile boolean canClose = true;
 
     public RepositoryMaintainancePanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         postInitComponents();
     }

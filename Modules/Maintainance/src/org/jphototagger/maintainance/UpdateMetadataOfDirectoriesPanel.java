@@ -13,7 +13,6 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
 import org.jphototagger.api.concurrent.CancelRequest;
@@ -32,6 +31,7 @@ import org.jphototagger.lib.io.filefilter.DirectoryFilter;
 import org.jphototagger.lib.io.filefilter.DirectoryFilter.Option;
 import org.jphototagger.lib.swing.CommonIcons;
 import org.jphototagger.lib.swing.DirectoryChooser;
+import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.ListUtil;
@@ -44,7 +44,7 @@ import org.openide.util.Lookup;
 /**
  * @author Elmar Baumann
  */
-public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements ProgressListener {
+public final class UpdateMetadataOfDirectoriesPanel extends PanelExt implements ProgressListener {
 
     private static final String KEY_LAST_DIRECTORY = "org.jphototagger.program.view.ScanDirectoriesDialog.lastSelectedDirectory";
     private static final String KEY_FORCE = "org.jphototagger.program.view.ScanDirectoriesDialog.force";
@@ -58,7 +58,6 @@ public final class UpdateMetadataOfDirectoriesPanel extends JPanel implements Pr
     private final transient CancelChooseRequest cancelChooseRequest = new CancelChooseRequest();
 
     public UpdateMetadataOfDirectoriesPanel() {
-        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         readProperties();
         MnemonicUtil.setMnemonics((Container) this);
