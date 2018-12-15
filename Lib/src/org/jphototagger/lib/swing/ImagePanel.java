@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
-import org.jphototagger.resources.UiFactory;
 
 /**
  * Displays an image centered or the background color if the image is null.
@@ -103,7 +102,7 @@ public class ImagePanel extends PanelExt {
             }
         }
 
-        return UiFactory.dimension(imageWidth, imageHeight);
+        return new Dimension(imageWidth, imageHeight);
     }
 
     private double getMaxScaleFactor(Image image) {

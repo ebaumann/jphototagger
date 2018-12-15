@@ -1253,7 +1253,7 @@ public class ThumbnailsPanel extends PanelExt
                 ? parent.getWidth()
                 : getWidth();
         int heigth = getCalculatedHeight();
-        return UiFactory.dimension(width, heigth);
+        return new Dimension(width, heigth);
     }
 
     private int getCalculatedHeight() {

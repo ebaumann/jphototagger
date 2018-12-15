@@ -134,7 +134,7 @@ public class ProgressBarPanel extends PanelExt implements ProgressHandle {
         setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
-        progressBar.setMaximumSize(UiFactory.dimension(300, 14));
+        progressBar.setMaximumSize(UiFactory.dimension(300, 20));
         progressBar.setName("progressBar"); // NOI18N
         progressBar.setPreferredSize(UiFactory.dimension(250, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
