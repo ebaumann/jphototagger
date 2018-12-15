@@ -200,6 +200,7 @@ public class ProgressBarPanelArray extends javax.swing.JPanel implements Progres
         java.awt.GridBagConstraints gridBagConstraints;
 
         dialogHiddenProgressBars = new javax.swing.JDialog();
+        org.jphototagger.resources.UiFactory.configure(dialogHiddenProgressBars);
         scrollPaneHiddenProgressBars = org.jphototagger.resources.UiFactory.scrollPane();
         panelHiddenProgressBars = org.jphototagger.resources.UiFactory.panel();
         initProgressBarPanel = new org.jphototagger.program.app.ui.ProgressBarPanel();

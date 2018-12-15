@@ -31,6 +31,7 @@ public class Dialog extends JDialog {
     private boolean ignorePersistedSizeAndLocation;
 
     public Dialog() {
+        init();
     }
 
     public Dialog(Frame owner, boolean modal) {
@@ -54,6 +55,7 @@ public class Dialog extends JDialog {
     }
 
     private void init() {
+        org.jphototagger.resources.UiFactory.configure(this);
         createActionListener();
         registerKeyboardActions();
         addWindowListener(sizeAndLocationPersister);

@@ -457,6 +457,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         java.awt.GridBagConstraints gridBagConstraints;
 
         checkDirtyDialog = new javax.swing.JDialog();
+        org.jphototagger.resources.UiFactory.configure(checkDirtyDialog);
         labelDirtyConfirmSaveChanges = org.jphototagger.resources.UiFactory.label();
         panelDirtyButtons = org.jphototagger.resources.UiFactory.panel();
         buttonCheckDirtyDialogCreateNew = org.jphototagger.resources.UiFactory.button();

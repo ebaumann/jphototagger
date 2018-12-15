@@ -23,6 +23,7 @@ public final class ProgressDialog extends javax.swing.JDialog {
      */
     public ProgressDialog(java.awt.Frame parent) {
         super(parent, false);
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
     }
 

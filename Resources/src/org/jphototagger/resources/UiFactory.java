@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -451,6 +452,11 @@ public final class UiFactory {
     }
 
     private static void configure(JProgressBar pb) {
+        // For future usage
+    }
+
+    public static void configure(JDialog d) {
+        Objects.requireNonNull(d, "d == null");
         // For future usage
     }
 

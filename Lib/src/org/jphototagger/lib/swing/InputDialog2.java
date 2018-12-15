@@ -30,6 +30,7 @@ public class InputDialog2 extends javax.swing.JDialog {
     }
 
     private void init() {
+        org.jphototagger.resources.UiFactory.configure(this);
         initComponents();
         buttonOk.setAction(closeAction);
         buttonCancel.setAction(cancelAction);
