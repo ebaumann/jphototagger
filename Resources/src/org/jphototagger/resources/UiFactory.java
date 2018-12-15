@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -412,6 +413,18 @@ public final class UiFactory {
 
     public static void configure(JList<?> l) {
         Objects.requireNonNull(l, "l == null");
+        // For future usage
+    }
+
+    public static JSlider slider() {
+        JSlider s = new JSlider();
+
+        configure(s);
+
+        return s;
+    }
+
+    private static void configure(JSlider s) {
         // For future usage
     }
 
