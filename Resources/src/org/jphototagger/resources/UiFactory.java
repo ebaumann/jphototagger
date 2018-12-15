@@ -13,6 +13,7 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -372,18 +373,23 @@ public final class UiFactory {
     public static JXList jxList() {
         JXList l = new JXList();
 
-        configure(l);
+        configureJx(l);
 
         return l;
     }
 
-    public static void configure(JXList l) {
+    public static void configureJx(JXList l) {
         Objects.requireNonNull(l, "l == null");
         // For future usage
     }
 
     public static void configure(JComboBox<?> cb) {
         Objects.requireNonNull(cb, "cb == null");
+        // For future usage
+    }
+
+    public static void configure(JList<?> l) {
+        Objects.requireNonNull(l, "l == null");
         // For future usage
     }
 

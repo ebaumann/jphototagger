@@ -463,6 +463,7 @@ public class FindDuplicatesDialog extends Dialog {
         panelSourceDirectories = org.jphototagger.resources.UiFactory.panel();
         scrollPaneSourceDirectories = org.jphototagger.resources.UiFactory.scrollPane();
         listSourceDirectories = new javax.swing.JList<>();
+        org.jphototagger.resources.UiFactory.configure(listSourceDirectories);
         panelSourceDirectoriesActions = org.jphototagger.resources.UiFactory.panel();
         checkBoxSourceDirsRecursive = org.jphototagger.resources.UiFactory.checkBox();
         buttonAddSourceDirectory = org.jphototagger.resources.UiFactory.button();
