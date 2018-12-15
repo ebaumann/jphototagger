@@ -98,8 +98,7 @@ public class EditXmpDialog extends Dialog {
         panelContent = org.jphototagger.resources.UiFactory.panel();
         panelTemplates = org.jphototagger.resources.UiFactory.panel();
         labelTemplates = org.jphototagger.resources.UiFactory.label();
-        comboBoxTemplates = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxTemplates);
+        comboBoxTemplates = org.jphototagger.resources.UiFactory.comboBox();
         buttonEditMetadataTemplates = org.jphototagger.resources.UiFactory.button();
         buttonInsertTemplate = org.jphototagger.resources.UiFactory.button();
         scrollPanePanelEditXmp = org.jphototagger.resources.UiFactory.scrollPane();

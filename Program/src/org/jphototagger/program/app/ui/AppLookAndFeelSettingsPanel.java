@@ -11,7 +11,6 @@ import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.Icon;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -172,16 +171,14 @@ public class AppLookAndFeelSettingsPanel extends javax.swing.JPanel implements O
         labelNoPreferences = org.jphototagger.resources.UiFactory.label();
         panelContent = org.jphototagger.resources.UiFactory.panel();
         labelInfo = org.jphototagger.resources.UiFactory.label();
-        comboBoxLaf = new JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxLaf);
+        comboBoxLaf = org.jphototagger.resources.UiFactory.comboBox();
         scrollPaneDescription = org.jphototagger.resources.UiFactory.scrollPane();
         editorPaneDescription = org.jphototagger.resources.UiFactory.editorPane();
         panelPreferences = org.jphototagger.resources.UiFactory.panel();
         scrollPanePreferences = org.jphototagger.resources.UiFactory.scrollPane();
         panelFontScale = org.jphototagger.resources.UiFactory.panel();
         labelFontScalePrompt = org.jphototagger.resources.UiFactory.label();
-        comboBoxFontScale = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxFontScale);
+        comboBoxFontScale = org.jphototagger.resources.UiFactory.comboBox();
         labelFontScaleInfo = org.jphototagger.resources.UiFactory.label();
 
         panelNoPreferences.setLayout(new java.awt.GridBagLayout());

@@ -333,13 +333,10 @@ public final class SearchMetaDataValuePanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         toggleButtonBracketLeft1 = org.jphototagger.resources.UiFactory.toggleButton();
-        comboBoxOperators = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxOperators);
+        comboBoxOperators = org.jphototagger.resources.UiFactory.comboBox();
         toggleButtonBracketLeft2 = org.jphototagger.resources.UiFactory.toggleButton();
-        comboBoxColumns = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxColumns);
-        comboBoxComparators = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxComparators);
+        comboBoxColumns = org.jphototagger.resources.UiFactory.comboBox();
+        comboBoxComparators = org.jphototagger.resources.UiFactory.comboBox();
         textFieldValue = org.jphototagger.resources.UiFactory.formattedTextField();
         textFieldValue.setTransferHandler(new org.jphototagger.program.datatransfer.DropTextComponentTransferHandler());
         toggleButtonBracketRight = org.jphototagger.resources.UiFactory.toggleButton();

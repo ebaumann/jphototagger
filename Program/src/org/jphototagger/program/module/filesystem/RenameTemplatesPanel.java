@@ -473,8 +473,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         spinnerNumberCount = org.jphototagger.resources.UiFactory.spinner();
         panelDateDelimiter = org.jphototagger.resources.UiFactory.panel();
         labelDateDelim = org.jphototagger.resources.UiFactory.label();
-        comboBoxDateDelimiter = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxDateDelimiter);
+        comboBoxDateDelimiter = org.jphototagger.resources.UiFactory.comboBox();
         panelDefineName = org.jphototagger.resources.UiFactory.panel();
         panelDefineNameContents = org.jphototagger.resources.UiFactory.panel();
         labelAtBegin = org.jphototagger.resources.UiFactory.label();
@@ -482,14 +481,11 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         labelInTheMid = org.jphototagger.resources.UiFactory.label();
         labelDelim2 = org.jphototagger.resources.UiFactory.label();
         labelAtEnd = org.jphototagger.resources.UiFactory.label();
-        comboBoxAtBegin = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxAtBegin);
+        comboBoxAtBegin = org.jphototagger.resources.UiFactory.comboBox();
         textFieldDelim1 = org.jphototagger.resources.UiFactory.textField();
-        comboBoxInTheMiddle = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxInTheMiddle);
+        comboBoxInTheMiddle = org.jphototagger.resources.UiFactory.comboBox();
         textFieldDelim2 = org.jphototagger.resources.UiFactory.textField();
-        comboBoxAtEnd = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxAtEnd);
+        comboBoxAtEnd = org.jphototagger.resources.UiFactory.comboBox();
         textFieldAtBegin = org.jphototagger.resources.UiFactory.textField();
         textFieldInTheMiddle = org.jphototagger.resources.UiFactory.textField();
         textFieldAtEnd = org.jphototagger.resources.UiFactory.textField();
@@ -501,8 +497,7 @@ public class RenameTemplatesPanel extends javax.swing.JPanel implements ListData
         labelAfterFilename = org.jphototagger.resources.UiFactory.label();
         panelRenameTemplates = org.jphototagger.resources.UiFactory.panel();
         panelRenameTemplatesContents = org.jphototagger.resources.UiFactory.panel();
-        comboBoxRenameTemplates = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxRenameTemplates);
+        comboBoxRenameTemplates = org.jphototagger.resources.UiFactory.comboBox();
         panelButtonsRenameTemplates = org.jphototagger.resources.UiFactory.panel();
         buttonSaveRenameTemplate = org.jphototagger.resources.UiFactory.button();
         buttonRenameRenameTemplate = org.jphototagger.resources.UiFactory.button();

@@ -104,8 +104,7 @@ public class JGoodiesMiscLookAndFeelSettingsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         labelClassNames = org.jphototagger.resources.UiFactory.label();
-        comboBoxClassNames = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxClassNames);
+        comboBoxClassNames = org.jphototagger.resources.UiFactory.comboBox();
 
         setLayout(new java.awt.GridBagLayout());
 

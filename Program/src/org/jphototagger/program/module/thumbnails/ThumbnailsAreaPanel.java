@@ -268,11 +268,9 @@ public class ThumbnailsAreaPanel extends javax.swing.JPanel {
         labelInfo = org.jphototagger.resources.UiFactory.label();
         panelDisplayedThumbnailFilters = org.jphototagger.resources.UiFactory.panel();
         labelFileFilters = org.jphototagger.resources.UiFactory.label();
-        comboBoxFileFilters = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxFileFilters);
+        comboBoxFileFilters = org.jphototagger.resources.UiFactory.comboBox();
         labelFileSort = org.jphototagger.resources.UiFactory.label();
-        comboBoxFileSort = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxFileSort);
+        comboBoxFileSort = org.jphototagger.resources.UiFactory.comboBox();
         thumbnailsPanelScrollPane = org.jphototagger.resources.UiFactory.scrollPane();
         thumbnailsPanel = new org.jphototagger.program.module.thumbnails.ThumbnailsPanel();
 

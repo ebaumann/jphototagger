@@ -464,8 +464,15 @@ public final class UiFactory {
         // For future usage
     }
 
-    public static void configure(JComboBox<?> cb) {
-        Objects.requireNonNull(cb, "cb == null");
+    public static <T> JComboBox<T> comboBox() {
+        JComboBox<T> cb = new JComboBox<>();
+
+        configure(cb);
+
+        return cb;
+    }
+
+    private static void configure(JComboBox<?> cb) {
         // For future usage
     }
 

@@ -359,8 +359,7 @@ public class WordsetsPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         panelWordsets = org.jphototagger.resources.UiFactory.panel();
-        comboBoxWordsetNames = new javax.swing.JComboBox<>();
-        org.jphototagger.resources.UiFactory.configure(comboBoxWordsetNames);
+        comboBoxWordsetNames = org.jphototagger.resources.UiFactory.comboBox();
         buttonRemoveWordset = org.jphototagger.resources.UiFactory.button();
         buttonEditWordset = org.jphototagger.resources.UiFactory.button();
         buttonAddWordset = org.jphototagger.resources.UiFactory.button();
