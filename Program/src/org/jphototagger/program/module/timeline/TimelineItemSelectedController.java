@@ -235,7 +235,14 @@ public final class TimelineItemSelectedController implements TreeSelectionListen
         if (dateCreated != null && selectedDate != null) {
             Date xmpDate = new Date(1800, 1, 1);
             xmpDate.setXmpDateCreated(dateCreated);
-            dateEqualsSelected = xmpDate.equals(selectedDate);
+            if (selectedDate.hasOnlyYear()) {
+                dateEqualsSelected = xmpDate.year == selectedDate.year;
+            } else if (selectedDate.hasOnlyYearAndMonth()) {
+                dateEqualsSelected = xmpDate.year == selectedDate.year
+                        && xmpDate.month == selectedDate.month;
+            } else {
+                dateEqualsSelected = xmpDate.equals(selectedDate);
+            }
         }
         if (dateSelected && displayed && dateEqualsSelected) {
             return false;

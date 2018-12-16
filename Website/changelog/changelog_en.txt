@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.1 2018-12-16
+-----------------
+
+* If a complete year or complete month is selected in
+  timeline, the selection will be kept and not all
+  thumbnails will be reloaded.
+
 0.42.0 2018-12-15
 -----------------
 

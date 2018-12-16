@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.1 2018-12-16
+-----------------
+
+* Ist in der Zeitleiste ein komplettes Jahr oder ein
+  kompletter Monat ausgewählt, bleibt während des Taggens
+  die Auswahl erhalten und es werden nicht mehr alle
+  Vorschaubilder neu geladen.
+
 0.42.0 2018-12-15
 -----------------
 

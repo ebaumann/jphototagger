@@ -509,6 +509,14 @@ public final class Timeline {
             return year > 0;
         }
 
+        public boolean hasOnlyYear() {
+            return hasYear() && !hasMonth() && !hasDay();
+        }
+
+        public boolean hasOnlyYearAndMonth() {
+            return hasYear() && hasMonth() && !hasDay();
+        }
+
         /**
          * Returns whether the year, month and day is greater than zero.
          *
