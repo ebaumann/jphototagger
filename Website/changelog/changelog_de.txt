@@ -10,6 +10,8 @@ Changelog JPhotoTagger https://jphototagger.org/
   kompletter Monat ausgewählt, bleibt während des Taggens
   die Auswahl erhalten und es werden nicht mehr alle
   Vorschaubilder neu geladen.
+* Zu den Datei-Import-Ordner-Schablonen JJJJ/MM hinzugefügt:
+  Pro Jahr ein Ordner, darunter einer pro Monat.
 
 0.42.0 2018-12-15
 -----------------

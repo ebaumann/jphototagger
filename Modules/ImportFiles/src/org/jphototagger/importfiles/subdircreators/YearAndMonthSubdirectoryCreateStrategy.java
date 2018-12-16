@@ -10,7 +10,7 @@ import org.openide.util.lookup.ServiceProvider;
  * @author Elmar Baumann
  */
 @ServiceProvider(service = SubdirectoryCreateStrategy.class)
-public final class YearAndDateSubdirectoryCreateStrategy implements SubdirectoryCreateStrategy {
+public final class YearAndMonthSubdirectoryCreateStrategy implements SubdirectoryCreateStrategy {
 
     @Override
     public String suggestSubdirectoryName(File file) {
@@ -21,17 +21,18 @@ public final class YearAndDateSubdirectoryCreateStrategy implements Subdirectory
         String dateString = NameUtil.getDateString(file);
         String[] dateToken = dateString.split("-");
         String yearString = dateToken[0];
-        return yearString + File.separator + dateString;
+        String monthString = dateToken[1];
+        return yearString + File.separator + monthString;
     }
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(YearAndDateSubdirectoryCreateStrategy.class, "YearAndDateSubdirectoryCreateStrategy.Displayname",
+        return Bundle.getString(YearAndMonthSubdirectoryCreateStrategy.class, "YearAndMonthSubdirectoryCreateStrategy.Displayname",
                 File.separator);
     }
 
     @Override
     public int getPosition() {
-        return 300;
+        return 400;
     }
 }

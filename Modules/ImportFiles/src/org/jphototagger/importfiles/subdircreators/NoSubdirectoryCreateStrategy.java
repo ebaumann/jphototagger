@@ -18,7 +18,7 @@ public final class NoSubdirectoryCreateStrategy implements SubdirectoryCreateStr
 
     @Override
     public String getDisplayName() {
-        return Bundle.getString(DateSubdirectoryCreateStrategy.class, "NoSubdirectoryCreateStrategy.Displayname");
+        return Bundle.getString(NoSubdirectoryCreateStrategy.class, "NoSubdirectoryCreateStrategy.Displayname");
     }
 
     @Override

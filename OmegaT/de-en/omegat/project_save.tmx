@@ -4034,6 +4034,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Automatisch Unterordner erzeugen anhand des Aufnahmedatums im Format JJJJ{0}MM, z.B. 2018{0}12</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181216T150735Z" creationid="elmar" creationdate="20181216T150735Z">
+        <seg>Automatically create subfolders corresponding to the date taken, format YYYY{0}MM, e.g. 2018{0}12</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Automatisch gesicherte JPhotoTagger-Daten</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
