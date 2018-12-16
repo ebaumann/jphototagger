@@ -191,8 +191,8 @@ public class ThumbnailSizePanel extends PanelExt implements AWTEventListener, Ch
         thumbnailSizeSlider.setSnapToTicks(true);
         thumbnailSizeSlider.setToolTipText(Bundle.getString(getClass(), "ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
         thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
-        thumbnailSizeSlider.setMinimumSize(UiFactory.dimension(50, 20));
-        thumbnailSizeSlider.setPreferredSize(UiFactory.dimension(50, 20));
+        thumbnailSizeSlider.setMinimumSize(UiFactory.dimension(85, 20));
+        thumbnailSizeSlider.setPreferredSize(UiFactory.dimension(85, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;
