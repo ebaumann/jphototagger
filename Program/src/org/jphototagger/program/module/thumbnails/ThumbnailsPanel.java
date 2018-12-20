@@ -135,6 +135,7 @@ public class ThumbnailsPanel extends PanelExt
     private Popup messagePopup;
     private Object messagePopupOwner;
     private int cursorPos = -1;
+    private int oldCursorPos = 0;
 
     public ThumbnailsPanel() {
         ctrlDoubleklick = new ThumbnailDoubleklickController(this);
@@ -241,13 +242,6 @@ public class ThumbnailsPanel extends PanelExt
             }
             notifySelectionChanged();
         }
-    }
-
-    private synchronized int getFirstSelectedIndex() {
-        if (selectedThumbnailIndices.size() > 0) {
-            return selectedThumbnailIndices.get(0);
-        }
-        return -1;
     }
 
     private synchronized int getSelectedIndex() {
@@ -528,22 +522,21 @@ public class ThumbnailsPanel extends PanelExt
             int thumbnailIndex = getThumbnailIndexAtPoint(evt.getX(), evt.getY());
             if (isIndex(thumbnailIndex)) {
                 transferDataOfDraggedThumbnails = true;
+                setCursorPos(thumbnailIndex);
                 if (MouseEventUtil.isDoubleClick(evt)) {
                     doubleClickAt(thumbnailIndex);
                     setSelectedAtIndex(thumbnailIndex);
-                } else if (evt.isControlDown()) {
-                    if (!isSelectedAtIndex(thumbnailIndex)) {
-                        addIndexToSelection(thumbnailIndex);
-                    } else {
-                        removeIndexFromSelection(thumbnailIndex);
-                    }
                 } else if (evt.isShiftDown()) {
-                    enhanceSelectionTo(thumbnailIndex);
+                    setSelectedRange(oldCursorPos, getCursorPos(), evt.isControlDown());
+                } else if (evt.isControlDown()) {
+                    toggleSelection(thumbnailIndex);
                 } else {
                     if (isClickInSelection(evt)) {
                         isClickInSelection = thumbnailIndex;
                     } else {
                         setSelectedAtIndex(thumbnailIndex);
+                        setCursorPos(thumbnailIndex);
+                        oldCursorPos = thumbnailIndex;
                     }
                 }
             } else {
@@ -607,36 +600,28 @@ public class ThumbnailsPanel extends PanelExt
         notifySelectionChanged();
     }
 
-    private void enhanceSelectionTo(int index) {
-        boolean isEnhance;
-        synchronized (this) {
-            isEnhance = isAFileSelected();
-            if (isEnhance) {
-                Set<Integer> rerenderTargets = new HashSet<>(selectedThumbnailIndices);
-                int firstSelected = getFirstSelectedIndex();
-                selectedThumbnailIndices.clear();
-                int startIndex = (index > firstSelected)
-                        ? firstSelected
-                        : index;
-                int endIndex = (index > firstSelected)
-                        ? index
-                        : firstSelected;
-                for (int i = startIndex; i <= endIndex; i++) {
-                    selectedThumbnailIndices.add(i);
-                }
-                rerenderTargets.addAll(selectedThumbnailIndices);
-                rerender(rerenderTargets);
-                repaint();
-            } else {
-                setSelectedAtIndex(index);
-            }
+    private void setSelectedRange(int low, int high, boolean incremental) {
+        Set<Integer> selection = new HashSet<>();
+        /* gracefully handle flipper arguments */
+        if (low > high) {
+            int temp = low;
+            low = high;
+            high = temp;
         }
-        if (isEnhance) {
-            notifySelectionChanged();
+        for (int i = low; i <= high; i++) {
+            selection.add(i);
         }
+        if (incremental) {
+            selection.addAll(selectedThumbnailIndices);
+            /* potentially remove duplicates */
+            selection = getValidIndicesOf(selection);
+        }
+        setSelectedIndices(getValidIndicesOf(selection));
+
+        setSelectedIndices(selection);
     }
 
-    public void setSelectedIndices(List<Integer> indices) {
+    public void setSelectedIndices(Collection<Integer> indices) {
         if (indices == null) {
             throw new NullPointerException("indices == null");
         }
@@ -1126,7 +1111,8 @@ public class ThumbnailsPanel extends PanelExt
                     clearSelectionAndFlags();
                     ThumbnailsPanel.this.files.clear();
                     ThumbnailsPanel.this.files.addAll(files);
-                    scrollToTop();
+                    setCursorPos(-1);
+                    oldCursorPos = 0;
                     setFlags();
                     notifyThumbnailsChanged();
                     forceRepaint();
@@ -1289,45 +1275,69 @@ public class ThumbnailsPanel extends PanelExt
     public void componentHidden(ComponentEvent evt) {
     }
 
-    private synchronized void setSelectedUp() {
-        int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect = indexSelectedThumbnail - thumbnailCountPerRow;
-        if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
-            setSelectedAtIndex(indexToSelect);
+    private void handleCursorAndSelection(KeyEvent evt) {
+        if ((evt.getModifiers() & (KeyEvent.SHIFT_MASK | KeyEvent.CTRL_MASK)) == 0) {
+            setSelectedAtIndex(getCursorPos());
+            oldCursorPos = getCursorPos();
+        } else if ((evt.getModifiers() & KeyEvent.SHIFT_MASK) != 0) {
+            setSelectedRange(oldCursorPos, getCursorPos(),
+                             (evt.getModifiers() & KeyEvent.CTRL_MASK) != 0);
         }
     }
 
-    private synchronized void setSelectedDown() {
-        int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect = indexSelectedThumbnail + thumbnailCountPerRow;
-        if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
-            setSelectedAtIndex(indexToSelect);
-        }
+    private synchronized void handleUp(KeyEvent evt) {
+        advanceCursorPos(-thumbnailCountPerRow);
+        handleCursorAndSelection(evt);
     }
 
-    private synchronized void setSelectedNext() {
-        int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect = (indexSelectedThumbnail + 1) % files.size();
-        if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
-            if (indexToSelect == 0) {
-                scrollToTop();
-            }
-            setSelectedAtIndex(indexToSelect);
-        }
+    private synchronized void handlePageUp(KeyEvent evt) {
+        int visibleRows = getViewport().getHeight() /
+                (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
+        advanceCursorPos(-thumbnailCountPerRow * visibleRows);
+        handleCursorAndSelection(evt);
     }
 
-    private synchronized void setSelectedPrevious() {
-        int indexSelectedThumbnail = getSelectedIndex();
-        int indexToSelect = (indexSelectedThumbnail - 1) % files.size();
-        if (indexToSelect < 0) {
-            indexToSelect = files.size() - 1;
+    private synchronized void handleDown(KeyEvent evt) {
+        advanceCursorPos(thumbnailCountPerRow);
+        handleCursorAndSelection(evt);
+    }
+
+    private synchronized void handlePageDown(KeyEvent evt) {
+        int visibleRows = getViewport().getHeight() /
+                (renderer.getThumbnailAreaHeight() + MARGIN_THUMBNAIL);
+        advanceCursorPos(thumbnailCountPerRow * visibleRows);
+        handleCursorAndSelection(evt);
+    }
+
+    private synchronized void handleNext(KeyEvent evt) {
+        advanceCursorPos(1);
+        handleCursorAndSelection(evt);
+    }
+
+    private synchronized void handlePrevious(KeyEvent evt) {
+        advanceCursorPos(-1);
+        handleCursorAndSelection(evt);
+    }
+
+    private synchronized void handleHome(KeyEvent evt) {
+        setCursorPos(0);
+        handleCursorAndSelection(evt);
+    }
+
+    private synchronized void handleEnd(KeyEvent evt) {
+        setCursorPos(files.size() - 1);
+        handleCursorAndSelection(evt);
+    }
+
+    private synchronized void toggleSelection(int index) {
+        if (! isIndex(index))
+            return;
+        if (!isSelectedAtIndex(index)) {
+            addIndexToSelection(index);
+        } else {
+            removeIndexFromSelection(index);
         }
-        if ((indexSelectedThumbnail >= 0) && isIndex(indexToSelect)) {
-            if (indexToSelect >= files.size() - 1) {
-                scrollToBottom();
-            }
-            setSelectedAtIndex(indexToSelect);
-        }
+        oldCursorPos = getCursorPos();
     }
 
     /**
@@ -1351,54 +1361,40 @@ public class ThumbnailsPanel extends PanelExt
         return cursorPos;
     }
 
+    private void advanceCursorPos(int relPos)
+    {
+        int newCursor = cursorPos + relPos;
+        if (newCursor < 0) {
+            newCursor = 0;
+        } else if (newCursor >= files.size()) {
+            newCursor = files.size() - 1;
+        }
+        setCursorPos(newCursor);
+    }
+    private void setCursorPos(int newPos) {
+        cursorPos = newPos;
+
+        if (cursorPos < 0) {
+            scrollToTop();
+            return;
+        }
+
+        int cursorYMin = getTopLeftOfTnIndex(cursorPos).y;
+        int cursorYMax = cursorYMin + renderer.getThumbnailAreaHeight();
+        int viewYMin = getViewPosition().y;
+        int viewYMax = viewYMin + getViewport().getHeight();
+
+        /* make sure cursor is in visible range */
+        if (cursorYMin < viewYMin) {
+            setViewPosition(new Point(0, cursorYMin - MARGIN_THUMBNAIL));
+        } else if (cursorYMax > viewYMax) {
+            setViewPosition(new Point(0, cursorYMax - getViewport().getHeight() + MARGIN_THUMBNAIL));
+        }
+        repaint();
+    }
+
     public void scrollToTop() {
         setViewPosition(new Point(0, 0));
-    }
-
-    private void scrollToBottom() {
-        setViewPosition(new Point(0, getHeight()));
-    }
-
-    private void checkScrollUp() {
-        if ((viewport != null) && (getSelectedIndex() >= 0)) {
-            int tnHeight = renderer.getThumbnailAreaHeight();
-            int topSel = getTopLeftOfTnIndex(getSelectedIndex()).y - tnHeight;
-            int viewPosBottom = viewport.getViewPosition().y;
-            if (topSel < viewPosBottom) {
-                scrollOneImageUp();
-            }
-        }
-    }
-
-    private void checkScrollDown() {
-        if ((viewport != null) && (getSelectedIndex() >= 0)) {
-            int tnHeight = renderer.getThumbnailAreaHeight();
-            int bottomSel = getTopLeftOfTnIndex(getSelectedIndex()).y + tnHeight;
-            int viewPosBottom = viewport.getViewPosition().y + viewport.getHeight();
-            if (bottomSel > viewPosBottom) {
-                scrollOneImageDown();
-            }
-        }
-    }
-
-    private void scrollOneImageUp() {
-        if (viewport != null) {
-            Point p = viewport.getViewPosition();
-            int tnHeight = renderer.getThumbnailAreaHeight();
-            int y = (p.y - tnHeight >= 0)
-                    ? p.y - tnHeight
-                    : 0;
-            validateScrollPane();
-            viewport.setViewPosition(new Point(0, y));
-        }
-    }
-
-    private void scrollOneImageDown() {
-        if (viewport != null) {
-            Point p = viewport.getViewPosition();
-            validateScrollPane();
-            viewport.setViewPosition(new Point(0, p.y + renderer.getThumbnailAreaHeight()));
-        }
     }
 
     @Override
@@ -1443,29 +1439,27 @@ public class ThumbnailsPanel extends PanelExt
         if (keyCode == KeyEvent.VK_F5) {
             refresh();
         } else if (keyCode == KeyEvent.VK_RIGHT) {
-            setSelectedNext();
-            checkScrollDown();
+            handleNext(evt);
         } else if (keyCode == KeyEvent.VK_LEFT) {
-            setSelectedPrevious();
-            checkScrollUp();
+            handlePrevious(evt);
         } else if (keyCode == KeyEvent.VK_UP) {
-            setSelectedUp();
-            checkScrollUp();
+            handleUp(evt);
         } else if (keyCode == KeyEvent.VK_DOWN) {
-            setSelectedDown();
-            checkScrollDown();
+            handleDown(evt);
         } else if (keyCode == KeyEvent.VK_ENTER) {
             handleMouseDoubleKlicked();
         } else if ((evt.getModifiers() & KeyEvent.CTRL_MASK) == KeyEvent.CTRL_MASK && (keyCode == KeyEvent.VK_A)) {
             setSelectedAll(true);
+        } else if ((evt.getModifiers() & KeyEvent.CTRL_MASK) == KeyEvent.CTRL_MASK && (keyCode == KeyEvent.VK_SPACE)) {
+            toggleSelection(getCursorPos());
         } else if (keyCode == KeyEvent.VK_HOME) {
-            clearSelection();
-            scrollToTop();
+            handleHome(evt);
         } else if (keyCode == KeyEvent.VK_END) {
-            clearSelection();
-            scrollToBottom();
-        } else if ((keyCode == KeyEvent.VK_PAGE_DOWN) || (keyCode == KeyEvent.VK_PAGE_UP)) {
-            clearSelection();
+            handleEnd(evt);
+        } else if (keyCode == KeyEvent.VK_PAGE_DOWN) {
+            handlePageDown(evt);
+        } else if (keyCode == KeyEvent.VK_PAGE_UP) {
+            handlePageUp(evt);
         }
     }
 
