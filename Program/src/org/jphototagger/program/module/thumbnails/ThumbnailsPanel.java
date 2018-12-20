@@ -134,6 +134,7 @@ public class ThumbnailsPanel extends PanelExt
     private final Set<ThumbnailFlag> flagsToDisplay = EnumSet.of(ThumbnailFlag.ERROR_FILE_NOT_FOUND);
     private Popup messagePopup;
     private Object messagePopupOwner;
+    private int cursorPos = -1;
 
     public ThumbnailsPanel() {
         ctrlDoubleklick = new ThumbnailDoubleklickController(this);
@@ -792,6 +793,7 @@ public class ThumbnailsPanel extends PanelExt
         if (drag) {
             renderer.paintImgDropMarker(g);
         }
+        renderer.paintCursor(g);
     }
 
     private void paintPanelBackground(Graphics g) {
@@ -1343,6 +1345,10 @@ public class ThumbnailsPanel extends PanelExt
 
     private synchronized JViewport getViewport() {
         return viewport;
+    }
+
+    public int getCursorPos() {
+        return cursorPos;
     }
 
     public void scrollToTop() {
