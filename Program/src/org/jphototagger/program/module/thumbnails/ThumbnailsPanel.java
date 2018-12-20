@@ -626,9 +626,16 @@ public class ThumbnailsPanel extends PanelExt
             throw new NullPointerException("indices == null");
         }
         synchronized (this) {
-            Set<Integer> rerenderTargets = getValidIndicesOf(indices);
+            /* emulate set Xor to compute minimal set of rerender targets */
+            Set<Integer> oldSelection = new HashSet<>(selectedThumbnailIndices);
+            Set<Integer> newSelection = getValidIndicesOf(indices);
+            Set<Integer> rerenderTargets = new HashSet<>(oldSelection);
+            rerenderTargets.addAll(newSelection);      /* union */
+            oldSelection.retainAll(newSelection);      /* intersection */
+            rerenderTargets.removeAll(oldSelection);   /* xor */
+
             selectedThumbnailIndices.clear();
-            selectedThumbnailIndices.addAll(indices);
+            selectedThumbnailIndices.addAll(newSelection);
             if (selectedThumbnailIndices.size() > 0) {
                 Collections.sort(selectedThumbnailIndices);
             }
