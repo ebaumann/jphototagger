@@ -1,6 +1,7 @@
 package org.jphototagger.program.factory;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.util.Collection;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
@@ -122,7 +123,7 @@ public class InstalledModulesPanel extends PanelExt implements OptionPageProvide
 
         panelModuleDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "InstalledModulesPanel.panelModuleDescription.border.title"))); // NOI18N
         panelModuleDescription.setName("panelModuleDescription"); // NOI18N
-        panelModuleDescription.setPreferredSize(UiFactory.dimension(100, 75));
+        panelModuleDescription.setPreferredSize(new Dimension(100, 75));
         panelModuleDescription.setLayout(new java.awt.GridBagLayout());
 
         labelModuleDescription.setLineWrap(true);

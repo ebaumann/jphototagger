@@ -85,6 +85,7 @@ public class KeywordsTreeSettingsPanel extends PanelExt implements OptionPagePro
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 0, 7);
         add(checkBoxAutoInsertUnknownKeywords, gridBagConstraints);
     }
 

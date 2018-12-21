@@ -2,6 +2,7 @@ package org.jphototagger.importfiles;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -690,7 +691,7 @@ public class ImportImageFilesDialog extends DialogExt {
         panelSourceDirectory.setLayout(new java.awt.GridBagLayout());
 
         labelSourceDir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelSourceDir.setPreferredSize(UiFactory.dimension(400, 16));
+        labelSourceDir.setPreferredSize(new Dimension(400, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -713,7 +714,7 @@ public class ImportImageFilesDialog extends DialogExt {
         panelSelectedFiles.setLayout(new java.awt.GridBagLayout());
 
         labelChoosenFiles.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelChoosenFiles.setPreferredSize(UiFactory.dimension(400, 16));
+        labelChoosenFiles.setPreferredSize(new Dimension(400, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
@@ -873,7 +874,7 @@ public class ImportImageFilesDialog extends DialogExt {
         panelTargetDir.setLayout(new java.awt.GridBagLayout());
 
         labelTargetDir.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        labelTargetDir.setPreferredSize(UiFactory.dimension(400, 16));
+        labelTargetDir.setPreferredSize(new Dimension(400, 16));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;

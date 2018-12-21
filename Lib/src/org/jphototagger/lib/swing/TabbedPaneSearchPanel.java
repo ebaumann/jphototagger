@@ -599,7 +599,7 @@ public class TabbedPaneSearchPanel extends PanelExt implements ComponentListener
         labelSearch.setName("labelSearch"); // NOI18N
         add(labelSearch, new java.awt.GridBagConstraints());
 
-        textFieldSearch.setColumns(10);
+        textFieldSearch.setColumns(15);
         textFieldSearch.setName("textFieldSearch"); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

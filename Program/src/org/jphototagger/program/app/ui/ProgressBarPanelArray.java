@@ -127,7 +127,7 @@ public class ProgressBarPanelArray extends PanelExt implements ProgressBarPanelL
     private void repaintHiddenProgressBars() {
         ComponentUtil.forceRepaint(panelHiddenProgressBars);
         Dimension size = panelHiddenProgressBars.getPreferredSize();
-        scrollPaneHiddenProgressBars.setPreferredSize(UiFactory.dimension(size.width + 2, size.height + 2));
+        scrollPaneHiddenProgressBars.setPreferredSize(new Dimension(size.width + 2, size.height + 2));
         ComponentUtil.forceRepaint(dialogHiddenProgressBars);
         setProgressBarDialogLocation();
     }

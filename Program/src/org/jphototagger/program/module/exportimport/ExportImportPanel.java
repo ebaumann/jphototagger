@@ -1,6 +1,7 @@
 package org.jphototagger.program.module.exportimport;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -390,6 +391,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
 
         panelSelectObjects.setName("panelSelectObjects"); // NOI18N
         scrollPane.setViewportView(panelSelectObjects);
+        scrollPane.setPreferredSize(new Dimension(200, 200));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;

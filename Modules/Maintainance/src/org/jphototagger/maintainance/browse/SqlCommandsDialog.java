@@ -1,5 +1,6 @@
 package org.jphototagger.maintainance.browse;
 
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -160,7 +161,7 @@ public class SqlCommandsDialog extends DialogExt {
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
-        scrollPaneCommands.setPreferredSize(UiFactory.dimension(200, 250));
+        scrollPaneCommands.setPreferredSize(new Dimension(200, 250));
         scrollPaneCommands.setViewportView(listCommands);
 
         gridBagConstraints = new java.awt.GridBagConstraints();

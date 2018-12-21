@@ -1,5 +1,6 @@
 package org.jphototagger.program.app.ui;
 
+import java.awt.Dimension;
 import java.awt.event.MouseListener;
 import java.util.Set;
 import org.jphototagger.api.concurrent.Cancelable;
@@ -131,7 +132,7 @@ public class ProgressBarPanel extends PanelExt implements ProgressHandle {
 
         progressBar.setMaximumSize(UiFactory.dimension(300, 20));
         progressBar.setName("progressBar"); // NOI18N
-        progressBar.setPreferredSize(UiFactory.dimension(250, 20));
+        progressBar.setPreferredSize(new Dimension(250, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;

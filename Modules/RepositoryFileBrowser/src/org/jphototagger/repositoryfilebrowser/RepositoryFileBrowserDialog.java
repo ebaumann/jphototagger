@@ -1,6 +1,7 @@
 package org.jphototagger.repositoryfilebrowser;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.List;
@@ -35,7 +36,7 @@ public final class RepositoryFileBrowserDialog extends DialogExt {
     private FileNode selectedFileNode;
     private final NodesListModel nodesListModel = new NodesListModel();
     private ListTextFilter listTextFilter;
-    private final BusyPanel busyPanel = new BusyPanel(UiFactory.dimension(200, 200));
+    private final BusyPanel busyPanel = new BusyPanel(new Dimension(200, 200));
 
     public RepositoryFileBrowserDialog(java.awt.Frame parent) {
         super(parent, true);
@@ -255,7 +256,7 @@ public final class RepositoryFileBrowserDialog extends DialogExt {
         panelContent.getContentPane().add(panelFilter, gridBagConstraints);
 
         scrollPaneFiles.setName("scrollPaneFiles"); // NOI18N
-        scrollPaneFiles.setPreferredSize(UiFactory.dimension(400, 131));
+        scrollPaneFiles.setPreferredSize(new Dimension(400, 150));
 
         listFiles.setModel(nodesListModel);
         listFiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -336,7 +337,8 @@ public final class RepositoryFileBrowserDialog extends DialogExt {
 
         panelThumbnail.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelThumbnail.border.title"))); // NOI18N
         panelThumbnail.setName("panelThumbnail"); // NOI18N
-        panelThumbnail.setPreferredSize(UiFactory.dimension(150, 150));
+        panelThumbnail.setMinimumSize(new Dimension(150, 150));
+        panelThumbnail.setPreferredSize(new Dimension(150, 150));
         panelThumbnail.setLayout(new java.awt.GridBagLayout());
 
         imagePanel.setImageIsAbsentText(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.imagePanel.imageIsAbsentText")); // NOI18N
@@ -363,7 +365,7 @@ public final class RepositoryFileBrowserDialog extends DialogExt {
 
         panelDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelDetails.border.title"))); // NOI18N
         panelDetails.setName("panelDetails"); // NOI18N
-        panelDetails.setPreferredSize(UiFactory.dimension(325, 229));
+        panelDetails.setPreferredSize(new Dimension(350, 250));
         panelDetails.setLayout(new java.awt.GridBagLayout());
 
         panelImageFile.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelImageFile.border.title"))); // NOI18N

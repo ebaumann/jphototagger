@@ -1,5 +1,6 @@
 package org.jphototagger.maintainance.browse;
 
+import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -108,7 +109,7 @@ public class ResultSetBrowserPanel extends PanelExt {
         gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
         add(panelButtons, gridBagConstraints);
 
-        srollPaneSql.setPreferredSize(UiFactory.dimension(600, 150));
+        srollPaneSql.setPreferredSize(new Dimension(600, 150));
 
         textAreaSql.setColumns(40);
         textAreaSql.setRows(5);
@@ -141,7 +142,7 @@ public class ResultSetBrowserPanel extends PanelExt {
         gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         add(panelFilter, gridBagConstraints);
 
-        scrollPaneTable.setPreferredSize(UiFactory.dimension(800, 400));
+        scrollPaneTable.setPreferredSize(new Dimension(800, 400));
 
         table.setAutoCreateRowSorter(true);
         table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);

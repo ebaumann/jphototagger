@@ -609,7 +609,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         panelContents.setLayout(new java.awt.GridBagLayout());
 
         scrollPaneTree.setName("scrollPaneTree"); // NOI18N
-        scrollPaneTree.setPreferredSize(UiFactory.dimension(150, 10));
+        scrollPaneTree.setPreferredSize(UiFactory.dimension(150, 20));
 
         tree.setModel(null);
         tree.setCellRenderer(new HelpContentsTreeCellRenderer());
@@ -678,7 +678,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         panelPage.setLayout(new java.awt.GridBagLayout());
 
         scrollPanePage.setName("scrollPanePage"); // NOI18N
-        scrollPanePage.setPreferredSize(UiFactory.dimension(200, 24));
+        scrollPanePage.setPreferredSize(UiFactory.dimension(200, 100));
 
         editorPanePage.setEditable(false);
         editorPanePage.setFont(new java.awt.Font("Verdana", 0, UiFactory.scale(14))); // NOI18N

@@ -2,6 +2,7 @@ package org.jphototagger.program.module.thumbnails;
 
 import java.awt.AWTEvent;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.AWTEventListener;
 import java.awt.event.KeyEvent;
@@ -191,8 +192,8 @@ public class ThumbnailSizePanel extends PanelExt implements AWTEventListener, Ch
         thumbnailSizeSlider.setSnapToTicks(true);
         thumbnailSizeSlider.setToolTipText(Bundle.getString(getClass(), "ThumbnailSizePanel.thumbnailSizeSlider.toolTipText")); // NOI18N
         thumbnailSizeSlider.setName("thumbnailSizeSlider"); // NOI18N
-        thumbnailSizeSlider.setMinimumSize(UiFactory.dimension(85, 20));
-        thumbnailSizeSlider.setPreferredSize(UiFactory.dimension(85, 20));
+        thumbnailSizeSlider.setMinimumSize(new Dimension(85, 20));
+        thumbnailSizeSlider.setPreferredSize(new Dimension(85, 20));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weighty = 1.0;

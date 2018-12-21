@@ -1,6 +1,7 @@
 package org.jphototagger.lib.swing;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -385,7 +386,7 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
         panelContents.setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(UiFactory.dimension(400, 400));
+        scrollPane.setPreferredSize(new Dimension(400, 400));
 
         javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
         tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));

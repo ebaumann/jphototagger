@@ -51,7 +51,7 @@ public class ExpandCollapseComponentPanel extends PanelExt implements FocusListe
         addComponent(component);
         decorateButton();
         Dimension buttonSize = buttonExpandCollapse.getPreferredSize();
-        buttonSize = UiFactory.dimension((int) (buttonSize.width * 0.66), (int) (buttonSize.height * 0.66));
+        buttonSize = new Dimension((int) (buttonSize.width * 0.66), (int) (buttonSize.height * 0.66));
         buttonExpandCollapse.setPreferredSize(buttonSize);
     }
 

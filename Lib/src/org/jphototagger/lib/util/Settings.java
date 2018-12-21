@@ -33,7 +33,6 @@ import javax.swing.tree.TreePath;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.swing.util.ListUtil;
 import org.jphototagger.lib.swing.util.TreeUtil;
-import org.jphototagger.resources.UiFactory;
 
 /**
  * A settings object writes the state of several objects to a
@@ -843,7 +842,7 @@ public final class Settings {
                 if (height < preferredSize.height) {
                     height = preferredSize.height;
                 }
-                Dimension dimension = UiFactory.dimension(width, height);
+                Dimension dimension = new Dimension(width, height);
                 component.setPreferredSize(dimension);
                 component.setSize(dimension);
             } catch (Throwable t) {

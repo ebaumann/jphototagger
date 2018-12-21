@@ -390,7 +390,7 @@ public final class UiFactory {
     }
 
     private static void configure(JTextPane tp) {
-        // For future Usage
+        tp.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, true);
     }
 
     public static JEditorPane editorPane() {
@@ -402,7 +402,7 @@ public final class UiFactory {
     }
 
     private static void configure(JEditorPane ep) {
-        // For future Usage
+        ep.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);
     }
 
     public static JPanel panel() {

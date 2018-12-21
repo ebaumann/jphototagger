@@ -1,6 +1,7 @@
 package org.jphototagger.importfiles;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.beans.PropertyChangeEvent;
@@ -15,7 +16,6 @@ import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.io.filefilter.FileChooserFilter;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.util.Bundle;
-import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 //Code based on http://www.javalobby.org/java/forums/t49462.html
@@ -39,7 +39,7 @@ public class ImagePreviewPanel extends PanelExt implements PropertyChangeListene
 
     private void init() {
         bg = getBackground();
-        setPreferredSize(UiFactory.dimension(SIZE, -1));
+        setPreferredSize(new Dimension(SIZE, -1));
     }
 
     @Override

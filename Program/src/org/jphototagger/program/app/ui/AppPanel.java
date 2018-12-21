@@ -3,6 +3,7 @@ package org.jphototagger.program.app.ui;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -611,7 +612,7 @@ public final class AppPanel extends PanelExt {
         splitPaneMain.setName("splitPaneMain"); // NOI18N
         splitPaneMain.setOneTouchExpandable(true);
 
-        panelSelection.setMinimumSize(UiFactory.dimension(100, 200));
+        panelSelection.setMinimumSize(new Dimension(100, 200));
         panelSelection.setName("panelSelection"); // NOI18N
         panelSelection.setLayout(new java.awt.GridBagLayout());
 
@@ -1137,7 +1138,7 @@ public final class AppPanel extends PanelExt {
 
         splitPaneMain.setLeftComponent(panelSelection);
 
-        panelThumbnailsMetadata.setMinimumSize(UiFactory.dimension(100, 200));
+        panelThumbnailsMetadata.setMinimumSize(new Dimension(100, 200));
         panelThumbnailsMetadata.setName("panelThumbnailsMetadata"); // NOI18N
         panelThumbnailsMetadata.setLayout(new java.awt.GridBagLayout());
 
@@ -1145,13 +1146,13 @@ public final class AppPanel extends PanelExt {
         splitPaneThumbnailsMetadata.setName("splitPaneThumbnailsMetadata"); // NOI18N
         splitPaneThumbnailsMetadata.setOneTouchExpandable(true);
 
-        thumbnailPanelComponent.setMinimumSize(UiFactory.dimension(150, 200));
+        thumbnailPanelComponent.setMinimumSize(new Dimension(150, 200));
         thumbnailPanelComponent.setName("thumbnailPanelComponent"); // NOI18N
-        thumbnailPanelComponent.setPreferredSize(UiFactory.dimension(300, 200));
+        thumbnailPanelComponent.setPreferredSize(new Dimension(300, 200));
         thumbnailPanelComponent.setLayout(new java.awt.GridBagLayout());
         splitPaneThumbnailsMetadata.setLeftComponent(thumbnailPanelComponent);
 
-        panelMetadata.setMinimumSize(UiFactory.dimension(100, 200));
+        panelMetadata.setMinimumSize(new Dimension(100, 200));
         panelMetadata.setName("panelMetadata"); // NOI18N
         panelMetadata.setLayout(new java.awt.GridBagLayout());
 

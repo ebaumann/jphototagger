@@ -1,6 +1,7 @@
 package org.jphototagger.program.module.filesystem;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -390,13 +391,13 @@ public final class RenameDialog extends DialogExt {
         panelInputName.add(panelFolderPathname, gridBagConstraints);
 
         panelThumbnailBorder.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        panelThumbnailBorder.setMinimumSize(UiFactory.dimension(260, 260));
-        panelThumbnailBorder.setPreferredSize(UiFactory.dimension(260, 260));
+        panelThumbnailBorder.setMinimumSize(new Dimension(260, 260));
+        panelThumbnailBorder.setPreferredSize(new Dimension(260, 260));
         panelThumbnailBorder.setLayout(new java.awt.GridBagLayout());
 
         panelThumbnail.setEnabled(false);
         panelThumbnail.setFocusable(false);
-        panelThumbnail.setPreferredSize(UiFactory.dimension(250, 250));
+        panelThumbnail.setPreferredSize(new Dimension(250, 250));
         panelThumbnail.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

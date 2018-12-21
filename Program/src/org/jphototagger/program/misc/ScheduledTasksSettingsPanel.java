@@ -319,6 +319,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         add(panelTasksAutoscan, gridBagConstraints);
 
         panelTime.setName("panelTime"); // NOI18N

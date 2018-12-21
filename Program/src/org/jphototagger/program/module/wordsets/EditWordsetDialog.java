@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.wordsets;
 
+import java.awt.Dimension;
 import org.jphototagger.domain.wordsets.Wordset;
 import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.MessageDisplayer;
@@ -68,7 +69,7 @@ public class EditWordsetDialog extends DialogExt {
         });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        panelEditWordset.setPreferredSize(UiFactory.dimension(300, 200));
+        panelEditWordset.setPreferredSize(new Dimension(300, 200));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;

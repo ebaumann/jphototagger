@@ -2,6 +2,7 @@ package org.jphototagger.xmpmodule;
 
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -434,7 +435,7 @@ public final class FileEditorPanel extends PanelExt {
         panelContent.add(labelInfoFiles, gridBagConstraints);
 
         scrollPaneListFiles.setName("scrollPaneListFiles"); // NOI18N
-        scrollPaneListFiles.setPreferredSize(UiFactory.dimension(400, 200));
+        scrollPaneListFiles.setPreferredSize(new Dimension(400, 200));
 
         listFiles.setCellRenderer(new org.jphototagger.lib.swing.FileSystemListCellRenderer(true));
         listFiles.setEnabled(false);

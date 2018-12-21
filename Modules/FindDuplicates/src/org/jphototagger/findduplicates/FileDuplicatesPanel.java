@@ -1,5 +1,6 @@
 package org.jphototagger.findduplicates;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -154,7 +155,7 @@ public class FileDuplicatesPanel extends PanelExt {
                 thumbnail = ERROR_THUMBNAIL;
             }
             ImagePanel imagePanel = new ImagePanel();
-            imagePanel.setPreferredSize(UiFactory.dimension(thumbnail.getWidth(null), thumbnail.getHeight(null)));
+            imagePanel.setPreferredSize(new Dimension(thumbnail.getWidth(null), thumbnail.getHeight(null)));
             imagePanel.setImage(thumbnail);
             GridBagConstraints gbc = new GridBagConstraints();
             gbc.anchor = GridBagConstraints.NORTH;

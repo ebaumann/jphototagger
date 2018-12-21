@@ -24,6 +24,7 @@ import java.util.logging.XMLFormatter;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -712,6 +713,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         scrollPaneTextPaneDetails.setPreferredSize(UiFactory.dimension(50, 50));
 
         textPaneDetails.setEditable(false);
+        textPaneDetails.putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, true);
         textPaneDetails.setName("textPaneDetails"); // NOI18N
         scrollPaneTextPaneDetails.setViewportView(textPaneDetails);
 

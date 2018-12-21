@@ -1,6 +1,7 @@
 package org.jphototagger.maintainance;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JTextPane;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import org.jphototagger.api.concurrent.Cancelable;
@@ -506,9 +508,10 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelMessages.add(labelMessages, gridBagConstraints);
 
-        scrollPaneMessages.setPreferredSize(UiFactory.dimension(200, 150));
+        scrollPaneMessages.setPreferredSize(new Dimension(200, 150));
 
         textPaneMessages.setEditable(false);
+        putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, true);
         textPaneMessages.setContentType("text/html"); // NOI18N
         scrollPaneMessages.setViewportView(textPaneMessages);
 

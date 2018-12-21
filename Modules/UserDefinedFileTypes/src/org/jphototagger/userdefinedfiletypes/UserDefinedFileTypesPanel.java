@@ -1,5 +1,6 @@
 package org.jphototagger.userdefinedfiletypes;
 
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -118,7 +119,7 @@ public class UserDefinedFileTypesPanel extends PanelExt {
 
         setLayout(new java.awt.GridBagLayout());
 
-        scrollPane.setPreferredSize(UiFactory.dimension(300, 200));
+        scrollPane.setPreferredSize(new Dimension(300, 200));
 
         list.setModel(new org.jphototagger.userdefinedfiletypes.UserDefinedFileTypesListModel());
         list.addMouseListener(new java.awt.event.MouseAdapter() {

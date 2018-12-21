@@ -142,8 +142,9 @@ public class InputHelperDialog extends DialogExt {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 2.0;
-        gridBagConstraints.weighty = 2.0;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(7, 7, 0, 7);
         getContentPane().add(tabbedPane, gridBagConstraints);
 
         labelInfo.setText(Bundle.getString(getClass(), "InputHelperDialog.labelInfo.text")); // NOI18N
@@ -153,7 +154,7 @@ public class InputHelperDialog extends DialogExt {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
+        gridBagConstraints.insets = UiFactory.insets(5, 7, 7, 7);
         getContentPane().add(labelInfo, gridBagConstraints);
 
         pack();

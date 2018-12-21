@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.keywords;
 
+import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import org.jphototagger.lib.swing.PanelExt;
@@ -41,7 +42,7 @@ public class AddKeywortsViaShortcutsPanel extends PanelExt {
         gridBagConstraints.weightx = 1.0;
         add(labelInfo, gridBagConstraints);
 
-        scrollPane.setPreferredSize(UiFactory.dimension(400, 300));
+        scrollPane.setPreferredSize(new Dimension(400, 300));
         scrollPane.setViewportView(table);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
