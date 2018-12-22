@@ -260,10 +260,29 @@ public final class ComponentUtil {
         Objects.requireNonNull(escapeAction, "escapeAction == null");
 
         KeyStroke strokeEscape = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
-        for (Component component : container.getComponents()) {
+        for (Component component : getContainerAndItsChildrenRecursive(container)) {
             if (component instanceof JComponent) {
                 JComponent jComponent = (JComponent) component;
                 jComponent.registerKeyboardAction(escapeAction, strokeEscape, JComponent.WHEN_IN_FOCUSED_WINDOW);
+            }
+        }
+    }
+
+    public static Collection<Component> getContainerAndItsChildrenRecursive(Container container) {
+        Objects.requireNonNull(container, "container == null");
+        Collection<Component> containerAndChildren = new ArrayList<>();
+        addContainerAndItsChildrenRecursive(container, containerAndChildren);
+        return containerAndChildren;
+    }
+
+    private static void addContainerAndItsChildrenRecursive(Container container, Collection<Component> containerAndChildren) {
+        containerAndChildren.add(container);
+        Component[] containerComponents = container.getComponents();
+        for (Component containerComponent : containerComponents) {
+            if (containerComponent instanceof Container) {
+                addContainerAndItsChildrenRecursive((Container) containerComponent, containerAndChildren);
+            } else {
+                containerAndChildren.add(containerComponent);
             }
         }
     }
