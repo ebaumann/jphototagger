@@ -21,6 +21,7 @@ import org.jphototagger.domain.metadata.exif.ExifCacheProvider;
 import org.jphototagger.exif.datatype.ExifAscii;
 import org.jphototagger.lib.swing.ObjectsSelectionDialog;
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
@@ -86,7 +87,7 @@ public class ExifSettingsPanel extends PanelExt implements OptionPageProvider {
     }
 
     private void addExcludeSuffixes() {
-        ObjectsSelectionDialog<String> dlg = new ObjectsSelectionDialog<>();
+        ObjectsSelectionDialog<String> dlg = new ObjectsSelectionDialog<>(ComponentUtil.findParentDialog(this));
         dlg.setTitle(Bundle.getString(ExifSettingsPanel.class, "ExifSettingsPanel.AddSuffixes.DialogTitle"));
         dlg.setObjects(getNotExcludeSuffixes());
         dlg.setVisible(true);

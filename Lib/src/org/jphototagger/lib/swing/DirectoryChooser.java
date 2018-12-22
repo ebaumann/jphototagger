@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -54,32 +56,38 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
     }
 
     /**
-     * Creates an instance.
-     *
-     * @param parent Elternframe
+     * @param owner
      * @param startDirectory start directory, will be selected or {@code new File("")}
      * @param options options
      */
-    public DirectoryChooser(java.awt.Frame parent, File startDirectory, Option... options) {
-        this(parent, startDirectory, Collections.<File>emptyList(), options);
+    public DirectoryChooser(java.awt.Frame owner, File startDirectory, Option... options) {
+        this(owner, startDirectory, Collections.<File>emptyList(), options);
     }
 
-    public DirectoryChooser(java.awt.Frame parent, File startDirectory,
-            Collection<? extends File> excludeRootDirectories, Option... options) {
+    /**
+     * @param owner
+     * @param startDirectory start directory, will be selected or {@code new File("")}
+     * @param options options
+     */
+    public DirectoryChooser(JDialog owner, File startDirectory, Option... options) {
+        this(owner, startDirectory, Collections.<File>emptyList(), options);
+    }
+
+    public DirectoryChooser(java.awt.Frame parent, File startDirectory, Collection<? extends File> excludeRootDirectories, Option... options) {
         super(parent, true);
-        if (startDirectory == null) {
-            throw new NullPointerException("startDirectory == null");
-        }
-        if (excludeRootDirectories == null) {
-            throw new NullPointerException("excludeRootDirectories == null");
-        }
-        if (options == null) {
-            throw new NullPointerException("options == null");
-        }
-        this.startDirectory = startDirectory;
-        this.options = Arrays.asList(options);
+        this.startDirectory = Objects.requireNonNull(startDirectory, "startDirectory == null");
+        this.options = Arrays.asList(Objects.requireNonNull(options, "options == null"));
         initComponents();
-        this.model = new AllSystemDirectoriesTreeModel(tree, excludeRootDirectories, getIsShowHiddenDirsFilter());
+        this.model = new AllSystemDirectoriesTreeModel(tree, Objects.requireNonNull(excludeRootDirectories, "excludeRootDirectories == null"), getIsShowHiddenDirsFilter());
+        postInitComponents();
+    }
+
+    public DirectoryChooser(JDialog owner, File startDirectory, Collection<? extends File> excludeRootDirectories, Option... options) {
+        super(owner, true);
+        this.startDirectory = Objects.requireNonNull(startDirectory, "startDirectory == null");
+        this.options = Arrays.asList(Objects.requireNonNull(options, "options == null"));
+        initComponents();
+        this.model = new AllSystemDirectoriesTreeModel(tree, Objects.requireNonNull(excludeRootDirectories, "excludeRootDirectories == null"), getIsShowHiddenDirsFilter());
         postInitComponents();
     }
 

@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -51,6 +52,16 @@ public final class ProgramPropertiesDialog extends DialogExt {
     public ProgramPropertiesDialog(boolean action) {
         super(GUI.getAppFrame(), true);
         this.action = action;
+        init();
+    }
+
+    public ProgramPropertiesDialog(JDialog owner, boolean action) {
+        super(owner, true);
+        this.action = action;
+        init();
+    }
+
+    private void init() {
         program.setAction(action);
         initComponents();
         postInitComponents();

@@ -109,7 +109,7 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
     }
 
     private void renameFilesInDb() {
-        RenameFilenamesInRepositoryDialog dlg = new RenameFilenamesInRepositoryDialog();
+        RenameFilenamesInRepositoryDialog dlg = new RenameFilenamesInRepositoryDialog(ComponentUtil.findParentDialog(this));
 
         setEnabledAllButtons(false);
         dlg.setVisible(true);

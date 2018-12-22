@@ -3,6 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.3 2018-12-22
+-----------------
+
+* Wo möglich, nach Beenden eines Dialogs vorheriges GUI ausgewählt.
+
 0.42.2 2018-12-21
 -----------------
 

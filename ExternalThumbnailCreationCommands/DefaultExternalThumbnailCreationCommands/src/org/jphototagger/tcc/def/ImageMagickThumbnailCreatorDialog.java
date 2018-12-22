@@ -1,5 +1,6 @@
 package org.jphototagger.tcc.def;
 
+import java.awt.GridBagConstraints;
 import org.jphototagger.api.branding.Branding;
 import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -47,7 +48,6 @@ public class ImageMagickThumbnailCreatorDialog extends DialogExt {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ImageMagickThumbnailCreatorDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setLayout(new java.awt.GridBagLayout());
 
@@ -104,7 +104,10 @@ public class ImageMagickThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
+        gridBagConstraints.gridheight = GridBagConstraints.REMAINDER;
         gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
         getContentPane().add(panelContent, gridBagConstraints);
 
         pack();

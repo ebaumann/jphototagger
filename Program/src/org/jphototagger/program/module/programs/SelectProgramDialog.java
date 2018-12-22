@@ -2,6 +2,8 @@ package org.jphototagger.program.module.programs;
 
 import java.awt.Container;
 import java.awt.event.MouseEvent;
+import java.util.Objects;
+import javax.swing.JDialog;
 import org.jphototagger.domain.programs.Program;
 import org.jphototagger.domain.programs.ProgramType;
 import org.jphototagger.lib.swing.DialogExt;
@@ -24,11 +26,19 @@ public class SelectProgramDialog extends DialogExt {
 
     public SelectProgramDialog(ProgramType type) {
         super(GUI.getAppFrame(), true);
-        if (type == null) {
-            throw new NullPointerException("type == null");
-        }
-        this.type = type;
+        this.type = Objects.requireNonNull(type, "type == null");
         model = new ProgramsListModel(type);
+        init();
+    }
+
+    public SelectProgramDialog(JDialog owner, ProgramType type) {
+        super(owner, true);
+        this.type = Objects.requireNonNull(type, "type == null");
+        model = new ProgramsListModel(type);
+        init();
+    }
+
+    private void init() {
         initComponents();
         postInitComponents();
     }

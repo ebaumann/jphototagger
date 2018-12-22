@@ -27,6 +27,7 @@ import org.jphototagger.lib.swing.FileChooserHelper;
 import org.jphototagger.lib.swing.FileChooserProperties;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
@@ -208,7 +209,7 @@ public class SettingsPanel extends PanelExt {
 
     private void addFileSuffixes() {
         String message = Bundle.getString(SettingsPanel.class, "SettingsPanel.AddFileSuffixes.Message");
-        String input = MessageDisplayer.input(message, "");
+        String input = MessageDisplayer.input(ComponentUtil.findParentDialog(this), message, "");
         if (StringUtil.hasContent(input)) {
             for (String suffix : input.split(",")) {
                 String sfx = suffix.trim();

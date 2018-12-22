@@ -1,5 +1,6 @@
 package org.jphototagger.maintainance;
 
+import javax.swing.JDialog;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -16,6 +17,15 @@ public class RenameFilenamesInRepositoryDialog extends DialogExt {
 
     public RenameFilenamesInRepositoryDialog() {
         super(ComponentUtil.findFrameWithIcon(), true);
+        init();
+    }
+
+    public RenameFilenamesInRepositoryDialog(JDialog owner) {
+        super(owner, true);
+        init();
+    }
+
+    private void init() {
         initComponents();
         postInitComponents();
     }

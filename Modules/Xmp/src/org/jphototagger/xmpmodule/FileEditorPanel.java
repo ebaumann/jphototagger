@@ -243,7 +243,7 @@ public final class FileEditorPanel extends PanelExt {
 
     private void selectDirectories() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
-        DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), prevSelectedDirectory, hideRootFiles, getDirChooserOptions());
+        DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findParentDialog(this), prevSelectedDirectory, hideRootFiles, getDirChooserOptions());
 
         dlg.setPreferencesKey("FileEditorPanel.DirChooser");
         dlg.setVisible(true);

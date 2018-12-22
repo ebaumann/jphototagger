@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.programs;
 
+import javax.swing.JDialog;
 import org.jphototagger.lib.swing.DialogExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -14,6 +15,15 @@ public class EditDefaultProgramsDialog extends DialogExt {
 
     public EditDefaultProgramsDialog() {
         super(ComponentUtil.findFrameWithIcon(), true);
+        init();
+    }
+
+    public EditDefaultProgramsDialog(JDialog owner) {
+        super(owner, true);
+        init();
+    }
+
+    private void init() {
         initComponents();
     }
 

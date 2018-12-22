@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JDialog;
 import org.jphototagger.domain.thumbnails.ThumbnailCreator;
 import org.jphototagger.lib.api.PositionProviderAscendingComparator;
 import org.jphototagger.lib.swing.DialogExt;
@@ -22,6 +23,15 @@ public class ThumbnailCreatorSettingsDialog extends DialogExt {
 
     public ThumbnailCreatorSettingsDialog() {
         super(ComponentUtil.findFrameWithIcon(), true);
+        init();
+    }
+
+    public ThumbnailCreatorSettingsDialog(JDialog owner) {
+        super(owner, true);
+        init();
+    }
+
+    private void init() {
         initComponents();
         postInitComponents();
     }

@@ -27,7 +27,6 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.CollectionUtil;
-import org.jphototagger.program.resource.GUI;
 import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
@@ -161,7 +160,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
     private void selectDirectory() {
         Option showHiddenDirs = getDirChooserOptionShowHiddenDirs();
         File lastDir = getLastDirForChooser();
-        DirectoryChooser dlg = new DirectoryChooser(GUI.getAppFrame(), lastDir, showHiddenDirs);
+        DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findParentDialog(this), lastDir, showHiddenDirs);
         dlg.setPreferencesKey("ExportImportPanel.DirChooser");
         dlg.setVisible(true);
         ComponentUtil.parentWindowToFront(this);

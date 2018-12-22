@@ -3,6 +3,7 @@ package org.jphototagger.lib.swing;
 import java.awt.Component;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.util.Bundle;
@@ -26,13 +27,32 @@ public final class MessageDisplayer {
     }
 
     /**
-     *
      * @param message maybe null
      * @param input maybe null
      * @return user's input or null if the user did not accept the input
      */
     public static String input(String message, String input) {
         InputDialog inputDialog = new InputDialog();
+
+        inputDialog.setInfo(message == null ? "" : message);
+        inputDialog.setInput(input == null ? "" : input);
+        inputDialog.setVisible(true);
+
+        boolean accepted = inputDialog.isAccepted();
+
+        return accepted
+                ? inputDialog.getInput()
+                : null;
+    }
+
+    /**
+     * @param owner
+     * @param message maybe null
+     * @param input maybe null
+     * @return user's input or null if the user did not accept the input
+     */
+    public static String input(JDialog owner, String message, String input) {
+        InputDialog inputDialog = new InputDialog(owner);
 
         inputDialog.setInfo(message == null ? "" : message);
         inputDialog.setInput(input == null ? "" : input);

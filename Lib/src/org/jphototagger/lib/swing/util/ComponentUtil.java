@@ -213,6 +213,20 @@ public final class ComponentUtil {
         return null;
     }
 
+    public static JDialog findParentDialog(Component component) {
+        if (component == null) {
+            throw new NullPointerException("component == null");
+        }
+        Container parent = component.getParent();
+        while (parent != null) {
+            if ((parent instanceof JDialog)) {
+                return (JDialog) parent;
+            }
+            parent = parent.getParent();
+        }
+        return null;
+    }
+
     public static void parentWindowToFront(Component component) {
         if (component == null) {
             throw new NullPointerException("component == null");

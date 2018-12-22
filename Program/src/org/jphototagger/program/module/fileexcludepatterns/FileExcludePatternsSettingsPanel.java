@@ -16,6 +16,7 @@ import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.SelectRootFilesPanel;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.resources.UiFactory;
@@ -222,6 +223,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
 
     private void chooseDirPatterns() {
         FileExcludePatternsController ctrl = new FileExcludePatternsController();
+        ctrl.setDirChooserOwner(ComponentUtil.findParentDialog(this));
 
         for (String pattern : ctrl.chooseDirectoryPatterns()) {
             if (!model.contains(pattern) && checkRegex(pattern)) {

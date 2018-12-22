@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -28,6 +29,15 @@ public class ObjectsSelectionDialog<T> extends DialogExt {
 
     public ObjectsSelectionDialog() {
         super(ComponentUtil.findFrameWithIcon(), true);
+        init();
+    }
+
+    public ObjectsSelectionDialog(JDialog owner) {
+        super(owner, true);
+        init();
+    }
+
+    private void init() {
         initComponents();
         postInitComponents();
     }

@@ -94,7 +94,7 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
     }
 
     private void addAction() {
-        SelectProgramDialog dlg = new SelectProgramDialog(ProgramType.ACTION);
+        SelectProgramDialog dlg = new SelectProgramDialog(ComponentUtil.findParentDialog(this), ProgramType.ACTION);
 
         dlg.setVisible(true);
 
@@ -497,7 +497,6 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
 
     private void buttonShowActionsActionPerformed(java.awt.event.ActionEvent evt) {
         showActions();
-        ComponentUtil.parentWindowToFront(this);
     }
 
     private void buttonMoveUpActionActionPerformed(java.awt.event.ActionEvent evt) {

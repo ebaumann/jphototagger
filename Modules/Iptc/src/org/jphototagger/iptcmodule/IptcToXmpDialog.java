@@ -87,7 +87,7 @@ public final class IptcToXmpDialog extends DialogExt implements ProgressListener
     private void chooseDirectory() {
         List<File> hideRootFiles = SelectRootFilesPanel.readPersistentRootFiles(DomainPreferencesKeys.KEY_UI_DIRECTORIES_TAB_HIDE_ROOT_FILES);
         DirectoryChooser.Option options = getDirChooserOptionShowHiddenDirs();
-        DirectoryChooser dlg = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), directory, hideRootFiles, options);
+        DirectoryChooser dlg = new DirectoryChooser(this, directory, hideRootFiles, options);
         dlg.setPreferencesKey("IptcToXmpDialog.DirChooser");
         dlg.setVisible(true);
         toFront();

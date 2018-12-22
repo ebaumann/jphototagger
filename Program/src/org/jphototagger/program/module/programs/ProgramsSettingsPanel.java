@@ -66,7 +66,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
     }
 
     private void addProgram() {
-        ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(false);
+        ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(ComponentUtil.findParentDialog(this), false);
 
         dlg.setVisible(true);
 
@@ -160,7 +160,7 @@ public final class ProgramsSettingsPanel extends PanelExt implements Persistence
     }
 
     private void editDefaultPrograms() {
-        EditDefaultProgramsDialog dialog = new EditDefaultProgramsDialog();
+        EditDefaultProgramsDialog dialog = new EditDefaultProgramsDialog(ComponentUtil.findParentDialog(this));
         dialog.setVisible(true);
         ComponentUtil.parentWindowToFront(this);
     }

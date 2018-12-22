@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.help.HelpUtil;
@@ -79,7 +80,10 @@ public class HtmlReportsSettingsPanel extends PanelExt {
     private void chooseDirectory() {
         File startDir = new File(labelDirectory.getText());
         Frame parent = ComponentUtil.findFrameWithIcon();
-        DirectoryChooser dirChooser = new DirectoryChooser(parent, startDir, Option.NO_OPTION);
+        JDialog owner = ComponentUtil.findParentDialog(this);
+        DirectoryChooser dirChooser = owner == null
+                ? new DirectoryChooser(parent, startDir, Option.NO_OPTION)
+                : new DirectoryChooser(owner, startDir, Option.NO_OPTION);
         dirChooser.setVisible(true);
         ComponentUtil.parentWindowToFront(this);
         if (dirChooser.isAccepted()) {

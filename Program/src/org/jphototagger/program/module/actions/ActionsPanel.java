@@ -13,6 +13,7 @@ import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.MouseEventUtil;
 import org.jphototagger.lib.swing.PanelExt;
+import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.programs.ProgramExecutorImpl;
@@ -95,7 +96,7 @@ public final class ActionsPanel extends PanelExt {
     }
 
     private void createAction() {
-        ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(true);
+        ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(ComponentUtil.findParentDialog(this), true);
 
         setActionsAlwaysDialogOnTop(false);
         dlg.toFront();
@@ -124,7 +125,7 @@ public final class ActionsPanel extends PanelExt {
     private void editAction() {
         if (list.getSelectedIndex() >= 0) {
             Program program = getSelectedAction();
-            ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(true);
+            ProgramPropertiesDialog dlg = new ProgramPropertiesDialog(ComponentUtil.findParentDialog(this), true);
 
             dlg.setProgram(program);
             setActionsAlwaysDialogOnTop(false);

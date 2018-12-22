@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.swing.JDialog;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.lib.swing.DirectoryChooser;
 import org.jphototagger.lib.swing.util.ComponentUtil;
@@ -20,6 +21,11 @@ import org.openide.util.Lookup;
 public final class FileExcludePatternsController {
 
     private static final String KEY_START_DIR = "";
+    private JDialog dirChooserOwner;
+
+    public void setDirChooserOwner(JDialog dirChooserOwner) {
+        this.dirChooserOwner = dirChooserOwner;
+    }
 
     /**
      * @return Directory-Regex-Patterns from directories chosen via a directory
@@ -53,10 +59,16 @@ public final class FileExcludePatternsController {
     }
 
     private DirectoryChooser createDirChooser() {
-        DirectoryChooser chooser = new DirectoryChooser(
-                ComponentUtil.findFrameWithIcon(),
-                getStartDir(),
-                getDirChooserOptions()
+        DirectoryChooser chooser = dirChooserOwner == null
+                ? new DirectoryChooser(
+                        ComponentUtil.findFrameWithIcon(),
+                        getStartDir(),
+                        getDirChooserOptions()
+                )
+                : new DirectoryChooser(
+                        dirChooserOwner,
+                        getStartDir(),
+                        getDirChooserOptions()
                 );
 
         chooser.setTitle(Bundle.getString(FileExcludePatternsController.class, "FileExcludePatternsController.DirChooser.Title"));

@@ -200,7 +200,7 @@ public class FindDuplicatesDialog extends DialogExt {
     };
 
     private void addSourceDirectories() {
-        DirectoryChooser dirChooser = new DirectoryChooser(ComponentUtil.findFrameWithIcon(), getStartDirectory(), DirectoryChooser.Option.MULTI_SELECTION);
+        DirectoryChooser dirChooser = new DirectoryChooser(this, getStartDirectory(), DirectoryChooser.Option.MULTI_SELECTION);
         dirChooser.setVisible(true);
         if (dirChooser.isAccepted()) {
             List<File> selDirs = dirChooser.getSelectedDirectories();

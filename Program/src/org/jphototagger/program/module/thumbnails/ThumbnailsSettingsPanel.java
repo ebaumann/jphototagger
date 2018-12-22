@@ -124,7 +124,7 @@ public final class ThumbnailsSettingsPanel extends PanelExt implements Persisten
     }
 
     private void showThumbnailCreatorsSettingsDialog() {
-        ThumbnailCreatorSettingsDialog dialog = new ThumbnailCreatorSettingsDialog();
+        ThumbnailCreatorSettingsDialog dialog = new ThumbnailCreatorSettingsDialog(ComponentUtil.findParentDialog(this));
         dialog.setVisible(true);
         ComponentUtil.parentWindowToFront(this);
     }

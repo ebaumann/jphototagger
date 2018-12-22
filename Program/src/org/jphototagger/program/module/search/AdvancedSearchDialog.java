@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.search;
 
+import java.awt.Dimension;
 import javax.swing.SwingUtilities;
 import org.bushe.swing.event.annotation.AnnotationProcessor;
 import org.bushe.swing.event.annotation.EventSubscriber;
@@ -106,6 +107,7 @@ public final class AdvancedSearchDialog extends DialogExt implements NameListene
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = UiFactory.insets(7, 7, 7, 7);
         getContentPane().add(panel, gridBagConstraints);
+        setSize(new Dimension(650, 250));
 
         pack();
     }
