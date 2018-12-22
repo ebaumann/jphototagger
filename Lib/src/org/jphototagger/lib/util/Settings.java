@@ -3,6 +3,7 @@ package org.jphototagger.lib.util;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -842,6 +843,13 @@ public final class Settings {
                 if (height < preferredSize.height) {
                     height = preferredSize.height;
                 }
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                if (height > screenSize.height) {
+                    height = screenSize.height;
+                }
+                if (width > screenSize.width) {
+                    width = screenSize.width;
+                }
                 Dimension dimension = new Dimension(width, height);
                 component.setPreferredSize(dimension);
                 component.setSize(dimension);
@@ -891,6 +899,13 @@ public final class Settings {
             try {
                 int locationX = Integer.parseInt(properties.getProperty(keyLocationX));
                 int locationY = Integer.parseInt(properties.getProperty(keyLocationY));
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                if (locationX + component.getWidth() > screenSize.width) {
+                    locationX = 0;
+                }
+                if (locationY + component.getHeight() > screenSize.height) {
+                    locationY = 0;
+                }
                 component.setLocation(new Point(locationX, locationY));
                 return true;
             } catch (Throwable t) {
