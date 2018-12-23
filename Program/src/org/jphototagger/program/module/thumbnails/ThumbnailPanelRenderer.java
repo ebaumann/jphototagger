@@ -94,6 +94,7 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
      * Color of the border surrounding the highlighted thumbnails.
      */
     private static final Color COLOR_BORDER_THUMBNAIL_HIGHLIGHTED = new Color(128, 128, 164);
+    private static final Color COLOR_CURSOR = new Color(128, 64, 64);
     /**
      * Maximum character count of the text below a thumbnail
      */
@@ -259,6 +260,20 @@ public class ThumbnailPanelRenderer implements ThumbnailRenderer, DropTargetList
             final int halfTopWidth = 10;
             final int height = 10;
             g.fillPolygon(getDropMarkerTriangle(xCenter, y, halfTopWidth, height));
+            g.setColor(oldColor);
+        }
+    }
+
+    public void paintCursor(Graphics g) {
+        synchronized (panel) {
+            if (panel.getCursorPos() < 0) {
+                return;
+            }
+            Point topLeft = panel.getTopLeftOfTnIndex(panel.getCursorPos());
+            Color oldColor = g.getColor();
+            g.setColor(COLOR_CURSOR);
+            g.drawRect(topLeft.x - 1, topLeft.y - 1,
+                       getThumbnailAreaWidth() + 1, getThumbnailAreaHeight() + 1);
             g.setColor(oldColor);
         }
     }
