@@ -51,35 +51,74 @@
 
         <p>Alle Befehle gelten für eine Auswahl, werden nur auf diese
             angewendet. Die Vorschaubilder in der Mitte können Sie mit der Maus
-            auswählen:
+            oder der Tastatur auswählen.
         </p>
+
+        <h3>Auswählen mit der Maus</h3>
 
         <ul>
             <li>Klick mit der linken Maustaste wählt <strong>ein</strong>
-                Bild aus
+                Bild aus.
             </li>
             <li>Klick mit der linken Maustaste bei gedrückter
                 <kbd>Strg</kbd>-Taste (Steuerung) auf ein <em>nicht</em>
                 ausgewähltes Bild fügt dieses einer Auswahl
-                <strong>hinzu</strong>
+                <strong>hinzu</strong>.
             </li>
             <li>Klick mit der linken Maustaste bei gedrückter
                 <kbd>Strg</kbd>-Taste (Steuerung) auf ein <em>ausgewähltes</em>
-                Bild <strong>entfernt</strong> dieses von einer Auswahl
+                Bild <strong>entfernt</strong> dieses von einer Auswahl.
             </li>
             <li>Klick mit der linken Maustaste auf ein Bild und ein weiterer
                 Klick ein paar Bilder danach oder davor bei gleichzeitig
                 gedrückter <kbd>UMSCHALT</kbd>-Taste (<kbd>SHIFT</kbd>) wählt die
-                geklickten Bilder aus und alle dazwischen
+                geklickten Bilder aus und alle dazwischen.
             </li>
-            <li>Ist die Fenstermitte aktiv (dünner weißer Rahmen), wählt die
-                Tastenkombination <kbd>Strg</kbd>+<kbd>A</kbd> <strong>alle</strong>
-                Bilder aus
-            </li>
-            <li>Klick mit der linken Maustaste neben ein Bild wählt
-                <strong>alle ab</strong>
+            <li>Klick mit der linken Maustaste neben ein Bild in den freien
+                Bereich wählt <strong>alle ausgewählten Bilder ab</strong>.
             </li>
         </ul>
+
+        <h3>Auswählen mit der Tastatur</h3>
+
+        <p>Seit der Version 0.42.4 kennt JPhotoTagger einen sogenannten &quot;Cursor&quot;
+            (Eingabemarkierung). Dies ist ein Rahmen um das Bild. Er kann mit der Tastatur
+            auf folgende Weise bewegt werden:
+        </p>
+
+        <ul>
+            <li>Eine Pfeiltaste bewegt den Cursor in die entsprechende Richtung:
+                <kbd>&rarr;</kbd> (Pfeil nach rechts) führt diesen zum nächsten
+                Bild, <kbd>&larr;</kbd> (Pfeil nach links) zum vorhergehenden,
+                <kbd>&uarr;</kbd> (Pfeil nach oben) zum darüber liegenden,
+                <kbd>&darr;</kbd> (Pfeil nach unten) zum darunter liegenden.
+            </li>
+            <li>Wird eine Pfeiltaste alleine gedrückt, gehen bisherige Auswahlen
+                verloren und das Bild unter dem Cursor wird ausgewählt.
+            </li>
+            <li>Drücken Sie gleichzeitig zu einer Pfeiltaste die <kbd>Strg</kbd>-Taste
+                (Steuerung), wird der Cursor bewegt und die bisherige Auswahl bleibt
+                erhalten.
+            </li>
+            <li>Drücken Sie gleichzeitig <kbd>Strg</kbd>- und die Leertaste
+                 (<kbd>SPACE</kbd>), wird das Bild unter dem Cursor der Auswahl
+                 hinzugefügt, falls es nicht ausgewählt ist. Ist es ausgewählt,
+                 wird es von der Auswahl entfernt.
+            </li>
+            <li><kbd>Pos1</kbd> bewegt den Cursor auf das erste Bild,
+                <kbd>Ende</kbd> auf das letzte Bild.
+            </li>
+            <li>Die Tastenkombination <kbd>Strg</kbd>+<kbd>A</kbd> wählt alle
+                Bilder aus.
+            </li>
+        </ul>
+
+        <p>Voraussetzung für die Tastaturnavigation ist, dass die Fenstermitte
+            (das Vorschaubildfenster) aktiv ist, zu erkennen daran, dass sie von
+            einer dünnen weißen Linie umrahmt ist. Mit <kbd>Strg</kbd> und
+            gleichzeitig <kbd>0</kbd> (die Ziffer Null) lässt sich eine nicht
+            aktivierte Fenstermitte aktivieren.
+        </p>
 
         <h2>Größe der Vorschaubilder</h2>
 
