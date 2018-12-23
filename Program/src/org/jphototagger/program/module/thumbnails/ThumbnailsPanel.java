@@ -1378,6 +1378,7 @@ public class ThumbnailsPanel extends PanelExt
         }
         setCursorPos(newCursor);
     }
+
     private void setCursorPos(int newPos) {
         cursorPos = newPos;
 

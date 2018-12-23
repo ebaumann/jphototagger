@@ -3,6 +3,18 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.4 2018-12-23
+-----------------
+
+* Introduced a cursor: In the thumbnails window a cursor
+  can be moved with the arrow keys. If the Ctrl key is
+  pressed simultaneously, the cursor will be moved whithout
+  changing the image's selection. When Ctrl and Space
+  pressed simultaneously, the image under the cursor will
+  be added to the current selection. That means, multiple
+  images can be selected through the keyboard. The cursor
+  is a dark reddish border surrounding the image.
+
 0.42.3 2018-12-22
 -----------------
 

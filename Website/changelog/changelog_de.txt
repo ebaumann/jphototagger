@@ -3,6 +3,18 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.4 2018-12-23
+-----------------
+
+* Einführung eines Cursors: Im Vorschaubildfenster kann
+  mit den Pfeiltasten ein Cursor bewegt werden. Ist dabei
+  gleichzeitig die Strg-Taste gedrückt, geht die aktuelle
+  Bildauswahl nicht verloren. Wird zusammen mit Strg
+  gleichzeitig die Leertaste gedrückt, wird das Bild unter dem
+  Cursor zusätzlich ausgewählt. So sind Mehrfachauswahlen mit
+  der Tastatur möglich. Der Cursor ist ein dunkler rötlicher
+  Rahmen um das Bild.
+
 0.42.3 2018-12-22
 -----------------
 
