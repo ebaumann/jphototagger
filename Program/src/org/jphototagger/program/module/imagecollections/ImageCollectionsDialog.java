@@ -1,6 +1,8 @@
 package org.jphototagger.program.module.imagecollections;
 
 import java.awt.Container;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import javax.swing.ListModel;
 import org.jphototagger.lib.swing.DialogExt;
@@ -47,11 +49,20 @@ public final class ImageCollectionsDialog extends DialogExt {
         if (evt.getClickCount() == 2) {
             int index = listImageCollectionNames.locationToIndex(evt.getPoint());
             ListModel<?> model = listImageCollectionNames.getModel();
-            Object item  = model.getElementAt(index);
-            if (item != null) {
-                ok = true;
-                setVisible(true);
-            }
+            checkItemSelected(model.getElementAt(index));
+        }
+    }
+
+    private void checkItemSelected(Object item) {
+        if (item != null) {
+            ok = true;
+            setVisible(false);
+        }
+    }
+
+    private void checkEnter(KeyEvent evt) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            checkItemSelected(listImageCollectionNames.getSelectedValue());
         }
     }
 
@@ -101,6 +112,12 @@ public final class ImageCollectionsDialog extends DialogExt {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listImageCollectionNamesMouseClicked(evt);
+            }
+        });
+        listImageCollectionNames.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                checkEnter(e);
             }
         });
         scrollPaneImageCollectionNames.setViewportView(listImageCollectionNames);
