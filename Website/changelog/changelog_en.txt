@@ -3,6 +3,18 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.5 2018-12-26
+-----------------
+
+* A photo album can set as target album via the album's
+  context menu. If a target album exists, selected
+  images can be added to or removed from the target album
+  with the key "B": Not existing images in the target album
+  will be added, existing images will be removed from
+  the target album. This function is also available through
+  the thumbnails window's context menu: Select images > Add
+  to / remove from the target album.
+
 0.42.4 2018-12-23
 -----------------
 

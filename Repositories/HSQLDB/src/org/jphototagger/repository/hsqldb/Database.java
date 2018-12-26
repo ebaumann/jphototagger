@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -671,5 +673,17 @@ public class Database {
             sb.append("?");
         }
         return sb.toString();
+    }
+
+    static void setParameters(PreparedStatement stmt, Collection<?> parameters, int firstIndex) throws SQLException {
+        Objects.requireNonNull(stmt, "stmt == null");
+        Objects.requireNonNull(parameters, "parameters == null");
+        if (firstIndex < 1) {
+            throw new IllegalArgumentException("Invalid Index: " + firstIndex);
+        }
+        int parameterIndex = firstIndex;
+        for (Object parameter : parameters) {
+            stmt.setObject(parameterIndex++, parameter);
+        }
     }
 }

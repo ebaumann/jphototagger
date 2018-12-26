@@ -23,6 +23,7 @@ public final class ImageCollectionsPopupMenu extends JPopupMenu {
     private final JMenuItem itemDelete = UiFactory.menuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Delete"), Icons.ICON_DELETE);
     private final JMenuItem itemRename = UiFactory.menuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Rename"), Icons.ICON_RENAME);
     private final JMenuItem itemCreate = UiFactory.menuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.Create"), ICON_IMAGE_COLLECTION);
+    private final JMenuItem itemTargetCollection = UiFactory.menuItem(Bundle.getString(ImageCollectionsPopupMenu.class, "ImageCollectionsPopupMenu.DisplayName.Action.TargetCollection"), ICON_IMAGE_COLLECTION);
     private int itemIndex;
 
     private ImageCollectionsPopupMenu() {
@@ -39,6 +40,10 @@ public final class ImageCollectionsPopupMenu extends JPopupMenu {
 
     public JMenuItem getItemCreate() {
         return itemCreate;
+    }
+
+    public JMenuItem getItemTargetCollection() {
+        return itemTargetCollection;
     }
 
     public int getItemIndex() {
@@ -59,6 +64,7 @@ public final class ImageCollectionsPopupMenu extends JPopupMenu {
         add(itemCreate);
         add(itemRename);
         add(itemDelete);
+        add(itemTargetCollection);
     }
 
     private void setAccelerators() {

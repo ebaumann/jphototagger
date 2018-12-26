@@ -3,6 +3,18 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.5 2018-12-26
+-----------------
+
+* Ein Fotoalbum kann als Zielalbum festgelegt werden über
+  das Kontextmenü der Fotoalben. Existiert ein Zielalbum,
+  können im Vorschaubildfenster ausgewählte Bilder mit der
+  Taste "B" hinzugefügt oder entfernt werden: Im Zielalbum
+  nicht existierende Bilder werden hinzugefügt, existierende
+  werden aus dem Zielalbum entfernt. Diese Funktion ist auch
+  über das Kontextmenü des Vorschaubildfensters verfügbar:
+  Bilder auswählen > Dem Zielalbum hinzufügen / entfernen.
+
 0.42.4 2018-12-23
 -----------------
 

@@ -38,6 +38,22 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>"{0}" ist nun neue Zielsammlung.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145712Z" creationid="elmar" creationdate="20181226T145712Z">
+        <seg>"{0}" is current target album.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>"{0}" ist nun neues Zielalbum.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T182157Z" creationid="elmar" creationdate="20181226T150302Z">
+        <seg>"{0}" is now the current target album.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&amp;1. Bilder öffnen</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -1766,6 +1782,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt; Falls für &lt;em&gt;RAW-Dateien&lt;/em&gt; kein Vorschaubid erzeugt werden kann, &lt;br/&gt;versucht &lt;strong&gt;JPhotoTagger&lt;/strong&gt; den RAW-Konverter &lt;strong&gt;dcraw&lt;/strong&gt; zu benutzen &lt;br/&gt;(&lt;b&gt;http://www.cybercom.net/~dcoffin/dcraw/&lt;/b&gt;).</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T150142Z" creationid="elmar" creationdate="20181226T150142Z">
+        <seg>&lt;html&gt; If thumbnails  could not be created for &lt;em&gt;RAW image files&lt;/em&gt;, &lt;br/&gt;&lt;strong&gt;JPhotoTagger&lt;/strong&gt; tries to use the RAW converter &lt;strong&gt;dcraw&lt;/strong&gt; &lt;br/&gt;(&lt;b&gt;http://www.cybercom.net/~dcoffin/dcraw/&lt;/b&gt;).</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt; Falls für &lt;em&gt;RAW-Dateien&lt;/em&gt; kein Vorschaubid erzeugt werden kann, &lt;br/&gt;versucht &lt;strong&gt;JPhotoTagger&lt;/strong&gt; den RAW-Konverter &lt;strong&gt;dcraw&lt;/strong&gt; zu benutzen &lt;br/&gt;(&lt;code&gt;http://www.cybercom.net/~dcoffin/dcraw/&lt;/code&gt;).</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T184857Z">
@@ -1894,6 +1918,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;&lt;p&gt;&lt;strong&gt;JPhotoTaggers&lt;/strong&gt; Sperrdatei&lt;br/&gt;&lt;b&gt;{0}&lt;/b&gt; existiert noch!&lt;/p&gt;&lt;p&gt;Falls Sie sicher sind, dass &lt;strong&gt;JPhotoTagger&lt;/strong&gt; &lt;em&gt;nicht&lt;/em&gt; läuft, können Sie die Sperrdatei löschen lassen.&lt;/p&gt;&lt;p&gt;Sperrdatei löschen und &lt;strong&gt;JPhotoTagger&lt;/strong&gt; starten?&lt;/p&gt;&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145205Z" creationid="elmar" creationdate="20181226T145205Z">
+        <seg>&lt;html&gt;&lt;p&gt;&lt;strong&gt;JPhotoTagger''s&lt;/strong&gt; lock file &lt;br/&gt;&lt;b&gt;{0}&lt;/b&gt;&lt;br/&gt;already exists!&lt;/p&gt;&lt;p&gt;If You are sure,  &lt;strong&gt;JPhotoTagger&lt;/strong&gt; is &lt;em&gt;not&lt;/em&gt; already running, You can let delete the lock file.&lt;/p&gt;&lt;p&gt;Delete the lock file and start &lt;strong&gt;JPhotoTagger&lt;/strong&gt;?&lt;/p&gt;&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;&lt;p&gt;&lt;strong&gt;JPhotoTaggers&lt;/strong&gt; Sperrdatei&lt;br/&gt;&lt;code&gt;{0}&lt;/code&gt; existiert noch!&lt;/p&gt;&lt;p&gt;Falls Sie sicher sind, dass &lt;strong&gt;JPhotoTagger&lt;/strong&gt; &lt;em&gt;nicht&lt;/em&gt; läuft, können Sie die Sperrdatei löschen lassen.&lt;/p&gt;&lt;p&gt;Sperrdatei löschen und &lt;strong&gt;JPhotoTagger&lt;/strong&gt; starten?&lt;/p&gt;&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -1922,6 +1954,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20150924T155143Z">
         <seg>&lt;html&gt;&lt;p&gt;A valid input contains:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Year in four digits&lt;/li&gt;&lt;li&gt;Dash, if a month follows&lt;/li&gt;&lt;li&gt;Month in two digits&lt;/li&gt;&lt;li&gt;Dash, if a day follows&lt;/li&gt;&lt;li&gt;Day in two digits&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Examples:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;2009-01-12&lt;/strong&gt; for January the 12th 2009&lt;/li&gt;&lt;li&gt;&lt;strong&gt;2008&lt;/strong&gt; for the year 2008&lt;/li&gt;&lt;li&gt;&lt;strong&gt;2007-05&lt;/strong&gt; for May in 2007&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Year, month and day has to be a valid date (since the year 1582).&lt;/p&gt;&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&lt;html&gt;&lt;strong&gt;Achtung:&lt;/strong&gt; Die bisherigen Datenbankdateien&lt;p&gt;&lt;b&gt;{0}.*&lt;/b&gt;&lt;p&gt;werden &lt;em&gt;nicht&lt;/em&gt; in einen anderen Ordner kopiert!&lt;p&gt;Dies ist vor Neustart von &lt;strong&gt;JPhotoTagger&lt;/strong&gt; selbst durchzuführen.&lt;p&gt;Bitte kopieren Sie ebenfalls den Ordner &lt;b&gt;thumbnails&lt;/b&gt; in den gleichen Ordner wie die Datenbankdateien.&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145531Z" creationid="elmar" creationdate="20181226T145531Z">
+        <seg>&lt;html&gt;&lt;strong&gt;Warning:&lt;/strong&gt; The existing database files&lt;p&gt;&lt;b&gt;{0}.*&lt;/b&gt;&lt;p&gt; will &lt;em&gt;not&lt;/em&gt; be copied to a new folder!&lt;p&gt;You have to do that before restarting &lt;strong&gt;JPhotoTagger&lt;/strong&gt;.&lt;p&gt;Please also copy the &lt;b&gt;thumbnails&lt;/b&gt; folder into the same folder as the database files.&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -2246,6 +2286,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;Die Sperrdatei&lt;br/&gt;&lt;b&gt;{0}&lt;/b&gt;&lt;br/&gt;konnte nicht gelöscht werden!&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145115Z" creationid="elmar" creationdate="20181226T145115Z">
+        <seg>&lt;html&gt;&lt;html&gt;The lock file&lt;br/&gt;&lt;b&gt;{0}&lt;/b&gt;&lt;br/&gt;couldn't be deleted!&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;Die Sperrdatei&lt;br/&gt;&lt;code&gt;{0}&lt;/code&gt;&lt;br/&gt;konnte nicht gelöscht werden!&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -2258,6 +2306,22 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>&lt;html&gt;The target file ''{0}'' exists already!&lt;p&gt;Replace with ''{1}''?&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&lt;html&gt;Die neue &lt;strong&gt;JPhotoTagger&lt;/strong&gt;-Version wurde erfolgreich heruntergeladen nach&lt;p&gt;&lt;b&gt;{0}&lt;/b&gt;&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145316Z" creationid="elmar" creationdate="20181226T145316Z">
+        <seg>&lt;html&gt;The new &lt;strong&gt;JPhotoTagger&lt;/strong&gt; version has been successfully downloaded to&lt;p&gt;&lt;b&gt;{0}&lt;/b&gt;&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&lt;html&gt;Die neue &lt;strong&gt;JPhotoTagger&lt;/strong&gt;-Version wurde erfolgreich heruntergeladen nach&lt;p&gt;&lt;b&gt;{0}&lt;/b&gt;&lt;p&gt;Soll das Installationsprogramm aufgerufen werden, wenn Sie &lt;strong&gt;JPhotoTagger&lt;/strong&gt; beenden?&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145246Z" creationid="elmar" creationdate="20181226T145246Z">
+        <seg>&lt;html&gt;The new &lt;strong&gt;JPhotoTagger&lt;/strong&gt; version has been successfully downloaded to&lt;p&gt;&lt;b&gt;{0}&lt;/b&gt;&lt;p&gt;Shall the installation program executed, if You quit &lt;strong&gt;JPhotoTagger&lt;/strong&gt;?&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -2418,6 +2482,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>&lt;html&gt;No suggestion has been found for ''{0}'':&lt;p&gt;{1}&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&lt;html&gt;Falls eine Endung &lt;b&gt;"cpi"&lt;/b&gt; heißt und eine Bilddatei &lt;b&gt;"Bild.jpg"&lt;/b&gt;,&lt;p&gt;ist eine Datei des Namens &lt;b&gt;"Bild.cpi"&lt;/b&gt; betroffen.&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T150237Z" creationid="elmar" creationdate="20181226T150237Z">
+        <seg>&lt;html&gt;If a suffix's name is &lt;b&gt;"cpi"&lt;/b&gt; and an image file's name is &lt;b&gt;"Image.jpg"&lt;/b&gt;,&lt;p&gt;a file of the name &lt;b&gt;"Image.cpi"&lt;/b&gt; will be affected.&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -2590,6 +2662,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>&lt;html&gt;Lange XMP-Filialdateinamen bestehen aus dem kompletten Dateinamen und der Endung &lt;b&gt;xmp&lt;/b&gt;.&lt;br/&gt;Beispiele: &lt;b&gt;Bild.jpeg.xmp&lt;/b&gt; oder &lt;b&gt;Bild.nef.xmp&lt;/b&gt;.&lt;p&gt;&lt;p&gt;&amp;quot;Normale&amp;quot; XMP-Filialdateinamen bestehen aus dem Dateinamen ohne Endung, die Endung wird ersetzt durch &lt;b&gt;xmp&lt;/b&gt;.&lt;br/&gt;Beispiel: &lt;b&gt;Bild.xmp&lt;/b&gt;.&lt;p&gt;&lt;p&gt;Werden lange XMP-Filialdateinamen benutzt, hat weit reichende Konsequenzen:&lt;ul&gt;&lt;li&gt;Es können mehrere Dateien gleichen Basisnamens im gleichen Ordner gespeichert werden,&lt;br/&gt;ohne dass es Namenskonflikte mit XMP-Filialdateien gibt&lt;/li&gt;&lt;li&gt;Andere Anwendungen werden vermutlich &lt;em&gt;nicht&lt;/em&gt; mehr die Metadten lesen,&lt;br/&gt;die Sie mit &lt;strong&gt;JPhotoTagger&lt;/strong&gt; erstellen &lt;em&gt;und umgekehrt&lt;/em&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Auf jeden Fall benennt &lt;strong&gt;JPhotoTagger&lt;/strong&gt; gleich nach Aktivierung dieser Option die bestehenden XMP-Filialdateien um.&lt;p&gt;&lt;p&gt;Wollen Sie lange XMP-Dateinamen benutzen?&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145455Z" creationid="elmar" creationdate="20181226T145455Z">
+        <seg>&lt;html&gt;Long XMP sidecar file names containing the complete file name plus the suffix &lt;b&gt;xmp&lt;/b&gt;.&lt;br/&gt;Examples: &lt;b&gt;Image.jpeg.xmp&lt;/b&gt; or &lt;b&gt;Image.nef.xmp&lt;/b&gt;.&lt;p&gt;&lt;p&gt;&amp;quot;Common&amp;quot; XMP sidecar file names containing the file name without the suffix, the suffix will be replaced with &lt;b&gt;xmp&lt;/b&gt;.&lt;br/&gt;Example: &lt;b&gt;Image.xmp&lt;/b&gt;.&lt;p&gt;&lt;p&gt;If long XMP sidecar file names will be used, that has far reaching consequenses:&lt;ul&gt;&lt;li&gt;In the same folder many files with the same base name can exist&lt;br/&gt;without naming conflicts with XMP sidecar files&lt;/li&gt;&lt;li&gt;Other application probably &lt;em&gt;can't&lt;/em&gt; read metadata&lt;br/&gt;created with &lt;strong&gt;JPhotoTagger&lt;/strong&gt; &lt;em&gt;and vice versa&lt;/em&gt;&lt;/li&gt;&lt;/ul&gt;Under all circumstances &lt;strong&gt;JPhotoTagger&lt;/strong&gt; immediately renames all existing sidecar files after turning on this option&lt;p&gt;&lt;p&gt;Shall &lt;strong&gt;JPhotoTagger&lt;/strong&gt; use long XMP sidecar file names?&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;html&gt;Lange XMP-Filialdateinamen bestehen aus dem kompletten Dateinamen und der Endung &lt;code&gt;xmp&lt;/code&gt;.&lt;br/&gt;Beispiele: &lt;code&gt;Bild.jpeg.xmp&lt;/code&gt; oder &lt;code&gt;Bild.nef.xmp&lt;/code&gt;.&lt;p&gt;&lt;p&gt;&amp;quot;Normale&amp;quot; XMP-Filialdateinamen bestehen aus dem Dateinamen ohne Endung, die Endung wird ersetzt durch &lt;code&gt;xmp&lt;/code&gt;.&lt;br/&gt;Beispiel: &lt;code&gt;Bild.xmp&lt;/code&gt;.&lt;p&gt;&lt;p&gt;Werden lange XMP-Filialdateinamen benutzt, hat weit reichende Konsequenzen:&lt;ul&gt;&lt;li&gt;Es können mehrere Dateien gleichen Basisnamens im gleichen Ordner gespeichert werden,&lt;br/&gt;ohne dass es Namenskonflikte mit XMP-Filialdateien gibt&lt;/li&gt;&lt;li&gt;Andere Anwendungen werden vermutlich &lt;em&gt;nicht&lt;/em&gt; mehr die Metadten lesen,&lt;br/&gt;die Sie mit &lt;strong&gt;JPhotoTagger&lt;/strong&gt; erstellen &lt;em&gt;und umgekehrt&lt;/em&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Auf jeden Fall benennt &lt;strong&gt;JPhotoTagger&lt;/strong&gt; gleich nach Aktivierung dieser Option die bestehenden XMP-Filialdateien um.&lt;p&gt;&lt;p&gt;Wollen Sie lange XMP-Dateinamen benutzen?&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -2650,6 +2730,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>&lt;html&gt;After You close this message, a web browser will be started.&lt;p&gt;If You are not logged in automatically into &lt;strong&gt;Flickr&lt;/strong&gt; through the web browser, please log in manually.&lt;/p&gt;&lt;p&gt;Then please permit &lt;strong&gt;JPhotoTagger&lt;/strong&gt; uploading images.&lt;/p&gt;&lt;/html&gt;</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>&lt;html&gt;Ordner &lt;b&gt;''{0}''&lt;/b&gt; von den &lt;strong&gt;Favoriten&lt;/strong&gt; entfernen?&lt;p&gt;Im &lt;strong&gt;Dateisystem&lt;/strong&gt; wird der Ornder &lt;em&gt;nicht&lt;/em&gt; gelöscht.&lt;/html&gt;</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145558Z" creationid="elmar" creationdate="20181226T145558Z">
+        <seg>&lt;html&gt;Delete folder &lt;b&gt;''{0}''&lt;/b&gt; from favorites?&lt;p&gt;It will &lt;em&gt;not&lt;/em&gt; be deleted from the &lt;strong&gt;file system&lt;/strong&gt;.&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -3204,6 +3292,14 @@ Delete action ''{0}''?</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>As &amp;new Template</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Als Zielalbum festlegen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145613Z" creationid="elmar" creationdate="20181226T145613Z">
+        <seg>Set as target album</seg>
       </tuv>
     </tu>
     <tu>
@@ -6466,6 +6562,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Dem Zielalbum hinzufügen / entfernen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T150039Z" creationid="elmar" creationdate="20181226T150039Z">
+        <seg>Add to / remove from the target album</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Der Favorit ''{0}'' konnte nicht aktualisiert werden!!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7416,6 +7520,14 @@ Some data may be lost!</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Ein Spezialalbum kann nicht als Zielalbum ausgewählt werden!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T145645Z" creationid="elmar" creationdate="20181226T145645Z">
+        <seg>A special album can't selected as target album!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Ein übergeordnetes Stichwort kann nicht unter ein untergeordnetes verschoben oder kopiert werden!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -7820,6 +7932,14 @@ Some data may be lost!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20180211T184855Z" creationid="elmar" creationdate="20180211T184855Z">
         <seg>Removes with ExifTool all metadata from an image file (EXIF, IPTC, XMP)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Entfernt: {2}.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T182625Z" creationid="elmar" creationdate="20181226T182625Z">
+        <seg>Removed: {2}.</seg>
       </tuv>
     </tu>
     <tu>
@@ -8278,6 +8398,15 @@ Ursache: {0}</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20180203T200444Z" creationid="elmar" creationdate="20180203T200444Z">
         <seg>ExifTool Metadata Writer</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Existieren die ausgewählten Bilder im Zielalbum,
+werden diese mit "B" aus dem Zielalbum entfernt.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T182307Z" creationid="elmar" creationdate="20181226T145956Z">
+        <seg>If the selected images existing in the target album, with "B" they will be removed.</seg>
       </tuv>
     </tu>
     <tu>
@@ -9884,6 +10013,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Hinzugefügt: {1}.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T182617Z" creationid="elmar" creationdate="20181226T182617Z">
+        <seg>Added: {1}.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Hoch</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -10416,6 +10553,15 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>IrfanView EXE file</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Ist das Vorschaubildfenster ausgewählt, fügt "B" ausgewählte Bilder hinzu,
+falls diese nicht im Zielalbum existieren.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T182248Z" creationid="elmar" creationdate="20181226T150355Z">
+        <seg>If the thumbnails window is selected, "B" adds selected images, if these do not exist whithin the target album.</seg>
       </tuv>
     </tu>
     <tu>
@@ -16444,6 +16590,22 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Certificate</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Zielalbum "{0}" modifiziert.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T182613Z" creationid="elmar" creationdate="20181226T182613Z">
+        <seg>Target album "{0}" modified.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Zielalbum "{0}" modifiziert: Hinzugefügt {1}, Entfernt {2}.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181226T150443Z" creationid="elmar" creationdate="20181226T150443Z">
+        <seg>target album "{0}" modified: Added {1}, removed {2}.</seg>
       </tuv>
     </tu>
     <tu>

@@ -25,6 +25,8 @@ public interface ImageCollectionsRepository {
 
     List<File> findImageFilesOfImageCollection(String collectionName);
 
+    boolean containsFile(String collectionName, String filePathname);
+
     boolean saveImageCollection(String collectionName, List<File> imageFiles);
 
     boolean saveImageCollection(ImageCollection collection);

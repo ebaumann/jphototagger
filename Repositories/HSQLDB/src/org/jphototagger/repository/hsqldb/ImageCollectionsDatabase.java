@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bushe.swing.event.EventBus;
@@ -17,6 +18,7 @@ import org.jphototagger.domain.repository.event.imagecollections.ImageCollection
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionImagesInsertedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionInsertedEvent;
 import org.jphototagger.domain.repository.event.imagecollections.ImageCollectionRenamedEvent;
+import org.jphototagger.lib.util.StringUtil;
 
 /**
  * @author Elmar Baumann
@@ -135,6 +137,39 @@ final class ImageCollectionsDatabase extends Database {
             free(con);
         }
         return imageFiles;
+    }
+
+    boolean containsFile(String collectionName, String filePathname) {
+        Objects.requireNonNull(collectionName, "collectionName == null");
+        if (!StringUtil.hasContent(filePathname)) { // "Nothing" is an element of a set (wrong, if a file with only whitespaces exists)
+            return true;
+        }
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = getConnection();
+            stmt = con.prepareStatement("SELECT COUNT(*) FROM"
+                    + " collections INNER JOIN collection_names"
+                    + " ON collections.id_collectionnname = collection_names.id"
+                    + " INNER JOIN files ON collections.id_file = files.id"
+                    + " WHERE collection_names.name = ?"
+                    + " AND files.filename = ?");
+            stmt.setString(1, collectionName);
+            stmt.setString(2, filePathname);
+            LOGGER.log(Level.FINEST, stmt.toString());
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+        return false;
     }
 
     boolean insertImageCollection(ImageCollection collection) {

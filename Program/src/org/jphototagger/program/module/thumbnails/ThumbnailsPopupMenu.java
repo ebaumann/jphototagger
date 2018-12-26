@@ -51,6 +51,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private static final ImageIcon ICON_IMAGE_COLLECTION_REMOVE_FROM = Icons.getIcon("icon_imagecollection_remove_from.png");
     private static final ImageIcon ICON_PICKED = Icons.getIcon("icon_picked.png");
     private static final ImageIcon ICON_REJECTED = Icons.getIcon("icon_rejected.png");
+    private static final ImageIcon ICON_TARGET_COLLECTION = Icons.getIcon("icon_imagecollection.png");
     private static final ImageIcon ICON_ROTATE_180 = Icons.getIcon("icon_rotate_180.png");
     private static final ImageIcon ICON_ROTATE_270 = Icons.getIcon("icon_rotate_270.png");
     private static final ImageIcon ICON_ROTATE_90 = Icons.getIcon("icon_rotate_90.png");
@@ -80,6 +81,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
     private final JMenuItem itemRotateThumbnail270 = UiFactory.menuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.270"), ICON_ROTATE_270);
     private final JMenuItem itemRotateThumbnai180 = UiFactory.menuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Rotate.180"), ICON_ROTATE_180);
     private final JMenuItem itemReject = UiFactory.menuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Reject"), ICON_REJECTED);
+    private final JMenuItem itemTargetCollection = UiFactory.menuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.TargetCollection"), ICON_TARGET_COLLECTION);
     private final JMenuItem itemRefresh = UiFactory.menuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Action.Refresh"), Icons.ICON_REFRESH);
     private final JMenuItem itemRating5 = UiFactory.menuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating5"), ICON_XMP_RATING_5);
     private final JMenuItem itemRating4 = UiFactory.menuItem(Bundle.getString(ThumbnailsPopupMenu.class, "ThumbnailsPopupMenu.DisplayName.Rating4"), ICON_XMP_RATING_4);
@@ -148,6 +150,7 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
         add(menuRating);
         menuSelection.add(itemPick);
         menuSelection.add(itemReject);
+        menuSelection.add(itemTargetCollection);
         add(menuSelection);
         menuImageCollection.add(itemCreateImageCollection);
         menuImageCollection.add(itemAddToImageCollection);
@@ -381,6 +384,10 @@ public final class ThumbnailsPopupMenu extends JPopupMenu {
 
     public JMenuItem getItemReject() {
         return itemReject;
+    }
+
+    public JMenuItem getItemTargetCollection() {
+        return itemTargetCollection;
     }
 
     public JMenuItem getItemRating0() {

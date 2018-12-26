@@ -53,6 +53,11 @@ public final class ImageCollectionsRepositoryImpl implements ImageCollectionsRep
     }
 
     @Override
+    public boolean containsFile(String collectionName, String filename) {
+        return ImageCollectionsDatabase.INSTANCE.containsFile(collectionName, filename);
+    }
+
+    @Override
     public boolean saveImageCollection(String collectionName, List<File> imageFiles) {
         return ImageCollectionsDatabase.INSTANCE.insertImageCollection(collectionName, imageFiles);
     }

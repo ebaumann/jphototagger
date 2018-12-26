@@ -40,6 +40,8 @@ import org.jphototagger.program.module.imagecollections.DeleteImageCollectionCon
 import org.jphototagger.program.module.imagecollections.ImageCollectionSelectedController;
 import org.jphototagger.program.module.imagecollections.PickRejectController;
 import org.jphototagger.program.module.imagecollections.RenameImageCollectionController;
+import org.jphototagger.program.module.imagecollections.SetTargetCollectionController;
+import org.jphototagger.program.module.imagecollections.TargetCollectionController;
 import org.jphototagger.program.module.keywords.AddKeywordsViaShortcutsController;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.keywords.list.DeleteKeywordsController;
@@ -200,6 +202,8 @@ public final class ControllerFactory {
         support.add(new PasteFilesFromClipboardController());
         support.add(new RefreshThumbnailsPanelController());
         support.add(new PickRejectController());
+        support.add(new TargetCollectionController());
+        support.add(new SetTargetCollectionController());
         support.add(new SetRatingController());
         support.add(new CopyPasteMetadataController());
         support.add(new ActionsMenuUpdater());
