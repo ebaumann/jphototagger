@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.6 2018-12-27
+-----------------
+
+* Bugfix: Im Stichwortbaum konnte ein Stichwort in sich selbst
+  kopiert werden
+
 0.42.5 2018-12-26
 -----------------
 

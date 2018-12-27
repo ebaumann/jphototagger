@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.6 2018-12-27
+-----------------
+
+* Bugfix: In the keywords tree, a keyword could be copied
+  into itself
+
 0.42.5 2018-12-26
 -----------------
 

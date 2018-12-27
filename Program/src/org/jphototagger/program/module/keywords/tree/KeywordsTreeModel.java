@@ -135,6 +135,11 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
             throw new NullPointerException("target == null");
         }
 
+        if (source == target) {
+            MessageDisplayer.error(null, Bundle.getString(KeywordsTreeModel.class, "KeywordsTreeModel.Error.SourceIsTarget"));
+            return;
+        }
+
         if (!ensureIsNotChild(target, source.getUserObject().toString(), true)
                 || !ensureTargetIsNotBelowSource(source, target)) {
             return;
@@ -145,6 +150,10 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
 
     @SuppressWarnings("unchecked")
     private synchronized void cpySubtree(DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
+        if (source == target) {
+            return;
+        }
+
         DefaultMutableTreeNode newTarget = deepCopy(source, target);
 
         for (Enumeration<DefaultMutableTreeNode> e = source.children(); e.hasMoreElements();) {
@@ -153,6 +162,10 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
     }
 
     private synchronized DefaultMutableTreeNode deepCopy(DefaultMutableTreeNode source, DefaultMutableTreeNode target) {
+        if (source == target) {
+            return source;
+        }
+
         Keyword srcKeyword = (Keyword) source.getUserObject();
         Keyword targetKeyword = (Keyword) target.getUserObject();
         Keyword keyword = new Keyword(null, targetKeyword.getId(), srcKeyword.getName(), srcKeyword.isReal());
@@ -175,6 +188,10 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
     }
 
     private void insertNode(DefaultMutableTreeNode parent, DefaultMutableTreeNode child) {
+        if (parent == child) {
+            return;
+        }
+
         parent.add(child);
 
         int childIndex = parent.getIndex(child);

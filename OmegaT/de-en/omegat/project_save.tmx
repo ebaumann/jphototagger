@@ -13698,6 +13698,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Quelle und Ziel dürfen nicht identisch sein!</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20181227T152948Z" creationid="elmar" creationdate="20181227T152948Z">
+        <seg>Source and target can not be identical!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>QuickTime-Video (*.mov)</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20150820T144650Z">
