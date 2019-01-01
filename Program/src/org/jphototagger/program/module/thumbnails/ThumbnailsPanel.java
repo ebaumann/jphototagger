@@ -643,6 +643,16 @@ public class ThumbnailsPanel extends PanelExt
         }
         notifySelectionChanged();
         repaint();
+        setNegativeCursorToMaxSelIndex(indices);
+    }
+
+    private void setNegativeCursorToMaxSelIndex(Collection<Integer> selIndices) {
+        if (getCursorPos() < 0 && !selIndices.isEmpty()) {
+            int maxSelIndex = Collections.max(selIndices);
+            if (maxSelIndex >= 0 && maxSelIndex < getFileCount()) {
+                setCursorPos(maxSelIndex);
+            }
+        }
     }
 
     public synchronized void setSelectedFiles(Collection<? extends File> files) {
