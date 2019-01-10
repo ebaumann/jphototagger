@@ -55,18 +55,20 @@
 
         <h2>Add HSQL DB driver</h2>
 
-        <p>Base also uses HSQL DB (like <strong>JPhotoTagger</strong>), but I had always to add it and
-            it may use a different incompatible version.
-            I translated the menu items/labels from German into English, so the names may not be correct;
-            if you are using OpenOffice, replace LibreOffice with OpenOffice:</p>
+        <p>Add to <strong>LibreOffice</strong> the HSQL DB library (JAR file) with the
+            <em>the same version</em> as <strong>JPhotoTagger</strong>.
+            If the version is different or newer, the database may not be opened or converted into the
+            newer format and <strong>JPhotoTagger</strong> can't use it any longer. Steps:</p>
 
         <ol>
-            <li>Menu <strong>Extras &gt; Options &gt; LibreOffice &gt; Java</strong></li>
-            <li>Class Path &gt; Add Archives</li>
+            <li>Menu <strong>Tools &gt; Options &gt; Advanced</strong></li>
+            <li>Class Path &gt; Add Archive</li>
             <li>Select from <strong>JPhotoTagger</strong>'s installation directory, subdirectory <code>lib</code>
                 the file <code>hsqldb.jar</code>
             </li>
         </ol>
+
+        <p><img src="img/libreoffice-hsqldb-jar-to-classpath.png" alt="" width="831" height="540" /></p>
 
         <h2>Locate JPhotoTagger's database</h2>
 
@@ -78,23 +80,32 @@
         <h2>Create new Database within LibreOffice/OpenOffice</h2>
 
         <ol>
-            <li>Start LibreOffice Base</li>
-            <li>In <strong>Choose Database</strong> select <strong>Connect with existing database</strong></li>
-            <li>Type: <strong>JDBC</strong></li>
-            <li><strong>Dabase URL</strong> is <code>jdbc:hsqldb:file:directory_of_database/database;shutdown=true</code>,
+            <li>Start <strong>LibreOffice Base</strong></li>
+            <li>In the Database Wizard, step 1 &ndash; <strong>Select Database</strong> &ndash;
+                select <strong>Connect with existing database</strong>, type: <strong>JDBC</strong></li>
+            <li>In the Database Wizard, step 2 &ndash; <strong>Set up JDBC connection</strong> &ndash;
+                <strong>Datasource URL</strong> is <code>jdbc:hsqldb:file:directory_of_database/database;shutdown=true</code>,
                 e.g. <code>jdbc:hsqldb:file:/home/elmar/.de.elmar_baumann/ImageMetaDataViewer/database;shutdown=true</code>
                 under Linux or <code>jdbc:hsqldb:file:C:\users\elmar\.de.elmar_baumann\ImageMetaDataViewer\database;shutdown=true</code>
-                under Windows
+                under Windows.
+                <em>Note, that "jdbc:" usually is already filled in!</em>
             </li>
-            <li><strong>JDBC Driver Class</strong>: <code>org.hsqldb.jdbcDriver</code> (Apply Test Button, it should
-                not display an error message)
+            <li><strong>JDBC Driver Class</strong>: <code>org.hsqldb.jdbcDriver</code>. Click the <strong>Test Class</strong> Button.
+                <em>It should display a success message!</em>
             </li>
-            <li>The save dialog creates a file for opening via double click</li>
+            <li>Click the <strong>Finish</strong> button. Then you can create a file for opening via double click.</li>
         </ol>
+
+        <p><img src="img/libreoffice-db-wizard-step-1.png" width="675" height="588" alt=""/></p>
+        <p><img src="img/libreoffice-db-wizard-step-2.png" width="675" height="588" alt=""/></p>
+
+        <p>On success, you will see the tables as in the image below.</p>
+
+        <p><img src="img/libreoffice-tables-view.png" alt=""/></p>
 
         <p><strong>Author:</strong>
             <br /><a href="mailto:info@jphototagger.org?subject=JPhotoTagger%20">Write e-Mail</a>
-            <br /><strong>Status of this document:</strong> 2013-01-13
+            <br /><strong>Status of this document:</strong> 2019-01-19
         </p>
 
     </div><!--content-->
