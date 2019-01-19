@@ -6686,6 +6686,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>EXIF-Aufnahmedatum automatisch in neu erzeugte/modifizierte XMP-Datei schreiben, sofern dort nicht vorhanden</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20190119T162630Z" creationid="elmar" creationdate="20190119T162419Z">
+        <seg>Write EXIF date taken automatically into new created/modified XMP file if absent</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>EXIF-Aufnahmedatum und -Uhrzeit absteigend</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -15278,6 +15286,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>XMP and EXIF date ascending</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>XMP-Datei erzeugen, falls nicht existent</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20190119T162358Z" creationid="elmar" creationdate="20190119T162358Z">
+        <seg>Create XMP file, if not exists</seg>
       </tuv>
     </tu>
     <tu>

@@ -3,6 +3,17 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.7 2019-01-19
+-----------------
+
+* Added two settings:
+  Edit > Settings > 6. Miscellaneous > Miscellaneous:
+  + Create XMP file, if not exists
+  + Write EXIF date taken automatically into new created/modified
+    XMP file if absent
+  These settings are described in the contextual sensitive help
+  (F1 within this settings page, currently only in German).
+
 0.42.6 2018-12-27
 -----------------
 

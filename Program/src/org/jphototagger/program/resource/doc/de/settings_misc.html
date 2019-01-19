@@ -54,6 +54,29 @@
             die <strong>JPhotoTagger</strong> erzeugt und umgekehrt.
         </p>
 
+        <h2>XMP-Datei erzeugen, falls nicht existent</h2>
+
+        <p>JPhotoTagger erzeugt XMP-Filial-Dateien nur, falls Sie Metadaten änderten,
+            beispielsweise Stichwörter oder eine Bildbeschreibung eingaben bzw.
+            änderten. Wenn Sie diese Option aktivieren, werden während des Einlesens
+            von Bildern auf jeden Fall leere XMP-Filial-Dateien erzeugt, wenn
+            noch keine existieren. Das ist erforderlich, damit das EXIF-Aufnahmedatum in die
+            XMP-Datei übertragen werden kann, siehe weiter unten.
+        </p>
+
+        <h2>EXIF-Aufnahmedatum automatisch in neu erzeugte/modifizierte XMP-Datei schreiben, sofern dort nicht vorhanden</h2>
+
+        <p>Ist diese Option aktiviert, schreibt JPhotoTagger das EXIF-Aufnahmedatum in
+            eine XMP-Datei, falls diese existiert und darin noch kein (gegebenenfalls
+            abweichendes) Aufnahmedatum ist. Dies erfolgt nur für neu erzeugte
+            XMP-Dateien, die der Datenbank noch nicht bekannt sind, beispielsweise während
+            des Einlesens neuer Bilder oder falls eine bereits bekannte XMP-Datei modifiziert wurde,
+            beispielsweise, weil Sie Stichwörter neu eingegeben / geändert / gelöscht haben.
+            <em>Bedenken Sie, dass nachdem Sie das Datum dort gelöscht haben, dies wieder
+            automatisch eingetragen wird, wenn diese Option aktiviert ist und in den Bild-EXIF-Daten
+            ein Aufnahmedatum steht (Datum lässt sich nicht mehr löschen)!</em>
+        </p>
+
         <h2>Ausführlichkeit des Protokolls mit allen Nachrichten</h2>
 
         <p>Das Protokoll mit allen Nachrichten enthält mehr Ausgaben im Gegensatz zum

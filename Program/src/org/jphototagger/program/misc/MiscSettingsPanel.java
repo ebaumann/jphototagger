@@ -197,6 +197,14 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         }
     }
 
+    private void setForceCreateXmpSidecarFiles() {
+        prefs.setBoolean(XmpPreferences.KEY_FORCE_CREATE_XMP_SIDECARFILES, checkBoxForceCreateXmpSidecarFiles.isSelected());
+    }
+
+    private void setWriteExifDateToXmpDateCreated() {
+        prefs.setBoolean(PreferencesKeys.KEY_DISABLE_SAVE_EXIF_TO_XMP_DATE_CREATED, !checkBoxWriteExifDateToXmpDateCreated.isSelected());
+    }
+
     @EventSubscriber(eventClass = PreferencesChangedEvent.class)
     public void applySettings(PreferencesChangedEvent evt) {
         if (AppPreferencesKeys.KEY_CHECK_FOR_UPDATES.equals(evt.getKey())) {
@@ -217,6 +225,8 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         radioButtonCopyMoveFileRenameIfExists.setSelected(getCopyMoveFilesOptions().equals(CopyMoveFilesOptions.RENAME_SOURCE_FILE_IF_TARGET_FILE_EXISTS));
         setIconRepositoryDirectory();
         restoreUseLongXmpSidecarFileNames();
+        restoreForceCreateXmpSidecarFiles();
+        restoreWriteExifDateToXmpDateCreated();
         restoreTabbedPaneSettings();
         restoreMetaDataTextAreasColumns();
     }
@@ -250,6 +260,20 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
                     prefs.getBoolean(XmpPreferences.KEY_USE_LONG_SIDECAR_FILENAMES));
         }
         listenToUseLongXmpSidecarFileNames = true;
+    }
+
+    private void restoreForceCreateXmpSidecarFiles() {
+        boolean restore = prefs != null && prefs.containsKey(XmpPreferences.KEY_FORCE_CREATE_XMP_SIDECARFILES)
+                ? prefs.getBoolean(XmpPreferences.KEY_FORCE_CREATE_XMP_SIDECARFILES)
+                :false;
+        checkBoxForceCreateXmpSidecarFiles.setSelected(restore);
+    }
+
+    private void restoreWriteExifDateToXmpDateCreated() {
+        boolean restore = prefs != null && prefs.containsKey(PreferencesKeys.KEY_DISABLE_SAVE_EXIF_TO_XMP_DATE_CREATED)
+                ? !prefs.getBoolean(PreferencesKeys.KEY_DISABLE_SAVE_EXIF_TO_XMP_DATE_CREATED)
+                :false;
+        checkBoxWriteExifDateToXmpDateCreated.setSelected(restore);
     }
 
     private boolean isCheckForUpdates() {
@@ -317,6 +341,8 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         checkBoxCheckForUpdates = UiFactory.checkBox();
         checkBoxDisplaySearchButton = UiFactory.checkBox();
         checkBoxUseLongXmpSidecarFileNames = UiFactory.checkBox();
+        checkBoxForceCreateXmpSidecarFiles = UiFactory.checkBox();
+        checkBoxWriteExifDateToXmpDateCreated = UiFactory.checkBox();
         panelEditMetadata = UiFactory.panel();
         panelMdTextAreasColumns = UiFactory.panel();
         labelMdTextAreasColumnsPropmpt = UiFactory.label();
@@ -417,6 +443,36 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxUseLongXmpSidecarFileNames, gridBagConstraints);
+
+        checkBoxForceCreateXmpSidecarFiles.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxForceCreateXmpSidecarFiles.text")); // NOI18N
+        checkBoxForceCreateXmpSidecarFiles.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxForceCreateXmpSidecarFilesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
+        panelDefault.add(checkBoxForceCreateXmpSidecarFiles, gridBagConstraints);
+
+        checkBoxWriteExifDateToXmpDateCreated.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxWriteExifDateToXmpDateCreated.text")); // NOI18N
+        checkBoxWriteExifDateToXmpDateCreated.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxWriteExifDateToXmpDateCreatedActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
+        panelDefault.add(checkBoxWriteExifDateToXmpDateCreated, gridBagConstraints);
 
         panelEditMetadata.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MiscSettingsPanel.panelEditMetadata.border.title"))); // NOI18N
         panelEditMetadata.setLayout(new java.awt.GridBagLayout());
@@ -635,6 +691,14 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         setUseLongXmpSidecarFileNames();
     }
 
+    private void checkBoxForceCreateXmpSidecarFilesActionPerformed(java.awt.event.ActionEvent evt) {
+        setForceCreateXmpSidecarFiles();
+    }
+
+    private void checkBoxWriteExifDateToXmpDateCreatedActionPerformed(java.awt.event.ActionEvent evt) {
+        setWriteExifDateToXmpDateCreated();
+    }
+
     private void spinnerMdTextAreasColumnsStateChanged(javax.swing.event.ChangeEvent evt) {
         persistMdTextAreasColumns();
     }
@@ -652,6 +716,8 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
     private javax.swing.JCheckBox checkBoxEnableDeleteDirectories;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
     private javax.swing.JCheckBox checkBoxUseLongXmpSidecarFileNames;
+    private javax.swing.JCheckBox checkBoxForceCreateXmpSidecarFiles;
+    private javax.swing.JCheckBox checkBoxWriteExifDateToXmpDateCreated;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
     private javax.swing.JLabel labelMdTextAreasColumnsInfo;
     private javax.swing.JLabel labelMdTextAreasColumnsPropmpt;

@@ -39,11 +39,13 @@ import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.domain.repository.ThumbnailsRepository;
 import org.jphototagger.image.util.ThumbnailCreatorService;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.StringUtil;
 import org.jphototagger.lib.util.ThreadUtil;
 import org.jphototagger.program.module.programs.StartPrograms;
 import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.resources.Icons;
 import org.jphototagger.xmp.XmpMetadata;
+import org.jphototagger.xmp.XmpPreferences;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.ServiceProvider;
 
@@ -63,6 +65,7 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private final ThumbnailsRepository thumbnailsRepository = Lookup.getDefault().lookup(ThumbnailsRepository.class);
     private final XmpSidecarFileResolver xmpSidecarFileResolver = Lookup.getDefault().lookup(XmpSidecarFileResolver.class);
     private final Collection<? extends XmpModifier> xmpModifiers = Lookup.getDefault().lookupAll(XmpModifier.class);
+    private final Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
     private volatile boolean cancel;
 
     public SaveToOrUpdateFilesInRepositoryImpl() {
@@ -129,7 +132,17 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     private boolean isUpdate(ImageFile imageFile) {
         return (imageFile.getExif() != null)
                 || (imageFile.getXmp() != null)
-                || (imageFile.getThumbnail() != null);
+                || (imageFile.getThumbnail() != null)
+                || isSetXmpDateCreated(imageFile);
+    }
+
+    private boolean isSetXmpDateCreated(ImageFile imageFile) {
+        if (!isPrefsSetExifDateToXmpDateCreated()) {
+            return false;
+        }
+        Xmp xmp = imageFile.getXmp();
+        return xmp != null
+                && !xmp.contains(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
     }
 
     private ImageFile createImageFile(File file) {
@@ -176,8 +189,11 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
 
     private boolean isXmpUpToDate(File file) {
         File xmpFile = xmpSidecarFileResolver.getXmpSidecarFileOrNullIfNotExists(file);
-        return (xmpFile == null)
-                ? isScanForEmbeddedXmp() && isEmbeddedXmpUpToDate(file)
+        if (xmpFile == null && isForceCreateXmpSidecarFiles()) {
+            return false;
+        }
+        return xmpFile == null
+                ? (isScanForEmbeddedXmp() && isEmbeddedXmpUpToDate(file))
                 : isXmpSidecarFileUpToDate(file, xmpFile);
     }
 
@@ -237,11 +253,20 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
             Logger.getLogger(SaveToOrUpdateFilesInRepositoryImpl.class.getName()).log(Level.SEVERE, null, ex);
             return;
         }
+        boolean emptyXmpCreatedDueForce = false;
+        if (xmp == null && isForceCreateXmpSidecarFiles()) {
+            emptyXmpCreatedDueForce = true;
+            xmp = new Xmp();
+        }
         modifyXmp(xmpSidecarFileResolver.findSidecarFile(xmpSidecarFileResolver.suggestXmpSidecarFile(file)), xmp);
         writeSidecarFileIfNotExists(file, xmp);
-        if ((xmp != null) && !xmp.isEmpty()) {
+        if ((xmp != null) && (emptyXmpCreatedDueForce || !xmp.isEmpty())) {
             imageFile.setXmp(xmp);
         }
+    }
+
+    private boolean isForceCreateXmpSidecarFiles() {
+        return preferences.getBoolean(XmpPreferences.KEY_FORCE_CREATE_XMP_SIDECARFILES);
     }
 
     private void modifyXmp(File sidecarFile, Xmp xmp) {
@@ -256,27 +281,41 @@ public final class SaveToOrUpdateFilesInRepositoryImpl extends Thread implements
     }
 
     private void setExifDateToXmpDateCreated(ImageFile imageFile) {
-        Preferences preferences = Lookup.getDefault().lookup(Preferences.class);
-        if (preferences.getBoolean(PreferencesKeys.KEY_DISABLE_SAVE_EXIF_TO_XMP_DATE_CREATED)) {
+        if (!isPrefsSetExifDateToXmpDateCreated()) {
+            return;
+        }
+        Xmp xmp = imageFile.getXmp();
+        if (xmp == null || xmp.contains(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE)) {
             return;
         }
         Exif exif = imageFile.getExif();
-        Xmp xmp = imageFile.getXmp();
-        boolean hasExif = exif != null;
-        boolean hasXmp = xmp != null;
-        boolean hasXmpDateCreated = hasXmp && xmp.contains(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE);
-        boolean hasExifDate = hasExif && (exif.getDateTimeOriginal() != null);
-        if (hasXmpDateCreated || !hasXmp || !hasExif || !hasExifDate) {
+        File file = imageFile.getFile();
+        if (exif == null) {
+            exif = imageFilesRepository.findExifOfImageFile(file);
+            if (exif == null) {
+                exif = ExifUtil.readExif(file);
+            }
+        }
+        if (exif == null) {
             return;
         }
-        xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, exif.getXmpDateCreated());
-        File sidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(imageFile.getFile());
+        String xmpDateCreated = exif.getXmpDateCreated();
+        if (!StringUtil.hasContent(xmpDateCreated)) {
+            return;
+        }
+        xmp.setValue(XmpIptc4XmpCoreDateCreatedMetaDataValue.INSTANCE, xmpDateCreated);
+        File sidecarFile = xmpSidecarFileResolver.suggestXmpSidecarFile(file);
         if (sidecarFile.canWrite()) {
             long lastModified = sidecarFile.lastModified();
             XmpMetadata.writeXmpToSidecarFile(xmp, sidecarFile);
             sidecarFile.setLastModified(lastModified);
             xmp.setValue(XmpLastModifiedMetaDataValue.INSTANCE, sidecarFile.lastModified());
         }
+    }
+
+    private boolean isPrefsSetExifDateToXmpDateCreated() {
+        // Double negation due historical development
+        return !preferences.getBoolean(PreferencesKeys.KEY_DISABLE_SAVE_EXIF_TO_XMP_DATE_CREATED);
     }
 
     private void writeSidecarFileIfNotExists(File imageFile, Xmp xmp) {
