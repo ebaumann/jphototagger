@@ -94,6 +94,8 @@ public final class RenameTemplateUtil {
         String info = Bundle.getString(RenameTemplateUtil.class, "RenameTemplateHelper.Input.Name");
         String input = (suggest == null) ? "" : suggest;
         InputDialog dlg = new InputDialog(info, input);
+        dlg.setModal(true);
+        dlg.setAlwaysOnTop(true);
         dlg.setVisible(true);
         RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
         boolean unique = false;

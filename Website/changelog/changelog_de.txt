@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.8 2019-04-19
+-----------------
+
+* Bugfix: Beim Speichern einer Datei-Umbenennungs-Schablone ist der
+  Dialog zur Eingabe des Namens benutzbar
+
 0.42.7 2019-01-19
 -----------------
 

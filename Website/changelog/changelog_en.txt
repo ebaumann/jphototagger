@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.8 2019-04-19
+-----------------
+
+* Bugfix: When saving a file rename template, the name input dialog
+  can be used
+
 0.42.7 2019-01-19
 -----------------
 
