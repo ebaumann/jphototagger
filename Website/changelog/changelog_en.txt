@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.9 2019-08-03
+-----------------
+
+* Reordering images in the Photo Albums does not clear their selection
+
 0.42.8 2019-04-19
 -----------------
 

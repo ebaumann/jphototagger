@@ -6828,6 +6828,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Die Dateien werden nicht gelöscht.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20190803T125640Z" creationid="elmar" creationdate="20190803T125640Z">
+        <seg>The files will not be deleted..</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Die Datenbank konnte nicht geschlossen werden!</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T192821Z">

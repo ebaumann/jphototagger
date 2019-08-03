@@ -891,11 +891,16 @@ public class ThumbnailsPanel extends PanelExt
         return f;
     }
 
-    private synchronized List<Integer> getIndicesOfFiles(List<File> files, boolean onlyIfExists) {
+    /**
+     * @param files
+     *
+     * @return Existing indices of {@code files} in this thumbnails panel
+     */
+    private synchronized List<Integer> getIndicesOfFiles(List<File> files) {
         List<Integer> indices = new ArrayList<>(files.size());
         for (File file : files) {
-            int index = files.indexOf(file);
-            if (!onlyIfExists || (onlyIfExists && (index >= 0))) {
+            int index = this.files.indexOf(file);
+            if (index >= 0) {
                 indices.add(index);
             }
         }
@@ -932,8 +937,11 @@ public class ThumbnailsPanel extends PanelExt
         newOrderedFiles.addAll(filesWithoutMoved.subList(index, filesWithoutMoved.size()));
         files.clear();
         files.addAll(newOrderedFiles);
-        clearSelectionAtIndices(getIndicesOfFiles(selFiles, true));
-        repaint();
+        List<Integer> newSelIndices = getIndicesOfFiles(selFiles);
+        setSelectedIndices(newSelIndices);
+        if (!newSelIndices.isEmpty()) {
+            setCursorPos(newSelIndices.get(newSelIndices.size() - 1));
+        }
     }
 
     private void notifyRefreshListeners(ThumbnailsPanelRefreshEvent evt) {
@@ -1207,7 +1215,7 @@ public class ThumbnailsPanel extends PanelExt
             List<File> selFiles = getSelectedFiles();
 
             setFiles(new ArrayList<>(files), originOfOfDisplayedThumbnails);
-            setSelectedIndices(getIndicesOfFiles(selFiles, true));
+            setSelectedIndices(getIndicesOfFiles(selFiles));
         }
     }
 

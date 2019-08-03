@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.9 2019-08-03
+-----------------
+
+* Umsortieren von Bildern in den Fotoalbum löscht nicht mehr ihre
+  Auswahl
+
 0.42.8 2019-04-19
 -----------------
 
