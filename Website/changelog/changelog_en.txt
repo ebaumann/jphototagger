@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.10 2019-08-04
+------------------
+
+* Bugfix: After re-ordering of images, the selection of a
+  photo album won't be lost. This bug did exist prior to
+  the changes whithin version 0.42.9.
+
 0.42.9 2019-08-03
 -----------------
 

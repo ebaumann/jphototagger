@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.10 2019-08-04
+------------------
+
+* Bugfix: Nach Umsortieren von Bildern wird die Auswahl eines
+  Fotoalbums nicht mehr aufgehoben. Dieser Bug existierte
+  bereits vor den Änderungen in Version 0.42.9.
+
 0.42.9 2019-08-03
 -----------------
 

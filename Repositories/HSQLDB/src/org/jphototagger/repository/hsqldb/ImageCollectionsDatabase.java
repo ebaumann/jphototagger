@@ -182,8 +182,8 @@ final class ImageCollectionsDatabase extends Database {
     /**
      * Inserts an image collection into the database.
      * <p>
-     * If an image collection of that name already existsValueInColumn, it will be deleted
-     * before insertion.
+     * If an image collection of that name already exists, it will be deleted
+     * before insertion without notification to delete listeners.
      *
      * @param collectionName name of the image collection
      * @param imageFiles     ordered image files
@@ -198,7 +198,7 @@ final class ImageCollectionsDatabase extends Database {
         }
         boolean added = false;
         if (existsImageCollection(collectionName)) {
-            deleteImageCollection(collectionName, true);
+            deleteImageCollection(collectionName, true, false);
         }
         Connection con = null;
         PreparedStatement stmtName = null;
@@ -249,7 +249,7 @@ final class ImageCollectionsDatabase extends Database {
      * @param collectioNname name of the image collection
      * @return               true if successfully deleted
      */
-    boolean deleteImageCollection(String collectioNname, boolean force) {
+    boolean deleteImageCollection(String collectioNname, boolean force, boolean notifyListeners) {
         if (collectioNname == null) {
             throw new NullPointerException("collectioNname == null");
         }
@@ -268,7 +268,9 @@ final class ImageCollectionsDatabase extends Database {
             LOGGER.log(Level.FINER, stmt.toString());
             stmt.executeUpdate();
             deleted = true;
-            notifyCollectionDeleted(collectioNname, delFiles);
+            if (notifyListeners) {
+                notifyCollectionDeleted(collectioNname, delFiles);
+            }
         } catch (Throwable t) {
             LOGGER.log(Level.SEVERE, null, t);
         } finally {
