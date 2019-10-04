@@ -17,7 +17,8 @@ import javax.swing.tree.MutableTreeNode;
 public final class SortedChildrenTreeNode extends DefaultMutableTreeNode implements Comparable<Object> {
 
     private static final long serialVersionUID = 1L;
-    private static final Collator collator = Collator.getInstance();
+    private static final Collator COLLATOR = Collator.getInstance();
+    private boolean sortEnabled = true;
 
     public SortedChildrenTreeNode() {
     }
@@ -32,7 +33,9 @@ public final class SortedChildrenTreeNode extends DefaultMutableTreeNode impleme
 
     @SuppressWarnings("unchecked")
     public void sortChildren() {
-        Collections.sort(this.children);
+        if (sortEnabled && this.children != null) {
+            Collections.sort(this.children);
+        }
     }
 
     public void insertUnsorted(MutableTreeNode newChild, int childIndex) {
@@ -43,14 +46,14 @@ public final class SortedChildrenTreeNode extends DefaultMutableTreeNode impleme
     @SuppressWarnings("unchecked")
     public void insert(MutableTreeNode newChild, int childIndex) {
         super.insert(newChild, childIndex);
-        Collections.sort(this.children);
+        sortChildren();
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void add(MutableTreeNode newChild) {
         super.add(newChild);
-        Collections.sort(this.children);
+        sortChildren();
     }
 
     public void addUnsorted(MutableTreeNode newChild) {
@@ -96,6 +99,17 @@ public final class SortedChildrenTreeNode extends DefaultMutableTreeNode impleme
     // a compare of the path is not neccessary
     @Override
     public int compareTo(final Object o) {
-        return collator.compare(this.toString(), o.toString());
+        return COLLATOR.compare(this.toString(), o.toString());
+    }
+
+    public boolean isSortEnabled() {
+        return sortEnabled;
+    }
+
+    /**
+     * @param sortEnabled Default: true
+     */
+    public void setSortEnabled(boolean sortEnabled) {
+        this.sortEnabled = sortEnabled;
     }
 }

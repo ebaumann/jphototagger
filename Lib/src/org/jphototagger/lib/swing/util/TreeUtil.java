@@ -48,6 +48,33 @@ public final class TreeUtil {
         return null;
     }
 
+    public interface TreeNodeVisitor {
+        void visit(TreeNode node);
+    }
+
+    /**
+     * Calls for the {@code startNode} and all it's descendants recursive
+     * {@link TreeNodeVisitor#visit(javax.swing.tree.TreeNode)}.
+     *
+     * @param startNode first node to visit
+     * @param visitor   visitor which will do something with the nodes
+     */
+    public static void visitTreeNodesRecursive(TreeNode startNode, TreeNodeVisitor visitor) {
+        Objects.requireNonNull(startNode, "startNode == null");
+        Objects.requireNonNull(visitor, "visitor == null");
+
+        visitor.visit(startNode);
+
+        for (Enumeration<?> childNodes = startNode.children(); childNodes.hasMoreElements(); ) {
+            Object childElement = childNodes.nextElement();
+            if (childElement instanceof TreeNode) {
+                TreeNode childNode = (TreeNode) childElement;
+                visitor.visit(childNode);
+                visitTreeNodesRecursive(childNode, visitor); // Recursive
+            }
+        }
+    }
+
     private static boolean containsObject(TreeNode treeNode, Object userObject) {
         if (treeNode instanceof DefaultMutableTreeNode) {
             Object nodeUserObject = ((DefaultMutableTreeNode) treeNode).getUserObject();

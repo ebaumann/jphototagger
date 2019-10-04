@@ -34,12 +34,87 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(KeywordsTreeModel.class.getName());
     private final KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
-    private final DefaultMutableTreeNode ROOT;
+    private final SortedChildrenTreeNode rootNode;
+    private boolean sortEnabled = true;
+    private boolean insertDcSubjects = true;
 
     public KeywordsTreeModel() {
         super(new SortedChildrenTreeNode(Bundle.getString(KeywordsTreeModel.class, "KeywordsTreeModel.DisplayName.Root")));
-        ROOT = (DefaultMutableTreeNode) getRoot();
+        rootNode = (SortedChildrenTreeNode) getRoot();
         createTree();
+    }
+
+    private void createTree() {
+        setSortEnabled(false);
+        Collection<Keyword> rootKeywords = repo.findRootKeywords();
+
+        for (Keyword rootKeyword : rootKeywords) {
+            SortedChildrenTreeNode childNode = new SortedChildrenTreeNode(rootKeyword);
+
+            childNode.setSortEnabled(false);
+            insertNode(rootNode, childNode);
+            insertChildren(childNode);
+        }
+
+        setSortEnabled(true);
+    }
+
+    private void insertChildren(DefaultMutableTreeNode parentNode) {
+        Keyword parent = (Keyword) parentNode.getUserObject();
+        Collection<Keyword> children = repo.findChildKeywords(parent.getId());
+
+        for (Keyword child : children) {
+            SortedChildrenTreeNode childNode = new SortedChildrenTreeNode(child);
+
+            childNode.setSortEnabled(sortEnabled);
+            insertNode(parentNode, childNode);
+            insertChildren(childNode);    // recursive
+        }
+    }
+
+    public void recreate() {
+        rootNode.removeAllChildren();
+        createTree();
+    }
+
+    /**
+     * Set's whether this model shall sort all tree items. After calling this
+     * method, the complete model will be reloaded.
+     *
+     * @param sortEnabled true, if enabled. Default: true.
+     */
+    public void setSortEnabled(final boolean sortEnabled) {
+        if (this.sortEnabled == sortEnabled) {
+            return;
+        }
+        this.sortEnabled = sortEnabled;
+        TreeUtil.visitTreeNodesRecursive(rootNode, new TreeUtil.TreeNodeVisitor() {
+            @Override
+            public void visit(TreeNode node) {
+                if (node instanceof SortedChildrenTreeNode) {
+                    SortedChildrenTreeNode sortNode = (SortedChildrenTreeNode) node;
+                    sortNode.setSortEnabled(sortEnabled);
+                    sortNode.sortChildren();
+                }
+            }
+        });
+        reload();
+    }
+
+    public boolean isSortEnabled() {
+        return sortEnabled;
+    }
+
+    public boolean isInsertDcSubjects() {
+        return insertDcSubjects;
+    }
+
+    /**
+     * @param insert true, if non hierarchical keywords (DC subjects) should be
+     *               inserted into the repository if not existent. Default: true
+     */
+    public void setInsertDcSubjects(boolean insert) {
+        this.insertDcSubjects = insert;
     }
 
     /**
@@ -99,7 +174,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
         }
 
         Object userObject = parentNode.getUserObject();
-        boolean parentIsRoot = parentNode.equals(ROOT);
+        boolean parentIsRoot = parentNode.equals(rootNode);
 
         assert parentIsRoot || (userObject instanceof Keyword) : parentNode;
 
@@ -110,10 +185,13 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
             Keyword child = new Keyword(null, idParent, keyword, real);
 
             if (repo.saveKeyword(child)) {
-                KeywordsUtil.insertDcSubject(keyword);
+                if (insertDcSubjects) {
+                    KeywordsUtil.insertDcSubject(keyword);
+                }
 
                 SortedChildrenTreeNode node = new SortedChildrenTreeNode(child);
 
+                node.setSortEnabled(sortEnabled);
                 insertNode(parentNode, node);
 
                 return node;
@@ -171,10 +249,13 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
         Keyword keyword = new Keyword(null, targetKeyword.getId(), srcKeyword.getName(), srcKeyword.isReal());
 
         if (repo.saveKeyword(keyword)) {
-            KeywordsUtil.insertDcSubject(keyword.getName());
+            if (insertDcSubjects) {
+                KeywordsUtil.insertDcSubject(keyword.getName());
+            }
 
-            DefaultMutableTreeNode node = new SortedChildrenTreeNode(keyword);
+            SortedChildrenTreeNode node = new SortedChildrenTreeNode(keyword);
 
+            node.setSortEnabled(sortEnabled);
             target.add(node);
             fireTreeNodesInserted(this, target.getPath(), new int[]{target.getIndex(node)}, new Object[]{node});
 
@@ -331,7 +412,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
         if (ensureIsNotChild(target, keyword.getName(), true) && ensureTargetIsNotBelowSource(source, target)
                 && setIdParent(keyword, target)) {
             if (repo.updateKeyword(keyword)) {
-                DefaultMutableTreeNode removeNode = TreeUtil.findNodeWithUserObject(ROOT, source.getUserObject());
+                DefaultMutableTreeNode removeNode = TreeUtil.findNodeWithUserObject(rootNode, source.getUserObject());
 
                 if (removeNode != null) {
                     removeNodeFromParent(removeNode);
@@ -343,7 +424,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
     }
 
     private boolean setIdParent(Keyword keyword, DefaultMutableTreeNode parentNode) {
-        if (parentNode.equals(ROOT)) {
+        if (parentNode.equals(rootNode)) {
             keyword.setIdParent(null);
 
             return true;
@@ -362,30 +443,7 @@ public final class KeywordsTreeModel extends DefaultTreeModel {
         return false;
     }
 
-    private void createTree() {
-        Collection<Keyword> roots = repo.findRootKeywords();
-
-        for (Keyword rootKeyword : roots) {
-            DefaultMutableTreeNode rootNode = new SortedChildrenTreeNode(rootKeyword);
-
-            insertNode(ROOT, rootNode);
-            insertChildren(rootNode);
-        }
-    }
-
-    private void insertChildren(DefaultMutableTreeNode parentNode) {
-        Keyword parent = (Keyword) parentNode.getUserObject();
-        Collection<Keyword> children = repo.findChildKeywords(parent.getId());
-
-        for (Keyword child : children) {
-            DefaultMutableTreeNode childNode = new SortedChildrenTreeNode(child);
-
-            insertNode(parentNode, childNode);
-            insertChildren(childNode);    // recursive
-        }
-    }
-
     public void removeAllKeywords() {
-        TreeUtil.removeAllChildren(this, ROOT);
+        TreeUtil.removeAllChildren(this, rootNode);
     }
 }

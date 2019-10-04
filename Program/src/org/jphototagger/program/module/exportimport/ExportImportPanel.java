@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingWorker;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.event.listener.ListenerSupport;
 import org.jphototagger.domain.repository.RepositoryDataExporter;
@@ -42,6 +43,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
     private static final String KEY_SEL_INDICES_EXPORT = "ExportImportPanel.Export.SelIndices";
     private static final String KEY_SEL_INDICES_IMPORT = "ExportImportPanel.Import.SelIndices";
     private static final String KEY_LAST_DIR = "ExportImportPanel.LastDirectory";
+    private boolean working;
     private ExportImportContext context = ExportImportContext.EXPORT;
     private File dir;
     private final transient ListenerSupport<ExportImportListener> ls = new ListenerSupport<>();
@@ -245,24 +247,50 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
     }
 
     private void importFiles() {
-        List<File> importedFiles = new ArrayList<>();
-        List<File> missingFiles = new ArrayList<>();
-        List<Object> selectedObjects = panelSelectObjects.getSelectedObjects();
-        for (Object o : selectedObjects) {
-            if (o instanceof RepositoryDataImporter) {
-                RepositoryDataImporter importer = (RepositoryDataImporter) o;
-                File importFile = new File(dir.getAbsolutePath() + File.separator + importer.getDefaultFilename());
-                if (importFile.exists()) {
-                    logImport(importer, importFile);
-                    importer.importFromFile(importFile);
-                    importedFiles.add(importFile);
-                } else {
-                    logImportErrorFileDoesNotExist(importer, importFile);
-                    missingFiles.add(importFile);
+        if (!working) {
+            ImportWorker worker = new ImportWorker(panelSelectObjects.getSelectedObjects());
+            worker.execute();
+        }
+    }
+
+    private final class ImportWorker extends SwingWorker<Collection<File>, Void> {
+
+        private final List<Object> selectedObjects;
+
+        private ImportWorker(List<Object> selectedObjects) {
+            this.selectedObjects = selectedObjects;
+        }
+
+        @Override
+        protected Collection<File> doInBackground() throws Exception {
+            Collection<File> importedFiles = new ArrayList<>();
+            for (Object o : selectedObjects) {
+                if (o instanceof RepositoryDataImporter) {
+                    RepositoryDataImporter importer = (RepositoryDataImporter) o;
+                    File importFile = new File(dir.getAbsolutePath() + File.separator + importer.getDefaultFilename());
+                    if (importFile.exists()) {
+                        logImport(importer, importFile);
+                        importer.importFromFile(importFile);
+                        importedFiles.add(importFile);
+                    } else {
+                        logImportErrorFileDoesNotExist(importer, importFile);
+                    }
                 }
             }
+            return importedFiles;
         }
-        displayFiles(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Info.ImportedFiles"), importedFiles);
+
+        @Override
+        protected void done() {
+            try {
+                Collection<File> importedFiles = get();
+                displayFiles(Bundle.getString(ExportImportPanel.class, "ExportImportPanel.Info.ImportedFiles"), importedFiles);
+            } catch (Exception ex) {
+                Logger.getLogger(ImportWorker.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                working = false;
+            }
+        }
     }
 
     private void logImport(RepositoryDataImporter importer, File importFile) {
