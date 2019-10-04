@@ -1718,10 +1718,10 @@
     </tu>
     <tu>
       <tuv lang="DE">
-        <seg>&lt;html&gt;&lt;b&gt;HTML Reports&lt;/b&gt; Version 0.1 by &lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;&lt;/i&gt;&lt;/html&gt;</seg>
+        <seg>&lt;html&gt;&lt;b&gt;HTML Reports&lt;/b&gt; Version 0.2 by &lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;&lt;/i&gt;&lt;/html&gt;</seg>
       </tuv>
-      <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;&lt;b&gt;HTML Reports&lt;/b&gt; Version 0.1 by &lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;&lt;/i&gt;&lt;/html&gt;</seg>
+      <tuv lang="EN" changeid="elmar" changedate="20191004T195434Z" creationid="elmar" creationdate="20191004T195434Z">
+        <seg>&lt;html&gt;&lt;b&gt;HTML Reports&lt;/b&gt; Version 0.2 by &lt;i&gt;Elmar Baumann &amp;lt;eb@elmar-baumann.de&amp;gt;&lt;/i&gt;&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -10098,6 +10098,14 @@ falls diese nicht im Zielalbum existieren.</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Komma</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191004T195311Z" creationid="elmar" creationdate="20191004T195311Z">
+        <seg>Comma</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Komprimiere die Datenbank...</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -14062,6 +14070,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130820T185300Z">
         <seg>Se&amp;parator between year/month/day and hours/minutes/seconds::</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Trennzeichen für mehrfache Werte, z.B. Stichwörter:</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191004T195345Z" creationid="elmar" creationdate="20191004T195345Z">
+        <seg>Delimiter for multiple values, e.g. Keywords:</seg>
       </tuv>
     </tu>
     <tu>

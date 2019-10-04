@@ -9,6 +9,8 @@ public final class HtmlReportsPreferencesKeys {
     public static final String KEY_INPUT_FILENAME_BEFORE_CREATING = "HtmlReports.InputFilename";
     public static final String KEY_OPEN_REPORT_AFTER_CREATING = "HtmlReports.OpenReportAfterCreation";
     public static final String KEY_SHOW_SETTINGS_BEFORE_CREATING = "HtmlReports.DisplaySettingsDialogBeforeCreation";
+    public static final String KEY_COLLECTION_DELIMITER = "HtmlReports.CollectionDelimiter";
+    public static final String DEFAULT_COLLETION_DELIMITER = "\n";
 
     private HtmlReportsPreferencesKeys() {
     }

@@ -1,11 +1,15 @@
 package org.jphototagger.plugin.htmlreports;
 
 import java.awt.Frame;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.api.preferences.Preferences;
@@ -28,6 +32,7 @@ import org.openide.util.Lookup;
 public class HtmlReportsSettingsPanel extends PanelExt {
 
     private static final long serialVersionUID = 1L;
+    private final DefaultComboBoxModel<CollectionDelimiter> collectionDelimiterModel = new DefaultComboBoxModel<>();
 
     public HtmlReportsSettingsPanel() {
         initComponents();
@@ -36,7 +41,45 @@ public class HtmlReportsSettingsPanel extends PanelExt {
 
     private void postInitComponents() {
         MnemonicUtil.setMnemonics(this);
+        initComboBoxCollectionDelimiter();
         setPersistedValues();
+    }
+
+    private void initComboBoxCollectionDelimiter() {
+        initCollectionDelimiterModel();
+        comboBoxCollectionDelimiter.setModel(collectionDelimiterModel);
+        comboBoxCollectionDelimiter.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent evt) {
+                if (evt.getStateChange() == ItemEvent.SELECTED) {
+                    Object item = evt.getItem();
+                    if (item instanceof CollectionDelimiter) {
+                        CollectionDelimiter delim = (CollectionDelimiter) item;
+                        persistSelectedCollectionDelimiter(delim.value);
+                    }
+                }
+            }
+        });
+    }
+
+    private final class CollectionDelimiter {
+        private final String value;
+        private final String displayName;
+
+        private CollectionDelimiter(String value, String displayName) {
+            this.value = value;
+            this.displayName = displayName;
+        }
+
+        @Override
+        public String toString() {
+            return displayName;
+        }
+    }
+
+    private void initCollectionDelimiterModel() {
+        collectionDelimiterModel.addElement(new CollectionDelimiter(", ", Bundle.getString(getClass(), "HtmlReportsSettingsPanel.CollectionDelimiter.DisplayName.Comma"))); // NOI18N
+        collectionDelimiterModel.addElement(new CollectionDelimiter("\n", Bundle.getString(getClass(), "HtmlReportsSettingsPanel.CollectionDelimiter.DisplayName.Newline"))); // NOI18N
     }
 
     private void setPersistedValues() {
@@ -45,8 +88,31 @@ public class HtmlReportsSettingsPanel extends PanelExt {
             checkBoxInputFilename.setSelected(prefs.getBoolean(HtmlReportsPreferencesKeys.KEY_INPUT_FILENAME_BEFORE_CREATING));
             checkBoxOpenReport.setSelected(prefs.getBoolean(HtmlReportsPreferencesKeys.KEY_OPEN_REPORT_AFTER_CREATING));
             checkBoxShowSettings.setSelected(prefs.getBoolean(HtmlReportsPreferencesKeys.KEY_SHOW_SETTINGS_BEFORE_CREATING));
+            selectPersistedCollectionDelimiter();
             setReportsDirectory();
         }
+    }
+
+    private void selectPersistedCollectionDelimiter() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String delim = prefs.containsKey(HtmlReportsPreferencesKeys.KEY_COLLECTION_DELIMITER)
+                ? prefs.getString(HtmlReportsPreferencesKeys.KEY_COLLECTION_DELIMITER)
+                : HtmlReportsPreferencesKeys.DEFAULT_COLLETION_DELIMITER;
+        if (!StringUtil.hasContent(delim) && !"\n".equals(delim)) {
+            delim = HtmlReportsPreferencesKeys.DEFAULT_COLLETION_DELIMITER;
+        }
+        for (int index = 0; index < collectionDelimiterModel.getSize(); index++) {
+            CollectionDelimiter cd = collectionDelimiterModel.getElementAt(index);
+            if (Objects.equals(delim, cd.value)) {
+                comboBoxCollectionDelimiter.setSelectedItem(cd);
+                break;
+            }
+        }
+    }
+
+    private void persistSelectedCollectionDelimiter(String delim) {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        prefs.setString(HtmlReportsPreferencesKeys.KEY_COLLECTION_DELIMITER, delim);
     }
 
     private void setReportsDirectory() {
@@ -118,6 +184,9 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         checkBoxShowSettings = UiFactory.checkBox();
         checkBoxInputFilename = UiFactory.checkBox();
         checkBoxOpenReport = UiFactory.checkBox();
+        panelCollectionDelimiter = UiFactory.panel();
+        labelCollectionDelimiter = UiFactory.label();
+        comboBoxCollectionDelimiter = UiFactory.comboBox();
         panelVersion = UiFactory.panel();
         labelVersion = UiFactory.label();
         buttonHelp = UiFactory.button();
@@ -233,6 +302,24 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         add(checkBoxOpenReport, gridBagConstraints);
 
+        panelCollectionDelimiter.setLayout(new java.awt.GridBagLayout());
+
+        labelCollectionDelimiter.setText(Bundle.getString(getClass(), "HtmlReportsSettingsPanel.labelCollectionDelimiter.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        panelCollectionDelimiter.add(labelCollectionDelimiter, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.insets = UiFactory.insets(0, 5, 0, 0);
+        panelCollectionDelimiter.add(comboBoxCollectionDelimiter, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
+        add(panelCollectionDelimiter, gridBagConstraints);
+
         panelVersion.setName("panelVersion"); // NOI18N
         panelVersion.setLayout(new java.awt.GridBagLayout());
 
@@ -291,11 +378,14 @@ public class HtmlReportsSettingsPanel extends PanelExt {
     private javax.swing.JCheckBox checkBoxInputFilename;
     private javax.swing.JCheckBox checkBoxOpenReport;
     private javax.swing.JCheckBox checkBoxShowSettings;
+    private javax.swing.JComboBox<CollectionDelimiter> comboBoxCollectionDelimiter;
+    private javax.swing.JLabel labelCollectionDelimiter;
     private javax.swing.JLabel labelDefaultValues;
     private javax.swing.JLabel labelDirectory;
     private javax.swing.JLabel labelDirectoryPrompt;
     private javax.swing.JLabel labelVersion;
     private MetaDataValueSelectionPanels panelColumns;
+    private javax.swing.JPanel panelCollectionDelimiter;
     private javax.swing.JPanel panelDirectory;
     private javax.swing.JPanel panelVersion;
 }

@@ -3,6 +3,17 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.11 2019-10-04
+------------------
+
+* Whithin the plugin "HTML Report" a delimiter for
+  multiple values (keywords) can be selected:
+  Edit > Settings > 8. Plugins > HTML Report
+* When creating the keywords tree, sorting will applied
+  after reading the keywords from database. This speeds
+  up the creation process.
+* Accelerated importing keyword trees.
+
 0.42.10 2019-08-04
 ------------------
 

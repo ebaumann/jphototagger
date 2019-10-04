@@ -3,6 +3,17 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.42.11 2019-10-04
+------------------
+
+* Im Plugin "HTML-Bericht" kann für mehrfach vorkommende
+  Werte (Stichwörter) das Trennzeichen eingestellt werden:
+  Bearbeiten > Einstellungen > 8. Plugins > HTML-Bericht
+* Beim Erzeugen des Stichwortbaums wird die Sortierung
+  erst durchgeführt, nachdem die Stichwörter aus der
+  Datenbank gelesen wurden. Dies beschleunigt die Erzeugung.
+* Importieren von Stichwortbäumen beschleunigt.
+
 0.42.10 2019-08-04
 ------------------
 

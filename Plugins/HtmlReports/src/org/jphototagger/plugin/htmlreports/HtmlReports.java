@@ -54,6 +54,7 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
     private static final String LINE_SEPARATOR = SystemProperties.getLineSeparator();
     private final DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL);
     private final NumberFormat numberFormat = NumberFormat.getNumberInstance();
+    private String collectionDelimiter;
     private String filenameSuggestion = HTML_FILE_NAME;
     private MetaDataValueProviderSupport metaDataValueProviderSupport;
     private File reportDirectory;
@@ -61,10 +62,25 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
     private File htmlFile;
     private String title;
 
+    public HtmlReports() {
+        collectionDelimiter = lookupCollectionDelimiter();
+    }
+
+    private String lookupCollectionDelimiter() {
+        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+        String delim = prefs.containsKey(HtmlReportsPreferencesKeys.KEY_COLLECTION_DELIMITER)
+                ? prefs.getString(HtmlReportsPreferencesKeys.KEY_COLLECTION_DELIMITER)
+                : HtmlReportsPreferencesKeys.DEFAULT_COLLETION_DELIMITER;
+        return !StringUtil.hasContent(delim) && !"\n".equals(delim)
+                ? HtmlReportsPreferencesKeys.DEFAULT_COLLETION_DELIMITER
+                : delim;
+    }
+
     @Override
     public void processFiles(Collection<? extends File> files) {
         boolean success = false;
         try {
+            collectionDelimiter = lookupCollectionDelimiter();
             EventBus.publish(new FileProcessingStartedEvent(this));
             createMetaDataValueProviderSupport();
             ensureDirectoriesExisting();
@@ -126,7 +142,7 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
                     : isFilename(valueData)
                     ? formatFilename(file, valueData.getData())
                     : HtmlUtil.escapeHTML(format(valueData));
-            sb.append(formattedData);
+            sb.append(formattedData.replace("\n", "<br/>"));
         }
         return sb.toString();
     }
@@ -186,7 +202,7 @@ public final class HtmlReports implements FileProcessorPlugin, HelpContentProvid
             StringBuilder sb = new StringBuilder();
             boolean isFirstElement = true;
             for (Object element : collection) {
-                sb.append(isFirstElement ? "" : ", ");
+                sb.append(isFirstElement ? "" : collectionDelimiter);
                 sb.append(format(valueType, element));
                 isFirstElement = false;
             }
