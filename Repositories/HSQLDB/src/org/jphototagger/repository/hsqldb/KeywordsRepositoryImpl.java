@@ -77,4 +77,9 @@ public final class KeywordsRepositoryImpl implements KeywordsRepository {
     public int updateRenameAllKeywords(String fromName, String toName) {
         return KeywordsDatabase.INSTANCE.updateRenameAllKeywords(fromName, toName);
     }
+
+    @Override
+    public int hierarchicalKeywordsToDcSubjects() {
+        return KeywordsDatabase.INSTANCE.hierarchicalKeywordsToDcSubjects();
+    }
 }

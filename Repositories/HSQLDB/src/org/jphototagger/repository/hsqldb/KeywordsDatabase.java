@@ -576,4 +576,27 @@ final class KeywordsDatabase extends Database {
             }
         }
     }
+
+    int hierarchicalKeywordsToDcSubjects() {
+        final String sql = "INSERT INTO dc_subjects (subject)"
+                + " SELECT subject"
+                + " FROM hierarchical_subjects"
+                + " WHERE subject NOT IN (SELECT subject FROM dc_subjects)";
+        Connection con = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        int count = 0;
+        try {
+            con = getConnection();
+            stmt = con.createStatement();
+            LOGGER.log(Level.FINEST, sql);
+            count = stmt.executeUpdate(sql);
+        } catch (Throwable t) {
+            LOGGER.log(Level.SEVERE, null, t);
+        } finally {
+            close(rs, stmt);
+            free(con);
+        }
+        return count;
+    }
 }

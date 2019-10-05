@@ -1662,6 +1662,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>5.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191005T125802Z" creationid="elmar" creationdate="20191005T125802Z">
+        <seg>5.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>&lt;/html&gt;</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130203T134621Z">
@@ -6398,6 +6406,14 @@
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Dies erscheint nach Neustart von JPhotoTagger in der Stichwortliste.|1&lt;{0} Stichwörter aus dem Stichwortbaum übertragen.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191005T131756Z" creationid="elmar" creationdate="20191005T125715Z">
+        <seg>That appears in the keywords list after restarting JPhotoTagger.|1&lt;Copied {0} keywords from the keywords tree.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Dies ist beispielsweise sinnvoll für Bilder, die Sie weitergeben.</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20180211T185019Z" creationid="elmar" creationdate="20180211T185019Z">
@@ -6418,6 +6434,14 @@
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Display this message in future</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Diese erscheinen nach Neustart von JPhotoTagger in der Stichwortliste.}</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191005T125740Z" creationid="elmar" creationdate="20191005T125740Z">
+        <seg>These appearing in the keywords list after restarting JPhotoTagger.}</seg>
       </tuv>
     </tu>
     <tu>
@@ -9149,6 +9173,14 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T190459Z">
         <seg>Click here to view the error logfile.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Hierarchische Stichwörter übertragen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191005T125355Z" creationid="elmar" creationdate="20191005T125355Z">
+        <seg>Copying hierarchical keywords</seg>
       </tuv>
     </tu>
     <tu>
@@ -13602,6 +13634,14 @@ falls diese nicht im Zielalbum existieren.</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Stichwörter aus dem Stichwortbaum in die Stichwortliste übertragen</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191005T130028Z" creationid="elmar" creationdate="20191005T125831Z">
+        <seg>Copy keywords from the keywords tree into the keywords list</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Stichwörter importieren</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -15658,6 +15698,14 @@ falls diese nicht im Zielalbum existieren.</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>[&amp;5] Start</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191005T125752Z" creationid="elmar" creationdate="20191005T125752Z">
+        <seg>[&amp;5] Start</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>[Unterschiedliche Werte]</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
@@ -15958,6 +16006,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>hide</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>{0,choice,0#Kein Stichwort aus dem Stichwortbaum übertragen.|1#Ein Stichwort aus dem Stichwortbaum übertragen.</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20191005T125527Z" creationid="elmar" creationdate="20191005T125527Z">
+        <seg>{0,choice,0#Copied no keyword from the keywords tree.|1#Copied one keyword from the keywords tree.</seg>
       </tuv>
     </tu>
     <tu>

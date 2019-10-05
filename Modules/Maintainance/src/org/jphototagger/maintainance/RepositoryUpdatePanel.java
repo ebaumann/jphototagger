@@ -11,6 +11,7 @@ import org.jphototagger.api.progress.ProgressEvent;
 import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.concurrent.HelperThread;
+import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
@@ -25,6 +26,7 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
     private static final long serialVersionUID = 1L;
     private static final String BUTTON_TEXT_CANCEL = Bundle.getString(RepositoryUpdatePanel.class, "RepositoryUpdatePanel.DisplayName.Cancel");
     private transient UpdateAllThumbnails thumbnailUpdater;
+    private transient HierarchicalKeywordsToDcSubjects hierarchicalKeywordsToDcSubjects;
     private final AbstractButton[] buttons;
     private volatile boolean cancel;
 
@@ -35,6 +37,7 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
             toggleButtonRefreshXmp,
             buttonUpdateThumbnails,
             buttonRenameFiles,
+            buttonHierarchicalKeywordsToDcSubjects,
         };
         MnemonicUtil.setMnemonics((Container) this);
     }
@@ -47,6 +50,16 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
             thumbnailUpdater.addActionListener(this);
             Thread t = new Thread(thumbnailUpdater, "JPhotoTagger: Updating all thumbnails");
             t.start();
+        }
+    }
+
+    private synchronized void hierarchicalKeywordsToDcSubjects() {
+        setEnabledAllButtons(false);
+
+        synchronized(this) {
+            hierarchicalKeywordsToDcSubjects = new HierarchicalKeywordsToDcSubjects();
+            hierarchicalKeywordsToDcSubjects.addActionListener(this);
+            hierarchicalKeywordsToDcSubjects.start();
         }
     }
 
@@ -154,6 +167,11 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
                 thumbnailUpdater = null;
                 buttonUpdateThumbnails.setEnabled(true);
                 setEnabledAllButtons(true);
+            } else if (evt.getSource() == hierarchicalKeywordsToDcSubjects) {
+                MessageDisplayer.information(this, Bundle.getString(getClass(), "RepositoryUpdatePanel.HierarchicalKeywordsToDcSubjects.Done", hierarchicalKeywordsToDcSubjects.getCount())); // NOI18N
+                hierarchicalKeywordsToDcSubjects = null;
+                buttonHierarchicalKeywordsToDcSubjects.setEnabled(true);
+                setEnabledAllButtons(true);
             }
         }
     }
@@ -172,8 +190,9 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
         labelRenameFiles = UiFactory.label();
         buttonRenameFiles = UiFactory.button();
         panelPadding = UiFactory.panel();
+        labelHierarchicalKeywordsToDcSubjects= UiFactory.label();
+        buttonHierarchicalKeywordsToDcSubjects = UiFactory.button();
 
-        setName("Form"); // NOI18N
         setLayout(new java.awt.GridBagLayout());
 
         panelContent.setName("panelContent"); // NOI18N
@@ -288,6 +307,30 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
         gridBagConstraints.insets = UiFactory.insets(3, 10, 0, 0);
         panelTasks.add(buttonRenameFiles, gridBagConstraints);
 
+        labelHierarchicalKeywordsToDcSubjects.setIcon(org.jphototagger.resources.Icons.getIcon("icon_keyword.png"));
+        labelHierarchicalKeywordsToDcSubjects.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.labelHierarchicalKeywordsToDcSubjects.text")); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
+        panelTasks.add(labelHierarchicalKeywordsToDcSubjects, gridBagConstraints);
+
+        buttonHierarchicalKeywordsToDcSubjects.setText(Bundle.getString(getClass(), "RepositoryUpdatePanel.buttonHierarchicalKeywordsToDcSubjects.text")); // NOI18N
+        buttonHierarchicalKeywordsToDcSubjects.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        buttonHierarchicalKeywordsToDcSubjects.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hierarchicalKeywordsToDcSubjects();
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(3, 10, 0, 0);
+        panelTasks.add(buttonHierarchicalKeywordsToDcSubjects, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -328,8 +371,10 @@ public class RepositoryUpdatePanel extends PanelExt implements ActionListener, P
         updateThumbnails();
     }
 
+    private javax.swing.JButton buttonHierarchicalKeywordsToDcSubjects;
     private javax.swing.JButton buttonRenameFiles;
     private javax.swing.JButton buttonUpdateThumbnails;
+    private javax.swing.JLabel labelHierarchicalKeywordsToDcSubjects;
     private javax.swing.JLabel labelRefreshExif;
     private javax.swing.JLabel labelRefreshXmp;
     private javax.swing.JLabel labelRenameFiles;

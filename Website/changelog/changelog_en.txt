@@ -6,13 +6,21 @@ Changelog JPhotoTagger https://jphototagger.org/
 0.42.11 2019-10-04
 ------------------
 
+* "File > Database ... > Modify" contains new action:
+  5. Copy keywords from the keywords tree into the
+  keywords list.
 * Whithin the plugin "HTML Report" a delimiter for
   multiple values (keywords) can be selected:
   Edit > Settings > 8. Plugins > HTML Report
 * When creating the keywords tree, sorting will applied
   after reading the keywords from database. This speeds
   up the creation process.
-* Accelerated importing keyword trees.
+* Accelerated importing keyword trees. Side effects:
+  1. Imported Keywords will not be added automatically
+     to the keywords list. Use the modify action
+     mentioned above.
+  2. The keywords tree will rebuilt from scratch
+     when the import is finished.
 
 0.42.10 2019-08-04
 ------------------

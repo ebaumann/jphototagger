@@ -3,16 +3,24 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
-0.42.11 2019-10-04
+0.42.11 2019-10-05
 ------------------
 
+* "Datei > Datenbank ... > Aktualisieren" hat neue Aktion:
+  5. Stichwörter aus dem Stichwortbaum in die Stichwortliste
+  übertragen.
 * Im Plugin "HTML-Bericht" kann für mehrfach vorkommende
   Werte (Stichwörter) das Trennzeichen eingestellt werden:
   Bearbeiten > Einstellungen > 8. Plugins > HTML-Bericht
 * Beim Erzeugen des Stichwortbaums wird die Sortierung
   erst durchgeführt, nachdem die Stichwörter aus der
   Datenbank gelesen wurden. Dies beschleunigt die Erzeugung.
-* Importieren von Stichwortbäumen beschleunigt.
+* Importieren von Stichwortbäumen beschleunigt. Nebeneffekte:
+  1. Importierte Stichwörter werden nicht mehr automatisch
+     der Stichwortliste hinzugefügt. Benutzen Sie die oben
+     aufgeführte Aktualisieren-Aktion.
+  2. Der Stichwortbaum wird komplett neu aufgebaut, nachdem
+     der Import beendet ist.
 
 0.42.10 2019-08-04
 ------------------

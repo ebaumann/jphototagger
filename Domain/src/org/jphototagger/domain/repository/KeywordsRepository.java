@@ -35,4 +35,12 @@ public interface KeywordsRepository {
     boolean updateKeyword(Keyword keyword);
 
     int updateRenameAllKeywords(String fromName, String toName);
+
+    /**
+     * Adds all hierarchical keywords to the Dublin Core subjects when not
+     * existing.
+     *
+     * @return count of transferred keywords
+     */
+    int hierarchicalKeywordsToDcSubjects();
 }
