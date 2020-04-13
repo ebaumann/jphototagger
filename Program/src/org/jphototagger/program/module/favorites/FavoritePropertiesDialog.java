@@ -200,8 +200,10 @@ public final class FavoritePropertiesDialog extends DialogExt {
     }
 
     private void persistDirectory() {
-        Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
-        prefs.setString(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
+        if (dir != null) {
+            Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+            prefs.setString(KEY_LAST_DIRECTORY, dir.getAbsolutePath());
+        }
     }
 
     @Override
