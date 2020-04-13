@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.43.0 2020-04-13
+------------------
+
+* Bugfix: Werden beim Erzeugen eines Ordners ausgewählte Dateien
+  verschoben, so werden auch deren XMP Filialdateien verschoben.
+  Das geschieht, wenn beim Erzeugen eines neuen Ordners Dateien
+  ausgewählt waren und die Nachfrage bestätigt wurde, ob die
+  ausgewählten Dateien in diesen Ordner verschoben werden sollen.
+
 0.42.11 2019-10-05
 ------------------
 

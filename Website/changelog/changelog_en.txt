@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.43.0 2020-04-13
+------------------
+
+* Bugfix: When selected files moved while creating a new folder,
+  XMP sidecarfiles will be moved too. This occurs if thumbnails
+  are selected when a new folder was created and the question was
+  confirmed, whether selected files should be moved to that folder.
+
 0.42.11 2019-10-04
 ------------------
 

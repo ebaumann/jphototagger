@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -14,10 +17,12 @@ import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.swing.KeyEventUtil;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.CollectionUtil;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.filesystem.MoveFilesController;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.xmp.XmpProperties;
 
 /**
  * Listens to {@code FavoritesPopupMenu#getItemAddFilesystemFolder()} and
@@ -92,10 +97,25 @@ public final class AddFilesystemFolderToFavoritesController implements ActionLis
                 MoveFilesController ctrl = ControllerFactory.INSTANCE.getController(MoveFilesController.class);
 
                 if (ctrl != null) {
-                    ctrl.moveFilesWithoutConfirm(selFiles, dir);
+                    @SuppressWarnings("unchecked")
+                    List<File> selFilesWithSidecars = new ArrayList<>(new LinkedHashSet<>(CollectionUtil.join(selFiles, getSidecarFiles(selFiles))));
+                    ctrl.moveFilesWithoutConfirm(selFilesWithSidecars, dir);
                 }
             }
         }
+    }
+
+    private Collection<File> getSidecarFiles(Collection<? extends File> imageFiles) {
+        Collection<File> sidecarFiles = new ArrayList<>(imageFiles.size());
+
+        for (File imageFile : imageFiles) {
+            File sidecarFile = XmpProperties.getSidecarfileOf(imageFile);
+            if (sidecarFile != null) {
+                sidecarFiles.add(sidecarFile);
+            }
+        }
+
+        return sidecarFiles;
     }
 
     private boolean isMoveSelFiles() {
