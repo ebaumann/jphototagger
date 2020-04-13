@@ -227,4 +227,13 @@ public class CollectionUtilTest {
         result = CollectionUtil.containsStringIgnoreCase(strings, string);
         assertFalse(result);
     }
+
+    @Test
+    public void testJoin() {
+        Collection<Integer> c1 = Arrays.asList(1, 2, 3);
+        Collection<Integer> c2 = Arrays.asList(4);
+        Collection<Integer> c3 = Arrays.asList(5, 6, 7);
+        @SuppressWarnings("unchecked") Collection<Integer> actual = CollectionUtil.join(c1, c2, c3);
+        assertTrue(actual.containsAll(Arrays.asList(1, 2, 3, 4, 5, 6, 7)));
+    }
 }

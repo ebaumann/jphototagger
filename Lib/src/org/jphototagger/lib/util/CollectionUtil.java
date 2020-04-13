@@ -277,6 +277,17 @@ public final class CollectionUtil {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> Collection<T> join(Collection<? extends T>... collections) {
+        Collection<T> result = new ArrayList<>();
+
+        for (Collection<? extends T> collection : collections) {
+            result.addAll(collection);
+        }
+
+        return result;
+    }
+
     private CollectionUtil() {
     }
 }
