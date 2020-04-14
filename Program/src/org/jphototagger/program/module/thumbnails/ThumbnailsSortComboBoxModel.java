@@ -70,6 +70,10 @@ public final class ThumbnailsSortComboBoxModel extends DefaultComboBoxModel<Obje
                 Bundle.getString(ThumbnailsSortComboBoxModel.class, "ThumbnailsSortComboBoxModel.DisplayName.ComparatorFileNameAscending")));
         addElement(new FileSorter(FileSort.NAMES_DESCENDING.getComparator(),
                 Bundle.getString(ThumbnailsSortComboBoxModel.class, "ThumbnailsSortComboBoxModel.DisplayName.ComparatorFileNameDescending")));
+        addElement(new FileSorter(FileSort.NAMES_NATURAL_ORDER_ASCENDING.getComparator(),
+                Bundle.getString(ThumbnailsSortComboBoxModel.class, "ThumbnailsSortComboBoxModel.DisplayName.ComparatorFileNameNaturalOrderAscending")));
+        addElement(new FileSorter(FileSort.NAMES_NATURAL_ORDER_DESCENDING.getComparator(),
+                Bundle.getString(ThumbnailsSortComboBoxModel.class, "ThumbnailsSortComboBoxModel.DisplayName.ComparatorFileNameNaturalOrderDescending")));
         addElement(new FileSorter(FileSort.LAST_MODIFIED_ASCENDING.getComparator(),
                 Bundle.getString(ThumbnailsSortComboBoxModel.class, "ThumbnailsSortComboBoxModel.DisplayName.ComparatorFileLastModifiedAscending")));
         addElement(new FileSorter(FileSort.LAST_MODIFIED_DESCENDING.getComparator(),

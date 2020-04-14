@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.43.1 2020-04-14
+------------------
+
+* Im Vorschaubildfenster wurde eine Sortierung nach "Dateiname (natürlich)"
+  hinzugefügt. 1.jpg, 100.jpg, 5.jpg werden aufsteigend zu 1.jpg, 5.jpg,
+  100.jpg sortiert. Die übliche Sortierung würde 100.jpg vor 5.jpg einordnen.
+
 0.43.0 2020-04-13
 ------------------
 

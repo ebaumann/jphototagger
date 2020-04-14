@@ -12,6 +12,8 @@ public enum FileSort {
     PATHS_DESCENDING(new FilepathIgnoreCaseDescendingComparator()),
     NAMES_ASCENDING(new FilenameIgnoreCaseAscendingComparator()),
     NAMES_DESCENDING(new FilenameIgnoreCaseDescendingComparator()),
+    NAMES_NATURAL_ORDER_ASCENDING(new FilenameNaturalSortAscendingComparator()),
+    NAMES_NATURAL_ORDER_DESCENDING(new FilenameNaturalSortDescendingComparator()),
     TYPES_ASCENDING(new FilesuffixIgnoreCaseAscendingComparator()),
     TYPES_DESCENDING(new FilesuffixIgnoreCaseDescendingComparator()),
     LAST_MODIFIED_ASCENDING(new FileLastModifiedAscendingComparator()),

@@ -266,6 +266,10 @@ public final class StringUtil {
     }
 
     public static String toStringNullToEmptyString(Object object) {
+        if (object instanceof String) {
+            return (String) object;
+
+        }
         return object == null
                 ? ""
                 : object.toString();

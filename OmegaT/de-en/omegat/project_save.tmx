@@ -6258,10 +6258,26 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="DE">
+        <seg>Dateiname absteigend (natürlich)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20200414T180208Z" creationid="elmar" creationdate="20200414T180208Z">
+        <seg>Filename descending (natural)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
         <seg>Dateiname aufsteigend</seg>
       </tuv>
       <tuv lang="EN" changeid="elmar" changedate="20130202T103435Z">
         <seg>Filename ascending</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="DE">
+        <seg>Dateiname aufsteigend (natürlich)</seg>
+      </tuv>
+      <tuv lang="EN" changeid="elmar" changedate="20200414T180200Z" creationid="elmar" creationdate="20200414T180200Z">
+        <seg>Filename ascending (natural)</seg>
       </tuv>
     </tu>
     <tu>

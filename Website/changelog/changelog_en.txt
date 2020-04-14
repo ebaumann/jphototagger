@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.43.1 2020-04-14
+------------------
+
+* Added to the thumbnails window the sort order "Filename (natural)".
+  1.jpg, 100.jpg, 5.jpg will be sorted ascending to 1.jpg, 5.jpg,
+  100.jpg. The regular sort would order 100.jpg before 5.jpg.
+
 0.43.0 2020-04-13
 ------------------
 
