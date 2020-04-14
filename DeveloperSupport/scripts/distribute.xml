@@ -24,6 +24,7 @@
              classpath="${repo.root}/DeveloperSupport/scripts/JavaDeveloperSupport/dist_files/DeveloperSupport.jar"/>
 
     <target name="0-all">
+        <ant antfile="${basedir}/../../build.xml" target="jar" dir="${basedir}/../.." useNativeBasedir="true" />
         <antcall target="-delete-upload-files"/>
         <antcall target="1-set-version-info"/>
         <antcall target="2-create-pdf-manual"/>
@@ -33,6 +34,7 @@
     </target>
 
     <target name="0-all-no-pdf-manual">
+        <ant antfile="${basedir}/../../build.xml" target="jar" dir="${basedir}/../.." useNativeBasedir="true" />
         <antcall target="-delete-upload-files"/>
         <antcall target="1-set-version-info"/>
         <antcall target="3-create-zip"/>
