@@ -2,7 +2,6 @@ package org.jphototagger.program.module.metadatatemplates;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.util.Collections;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.repository.MetadataTemplatesRepository;
@@ -169,7 +168,7 @@ public class EditMetaDataTemplateDialog extends DialogExt {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.title")); // NOI18N
         setName("Form"); // NOI18N
-        setPreferredSize(new Dimension(500, 500));
+        setPreferredSize(UiFactory.dimension(500, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {

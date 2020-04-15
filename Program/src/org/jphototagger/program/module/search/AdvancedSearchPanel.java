@@ -2,7 +2,6 @@ package org.jphototagger.program.module.search;
 
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -593,7 +592,7 @@ public final class AdvancedSearchPanel extends PanelExt implements Persistence {
         });
 
         panelKeywords.setLayout(new java.awt.GridBagLayout());
-        panelKeywords.setPreferredSize(new Dimension(250, 150));
+        panelKeywords.setPreferredSize(UiFactory.dimension(250, 150));
 
         labelInfoKeywords.setText(Bundle.getString(getClass(), "AdvancedSearchPanel.labelInfoKeywords.text")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();

@@ -1,6 +1,5 @@
 package org.jphototagger.program.module.metadatatemplates;
 
-import java.awt.Dimension;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.templates.MetadataTemplate;
 import org.jphototagger.lib.swing.DialogExt;
@@ -108,7 +107,7 @@ public class EditXmpDialog extends DialogExt {
         setTitle(Bundle.getString(getClass(), "EditXmpDialog.title")); // NOI18N
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        panelContent.setPreferredSize(new Dimension(500, 450));
+        panelContent.setPreferredSize(UiFactory.dimension(500, 450));
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         panelTemplates.setLayout(new java.awt.GridBagLayout());

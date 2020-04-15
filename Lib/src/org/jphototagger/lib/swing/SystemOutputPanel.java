@@ -1,7 +1,6 @@
 package org.jphototagger.lib.swing;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
@@ -114,7 +113,7 @@ public class SystemOutputPanel extends PanelExt {
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(new Dimension(300, 200));
+        scrollPane.setPreferredSize(UiFactory.dimension(300, 200));
 
         textArea.setEditable(false);
         textArea.setColumns(1);

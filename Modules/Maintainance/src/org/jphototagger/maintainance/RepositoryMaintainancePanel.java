@@ -1,7 +1,6 @@
 package org.jphototagger.maintainance;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import java.lang.reflect.Method;
 import java.text.MessageFormat;
 import java.util.HashMap;
@@ -508,7 +507,7 @@ public final class RepositoryMaintainancePanel extends PanelExt implements Progr
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         panelMessages.add(labelMessages, gridBagConstraints);
 
-        scrollPaneMessages.setPreferredSize(new Dimension(200, 150));
+        scrollPaneMessages.setPreferredSize(UiFactory.dimension(200, 150));
 
         textPaneMessages.setEditable(false);
         putClientProperty(JTextPane.HONOR_DISPLAY_PROPERTIES, true);

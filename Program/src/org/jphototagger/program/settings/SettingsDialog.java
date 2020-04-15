@@ -1,7 +1,6 @@
 package org.jphototagger.program.settings;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -199,7 +198,7 @@ public final class SettingsDialog extends DialogExt {
         panelContent.setLayout(new java.awt.GridBagLayout());
 
         panelSearch.setName("panelSearch"); // NOI18N
-        panelSearch.setMinimumSize(new Dimension(175, 200));
+        panelSearch.setMinimumSize(UiFactory.dimension(175, 200));
         panelSearch.setPreferredSize(UiFactory.dimension(175, 200));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;

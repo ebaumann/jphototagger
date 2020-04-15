@@ -1,7 +1,6 @@
 package org.jphototagger.program.module.programs;
 
 import java.awt.Container;
-import java.awt.Dimension;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.api.preferences.PreferencesHints;
 import org.jphototagger.lib.swing.DialogExt;
@@ -156,7 +155,7 @@ public final class ProgramInputParametersDialog extends DialogExt {
         panelContent.add(labelPrompt, gridBagConstraints);
 
         scrollPaneAreaParameter.setName("scrollPaneAreaParameter"); // NOI18N
-        scrollPaneAreaParameter.setPreferredSize(new Dimension(300, 100));
+        scrollPaneAreaParameter.setPreferredSize(UiFactory.dimension(300, 100));
 
         textAreaParameter.setColumns(20);
         textAreaParameter.setRows(2);

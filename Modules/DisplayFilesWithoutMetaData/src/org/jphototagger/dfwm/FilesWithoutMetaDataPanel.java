@@ -1,7 +1,6 @@
 package org.jphototagger.dfwm;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.util.Arrays;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -122,7 +121,7 @@ public final class FilesWithoutMetaDataPanel extends PanelExt {
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N
-        scrollPane.setPreferredSize(new Dimension(400, 300));
+        scrollPane.setPreferredSize(UiFactory.dimension(400, 300));
 
         list.setModel(listModel);
         list.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);

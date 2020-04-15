@@ -1,6 +1,5 @@
 package org.jphototagger.maintainance.browse;
 
-import java.awt.Dimension;
 import java.util.Objects;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -117,7 +116,7 @@ public class EditSqlCommandDialog extends DialogExt {
         gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         panelContent.add(labelSql, gridBagConstraints);
 
-        scrollPaneSql.setPreferredSize(new Dimension(400, 150));
+        scrollPaneSql.setPreferredSize(UiFactory.dimension(400, 150));
 
         textAreaSql.setColumns(20);
         textAreaSql.setRows(5);

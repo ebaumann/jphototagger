@@ -256,7 +256,7 @@ public final class RepositoryFileBrowserDialog extends DialogExt {
         panelContent.getContentPane().add(panelFilter, gridBagConstraints);
 
         scrollPaneFiles.setName("scrollPaneFiles"); // NOI18N
-        scrollPaneFiles.setPreferredSize(new Dimension(400, 150));
+        scrollPaneFiles.setPreferredSize(UiFactory.dimension(400, 150));
 
         listFiles.setModel(nodesListModel);
         listFiles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -365,7 +365,7 @@ public final class RepositoryFileBrowserDialog extends DialogExt {
 
         panelDetails.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelDetails.border.title"))); // NOI18N
         panelDetails.setName("panelDetails"); // NOI18N
-        panelDetails.setPreferredSize(new Dimension(350, 250));
+        panelDetails.setPreferredSize(UiFactory.dimension(350, 250));
         panelDetails.setLayout(new java.awt.GridBagLayout());
 
         panelImageFile.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.panelImageFile.border.title"))); // NOI18N

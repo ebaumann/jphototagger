@@ -1,7 +1,6 @@
 package org.jphototagger.exiftoolxtiw;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -506,7 +505,7 @@ public class SettingsPanel extends PanelExt {
         gridBagConstraints.insets = UiFactory.insets(5, 0, 0, 0);
         paneContents.add(labelFileSuffixes, gridBagConstraints);
 
-        scrollPaneFileSuffixes.setPreferredSize(new Dimension(200, 100));
+        scrollPaneFileSuffixes.setPreferredSize(UiFactory.dimension(200, 100));
 
         listFileSuffixes.setModel(fileSuffixesListModel);
         listFileSuffixes.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);

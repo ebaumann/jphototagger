@@ -1,7 +1,6 @@
 package org.jphototagger.program.app.ui;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
@@ -209,7 +208,7 @@ public class AppLookAndFeelSettingsPanel extends PanelExt implements OptionPageP
         panelContent.add(comboBoxLaf, gridBagConstraints);
 
         scrollPaneDescription.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.scrollPaneDescription.border.title"))); // NOI18N
-        scrollPaneDescription.setPreferredSize(new Dimension(250, 100));
+        scrollPaneDescription.setPreferredSize(UiFactory.dimension(250, 100));
 
         editorPaneDescription.setEditable(false);
         editorPaneDescription.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true);;
@@ -226,7 +225,7 @@ public class AppLookAndFeelSettingsPanel extends PanelExt implements OptionPageP
         panelContent.add(scrollPaneDescription, gridBagConstraints);
 
         panelPreferences.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "AppLookAndFeelSettingsPanel.panelPreferences.border.title"))); // NOI18N
-        panelPreferences.setPreferredSize(new Dimension(250, 200));
+        panelPreferences.setPreferredSize(UiFactory.dimension(250, 200));
         panelPreferences.setLayout(new java.awt.GridBagLayout());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
