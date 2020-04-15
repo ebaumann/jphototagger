@@ -6,6 +6,9 @@ Changelog JPhotoTagger https://jphototagger.org/
 0.43.2 2020-04-15
 ------------------
 
+* When moving keywords from the keyword tree into a text field of
+  the advanced search dialog (F3), the user will be asked, whether
+  parent keywords shall be transferred too.
 * Bugfix: Handling long sidecar file names too, see Bugfix in 0.43.0.
 
 0.43.1 2020-04-14

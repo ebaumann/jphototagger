@@ -5,6 +5,7 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JTextArea;
@@ -12,6 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.TransferHandler;
 import javax.swing.text.JTextComponent;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.jphototagger.lib.swing.MessageDisplayer;
+import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsUtil;
 
 /**
@@ -61,7 +64,7 @@ public final class DropTextComponentTransferHandler extends TransferHandler {
         } else if (Flavor.hasKeywordsFromList(support)) {
             string = getStrings(DataTransferSupport.getKeywords(transferable));
         } else if (Flavor.hasKeywordsFromTree(support)) {
-            string = getStrings(DataTransferSupport.getKeywordNodes(transferable));
+            string = getKeywordStrings(component, DataTransferSupport.getKeywordNodes(transferable));
         } else if (Flavor.hasMetaDataValue(support)) {
             string = DataTransferSupport.getStringFromMetaDataValueData(DataTransferSupport.getMetaDataValueData(transferable));
         } else if (Flavor.hasMetadataTemplate(support)) {
@@ -102,7 +105,7 @@ public final class DropTextComponentTransferHandler extends TransferHandler {
         return sb.toString();
     }
 
-    private String getStrings(List<DefaultMutableTreeNode> nodes) {
+    private String getKeywordStrings(Component c, List<DefaultMutableTreeNode> nodes) {
         if (nodes.size() <= 0) {
             return null;
         }
@@ -115,6 +118,10 @@ public final class DropTextComponentTransferHandler extends TransferHandler {
 
         if (keywords.isEmpty()) {
             return null;
+        }
+
+        if (keywords.size() > 1 && !MessageDisplayer.confirmYesNo(c, Bundle.getString(DropTextComponentTransferHandler.class, "DropTextComponentTransferHandler.GetKeywordStrings.ConfirmIncludeParents"))) {
+            keywords = Arrays.asList(keywords.get(0));
         }
 
         StringBuilder sb = new StringBuilder();

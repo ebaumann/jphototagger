@@ -6,6 +6,10 @@ Changelog JPhotoTagger https://jphototagger.org/
 0.43.2 2020-04-15
 ------------------
 
+* Werden aus dem Stichwortbaum untergeordnete Stichwörter in ein
+  Textfeld des Dialogs zur erweiterten Suche gezogen (F3), wird
+  nachgefragt, ob auch die übergeordneten Stichwörter übernommen
+  werden sollen.
 * Bugfix: Auch lange Filialdateinamen werden berücksichtigt, siehe Bugfix
   in 0.43.0.
 
