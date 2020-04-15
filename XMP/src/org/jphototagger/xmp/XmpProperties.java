@@ -165,33 +165,6 @@ public final class XmpProperties {
     }
 
     /**
-     * Returns a sidecar file of an image file if it does exist.
-     *
-     * @param  imageFile image file
-     * @return           sidecar file or null if that image file does not have
-     *                   a sidecar file
-     * @throws           NullPointerException if <code>imageFile</code> is null
-     */
-    public static File getSidecarfileOf(File imageFile) {
-        if (imageFile == null) {
-            throw new NullPointerException("imageFile == null");
-        }
-
-        String imgFilename = imageFile.getAbsolutePath();
-        int indexExtension = imgFilename.lastIndexOf('.');
-
-        if (indexExtension > 0) {
-            File sidecarFile = new File(imgFilename.substring(0, indexExtension + 1) + "xmp");
-
-            if (sidecarFile.exists()) {
-                return sidecarFile;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Returns the property infos of a XMP string.
      *
      * @param xmpString string with valid XMP content

@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
+import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.lib.swing.KeyEventUtil;
@@ -22,7 +23,7 @@ import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
 import org.jphototagger.program.module.filesystem.MoveFilesController;
 import org.jphototagger.program.resource.GUI;
-import org.jphototagger.xmp.XmpProperties;
+import org.openide.util.Lookup;
 
 /**
  * Listens to {@code FavoritesPopupMenu#getItemAddFilesystemFolder()} and
@@ -109,7 +110,7 @@ public final class AddFilesystemFolderToFavoritesController implements ActionLis
         Collection<File> sidecarFiles = new ArrayList<>(imageFiles.size());
 
         for (File imageFile : imageFiles) {
-            File sidecarFile = XmpProperties.getSidecarfileOf(imageFile);
+            File sidecarFile = Lookup.getDefault().lookup(XmpSidecarFileResolver.class).getXmpSidecarFileOrNullIfNotExists(imageFile);
             if (sidecarFile != null) {
                 sidecarFiles.add(sidecarFile);
             }
