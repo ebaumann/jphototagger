@@ -14,6 +14,7 @@ import org.jphototagger.api.preferences.CommonPreferences;
  */
 public final class Icons {
 
+    private static final float FONT_SCALE = CommonPreferences.getFontScale();
     public static final Icon ICON_RENAME = getIcon("icon_rename.png");
     public static final Icon ICON_REFRESH = getIcon("icon_refresh.png");
     public static final Icon ICON_PASTE = getIcon("icon_paste.png");
@@ -26,7 +27,6 @@ public final class Icons {
     public static final Icon ICON_START = getIcon("icon_start.png");
     public static final Icon ICON_CANCEL = getIcon("icon_cancel.png");
     public static final Image ERROR_THUMBNAIL = Images.getLocalizedImage("/org/jphototagger/resources/images/thumbnail_not_rendered.jpg");
-    private static final float FONT_SCALE = CommonPreferences.getFontScale();
     private static final String ICONS_PATH = "/org/jphototagger/resources/icons";
     private static final String SMALL_APP_ICON_PATH = ICONS_PATH + "/icon_app_small.png";
     private static final String MEDIUM_APP_ICON_PATH = ICONS_PATH + "/icon_app_medium.png";
