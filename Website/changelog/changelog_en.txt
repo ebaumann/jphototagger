@@ -3,6 +3,35 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.43.3 2020-04-16
+------------------
+
+* Added command line option: -Djpt.home="<directory>"
+    Alternative existing writable directory, where JPhotoTagger
+    stores it's settings. Without this option, JPhotoTagger
+    stores it's settings into the user directory,
+    within Windows e.g. "C:\Users\mary", under Unixoides
+    e.g. "/home/mary".
+
+    Does this directory not exist or is not writable,
+    JPhotoTagger uses without query the user directory.
+
+    So JPhotoTagger can use multiple databases and settings.
+    For example images can resist on an external drive with
+    their own database. On that drive there can be a script
+    file (batch file) for starting JPhotoTagger. Alternatively
+    a script file with a different name can be used.
+
+    Example for a Windows batch file:
+
+    @echo off
+    javaw -Xms30m -Xmx1g -Duser.language=en -jar -Djpt.home="D:\\Bilder" JPhotoTagger.jar
+
+    Example for a Bash script:
+
+    #!/bin/sh
+    java -Xms30m -Xmx1g -Duser.language=en -jar -Djpt.home="/mnt/bilder" JPhotoTagger.jar &
+
 0.43.2 2020-04-15
 ------------------
 

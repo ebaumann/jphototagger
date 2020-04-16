@@ -138,8 +138,17 @@ public final class PropertiesFile {
     }
 
     private String initGetDirectoryName() {
-        String homeDir = System.getProperty("user.home");
+        String homedir = System.getProperty("jpt.home");
 
-        return homeDir + File.separator + "." + domainName + File.separator + projectName;
+        if (!StringUtil.hasContent(homedir) || !FileUtil.isWritableDirectory(new File(homedir))) {
+            Logger.getLogger(PropertiesFile.class.getName()).log(Level.WARNING, "Directory ''{0}'' (jpt.home) for settings does not exist or is not writable! Using default (user.home).", new Object[]{homedir});
+            homedir = System.getProperty("user.home");
+        }
+
+        while (homedir.endsWith(File.separator)) {
+            homedir = homedir.substring(0, homedir.length() - 1);
+        }
+
+        return homedir + File.separator + "." + domainName + File.separator + projectName;
     }
 }

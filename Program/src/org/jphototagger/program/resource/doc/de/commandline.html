@@ -49,6 +49,33 @@
                     Kartenleser eingeführt wurde.
                 </p>
             </dd>
+            <dt>-Djpt.home=&quot;&lt;Verzeichnis&gt;&quot;</dt>
+            <dd>Alternatives existierendes beschreibbares Verzeichnis,
+                in das <strong>JPhotoTagger</strong> seine Einstellungen speichert. Ohne
+                diese Option speichert <strong>JPhotoTagger</strong> seine Einstellungen
+                ins Benutzerverzeichnis, unter Windows beispielsweise <code>C:\Users\Bernd</code>,
+                unter Unixoiden zum Beispiel <code>/home/bernd</code>.
+                <p>Existiert dieses Verzeichnis nicht oder ist nicht beschreibbar,
+                verwendet JPhotoTagger ohne Rückfrage das Benutzerverzeichnis.</p>
+                <p><strong>JPhotoTagger</strong> kann so mehrere unterschiedliche
+                    Datenbanken und Einstellungen benutzen. Beispielsweise lassen
+                    sich auf ein externes Laufwerk Bilder mit einer eigenen
+                    Datenbank speichern. Tipp: Dort kann auch eine Skriptdatei
+                    (Batchdatei) zum Start von <strong>JPhotoTagger</strong>
+                    gespeichert werden. Alternativ lässt sich eine Skriptdatei
+                    unterschiedlichen Namens erstellen.
+                </p>
+                <p> Beispiel für eine Windows-Batch-Datei:</p>
+                <pre>
+@echo off
+javaw -Xms30m -Xmx1g -jar -Djpt.home="D:\\Bilder" JPhotoTagger.jar
+                </pre>
+                <p> Beispiel für ein Bash-Skript:</p>
+                <pre>
+#!/bin/sh
+java -Xms30m -Xmx1g -jar -Djpt.home="/mnt/bilder" JPhotoTagger.jar &
+                </pre>
+            </dd>
         </dl>
 
     </body>
