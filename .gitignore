@@ -114,3 +114,6 @@
 /Resources/build/
 /Resources/dist/
 /ExportersImporters/JPhotoTaggerExportersImporters/build
+/DeveloperSupport/scripts/JavaDeveloperSupport/nbproject/private/
+/DeveloperSupport/scripts/JavaDeveloperSupport/build/
+/DeveloperSupport/scripts/JavaDeveloperSupport/dist/
