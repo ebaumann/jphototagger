@@ -12,6 +12,7 @@ import org.jphototagger.api.windows.LookAndFeelProvider;
 import org.jphototagger.lib.swing.util.LookAndFeelUtil;
 import org.jphototagger.lib.util.ObjectUtil;
 import org.jphototagger.lib.util.SystemUtil;
+import org.jphototagger.resources.Icons;
 import org.openide.util.Lookup;
 
 /**
@@ -58,6 +59,7 @@ public final class AppLookAndFeel {
         scaleFonts(FONT_SCALE);
         changeFontWeights();
         takeFromUiColors();
+        setDefaultIcons();
     }
 
     static final String PREF_KEY_LOOK_AND_FEEL = "AppLookAndFeel";
@@ -219,6 +221,15 @@ public final class AppLookAndFeel {
                 }
             }
         }
+    }
+
+    private static void setDefaultIcons() {
+        String size = FONT_SCALE < 2f ? "-32" : "-64";
+
+        UIManager.put("OptionPane.questionIcon", Icons.getIcon("icon_question" + size + ".png"));
+        UIManager.put("OptionPane.warningIcon", Icons.getIcon("icon_warning" + size + ".png"));
+        UIManager.put("OptionPane.informationIcon", Icons.getIcon("icon_information" + size + ".png"));
+        UIManager.put("OptionPane.errorIcon", Icons.getIcon("icon_error_2" + size + ".png"));
     }
 
     private AppLookAndFeel() {
