@@ -28,7 +28,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
  */
 public class HelpContentUtil {
 
-    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("org/jphototagger/developersupport/Bundle");
+    private static final ResourceBundle BUNDLE = ResourceBundle.getBundle("org.jphototagger.developersupport.Bundle");
 
     // For debugging
     public static void main(String[] args) throws Exception {
