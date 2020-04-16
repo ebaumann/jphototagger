@@ -26,7 +26,7 @@ Changelog JPhotoTagger https://jphototagger.org/
     Beispiel für eine Windows-Batch-Datei:
 
     @echo off
-    javaw -Xms30m -Xmx1g -jar -Djpt.home="D:\\Bilder" JPhotoTagger.jar
+    start "" javaw -Xms30m -Xmx1g -jar -Djpt.home="D:\\Bilder" JPhotoTagger.jar
 
     Beispiel für ein Bash-Skript:
 

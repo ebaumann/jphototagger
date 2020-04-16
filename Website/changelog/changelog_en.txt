@@ -25,12 +25,12 @@ Changelog JPhotoTagger https://jphototagger.org/
     Example for a Windows batch file:
 
     @echo off
-    javaw -Xms30m -Xmx1g -Duser.language=en -jar -Djpt.home="D:\\Bilder" JPhotoTagger.jar
+    start "" javaw -Xms30m -Xmx1g -Duser.language=en -jar -Djpt.home="D:\\Images" JPhotoTagger.jar
 
     Example for a Bash script:
 
     #!/bin/sh
-    java -Xms30m -Xmx1g -Duser.language=en -jar -Djpt.home="/mnt/bilder" JPhotoTagger.jar &
+    java -Xms30m -Xmx1g -Duser.language=en -jar -Djpt.home="/mnt/images" JPhotoTagger.jar &
 
 0.43.2 2020-04-15
 ------------------
