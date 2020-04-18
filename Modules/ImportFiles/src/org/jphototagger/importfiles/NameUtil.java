@@ -27,7 +27,9 @@ public final class NameUtil {
             throw new NullPointerException("file == null");
         }
         Calendar calendar = Calendar.getInstance();
-        long timeTakenInMillis = EXIF_INFO.getTimeTakenInMillis(file);
+        long timeTakenInMillis = EXIF_INFO == null
+                ? file.lastModified()
+                : EXIF_INFO.getTimeTakenInMillis(file);
         calendar.setTimeInMillis(timeTakenInMillis);
         int day = calendar.get(Calendar.DATE);
         int month = calendar.get(Calendar.MONTH) + 1;
