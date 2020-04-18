@@ -34,4 +34,9 @@ public final class YearAndDateSubdirectoryCreateStrategy implements Subdirectory
     public int getPosition() {
         return 300;
     }
+
+    @Override
+    public boolean isUserDefined() {
+        return false;
+    }
 }

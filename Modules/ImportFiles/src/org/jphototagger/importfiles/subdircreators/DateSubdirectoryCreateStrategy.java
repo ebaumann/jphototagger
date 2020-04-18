@@ -26,4 +26,9 @@ public final class DateSubdirectoryCreateStrategy implements SubdirectoryCreateS
     public int getPosition() {
         return 200;
     }
+
+    @Override
+    public boolean isUserDefined() {
+        return false;
+    }
 }

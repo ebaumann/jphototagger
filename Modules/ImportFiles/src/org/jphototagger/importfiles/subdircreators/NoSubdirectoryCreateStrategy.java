@@ -25,4 +25,9 @@ public final class NoSubdirectoryCreateStrategy implements SubdirectoryCreateStr
     public int getPosition() {
         return 100;
     }
+
+    @Override
+    public boolean isUserDefined() {
+        return false;
+    }
 }
