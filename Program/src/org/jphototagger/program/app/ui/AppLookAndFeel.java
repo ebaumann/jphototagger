@@ -226,10 +226,10 @@ public final class AppLookAndFeel {
     private static void setDefaultIcons() {
         String size = FONT_SCALE < 2f ? "-32" : "-64";
 
-        UIManager.put("OptionPane.questionIcon", Icons.getIcon("icon_question" + size + ".png"));
-        UIManager.put("OptionPane.warningIcon", Icons.getIcon("icon_warning" + size + ".png"));
-        UIManager.put("OptionPane.informationIcon", Icons.getIcon("icon_information" + size + ".png"));
-        UIManager.put("OptionPane.errorIcon", Icons.getIcon("icon_error_2" + size + ".png"));
+        UIManager.put("OptionPane.questionIcon", Icons.getUnscaledIcon("icon_question" + size + ".png"));
+        UIManager.put("OptionPane.warningIcon", Icons.getUnscaledIcon("icon_warning" + size + ".png"));
+        UIManager.put("OptionPane.informationIcon", Icons.getUnscaledIcon("icon_information" + size + ".png"));
+        UIManager.put("OptionPane.errorIcon", Icons.getUnscaledIcon("icon_error_2" + size + ".png"));
     }
 
     private AppLookAndFeel() {
