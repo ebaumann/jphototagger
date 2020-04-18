@@ -63,6 +63,16 @@ public final class Icons {
                 : icon;
     }
 
+    public static ImageIcon getUnscaledIcon(String name) {
+        Objects.requireNonNull(name, "name == null");
+
+        ImageIcon icon = ResourcesCommon.getImageIcon(ICONS_PATH + "/" + name);
+
+        return icon == null
+                ? ResourcesCommon.getImageIcon(ICONS_PATH + "/" + name) // Trying to get unscaled icon
+                : icon;
+    }
+
     // All image names are assumed to be in lowercase due performance (not
     // creating an uppercase or lowercase name and compare with ".PNG" or ".png"
     private static String getScaledName(String name) {
