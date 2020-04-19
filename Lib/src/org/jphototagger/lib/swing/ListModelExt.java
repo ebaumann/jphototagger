@@ -87,4 +87,11 @@ public class ListModelExt<E> extends DefaultListModel<E> {
             throw new IllegalArgumentException("Invalid Index: " + index + " with " + getSize() + " elements");
         }
     }
+
+    public void removeFromElements(Iterable<? extends E> elements) {
+        Objects.requireNonNull(elements, "elements == null");
+        for (E element : elements) {
+            removeElement(element);
+        }
+    }
 }
