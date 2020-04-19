@@ -1,6 +1,7 @@
 package org.jphototagger.importfiles.subdircreators.templates;
 
 import java.io.File;
+import java.util.Objects;
 import org.jphototagger.api.storage.PreferencesDirectoryProvider;
 import org.jphototagger.lib.xml.bind.XmlObjectExporter;
 import org.jphototagger.lib.xml.bind.XmlObjectImporter;
@@ -8,13 +9,31 @@ import org.openide.util.Lookup;
 
 /**
  * Loads a {@link SubdirectoryTemplates} instance from a file and persists it to
- * a file. The filename is fix and located in the user's preferences directory.
+ * that file.
  *
  * @author Elmar Baumann
  */
 public final class SubdirectoryTemplatesRepository {
 
-    private static final String FILENAME = "UserDefinedSubdirectoryCreateStrategies.xml";
+    private final File repositoryFile;
+
+    /**
+     * Creates an instance and uses a file with a default name located in the
+     * user's preferences directory.
+     */
+    public SubdirectoryTemplatesRepository() {
+        this(getDefaultRepositoryFile());
+    }
+
+    public SubdirectoryTemplatesRepository(File repositoryFile) {
+        this.repositoryFile = Objects.requireNonNull(repositoryFile, "repositoryFile == null");
+    }
+
+    private static File getDefaultRepositoryFile() {
+        PreferencesDirectoryProvider pp = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
+        File dir = pp.getUserPreferencesDirectory();
+        return new File(dir, "UserDefinedSubdirectoryCreateStrategies.xml");
+    }
 
     /**
      * @return {@code SubdirectoryTemplates} instance or null, if the repository
@@ -24,22 +43,14 @@ public final class SubdirectoryTemplatesRepository {
      *                   into an {@code SubdirectoryTemplates} instance
      */
     public SubdirectoryTemplates load() throws Exception {
-        File file = getRepositoryFile();
-
-        if (!file.isFile()) {
+        if (!repositoryFile.isFile()) {
             return null;
         }
 
-        return (SubdirectoryTemplates) XmlObjectImporter.importObject(file, SubdirectoryTemplates.class);
+        return (SubdirectoryTemplates) XmlObjectImporter.importObject(repositoryFile, SubdirectoryTemplates.class);
     }
 
     public void save(SubdirectoryTemplates templates) throws Exception {
-        XmlObjectExporter.export(templates, getRepositoryFile());
-    }
-
-    private File getRepositoryFile() {
-        PreferencesDirectoryProvider pp = Lookup.getDefault().lookup(PreferencesDirectoryProvider.class);
-        File dir = pp.getUserPreferencesDirectory();
-        return new File(dir, FILENAME);
+        XmlObjectExporter.export(templates, repositoryFile);
     }
 }

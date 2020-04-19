@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.0 2020-04-19
+------------------
+
+* Im Datei-Import-Dialog können eigene Unterverzeichnis-Benennungs-Schablonen
+  hinzugefügt werden.
+
 0.43.3 2020-04-16
 ------------------
 

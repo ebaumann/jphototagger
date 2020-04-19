@@ -598,6 +598,14 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>&amp;Jahr</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144330Z" creationid="elmar" creationdate="20200419T144330Z">
+        <seg>&amp;Year</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>&amp;Keine auswählen</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -698,6 +706,14 @@
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
         <seg>Add &amp;Metadata...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>&amp;Monat</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144326Z" creationid="elmar" creationdate="20200419T144326Z">
+        <seg>&amp;Month</seg>
       </tuv>
     </tu>
     <tu>
@@ -982,6 +998,14 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>&amp;Tag</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144304Z" creationid="elmar" creationdate="20200419T144304Z">
+        <seg>&amp;Day</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>&amp;Tastenkombinationen</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -1026,6 +1050,14 @@
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
         <seg>Include subfolders</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>&amp;Untergeordneter Ordner</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144637Z" creationid="elmar" creationdate="20200419T144322Z">
+        <seg>Sub &amp;Folder</seg>
       </tuv>
     </tu>
     <tu>
@@ -6838,10 +6870,34 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>Eigene Schablonen bearbeiten/hinzufügen</seg>
+        <seg>Eigene Datei-Benennungs-Schablonen bearbeiten</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Edit/Add own Rename Templates</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144036Z" creationid="elmar" creationdate="20200419T143827Z">
+        <seg>Edit custom file name templates</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Eigene Ordner-Benennungs-Schablone</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144115Z" creationid="elmar" creationdate="20200419T144115Z">
+        <seg>Custom folder name template</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Eigene Ordner-Benennungs-Schablonen bearbeiten</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144056Z" creationid="elmar" creationdate="20200419T144056Z">
+        <seg>Edit custom folder name templates</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Eigene Ordner-Bennenungs-Schablonen bearbeiten</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144219Z" creationid="elmar" creationdate="20200419T144219Z">
+        <seg>Edit custom folder name templates</seg>
       </tuv>
     </tu>
     <tu>
@@ -8023,6 +8079,14 @@ werden diese mit "B" aus dem Zielalbum entfernt.</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>Fehler beim Bearbeiten der eigenen Ordner-Bennenungs-Schablonen!</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144405Z" creationid="elmar" creationdate="20200419T144405Z">
+        <seg>Error while editing custom folder name templates!</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>Fehler beim Einfügen des Stichworts ''{0}''!</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -9193,10 +9257,34 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>Hin&amp;zufügen</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144205Z" creationid="elmar" creationdate="20200419T144205Z">
+        <seg>&amp;Add</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Hin&amp;zufügen...</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144159Z" creationid="elmar" creationdate="20200419T144159Z">
+        <seg>&amp;Add...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>Hinweis: Schablonen können nur benutzt werden, falls alle ausgewählten Dateien im gleichen Ordner sind.</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
         <seg>Hint: To use templates, all selected files have to be in the same folder.</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Hinzufügen</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144343Z" creationid="elmar" creationdate="20200419T144343Z">
+        <seg>Add</seg>
       </tuv>
     </tu>
     <tu>
@@ -11380,8 +11468,8 @@ falls diese nicht im Zielalbum existieren.</seg>
       <tuv xml:lang="de">
         <seg>Nach &amp;unten</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Move &amp;down</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144727Z">
+        <seg>Move do&amp;wn</seg>
       </tuv>
     </tu>
     <tu>
@@ -11654,6 +11742,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
         <seg>New file formats have been registered</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Neue Ordner-Bennenungs-Schablone</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144148Z" creationid="elmar" creationdate="20200419T144148Z">
+        <seg>New folder name template</seg>
       </tuv>
     </tu>
     <tu>
@@ -12262,6 +12358,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
         <seg>Folders for search</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Ordner-Bennenungs-Schablone bearbeiten</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144132Z" creationid="elmar" creationdate="20200419T144132Z">
+        <seg>Edit custom folder name template</seg>
       </tuv>
     </tu>
     <tu>
@@ -12942,6 +13046,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
         <seg>Return</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>S&amp;chablone:</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144336Z" creationid="elmar" creationdate="20200419T144336Z">
+        <seg>&amp;Template:</seg>
       </tuv>
     </tu>
     <tu>
@@ -15998,6 +16110,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T200805Z">
         <seg>{0,choice,0#No file|1#1 file|1&lt;{0} files}, {1} selected, zoom {2} %</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>{0,choice,1#Ausgewählte Ordner-Bennenungs-Schablone entfernen?|1&lt;Ausgewählte Ordner-Bennenungs-Schablonen entfernen?}</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200419T144255Z" creationid="elmar" creationdate="20200419T144255Z">
+        <seg>{0,choice,1#Remove selected folder name template?|1&lt;Remove selected folder name templates?}</seg>
       </tuv>
     </tu>
     <tu>

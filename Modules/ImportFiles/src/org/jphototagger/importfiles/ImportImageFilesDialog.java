@@ -24,6 +24,7 @@ import javax.swing.filechooser.FileSystemView;
 import org.jphototagger.api.applifecycle.generics.Functor;
 import org.jphototagger.api.file.FileRenameStrategy;
 import org.jphototagger.api.file.SubdirectoryCreateStrategy;
+import org.jphototagger.api.file.UserDefinedSubdirectoryCreateStrategies;
 import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.editors.RenameTemplatesEditor;
 import org.jphototagger.domain.filefilter.FileFilterUtil;
@@ -31,6 +32,8 @@ import org.jphototagger.domain.imagecollections.ImageCollection;
 import org.jphototagger.domain.metadata.xmp.Xmp;
 import org.jphototagger.domain.metadata.xmp.XmpEditor;
 import org.jphototagger.importfiles.filerenamers.FileRenameStrategyComboBoxModel;
+import org.jphototagger.importfiles.subdircreators.SubdirectoryCreateStrategyComboBoxModel;
+import org.jphototagger.importfiles.subdircreators.SubdirectoryCreateStrategyListCellRenderer;
 import org.jphototagger.lib.io.FileUtil;
 import org.jphototagger.lib.io.PreviousSelectedFiles;
 import org.jphototagger.lib.swing.DialogExt;
@@ -45,6 +48,7 @@ import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.lib.util.StringUtil;
+import org.jphototagger.resources.Icons;
 import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
@@ -524,7 +528,7 @@ public class ImportImageFilesDialog extends DialogExt {
     }
 
     private void setDirLabel(JLabel label, File dir) {
-        label.setIcon(fileSystemView.getSystemIcon(dir));
+        label.setIcon(Icons.getIcon("icon_folder.png"));
         label.setText(dir.getAbsolutePath());
     }
 
@@ -616,6 +620,18 @@ public class ImportImageFilesDialog extends DialogExt {
         }
     }
 
+    private void editSubdirectoryTemplates() {
+        UserDefinedSubdirectoryCreateStrategies strategies = Lookup.getDefault().lookup(UserDefinedSubdirectoryCreateStrategies.class);
+        if (strategies.edit()) {
+            int selectedIndex = comboBoxSubdirectoryCreateStrategy.getSelectedIndex();
+            SubdirectoryCreateStrategyComboBoxModel model = (SubdirectoryCreateStrategyComboBoxModel) comboBoxSubdirectoryCreateStrategy.getModel();
+            model.replaceUserDefinedStrategies();
+            if (selectedIndex >= 0 && selectedIndex < model.getSize()) {
+                comboBoxSubdirectoryCreateStrategy.setSelectedIndex(selectedIndex);
+            }
+        }
+    }
+
     private static class ComboBoxModelSourceStrategy extends DefaultComboBoxModel<Object> {
         private static final long serialVersionUID = 1L;
 
@@ -680,6 +696,7 @@ public class ImportImageFilesDialog extends DialogExt {
         panelFileRenameStrategy = UiFactory.panel();
         comboBoxFileRenameStrategy = UiFactory.comboBox();
         buttonEditRenameTemplates = UiFactory.button();
+        buttonEditSubdirectoryTemplates = UiFactory.button();
         labelWarning = UiFactory.label();
         panelDialogControlButtons = new org.jdesktop.swingx.JXPanel();
         buttonEditMetadata = UiFactory.button();
@@ -894,8 +911,8 @@ public class ImportImageFilesDialog extends DialogExt {
         gridBagConstraints.insets = UiFactory.insets(2, 5, 0, 5);
         panelTargetDir.add(buttonChooseTargetDir, gridBagConstraints);
 
-        comboBoxSubdirectoryCreateStrategy.setModel(new org.jphototagger.importfiles.subdircreators.SubdirectoryCreateStrategyComboBoxModel());
-        comboBoxSubdirectoryCreateStrategy.setRenderer(new DisplayNameListCellRenderer());
+        comboBoxSubdirectoryCreateStrategy.setModel(new SubdirectoryCreateStrategyComboBoxModel());
+        comboBoxSubdirectoryCreateStrategy.setRenderer(new SubdirectoryCreateStrategyListCellRenderer());
         comboBoxSubdirectoryCreateStrategy.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -903,11 +920,25 @@ public class ImportImageFilesDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 0);
         panelTargetDir.add(comboBoxSubdirectoryCreateStrategy, gridBagConstraints);
+
+        buttonEditSubdirectoryTemplates.setIcon(org.jphototagger.resources.Icons.getIcon("icon_edit.png"));
+        buttonEditSubdirectoryTemplates.setToolTipText(Bundle.getString(getClass(), "ImportImageFilesDialog.buttonEditSubdirectoryTemplates.toolTipText")); // NOI18N
+        buttonEditSubdirectoryTemplates.setMargin(UiFactory.insets(2, 2, 2, 2));
+        buttonEditSubdirectoryTemplates.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditSubdirectoryTemplatesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 5, 5);
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        panelTargetDir.add(buttonEditSubdirectoryTemplates, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -1088,6 +1119,10 @@ public class ImportImageFilesDialog extends DialogExt {
         editRenameTemplates();
     }
 
+    private void buttonEditSubdirectoryTemplatesActionPerformed(java.awt.event.ActionEvent evt) {
+        editSubdirectoryTemplates();
+    }
+
     private void checkBoxSkipDuplicatesActionPerformed(java.awt.event.ActionEvent evt) {
         persistSkipDuplicates();
     }
@@ -1099,6 +1134,7 @@ public class ImportImageFilesDialog extends DialogExt {
     private javax.swing.JButton buttonChooseTargetDir;
     private javax.swing.JButton buttonEditMetadata;
     private javax.swing.JButton buttonEditRenameTemplates;
+    private javax.swing.JButton buttonEditSubdirectoryTemplates;
     private javax.swing.JButton buttonExpertSettings;
     private javax.swing.JButton buttonOk;
     private javax.swing.JButton buttonRemoveScriptFile;
