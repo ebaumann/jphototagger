@@ -5630,6 +5630,14 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>Dateien</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200421T192809Z" creationid="elmar" creationdate="20200421T192809Z">
+        <seg>Files</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>Dateien &amp;umbenennen</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -12970,6 +12978,14 @@ falls diese nicht im Zielalbum existieren.</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>Referenzen</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200421T192816Z" creationid="elmar" creationdate="20200421T192816Z">
+        <seg>References</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>Regulärer Ausdruck</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -15054,6 +15070,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T200516Z">
         <seg>Thumbnails Details</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Vorschaubilder</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20200421T192822Z" creationid="elmar" creationdate="20200421T192822Z">
+        <seg>Thumbnails</seg>
       </tuv>
     </tu>
     <tu>

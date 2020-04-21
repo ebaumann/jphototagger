@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.1 2020-04-21
+------------------
+
+* Edit > Settings > 5. Exclude: File Patterns
+  When updating the database keywords and other referenced data will
+  be treated.
+
 0.44.0 2020-04-19
 ------------------
 

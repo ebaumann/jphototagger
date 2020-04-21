@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.1 2020-04-21
+------------------
+
+* Bearbeiten > Einstellungen > 5. Ausschließen: Dateimuster
+  Beim Aktualisieren der Datenbank werden Stichwörter und andere Daten
+  berücksichtigt.
+
 0.44.0 2020-04-19
 ------------------
 

@@ -3,7 +3,10 @@ package org.jphototagger.program.module.fileexcludepatterns;
 import java.awt.Container;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import org.jphototagger.api.progress.ProgressEvent;
@@ -19,6 +22,10 @@ import org.jphototagger.lib.swing.SelectRootFilesPanel;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.maintainance.DeleteNotReferenced1n;
+import org.jphototagger.maintainance.DeleteOrphanedThumbnails;
+import org.jphototagger.maintainance.DeleteOrphanedXmp;
+import org.jphototagger.maintainance.DeleteUnusedKeywordsFromRepository;
 import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
@@ -26,12 +33,12 @@ import org.openide.util.Lookup;
  * @author Elmar Baumann
  */
 public final class FileExcludePatternsSettingsPanel extends PanelExt
-    implements ProgressListener, Persistence, ListSelectionListener, HelpPageProvider {
+    implements Persistence, ListSelectionListener, HelpPageProvider {
 
     private static final long serialVersionUID = 1L;
     private final FileExcludePatternsListModel model = new FileExcludePatternsListModel();
     private boolean isUpdateRepository = false;
-    private boolean cancel = false;
+    private volatile boolean cancel = false;
     private final FileExcludePatternsRepository repo = Lookup.getDefault().lookup(FileExcludePatternsRepository.class);
 
     public FileExcludePatternsSettingsPanel() {
@@ -145,58 +152,124 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
             isUpdateRepository = true;
             cancel = false;
             setEnabled();
+            RepositoryUpdater updater = new RepositoryUpdater(patterns);
+            progressBarUpdateRepository.setIndeterminate(true);
+            progressBarUpdateRepository.setStringPainted(true);
+            updater.execute();
+        }
+    }
+
+    private final class RepositoryUpdater extends SwingWorker<Void, String> implements ProgressListener {
+
+        private final List<String> patterns;
+
+        private RepositoryUpdater(List<String> patterns) {
+            this.patterns = patterns;
+        }
+
+        @Override
+        protected Void doInBackground() throws Exception {
+            publish(Bundle.getString(RepositoryUpdater.class, "FileExcludePatternsSettingsPanel.RepositoryUpdater.Task.DeleteMatchingFiles.Message"));
             repo.deleteMatchingFiles(patterns, this);
+
+            if (!cancel) {
+                publish(Bundle.getString(RepositoryUpdater.class, "FileExcludePatternsSettingsPanel.RepositoryUpdater.Task.DeleteUnusedKeywordsFromRepository.Message"));
+                DeleteUnusedKeywordsFromRepository unusedKeywordsDeleter = new DeleteUnusedKeywordsFromRepository();
+                unusedKeywordsDeleter.addProgressListener(this);
+                unusedKeywordsDeleter.run(); // Already in seperate thread, calling #run() is intented
+            }
+
+            if (!cancel) {
+                publish(Bundle.getString(RepositoryUpdater.class, "FileExcludePatternsSettingsPanel.RepositoryUpdater.Task.DeleteOrphanedXmp.Message"));
+                DeleteOrphanedXmp orphanedXmpDeleter = new DeleteOrphanedXmp();
+                orphanedXmpDeleter.addProgressListener(this);
+                orphanedXmpDeleter.run(); // Already in seperate thread, calling #run() is intented
+            }
+
+            if (!cancel) {
+                publish(Bundle.getString(RepositoryUpdater.class, "FileExcludePatternsSettingsPanel.RepositoryUpdater.Task.DeleteNotReferenced1n.Message"));
+                DeleteNotReferenced1n referenceDeleter = new DeleteNotReferenced1n();
+                referenceDeleter.addProgressListener(this);
+                referenceDeleter.run(); // Already in seperate thread, calling #run() is intented
+            }
+
+            if (!cancel) {
+                publish(Bundle.getString(RepositoryUpdater.class, "FileExcludePatternsSettingsPanel.RepositoryUpdater.Task.DeleteOrphanedThumbnails.Message"));
+                DeleteOrphanedThumbnails thumbnailsDeleter = new DeleteOrphanedThumbnails();
+                thumbnailsDeleter.addProgressListener(this);
+                thumbnailsDeleter.run(); // Already in seperate thread, calling #run() is intented
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void process(List<String> messages) {
+            for (String message : messages) {
+                progressBarUpdateRepository.setString(message);
+            }
+        }
+
+        @Override
+        protected void done() {
+            try {
+                get();
+            } catch (Exception ex) {
+                Logger.getLogger(RepositoryUpdater.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                isUpdateRepository = false;
+                cancel = false;
+                setEnabled();
+                finishProgress();
+            }
+        }
+
+        private void finishProgress() {
+            progressBarUpdateRepository.setString("");
+            progressBarUpdateRepository.setStringPainted(false);
+            progressBarUpdateRepository.setIndeterminate(false);
+            progressBarUpdateRepository.setValue(0);
+        }
+
+        private void checkCancel(ProgressEvent evt) {
+            if (cancel) {
+                evt.setCancel(true);
+            }
+        }
+
+        @Override
+        public void progressStarted(final ProgressEvent evt) {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+                @Override
+                public void run() {
+                    checkCancel(evt);
+                }
+            });
+        }
+
+        @Override
+        public void progressPerformed(final ProgressEvent evt) {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+                @Override
+                public void run() {
+                    checkCancel(evt);
+                }
+            });
+        }
+
+        @Override
+        public void progressEnded(final ProgressEvent evt) {
+            EventQueueUtil.invokeInDispatchThread(new Runnable() {
+                @Override
+                public void run() {
+                    checkCancel(evt);
+                }
+            });
         }
     }
 
     private void cancelUpdateRepository() {
         cancel = true;
-    }
-
-    private void checkCancel(ProgressEvent evt) {
-        if (cancel) {
-            evt.setCancel(true);
-        }
-    }
-
-    @Override
-    public void progressStarted(final ProgressEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                progressBarUpdateRepository.setMinimum(evt.getMinimum());
-                progressBarUpdateRepository.setMaximum(evt.getMaximum());
-                progressBarUpdateRepository.setValue(evt.getValue());
-                checkCancel(evt);
-            }
-        });
-    }
-
-    @Override
-    public void progressPerformed(final ProgressEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                progressBarUpdateRepository.setValue(evt.getValue());
-                checkCancel(evt);
-            }
-        });
-    }
-
-    @Override
-    public void progressEnded(final ProgressEvent evt) {
-        EventQueueUtil.invokeInDispatchThread(new Runnable() {
-
-            @Override
-            public void run() {
-                progressBarUpdateRepository.setValue(evt.getValue());
-                isUpdateRepository = false;
-                cancel = false;
-                setEnabled();
-            }
-        });
     }
 
     @Override
@@ -230,6 +303,8 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
                 model.insert(pattern);
             }
         }
+
+        setEnabled();
     }
 
     private void initComponents() {

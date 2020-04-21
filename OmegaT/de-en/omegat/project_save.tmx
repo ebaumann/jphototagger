@@ -6162,6 +6162,14 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="de">
+        <seg>Dateien</seg>
+      </tuv>
+      <tuv lang="en" changeid="elmar" changedate="20200421T192809Z" creationid="elmar" creationdate="20200421T192809Z">
+        <seg>Files</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="de">
         <seg>Dateien &amp;umbenennen</seg>
       </tuv>
       <tuv lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -14018,6 +14026,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
     </tu>
     <tu>
       <tuv lang="de">
+        <seg>Referenzen</seg>
+      </tuv>
+      <tuv lang="en" changeid="elmar" changedate="20200421T192816Z" creationid="elmar" creationdate="20200421T192816Z">
+        <seg>References</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="de">
         <seg>Regulärer Ausdruck</seg>
       </tuv>
       <tuv lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -16222,6 +16238,14 @@ Size after compressing: {3} bytes ({4,number,#.## megabytes})</seg>
       </tuv>
       <tuv lang="en" changeid="elmar" changedate="20130202T200516Z">
         <seg>Thumbnails Details</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="de">
+        <seg>Vorschaubilder</seg>
+      </tuv>
+      <tuv lang="en" changeid="elmar" changedate="20200421T192822Z" creationid="elmar" creationdate="20200421T192822Z">
+        <seg>Thumbnails</seg>
       </tuv>
     </tu>
     <tu>
