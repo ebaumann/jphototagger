@@ -1,5 +1,8 @@
 package org.jphototagger.api.progress;
 
+import java.util.Objects;
+import javax.swing.JProgressBar;
+
 /**
  * @author Elmar Baumann
  */
@@ -152,5 +155,47 @@ public final class ProgressEvent {
         public ProgressEvent build() {
             return new ProgressEvent(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ProgressEvent{"
+                + "source=" + source
+                + ", maximum=" + maximum
+                + ", minimum=" + minimum
+                + ", indeterminate=" + indeterminate
+                + ", value=" + value
+                + ", info=" + info
+                + ", stringToPaint=" + stringToPaint
+                + ", cancel=" + cancel
+                + ", stringPainted=" + stringPainted
+                + '}';
+    }
+
+    /**
+     * Applies the current state to a {@code JProgressBar}. <em>Does not check,
+     * whether the current thread ist the EDT!</em>
+     *
+     * @param progressBar progress bar
+     */
+    public void applyToProgressBar(JProgressBar progressBar) {
+        Objects.requireNonNull(progressBar, "progressBar == null");
+
+        if (isIndeterminate() && !progressBar.isIndeterminate()) {
+            progressBar.setIndeterminate(true);
+        }
+
+        if (!isIndeterminate() && progressBar.isIndeterminate()) {
+            progressBar.setIndeterminate(false);
+        }
+
+        if (!isIndeterminate()) {
+            progressBar.setMinimum(getMinimum());
+            progressBar.setMaximum(getMaximum());
+            progressBar.setValue(getValue());
+        }
+
+        progressBar.setStringPainted(isStringPainted());
+        progressBar.setString(getStringToPaint());
     }
 }
