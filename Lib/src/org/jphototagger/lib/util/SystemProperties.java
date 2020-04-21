@@ -1,5 +1,7 @@
 package org.jphototagger.lib.util;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.text.MessageFormat;
@@ -118,6 +120,7 @@ public final class SystemProperties {
         sb.append(LINE_SEPARATOR).append("User's home directory: ").append(System.getProperty("user.home"));
         sb.append(LINE_SEPARATOR).append("User's current working directory: ").append(System.getProperty("user.dir"));
         appendMemoryUsage(sb);
+        appendScreenSize(sb);
         return sb.toString();
     }
 
@@ -131,6 +134,16 @@ public final class SystemProperties {
         sb.append(LINE_SEPARATOR).append("Free Memory: ").append(formatAsMegabytes(freeMemoryInBytes));
         sb.append(LINE_SEPARATOR).append("Maximum Memory: ").append(formatAsMegabytes(maxMemoryInBytes));
         sb.append(LINE_SEPARATOR).append("Used Memory: ").append(formatAsMegabytes(usedMemoryInBytes));
+    }
+
+    private static void appendScreenSize(StringBuilder sb) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        sb.append(LINE_SEPARATOR)
+                .append("Screen size (width x height): ")
+                .append(screenSize.width)
+                .append(" x ")
+                .append(screenSize.height);
     }
 
     private static String formatAsMegabytes(long bytes) {
