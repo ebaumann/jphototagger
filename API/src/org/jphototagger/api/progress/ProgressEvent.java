@@ -15,7 +15,7 @@ public final class ProgressEvent {
     private int value;
     private Object info;
     private String stringToPaint;
-    private boolean cancel;
+    private volatile boolean cancel;
     private boolean stringPainted;
 
     private ProgressEvent(Builder builder) {
