@@ -14,7 +14,6 @@ import org.jphototagger.api.progress.ProgressListener;
 import org.jphototagger.api.storage.Persistence;
 import org.jphototagger.domain.DomainPreferencesKeys;
 import org.jphototagger.domain.repository.FileExcludePatternsRepository;
-import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.help.HelpPageProvider;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.swing.PanelExt;
@@ -239,32 +238,17 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
 
         @Override
         public void progressStarted(final ProgressEvent evt) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-                @Override
-                public void run() {
-                    checkCancel(evt);
-                }
-            });
+            checkCancel(evt);
         }
 
         @Override
         public void progressPerformed(final ProgressEvent evt) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-                @Override
-                public void run() {
-                    checkCancel(evt);
-                }
-            });
+            checkCancel(evt);
         }
 
         @Override
         public void progressEnded(final ProgressEvent evt) {
-            EventQueueUtil.invokeInDispatchThread(new Runnable() {
-                @Override
-                public void run() {
-                    checkCancel(evt);
-                }
-            });
+            checkCancel(evt);
         }
     }
 
