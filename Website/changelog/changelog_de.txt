@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.2 2020-04-22
+------------------
+
+* Bugfix: Im Stichwortbaum können Stichwörter so umbenannt werden,
+  dass ihr Name gleich bleibt mit Ausnahme von Groß-/Kleinschreibung.
+  Beispielsweise kann jetzt "blume" in "Blume" umbenannt werden.
+
 0.44.1 2020-04-21
 ------------------
 

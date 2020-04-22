@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.2 2020-04-22
+------------------
+
+* Bugfix: In the keywords tree, keywords can be renamed to
+  equal names, if only uppercase/lowercase characters are
+  different. For example, now "flower" can be renamed to "Flower".
+
 0.44.1 2020-04-21
 ------------------
 

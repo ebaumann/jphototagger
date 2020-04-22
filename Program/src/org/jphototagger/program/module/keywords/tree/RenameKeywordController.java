@@ -1,8 +1,10 @@
 package org.jphototagger.program.module.keywords.tree;
 
+import com.jgoodies.common.base.Objects;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
 import org.jphototagger.domain.metadata.keywords.Keyword;
@@ -85,7 +87,6 @@ public class RenameKeywordController extends KeywordsController implements Actio
         String fromName = keyword.getName();
         InputDialog inputDialog = createInputDialog(fromName);
         boolean input = true;
-        KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
 
         while (input) {
             inputDialog.setVisible(true);
@@ -106,11 +107,9 @@ public class RenameKeywordController extends KeywordsController implements Actio
                 return null;
             }
 
-            Keyword newKeyword = createKeywordFromExistingKeyword(keyword, toName);
-
-            if (repo.hasParentChildKeywordWithEqualName(newKeyword)) {
+            if (parentHasOtherChildWithName(keyword, toName)) {
                 toName = null;
-                String message = Bundle.getString(RenameKeywordController.class, "RenameKeywordController.Confirm.Exists", newKeyword);
+                String message = Bundle.getString(RenameKeywordController.class, "RenameKeywordController.Confirm.Exists", toName);
                 input = MessageDisplayer.confirmYesNo(null, message);
             } else {
                 return toName;
@@ -118,6 +117,34 @@ public class RenameKeywordController extends KeywordsController implements Actio
         }
 
         return toName;
+    }
+
+    /**
+     * @param keyword
+     * @param name
+     *
+     * @return true, if the parent of that keyword has a different child keyword
+     *         with a specific name (different: a keyword with an ID not equals
+     *         with the ID of that keyword)
+     */
+    private static boolean parentHasOtherChildWithName(Keyword keyword, String name) {
+        KeywordsRepository repo = Lookup.getDefault().lookup(KeywordsRepository.class);
+
+        Long parentId = keyword.getIdParent();
+
+        Collection<Keyword> children = parentId == null
+                ? repo.findRootKeywords()
+                : repo.findChildKeywords(parentId);
+
+        for (Keyword child : children) {
+            boolean namesEquals = Objects.equals(name, child.getName());
+            boolean idsDifferent = !Objects.equals(keyword.getId(), child.getId());
+            if (namesEquals && idsDifferent) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static InputDialog createInputDialog(String input) {
