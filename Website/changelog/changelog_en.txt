@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.3 2020-04-23
+------------------
+
+* Bugfix: After renaming a folder in the folder or favorites view,
+  both views will be refreshed because the descendant folders of
+  the renamed folder were not changed internally.
+
 0.44.2 2020-04-22
 ------------------
 

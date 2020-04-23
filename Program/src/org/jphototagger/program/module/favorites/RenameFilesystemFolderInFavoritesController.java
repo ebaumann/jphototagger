@@ -14,6 +14,7 @@ import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
 import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
+import org.jphototagger.program.module.directories.RenameDirectoryFix;
 import org.jphototagger.program.module.filesystem.FileSystemDirectories;
 import org.jphototagger.program.resource.GUI;
 
@@ -82,6 +83,7 @@ public final class RenameFilesystemFolderInFavoritesController implements Action
                 FavoritesTreeModel model = ModelFactory.INSTANCE.getModel(FavoritesTreeModel.class);
                 node.setUserObject(newDir);
                 TreeFileSystemDirectories.updateInTreeModel(model, node);
+                RenameDirectoryFix.fixAfterRename();
                 ControllerFactory.INSTANCE.getController(RefreshFavoritesController.class).refresh();
                 EventBus.publish(new DirectoryRenamedEvent(this, oldDir, newDir));
             }

@@ -50,6 +50,7 @@ public final class RenameDirectoryController extends DirectoryController {
                         node.setUserObject(newDir);
                         TreeFileSystemDirectories.updateInTreeModel(
                                 ModelFactory.INSTANCE.getModel(AllSystemDirectoriesTreeModel.class), node);
+                        RenameDirectoryFix.fixAfterRename();
                         EventBus.publish(new DirectoryRenamedEvent(this, oldDir, newDir));
                     }
                 });

@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.3 2020-04-23
+------------------
+
+* Bugfix: Nach dem Umbenennen von Ordnern in den Ordnern oder
+  Favoriten werden beide Ansichten aktualisiert, da intern die
+  untergeordneten Ordner nicht angepasst wurden.
+
 0.44.2 2020-04-22
 ------------------
 
