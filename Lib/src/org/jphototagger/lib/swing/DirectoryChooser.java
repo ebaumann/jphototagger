@@ -250,6 +250,7 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
                 if (newDir != null) {
                     node.setUserObject(newDir);
                     TreeFileSystemDirectories.updateInTreeModel(model, node);
+                    model.update();
                 }
             }
         }
