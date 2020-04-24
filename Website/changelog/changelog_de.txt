@@ -3,6 +3,12 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.4 2020-04-24
+------------------
+
+* Im Vorschaubildfenster können Dateien nach ihrem Pfad in natürlicher
+  Reihenfolge sortiert werden (1, 6, 10 statt 1, 10, 6).
+
 0.44.3 2020-04-23
 ------------------
 

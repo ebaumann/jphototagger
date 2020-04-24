@@ -6402,10 +6402,26 @@ Would You input a new name?</seg>
     </tu>
     <tu>
       <tuv lang="de">
+        <seg>Dateipfad absteigend (natürlich)</seg>
+      </tuv>
+      <tuv lang="en" changeid="elmar" changedate="20200424T162712Z" creationid="elmar" creationdate="20200424T162712Z">
+        <seg>Filepath descending (natural)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="de">
         <seg>Dateipfad aufsteigend</seg>
       </tuv>
       <tuv lang="en" changeid="elmar" changedate="20130202T202107Z">
         <seg>Filepath ascending</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv lang="de">
+        <seg>Dateipfad aufsteigend (natürlich)</seg>
+      </tuv>
+      <tuv lang="en" changeid="elmar" changedate="20200424T162658Z" creationid="elmar" creationdate="20200424T162658Z">
+        <seg>Filepath ascending (natural)</seg>
       </tuv>
     </tu>
     <tu>
