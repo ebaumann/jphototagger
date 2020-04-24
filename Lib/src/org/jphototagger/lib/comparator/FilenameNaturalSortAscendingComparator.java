@@ -17,7 +17,7 @@ public final class FilenameNaturalSortAscendingComparator extends ClassEquality 
 
     @Override
     public int compare(File o1, File o2) {
-        return NaturalStringSortComparator.INSTANCE.compare(o1.getName(), o2.getName());
+        return NaturalStringSortComparator.INSTANCE.compare(o1.getName().toLowerCase(), o2.getName().toLowerCase());
     }
 
     @Override
