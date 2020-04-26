@@ -12,9 +12,7 @@ import org.jphototagger.api.file.event.DirectoryRenamedEvent;
 import org.jphototagger.domain.favorites.Favorite;
 import org.jphototagger.lib.awt.EventQueueUtil;
 import org.jphototagger.lib.io.TreeFileSystemDirectories;
-import org.jphototagger.program.factory.ControllerFactory;
 import org.jphototagger.program.factory.ModelFactory;
-import org.jphototagger.program.module.directories.RenameDirectoryFix;
 import org.jphototagger.program.module.filesystem.FileSystemDirectories;
 import org.jphototagger.program.resource.GUI;
 
@@ -76,15 +74,14 @@ public final class RenameFilesystemFolderInFavoritesController implements Action
     }
 
     private void renameDirectory(DefaultMutableTreeNode node) {
-        File oldDir = getFile(node);
+        final File oldDir = getFile(node);
         if (oldDir != null) {
             File newDir = FileSystemDirectories.rename(oldDir);
             if (newDir != null) {
                 FavoritesTreeModel model = ModelFactory.INSTANCE.getModel(FavoritesTreeModel.class);
                 node.setUserObject(newDir);
-                TreeFileSystemDirectories.updateInTreeModel(model, node);
-                RenameDirectoryFix.fixAfterRename();
-                ControllerFactory.INSTANCE.getController(RefreshFavoritesController.class).refresh();
+                TreeFileSystemDirectories.updateFilesAfterRenamingInTreeModel(node, oldDir.getAbsolutePath());
+                model.nodeChanged(node);
                 EventBus.publish(new DirectoryRenamedEvent(this, oldDir, newDir));
             }
         }

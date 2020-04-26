@@ -2,6 +2,7 @@ package org.jphototagger.lib.io;
 
 import java.awt.Frame;
 import java.io.File;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -9,8 +10,10 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import org.jphototagger.lib.swing.util.ComponentUtil;
+import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 
 /**
@@ -158,24 +161,50 @@ public final class TreeFileSystemDirectories {
     }
 
     /**
-     * Updates a node into a model if the model has the type
-     * {@code DefaultTreeModel}.
+     * Updates in descendants of a tree node file user objects after renaming an
+     * an ancestor tree node's file user object. E.g. if an ancestor node has a
+     * file (directory) named "/1" and it's descendants "/1/2" and "/1/3", after
+     * renaming the ancestor into "/2", the file user objects in the descendants
+     * are no longer valid. They have to be renamend into "/2/2" and "/2/3".
      *
-     * @param model  model
-     * @param node   updated node
+     * @param renamedNode node, which
+     *                    {@link DefaultMutableTreeNode#getUserObject()} is a
+     *                    file (directory)
+     * @param oldFilepath absolute path name, before the file was renamed
      */
-    public static void updateInTreeModel(TreeModel model, MutableTreeNode node) {
-        if (model == null) {
-            throw new NullPointerException("model == null");
+    public static void updateFilesAfterRenamingInTreeModel(final DefaultMutableTreeNode renamedNode, final String oldFilepath) {
+        Objects.requireNonNull(renamedNode, "renamedNode == null");
+        Objects.requireNonNull(oldFilepath, "oldFilename == null");
+
+        Object userObject = renamedNode.getUserObject();
+        if (!(userObject instanceof File)) {
+            return;
         }
 
-        if (node == null) {
-            throw new NullPointerException("node == null");
-        }
+        final String currentFilePath = ((File) userObject).getAbsolutePath();
+        final int oldPathLen = oldFilepath.length();
 
-        if (model instanceof DefaultTreeModel) {
-            ((DefaultTreeModel) model).nodeChanged(node);
-        }
+        TreeUtil.visitTreeNodesRecursive(renamedNode, new TreeUtil.TreeNodeVisitor() {
+            @Override
+            public void visit(TreeNode node) {
+                if (node == renamedNode) {
+                    return;
+                }
+                if (node instanceof DefaultMutableTreeNode) {
+                    DefaultMutableTreeNode descendantNode = (DefaultMutableTreeNode) node;
+                    Object userObject = descendantNode.getUserObject();
+                    if (userObject instanceof File) {
+                        String descendantPath = ((File) userObject).getAbsolutePath();
+                        if (descendantPath.startsWith(oldFilepath)) {
+                            String updatedPath = descendantPath.length() == oldPathLen
+                                    ? currentFilePath
+                                    : currentFilePath + descendantPath.substring(oldPathLen);
+                            descendantNode.setUserObject(new File(updatedPath));
+                        }
+                    }
+                }
+            }
+        });
     }
 
     /**

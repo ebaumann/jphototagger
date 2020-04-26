@@ -242,15 +242,15 @@ public final class DirectoryChooser extends DialogExt implements TreeSelectionLi
         TreePath[] selPaths = tree.getSelectionPaths();
         for (TreePath treePath : selPaths) {
             DefaultMutableTreeNode node = TreeFileSystemDirectories.getNodeOfLastPathComponent(treePath);
-            File dir = (node == null)
+            final File dir = (node == null)
                     ? null
                     : TreeFileSystemDirectories.getFile(node);
             if (dir != null) {
                 File newDir = TreeFileSystemDirectories.rename(dir);
                 if (newDir != null) {
                     node.setUserObject(newDir);
-                    TreeFileSystemDirectories.updateInTreeModel(model, node);
-                    model.update();
+                    TreeFileSystemDirectories.updateFilesAfterRenamingInTreeModel(node, dir.getAbsolutePath());
+                    model.nodeChanged(node);
                 }
             }
         }
