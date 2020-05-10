@@ -224,7 +224,7 @@ var
 begin
   DirectoryName := ExpandConstant('{app}');
   BatchFileName := DirectoryName + '\JPhotoTagger.bat';
-  CommandLine := 'start javaw -jar -Xms30m -Xmx' + MaximumMemory + UserLanguage + ' "' + DirectoryName + '\JPhotoTagger.jar"';
+  CommandLine := 'start javaw -Dsun.java2d.uiScale.enabled=false -jar -Xms30m -Xmx' + MaximumMemory + UserLanguage + ' "' + DirectoryName + '\JPhotoTagger.jar"';
   SaveStringToFile(BatchFileName, CommandLine, False);
 end;
 
