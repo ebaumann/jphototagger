@@ -68,21 +68,6 @@
 
     -->
 
-    <target name="-pre-jar">
-        <echo message="Building Main class for Java version 1.5 into ${build.classes.dir}"/>
-        <!-- omit parameter "bootclasspath", can't ensure existence on different build computers:
-          /path/to/jdk.1.5/j2se/rt.jar  -->
-        <javac
-            srcdir="src/org/jphototagger/program"
-            includes="Main.java"
-            verbose="true"
-            destdir="${build.classes.dir}"
-            debug="on"
-            source="1.5"
-            target="1.5"
-         />
-    </target>
-
     <property name="repo.root" value=".."/>
 
     <target name="-post-jar">
