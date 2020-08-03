@@ -1,8 +1,12 @@
 package org.jphototagger.program.module.filesystem;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.concurrent.Cancelable;
 import org.jphototagger.api.file.event.FileMovedEvent;
@@ -92,8 +96,14 @@ public final class FileSystemMove extends FileSystem implements Runnable, Cancel
             File sourceFile = sourceFiles.get(i);
             File targetFile = getTargetFile(targetFiles.get(i));
             if (checkExists(sourceFile, targetFile)) {
-                boolean moved = sourceFile.renameTo(targetFile);
-                if (!moveListenerShallUpdateRepository && FileFilterUtil.isImageFile(sourceFile) && FileFilterUtil.isImageFile(targetFile)) {
+                boolean moved = false;
+                try {
+                    Files.move(sourceFile.toPath(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    moved = true;
+                } catch (Exception ex) {
+                    Logger.getLogger(FileSystemMove.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (moved && !moveListenerShallUpdateRepository && FileFilterUtil.isImageFile(sourceFile) && FileFilterUtil.isImageFile(targetFile)) {
                     FilesystemRepositoryUpdater.moveFile(sourceFile, targetFile);
                 }
                 notifyMoved(moved, sourceFile, targetFile);
