@@ -3,9 +3,10 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
-0.44.6 2020-08-03
+0.44.6 2020-08-08
 ------------------
 
+* Rename dialog has progress bar for renaming via templates
 * Moving files uses newer Java API. Under some circumstances
   files would not be moved, e.g. when using under Linux
   symbolic links.

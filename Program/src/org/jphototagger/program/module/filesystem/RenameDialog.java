@@ -1,13 +1,16 @@
 package org.jphototagger.program.module.filesystem;
 
 import java.awt.Container;
+import java.awt.GridBagConstraints;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingWorker;
 import javax.swing.filechooser.FileSystemView;
 import org.bushe.swing.event.EventBus;
 import org.jphototagger.api.file.event.FileRenamedEvent;
@@ -115,29 +118,60 @@ public final class RenameDialog extends DialogExt {
     private void renameViaTemplate() {
         lockClose = true;
         tabbedPane.setEnabledAt(1, false);
-        int countRenamed = 0;
-        int size = files.size();
-        for (int i = 0; !cancel && (i < size); i++) {
-            fileIndex = i;
-            File oldFile = files.get(i);
-            String parent = oldFile.getParent();
-            filenameFormatArray.setFile(oldFile);
-            File newFile = new File(((parent == null)
-                                     ? ""
-                                     : parent + File.separator) + filenameFormatArray.format());
-            if (checkNewFileDoesNotExist(newFile) && renameImageFile(oldFile, newFile)) {
-                files.set(i, newFile);
-                notifyFileSystemListeners(oldFile, newFile);
-                countRenamed++;
-            } else {
-                errorMessageNotRenamed(oldFile.getAbsolutePath());
-            }
-            filenameFormatArray.notifyNext();
+        RenameViaTemplateWorker worker = new RenameViaTemplateWorker();
+        worker.execute();
+    }
+
+    private final class RenameViaTemplateWorker extends SwingWorker<Integer, Integer> {
+
+        private final int filesCount = files.size();
+
+        private RenameViaTemplateWorker() {
+            progressBar.setMaximum(filesCount);
         }
-        refreshThumbnailsPanel(countRenamed);
-        lockClose = false;
-        setVisible(false);
-        dispose();
+
+        @Override
+        protected Integer doInBackground() throws Exception {
+            int countRenamed = 0;
+            for (int currentFileIndex = 0; !cancel && (currentFileIndex < filesCount); currentFileIndex++) {
+                fileIndex = currentFileIndex;
+                File oldFile = files.get(currentFileIndex);
+                String parent = oldFile.getParent();
+                filenameFormatArray.setFile(oldFile);
+                File newFile = new File(((parent == null)
+                        ? ""
+                        : parent + File.separator) + filenameFormatArray.format());
+                if (checkNewFileDoesNotExist(newFile) && renameImageFile(oldFile, newFile)) {
+                    files.set(currentFileIndex, newFile);
+                    notifyFileSystemListeners(oldFile, newFile);
+                    countRenamed++;
+                } else {
+                    errorMessageNotRenamed(oldFile.getAbsolutePath());
+                }
+                process(Arrays.asList(currentFileIndex + 1));
+                filenameFormatArray.notifyNext();
+            }
+            return countRenamed;
+        }
+
+        @Override
+        protected void process(List<Integer> currentFilesCounts) {
+            progressBar.setValue(currentFilesCounts.get(currentFilesCounts.size() - 1));
+        }
+
+        @Override
+        protected void done() {
+            try {
+                int countRenamed = get();
+                refreshThumbnailsPanel(countRenamed);
+            } catch (Exception e) {
+                Logger.getLogger(RenameViaTemplateWorker.class.getName()).log(Level.SEVERE, null, e);
+            } finally {
+                lockClose = false;
+                setVisible(false);
+                dispose();
+            }
+        }
     }
 
     private void renameViaInput() {
@@ -339,6 +373,7 @@ public final class RenameDialog extends DialogExt {
         panelTemplatesContents = UiFactory.panel();
         panelRenameTemplates = new org.jphototagger.program.module.filesystem.RenameTemplatesPanel();
         buttonRenameViaTemplate = UiFactory.button();
+        progressBar = UiFactory.progressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "RenameDialog.title")); // NOI18N
@@ -504,6 +539,12 @@ public final class RenameDialog extends DialogExt {
         gridBagConstraints.insets = UiFactory.insets(10, 10, 10, 10);
         panelTemplatesContents.add(panelRenameTemplates, gridBagConstraints);
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.fill = GridBagConstraints.BOTH;
+        gridBagConstraints.insets = UiFactory.insets(5, 10, 10, 0);
+        panelTemplatesContents.add(progressBar, gridBagConstraints);
+
         buttonRenameViaTemplate.setText(Bundle.getString(getClass(), "RenameDialog.buttonRenameViaTemplate.text")); // NOI18N
         buttonRenameViaTemplate.addActionListener(new java.awt.event.ActionListener() {
             @Override
@@ -512,10 +553,8 @@ public final class RenameDialog extends DialogExt {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.insets = UiFactory.insets(0, 0, 10, 10);
+        gridBagConstraints.insets = UiFactory.insets(5, 5, 10, 10);
         panelTemplatesContents.add(buttonRenameViaTemplate, gridBagConstraints);
 
         tabbedPane.addTab(Bundle.getString(getClass(), "RenameDialog.panelTemplatesContents.TabConstraints.tabTitle"), panelTemplatesContents); // NOI18N
@@ -586,6 +625,7 @@ public final class RenameDialog extends DialogExt {
     private javax.swing.JPanel panelTemplatesContents;
     private org.jphototagger.lib.swing.ImagePanel panelThumbnail;
     private javax.swing.JPanel panelThumbnailBorder;
+    private javax.swing.JProgressBar progressBar;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JTextField textFieldToName;
 }
