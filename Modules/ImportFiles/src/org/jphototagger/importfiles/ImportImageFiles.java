@@ -118,7 +118,7 @@ public final class ImportImageFiles implements FileImportService {
             try {
                 sourceTargetFiles = new ArrayList<>(importData.getSourceFileCount());
                 List<File> sourceFiles = importData.getSourceFiles();
-                Collections.sort(sourceFiles, ExifDateTimeOriginalAscendingComparator.INSTANCE);
+                Collections.sort(sourceFiles, FileLastModifiedAscendingComparator.INSTANCE);
                 for (File sourceFile : sourceFiles) {
                     File targetFile = createTargetFile(sourceFile, importData);
                     if (!importData.isSkipDuplicates() || !isDuplicate(sourceFile, targetFile.getParentFile())) {
@@ -126,7 +126,7 @@ public final class ImportImageFiles implements FileImportService {
                         SourceTargetFile sourceTargetFile = new SourceTargetFile(sourceFile, targetFile);
                         sourceTargetFile.setUserObject(importData.getXmp());
                         sourceTargetFiles.add(sourceTargetFile);
-                }
+                    }
                 }
             } finally {
                 progressHandle.progressEnded();

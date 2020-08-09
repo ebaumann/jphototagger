@@ -3,7 +3,7 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
-0.44.6 2020-08-08
+0.44.6 2020-08-09
 ------------------
 
 * Umbenennen-Dialog hat Fortschrittsanzeige für das Umbenennen
@@ -11,6 +11,9 @@ Changelog JPhotoTagger https://jphototagger.org/
 * Verschieben von Dateien benutzt ein neueres Java API.
   Unter bestimmten Umständen wurden Dateien nicht verschoben,
   z.B. wenn unter Linux symbolische Links benutzt wurden.
+* Beim Importieren von Bildern werden diese vorher anhand des
+  Dateidatums (letzte Modifikation) sortiert statt anhand des
+  EXIF-Aufnahmedatums. Dies erhöht die Geschwindigkeit.
 
 0.44.5 2020-04-26
 ------------------
