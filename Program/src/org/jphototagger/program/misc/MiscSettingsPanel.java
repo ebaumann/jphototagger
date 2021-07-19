@@ -30,6 +30,7 @@ import org.jphototagger.lib.swing.PanelExt;
 import org.jphototagger.lib.swing.util.ComponentUtil;
 import org.jphototagger.lib.swing.util.MnemonicUtil;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.PreferencesUtil;
 import org.jphototagger.program.module.wordsets.WordsetPreferences;
 import org.jphototagger.program.resource.GUI;
 import org.jphototagger.program.settings.AppPreferencesDefaults;
@@ -201,6 +202,10 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         prefs.setBoolean(XmpPreferences.KEY_FORCE_CREATE_XMP_SIDECARFILES, checkBoxForceCreateXmpSidecarFiles.isSelected());
     }
 
+    private void setLockFileWhenWritingXmp() {
+        prefs.setBoolean(XmpPreferences.KEY_LOCK_FILE_WHEN_WRITING_XMP, checkBoxLockFileWhenWritingXmp.isSelected());
+    }
+
     private void setWriteExifDateToXmpDateCreated() {
         prefs.setBoolean(PreferencesKeys.KEY_DISABLE_SAVE_EXIF_TO_XMP_DATE_CREATED, !checkBoxWriteExifDateToXmpDateCreated.isSelected());
     }
@@ -226,6 +231,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         setIconRepositoryDirectory();
         restoreUseLongXmpSidecarFileNames();
         restoreForceCreateXmpSidecarFiles();
+        restoreLockFileWhenWritingXmp();
         restoreWriteExifDateToXmpDateCreated();
         restoreTabbedPaneSettings();
         restoreMetaDataTextAreasColumns();
@@ -267,6 +273,10 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
                 ? prefs.getBoolean(XmpPreferences.KEY_FORCE_CREATE_XMP_SIDECARFILES)
                 :false;
         checkBoxForceCreateXmpSidecarFiles.setSelected(restore);
+    }
+
+    private void restoreLockFileWhenWritingXmp() {
+        checkBoxLockFileWhenWritingXmp.setSelected(PreferencesUtil.getBoolean(XmpPreferences.KEY_LOCK_FILE_WHEN_WRITING_XMP, true));
     }
 
     private void restoreWriteExifDateToXmpDateCreated() {
@@ -336,6 +346,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         tabbedPane = UiFactory.tabbedPane();
         panelDefault = UiFactory.panel();
         checkBoxIsAcceptHiddenDirectories = UiFactory.checkBox();
+        checkBoxLockFileWhenWritingXmp = UiFactory.checkBox();
         checkBoxEnableDeleteDirectories = UiFactory.checkBox();
         panelCheckForUpdates = UiFactory.panel();
         checkBoxCheckForUpdates = UiFactory.checkBox();
@@ -458,6 +469,21 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxForceCreateXmpSidecarFiles, gridBagConstraints);
+
+        checkBoxLockFileWhenWritingXmp.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxLockFileWhenWritingXmp.text")); // NOI18N
+        checkBoxLockFileWhenWritingXmp.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxLockFileWhenWritingXmpActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
+        panelDefault.add(checkBoxLockFileWhenWritingXmp, gridBagConstraints);
 
         checkBoxWriteExifDateToXmpDateCreated.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxWriteExifDateToXmpDateCreated.text")); // NOI18N
         checkBoxWriteExifDateToXmpDateCreated.addActionListener(new java.awt.event.ActionListener() {
@@ -695,6 +721,10 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         setForceCreateXmpSidecarFiles();
     }
 
+    private void checkBoxLockFileWhenWritingXmpActionPerformed(java.awt.event.ActionEvent evt) {
+        setLockFileWhenWritingXmp();
+    }
+
     private void checkBoxWriteExifDateToXmpDateCreatedActionPerformed(java.awt.event.ActionEvent evt) {
         setWriteExifDateToXmpDateCreated();
     }
@@ -715,6 +745,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
     private javax.swing.JCheckBox checkBoxDisplayWordsetsEditPanel;
     private javax.swing.JCheckBox checkBoxEnableDeleteDirectories;
     private javax.swing.JCheckBox checkBoxIsAcceptHiddenDirectories;
+    private javax.swing.JCheckBox checkBoxLockFileWhenWritingXmp;
     private javax.swing.JCheckBox checkBoxUseLongXmpSidecarFileNames;
     private javax.swing.JCheckBox checkBoxForceCreateXmpSidecarFiles;
     private javax.swing.JCheckBox checkBoxWriteExifDateToXmpDateCreated;

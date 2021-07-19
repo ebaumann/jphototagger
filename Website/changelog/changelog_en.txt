@@ -3,6 +3,15 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.8 2021-07-19
+------------------
+
+* Added Setting to "Edit > Settings > 6. Miscellaneous
+  > Miscellaneous": Lock XMP sidecar files while writing.
+  Uncheck this can be useful on computers with Mac OS
+  especially on NAS if errors occur while writing XMP
+  sidecar files.
+
 0.44.6 2020-08-09
 ------------------
 

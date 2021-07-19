@@ -3966,6 +3966,14 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>Beim Schreiben von XMP-Filialdateien diese sperren</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20210719T155314Z" creationid="elmar" creationdate="20210719T155314Z">
+        <seg>Lock XMP sidecar files while writing</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>Beim Starten des Programms zum Öffnen ist ein Fehler aufgetreten.</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T185149Z">

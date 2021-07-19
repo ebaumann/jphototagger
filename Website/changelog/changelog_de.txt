@@ -3,6 +3,15 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.8 2021-07-19
+------------------
+
+* Neue Einstellung unter "Berbeiten > Einstellungen > 6. Sonstiges
+  > Verschiedenes": Beim Schreiben von XMP-Filialdateien diese sperren.
+  Dies zu deaktivieren kann sinnvoll sein auf Rechnern mit Mac OS
+  speziell auf NAS, falls beim Schreiben von XMP-Filialdateien Fehler
+  auftreten.
+
 0.44.6 2020-08-09
 ------------------
 

@@ -12,7 +12,9 @@ import org.jphototagger.domain.repository.SaveToOrUpdateFilesInRepository;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.lib.util.PreferencesUtil;
 import org.jphototagger.xmp.XmpFileReader;
+import org.jphototagger.xmp.XmpPreferences;
 import org.openide.util.Lookup;
 
 /**
@@ -65,7 +67,9 @@ public final class ExtractEmbeddedXmp extends FileEditor {
             try {
                 create(file);
                 fos = new FileOutputStream(xmpSidecarFileResolver.suggestXmpSidecarFile(file));
-                fos.getChannel().lock();
+                if (PreferencesUtil.getBoolean(XmpPreferences.KEY_LOCK_FILE_WHEN_WRITING_XMP, true)) {
+                    fos.getChannel().lock();
+                }
                 fos.write(xmp.getBytes());
                 fos.flush();
                 updateRepository(file);

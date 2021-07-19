@@ -32,6 +32,7 @@ import org.jphototagger.domain.metadata.xmp.XmpSidecarFileResolver;
 import org.jphototagger.domain.repository.xmp.XmpToSaveInRepository;
 import org.jphototagger.lib.io.FileLock;
 import org.jphototagger.lib.io.FileUtil;
+import org.jphototagger.lib.util.PreferencesUtil;
 import org.openide.util.Lookup;
 
 /**
@@ -424,7 +425,9 @@ public final class XmpMetadata {
         }
         try {
             out = new FileOutputStream(toSidecarFile);
-            out.getChannel().lock();
+            if (PreferencesUtil.getBoolean(XmpPreferences.KEY_LOCK_FILE_WHEN_WRITING_XMP, true)) {
+                out.getChannel().lock();
+            }
             XMPMetaFactory.serialize(fromXmpMeta, out,
                     new SerializeOptions().setPadding(10).setOmitPacketWrapper(true));
             return true;
