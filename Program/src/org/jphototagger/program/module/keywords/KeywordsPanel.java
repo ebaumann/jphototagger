@@ -5,6 +5,8 @@ import java.awt.Container;
 import javax.swing.JTree;
 import javax.swing.ListModel;
 import javax.swing.SortOrder;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 import org.jdesktop.swingx.JXList;
 import org.jdesktop.swingx.JXTree;
@@ -137,9 +139,17 @@ public class KeywordsPanel extends PanelExt {
     }
 
     private void handleButtonToggleExpandAllNodesActionPerformed() {
-        boolean selected = buttonToggleExpandAllNodes.isSelected();
-        TreeUtil.expandAll(tree, selected);
-        buttonToggleExpandAllNodes.setText(selected
+        boolean expand = buttonToggleExpandAllNodes.isSelected();
+
+        TreeUtil.expandAll(tree, expand);
+
+        // Because root handle is invisible, all nodes would disappear when
+        // collapsing it
+        if (!expand && !tree.isRootVisible()) {
+            tree.expandPath(new TreePath((TreeNode) tree.getModel().getRoot()));
+        }
+
+        buttonToggleExpandAllNodes.setText(expand
                                            ? Bundle.getString(KeywordsPanel.class, "KeywordsPanel.ButtonToggleExpandAllNodes.Selected")
                                            : Bundle.getString(KeywordsPanel.class, "KeywordsPanel.ButtonToggleExpandAllNodes.DeSelected"));
     }

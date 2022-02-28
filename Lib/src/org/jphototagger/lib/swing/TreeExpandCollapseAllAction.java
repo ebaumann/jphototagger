@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import org.jphototagger.lib.swing.util.TreeUtil;
 import org.jphototagger.lib.util.Bundle;
 
@@ -35,10 +38,24 @@ public final class TreeExpandCollapseAllAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent ignored) {
-        boolean selected = toggleButton.isSelected();
+        boolean expand = toggleButton.isSelected();
 
-        TreeUtil.expandAll(tree, selected);
-        toggleButton.setText(selected
+        TreeUtil.expandAll(tree, expand);
+
+        // When root handle is invisible, all nodes would disappear when
+        // collapsing it
+        if (!expand && !tree.isRootVisible()) {
+            TreeModel model = tree.getModel();
+            if (model != null) {
+                Object root = model.getRoot();
+                if (root instanceof TreeNode) {
+                    TreeNode rootNode = (TreeNode) root;
+                    tree.expandPath(new TreePath(rootNode));
+                }
+            }
+        }
+
+        toggleButton.setText(expand
                 ? SELECTED_TEXT
                 : NOT_SELECTED_TEXT);
     }

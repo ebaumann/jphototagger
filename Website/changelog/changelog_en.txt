@@ -3,6 +3,13 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.9 2022-02-28
+------------------
+
+* When the button "Collapse all" was clicked in a tree view,
+  e.g. within "Keywords", the whole tree does not disappear.
+  The nodes of the first level will remain visible.
+
 0.44.8 2021-07-19
 ------------------
 

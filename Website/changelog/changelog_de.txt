@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+0.44.9 2022-02-28
+------------------
+
+* Wird in Baumansichten, beispielsweise Stichwörtern, die Schaltfläche
+  "Alles einklappen" betätigt, leert sich nicht die gesamte Ansicht.
+  Es sind dann noch die Knoten der obersten Ebene sichtbar.
+
 0.44.8 2021-07-19
 ------------------
 
