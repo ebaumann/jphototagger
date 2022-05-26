@@ -17,9 +17,9 @@ public final class AppInfo {
      */
     public static final String PROJECT_NAME = "ImageMetaDataViewer"; // IF CHANGING, SEE COMMENT ABOVE!
     public static final String APP_DESCRIPTION = Bundle.getString(AppInfo.class, "AppInfo.AppDescription");
-    public static final String MAIL_TO_ADDRESS_BUGS = "support@jphototagger.org";
+    public static final String MAIL_TO_ADDRESS_BUGS = "jphototagger@elmar-baumann.de";
     public static final String MAIL_SUBJECT_BUGS = Bundle.getString(AppInfo.class, "AppInfo.Subject.Bugs");
-    public static final String MAIL_TO_ADDRESS_FEATURES = "support@jphototagger.org";
+    public static final String MAIL_TO_ADDRESS_FEATURES = "jphototagger@elmar-baumann.de";
     public static final String MAIL_SUBJECT_FEATURES = Bundle.getString(AppInfo.class, "AppInfo.Subject.Features");
     public static final String URI_USER_FORUM = Bundle.getString(AppInfo.class, "AppInfo.URI.UserForum");
     public static final String URI_WEBSITE = Bundle.getString(AppInfo.class, "AppInfo.URI.Website");

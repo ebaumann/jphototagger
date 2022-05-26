@@ -60,7 +60,7 @@ public final class KMLExporter implements GPSLocationExporter {
 
     private static String getGenerator() {
         AppProperties appProperties = Lookup.getDefault().lookup(AppProperties.class);
-        return "JPhotoTagger " + appProperties.getAppVersionString() + " (http://www.jphototagger.org)";
+        return "JPhotoTagger " + appProperties.getAppVersionString() + " (https://elmar-baumann.de/JPhotoTagger)";
     }
 
     private static KMLPlacemark getPlacemark(GPSImageInfo gpsImageInfo) {

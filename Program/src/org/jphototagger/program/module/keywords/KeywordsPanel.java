@@ -217,7 +217,7 @@ public class KeywordsPanel extends PanelExt {
         gridBagConstraints.insets = UiFactory.insets(2, 0, 2, 2);
         panelButtons.add(buttonToggleExpandAllNodes, gridBagConstraints);
 
-        buttonSearchInTree.setAction(new SearchInJxTreeAction((JXTree)tree));
+        buttonSearchInTree.setAction(new SearchInJxTreeAction((JXTree)tree, true));
         buttonSearchInTree.setText(Bundle.getString(getClass(), "KeywordsPanel.buttonSearchInTree.text")); // NOI18N
         buttonSearchInTree.setMargin(UiFactory.insets(1, 1, 1, 1));
         buttonSearchInTree.setName("buttonSearchInTree"); // NOI18N

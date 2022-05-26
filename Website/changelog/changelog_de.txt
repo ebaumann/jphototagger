@@ -3,6 +3,22 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+1.1.1 2022-05-26
+----------------
+
+* Wird die Suchen-Schaltfläche in folgenden Bäumen betätigt, klappen diese
+  vorher alle Inhalte auf: Stichwörter, Zeitleiste und Verschiedenes.
+  Somit wird in z.B. allen Stichwörtern gesucht, statt wie bislang nur in
+  den aufgeklappten. Dateisystem-Bäume klappen nicht auf, da dies sehr
+  viele Ressourcen beanspruchen kann.
+* URIs von "jphototagger.org" geändert nach "elmar-baumann.de/JPhotoTagger",
+  da die "org"-Domain zukünftig Geld kosten wird. JPhotoTagger ist ein
+  freies Programm mit dem ich bislang keinen Cent verdient habe und dies auch
+  zukünftig nicht beabsichtige.
+* Version auf 1.1.1 gesetzt. Aufgrund der nun beinahe 14-jährigen Nutzungszeit
+  soll signalisiert werden, dass JPhotoTagger keine Alpha- oder Beta-Version
+  ist.
+
 0.44.9 2022-02-28
 ------------------
 

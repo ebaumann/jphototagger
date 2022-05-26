@@ -26,8 +26,8 @@ import org.openide.util.Lookup;
  */
 public final class UpdateDownload extends Thread implements CancelRequest, Cancelable {
 
-    private static final String DOWNLOAD_PAGE = "http://www.jphototagger.org/download.html";
-    private static final String URL_VERSION_CHECK_FILE = "http://www.jphototagger.org/jphototagger-version.txt";
+    private static final String DOWNLOAD_PAGE = "https://elmar-baumann.de/JPhotoTagger/download.html";
+    private static final String URL_VERSION_CHECK_FILE = "https://elmar-baumann.de/JPhotoTagger/jphototagger-version.txt";
     private static final String VERSION_DELIMITER = ".";
     private static final Preferences PREFS = Lookup.getDefault().lookup(Preferences.class);
     private final Version currentVersion = Version.parseVersion(AppInfo.APP_VERSION, VERSION_DELIMITER);

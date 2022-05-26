@@ -65,11 +65,11 @@
                        match="&lt;span class=&quot;version&quot;&gt;(.*)&lt;/span&gt;"
                        replace="&lt;span class=&quot;version&quot;&gt;${Version}&lt;/span&gt;"/>
         <replaceregexp file="${repo.root}/Website/.htaccess"
-                       match="Redirect permanent /dist/JPhotoTagger-setup.exe.*"
-                       replace="Redirect permanent /dist/JPhotoTagger-setup.exe http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-setup-${Version}.exe/download"/>
+                       match="Redirect permanent /JPhotoTagger/dist/JPhotoTagger-setup.exe.*"
+                       replace="Redirect permanent /JPhotoTagger/dist/JPhotoTagger-setup.exe http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-setup-${Version}.exe/download"/>
         <replaceregexp file="${repo.root}/Website/.htaccess"
-                       match="Redirect permanent /dist/JPhotoTagger.zip.*"
-                       replace="Redirect permanent /dist/JPhotoTagger.zip   http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-${Version}.zip/download"/>
+                       match="Redirect permanent /JPhotoTagger/dist/JPhotoTagger.zip.*"
+                       replace="Redirect permanent /JPhotoTagger/dist/JPhotoTagger.zip   http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-${Version}.zip/download"/>
         <replaceregexp file="InnoSetup/JPhotoTagger.iss"
                        encoding="Cp1252"
                        match="AppVerName=.*"

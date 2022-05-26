@@ -3,6 +3,21 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://jphototagger.org/
 ================================================
 
+1.1.1 2022-05-26
+----------------
+
+* If the Search button is clicked within the following trees, all
+  nodes will be expanded before searching: Keywords, Timeline,
+  Miscellaneous. Now search will be applied within all e.g. keywords
+  and not only within expanded. File system trees will not expand,
+  because that can cost a huge amount of resources.
+* URIs changed from "jphototagger.org" to "elmar-baumann.de/JPhotoTagger".
+  The "org"-Domain will cost me money in future. JPhotoTagger is a free
+  program and I did earn not one cent with it and I don't wont do so in
+  future.
+* Version set to 1.1. Due to nearly 14 years of usage this shall be a signal,
+  that JPhotoTagger is not an Alpha or Beta version.
+
 0.44.9 2022-02-28
 ------------------
 

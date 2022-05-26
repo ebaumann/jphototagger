@@ -901,7 +901,7 @@ public final class AppPanel extends PanelExt {
         gridBagConstraints.insets = UiFactory.insets(2, 2, 1, 0);
         panelSelKeywordsTree.add(toggleButtonExpandAllNodesSelKeywords, gridBagConstraints);
 
-        buttonSearchInTreeSelKeywords.setAction(new SearchInJxTreeAction((JXTree)treeSelKeywords));
+        buttonSearchInTreeSelKeywords.setAction(new SearchInJxTreeAction((JXTree)treeSelKeywords, true));
         buttonSearchInTreeSelKeywords.setText(Bundle.getString(getClass(), "AppPanel.buttonSearchInTreeSelKeywords.text")); // NOI18N
         buttonSearchInTreeSelKeywords.setMargin(UiFactory.insets(1, 1, 1, 1));
         buttonSearchInTreeSelKeywords.setName("buttonSearchInTreeSelKeywords"); // NOI18N
@@ -1067,7 +1067,7 @@ public final class AppPanel extends PanelExt {
         gridBagConstraints.insets = UiFactory.insets(1, 1, 1, 0);
         panelTimeline.add(toggleButtonExpandCollapseTreeTimeline, gridBagConstraints);
 
-        buttonSearchInTreeTimeline.setAction(new SearchInJxTreeAction((JXTree)treeTimeline));
+        buttonSearchInTreeTimeline.setAction(new SearchInJxTreeAction((JXTree)treeTimeline, true));
         buttonSearchInTreeTimeline.setText(Bundle.getString(getClass(), "AppPanel.buttonSearchInTreeTimeline.text")); // NOI18N
         buttonSearchInTreeTimeline.setMargin(UiFactory.insets(1, 1, 1, 1));
         buttonSearchInTreeTimeline.setName("buttonSearchInTreeTimeline"); // NOI18N
@@ -1113,7 +1113,7 @@ public final class AppPanel extends PanelExt {
         gridBagConstraints.insets = UiFactory.insets(1, 1, 1, 0);
         panelMiscMetadata.add(toggleButtonExpandCollapseTreeMiscMetadata, gridBagConstraints);
 
-        buttonSearchInTreeMiscMetadata.setAction(new SearchInJxTreeAction((JXTree)treeMiscMetadata));
+        buttonSearchInTreeMiscMetadata.setAction(new SearchInJxTreeAction((JXTree)treeMiscMetadata, true));
         buttonSearchInTreeMiscMetadata.setText(Bundle.getString(getClass(), "AppPanel.buttonSearchInTreeMiscMetadata.text")); // NOI18N
         buttonSearchInTreeMiscMetadata.setMargin(UiFactory.insets(1, 1, 1, 1));
         buttonSearchInTreeMiscMetadata.setName("buttonSearchInTreeMiscMetadata"); // NOI18N
