@@ -1,5 +1,6 @@
 package org.jphototagger.program.module.exportimport.importer;
 
+import java.awt.EventQueue;
 import java.io.File;
 import java.util.Collection;
 import java.util.List;
@@ -88,6 +89,15 @@ public abstract class KeywordsImporter {
         }
 
         private void importKeywords() {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    importKeywordsInEdt();
+                }
+            });
+        }
+
+        private void importKeywordsInEdt() {
             if (treeModel instanceof KeywordsTreeModel) {
                 boolean autocompletePersisted = isAutocompletePersisted();
                 boolean autoComplete = getPersistedAutocomplete();

@@ -257,7 +257,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
         private final List<Object> selectedObjects;
 
         private ImportWorker(List<Object> selectedObjects) {
-            this.selectedObjects = selectedObjects;
+            this.selectedObjects = new ArrayList<>(selectedObjects);
         }
 
         @Override

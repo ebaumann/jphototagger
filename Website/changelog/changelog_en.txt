@@ -1,7 +1,13 @@
 Character encoding of this file: UTF-8
 
-Changelog JPhotoTagger https://jphototagger.org/
-================================================
+Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
+=================================================================
+
+1.1.2 2022-10-05
+----------------
+
+* Fixed "java.util.concurrent.ExecutionException" when importing
+  keyword trees.
 
 1.1.1 2022-05-26
 ----------------
