@@ -89,15 +89,6 @@ public abstract class KeywordsImporter {
         }
 
         private void importKeywords() {
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    importKeywordsInEdt();
-                }
-            });
-        }
-
-        private void importKeywordsInEdt() {
             if (treeModel instanceof KeywordsTreeModel) {
                 boolean autocompletePersisted = isAutocompletePersisted();
                 boolean autoComplete = getPersistedAutocomplete();
@@ -133,7 +124,7 @@ public abstract class KeywordsImporter {
                     progressHandle.progressPerformed(createProgressEventWithValue(progressValue));
                 }
                 if (importCount > 0) {
-                    ((KeywordsTreeModel) treeModel).recreate();
+                    recreateTreeInEdt();
                 }
                 if (autocompletePersisted) {
                     persistAutoComplete(autoComplete);
@@ -144,6 +135,15 @@ public abstract class KeywordsImporter {
                 messageImported(importCount);
                 expandRootSelHk();
             }
+        }
+
+        private void recreateTreeInEdt() {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    ((KeywordsTreeModel) treeModel).recreate();
+                }
+            });
         }
 
         private void expandRootSelHk() {

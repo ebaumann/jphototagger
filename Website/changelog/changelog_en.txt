@@ -3,6 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.3 2022-10-07
+----------------
+
+* Fixed missing progress bar update when importing keyword trees.
+
 1.1.2 2022-10-05
 ----------------
 
