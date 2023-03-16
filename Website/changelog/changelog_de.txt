@@ -3,6 +3,13 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.4 2023-03-16
+----------------
+
+* Fehler beim Einlesen von GPS-Koordinaten aus den EXIF-Daten führen
+  nicht mehr dazu, dass prinzipiell keine EXIF-Daten mehr eingelesen
+  werden.
+
 1.1.3 2022-10-07
 ----------------
 

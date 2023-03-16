@@ -1,4 +1,4 @@
-Redirect permanent /JPhotoTagger/dist/JPhotoTagger-setup.exe http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-setup-1.1.3.exe/download
-Redirect permanent /JPhotoTagger/dist/JPhotoTagger.zip   http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-1.1.3.zip/download
+Redirect permanent /JPhotoTagger/dist/JPhotoTagger-setup.exe http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-setup-1.1.4.exe/download
+Redirect permanent /JPhotoTagger/dist/JPhotoTagger.zip   http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-1.1.4.zip/download
 Redirect permanent /dist/JPhotoTagger-setup.exe http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-setup-1.1.1.exe/download
 Redirect permanent /dist/JPhotoTagger.zip   http://sourceforge.net/projects/jphototagger/files/downloads/JPhotoTagger-1.1.1.zip/download

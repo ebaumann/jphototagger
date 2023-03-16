@@ -329,20 +329,24 @@ public final class ExifSupport {
     }
 
     private void setExifGps(ExifTags fromExifTags, Exif toExif) {
-        ExifGpsMetadata gpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(fromExifTags);
-        ExifGpsLongitude longitude = gpsMetadata.getLongitude();
-        ExifGpsLatitude latitude = gpsMetadata.getLatitude();
-        if ((latitude != null) && (longitude != null)) {
-            double longitudeDegrees = ExifGpsUtil.convertExifDegreesToDouble(longitude.getExifDegrees());
-            double latitudeDegrees = ExifGpsUtil.convertExifDegreesToDouble(latitude.getExifDegrees());
-            if (ExifGpsLatitude.Ref.SOUTH.equals(latitude.getRef())) {
-                latitudeDegrees *= -1;
+        try {
+            ExifGpsMetadata gpsMetadata = ExifGpsUtil.createGpsMetadataFromExifTags(fromExifTags);
+            ExifGpsLongitude longitude = gpsMetadata.getLongitude();
+            ExifGpsLatitude latitude = gpsMetadata.getLatitude();
+            if ((latitude != null) && (longitude != null)) {
+                double longitudeDegrees = ExifGpsUtil.convertExifDegreesToDouble(longitude.getExifDegrees());
+                double latitudeDegrees = ExifGpsUtil.convertExifDegreesToDouble(latitude.getExifDegrees());
+                if (ExifGpsLatitude.Ref.SOUTH.equals(latitude.getRef())) {
+                    latitudeDegrees *= -1;
+                }
+                if (ExifGpsLongitude.Ref.WEST.equals(longitude.getRef())) {
+                    longitudeDegrees *= -1;
+                }
+                toExif.setGpsLatitude(latitudeDegrees);
+                toExif.setGpsLongitude(longitudeDegrees);
             }
-            if (ExifGpsLongitude.Ref.WEST.equals(longitude.getRef())) {
-                longitudeDegrees *= -1;
-            }
-            toExif.setGpsLatitude(latitudeDegrees);
-            toExif.setGpsLongitude(longitudeDegrees);
+        } catch (Exception ex) {
+            Logger.getLogger(ExifSupport.class.getName()).log(Level.SEVERE, ex.getLocalizedMessage(), ex);
         }
     }
 
