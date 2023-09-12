@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.5 2023-09-12
+----------------
+
+* Fixed date picker in the search dialog for building simple SQL queries:
+  The selected month will be applied, not one month earlier.
+
 1.1.4 2023-03-16
 ----------------
 

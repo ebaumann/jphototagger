@@ -239,7 +239,7 @@ public final class SearchMetaDataValuePanel extends PanelExt {
 
         if (cal != null) {
             String year  = Integer.toString(cal.get(Calendar.YEAR));
-            String month = getDateFormatted(Integer.toString(cal.get(Calendar.MONTH)));
+            String month = getDateFormatted(Integer.toString(cal.get(Calendar.MONTH) + 1));
             String day = getDateFormatted(Integer.toString(cal.get(Calendar.DAY_OF_MONTH)));
 
             textFieldValue.setText(year + "-" + month + "-" + day);

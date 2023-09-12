@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tmx SYSTEM "tmx14.dtd">
 <tmx version="1.4">
-  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="OmegaT-5.2.0" segtype="sentence" srclang="de"/>
+  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="5.7.1_0_c3206253" segtype="sentence" srclang="de"/>
   <body>
 <!-- Default translations -->
     <tu>
@@ -2310,10 +2310,10 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>&lt;html&gt;Ihre Datenbank enthält noch Kategorien und ist zu alt zum Konvertieren!&lt;p&gt;Bitte besorgen Sie sich eine JPhotoTagger-Version, die älter ist als 0.9.0 und die noch Kategorien umwandelt!&lt;p&gt;Download: http://www.jphototagger.org/download.html&lt;/html&gt;</seg>
+        <seg>&lt;html&gt;Ihre Datenbank enthält noch Kategorien und ist zu alt zum Konvertieren!&lt;p&gt;Bitte besorgen Sie sich eine JPhotoTagger-Version, die älter ist als 0.9.0 und die noch Kategorien umwandelt!&lt;p&gt;Download: https://elmar-baumann.de/JPhotoTagger/download.html&lt;/html&gt;</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;Your database contains categories and is too old to convert!&lt;p&gt;Please get a JPhotoTagger version prior to 0.9.0 which converts categories!&lt;p&gt;Download: http://www.jphototagger.org/download.html&lt;/html&gt;</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20230912T144308Z" creationid="elmar" creationdate="20230912T144308Z">
+        <seg>[fuzzy]&lt;html&gt;Your database still contains categories and is too old to convert!&lt;p&gt;Please get a JPhotoTagger version prior to 0.9.0 which converts categories!&lt;p&gt;Download: https://elmar-baumann.de/JPhotoTagger/download.html&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -13418,10 +13418,10 @@ falls diese nicht im Zielalbum existieren.</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>Siehe Kommandozeilenbefehl unter https://www.jphototagger.org/usr/start_in_ohter_lang.html</seg>
+        <seg>Siehe Kommandozeilenbefehl unter https://elmar-baumann.de/JPhotoTagger/usr/start_in_ohter_lang.html</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20180204T190224Z" creationid="elmar" creationdate="20180204T190224Z">
-        <seg>See command line under https://www.jphototagger.org/usr/start_in_ohter_lang.html</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20230912T144144Z" creationid="elmar" creationdate="20230912T144144Z">
+        <seg>See command line under https://elmar-baumann.de/JPhotoTagger/usr/start_in_ohter_lang.html</seg>
       </tuv>
     </tu>
     <tu>
@@ -15986,26 +15986,26 @@ falls diese nicht im Zielalbum existieren.</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>https://elmar-baumann.de/JPhotoTagger/</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20230912T144055Z" creationid="elmar" creationdate="20230912T144055Z">
+        <seg>https://elmar-baumann.de/JPhotoTagger/</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>https://elmar-baumann.de/JPhotoTagger/changelog/changelog_de.txt</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20230912T144344Z" creationid="elmar" creationdate="20230912T144344Z">
+        <seg>https://elmar-baumann.de/JPhotoTagger/changelog/changelog_en.txt</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>https://groups.google.de/group/jphototagger-benutzer</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20180204T190254Z" creationid="elmar" creationdate="20180204T190254Z">
         <seg>https://groups.google.de/group/jphototagger-benutzer</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="de">
-        <seg>https://www.jphototagger.org/</seg>
-      </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20180204T190302Z" creationid="elmar" creationdate="20180204T190302Z">
-        <seg>https://www.jphototagger.org/</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="de">
-        <seg>https://www.jphototagger.org/changelog/changelog_de.txt</seg>
-      </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20180204T184719Z" creationid="elmar" creationdate="20180204T184719Z">
-        <seg>https://www.jphototagger.org/changelog/changelog_en.txt</seg>
       </tuv>
     </tu>
     <tu>
