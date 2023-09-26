@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.6 2023-09-23
+----------------
+
+* Corrected spelling errors in an Englisch message.
+* Progress bar has minimum size.
+
 1.1.5 2023-09-12
 ----------------
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tmx SYSTEM "tmx14.dtd">
 <tmx version="1.4">
-  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="5.7.1_0_c3206253" segtype="sentence" srclang="de"/>
+  <header creationtool="OmegaT" o-tmf="OmegaT TMX" adminlang="EN-US" datatype="plaintext" creationtoolversion="6.0.0_0_1bf1729c" segtype="sentence" srclang="de"/>
   <body>
 <!-- Default translations -->
     <tu>
@@ -8321,8 +8321,8 @@ werden diese mit "B" aus dem Zielalbum entfernt.</seg>
       <tuv xml:lang="de">
         <seg>Filter ''{0}'' konnte nicht gelöscht werden!</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Filter ''{0}'' couldn't be delted!</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20230926T085423Z">
+        <seg>Filter ''{0}'' couldn't be deleted!</seg>
       </tuv>
     </tu>
     <tu>
@@ -16228,8 +16228,8 @@ falls diese nicht im Zielalbum existieren.</seg>
       <tuv xml:lang="de">
         <seg>{0} nicht referenzierte Datensätze gelöscht.</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T185632Z">
-        <seg>Delted {0} nog referenced records.</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20230926T085412Z">
+        <seg>Deleted {0} not referenced records.</seg>
       </tuv>
     </tu>
     <tu>
