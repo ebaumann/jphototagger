@@ -7688,8 +7688,8 @@
       <tuv lang="de">
         <seg>Es wurden {0} verwaiste Vorschaubilder gelöscht</seg>
       </tuv>
-      <tuv lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>{0} orphaned thumbnails has been deleted</seg>
+      <tuv lang="en" changeid="elmar" changedate="20231008T180146Z">
+        <seg>{0} orphaned thumbnails have been deleted</seg>
       </tuv>
     </tu>
     <tu>
@@ -7784,8 +7784,8 @@
       <tuv lang="de">
         <seg>ExifTool wurde nicht ausgewählt!</seg>
       </tuv>
-      <tuv lang="en" changeid="elmar" changedate="20180203T200551Z" creationid="elmar" creationdate="20180203T200551Z">
-        <seg>ExifTool wasn't choosed!</seg>
+      <tuv lang="en" changeid="elmar" changedate="20231008T180518Z" creationid="elmar" creationdate="20180203T200551Z">
+        <seg>ExifTool was not selected!</seg>
       </tuv>
     </tu>
     <tu>
