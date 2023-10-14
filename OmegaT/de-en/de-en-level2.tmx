@@ -2016,8 +2016,8 @@
       <tuv xml:lang="de">
         <seg>&lt;html&gt;Datensätze mit nicht mehr existierenden Dateien entfernen,&lt;br/&gt; XMP für nicht mehr existierende Filialdateien entfernen&lt;/html&gt;</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;Delete records with not existing files,&lt;br/&gt;delete XMP of not existing sidecar files&lt;/html&gt;</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20231014T152127Z">
+        <seg>&lt;html&gt;Delete records with non-existing files,&lt;br/&gt;delete XMP of non-existing sidecar files&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -10812,8 +10812,8 @@ falls diese nicht im Zielalbum existieren.</seg>
       <tuv xml:lang="de">
         <seg>Lösche Datensätze mit nicht mehr existierenden Dateien (Umfang: {0} Dateien)...</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Delete records with not existing files (Total: {0} files)...</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20231014T152108Z">
+        <seg>Delete records with non-existing files (Total: {0} files)...</seg>
       </tuv>
     </tu>
     <tu>
@@ -10828,8 +10828,8 @@ falls diese nicht im Zielalbum existieren.</seg>
       <tuv xml:lang="de">
         <seg>Lösche aus Datensätzen nicht mehr existierende XMP-Daten (Umfang: {0} Datensätze)...</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Delete from records not existing XMP data (Total: {0} records)...</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20231014T165817Z">
+        <seg>Delete from records non-existing XMP data (Total: {0} records)...</seg>
       </tuv>
     </tu>
     <tu>
