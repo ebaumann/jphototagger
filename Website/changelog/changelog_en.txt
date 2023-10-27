@@ -3,6 +3,14 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.7 2023--
+----------------
+
+* The keywords in the keywords list having a padding right
+  to avoid that keywords gluing together.
+* Changed the description of DcSubjects to "Keywords"
+  (Plural instead singular).
+
 1.1.6 2023-09-23
 ----------------
 

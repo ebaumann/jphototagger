@@ -20,6 +20,9 @@ public final class KeywordsEditPanelListCellRenderer extends DefaultListCellRend
     public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         label.setIcon(ICON);
+        if (value instanceof String) {
+            label.setText((String) value + "  ");
+        }
         return label;
     }
 }

@@ -3,6 +3,14 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.7 2023--
+----------------
+
+* Stichwörter in der Stichwortliste haben rechts einen Leerraum,
+  damit die einzelnen Stichwörter nicht "aneinanderkleben".
+* Die Beschreibung für DcSubjects umgeändert in "Stichwörter"
+  (Mehrzahl statt Einzahl).
+
 1.1.6 2023-09-23
 ----------------
 
