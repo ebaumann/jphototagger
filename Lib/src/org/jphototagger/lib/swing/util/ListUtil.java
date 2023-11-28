@@ -352,20 +352,24 @@ public final class ListUtil {
         if (element == null) {
             throw new NullPointerException("element == null");
         }
-        int selIndex = -1;
+        int selModelIndex = -1;
         ListModel<?> model = list.getModel();
         int size = model.getSize();
-        for (int i = startIndex; (selIndex == -1) && (i < size); i++) {
+        for (int i = startIndex; (selModelIndex == -1) && (i < size); i++) {
             Object o = model.getElementAt(i);
             if (element.equals(o)) {
-                selIndex = i;
+                selModelIndex = i;
             }
         }
-        if (selIndex >= 0) {
-            list.setSelectedIndex(selIndex);
-            list.ensureIndexIsVisible(selIndex);
+        if (selModelIndex >= 0) {
+            if (list instanceof JXList) {
+                JXList jxList = (JXList) list;
+                selModelIndex = jxList.convertIndexToView(selModelIndex);
+            }
+            list.setSelectedIndex(selModelIndex);
+            list.ensureIndexIsVisible(selModelIndex);
         }
-        return selIndex;
+        return selModelIndex;
     }
 
     /**

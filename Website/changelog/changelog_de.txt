@@ -3,9 +3,11 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
-1.1.7 2023--
+1.1.7 2023-11-28
 ----------------
 
+* Fix: Kontextmenü-Aktion "Bilder anzeigen: Nur Stichwort" der
+  Stichwörter im rechten Fenster konnte falsche Bilder anzeigen.
 * Stichwörter in der Stichwortliste haben rechts einen Leerraum,
   damit die einzelnen Stichwörter nicht "aneinanderkleben".
 * Die Beschreibung für DcSubjects umgeändert in "Stichwörter"

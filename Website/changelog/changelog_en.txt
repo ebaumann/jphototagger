@@ -3,9 +3,11 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
-1.1.7 2023--
+1.1.7 2023-11-28
 ----------------
 
+* Fixed: Context menu action "Display imageas: Keyword only" of
+  the Keywords in the right window could display incorrect images.
 * The keywords in the keywords list having a padding right
   to avoid that keywords gluing together.
 * Changed the description of DcSubjects to "Keywords"
