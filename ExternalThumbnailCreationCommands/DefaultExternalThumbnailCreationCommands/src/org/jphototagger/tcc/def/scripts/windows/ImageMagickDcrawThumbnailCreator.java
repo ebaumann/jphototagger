@@ -27,10 +27,10 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
 
         if (dialog.isAccepted()) {
             File dcraw = dialog.getDcraw();
-            File convert = dialog.getConvert();
+            File magick = dialog.getMagick();
             File mplayer = dialog.getMplayer();
 
-            return createCommand(dcraw, convert, mplayer);
+            return createCommand(dcraw, magick, mplayer);
         }
 
         return null;
@@ -46,8 +46,8 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         return SystemUtil.isWindows();
     }
 
-    private String createCommand(File dcraw, File convert, File mplayer) {
-        if (dcraw == null || convert == null) {
+    private String createCommand(File dcraw, File magick, File mplayer) {
+        if (dcraw == null || magick == null) {
             return null;
         }
 
@@ -64,7 +64,7 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         String scriptPath = userDirectory.getAbsolutePath() + File.separator + scriptName;
 
         try {
-            setReplace(scriptWriter, dcraw, convert, mplayer);
+            setReplace(scriptWriter, dcraw, magick, mplayer);
             writeScript(scriptName, scriptWriter, new File(scriptPath));
 
             return "\"" + scriptPath + "\" \"%s\" %i";
@@ -74,9 +74,9 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         }
     }
 
-    private void setReplace(ScriptWriter scriptWriter, File dcraw, File convert, File mplayer) {
+    private void setReplace(ScriptWriter scriptWriter, File dcraw, File magick, File mplayer) {
         scriptWriter.addReplace("${dcraw.exe}", dcraw.getAbsolutePath());
-        scriptWriter.addReplace("${convert.exe}", convert.getAbsolutePath());
+        scriptWriter.addReplace("${magick.exe}", magick.getAbsolutePath());
 
         if (mplayer != null) {
             scriptWriter.addReplace("${mplayer.exe}", mplayer.getAbsolutePath());

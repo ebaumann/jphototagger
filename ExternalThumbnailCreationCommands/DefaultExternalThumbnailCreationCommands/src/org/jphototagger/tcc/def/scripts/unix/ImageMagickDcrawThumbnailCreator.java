@@ -28,10 +28,10 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         if (dialog.isAccepted()) {
             File dcraw = dialog.getDcraw();
             File identify = dialog.getIdentify();
-            File convert = dialog.getConvert();
+            File magick = dialog.getMagick();
             File mplayer = dialog.getMplayer();
 
-            return createCommand(dcraw, identify, convert, mplayer);
+            return createCommand(dcraw, identify, magick, mplayer);
         }
 
         return null;
@@ -47,8 +47,8 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         return !SystemUtil.isWindows();
     }
 
-    private String createCommand(File dcraw, File identify, File convert, File mplayer) {
-        if (dcraw == null || identify == null || convert == null) {
+    private String createCommand(File dcraw, File identify, File magick, File mplayer) {
+        if (dcraw == null || identify == null || magick == null) {
             return null;
         }
 
@@ -65,7 +65,7 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         String scriptPath = userDirectory.getAbsolutePath() + File.separator + scriptName;
 
         try {
-            setReplace(scriptWriter, dcraw, identify, convert, mplayer);
+            setReplace(scriptWriter, dcraw, identify, magick, mplayer);
             writeScript(scriptName, scriptWriter, new File(scriptPath));
 
             return "\"" + scriptPath + "\" \"%s\" %i";
@@ -75,10 +75,10 @@ public final class ImageMagickDcrawThumbnailCreator implements ExternalThumbnail
         }
     }
 
-    private void setReplace(ScriptWriter scriptWriter, File dcraw, File identify, File convert, File mplayer) {
+    private void setReplace(ScriptWriter scriptWriter, File dcraw, File identify, File magick, File mplayer) {
         scriptWriter.addReplace("${dcraw}", dcraw.getAbsolutePath());
         scriptWriter.addReplace("${identify}", identify.getAbsolutePath());
-        scriptWriter.addReplace("${convert}", convert.getAbsolutePath());
+        scriptWriter.addReplace("${magick}", magick.getAbsolutePath());
 
         if (mplayer != null) {
             scriptWriter.addReplace("${mplayer}", mplayer.getAbsolutePath());

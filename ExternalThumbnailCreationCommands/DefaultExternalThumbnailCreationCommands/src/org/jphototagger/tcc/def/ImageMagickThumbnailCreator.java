@@ -62,11 +62,12 @@ public final class ImageMagickThumbnailCreator implements ExternalThumbnailCreat
         return new FileChooser.Builder(new HashSet<>(Arrays.asList(convertFileName)))
                 .fileChooserTitle(fileChooserTitle)
                 .fileDescription(convertFileDescription)
+                .fileChooserDirPath("/usr/bin")
                 .build();
     }
 
     private String getConvertFileName() {
-        return SystemUtil.isWindows() ? "convert.exe" : "convert";
+        return SystemUtil.isWindows() ? "magick.exe" : "magick";
     }
 
     private String getConvertFileDescription() {

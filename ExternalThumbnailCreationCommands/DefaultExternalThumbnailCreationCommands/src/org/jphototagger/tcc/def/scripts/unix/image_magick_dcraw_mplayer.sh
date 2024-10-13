@@ -7,7 +7,7 @@
 #          1st parameter: Name of image file or video file
 #          2nd parameter: Length in pixels of the largest thumbnail dimension
 #
-#          Required programms: - ImageMagick (identify and convert)
+#          Required programms: - ImageMagick (identify and magick)
 #                              - dcraw
 #                              - MPlayer
 #
@@ -128,7 +128,7 @@ function image_to_stdout() {
     	length_cmd="${length}x"
     fi
 
-    ${convert} "$filename" -resize $length_cmd -unsharp 0.5x0.5+1.0+0.1 jpg:-
+    ${magick} "$filename" -resize $length_cmd -unsharp 0.5x0.5+1.0+0.1 jpg:-
 }
 
 # dcraw-Parameter:

@@ -3,6 +3,12 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.8 2024-10-13
+----------------
+
+* Using the "magick" command to generate thumbnails via ImageMagick
+  instead of the obsolete "convert".
+
 1.1.7 2023-11-28
 ----------------
 

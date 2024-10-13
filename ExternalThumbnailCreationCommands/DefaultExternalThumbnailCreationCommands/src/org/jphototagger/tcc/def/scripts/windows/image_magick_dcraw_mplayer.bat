@@ -46,10 +46,10 @@ if /I "%THUMB_SUFFIX%" ==".tiff" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".ttf" GOTO OTHER
 if /I "%THUMB_SUFFIX%" ==".xcf" GOTO OTHER
 
-"${dcraw.exe}" -e -c %IMAGE% | "${convert.exe}" - -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
+"${dcraw.exe}" -e -c %IMAGE% | "${magick.exe}" - -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
 goto END
 
 :OTHER
-"${convert.exe}" %IMAGE% -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
+"${magick.exe}" %IMAGE% -thumbnail %MAX_DIM%x%MAX_DIM% -auto-orient jpg:-
 
 :END

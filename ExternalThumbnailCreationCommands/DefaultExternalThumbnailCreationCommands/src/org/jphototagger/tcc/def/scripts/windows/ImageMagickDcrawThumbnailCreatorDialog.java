@@ -23,11 +23,11 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
 
     private static final long serialVersionUID = 1L;
     private File dcraw;
-    private File convert;
+    private File magick;
     private File mplayer;
-    private final FileChooser dcrawFileChooser = createDcrawFileChooser();
-    private final FileChooser convertFileChooser = createConvertFileChooser();
-    private final FileChooser mplayerFileChooser = createMPlayerFileChooser();
+    private transient final FileChooser dcrawFileChooser = createDcrawFileChooser();
+    private transient final FileChooser magickFileChooser = createMagickFileChooser();
+    private transient final FileChooser mplayerFileChooser = createMPlayerFileChooser();
     private boolean accepted;
     private static final Icon OK_ICON = org.jphototagger.resources.Icons.getIcon("icon_ok.png");
     private static final Icon ERROR_ICON = org.jphototagger.resources.Icons.getIcon("icon_error.png");
@@ -46,8 +46,8 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         return accepted;
     }
 
-    public File getConvert() {
-        return convert;
+    public File getMagick() {
+        return magick;
     }
 
     public File getDcraw() {
@@ -67,12 +67,12 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         setEnabledOkButton();
     }
 
-    private void chooseConvert() {
-        File file = convertFileChooser.chooseFileFixedName();
+    private void chooseMagick() {
+        File file = magickFileChooser.chooseFileFixedName();
         if (file != null) {
-            convert = file;
+            magick = file;
         }
-        labelConvertOk.setIcon(convert == null ? ERROR_ICON : OK_ICON);
+        labelMagickOk.setIcon(magick == null ? ERROR_ICON : OK_ICON);
         setEnabledOkButton();
     }
 
@@ -85,7 +85,7 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
     }
 
     private void setEnabledOkButton() {
-        buttonOk.setEnabled(dcraw != null && convert != null);
+        buttonOk.setEnabled(dcraw != null && magick != null);
     }
 
     private FileChooser createDcrawFileChooser() {
@@ -95,8 +95,8 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         return createFileChooser(new HashSet<>(filenames), fileDescription, fileChooserTitle);
     }
 
-    private FileChooser createConvertFileChooser() {
-        String filename = "convert.exe";
+    private FileChooser createMagickFileChooser() {
+        String filename = "magick.exe";
         String fileDescription = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Description");
         String fileChooserTitle = Bundle.getString(ImageMagickDcrawThumbnailCreatorDialog.class, "ImageMagickDcrawThumbnailCreatorDialog.Convert.FileChooser.Title");
         return createFileChooser(new HashSet<>(Arrays.asList(filename)), fileDescription, fileChooserTitle);
@@ -127,9 +127,9 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         labelDcrawOk = UiFactory.label();
         buttonChooseDcraw = UiFactory.button();
         buttonBrowseDcraw = UiFactory.button();
-        labelConvertOk = UiFactory.label();
-        buttonChooseConvert = UiFactory.button();
-        buttonBrowseConvert = UiFactory.button();
+        labelMagickOk = UiFactory.label();
+        buttonChooseMagick = UiFactory.button();
+        buttonBrowseMagick = UiFactory.button();
         panelVideo = UiFactory.panel();
         labelInfoVideo = UiFactory.jxLabel();
         buttonAddUserDefinedFileTypes = UiFactory.button();
@@ -186,35 +186,35 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         gridBagConstraints.insets = UiFactory.insets(0, 3, 0, 0);
         panelImageButtons.add(buttonBrowseDcraw, gridBagConstraints);
 
-        labelConvertOk.setIcon(ERROR_ICON);
+        labelMagickOk.setIcon(ERROR_ICON);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.insets = UiFactory.insets(3, 0, 0, 0);
-        panelImageButtons.add(labelConvertOk, gridBagConstraints);
+        panelImageButtons.add(labelMagickOk, gridBagConstraints);
 
-        buttonChooseConvert.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
-        buttonChooseConvert.addActionListener(new java.awt.event.ActionListener() {
+        buttonChooseMagick.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonChooseConvert.text")); // NOI18N
+        buttonChooseMagick.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonChooseConvertActionPerformed(evt);
+                buttonChooseMagickActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = UiFactory.insets(3, 5, 0, 0);
-        panelImageButtons.add(buttonChooseConvert, gridBagConstraints);
+        panelImageButtons.add(buttonChooseMagick, gridBagConstraints);
 
-        buttonBrowseConvert.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseConvert.text")); // NOI18N
-        buttonBrowseConvert.addActionListener(new java.awt.event.ActionListener() {
+        buttonBrowseMagick.setText(Bundle.getString(getClass(), "ImageMagickDcrawThumbnailCreatorDialog.buttonBrowseConvert.text")); // NOI18N
+        buttonBrowseMagick.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBrowseConvertActionPerformed(evt);
+                buttonBrowseMagickActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = UiFactory.insets(3, 3, 0, 0);
-        panelImageButtons.add(buttonBrowseConvert, gridBagConstraints);
+        panelImageButtons.add(buttonBrowseMagick, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
@@ -332,15 +332,15 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
         chooseDcraw();
     }
 
-    private void buttonChooseConvertActionPerformed(java.awt.event.ActionEvent evt) {
-        chooseConvert();
+    private void buttonChooseMagickActionPerformed(java.awt.event.ActionEvent evt) {
+        chooseMagick();
     }
 
     private void buttonBrowseDcrawActionPerformed(java.awt.event.ActionEvent evt) {
         Util.browse("http://www.cybercom.net/~dcoffin/dcraw/");
     }
 
-    private void buttonBrowseConvertActionPerformed(java.awt.event.ActionEvent evt) {
+    private void buttonBrowseMagickActionPerformed(java.awt.event.ActionEvent evt) {
         Util.browse("http://www.imagemagick.org/");
     }
 
@@ -353,15 +353,15 @@ public class ImageMagickDcrawThumbnailCreatorDialog extends DialogExt {
 }
 
     private javax.swing.JButton buttonAddUserDefinedFileTypes;
-    private javax.swing.JButton buttonBrowseConvert;
+    private javax.swing.JButton buttonBrowseMagick;
     private javax.swing.JButton buttonBrowseDcraw;
     private javax.swing.JButton buttonBrowserMPlayer;
     private javax.swing.JButton buttonCancel;
-    private javax.swing.JButton buttonChooseConvert;
+    private javax.swing.JButton buttonChooseMagick;
     private javax.swing.JButton buttonChooseDcraw;
     private javax.swing.JButton buttonChooseMPlayer;
     private javax.swing.JButton buttonOk;
-    private javax.swing.JLabel labelConvertOk;
+    private javax.swing.JLabel labelMagickOk;
     private javax.swing.JLabel labelDcrawOk;
     private org.jdesktop.swingx.JXLabel labelInfo;
     private org.jdesktop.swingx.JXLabel labelInfoVideo;
