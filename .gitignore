@@ -24,6 +24,7 @@
 /Iptc/build/
 /Iptc/dist/
 /Iptc/nbproject/private/
+.*\.kate-swp
 /KML/build/
 /KML/dist/
 /KML/nbproject/private/
