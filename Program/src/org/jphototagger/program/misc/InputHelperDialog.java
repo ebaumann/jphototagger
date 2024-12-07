@@ -12,11 +12,12 @@ import org.jphototagger.lib.util.Bundle;
 import org.jphototagger.program.module.keywords.KeywordsPanel;
 import org.jphototagger.program.module.metadatatemplates.MetaDataTemplatesPanel;
 import org.jphototagger.program.resource.GUI;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.jphototagger.resources.UiFactory;
 import org.openide.util.Lookup;
 
 /**
- * DialogExt for input assistance.
+ * Dialog for input assistance.
  *
  * @author Elmar Baumann
  */
@@ -117,7 +118,7 @@ public class InputHelperDialog extends DialogExt {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "InputHelperDialog.title")); // NOI18N
-        setAlwaysOnTop(true);
+        setAlwaysOnTop(Lookup.getDefault().lookup(Preferences.class).getBoolean(AppPreferencesKeys.KEY_UI_INPUT_HELPER_DIALOG_ALWAYS_ON_TOP, true));
         setName("Form"); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

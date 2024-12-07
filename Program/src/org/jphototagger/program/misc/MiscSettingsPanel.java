@@ -46,7 +46,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
 
     private static final long serialVersionUID = 1L;
     private static final String PREFERENCES_KEY_TABBED_PANE = "MiscSettingsPanel.TabbedPane";
-    private final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
+    private transient final Preferences prefs = Lookup.getDefault().lookup(Preferences.class);
     private boolean listenToUseLongXmpSidecarFileNames;
 
     public MiscSettingsPanel() {
@@ -233,6 +233,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         restoreForceCreateXmpSidecarFiles();
         restoreLockFileWhenWritingXmp();
         restoreWriteExifDateToXmpDateCreated();
+        restoreInputHelperDialogAlwaysOnTop();
         restoreTabbedPaneSettings();
         restoreMetaDataTextAreasColumns();
     }
@@ -286,6 +287,17 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         checkBoxWriteExifDateToXmpDateCreated.setSelected(restore);
     }
 
+    private void restoreInputHelperDialogAlwaysOnTop() {
+        boolean alwaysOnTop = prefs == null
+                ? true
+                : prefs.getBoolean(AppPreferencesKeys.KEY_UI_INPUT_HELPER_DIALOG_ALWAYS_ON_TOP, true);
+        checkBoxInputHelperDialogAlwaysOnTop.setSelected(alwaysOnTop);
+    }
+
+    private void persistInputHelperDialogAlwaysOnTop() {
+        prefs.setBoolean(AppPreferencesKeys.KEY_UI_INPUT_HELPER_DIALOG_ALWAYS_ON_TOP, checkBoxInputHelperDialogAlwaysOnTop.isSelected());
+    }
+
     private boolean isCheckForUpdates() {
         return prefs.containsKey(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
                 ? prefs.getBoolean(AppPreferencesKeys.KEY_CHECK_FOR_UPDATES)
@@ -311,7 +323,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
 
     private void lookupMiscOptionPages() {
         List<OptionPageProvider> providers =
-                new ArrayList<OptionPageProvider>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
+                new ArrayList<>(Lookup.getDefault().lookupAll(OptionPageProvider.class));
         Collections.sort(providers, PositionProviderAscendingComparator.INSTANCE);
         LayerUtil.logWarningIfNotUniquePositions(providers);
         for (OptionPageProvider provider : providers) {
@@ -353,6 +365,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         checkBoxDisplaySearchButton = UiFactory.checkBox();
         checkBoxUseLongXmpSidecarFileNames = UiFactory.checkBox();
         checkBoxForceCreateXmpSidecarFiles = UiFactory.checkBox();
+        checkBoxInputHelperDialogAlwaysOnTop = UiFactory.checkBox();
         checkBoxWriteExifDateToXmpDateCreated = UiFactory.checkBox();
         panelEditMetadata = UiFactory.panel();
         panelMdTextAreasColumns = UiFactory.panel();
@@ -499,6 +512,21 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
         panelDefault.add(checkBoxWriteExifDateToXmpDateCreated, gridBagConstraints);
+
+        checkBoxInputHelperDialogAlwaysOnTop.setText(Bundle.getString(getClass(), "MiscSettingsPanel.checkBoxInputHelperDialogAlwaysOnTop.text")); // NOI18N
+        checkBoxInputHelperDialogAlwaysOnTop.addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                persistInputHelperDialogAlwaysOnTop();
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = UiFactory.insets(0, 10, 0, 10);
+        panelDefault.add(checkBoxInputHelperDialogAlwaysOnTop, gridBagConstraints);
 
         panelEditMetadata.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "MiscSettingsPanel.panelEditMetadata.border.title"))); // NOI18N
         panelEditMetadata.setLayout(new java.awt.GridBagLayout());
@@ -748,6 +776,7 @@ public final class MiscSettingsPanel extends PanelExt implements Persistence, He
     private javax.swing.JCheckBox checkBoxLockFileWhenWritingXmp;
     private javax.swing.JCheckBox checkBoxUseLongXmpSidecarFileNames;
     private javax.swing.JCheckBox checkBoxForceCreateXmpSidecarFiles;
+    private javax.swing.JCheckBox checkBoxInputHelperDialogAlwaysOnTop;
     private javax.swing.JCheckBox checkBoxWriteExifDateToXmpDateCreated;
     private javax.swing.JLabel labelInfoRepositoryDirectory;
     private javax.swing.JLabel labelMdTextAreasColumnsInfo;

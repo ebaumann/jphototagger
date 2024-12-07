@@ -3,6 +3,16 @@ Zeichenkodierung dieser Datei: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.9 2024-12-07
+----------------
+
+* Neue Einstellung: "Geöffneter Eingabehilfen-Dialog immer sichtbar".
+  Zu erreichen über "Bearbeiten -> Einstellungen -> 6. Sonstiges:
+  Verschiedenes". Falls aktiviert (Standard) ist der Eingabehilfen-
+  Dialog, wenn geöffnet, auch sichtbar, während ein anderes Programm
+  im Vordergrund ist. Damit diese Einstellung wirksam wird, ist ein
+  Neustart von JPhotoTagger erforderlich.
+
 1.1.8 2024-10-13
 ----------------
 

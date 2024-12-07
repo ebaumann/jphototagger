@@ -111,6 +111,13 @@ public final class PreferencesImpl implements Preferences {
     }
 
     @Override
+    public boolean getBoolean(String key, boolean valueIfNotDefined) {
+        return containsKey(key)
+                ? getBoolean(key)
+                : valueIfNotDefined;
+    }
+
+    @Override
     public boolean containsKey(String key) {
         return settings.containsKey(key);
     }

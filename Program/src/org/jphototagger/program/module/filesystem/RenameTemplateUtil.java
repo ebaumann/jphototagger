@@ -1,11 +1,13 @@
 package org.jphototagger.program.module.filesystem;
 
 import java.awt.Component;
+import org.jphototagger.api.preferences.Preferences;
 import org.jphototagger.domain.repository.RenameTemplatesRepository;
 import org.jphototagger.domain.templates.RenameTemplate;
 import org.jphototagger.lib.swing.InputDialog;
 import org.jphototagger.lib.swing.MessageDisplayer;
 import org.jphototagger.lib.util.Bundle;
+import org.jphototagger.program.settings.AppPreferencesKeys;
 import org.openide.util.Lookup;
 
 /**
@@ -95,7 +97,7 @@ public final class RenameTemplateUtil {
         String input = (suggest == null) ? "" : suggest;
         InputDialog dlg = new InputDialog(info, input);
         dlg.setModal(true);
-        dlg.setAlwaysOnTop(true);
+        dlg.setAlwaysOnTop(Lookup.getDefault().lookup(Preferences.class).getBoolean(AppPreferencesKeys.KEY_UI_INPUT_HELPER_DIALOG_ALWAYS_ON_TOP, true));
         dlg.setVisible(true);
         RenameTemplatesRepository repo = Lookup.getDefault().lookup(RenameTemplatesRepository.class);
         boolean unique = false;

@@ -28,6 +28,8 @@ public interface Preferences {
 
     boolean getBoolean(String key);
 
+    boolean getBoolean(String key, boolean valueIfNotDefined);
+
     void setStringCollection(String key, Collection<? extends String> stringCollection);
 
     int getInt(String key);

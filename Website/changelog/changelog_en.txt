@@ -3,6 +3,16 @@ Character encoding of this file: UTF-8
 Changelog JPhotoTagger https://www.elmar-baumann.de/JPhotoTagger/
 =================================================================
 
+1.1.9 2024-12-07
+----------------
+
+* Added setting: “Opened input assistance dialog is always visible”.
+  Accessible via “Edit -> Settings -> 6. Miscellaneous:
+  Miscellaneous”. If activated (default), the input assistance
+  dialog is, if opened, also visible when another program is
+  in the foreground. To take effect, a restart of JPhotoTagger
+  is required.
+
 1.1.8 2024-10-13
 ----------------
 

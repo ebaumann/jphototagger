@@ -1286,10 +1286,10 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>&amp;convert auswählen...</seg>
+        <seg>&amp;magick auswählen...</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Ch&amp;oose convert...</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192045Z" creationid="elmar" creationdate="20241207T192045Z">
+        <seg>Choose &amp;magick...</seg>
       </tuv>
     </tu>
     <tu>
@@ -1638,10 +1638,10 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>2. convert auswählen...</seg>
+        <seg>2. magick auswählen...</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>2. Choose convert...</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192131Z" creationid="elmar" creationdate="20241207T192131Z">
+        <seg>[fuzzy]Choose &amp;magick...</seg>
       </tuv>
     </tu>
     <tu>
@@ -2158,18 +2158,18 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>&lt;html&gt;Erzeugt ein &lt;b&gt;Bash&lt;/b&gt;-Skript, das die Programme &lt;b&gt;dcraw&lt;/b&gt; (für RAW-Dateien), &lt;b&gt;identify&lt;/b&gt; und &lt;b&gt;convert&lt;/b&gt; von &lt;b&gt;ImageMagick&lt;/b&gt; benutzt.&lt;p style="margin-top:5px"&gt;Falls die Programme nicht installiert sind, laden Sie diese von deren Websites oder benutzen die Software-Installation Ihrer Distribution und installieren sie.&lt;p style="margin-top:5px"&gt;Falls die Programme installiert sind, wählen Sie diese bitte aus!&lt;/html&gt;</seg>
+        <seg>&lt;html&gt;Erzeugt ein &lt;b&gt;Bash&lt;/b&gt;-Skript, das die Programme &lt;b&gt;dcraw&lt;/b&gt; (für RAW-Dateien), &lt;b&gt;identify&lt;/b&gt; und &lt;b&gt;magick&lt;/b&gt; von &lt;b&gt;ImageMagick&lt;/b&gt; benutzt.&lt;p style="margin-top:5px"&gt;Falls die Programme nicht installiert sind, laden Sie diese von deren Websites oder benutzen die Software-Installation Ihrer Distribution und installieren sie.&lt;p style="margin-top:5px"&gt;Falls die Programme installiert sind, wählen Sie diese bitte aus!&lt;/html&gt;</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;Creates a script using the programs &lt;b&gt;dcraw&lt;/b&gt; (for RAW files) and &lt;b&gt;convert&lt;/b&gt; from &lt;b&gt;ImageMagick&lt;/b&gt;.&lt;p style="margin-top:5px"&gt;If the programs are not installed on Your computer, visit the Websites, download and install them.&lt;p style="margin-top:5px"&gt;If both programs are installed, please choose them!&lt;/html&gt;</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192147Z" creationid="elmar" creationdate="20241207T192147Z">
+        <seg>[fuzzy]&lt;html&gt;Creates a script using the programs &lt;b&gt;dcraw&lt;/b&gt; (for RAW files) and &lt;b&gt;convert&lt;/b&gt; from &lt;b&gt;ImageMagick&lt;/b&gt;.&lt;p style="margin-top:5px"&gt;If the programs are not installed on Your computer, visit the Websites, download and install them.&lt;p style="margin-top:5px"&gt;If both programs are installed, please choose them!&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>&lt;html&gt;Erzeugt ein Skript, das die Programme &lt;b&gt;dcraw&lt;/b&gt; (für RAW-Dateien) und &lt;b&gt;convert&lt;/b&gt; von &lt;b&gt;ImageMagick&lt;/b&gt; benutzt.&lt;p style="margin-top:5px"&gt;Falls die Programme nicht installiert sind, laden Sie diese von deren Websites und installieren sie.&lt;p style="margin-top:5px"&gt;Falls beide Programme installiert sind, wählen Sie diese bitte aus!&lt;/html&gt;</seg>
+        <seg>&lt;html&gt;Erzeugt ein Skript, das die Programme &lt;b&gt;dcraw&lt;/b&gt; (für RAW-Dateien) und &lt;b&gt;magick&lt;/b&gt; von &lt;b&gt;ImageMagick&lt;/b&gt; benutzt.&lt;p style="margin-top:5px"&gt;Falls die Programme nicht installiert sind, laden Sie diese von deren Websites und installieren sie.&lt;p style="margin-top:5px"&gt;Falls beide Programme installiert sind, wählen Sie diese bitte aus!&lt;/html&gt;</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;Creates a script using the programs &lt;b&gt;dcraw&lt;/b&gt; (for RAW files) and &lt;b&gt;convert&lt;/b&gt; from &lt;b&gt;ImageMagick&lt;/b&gt;.&lt;p style="margin-top:5px"&gt;If the programs are not installed on Your computer, visit the Websites, download and install them.&lt;p style="margin-top:5px"&gt;If both programs are installed, please choose them!&lt;/html&gt;</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192241Z" creationid="elmar" creationdate="20241207T192241Z">
+        <seg>[fuzzy]&lt;html&gt;Creates a script using the programs &lt;b&gt;dcraw&lt;/b&gt; (for RAW files) and &lt;b&gt;magick&lt;/b&gt; from &lt;b&gt;ImageMagick&lt;/b&gt;.&lt;p style="margin-top:5px"&gt;If the programs are not installed on Your computer, visit the Websites, download and install them.&lt;p style="margin-top:5px"&gt;If both programs are installed, please choose them!&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -2206,10 +2206,10 @@
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>&lt;html&gt;Es wird das Programm &lt;b&gt;convert&lt;/b&gt; von &lt;b&gt;ImageMagick&lt;/b&gt; benötigt.&lt;p style="margin-top:5px"&gt;Falls &lt;b&gt;ImageMagick&lt;/b&gt; nicht auf Ihrem Rechner installiert ist, laden Sie &lt;b&gt;ImageMagick&lt;/b&gt; herunter vom &lt;b&gt;ImageMagick&lt;/b&gt; Website und installieren es.&lt;p style="margin-top:5px"&gt;Falls &lt;b&gt;ImageMagick&lt;/b&gt; installiert ist, wählen Sie bitte &lt;b&gt;convert&lt;/b&gt; aus!&lt;/html&gt;</seg>
+        <seg>&lt;html&gt;Es wird das Programm &lt;b&gt;magick&lt;/b&gt; von &lt;b&gt;ImageMagick&lt;/b&gt; benötigt.&lt;p style="margin-top:5px"&gt;Falls &lt;b&gt;ImageMagick&lt;/b&gt; nicht auf Ihrem Rechner installiert ist, laden Sie &lt;b&gt;ImageMagick&lt;/b&gt; herunter vom &lt;b&gt;ImageMagick&lt;/b&gt; Website und installieren es.&lt;p style="margin-top:5px"&gt;Falls &lt;b&gt;ImageMagick&lt;/b&gt; installiert ist, wählen Sie bitte &lt;b&gt;magick&lt;/b&gt; aus!&lt;/html&gt;</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>&lt;html&gt;The program &lt;b&gt;convert&lt;/b&gt; from &lt;b&gt;ImageMagick&lt;/b&gt; is required.&lt;p style="margin-top:5px"&gt;Download &lt;b&gt;ImageMagick&lt;/b&gt; from the &lt;b&gt;ImageMagick&lt;/b&gt; Website and install it, if not installed on Your computer.&lt;p style="margin-top:5px"&gt;If &lt;b&gt;ImageMagick&lt;/b&gt; is installed, please choose &lt;b&gt;convert&lt;/b&gt;!&lt;/html&gt;</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192046Z" creationid="elmar" creationdate="20241207T192046Z">
+        <seg>[fuzzy]&lt;html&gt;The program &lt;b&gt;convert&lt;/b&gt; from &lt;b&gt;ImageMagick&lt;/b&gt; is required.&lt;p style="margin-top:5px"&gt;Download &lt;b&gt;ImageMagick&lt;/b&gt; from the &lt;b&gt;ImageMagick&lt;/b&gt; Website and install it, if not installed on Your computer.&lt;p style="margin-top:5px"&gt;If &lt;b&gt;ImageMagick&lt;/b&gt; is installed, please choose &lt;b&gt;convert&lt;/b&gt;!&lt;/html&gt;</seg>
       </tuv>
     </tu>
     <tu>
@@ -5274,14 +5274,6 @@
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
         <seg>Created controllers</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="de">
-        <seg>Convert-Executable auswählen</seg>
-      </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Choose convert exectuable</seg>
       </tuv>
     </tu>
     <tu>
@@ -9079,6 +9071,14 @@ werden diese mit "B" aus dem Zielalbum entfernt.</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
+        <seg>Geöffneter Eingabehilfen-Dialog immer sichtbar (Neustart erforderlich)</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T191953Z" creationid="elmar" creationdate="20241207T191953Z">
+        <seg>Opened input assistance dialog is always visible (requires restart)</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
         <seg>Gleiches Aussehen auf unterschiedlichen Betriebssystemen (Java Metal Look &amp; Feel).</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -9585,30 +9585,6 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>ImageMagick convert</seg>
-      </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>ImageMagick convert</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="de">
-        <seg>ImageMagick convert auswählen</seg>
-      </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Choose ImageMagick convert</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="de">
-        <seg>ImageMagick convert.exe</seg>
-      </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130203T134507Z">
-        <seg>ImageMagick convert.exe</seg>
-      </tuv>
-    </tu>
-    <tu>
-      <tuv xml:lang="de">
         <seg>ImageMagick identify</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
@@ -9625,18 +9601,42 @@ Size after compressing: {3} Bytes ({4,number,#.## Megabytes})</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>ImageMagick: convert</seg>
+        <seg>ImageMagick magick</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>ImageMagick: convert</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192107Z" creationid="elmar" creationdate="20241207T192107Z">
+        <seg>ImageMagick magick</seg>
       </tuv>
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>ImageMagick: convert.exe</seg>
+        <seg>ImageMagick magick auswählen</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>ImageMagick: convert.exe</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192122Z" creationid="elmar" creationdate="20241207T192122Z">
+        <seg>Choose ImageMagick magick</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>ImageMagick magick.exe</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192210Z" creationid="elmar" creationdate="20241207T192210Z">
+        <seg>ImageMagick magick.exe</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>ImageMagick: magick</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192023Z" creationid="elmar" creationdate="20241207T192023Z">
+        <seg>ImageMagick: magick</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>ImageMagick: magick.exe</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192033Z" creationid="elmar" creationdate="20241207T192033Z">
+        <seg>ImageMagick: magick.exe</seg>
       </tuv>
     </tu>
     <tu>
@@ -10958,6 +10958,14 @@ falls diese nicht im Zielalbum existieren.</seg>
       </tuv>
       <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
         <seg>Choose MPlayer...</seg>
+      </tuv>
+    </tu>
+    <tu>
+      <tuv xml:lang="de">
+        <seg>Magick-Executable auswählen</seg>
+      </tuv>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192013Z" creationid="elmar" creationdate="20241207T192013Z">
+        <seg>Select Magick-Executable</seg>
       </tuv>
     </tu>
     <tu>
@@ -14170,10 +14178,10 @@ falls diese nicht im Zielalbum existieren.</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>Thumbnails erzeugen mit ImageMagick convert</seg>
+        <seg>Thumbnails erzeugen mit ImageMagick magick</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Creating thumbnails with ImageMagick convert</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192059Z" creationid="elmar" creationdate="20241207T192059Z">
+        <seg>Create thumbnails with ImageMagick magick</seg>
       </tuv>
     </tu>
     <tu>
@@ -15882,18 +15890,18 @@ falls diese nicht im Zielalbum existieren.</seg>
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>dcraw und convert auswählen</seg>
+        <seg>dcraw und magick auswählen</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Choose dcraw and convert</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192252Z" creationid="elmar" creationdate="20241207T192252Z">
+        <seg>Choose dcraw and magick</seg>
       </tuv>
     </tu>
     <tu>
       <tuv xml:lang="de">
-        <seg>dcraw, convert und identify auswählen</seg>
+        <seg>dcraw, magick und identify auswählen</seg>
       </tuv>
-      <tuv xml:lang="en" changeid="elmar" changedate="20130202T103435Z">
-        <seg>Choose dcraw, convert and identify</seg>
+      <tuv xml:lang="en" changeid="elmar" changedate="20241207T192203Z" creationid="elmar" creationdate="20241207T192203Z">
+        <seg>Choose dcraw, magick and identify</seg>
       </tuv>
     </tu>
     <tu>
