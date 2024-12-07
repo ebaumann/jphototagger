@@ -235,7 +235,7 @@ public final class FavoritePropertiesDialog extends DialogExt {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "FavoritePropertiesDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {

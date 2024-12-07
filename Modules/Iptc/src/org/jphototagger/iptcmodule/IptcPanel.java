@@ -226,7 +226,7 @@ public class IptcPanel extends PanelExt {
         panelIptcSettings.setBorder(null);
         buttonIptcToXmp = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new GridBagLayout());
 
         panelTableIptcFilter.setName("panelTableIptcFilter"); // NOI18N

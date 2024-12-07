@@ -118,7 +118,7 @@ public class IptcSettingsPanel extends PanelExt implements OptionPageProvider {
         comboBoxIptcCharset = UiFactory.comboBox();
         panelVfill = UiFactory.panel();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new GridBagLayout());
 
         checkBoxDisplayIptc.setText(Bundle.getString(getClass(), "IptcSettingsPanel.checkBoxDisplayIptc.text")); // NOI18N

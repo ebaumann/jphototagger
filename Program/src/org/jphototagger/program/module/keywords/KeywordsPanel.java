@@ -175,7 +175,7 @@ public class KeywordsPanel extends PanelExt {
         buttonSearchInList = UiFactory.button();
         buttonAsTree = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.CardLayout());
 
         panelTree.setName("panelTree"); // NOI18N

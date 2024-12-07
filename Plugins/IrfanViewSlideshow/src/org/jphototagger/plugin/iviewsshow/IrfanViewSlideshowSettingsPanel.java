@@ -38,7 +38,7 @@ public class IrfanViewSlideshowSettingsPanel extends PanelExt {
         panelFill = UiFactory.panel();
         labelVersion = UiFactory.label();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         checkBoxReloadOnLoop.setText(Bundle.getString(getClass(), "IrfanViewSlideshowSettingsPanel.checkBoxReloadOnLoop.text")); // NOI18N

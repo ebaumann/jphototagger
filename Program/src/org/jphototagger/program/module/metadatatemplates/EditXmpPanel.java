@@ -235,7 +235,7 @@ public class EditXmpPanel extends PanelExt implements FocusListener {
         panelPhotoshopCaptionwriter = new EditTextEntryPanel(XmpPhotoshopCaptionwriterMetaDataValue.INSTANCE);
         panelFill = UiFactory.panel();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         panelDcSubjects.setName("panelDcSubjects"); // NOI18N

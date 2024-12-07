@@ -191,7 +191,7 @@ public class HtmlReportsSettingsPanel extends PanelExt {
         labelVersion = UiFactory.label();
         buttonHelp = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelDefaultValues.setLabelFor(panelColumns);

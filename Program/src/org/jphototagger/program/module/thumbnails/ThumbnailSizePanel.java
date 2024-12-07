@@ -184,7 +184,7 @@ public class ThumbnailSizePanel extends PanelExt implements AWTEventListener, Ch
         thumbnailSizeSlider = UiFactory.slider();
         thumbnailDimensionsButton = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         thumbnailSizeSlider.setMajorTickSpacing(5);

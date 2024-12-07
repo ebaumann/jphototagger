@@ -255,7 +255,7 @@ public class TextComponentSearchPanel extends PanelExt implements DocumentListen
         buttonSearchDownwards = UiFactory.button();
         buttonSearchUpwards = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         label.setLabelFor(searchTextField);

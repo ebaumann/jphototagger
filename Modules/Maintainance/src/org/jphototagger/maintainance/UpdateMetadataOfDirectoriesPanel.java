@@ -502,7 +502,7 @@ public final class UpdateMetadataOfDirectoriesPanel extends PanelExt implements 
         });
         popupMenu.add(menuItemDelete);
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelHeadingListDirectories.setLabelFor(list);

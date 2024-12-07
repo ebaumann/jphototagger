@@ -200,7 +200,7 @@ public class ExifPanel extends PanelExt {
         tableExif = UiFactory.table();
         buttonExifToXmp = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new GridBagLayout());
 
         panelTableExifFilter.setName("panelTableExifFilter"); // NOI18N

@@ -161,7 +161,7 @@ public class RenameFilenamesInRepositoryPanel extends PanelExt implements Progre
         progressBar = UiFactory.progressBar();
         buttonReplace = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelTitle.setText(Bundle.getString(getClass(), "RenameFilenamesInRepositoryPanel.labelTitle.text")); // NOI18N

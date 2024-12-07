@@ -463,7 +463,7 @@ public final class LogfileDialog extends DialogExt implements ListSelectionListe
         panelSearchSimple.setSearchableTextComponent(textAreaSimple);
 
         setTitle(Bundle.getString(getClass(), "LogfileDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {

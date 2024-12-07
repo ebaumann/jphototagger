@@ -117,7 +117,7 @@ public final class FilesWithoutMetaDataPanel extends PanelExt {
         scrollPane = UiFactory.scrollPane();
         list = UiFactory.jxList();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N

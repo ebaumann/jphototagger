@@ -333,7 +333,7 @@ public final class FileExcludePatternsSettingsPanel extends PanelExt
         });
         popupMenu.add(menuItemDeletePattern);
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         tabbedPane.setName("tabbedPane"); // NOI18N

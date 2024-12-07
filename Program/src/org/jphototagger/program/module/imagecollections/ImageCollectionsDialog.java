@@ -87,7 +87,7 @@ public final class ImageCollectionsDialog extends DialogExt {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ImageCollectionsDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setName("panelContent"); // NOI18N

@@ -383,7 +383,7 @@ public class SynonymsPanel extends PanelExt implements ListSelectionListener, Do
         });
         popupMenuSynonyms.add(menuItemRemoveSynonym);
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridLayout(1, 2, UiFactory.scale(10), 0));
 
         panelWords.setName("panelWords"); // NOI18N

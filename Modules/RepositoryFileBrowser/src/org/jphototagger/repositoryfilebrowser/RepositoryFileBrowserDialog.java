@@ -208,7 +208,7 @@ public final class RepositoryFileBrowserDialog extends DialogExt {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "RepositoryFileBrowserDialog.title")); // NOI18N
         setIconImages(Lookup.getDefault().lookup(Branding.class).getAppIcons());
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setName("panelContent"); // NOI18N

@@ -88,7 +88,7 @@ public class InstalledModulesPanel extends PanelExt implements OptionPageProvide
         panelModuleDescription = UiFactory.panel();
         labelModuleDescription = UiFactory.jxLabel();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelInfo.setText(Bundle.getString(getClass(), "InstalledModulesPanel.labelInfo.text")); // NOI18N

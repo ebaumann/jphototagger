@@ -64,7 +64,7 @@ public class FileEditorDialog extends DialogExt {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org/jphototagger/xmpmodule/Bundle"); // NOI18N
         setTitle(Bundle.getString(getClass(), "FileEditorDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {

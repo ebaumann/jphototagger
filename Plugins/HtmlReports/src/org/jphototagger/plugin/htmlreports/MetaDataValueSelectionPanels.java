@@ -146,7 +146,7 @@ public class MetaDataValueSelectionPanels extends PanelExt implements PropertyCh
         fillPanel.setName("fillPanel"); // NOI18N
         fillPanel.setLayout(new java.awt.GridBagLayout());
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N

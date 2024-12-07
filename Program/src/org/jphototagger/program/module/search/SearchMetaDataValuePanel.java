@@ -335,7 +335,7 @@ public final class SearchMetaDataValuePanel extends PanelExt {
         buttonCalendar = UiFactory.button();
         buttonRemoveColumn = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         toggleButtonBracketLeft1.setText("("); // NOI18N

@@ -255,7 +255,7 @@ public final class AppFrame extends FrameExt {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(AppInfo.APP_NAME);
-        setName("Form"); // NOI18N
+        
 
         menuBar.setName("menuBar"); // NOI18N
 

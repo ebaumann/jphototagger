@@ -352,7 +352,7 @@ public class ActionsSettingsPanel extends PanelExt implements ListSelectionListe
         popupMenu.add(menuItemShowActions);
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ActionsSettingsPanel.border.title"))); // NOI18N
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N

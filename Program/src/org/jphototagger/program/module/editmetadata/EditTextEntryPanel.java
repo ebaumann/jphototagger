@@ -310,7 +310,7 @@ public final class EditTextEntryPanel extends PanelExt implements TextEntry, Doc
         labelPrompt = UiFactory.label();
         textAreaEdit = UiFactory.textArea();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setLabelFor(textAreaEdit);

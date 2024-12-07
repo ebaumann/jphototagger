@@ -196,7 +196,7 @@ final class EditMetaDataActionsPanel extends PanelExt {
         buttonMetadataTemplateEdit = UiFactory.button();
         buttonMetadataTemplateAdd = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         tabbedPane.setName("tabbedPane"); // NOI18N

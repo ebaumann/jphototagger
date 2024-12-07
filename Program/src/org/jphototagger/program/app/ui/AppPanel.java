@@ -605,7 +605,7 @@ public final class AppPanel extends PanelExt {
         labelStatusbarText = UiFactory.label();
         statusLineElementsPanel = UiFactory.panel();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         splitPaneMain.setDividerSize(UiFactory.scale(6));

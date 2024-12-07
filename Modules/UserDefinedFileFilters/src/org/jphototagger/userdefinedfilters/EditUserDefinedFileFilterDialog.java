@@ -121,7 +121,7 @@ public class EditUserDefinedFileFilterDialog extends DialogExt {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditUserDefinedFileFilterDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelContent.setName("panelContent"); // NOI18N

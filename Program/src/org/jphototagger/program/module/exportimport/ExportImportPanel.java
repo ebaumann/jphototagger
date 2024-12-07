@@ -364,7 +364,7 @@ public class ExportImportPanel extends PanelExt implements SelectObjectsPanel.Se
         buttonSelectNone = UiFactory.button();
         buttonExportImport = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         panelDirectory.setLayout(new java.awt.GridBagLayout());

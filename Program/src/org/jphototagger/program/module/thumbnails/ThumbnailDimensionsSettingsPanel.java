@@ -76,7 +76,7 @@ public class ThumbnailDimensionsSettingsPanel extends PanelExt implements Persis
         spinnerMaxThumbnailWidth = UiFactory.spinner();
         labelUpdateAllThumbnails = UiFactory.label();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelMaxThumbnailWidth.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

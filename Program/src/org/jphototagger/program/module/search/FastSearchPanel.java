@@ -466,7 +466,7 @@ public class FastSearchPanel extends PanelExt implements ActionListener, SearchC
         searchButton = UiFactory.button();
         buttonRestoreSelection = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         fastSearchComboBox.setModel(new org.jphototagger.program.module.search.FastSearchComboBoxModel());

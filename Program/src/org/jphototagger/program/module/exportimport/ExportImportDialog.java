@@ -67,7 +67,7 @@ public class ExportImportDialog extends DialogExt implements ExportImportListene
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "ExportImportDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelExportImport.setName("panelExportImport"); // NOI18N

@@ -51,7 +51,7 @@ public class ExportGPSToKMLSettingsPanel extends PanelExt {
         panelFill = UiFactory.panel();
         labelVersion = UiFactory.label();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new GridBagLayout());
 
         checkBoxAddFilenameToGpsLocationExport.setText(Bundle.getString(getClass(), "ExportGPSToKMLSettingsPanel.checkBoxAddFilenameToGpsLocationExport.text")); // NOI18N

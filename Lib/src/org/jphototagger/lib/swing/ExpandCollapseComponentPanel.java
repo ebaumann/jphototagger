@@ -194,7 +194,7 @@ public class ExpandCollapseComponentPanel extends PanelExt implements FocusListe
 
         buttonExpandCollapse = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         buttonExpandCollapse.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(125, 125, 125)));

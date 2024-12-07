@@ -167,7 +167,7 @@ public class EditMetaDataTemplateDialog extends DialogExt {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "EditMetaDataTemplateDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         setPreferredSize(UiFactory.dimension(500, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

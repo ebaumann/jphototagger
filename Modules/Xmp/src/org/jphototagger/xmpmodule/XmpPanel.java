@@ -454,7 +454,7 @@ public class XmpPanel extends PanelExt {
         tableXmpCameraRawSettings = UiFactory.table();
         checkBoxScanForEmbeddedXmp = UiFactory.checkBox();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new GridBagLayout());
 
         tabbedPaneXmp.setName("tabbedPaneXmp"); // NOI18N

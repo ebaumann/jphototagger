@@ -90,7 +90,7 @@ public class MetaDataTemplatesPanel extends PanelExt implements ListSelectionLis
         buttonDelete = UiFactory.button();
         buttonAddToSelImages = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N

@@ -119,7 +119,7 @@ public class InputHelperDialog extends DialogExt {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "InputHelperDialog.title")); // NOI18N
         setAlwaysOnTop(Lookup.getDefault().lookup(Preferences.class).getBoolean(AppPreferencesKeys.KEY_UI_INPUT_HELPER_DIALOG_ALWAYS_ON_TOP, true));
-        setName("Form"); // NOI18N
+        
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {

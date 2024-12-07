@@ -142,7 +142,7 @@ private static class ActionExcludePlugin<T extends Plugin> extends AbstractActio
         scrollPaneExclude = UiFactory.scrollPane();
         panelExcludeCheckboxes = UiFactory.panel();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         tabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);

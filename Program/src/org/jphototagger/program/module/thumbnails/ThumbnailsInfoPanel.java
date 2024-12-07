@@ -93,7 +93,7 @@ public class ThumbnailsInfoPanel extends PanelExt implements StatusLineElementPr
 
         thumbnailInfoLabel = UiFactory.label();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         thumbnailInfoLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

@@ -590,7 +590,7 @@ public class TabbedPaneSearchPanel extends PanelExt implements ComponentListener
         scrollPane = UiFactory.scrollPane();
         list = UiFactory.list();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelSearch.setDisplayedMnemonic('s');

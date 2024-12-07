@@ -204,7 +204,7 @@ public final class ScheduledTasksSettingsPanel extends PanelExt implements Persi
         spinnerMinutesToStartScheduledTasks = UiFactory.spinner();
         buttonScheduledTasks = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         panelTasksAutoscan.setBorder(javax.swing.BorderFactory.createTitledBorder(Bundle.getString(getClass(), "ScheduledTasksSettingsPanel.panelTasksAutoscan.border.title"))); // NOI18N

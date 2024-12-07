@@ -126,7 +126,7 @@ public class ProgressBarPanel extends PanelExt implements ProgressHandle {
         progressBar = UiFactory.progressBar();
         buttonCancelProgress = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         progressBar.setMaximumSize(UiFactory.dimension(300, 20));

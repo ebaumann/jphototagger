@@ -380,7 +380,7 @@ public final class FileEditorPanel extends PanelExt {
         buttonCancel = UiFactory.button();
         buttonStart = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         panelContent.setName("panelContent"); // NOI18N

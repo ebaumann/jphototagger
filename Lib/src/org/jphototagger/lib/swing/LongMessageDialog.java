@@ -115,7 +115,7 @@ public class LongMessageDialog extends DialogExt {
         buttonClose = UiFactory.button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         labelIcon.setName("labelIcon"); // NOI18N

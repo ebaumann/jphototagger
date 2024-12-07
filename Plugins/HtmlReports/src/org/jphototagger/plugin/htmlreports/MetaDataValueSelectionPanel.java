@@ -120,7 +120,7 @@ public class MetaDataValueSelectionPanel extends PanelExt {
         buttonAdd = UiFactory.button();
         buttonRemove = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         metaDataValuesComboBox.setModel(comboBoxModel);

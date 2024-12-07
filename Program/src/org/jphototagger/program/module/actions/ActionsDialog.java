@@ -77,7 +77,7 @@ public final class ActionsDialog extends DialogExt {
 
         setTitle(Bundle.getString(getClass(), "ActionsDialog.title")); // NOI18N
         setAlwaysOnTop(true);
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panelActions.setName("panelActions"); // NOI18N

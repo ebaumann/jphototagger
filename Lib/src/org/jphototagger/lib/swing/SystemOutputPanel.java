@@ -109,7 +109,7 @@ public class SystemOutputPanel extends PanelExt {
         buttonDelete = UiFactory.button();
         buttonCopyToClipboard = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N

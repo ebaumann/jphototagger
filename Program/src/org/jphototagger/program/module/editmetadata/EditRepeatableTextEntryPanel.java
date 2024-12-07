@@ -853,7 +853,7 @@ public final class EditRepeatableTextEntryPanel extends PanelExt implements Text
         });
         popupMenuList.add(menuItemRemove);
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelPrompt.setText("Prompt:"); // NOI18N

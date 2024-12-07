@@ -23,7 +23,7 @@ public class HtmlReportsSettingsDialog extends DialogExt {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "HtmlReportsSettingsDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         panel.setName("panel"); // NOI18N

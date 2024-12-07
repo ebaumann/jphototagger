@@ -112,7 +112,7 @@ public class WarnOnEqualBasenamesTaskDialog extends DialogExt {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new GridBagLayout());
 
         labelInfo.setText(Bundle.getString(getClass(), "WarnOnEqualBasenamesTaskDialog.labelInfo.text")); // NOI18N

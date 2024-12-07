@@ -280,7 +280,7 @@ public class ThumbnailsAreaPanel extends PanelExt {
         gridBagConstraints.weightx = 1.0;
         panelBottomComponents.add(labelInfo, gridBagConstraints);
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         panelDisplayedThumbnailFilters.setName("panelDisplayedThumbnailFilters"); // NOI18N

@@ -320,7 +320,7 @@ public final class ActionsPanel extends PanelExt {
         popupMenu.add(menuItemMoveActionDown);
 
         setFocusable(false);
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelActionList.setLabelFor(list);

@@ -45,7 +45,7 @@ public class SynonymsDialog extends DialogExt {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(Bundle.getString(getClass(), "SynonymsDialog.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         synonymsPanel1.setName("synonymsPanel1"); // NOI18N

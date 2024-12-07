@@ -257,7 +257,7 @@ public final class RepositoryInfoCountPanel extends PanelExt {
         table = UiFactory.table();
         labelFilename = UiFactory.label();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         labelTable.setText(Bundle.getString(getClass(), "RepositoryInfoCountPanel.labelTable.text")); // NOI18N

@@ -114,7 +114,7 @@ public class SettingsPanel extends PanelExt {
         labelVersion = UiFactory.label();
         buttonHelp = UiFactory.button();
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         panelDelimiter.setName("panelDelimiter"); // NOI18N

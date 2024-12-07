@@ -221,7 +221,7 @@ public class UserDefinedFileFiltersPanel extends PanelExt implements ListSelecti
         });
         popupMenu.add(menuItemDelete);
 
-        setName("Form"); // NOI18N
+        
         setLayout(new java.awt.GridBagLayout());
 
         scrollPane.setName("scrollPane"); // NOI18N

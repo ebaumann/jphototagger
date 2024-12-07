@@ -596,7 +596,7 @@ public final class HelpBrowser extends DialogExt implements HyperlinkListener, T
         popupMenuEditorPane.add(menuItemGotoPreviousUrl);
 
         setTitle(Bundle.getString(getClass(), "HelpBrowser.title")); // NOI18N
-        setName("Form"); // NOI18N
+        
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         splitPane.setDividerLocation(250);
